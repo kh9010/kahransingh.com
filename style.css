@@ -67,7 +67,11 @@ main {
     padding: 15vh 2rem 4rem;
 }
 
-/* Intro */
+/* Intro (homepage) */
+.intro {
+    margin-bottom: 3.5rem;
+}
+
 .intro p {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.35rem;
@@ -76,18 +80,42 @@ main {
     color: #1a1a1a;
 }
 
-/* Featured image */
-.featured-image {
-    margin: 3rem 0;
+/* Homepage section links */
+.home-section {
+    margin-bottom: 2.5rem;
 }
 
-.featured-image img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    background: #e8e6e1;
-    display: block;
-    border-radius: 4px;
+.home-section h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999;
+    margin-bottom: 0.75rem;
+}
+
+.home-section .home-item {
+    margin-bottom: 0.5rem;
+}
+
+.home-section .home-item a {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.home-section .home-item a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.home-section .home-item .item-meta {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 0.25rem;
 }
 
 /* Page header (for subpages) */
@@ -123,9 +151,13 @@ main {
     border-bottom: 1px solid #e0ddd8;
 }
 
+.section-label:first-of-type {
+    margin-top: 0;
+}
+
 /* Content sections (cards) */
 .piece {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     padding: 1.5rem;
     background: #fff;
     border: 1px solid #e8e6e1;
@@ -154,6 +186,11 @@ main {
     text-underline-offset: 3px;
 }
 
+/* Piece with only a title (poem links) */
+.piece h2:last-child {
+    margin-bottom: 0;
+}
+
 .piece .meta {
     font-size: 0.72rem;
     font-weight: 500;
@@ -177,6 +214,10 @@ main {
     color: #444;
 }
 
+.piece p + p {
+    margin-top: 0.75rem;
+}
+
 .piece p a {
     color: #444;
     text-decoration: underline;
@@ -189,16 +230,38 @@ main {
     text-decoration-color: #444;
 }
 
+/* Arrow links inside cards */
+.piece .arrow-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.piece .arrow-link:hover {
+    color: #1a1a1a;
+}
+
+/* Poem excerpt inside card */
+.piece .excerpt {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #888;
+    margin-top: 0.35rem;
+}
+
 .piece .poem-text {
     font-family: 'Playfair Display', Georgia, serif;
-    font-style: italic;
     white-space: pre-line;
     font-size: 1.05rem;
     line-height: 1.85;
     color: #1a1a1a;
 }
 
-/* Piece without card style (for about page) */
+/* Piece without card style */
 .piece.plain {
     background: none;
     border: none;
@@ -209,6 +272,42 @@ main {
 .piece.plain:hover {
     box-shadow: none;
     transform: none;
+}
+
+.piece.plain p {
+    color: #1a1a1a;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.piece.plain p a {
+    color: #1a1a1a;
+    text-decoration-color: #ccc;
+}
+
+.piece.plain p a:hover {
+    text-decoration-color: #1a1a1a;
+}
+
+/* Contact row */
+.contact-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0ddd8;
+}
+
+.contact-row a {
+    font-size: 0.85rem;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.contact-row a:hover {
+    color: #1a1a1a;
 }
 
 /* Video thumbnail links */
@@ -253,19 +352,6 @@ main {
     margin-left: 3px;
 }
 
-/* Back link */
-.back {
-    display: inline-block;
-    margin-bottom: 2rem;
-    color: #999;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-.back:hover {
-    color: #1a1a1a;
-}
-
 /* Divider */
 hr {
     border: none;
@@ -308,5 +394,10 @@ hr {
 
     .page-header h1 {
         font-size: 1.6rem;
+    }
+
+    .contact-row {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
