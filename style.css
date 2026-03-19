@@ -5,11 +5,22 @@
 }
 
 body {
-    font-family: 'EB Garamond', Georgia, serif;
-    color: #2a2a2a;
-    background: #fff;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    color: #1a1a1a;
+    background: #fafaf8;
     min-height: 100vh;
     display: flex;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    line-height: 1.3;
+}
+
+a {
+    color: #1a1a1a;
 }
 
 /* Sidebar nav */
@@ -29,17 +40,18 @@ nav {
 nav a {
     text-decoration: none;
     color: #999;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
     transition: color 0.2s;
 }
 
 nav a:hover {
-    color: #2a2a2a;
+    color: #1a1a1a;
 }
 
 nav a.active,
 nav a.nav-name {
-    color: #2a2a2a;
+    color: #1a1a1a;
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -57,9 +69,11 @@ main {
 
 /* Intro */
 .intro p {
-    font-size: 1.25rem;
-    line-height: 1.7;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem;
+    line-height: 1.6;
     letter-spacing: 0.01em;
+    color: #1a1a1a;
 }
 
 /* Featured image */
@@ -71,70 +85,139 @@ main {
     width: 100%;
     aspect-ratio: 4/3;
     object-fit: cover;
-    background: #d4cdd6;
+    background: #e8e6e1;
     display: block;
+    border-radius: 4px;
 }
 
 /* Page header (for subpages) */
 .page-header {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e0ddd8;
 }
 
 .page-header h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-weight: 400;
+    font-style: italic;
 }
 
 .page-header p {
-    color: #777;
-    font-size: 1rem;
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
 }
 
-/* Content sections */
+/* Section category headers */
+.section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #888;
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0ddd8;
+}
+
+/* Content sections (cards) */
 .piece {
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #e8e6e1;
+    border-radius: 6px;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.piece:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
 }
 
 .piece h2 {
     font-size: 1.15rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
 }
 
 .piece h2 a {
-    color: #2a2a2a;
+    color: #1a1a1a;
     text-decoration: none;
-    border-bottom: 1px solid #ddd;
 }
 
 .piece h2 a:hover {
-    border-bottom-color: #2a2a2a;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 .piece .meta {
-    font-size: 0.9rem;
-    color: #999;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     margin-bottom: 0.75rem;
 }
 
-.piece p,
-.piece .poem-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
+.piece .meta a {
+    color: #888;
+}
+
+.piece .meta a:hover {
+    color: #1a1a1a;
+}
+
+.piece p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.piece p a {
+    color: #444;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: #ccc;
+    transition: text-decoration-color 0.2s;
+}
+
+.piece p a:hover {
+    text-decoration-color: #444;
 }
 
 .piece .poem-text {
+    font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
     white-space: pre-line;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #1a1a1a;
+}
+
+/* Piece without card style (for about page) */
+.piece.plain {
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+.piece.plain:hover {
+    box-shadow: none;
+    transform: none;
 }
 
 /* Video thumbnail links */
 .video-thumb {
     display: block;
     position: relative;
-    margin: 1rem 0;
+    margin: 1rem 0 0;
     overflow: hidden;
+    border-radius: 4px;
 }
 
 .video-thumb img {
@@ -176,18 +259,18 @@ main {
     margin-bottom: 2rem;
     color: #999;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .back:hover {
-    color: #2a2a2a;
+    color: #1a1a1a;
 }
 
 /* Divider */
 hr {
     border: none;
-    border-top: 1px solid #eee;
-    margin: 2rem 0;
+    border-top: 1px solid #e0ddd8;
+    margin: 2.5rem 0;
 }
 
 /* Responsive */
@@ -208,8 +291,8 @@ hr {
         justify-content: flex-start;
         gap: 0.4rem 1rem;
         padding: 0.75rem 1.5rem;
-        background: #fff;
-        border-top: 1px solid #eee;
+        background: #fafaf8;
+        border-top: 1px solid #e0ddd8;
         z-index: 10;
     }
 
@@ -220,6 +303,10 @@ hr {
     }
 
     .intro p {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
+    }
+
+    .page-header h1 {
+        font-size: 1.6rem;
     }
 }
