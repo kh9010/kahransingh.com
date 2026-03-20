@@ -170,6 +170,24 @@ body {
     color: #1a1a1a;
 }
 
+.explore-cross {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.explore-cross a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.explore-cross a:hover {
+    color: #1a1a1a;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .stanza {

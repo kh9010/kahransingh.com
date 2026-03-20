@@ -14,6 +14,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        .poem-row.dimmed { opacity: 0.15; }
+        .section-label.dimmed { opacity: 0.15; }
+        .poem-row, .section-label { transition: opacity 0.25s ease; }
+    </style>
 </head>
 <body>
     <main>
@@ -22,275 +27,285 @@
             <h1>all poems</h1>
         </div>
 
+        <div class="theme-nav" id="theme-nav">
+            <span class="theme-nav-label">Browse</span>
+            <a href="#wonder" class="theme-tag" data-filter="wonder">wonder</a>
+            <a href="#mortality" class="theme-tag" data-filter="mortality">mortality &amp; time</a>
+            <a href="#love" class="theme-tag" data-filter="love">love</a>
+            <a href="#place" class="theme-tag" data-filter="place">place</a>
+            <a href="#nature" class="theme-tag" data-filter="nature">nature</a>
+            <a href="#identity" class="theme-tag" data-filter="identity">identity</a>
+        </div>
+
         <h3 class="section-label">Recent poems (2024&ndash;2025)</h3>
 
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/how-can-you-just-be-gone.html">How can you just be gone</a>
             <span class="poem-row-excerpt">I will miss you my friend and resent a bit this empty space</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality wonder">
             <a href="/poems/song-of-tomorrow.html">Song of Tomorrow</a>
             <span class="poem-row-excerpt">Today is enough. Today is all we can manage. Today is all we can need.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/i-listen.html">I listen</a>
             <span class="poem-row-excerpt">Let the guillotine come in the night. Sharp strokes and sharp blades.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature wonder">
             <a href="/poems/hark-my-love.html">Hark my love</a>
             <span class="poem-row-excerpt">Dream, dream dream, little tree. Life and love be all you do.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="place nature">
             <a href="/poems/california.html">California</a>
             <span class="poem-row-excerpt">Oh bruised, empty, raw dirt. Let us sing more your praises.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder nature">
             <a href="/poems/i-was-feeling-sorry-for-a-moth.html">I was feeling sorry for a moth</a>
             <span class="poem-row-excerpt">Whose to say we aren&rsquo;t the moth, squirming next to certain doom</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder">
             <a href="/poems/oh-that-again.html">Oh that again I might see such beauty in my life</a>
             <span class="poem-row-excerpt">As a single flower, opened and yet unmarked, ungrieved by the world</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder">
             <a href="/poems/i-saw-something-beautiful-today.html">I saw something beautiful today</a>
             <span class="poem-row-excerpt">For to let yourself see beauty is a special gift, not to be taken</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder nature">
             <a href="/poems/the-sun-kissed-the-mountains.html">The sun kissed the mountains</a>
             <span class="poem-row-excerpt">By the grace of God, the babe of tomorrow has been born.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity mortality">
             <a href="/poems/i-feel-sad-about-endings.html">I feel sad about endings</a>
             <span class="poem-row-excerpt">You gotta be writing poetry while you&rsquo;re trying to fucking brush your teeth</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity mortality">
             <a href="/poems/mama.html">Mama was what we called him</a>
             <span class="poem-row-excerpt">God keep you till we walk together again.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/do-you-miss-me.html">Do you miss me</a>
             <span class="poem-row-excerpt">The world asked me if I wanted to call you today. Multiple times. I did not.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/when-i-dance-with-you.html">When I dance with you</a>
             <span class="poem-row-excerpt">I don&rsquo;t know where my body ends and yours begins</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="place">
             <a href="/poems/guadalajara.html">Guadalajara</a>
             <span class="poem-row-excerpt">I wonder if I would feel the blood if I didn&rsquo;t know to search for it.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity mortality">
             <a href="/poems/blood-oh-once-you-called.html">Blood oh once you called to me</a>
             <span class="poem-row-excerpt">Where does our pain go when we grew past crying</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/when-i-laugh.html">When I laugh</a>
             <span class="poem-row-excerpt">Like chocolate simmered hot with a few marshmallows, white clouds of goodness</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity mortality">
             <a href="/poems/burned-invitingly.html">Burned invitingly</a>
             <span class="poem-row-excerpt">Take heed, innocent! Kindness is a snare.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/glass-houses.html">Glass houses</a>
             <span class="poem-row-excerpt">You would think we were going to live for eternity</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature wonder">
             <a href="/poems/to-be-alone.html">To be alone</a>
             <span class="poem-row-excerpt">For babies who like the snow but not being too cold</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/to-flutter.html">To flutter</a>
             <span class="poem-row-excerpt">It&rsquo;s a cold wind that blows from the north, sends my heart a&rsquo;flutter.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder nature">
             <a href="/poems/to-see-such-beauty.html">To see such beauty</a>
             <span class="poem-row-excerpt">Why you, Orange. I didn&rsquo;t know I had seen you before.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/xoxo.html">Xoxo</a>
             <span class="poem-row-excerpt">How lucky am I; to be surrounded by; so much love</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder identity">
             <a href="/poems/today-i-write-about-red.html">Today I write about Red</a>
             <span class="poem-row-excerpt">My beautiful sister. I can&rsquo;t wait to make purple once more.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity wonder">
             <a href="/poems/today-i-saw-a-man-on-a-leash.html">Today I saw a man on a leash</a>
             <span class="poem-row-excerpt">In the forest, the elephant walks far more silently than the man.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature">
             <a href="/poems/the-light-sings.html">The light sings to me in the morning</a>
             <span class="poem-row-excerpt">Change or die, says the rain.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature mortality">
             <a href="/poems/there-is-a-soft-tingle.html">There is a soft tingle I feel</a>
             <span class="poem-row-excerpt">Life is and is and is until it&rsquo;s not</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder nature identity">
             <a href="/poems/did-you-know.html">Did you know there are spiders with only 5 legs</a>
             <span class="poem-row-excerpt">When you realize you are the kind of fish that can jump out of water and fly</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality nature">
             <a href="/poems/today-birds.html">Today</a>
             <span class="poem-row-excerpt">What brings a fish to delight in the air? Life, just a little longer.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality wonder">
             <a href="/poems/today-if-there-is-tomorrow.html">Today if there is tomorrow</a>
             <span class="poem-row-excerpt">Into tomorrow, I say, and fight me if I&rsquo;m wrong.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love mortality">
             <a href="/poems/everyday-i-can-spend.html">Everyday I can spend</a>
             <span class="poem-row-excerpt">Today is a day in the company of those I love. And lord love bless, so tomorrow be.</span>
         </div>
 
         <h3 class="section-label">From How the World Works (2022)</h3>
 
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/when-im-not-here.html">When I&rsquo;m not here</a>
             <span class="poem-row-excerpt">When I&rsquo;m not here with you I miss the curve of your back</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature wonder">
             <a href="/poems/the-mist.html">The Mist</a>
             <span class="poem-row-excerpt">In the morning you can listen to the mist. It dies as it burns, little by little, slow by slow.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/i-watch-my-hair.html">I watch my hair</a>
             <span class="poem-row-excerpt">I watch my hair turn golden in the reflection of my eyes</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity love">
             <a href="/poems/falling-in-love.html">Falling in love with who I am vs who I could be</a>
             <span class="poem-row-excerpt">Falling in love with who I am is like the air, you can breath</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love identity">
             <a href="/poems/ariel.html">ariel</a>
             <span class="poem-row-excerpt">I&rsquo;m sorry, i loved you once and my love made me pick you up and spin you around</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/my-friend-who-died.html">my friend who died</a>
             <span class="poem-row-excerpt">My friend who died &mdash; it&rsquo;s too bad English has no imperfect</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/sometimes-i-listen-to-these-poets.html">Sometimes I listen to these poets</a>
             <span class="poem-row-excerpt">Sometimes I listen to these poets go on and on about the purest form of love</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/everytime-you-wink-at-me.html">Everytime you wink at me</a>
             <span class="poem-row-excerpt">Everytime you wink at me I wonder if my heart skipped a beat</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature">
             <a href="/poems/in-my-heart-something-called-to-the-rain.html">In my heart something called to the rain</a>
             <span class="poem-row-excerpt">Are you 90% fire or 80% water, and who lives better</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/platitudes-of-suffering.html">Platitudes Of Suffering</a>
             <span class="poem-row-excerpt">Ask me not how I am. For does breath not still shake my body?</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/i-will-always-be-a-poet.html">I will always be a poet</a>
             <span class="poem-row-excerpt">If you shave my chest to expose my heart, with my blood I will paint you with poetry</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/large-objects.html">Large objects exert a gravitational pull</a>
             <span class="poem-row-excerpt">What about when the relationship matters more than the person</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature wonder">
             <a href="/poems/i-watched-a-butterfly-today.html">I watched a butterfly today</a>
             <span class="poem-row-excerpt">I watched a butterfly today, it was beautiful and orange and had a certain way about it</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/this-growing-older.html">This growing older</a>
             <span class="poem-row-excerpt">This growing older, wondering if this goodbye is the last</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature mortality">
             <a href="/poems/time-in-a-fig-grove.html">Time in a Fig Grove</a>
             <span class="poem-row-excerpt">And he looked down the Long Years, and the Grove grew and grew and grew</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love identity">
             <a href="/poems/i-left-my-heart-at-home-today.html">I left my heart at home today</a>
             <span class="poem-row-excerpt">Maybe my heart is a person, maybe my heart was a person</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love wonder">
             <a href="/poems/a-wedding-toast.html">A wedding toast</a>
             <span class="poem-row-excerpt">But somehow what I feel now is just that wonder, with maybe a little more space for awe</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love place">
             <a href="/poems/wedding-poem.html">Wedding Poem</a>
             <span class="poem-row-excerpt">The grand delusions of abstract nouns, like falling in love.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love place">
             <a href="/wedding/our-story.html">Our Story</a>
             <span class="poem-row-excerpt">Written for our wedding &mdash; Jaisalmer, December 2022</span>
         </div>
 
         <h3 class="section-label">Earlier poems</h3>
 
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature wonder">
             <a href="/poems/have-you-ever-seen.html">Have you ever seen</a>
             <span class="poem-row-excerpt">Have you ever seen something so beautiful as the world reflected in drops of dew</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature mortality">
             <a href="/poems/an-ode-to-aspens.html">An ode to aspens</a>
             <span class="poem-row-excerpt">To me, they&rsquo;ve always been silent soldiers fighting against the slow erosion to entropy</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality wonder">
             <a href="/poems/one-beautiful-moment.html">One beautiful moment</a>
             <span class="poem-row-excerpt">That, my friends, is the moment before death.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/these-days-are-gone.html">These days are gone</a>
             <span class="poem-row-excerpt">Harden or rot, they say. Let there be joy that it happened.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love">
             <a href="/poems/dear-bottle.html">Dear bottle</a>
             <span class="poem-row-excerpt">May you make a new friend who loves you as much as I did.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity love">
             <a href="/poems/out-of-many-one.html">Out of many, one</a>
             <span class="poem-row-excerpt">Kiss me love, what more do you want &mdash; I&rsquo;m fucking free.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/when-you-were-young.html">When you were young</a>
             <span class="poem-row-excerpt">But it took a long time. For me to claim a name or a face.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity">
             <a href="/poems/and-now-that-we-walk.html">And now that we walk in these days of light</a>
             <span class="poem-row-excerpt">Be proud, child, for I am proud of you.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality identity">
             <a href="/poems/freedom-yet-unabridged.html">Freedom, yet unabridged</a>
             <span class="poem-row-excerpt">I thought to myself, well at least, there is this.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="identity love">
             <a href="/poems/to-know-me.html">To know me</a>
             <span class="poem-row-excerpt">Is to know joy because I laugh a lot and I fall in love a lot</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="love mortality">
             <a href="/poems/everywhere-i-turn.html">Everywhere I turn</a>
             <span class="poem-row-excerpt">I see a world a little colder, a heart a little stiller and laughter little less.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="wonder nature">
             <a href="/poems/these-water-nymphs.html">These water nymphs</a>
             <span class="poem-row-excerpt">Creator, Destroyer, bringer of the Day.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="place wonder">
             <a href="/poems/kashmir.html">Kashmir</a>
             <span class="poem-row-excerpt">Till time razes these mountains to the ground and man builds new idols.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality wonder">
             <a href="/poems/there-comes-a-point.html">There comes a point one chooses death</a>
             <span class="poem-row-excerpt">It is that ebbing of the will to live that brings death.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="nature wonder">
             <a href="/poems/when-you-watch-the-whales-from-shore.html">When you watch the whales from shore</a>
             <span class="poem-row-excerpt">It&rsquo;s a good thing mother sea keeps our boats small.</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="mortality">
             <a href="/poems/memories-of-tomorrow.html">Memories of tomorrow</a>
             <span class="poem-row-excerpt">After all, the trees are there before tomorrow, and they will be before my today</span>
         </div>
-        <div class="poem-row">
+        <div class="poem-row" data-themes="place nature">
             <a href="/poems/delicate-pieces-before-the-end.html">Delicate pieces before the end</a>
             <span class="poem-row-excerpt">To find beauty in a streetcar or a bus full of black haired brown skinned children</span>
         </div>
@@ -306,5 +321,60 @@
         <a href="/archive.html">archive</a>
         <a href="/about.html">about</a>
     </nav>
+
+    <script>
+    (function() {
+        var tags = document.querySelectorAll('.theme-tag');
+        var rows = document.querySelectorAll('.poem-row');
+        var labels = document.querySelectorAll('.section-label');
+        var active = null;
+
+        function applyFilter(theme) {
+            if (theme === active) {
+                // Deselect
+                active = null;
+                tags.forEach(function(t) { t.classList.remove('active'); });
+                rows.forEach(function(r) { r.classList.remove('dimmed'); });
+                labels.forEach(function(l) { l.classList.remove('dimmed'); });
+                history.replaceState(null, '', window.location.pathname);
+                return;
+            }
+            active = theme;
+            tags.forEach(function(t) {
+                t.classList.toggle('active', t.getAttribute('data-filter') === theme);
+            });
+            rows.forEach(function(r) {
+                var themes = r.getAttribute('data-themes') || '';
+                r.classList.toggle('dimmed', themes.indexOf(theme) === -1);
+            });
+            // Dim section labels if all their rows are dimmed
+            labels.forEach(function(label) {
+                var next = label.nextElementSibling;
+                var allDimmed = true;
+                while (next && !next.classList.contains('section-label')) {
+                    if (next.classList.contains('poem-row') && !next.classList.contains('dimmed')) {
+                        allDimmed = false;
+                    }
+                    next = next.nextElementSibling;
+                }
+                label.classList.toggle('dimmed', allDimmed);
+            });
+            history.replaceState(null, '', '#' + theme);
+        }
+
+        tags.forEach(function(tag) {
+            tag.addEventListener('click', function(e) {
+                e.preventDefault();
+                applyFilter(this.getAttribute('data-filter'));
+            });
+        });
+
+        // Support deep-linking via URL hash
+        var hash = window.location.hash.replace('#', '');
+        if (hash && document.querySelector('[data-filter="' + hash + '"]')) {
+            applyFilter(hash);
+        }
+    })();
+    </script>
 </body>
 </html>

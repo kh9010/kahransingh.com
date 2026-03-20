@@ -37,14 +37,17 @@
         <div class="poetry-moment" id="moment-0">
             <div class="moment-title"><a href="#"></a></div>
             <div class="moment-excerpt"></div>
+            <div class="poem-themes"></div>
         </div>
         <div class="poetry-moment" id="moment-1">
             <div class="moment-title"><a href="#"></a></div>
             <div class="moment-excerpt"></div>
+            <div class="poem-themes"></div>
         </div>
         <div class="poetry-moment" id="moment-2">
             <div class="moment-title"><a href="#"></a></div>
             <div class="moment-excerpt"></div>
+            <div class="poem-themes"></div>
         </div>
 
         <div class="poetry-bridge">
@@ -224,12 +227,19 @@
         if (selected.indexOf(shuffled[i]) === -1) selected.push(shuffled[i]);
     }
 
+    var themeLabels = { wonder: 'wonder', mortality: 'mortality & time', love: 'love', place: 'place', nature: 'nature', identity: 'identity' };
+
     for (var i = 0; i < 3; i++) {
         var el = document.getElementById('moment-' + i);
         var s = selected[i];
         el.querySelector('.moment-title a').href = s.href;
         el.querySelector('.moment-title a').textContent = s.title;
         el.querySelector('.moment-excerpt').textContent = s.excerpt;
+        var pillsHtml = '';
+        s.themes.forEach(function(t) {
+            pillsHtml += '<a href="/poems/all.html#' + t + '" class="theme-pill">' + (themeLabels[t] || t) + '</a>';
+        });
+        el.querySelector('.poem-themes').innerHTML = pillsHtml;
     }
 
     // IntersectionObserver for fadeIn on moments

@@ -30,23 +30,52 @@
             display: block;
         }
 
-        .wedding-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .wedding-event-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #888;
+            margin-top: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .wedding-event-label:first-of-type {
+            margin-top: 0;
+        }
+
+        .wedding-scroll {
+            display: flex;
             gap: 0.75rem;
-            margin: 2rem 0;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
             width: calc(100vw - 260px);
             max-width: 900px;
+            padding-bottom: 0.75rem;
+            scrollbar-width: thin;
+            scrollbar-color: #e0ddd8 transparent;
         }
 
-        .wedding-grid img {
-            width: 100%;
+        .wedding-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .wedding-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .wedding-scroll::-webkit-scrollbar-thumb {
+            background: #e0ddd8;
+            border-radius: 2px;
+        }
+
+        .wedding-scroll img {
+            height: 55vh;
+            width: auto;
+            scroll-snap-align: start;
             display: block;
-            line-height: 0;
-        }
-
-        .wedding-grid .full {
-            grid-column: 1 / -1;
+            flex-shrink: 0;
         }
 
         .wedding-section {
@@ -137,6 +166,22 @@
             margin-top: 0.15rem;
         }
 
+        .poems-bridge {
+            margin-top: 1rem;
+        }
+
+        .poems-bridge a {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            color: #999;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .poems-bridge a:hover {
+            color: #1a1a1a;
+        }
+
         .wedding-credit {
             margin-top: 3rem;
             padding-top: 1.5rem;
@@ -165,17 +210,16 @@
                 margin-right: -1.5rem;
             }
 
-            .wedding-grid {
+            .wedding-scroll {
                 width: calc(100% + 3rem);
                 max-width: none;
                 margin-left: -1.5rem;
                 margin-right: -1.5rem;
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
+                padding-left: 1.5rem;
             }
 
-            .wedding-grid .full {
-                grid-column: auto;
+            .wedding-scroll img {
+                height: 40vh;
             }
         }
     </style>
@@ -195,18 +239,40 @@
             <p>Four days in the Golden City &mdash; from sunset dinners in the sand dunes, to haldi in the courtyard, sangeet by the lake, and a wedding under the Rajasthani sky. 150 guests flew in from around the world to celebrate at Suryagarh, Jaisalmer.</p>
         </div>
 
-        <div class="wedding-grid">
+        <div class="wedding-event-label">Welcome</div>
+        <div class="wedding-scroll">
             <img src="wedding/photos/welcome/NVP_KAHRANXGOURAV_WELCOME-1081.jpg" alt="Welcome celebration">
             <img src="wedding/photos/welcome/NVP_KAHRANXGOURAV_WELCOME-1192.jpg" alt="Welcome evening">
-            <img class="full" src="wedding/photos/haldi-mehendi/NVP_KAHRANXGOURAV_HALDI-MEHENDI-1199.jpg" alt="Haldi ceremony">
-            <img src="wedding/photos/haldi-mehendi/NVP_KAHRANXGOURAV_HALDI-MEHENDI-1375.jpg" alt="Mehendi celebration">
-            <img src="wedding/photos/sangeet/NVP_KAHRANXGOURAV_SANGEET-1225.jpg" alt="Sangeet performance">
-            <img class="full" src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1204.jpg" alt="Wedding ceremony">
-            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1257.jpg" alt="Wedding celebration">
-            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1279.jpg" alt="Wedding reception">
+            <img src="wedding/photos/welcome/NVP_KAHRANXGOURAV_WELCOME-1269.jpg" alt="Welcome gathering">
+            <img src="wedding/photos/welcome/NVP_KAHRANXGOURAV_WELCOME-1384.jpg" alt="Welcome dinner">
         </div>
 
-        <div class="wedding-section">
+        <div class="wedding-event-label">Haldi &amp; Mehendi</div>
+        <div class="wedding-scroll">
+            <img src="wedding/photos/haldi-mehendi/NVP_KAHRANXGOURAV_HALDI-MEHENDI-1199.jpg" alt="Haldi ceremony">
+            <img src="wedding/photos/haldi-mehendi/NVP_KAHRANXGOURAV_HALDI-MEHENDI-1375.jpg" alt="Mehendi celebration">
+            <img src="wedding/photos/haldi-mehendi/NVP_KAHRANXGOURAV_HALDI-MEHENDI-1689.jpg" alt="Haldi joy">
+            <img src="wedding/photos/haldi-mehendi/NVP_KAHRANXGOURAV_HALDI-MEHENDI-1948.jpg" alt="Mehendi details">
+        </div>
+
+        <div class="wedding-event-label">Sangeet</div>
+        <div class="wedding-scroll">
+            <img src="wedding/photos/sangeet/NVP_KAHRANXGOURAV_SANGEET-1053.jpg" alt="Sangeet evening">
+            <img src="wedding/photos/sangeet/NVP_KAHRANXGOURAV_SANGEET-1225.jpg" alt="Sangeet performance">
+            <img src="wedding/photos/sangeet/NVP_KAHRANXGOURAV_SANGEET-1778.jpg" alt="Sangeet celebration">
+            <img src="wedding/photos/sangeet/NVP_KAHRANXGOURAV_SANGEET-1809.jpg" alt="Sangeet dancing">
+        </div>
+
+        <div class="wedding-event-label">Wedding Day</div>
+        <div class="wedding-scroll">
+            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1204.jpg" alt="Wedding ceremony">
+            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1257.jpg" alt="Wedding celebration">
+            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1279.jpg" alt="Wedding reception">
+            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1329.jpg" alt="Wedding joy">
+            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1914.jpg" alt="Wedding evening">
+        </div>
+
+        <div class="wedding-section" style="margin-top: 3rem;">
             <h2>The poems</h2>
             <p>Two poems written for the wedding &mdash; one a toast, the other our story.</p>
 
@@ -219,6 +285,10 @@
                 <div class="card-title">A Wedding Toast</div>
                 <div class="card-excerpt">All I know, my friends, is that terrible heartbreak I would feel when I left a place that held me close</div>
             </a>
+
+            <div class="poems-bridge">
+                <a href="/poems/all.html#love">More poems about love &rarr;</a>
+            </div>
         </div>
 
         <div class="wedding-section">

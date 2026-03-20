@@ -117,7 +117,21 @@ const themeLabels = {
     picks.forEach(p => {
         html += '<a href="/poems/' + p.slug + '.html">' + p.title + '</a>';
     });
-    html += '</div></div>';
+    html += '</div>';
+
+    // Cross-content links
+    var crossLinks = '';
+    if (slug === 'wedding-poem' || slug === 'a-wedding-toast') {
+        crossLinks += '<a href="/wedding-celebration.html">From the wedding \u2192</a>';
+    }
+    if (current.themes.indexOf('place') !== -1) {
+        crossLinks += '<a href="/photography.html">Photos from Mexico \u2192</a>';
+    }
+    if (crossLinks) {
+        html += '<div class="explore-cross" style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid #e8e6e1;">' + crossLinks + '</div>';
+    }
+
+    html += '</div>';
 
     exploreDiv.innerHTML = html;
     endSlide.parentNode.insertBefore(exploreDiv, endSlide);
