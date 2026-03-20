@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photography &mdash; Kahran Singh</title>
+    <title>Photography — Kahran Singh</title>
+    <meta name="description" content="Photography by Kahran Singh. Black and white street photography from Mexico City, shot on the Leica Q2 Monochrome.">
+    <meta property="og:title" content="Photography — Kahran Singh">
+    <meta property="og:description" content="Black and white street photography from Mexico City, shot on the Leica Q2 Monochrome.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kahransingh.com/photography.html">
+    <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <link rel="canonical" href="https://kahransingh.com/photography.html">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,6 +31,15 @@
             overflow: hidden;
             border-radius: 4px;
             line-height: 0;
+        }
+
+        .photo-grid .photo figcaption {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.5;
+            padding: 0.5rem 0 0;
         }
 
         .photo-grid .photo.full {
@@ -78,30 +94,38 @@
         <h3 class="section-label">Mexico, 2026</h3>
 
         <div class="photo-grid">
-            <div class="photo full">
+            <figure class="photo full">
                 <img src="photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma, Mexico City">
-            </div>
-            <div class="photo">
+                <figcaption>Roma Norte, Mexico City — f/1.7, 1/125s, ISO 5000</figcaption>
+            </figure>
+            <figure class="photo">
                 <img src="photos/lanterns.jpg" alt="Lanterns and palm tree at night">
-            </div>
-            <div class="photo">
+                <figcaption>Mexico City — f/1.7, 1/125s, ISO 6400</figcaption>
+            </figure>
+            <figure class="photo">
                 <img src="photos/taco-cart.jpg" alt="Taco cart at night">
-            </div>
-            <div class="photo full">
+                <figcaption>Mexico City — f/1.8, 1/125s, ISO 2500</figcaption>
+            </figure>
+            <figure class="photo full">
                 <img src="photos/papel-picado.jpg" alt="Street with papel picado overhead">
-            </div>
-            <div class="photo">
+                <figcaption>Mexico City — f/1.8, 1/125s, ISO 4000</figcaption>
+            </figure>
+            <figure class="photo">
                 <img src="photos/staircase.jpg" alt="Figure on a staircase">
-            </div>
-            <div class="photo">
+                <figcaption>Mexico City — f/1.7, 1/125s, ISO 6400</figcaption>
+            </figure>
+            <figure class="photo">
                 <img src="photos/night-market.jpg" alt="Night market vendors">
-            </div>
-            <div class="photo full">
+                <figcaption>Mexico City — f/1.7, 1/125s, ISO 1250</figcaption>
+            </figure>
+            <figure class="photo full">
                 <img src="photos/night-street.jpg" alt="Night street with palm trees">
-            </div>
-            <div class="photo full">
+                <figcaption>Mexico City — f/2.5, 1/125s, ISO 6400</figcaption>
+            </figure>
+            <figure class="photo full">
                 <img src="photos/cdmx-plaza.jpg" alt="CDMX plaza at night">
-            </div>
+                <figcaption>Centro Histórico, Mexico City — f/2.5, 1/125s, ISO 6400</figcaption>
+            </figure>
         </div>
 
         <p class="photo-note">Shot on the Leica Q2 Monochrome &middot; Summilux 28mm f/1.7 ASPH.</p>
