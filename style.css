@@ -140,6 +140,15 @@ main {
     transform: scale(1.02);
 }
 
+.home-photo figcaption {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: #999;
+    line-height: 1.5;
+    padding: 0.5rem 0 0;
+}
+
 /* Page header (for subpages) */
 .page-header {
     margin-bottom: 2.5rem;
