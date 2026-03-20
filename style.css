@@ -12,6 +12,7 @@ body {
     display: flex;
     font-size: 17px;
     line-height: 1.7;
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -116,6 +117,27 @@ main {
     font-size: 0.8rem;
     color: #999;
     margin-left: 0.25rem;
+}
+
+/* Photos woven into pages — break out of content column */
+.home-photo {
+    display: block;
+    width: calc(100vw - 260px);
+    max-width: 900px;
+    margin: 3rem 0 3.5rem;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.home-photo img {
+    width: 100%;
+    display: block;
+    filter: contrast(1.05);
+    transition: transform 0.6s ease;
+}
+
+.home-photo:hover img {
+    transform: scale(1.02);
 }
 
 /* Page header (for subpages) */
@@ -390,6 +412,13 @@ hr {
 
     .intro p {
         font-size: 1.15rem;
+    }
+
+    .home-photo {
+        width: calc(100% + 3rem);
+        max-width: none;
+        margin-left: -1.5rem;
+        margin-right: -1.5rem;
     }
 
     .page-header h1 {

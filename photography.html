@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography &mdash; Kahran Singh</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        main {
+            max-width: 900px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .photo-grid .photo {
+            overflow: hidden;
+            border-radius: 4px;
+            line-height: 0;
+        }
+
+        .photo-grid .photo.full {
+            grid-column: 1 / -1;
+        }
+
+        .photo-grid .photo img {
+            width: 100%;
+            display: block;
+            filter: contrast(1.05);
+            transition: transform 0.6s ease;
+        }
+
+        .photo-grid .photo:hover img {
+            transform: scale(1.02);
+        }
+
+        .photo-note {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0ddd8;
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 1.7;
+        }
+
+        .series-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-grid .photo.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="page-header">
+            <h1>photography</h1>
+            <p>Exploring light, people, and place.</p>
+        </div>
+
+        <h3 class="section-label">Mexico, 2026</h3>
+
+        <div class="photo-grid">
+            <div class="photo full">
+                <img src="photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma, Mexico City">
+            </div>
+            <div class="photo">
+                <img src="photos/lanterns.jpg" alt="Lanterns and palm tree at night">
+            </div>
+            <div class="photo">
+                <img src="photos/taco-cart.jpg" alt="Taco cart at night">
+            </div>
+            <div class="photo full">
+                <img src="photos/papel-picado.jpg" alt="Street with papel picado overhead">
+            </div>
+            <div class="photo">
+                <img src="photos/staircase.jpg" alt="Figure on a staircase">
+            </div>
+            <div class="photo">
+                <img src="photos/night-market.jpg" alt="Night market vendors">
+            </div>
+            <div class="photo full">
+                <img src="photos/night-street.jpg" alt="Night street with palm trees">
+            </div>
+            <div class="photo full">
+                <img src="photos/cdmx-plaza.jpg" alt="CDMX plaza at night">
+            </div>
+        </div>
+
+        <p class="photo-note">Shot on the Leica Q2 Monochrome &middot; Summilux 28mm f/1.7 ASPH.</p>
+
+        <h3 class="section-label">Art Through Their Eyes</h3>
+
+        <p class="series-description">A curated series about people engaging with art &mdash; the pause before a painting, a conversation in a gallery, the way a sculpture reshapes the space around its viewer. Coming soon.</p>
+
+    </main>
+
+    <nav>
+        <a href="/" class="nav-name">kahran</a>
+        <a href="/poetry.html">poetry</a>
+        <a href="/photography.html" class="active">photography</a>
+        <a href="/projects.html">projects</a>
+        <a href="/speaking.html">speaking</a>
+        <a href="/archive.html">archive</a>
+        <a href="/about.html">about</a>
+    </nav>
+</body>
+</html>
