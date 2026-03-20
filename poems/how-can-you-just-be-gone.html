@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Can You Just Be Gone — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">How Can You Just Be Gone</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">How can you just be gone
+That&rsquo;s it
+That&rsquo;s the one by one
+As we were born, so we will go
+And the only ease may be if you ease into it
+With an empty space
+Kept a little away
+Before the empty space
+Comes to play with your heart.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I could move anything
+I could see
+Anything
+but not this anything
+Who knew
+This what
+This empty
+This what
+This empty
+This
+Space
+Empty space</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I will miss you my friend
+And resent a bit this empty space
+This space that was your empty space
+This space that had bugs and friends and deep zest for life
+You did well, I thought
+Why did you just die
+At my age
+At our age
+It&rsquo;s not sexy anymore
+Or notable, really
+It&rsquo;s just deeply sad.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Ouch</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>

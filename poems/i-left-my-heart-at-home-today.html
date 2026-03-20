@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I left my heart at home today — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">I left my heart at home today</div>
+            <div class="poem-meta">from How the World Works</div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I left my heart at home today
+and without heart
+the chest feels strange
+Uneasy
+something was forgotten
+Who was supposed to remember some parts of you
+that you had forgotten of yourself.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">maybe my heart is a person</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Maybe my heart was a person</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>

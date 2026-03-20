@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I saw something beautiful today — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">I saw something beautiful today</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I saw something beautiful today
+It gives me shivers to think of it
+For to let yourself see beauty
+Is a special gift
+Not to be taken
+By the giver
+Or the gived.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">And hark! Yes
+For this was beauty
+Clad and a shimmer of red
+Brown against the sun
+Resplendent agent of life
+Oh Creator
+I praise you
+I salute you
+What creations you have made.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I watch this boy come to end life
+Or bring it
+So innocent is wonder
+So innocent is life</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Oh, you shimmer of Red. Shimmer me brighter, you.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Shimmer me wonder, you.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Whether I die in peace is my choice.
+Whether I die at all, maybe yours
+God bless you
+Child of creation
+Child of wonder
+Child of tears</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>

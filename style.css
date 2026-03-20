@@ -383,6 +383,56 @@ main {
     margin-left: 3px;
 }
 
+/* Theme navigation (poetry page) */
+.theme-nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.theme-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #999;
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid #e0ddd8;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.theme-tag:hover {
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.theme-tag.active {
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+    font-weight: 500;
+}
+
+/* Theme pills on poem cards */
+.poem-themes {
+    display: flex;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+
+.theme-pill {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #bbb;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid #e8e6e1;
+    border-radius: 2px;
+}
+
 /* Divider */
 hr {
     border: none;

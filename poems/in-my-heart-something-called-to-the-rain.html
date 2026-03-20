@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In my heart something called to the rain — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">In my heart something called to the rain</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">In my heart something called to the rain
+It had always called to the rain
+In days before and days past
+You know there's a lot of people who think fire was the gift of mankind
+That taught us there was an us
+But wonder</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Conjecture the rain</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Champion of life
+Heretic before Dawn</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Being Life's chartreuse-clad champion,
+Of course you would say that,
+You say,
+Champion of life over destruction
+Value-er of order over chaos
+Of course you'd say that
+You say.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">To which I say</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Watch the rain</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">And it will bring destruction down on your head
+Watch the trees
+And they will break your mountains
+Watch the stones
+And they will crush your plants
+Even watch us burn
+And be reborn, oak grow tall, pine grow fierce</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I just say</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Are you 90% fire or 80% water</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">And who lives better</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">But what is better</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">To the drowning man</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Or burning man</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Watch the rain.</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>

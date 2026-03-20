@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">Mama</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Mama was what we called him
+Because Masseur always seemed to harsh
+Too far away a relation
+For such a man who always kept us
+so close to his heart</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">As our generation grew to up prominence
+And demanded our due space
+He shucked responsibilities well
+and gracefully let go of center stage</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">He turned his eyes to making life
+And made a space filled with love
+Created harmony and beauty
+Joy and accord
+and a world that delighted
+To all who came abound</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Each day, each hour,
+Each time we got to spend
+a few minutes
+On his terrace,
+Or in his bar,
+Or just a few moments of company,
+As the sun set and we had
+a single malt
+Or a whiskey
+That we had never before heard of
+Or even before known existed.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Today let us unite in grief
+For those who never knew him
+And for those whose knowing was too short
+But celebrate the days we knew him
+And celebrate the steps we took together</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">You&rsquo;ve gone into that gentle night,
+Sweet mama, sweet father, sweet husband, sweet friend.
+God keep you till we walk together again.</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
