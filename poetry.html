@@ -22,20 +22,29 @@
             <h1>poetry</h1>
         </div>
 
-        <div class="home-photo" style="margin-top: 0;">
+        <div class="home-photo" style="margin-top: 0; width: 100%; max-width: 640px;">
             <img src="photos/cdmx-plaza.jpg" alt="Plaza at night in Roma Norte, Mexico City">
             <figcaption>Roma Norte, Mexico City &mdash; f/2.5, 1/125s, ISO 6400 &mdash; Leica Q2 Monochrome</figcaption>
         </div>
 
-        <!-- Theme filters -->
+        <!-- Theme discovery -->
         <div class="theme-nav">
-            <a href="#" class="theme-tag active" data-theme="all">All</a>
+            <span class="theme-nav-label">Explore by theme</span>
             <a href="#" class="theme-tag" data-theme="wonder">Wonder</a>
             <a href="#" class="theme-tag" data-theme="mortality">Mortality &amp; Time</a>
             <a href="#" class="theme-tag" data-theme="love">Love</a>
             <a href="#" class="theme-tag" data-theme="place">Place</a>
             <a href="#" class="theme-tag" data-theme="nature">Nature</a>
             <a href="#" class="theme-tag" data-theme="identity">Identity</a>
+        </div>
+
+        <!-- Theme collection view (shown when a theme is selected) -->
+        <div class="theme-collection" style="display: none;">
+            <div class="theme-collection-header">
+                <h2 class="theme-collection-title"></h2>
+                <a href="#" class="theme-back">&larr; all poems</a>
+            </div>
+            <div class="theme-collection-poems"></div>
         </div>
 
         <h3 class="section-label">Earlier poems</h3>
@@ -291,37 +300,72 @@
     </nav>
 
     <script>
+    const themeNames = {
+        wonder: 'Wonder',
+        mortality: 'Mortality & Time',
+        love: 'Love',
+        place: 'Place',
+        nature: 'Nature',
+        identity: 'Identity'
+    };
+    const allSections = document.querySelectorAll('.section-label');
+    const allPieces = document.querySelectorAll('.piece');
+    const collection = document.querySelector('.theme-collection');
+    const collectionTitle = document.querySelector('.theme-collection-title');
+    const collectionPoems = document.querySelector('.theme-collection-poems');
+    const backLink = document.querySelector('.theme-back');
+
+    function showAllPoems() {
+        allSections.forEach(s => s.style.display = '');
+        allPieces.forEach(p => p.style.display = '');
+        collection.style.display = 'none';
+        document.querySelectorAll('.theme-tag').forEach(t => t.classList.remove('active'));
+    }
+
     document.querySelectorAll('.theme-tag').forEach(tag => {
         tag.addEventListener('click', (e) => {
             e.preventDefault();
             const theme = tag.dataset.theme;
+
+            // Hide all regular sections
+            allSections.forEach(s => s.style.display = 'none');
+            allPieces.forEach(p => p.style.display = 'none');
+
+            // Highlight active tag
             document.querySelectorAll('.theme-tag').forEach(t => t.classList.remove('active'));
             tag.classList.add('active');
+
+            // Build collection view
+            collectionTitle.textContent = themeNames[theme];
+            collectionPoems.innerHTML = '';
+
             document.querySelectorAll('.piece[data-themes]').forEach(piece => {
-                if (theme === 'all' || piece.dataset.themes.includes(theme)) {
-                    piece.style.display = '';
-                } else {
-                    piece.style.display = 'none';
+                if (piece.dataset.themes.includes(theme)) {
+                    const clone = piece.cloneNode(true);
+                    clone.style.display = '';
+                    collectionPoems.appendChild(clone);
                 }
             });
-            // Show pieces without data-themes (like "Our Story")
-            document.querySelectorAll('.piece:not([data-themes])').forEach(piece => {
-                piece.style.display = theme === 'all' ? '' : 'none';
-            });
-            // Show/hide section labels based on visible children
-            document.querySelectorAll('.section-label').forEach(label => {
-                let next = label.nextElementSibling;
-                let hasVisible = false;
-                while (next && !next.classList.contains('section-label')) {
-                    if (next.classList.contains('piece') && next.style.display !== 'none') {
-                        hasVisible = true;
-                        break;
-                    }
-                    next = next.nextElementSibling;
-                }
-                label.style.display = hasVisible ? '' : 'none';
-            });
+
+            collection.style.display = '';
+            collection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
+    });
+
+    backLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showAllPoems();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Also make theme pills clickable
+    document.addEventListener('click', (e) => {
+        const pill = e.target.closest('.theme-pill');
+        if (pill) {
+            const theme = pill.textContent.trim();
+            const tagEl = document.querySelector(`.theme-tag[data-theme="${theme}"]`);
+            if (tagEl) tagEl.click();
+        }
     });
     </script>
 </body>

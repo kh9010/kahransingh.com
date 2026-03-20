@@ -22,9 +22,9 @@
             <p>Hello, I'm Kahran &mdash; storyteller and creative consultant, excited about finding and growing the beauty in the world. I specialize in bringing complex ideas to life.</p>
         </div>
 
-        <a href="photography.html" class="home-photo">
+        <a href="photography.html" class="home-photo" id="hero-photo">
             <img src="photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma Norte, Mexico City">
-            <figcaption>Roma Norte, Mexico City — f/1.7, 1/125s, ISO 5000 — Leica Q2 Monochrome</figcaption>
+            <figcaption>Roma Norte, Mexico City &mdash; f/1.7, 1/125s, ISO 5000 &mdash; Leica Q2 Monochrome</figcaption>
         </a>
 
         <div class="home-section">
@@ -39,22 +39,17 @@
             </div>
         </div>
 
-        <div class="home-section">
-            <h3>Recent poems</h3>
+        <div class="home-section" id="poem-spotlight">
+            <h3>A poem</h3>
             <div class="home-item">
                 <a href="poems/the-mist.html">The Mist</a>
             </div>
-            <div class="home-item">
-                <a href="poems/when-im-not-here.html">When I'm not here</a>
-            </div>
-            <div class="home-item">
-                <a href="poems/my-friend-who-died.html">my friend who died</a>
-            </div>
+            <div class="poem-spotlight-excerpt"></div>
         </div>
 
-        <a href="photography.html" class="home-photo">
+        <a href="photography.html" class="home-photo" id="second-photo">
             <img src="photos/lanterns.jpg" alt="Lanterns and palm tree at night in Sayulita">
-            <figcaption>Sayulita, Nayarit — f/1.7, 1/125s, ISO 6400 — Leica Q2 Monochrome</figcaption>
+            <figcaption>Sayulita, Nayarit &mdash; f/1.7, 1/125s, ISO 6400 &mdash; Leica Q2 Monochrome</figcaption>
         </a>
 
         <div class="home-section">
@@ -80,5 +75,68 @@
         <a href="archive.html">archive</a>
         <a href="about.html">about</a>
     </nav>
+    <script>
+    // Rotate hero photo on each visit
+    const photos = [
+        { src: 'photos/roma-sidewalk.jpg', alt: 'Night sidewalk in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City \u2014 f/1.7, 1/125s, ISO 5000 \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/papel-picado.jpg', alt: 'Street with papel picado overhead in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.8, 1/125s, ISO 4000 \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/night-street.jpg', alt: 'Night street with palm trees in Roma Norte', caption: 'Roma Norte, Mexico City \u2014 f/2.5, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/staircase.jpg', alt: 'Figure on a staircase in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/cdmx-plaza.jpg', alt: 'Plaza at night in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City \u2014 f/2.5, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' }
+    ];
+
+    const secondPhotos = [
+        { src: 'photos/lanterns.jpg', alt: 'Lanterns and palm tree at night in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/taco-cart.jpg', alt: 'Taco cart at night in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.8, 1/125s, ISO 2500 \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/night-market.jpg', alt: 'Night market vendors in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 1250 \u2014 Leica Q2 Monochrome' }
+    ];
+
+    // Poem spotlight — rotates on each visit
+    const poems = [
+        { href: 'poems/the-mist.html', title: 'The Mist', excerpt: 'In the morning you can listen to the mist. It dies as it burns, little by little, slow by slow.' },
+        { href: 'poems/i-was-feeling-sorry-for-a-moth.html', title: 'I was feeling sorry for a moth', excerpt: 'Whose to say we aren\u2019t the moth / Squirming next to certain doom' },
+        { href: 'poems/do-you-miss-me.html', title: 'Do you miss me', excerpt: 'The world asked me if I wanted to call you today. Multiple times. I did not.' },
+        { href: 'poems/kashmir.html', title: 'Kashmir', excerpt: 'Till time razes these mountains to the ground / And man builds new idols.' },
+        { href: 'poems/song-of-tomorrow.html', title: 'Song of Tomorrow', excerpt: 'Today is enough / Today is all we can manage / Today is all we can need.' },
+        { href: 'poems/hark-my-love.html', title: 'Hark my love', excerpt: 'Dream, dream dream, little tree / Life and love be all you do' },
+        { href: 'poems/i-will-always-be-a-poet.html', title: 'I will always be a poet', excerpt: 'If you shave my chest to expose my heart / With my blood I will paint you with poetry' },
+        { href: 'poems/how-can-you-just-be-gone.html', title: 'How can you just be gone', excerpt: 'I will miss you my friend / And resent a bit this empty space' },
+        { href: 'poems/oh-that-again.html', title: 'Oh that again I might see such beauty in my life', excerpt: 'As a single flower / Opened and yet unmarked / Ungrieved by the world' },
+        { href: 'poems/when-i-dance-with-you.html', title: 'When I dance with you', excerpt: 'I don\u2019t know where my body ends / And yours begins' }
+    ];
+
+    function pick(arr) {
+        const day = Math.floor(Date.now() / 86400000);
+        return arr[day % arr.length];
+    }
+
+    // Set hero photo
+    const hero = pick(photos);
+    const heroEl = document.getElementById('hero-photo');
+    heroEl.querySelector('img').src = hero.src;
+    heroEl.querySelector('img').alt = hero.alt;
+    heroEl.querySelector('figcaption').textContent = hero.caption;
+
+    // Set second photo (offset by 1 to avoid same photo)
+    const second = secondPhotos[(Math.floor(Date.now() / 86400000) + 1) % secondPhotos.length];
+    const secondEl = document.getElementById('second-photo');
+    secondEl.querySelector('img').src = second.src;
+    secondEl.querySelector('img').alt = second.alt;
+    secondEl.querySelector('figcaption').textContent = second.caption;
+
+    // Set poem spotlight
+    const poem = pick(poems);
+    const spotlight = document.getElementById('poem-spotlight');
+    const poemLink = spotlight.querySelector('.home-item a');
+    poemLink.href = poem.href;
+    poemLink.textContent = poem.title;
+    spotlight.querySelector('.poem-spotlight-excerpt').textContent = poem.excerpt;
+
+    // Time-aware greeting
+    const hour = new Date().getHours();
+    const greetings = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    const introP = document.querySelector('.intro p');
+    introP.innerHTML = introP.innerHTML.replace('Hello,', greetings + ',');
+    </script>
 </body>
 </html>
