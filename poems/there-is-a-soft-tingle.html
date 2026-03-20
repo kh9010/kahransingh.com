@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>There Is a Soft Tingle I Feel &mdash; Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">There Is a Soft Tingle I Feel</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">There is a soft tingle I feel
+When grounded
+Into the trees
+And often my favorite tree
+The biggest and oldest tree</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">But then do we count age after death?
+A tree is a tree is a tree until it&rsquo;s not
+And then it&rsquo;s dirt
+Or some other pejorative
+Depending on your fancy
+And your society&rsquo;s feelings about trees</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">This tree, though
+Long dead, though it may be
+This tree though
+Its soft bark and slowly molding hardwood
+From its heart, so soft and gentle
+Once so hard and firm</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Who&rsquo;s to say who is the better version of itself? tree? society? Culture? You?</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Life is and is and is until it&rsquo;s not</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Ouch, I say. this hurts my heart.
+Ouch, I say. I wonder about tomorrow.</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>

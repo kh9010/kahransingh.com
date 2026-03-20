@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Did You Know There Are Spiders with Only 5 Legs — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">Did You Know There Are Spiders with Only 5 Legs</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Did you know there are spiders with only 5 legs
+I met one this morning
+the time when the bulbuls duet with the sparrows</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Did you know there&rsquo;s a pale pink before dawn
+just a hint of pink
+So hinting you could miss it or think you had a momentary affliction
+A curse of having been in a room so green
+Even the fairest of light seem pink by comparison</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Did you know to remember the form
+Fades</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">What will this boat be when the boats go home
+What will happen to the 5 legged spider
+What was this place before trees and nature conquered</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Is it honor to play by the same rules
+Is it honor to find the hole in the rules
+Is it honor to evolve your own approach
+Is it honor</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">when you realize you are the kind of fish
+That can jump out of water
+And fly</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>

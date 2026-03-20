@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Light Sings to Me in the Morning — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">The Light Sings to Me in the Morning</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">the light sings to me in the morning
+coos, really, a feather&rsquo;s brush against my ears.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">drrrrrrrrrrrrrrum, drrrrrrrrrum, drrrrrum.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">But then it rains and I wonder about the birds
+
+what do they think, when the rain falls without end, and hunger drives them forth from sanctuary?
+
+What do they think, buffeted by wind and water, berated by flying bodies?</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">change or die, says the rain.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">drrrrrrrrrrrum, drrrrrrrrrrum, drrrrrum.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">soothed though I am by the contortions of these soft wet bodies on these cold hard surfaces
+
+they drown out the birds.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">drrrrrrrum, drrrrrrrrrrum, drrrrrrrrum</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>

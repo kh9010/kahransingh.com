@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">Today</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">We are past the morning of the small birds
+Into the morning of the crows
+Or is it ravens
+The caw of one seems as harsh as the other
+Though maybe there is more music in the one who takes me to rest</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">There&rsquo;s an ache, the chronic sort of ache that brings weary, chases moments of calm allusion before it
+I hear my time calling</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Or maybe that&rsquo;s just a phone
+Missive
+Urgent demanding of synchronization
+Calling to my neighbor</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Something to be heard, but not done
+Something to be seen, but not done
+
+What a gift, to be on an island.
+What a curse, to be an island.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Someday, someway, somehow. That&rsquo;s how it goes, right?</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">It&rsquo;s cold in these waters
+Though the sea is warm
+And full of fish</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">What brings a fish to delight in the air?
+Life, just a little longer.</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>
