@@ -106,25 +106,25 @@
     ];
 
     function pick(arr) {
-        const day = Math.floor(Date.now() / 86400000);
-        return arr[day % arr.length];
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Set hero photo
+    // Set hero photo — random each visit
     const hero = pick(photos);
     const heroEl = document.getElementById('hero-photo');
     heroEl.querySelector('img').src = hero.src;
     heroEl.querySelector('img').alt = hero.alt;
     heroEl.querySelector('figcaption').textContent = hero.caption;
 
-    // Set second photo (offset by 1 to avoid same photo)
-    const second = secondPhotos[(Math.floor(Date.now() / 86400000) + 1) % secondPhotos.length];
+    // Set second photo — random, avoid same as hero
+    const availableSecond = secondPhotos.filter(p => p.src !== hero.src);
+    const second = pick(availableSecond.length ? availableSecond : secondPhotos);
     const secondEl = document.getElementById('second-photo');
     secondEl.querySelector('img').src = second.src;
     secondEl.querySelector('img').alt = second.alt;
     secondEl.querySelector('figcaption').textContent = second.caption;
 
-    // Set poem spotlight
+    // Set poem spotlight — random each visit
     const poem = pick(poems);
     const spotlight = document.getElementById('poem-spotlight');
     const poemLink = spotlight.querySelector('.home-item a');
