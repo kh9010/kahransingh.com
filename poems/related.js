@@ -66,6 +66,11 @@ const poemData = {
     'and-now-that-we-walk': { themes: ['identity'], title: 'And now that we walk in these days of light' },
     'everyday-i-can-spend': { themes: ['love', 'mortality'], title: 'Everyday I can spend' },
     'its-funny': { themes: ['love', 'identity'], title: "It's funny" },
+    'london': { themes: ['place', 'identity'], title: 'London' },
+    'park': { themes: ['place', 'wonder', 'identity'], title: 'Park' },
+    'sometimes-i-feel-cold': { themes: ['identity', 'mortality'], title: 'sometimes I feel cold' },
+    'sometimes-quaver': { themes: ['nature', 'wonder'], title: "sometimes, the whole field a\u2019quaver" },
+    'sometimes-curious-feel': { themes: ['wonder', 'love'], title: 'sometimes, a curious feel' },
 };
 
 const themeLabels = {

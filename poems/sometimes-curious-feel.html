@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sometimes, a curious feel &mdash; Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">sometimes, a curious feel</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">There's a curious feel we feel, sometimes
+It's a light pressure on the nose
+A gentle warm pushing down
+Coming from a place
+Nestled between the eyebrows
+(Or perhaps in them)
+(Depending on their shape)
+(Sizing)
+(And general demeanor)</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Oh my lord
+There's a joy bubbling in my heart
+That tells me
+That joy that you find
+In symmetry and perfectly formed spaces
+Zoom out just a little
+Or zoom in just a touch
+Won't you be darned
+If there ain't symmetry
+And that goddamn blissful joy
+In almost every second
+Of every moment
+Of every day
+I think I've walked this fair green
+(Okay so it's blue, but I'm a green man myself)
+Fair green
+Tiny round ball
+In a big
+Black
+Sky</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Did I remember to tell you
+My nose
+Is pleasantly warm
+
+Did you know
+
+I love you</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>

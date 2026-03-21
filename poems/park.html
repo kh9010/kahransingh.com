@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Park &mdash; Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">Park</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">I whisper to you
+A story of today
+Blond girls
+Black wings
+A whisper of red</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">This is a park
+Our park
+
+A place for forgotten gloves
+And old dogs teaching new tricks and a delight of flowers
+And laughter finding a new way to wonder</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Next to
+
+Fear is a spiral
+And with each coil
+It pulls tighter</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Better to be lost in the crowd
+Then followed alone
+Or worse still
+Seen to be alone
+
+It whispers
+
+Hauntingly. Breathily. A wizard's oratory come to tell its tricks</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Do not enter
+It says
+Least you break the shackles
+Of good
+And right</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">A spy of red again
+And I wonder
+Am I finished
+Or will I see more than a splash
+
+A passing glance
+And I'm compelled to change
+Least my visage
+So beautifully done
+Freshly polished and precise
+Doth offend thee</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">A scream
+And I wonder
+Do I have a purpose here
+At all
+
+Maybe art is purpose enough
+On a sunny day
+In a city that induces pain
+To give you something
+To make art
+About.</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">A black car
+and I'm gone.</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>
