@@ -15,20 +15,139 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        .home-greeting {
+            font-size: 0.85rem;
+            color: #999;
+            margin: 2rem 0 0.5rem;
+            letter-spacing: 0.01em;
+        }
+        .home-bio {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.65;
+            max-width: 500px;
+            margin: 0 0 2.5rem;
+        }
+        .poem-feature {
+            margin: 2.5rem 0;
+            padding: 1.75rem 0;
+            border-top: 1px solid #e0ddd8;
+            border-bottom: 1px solid #e0ddd8;
+        }
+        .poem-feature-label {
+            font-size: 0.75rem;
+            color: #bbb;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin: 0 0 1rem;
+        }
+        .poem-feature-excerpt {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.35rem;
+            line-height: 1.65;
+            color: #333;
+            margin: 0 0 1.1rem;
+        }
+        .poem-feature-title {
+            font-size: 0.8rem;
+            color: #999;
+            text-decoration: none;
+        }
+        .poem-feature-title:hover {
+            color: #444;
+        }
+        .home-currents {
+            margin: 2.5rem 0;
+        }
+        .home-currents h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #bbb;
+            font-weight: 400;
+            margin: 0 0 1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .home-currents .home-item {
+            margin-bottom: 1rem;
+        }
+        .home-currents .home-item a {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.05rem;
+            color: #222;
+            text-decoration: none;
+        }
+        .home-currents .home-item a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .home-currents .home-item .item-meta {
+            display: block;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 0.1rem;
+        }
+        .site-triptych {
+            margin: 3rem 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            border-top: 1px solid #e0ddd8;
+            padding-top: 2rem;
+        }
+        .triptych-link {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .triptych-link:hover {
+            color: #222;
+        }
+        .triptych-link .arrow {
+            font-style: normal;
+            font-size: 0.85rem;
+            margin-left: 0.3rem;
+        }
+        /* Fade-in on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+    </style>
 </head>
 <body>
     <main>
-        <div class="intro">
-            <p id="greeting">Good evening.</p>
-            <p>I'm Kahran &mdash; storyteller and creative consultant, excited about finding and growing the beauty in the world. I specialize in bringing complex ideas to life.</p>
-        </div>
 
-        <a href="photography.html" class="home-photo" id="hero-photo">
-            <img src="photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma Norte, Mexico City">
-            <figcaption>Roma Norte, Mexico City &mdash; f/1.7, 1/125s, ISO 5000 &mdash; Leica Q2 Monochrome</figcaption>
+        <a href="photography.html" class="home-photo" id="hero-photo" style="margin-top: 2rem;">
+            <img src="photos/roma-sidewalk.jpg" alt="">
+            <figcaption></figcaption>
         </a>
 
-        <div class="home-section">
+        <p class="home-greeting" id="greeting">Good evening.</p>
+        <p class="home-bio">I'm Kahran. I find the beauty in things and try to give it language.</p>
+
+        <div class="poem-feature fade-in" id="poem-spotlight">
+            <p class="poem-feature-label">A poem</p>
+            <p class="poem-feature-excerpt"></p>
+            <a href="#" class="poem-feature-title"></a>
+        </div>
+
+        <a href="photography.html" class="home-photo fade-in" id="second-photo">
+            <img src="photos/lanterns.jpg" alt="">
+            <figcaption></figcaption>
+        </a>
+
+        <div class="home-currents fade-in">
             <h3>Currently</h3>
             <div class="home-item">
                 <a href="https://klydo.in">Klydo</a>
@@ -40,29 +159,10 @@
             </div>
         </div>
 
-        <div class="home-section" id="poem-spotlight">
-            <h3>A poem</h3>
-            <div class="home-item">
-                <a href="poems/the-mist.html">The Mist</a>
-            </div>
-            <div class="poem-spotlight-excerpt"></div>
-        </div>
-
-        <a href="photography.html" class="home-photo" id="second-photo">
-            <img src="photos/lanterns.jpg" alt="Lanterns and palm tree at night in Sayulita">
-            <figcaption>Sayulita, Nayarit &mdash; f/1.7, 1/125s, ISO 6400 &mdash; Leica Q2 Monochrome</figcaption>
-        </a>
-
-        <div class="home-section">
-            <h3>Recent talks</h3>
-            <div class="home-item">
-                <a href="speaking.html">Curating Your Story</a>
-                <span class="item-meta">StartOut, 2025</span>
-            </div>
-            <div class="home-item">
-                <a href="speaking.html">10 Tinkering Experiments To Do with AI</a>
-                <span class="item-meta">StartOut, 2025</span>
-            </div>
+        <div class="site-triptych fade-in">
+            <a href="poetry.html" class="triptych-link">66 poems, and counting <span class="arrow">→</span></a>
+            <a href="photography.html" class="triptych-link">Mexico, in black and white <span class="arrow">→</span></a>
+            <a href="wedding-celebration.html" class="triptych-link">A wedding in Jaisalmer <span class="arrow">→</span></a>
         </div>
 
     </main>
@@ -76,34 +176,33 @@
         <a href="archive.html">archive</a>
         <a href="about.html">about</a>
     </nav>
+
     <script>
-    // Rotate hero photo on each visit
     const photos = [
-        { src: 'photos/roma-sidewalk.jpg', alt: 'Night sidewalk in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City \u2014 f/1.7, 1/125s, ISO 5000 \u2014 Leica Q2 Monochrome' },
-        { src: 'photos/papel-picado.jpg', alt: 'Street with papel picado overhead in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.8, 1/125s, ISO 4000 \u2014 Leica Q2 Monochrome' },
-        { src: 'photos/night-street.jpg', alt: 'Night street with palm trees in Roma Norte', caption: 'Roma Norte, Mexico City \u2014 f/2.5, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' },
-        { src: 'photos/staircase.jpg', alt: 'Figure on a staircase in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' },
-        { src: 'photos/cdmx-plaza.jpg', alt: 'Plaza at night in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City \u2014 f/2.5, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' }
+        { src: 'photos/roma-sidewalk.jpg', alt: 'Night sidewalk in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/papel-picado.jpg', alt: 'Street with papel picado overhead in Sayulita', caption: 'Sayulita, Nayarit \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/night-street.jpg', alt: 'Night street with palm trees in Roma Norte', caption: 'Roma Norte, Mexico City \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/staircase.jpg', alt: 'Figure on a staircase in Sayulita', caption: 'Sayulita, Nayarit \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/cdmx-plaza.jpg', alt: 'Plaza at night in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City \u2014 Leica Q2 Monochrome' }
     ];
 
     const secondPhotos = [
-        { src: 'photos/lanterns.jpg', alt: 'Lanterns and palm tree at night in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 6400 \u2014 Leica Q2 Monochrome' },
-        { src: 'photos/taco-cart.jpg', alt: 'Taco cart at night in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.8, 1/125s, ISO 2500 \u2014 Leica Q2 Monochrome' },
-        { src: 'photos/night-market.jpg', alt: 'Night market vendors in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 1250 \u2014 Leica Q2 Monochrome' }
+        { src: 'photos/lanterns.jpg', alt: 'Lanterns and palm tree at night in Sayulita', caption: 'Sayulita, Nayarit \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/taco-cart.jpg', alt: 'Taco cart at night in Sayulita', caption: 'Sayulita, Nayarit \u2014 Leica Q2 Monochrome' },
+        { src: 'photos/night-market.jpg', alt: 'Night market vendors in Sayulita', caption: 'Sayulita, Nayarit \u2014 Leica Q2 Monochrome' }
     ];
 
-    // Poem spotlight — rotates on each visit
     const poems = [
         { href: 'poems/the-mist.html', title: 'The Mist', excerpt: 'In the morning you can listen to the mist. It dies as it burns, little by little, slow by slow.' },
-        { href: 'poems/i-was-feeling-sorry-for-a-moth.html', title: 'I was feeling sorry for a moth', excerpt: 'Whose to say we aren\u2019t the moth / Squirming next to certain doom' },
+        { href: 'poems/i-was-feeling-sorry-for-a-moth.html', title: 'I was feeling sorry for a moth', excerpt: 'Whose to say we aren\u2019t the moth\nSquirming next to certain doom' },
         { href: 'poems/do-you-miss-me.html', title: 'Do you miss me', excerpt: 'The world asked me if I wanted to call you today. Multiple times. I did not.' },
-        { href: 'poems/kashmir.html', title: 'Kashmir', excerpt: 'Till time razes these mountains to the ground / And man builds new idols.' },
-        { href: 'poems/song-of-tomorrow.html', title: 'Song of Tomorrow', excerpt: 'Today is enough / Today is all we can manage / Today is all we can need.' },
-        { href: 'poems/hark-my-love.html', title: 'Hark my love', excerpt: 'Dream, dream dream, little tree / Life and love be all you do' },
-        { href: 'poems/i-will-always-be-a-poet.html', title: 'I will always be a poet', excerpt: 'If you shave my chest to expose my heart / With my blood I will paint you with poetry' },
-        { href: 'poems/how-can-you-just-be-gone.html', title: 'How can you just be gone', excerpt: 'I will miss you my friend / And resent a bit this empty space' },
-        { href: 'poems/oh-that-again.html', title: 'Oh that again I might see such beauty in my life', excerpt: 'As a single flower / Opened and yet unmarked / Ungrieved by the world' },
-        { href: 'poems/when-i-dance-with-you.html', title: 'When I dance with you', excerpt: 'I don\u2019t know where my body ends / And yours begins' },
+        { href: 'poems/kashmir.html', title: 'Kashmir', excerpt: 'Till time razes these mountains to the ground\nAnd man builds new idols.' },
+        { href: 'poems/song-of-tomorrow.html', title: 'Song of Tomorrow', excerpt: 'Today is enough\nToday is all we can manage\nToday is all we can need.' },
+        { href: 'poems/hark-my-love.html', title: 'Hark my love', excerpt: 'Dream, dream dream, little tree\nLife and love be all you do' },
+        { href: 'poems/i-will-always-be-a-poet.html', title: 'I will always be a poet', excerpt: 'If you shave my chest to expose my heart\nWith my blood I will paint you with poetry' },
+        { href: 'poems/how-can-you-just-be-gone.html', title: 'How can you just be gone', excerpt: 'I will miss you my friend\nAnd resent a bit this empty space' },
+        { href: 'poems/oh-that-again.html', title: 'Oh that again I might see such beauty in my life', excerpt: 'As a single flower\nOpened and yet unmarked\nUngrieved by the world' },
+        { href: 'poems/when-i-dance-with-you.html', title: 'When I dance with you', excerpt: 'I don\u2019t know where my body ends\nAnd yours begins' },
         { href: 'poems/everywhere-i-turn.html', title: 'Everywhere I turn', excerpt: 'In the flutter of the leaves and the remembrance of your laugh' },
         { href: 'poems/one-beautiful-moment.html', title: 'One beautiful moment', excerpt: 'Where you don\u2019t have to decide anything, you don\u2019t have to do anything' },
         { href: 'poems/to-be-alone.html', title: 'To be alone', excerpt: 'To be alone with the mountains is a special gift that was designed on the 8th day' },
@@ -112,21 +211,22 @@
         { href: 'poems/the-light-sings.html', title: 'The light sings to me in the morning', excerpt: 'The light sings to me in the morning, coos, really, a feather\u2019s brush against my ears' },
         { href: 'poems/today-i-saw-a-man-on-a-leash.html', title: 'Today I saw a man on a leash', excerpt: 'It was hard to tell which person was being held and which person was being restrained' },
         { href: 'poems/glass-houses.html', title: 'Glass houses', excerpt: 'We take so much time to build our houses, a ledge here, a porch there' },
-        { href: 'poems/these-days-are-gone.html', title: 'These days are gone', excerpt: 'These days are gone, never can they return' }
+        { href: 'poems/these-days-are-gone.html', title: 'These days are gone', excerpt: 'These days are gone, never can they return' },
+        { href: 'poems/its-funny.html', title: "It\u2019s funny", excerpt: '21 is 21 is 21 is 21\nuntil one day you can\u2019t sleep' }
     ];
 
     function pick(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Set hero photo — random each visit
+    // Hero photo
     const hero = pick(photos);
     const heroEl = document.getElementById('hero-photo');
     heroEl.querySelector('img').src = hero.src;
     heroEl.querySelector('img').alt = hero.alt;
     heroEl.querySelector('figcaption').textContent = hero.caption;
 
-    // Set second photo — random, avoid same as hero
+    // Second photo — avoid same as hero
     const availableSecond = secondPhotos.filter(p => p.src !== hero.src);
     const second = pick(availableSecond.length ? availableSecond : secondPhotos);
     const secondEl = document.getElementById('second-photo');
@@ -134,18 +234,31 @@
     secondEl.querySelector('img').alt = second.alt;
     secondEl.querySelector('figcaption').textContent = second.caption;
 
-    // Set poem spotlight — random each visit
+    // Poem spotlight
     const poem = pick(poems);
     const spotlight = document.getElementById('poem-spotlight');
-    const poemLink = spotlight.querySelector('.home-item a');
-    poemLink.href = poem.href;
-    poemLink.textContent = poem.title;
-    spotlight.querySelector('.poem-spotlight-excerpt').textContent = poem.excerpt;
+    const excerptEl = spotlight.querySelector('.poem-feature-excerpt');
+    const titleEl = spotlight.querySelector('.poem-feature-title');
+    excerptEl.textContent = poem.excerpt;
+    titleEl.href = poem.href;
+    titleEl.textContent = poem.title + ' \u2192';
 
     // Time-aware greeting
     const hour = new Date().getHours();
     const greetingText = hour < 12 ? 'Good morning.' : hour < 18 ? 'Good afternoon.' : 'Good evening.';
     document.getElementById('greeting').textContent = greetingText;
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
