@@ -71,6 +71,12 @@ const poemData = {
     'sometimes-i-feel-cold': { themes: ['identity', 'mortality'], title: 'sometimes I feel cold' },
     'sometimes-quaver': { themes: ['nature', 'wonder'], title: "sometimes, the whole field a\u2019quaver" },
     'sometimes-curious-feel': { themes: ['wonder', 'love'], title: 'sometimes, a curious feel' },
+    'social-media-is-not-the-right-place-for-grief': { themes: ['identity', 'mortality'], title: 'Social media is not the right place for grief' },
+    'thrum-thrum': { themes: ['identity', 'wonder'], title: 'thrum thrum' },
+    'it-used-to-be-me': { themes: ['love', 'identity'], title: 'it used to be me' },
+    'have-you-watched-creepers-creep': { themes: ['nature', 'wonder'], title: 'Have you watched creepers creep' },
+    'let-tomorrow-come': { themes: ['mortality', 'wonder'], title: 'Let tomorrow come' },
+    'one-in-community': { themes: ['identity', 'wonder'], title: 'One in community community community' },
 };
 
 const themeLabels = {
