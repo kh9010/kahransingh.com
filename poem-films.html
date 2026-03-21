@@ -126,6 +126,45 @@
 
     </main>
 
+    <!-- Fullscreen overlay -->
+    <div id="film-overlay" style="display:none; position:fixed; inset:0; background:#000; z-index:1000; cursor:pointer; align-items:center; justify-content:center;">
+        <video id="overlay-video" style="max-width:100%; max-height:100vh; width:100%;" controls playsinline></video>
+        <button id="overlay-close" style="position:fixed; top:1.5rem; right:1.5rem; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer; z-index:1001; font-family:inherit; opacity:0.7;">✕</button>
+    </div>
+
+    <script>
+    const overlay = document.getElementById('film-overlay');
+    const overlayVideo = document.getElementById('overlay-video');
+    const closeBtn = document.getElementById('overlay-close');
+
+    // Make every ambient video clickable
+    document.querySelectorAll('.film-video-pair video').forEach(vid => {
+        vid.style.cursor = 'pointer';
+        vid.title = 'Click to watch with sound';
+        vid.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlayVideo.src = vid.src;
+            overlayVideo.currentTime = 0;
+            overlay.style.display = 'flex';
+            overlayVideo.play();
+        });
+    });
+
+    function closeOverlay() {
+        overlayVideo.pause();
+        overlayVideo.src = '';
+        overlay.style.display = 'none';
+    }
+
+    closeBtn.addEventListener('click', closeOverlay);
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeOverlay();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeOverlay();
+    });
+    </script>
+
     <nav>
         <a href="/" class="nav-name">kahran</a>
         <a href="/poetry.html">poetry</a>
