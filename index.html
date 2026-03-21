@@ -19,7 +19,8 @@
 <body>
     <main>
         <div class="intro">
-            <p>Hello, I'm Kahran &mdash; storyteller and creative consultant, excited about finding and growing the beauty in the world. I specialize in bringing complex ideas to life.</p>
+            <p id="greeting">Good evening.</p>
+            <p>I'm Kahran &mdash; storyteller and creative consultant, excited about finding and growing the beauty in the world. I specialize in bringing complex ideas to life.</p>
         </div>
 
         <a href="photography.html" class="home-photo" id="hero-photo">
@@ -31,11 +32,11 @@
             <h3>Currently</h3>
             <div class="home-item">
                 <a href="https://klydo.in">Klydo</a>
-                <span class="item-meta">&mdash; building a fashion platform in India</span>
+                <span class="item-meta">building a fashion platform in India</span>
             </div>
             <div class="home-item">
                 <a href="projects.html">Tres Monos Capital</a>
-                <span class="item-meta">&mdash; early-stage venture fund</span>
+                <span class="item-meta">early-stage venture fund</span>
             </div>
         </div>
 
@@ -56,11 +57,11 @@
             <h3>Recent talks</h3>
             <div class="home-item">
                 <a href="speaking.html">Curating Your Story</a>
-                <span class="item-meta">&mdash; StartOut, 2025</span>
+                <span class="item-meta">StartOut, 2025</span>
             </div>
             <div class="home-item">
                 <a href="speaking.html">10 Tinkering Experiments To Do with AI</a>
-                <span class="item-meta">&mdash; StartOut, 2025</span>
+                <span class="item-meta">StartOut, 2025</span>
             </div>
         </div>
 
@@ -143,9 +144,8 @@
 
     // Time-aware greeting
     const hour = new Date().getHours();
-    const greetings = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-    const introP = document.querySelector('.intro p');
-    introP.innerHTML = introP.innerHTML.replace('Hello,', greetings + ',');
+    const greetingText = hour < 12 ? 'Good morning.' : hour < 18 ? 'Good afternoon.' : 'Good evening.';
+    document.getElementById('greeting').textContent = greetingText;
     </script>
 </body>
 </html>

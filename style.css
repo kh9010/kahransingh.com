@@ -114,9 +114,10 @@ main {
 }
 
 .home-section .home-item .item-meta {
+    display: block;
     font-size: 0.8rem;
     color: #999;
-    margin-left: 0.25rem;
+    margin-top: 0.1rem;
 }
 
 /* Poem spotlight on homepage */
