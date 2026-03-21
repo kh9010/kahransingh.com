@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It's funny — Kahran Singh</title>
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">It&rsquo;s funny</div>
+            <div class="poem-meta"></div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">It&rsquo;s funny
+Being apart from you
+My husband
+
+Funnier still
+To call you that
+My husband</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">And wonder about when we got to be
+This age
+With wonder
+Still
+But regret
+too,
+Sometimes</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">So let&rsquo;s go
+My husband
+
+Let&rsquo;s go together
+Down the long roads
+the deaths to come
+And the joys
+too
+Sometimes</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">We started this journey
+Long days ago
+My husband
+
+In Sadashivnagar
+Under orange lights
+And warm nights</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">So, let&rsquo;s go to the mountains, my husband,
+And the sun
+
+And see what&rsquo;s there when we wake up
+If we wake up
+From this dream without beginning or end</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">When was it, my husband?
+Oh yes, the day I fell in love with you
+
+21 is 21 is 21 is 21 until one day you can&rsquo;t sleep
+And have to wonder, my husband
+Is this day like that day,
+All over again</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>

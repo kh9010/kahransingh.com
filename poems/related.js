@@ -65,6 +65,7 @@ const poemData = {
     'today-if-there-is-tomorrow': { themes: ['mortality', 'wonder'], title: 'Today if there is tomorrow' },
     'and-now-that-we-walk': { themes: ['identity'], title: 'And now that we walk in these days of light' },
     'everyday-i-can-spend': { themes: ['love', 'mortality'], title: 'Everyday I can spend' },
+    'its-funny': { themes: ['love', 'identity'], title: "It's funny" },
 };
 
 const themeLabels = {
@@ -121,7 +122,7 @@ const themeLabels = {
 
     // Cross-content links
     var crossLinks = '';
-    if (slug === 'wedding-poem' || slug === 'a-wedding-toast') {
+    if (slug === 'wedding-poem' || slug === 'its-funny') {
         crossLinks += '<a href="/wedding-celebration.html">From the wedding \u2192</a>';
     }
     if (current.themes.indexOf('place') !== -1) {
