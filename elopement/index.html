@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Telluride, December 2021 — Kahran &amp; Gourav</title>
+    <meta name="description" content="Kahran and Gourav eloped in Telluride, Colorado in December 2021 — a year before their wedding celebration in Jaisalmer.">
+    <meta property="og:title" content="Telluride, December 2021 — Kahran &amp; Gourav">
+    <meta property="og:description" content="An elopement in the Colorado mountains. A year before Jaisalmer.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kahransingh.com/elopement/">
+    <meta property="og:image" content="https://kahransingh.com/elopement/photos/e21.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Telluride, December 2021 — Kahran &amp; Gourav">
+    <meta name="twitter:description" content="An elopement in the Colorado mountains. A year before Jaisalmer.">
+    <meta name="twitter:image" content="https://kahransingh.com/elopement/photos/e21.jpg">
+    <link rel="canonical" href="https://kahransingh.com/elopement/">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            aspect-ratio: 3/2;
+            background: #111;
+            margin: 2rem 0 2.5rem;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .slideshow img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+        .slideshow img.active { opacity: 1; }
+        .slideshow-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: rgba(255,255,255,0.55);
+            width: 0%;
+            transition: width linear;
+            z-index: 2;
+        }
+        .slideshow-nav {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            z-index: 3;
+        }
+        .slideshow-prev, .slideshow-next {
+            flex: 1;
+            cursor: pointer;
+        }
+        .elopement-intro {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.35rem;
+            line-height: 1.7;
+            color: #444;
+            max-width: 540px;
+            margin: 0 0 2.5rem;
+        }
+        .elopement-body {
+            max-width: 540px;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: #555;
+            margin: 0 0 3rem;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin: 2rem 0 3rem;
+            max-width: 720px;
+        }
+        .photo-grid img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .photo-grid img:hover { opacity: 0.82; }
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+        .elopement-bridge {
+            padding: 1rem 0 3rem;
+            font-size: 0.9rem;
+        }
+        .elopement-bridge a {
+            color: #888;
+            text-decoration: none;
+        }
+        .elopement-bridge a:hover { color: #444; }
+        @media (max-width: 700px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="page-header">
+            <a href="/archive.html" class="back-link">&larr; archive</a>
+            <h1>Telluride, December 2021</h1>
+        </div>
+
+        <p class="elopement-intro">A year before Jaisalmer, we eloped in the mountains.</p>
+
+        <div class="slideshow" id="slideshow">
+            <img src="photos/photo-0001.jpg" alt="Telluride, December 2021" class="active">
+            <img src="photos/photo-0002.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0003.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0004.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0005.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0006.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0007.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0008.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0009.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0010.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0011.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0012.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0013.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0014.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0015.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0016.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0017.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0018.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0019.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0020.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0021.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0022.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0023.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0024.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0025.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0026.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0027.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0028.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0029.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0030.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0031.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0032.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0033.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0034.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0035.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0036.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0037.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0038.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0039.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0040.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0041.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0042.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0043.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0044.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0045.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0046.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0047.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0048.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0049.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0050.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0051.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0052.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0053.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0054.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0055.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0056.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0057.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0058.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0059.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0060.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0061.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0062.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0063.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0064.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0065.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0066.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0067.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0068.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0069.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0070.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0071.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0072.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0073.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0074.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0075.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0076.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0077.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0078.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0079.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0080.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0081.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0082.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0083.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0084.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0085.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0086.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0087.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0088.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0089.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0090.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0091.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0092.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0093.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0094.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0095.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0096.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0097.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0098.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0099.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0100.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0101.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0102.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0103.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0104.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0105.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0106.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0107.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0108.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0109.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0110.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0111.jpg" alt="Telluride, December 2021">
+
+            <div class="slideshow-progress" id="progress"></div>
+            <div class="slideshow-nav">
+                <div class="slideshow-prev" id="prev"></div>
+                <div class="slideshow-next" id="next"></div>
+            </div>
+        </div>
+
+        <div class="elopement-body">
+            <p>In December 2021, Kahran and Gourav eloped in Telluride, Colorado &mdash; just the two of them, in the snow, in Indian dress. A year later, they celebrated with family and friends in Jaisalmer.</p>
+            <p>Two ceremonies. One in the mountains, quiet and cold and entirely theirs. One in the desert, loud and warm and entirely everyone&rsquo;s.</p>
+        </div>
+
+        <div class="photo-grid" id="photo-grid">
+            <img src="photos/photo-0001.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0002.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0003.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0004.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0005.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0006.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0007.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0008.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0009.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0010.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0011.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0012.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0013.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0014.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0015.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0016.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0017.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0018.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0019.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0020.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0021.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0022.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0023.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0024.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0025.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0026.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0027.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0028.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0029.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0030.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0031.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0032.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0033.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0034.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0035.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0036.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0037.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0038.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0039.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0040.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0041.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0042.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0043.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0044.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0045.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0046.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0047.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0048.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0049.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0050.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0051.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0052.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0053.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0054.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0055.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0056.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0057.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0058.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0059.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0060.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0061.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0062.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0063.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0064.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0065.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0066.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0067.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0068.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0069.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0070.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0071.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0072.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0073.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0074.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0075.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0076.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0077.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0078.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0079.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0080.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0081.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0082.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0083.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0084.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0085.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0086.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0087.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0088.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0089.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0090.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0091.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0092.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0093.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0094.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0095.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0096.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0097.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0098.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0099.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0100.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0101.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0102.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0103.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0104.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0105.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0106.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0107.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0108.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0109.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0110.jpg" alt="Telluride, December 2021">
+            <img src="photos/photo-0111.jpg" alt="Telluride, December 2021">
+        </div>
+
+        <div class="elopement-bridge">
+            <a href="/wedding-celebration.html">The Jaisalmer celebration, December 2022 &rarr;</a>
+        </div>
+
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <nav>
+        <a href="/" class="nav-name">kahran</a>
+        <a href="/poetry.html">poetry</a>
+        <a href="/photography.html">photography</a>
+        <a href="/projects.html">projects</a>
+        <a href="/speaking.html">speaking</a>
+        <a href="/archive.html" class="active">archive</a>
+        <a href="/about.html">about</a>
+    </nav>
+
+    <script>
+    const slides = document.querySelectorAll('#slideshow img');
+    const progress = document.getElementById('progress');
+    const DURATION = 4000;
+    let current = 0;
+    let timer;
+
+    function goTo(n) {
+        slides[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        startProgress();
+    }
+
+    function startProgress() {
+        clearTimeout(timer);
+        progress.style.transition = 'none';
+        progress.style.width = '0%';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            progress.style.transition = `width ${DURATION}ms linear`;
+            progress.style.width = '100%';
+        }));
+        timer = setTimeout(() => goTo(current + 1), DURATION);
+    }
+
+    document.getElementById('next').addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+    document.getElementById('prev').addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+    startProgress();
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('#photo-grid img').forEach(img => {
+        img.addEventListener('click', () => {
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
+            lightbox.classList.add('open');
+        });
+    });
+    lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+    </script>
+</body>
+</html>

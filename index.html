@@ -228,19 +228,12 @@
         { href: 'poems/its-funny.html', title: "It\u2019s funny", excerpt: '21 is 21 is 21 is 21\nuntil one day you can\u2019t sleep' }
     ];
 
-    // Seed by day so selections stay stable within a day
-    var today = new Date();
-    var daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-    function seededRand(seed) {
-        var x = Math.sin(seed) * 10000;
-        return x - Math.floor(x);
-    }
-    function pick(arr, offset) {
-        return arr[Math.floor(seededRand(daySeed + (offset || 0)) * arr.length)];
+    function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
     // Hero photo
-    const hero = pick(photos, 1);
+    const hero = pick(photos);
     const heroEl = document.getElementById('hero-photo');
     heroEl.querySelector('img').src = hero.src;
     heroEl.querySelector('img').alt = hero.alt;
@@ -248,14 +241,14 @@
 
     // Second photo — avoid same as hero
     const availableSecond = secondPhotos.filter(p => p.src !== hero.src);
-    const second = pick(availableSecond.length ? availableSecond : secondPhotos, 2);
+    const second = pick(availableSecond.length ? availableSecond : secondPhotos);
     const secondEl = document.getElementById('second-photo');
     secondEl.querySelector('img').src = second.src;
     secondEl.querySelector('img').alt = second.alt;
     secondEl.querySelector('figcaption').textContent = second.caption;
 
     // Poem spotlight
-    const poem = pick(poems, 3);
+    const poem = pick(poems);
     const spotlight = document.getElementById('poem-spotlight');
     const excerptEl = spotlight.querySelector('.poem-feature-excerpt');
     const titleEl = spotlight.querySelector('.poem-feature-title');

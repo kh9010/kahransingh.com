@@ -197,40 +197,35 @@
         { src: 'photos/night-market.jpg', alt: 'Night market vendors in Sayulita', caption: 'Sayulita, Nayarit \u2014 f/1.7, 1/125s, ISO 1250 \u2014 Leica Q2 Monochrome' }
     ];
 
-    // Seed by day so selections stay stable within a day
-    var today = new Date();
-    var daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-    function seededRand(seed) { var x = Math.sin(seed) * 10000; return x - Math.floor(x); }
-
-    function pick(arr, offset) {
-        return arr[Math.floor(seededRand(daySeed + (offset || 0)) * arr.length)];
+    function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
     function shuffle(arr) {
         var a = arr.slice();
         for (var i = a.length - 1; i > 0; i--) {
-            var j = Math.floor(seededRand(daySeed + i) * (i + 1));
+            var j = Math.floor(Math.random() * (i + 1));
             var t = a[i]; a[i] = a[j]; a[j] = t;
         }
         return a;
     }
 
     // Hero excerpt rotation
-    var hero = pick(heroPoems, 1);
+    var hero = pick(heroPoems);
     document.getElementById('hero-excerpt').textContent = hero.excerpt;
     var heroLink = document.getElementById('hero-link');
     heroLink.href = hero.href;
     heroLink.textContent = 'Read \u201c' + hero.title + '\u201d \u2192';
 
     // Photo rotation
-    var photo1 = pick(photos, 2);
+    var photo1 = pick(photos);
     var photoEl = document.getElementById('poetry-photo');
     photoEl.querySelector('img').src = photo1.src;
     photoEl.querySelector('img').alt = photo1.alt;
     photoEl.querySelector('figcaption').textContent = photo1.caption;
 
     var available2 = secondPhotos.filter(function(p) { return p.src !== photo1.src; });
-    var photo2 = pick(available2.length ? available2 : secondPhotos, 3);
+    var photo2 = pick(available2.length ? available2 : secondPhotos);
     var photoEl2 = document.getElementById('poetry-photo-2');
     photoEl2.querySelector('img').src = photo2.src;
     photoEl2.querySelector('img').alt = photo2.alt;
