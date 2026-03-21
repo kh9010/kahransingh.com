@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Films — Kahran Singh</title>
+    <meta name="description" content="Poems set to AI-generated video. Each poem, two different visions. With Divya Tak.">
+    <meta property="og:title" content="Poem Films — Kahran Singh">
+    <meta property="og:description" content="Poems set to AI-generated video. Each poem, two different visions.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kahransingh.com/poem-films.html">
+    <link rel="canonical" href="https://kahransingh.com/poem-films.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        .film-intro {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #555;
+            max-width: 520px;
+            margin: 2rem 0 2.5rem;
+        }
+        .film-entry {
+            margin-bottom: 3.5rem;
+        }
+        .film-entry h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin: 0 0 0.25rem;
+        }
+        .film-entry h2 a {
+            color: #222;
+            text-decoration: none;
+        }
+        .film-entry h2 a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .film-entry .film-meta {
+            font-size: 0.78rem;
+            color: #aaa;
+            margin: 0 0 1rem;
+        }
+        .film-video-pair {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .film-video-pair video {
+            width: calc(50% - 0.375rem);
+            max-height: 55vh;
+            object-fit: cover;
+            border-radius: 2px;
+            background: #111;
+        }
+        .film-credit {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0ddd8;
+            font-size: 0.8rem;
+            color: #999;
+            line-height: 1.6;
+        }
+        @media (max-width: 600px) {
+            .film-video-pair {
+                flex-direction: column;
+            }
+            .film-video-pair video {
+                width: 100%;
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="page-header">
+            <h1>poem films</h1>
+        </div>
+
+        <p class="film-intro">What happens to a poem when you give it a body? Each of these poems was set to two entirely different visual worlds — same words, different feeling.</p>
+
+        <div class="film-entry">
+            <h2><a href="/poems/when-i-dance-with-you.html">When I Dance with You</a></h2>
+            <p class="film-meta">a sunset room &middot; a city at night</p>
+            <div class="film-video-pair">
+                <video src="video-poems/when-i-dance-with-you-1.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/when-i-dance-with-you-2.mp4" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+
+        <div class="film-entry">
+            <h2><a href="/poems/everytime-you-wink-at-me.html">Every Time You Wink at Me</a></h2>
+            <p class="film-meta">an abstract swirl &middot; a luminous figure</p>
+            <div class="film-video-pair">
+                <video src="video-poems/everytime-you-wink-at-me-1.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/everytime-you-wink-at-me-2.mp4" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+
+        <div class="film-entry">
+            <h2><a href="/poems/in-my-heart-something-called-to-the-rain.html">In My Heart Something Called to the Rain</a></h2>
+            <p class="film-meta">rain on still water &middot; a rainy street</p>
+            <div class="film-video-pair">
+                <video src="video-poems/in-my-heart-something-called-to-the-rain-1.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/in-my-heart-something-called-to-the-rain-2.mp4" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+
+        <div class="film-entry">
+            <h2><a href="/poems/i-saw-something-beautiful-today.html">I Saw Something Beautiful Today</a></h2>
+            <p class="film-meta">a golden field &middot; a figure in the dark</p>
+            <div class="film-video-pair">
+                <video src="video-poems/i-saw-something-beautiful-today-1.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/i-saw-something-beautiful-today-2.mp4" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+
+        <div class="film-credit">
+            Made with <a href="https://joyus.studio">Divya Tak</a>. Kahran wrote the poems and generated image prompts with MidJourney; Divya built the video generation pipeline using Stable Diffusion and ComfyUI. An experiment in how different visuals change the feeling of the same words.
+        </div>
+
+    </main>
+
+    <nav>
+        <a href="/" class="nav-name">kahran</a>
+        <a href="/poetry.html">poetry</a>
+        <a href="/photography.html">photography</a>
+        <a href="/projects.html">projects</a>
+        <a href="/speaking.html">speaking</a>
+        <a href="/archive.html">archive</a>
+        <a href="/about.html">about</a>
+    </nav>
+</body>
+</html>
