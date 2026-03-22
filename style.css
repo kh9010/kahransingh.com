@@ -580,6 +580,8 @@ hr {
     opacity: 0;
     transform: translateY(20px);
     animation: poetryFadeIn 0.8s ease forwards;
+    text-decoration: none;
+    display: block;
 }
 
 .poetry-hero-excerpt {
@@ -590,17 +592,16 @@ hr {
     color: #1a1a1a;
 }
 
-.poetry-hero-link {
+.poetry-hero-link-text {
     display: inline-block;
     margin-top: 1.5rem;
     font-family: 'DM Sans', sans-serif;
     font-size: 0.85rem;
     color: #999;
-    text-decoration: none;
     transition: color 0.2s;
 }
 
-.poetry-hero-link:hover {
+.poetry-hero-text:hover .poetry-hero-link-text {
     color: #1a1a1a;
 }
 
@@ -618,18 +619,19 @@ hr {
     transform: translateY(0);
 }
 
+.moment-link {
+    display: block;
+    text-decoration: none;
+}
+
 .moment-title {
     font-family: 'Playfair Display', Georgia, serif;
     font-size: 1.4rem;
     font-weight: 400;
-}
-
-.moment-title a {
     color: #1a1a1a;
-    text-decoration: none;
 }
 
-.moment-title a:hover {
+.moment-link:hover .moment-title {
     text-decoration: underline;
     text-underline-offset: 3px;
 }

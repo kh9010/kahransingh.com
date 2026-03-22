@@ -25,11 +25,11 @@
     <main>
 
         <div class="poetry-hero">
-            <div class="poetry-hero-text">
+            <a href="#" class="poetry-hero-text" id="hero-link">
                 <div class="poetry-hero-label">poetry</div>
                 <div class="poetry-hero-excerpt" id="hero-excerpt"></div>
-                <a href="#" class="poetry-hero-link" id="hero-link">Read this poem &rarr;</a>
-            </div>
+                <span class="poetry-hero-link-text" id="hero-link-text">Read this poem &rarr;</span>
+            </a>
         </div>
 
         <a href="photography.html" class="home-photo" id="poetry-photo">
@@ -40,18 +40,24 @@
         <h3 class="section-label">Three poems for today</h3>
 
         <div class="poetry-moment" id="moment-0">
-            <div class="moment-title"><a href="#"></a></div>
-            <div class="moment-excerpt"></div>
+            <a href="#" class="moment-link">
+                <div class="moment-title"></div>
+                <div class="moment-excerpt"></div>
+            </a>
             <div class="poem-themes"></div>
         </div>
         <div class="poetry-moment" id="moment-1">
-            <div class="moment-title"><a href="#"></a></div>
-            <div class="moment-excerpt"></div>
+            <a href="#" class="moment-link">
+                <div class="moment-title"></div>
+                <div class="moment-excerpt"></div>
+            </a>
             <div class="poem-themes"></div>
         </div>
         <div class="poetry-moment" id="moment-2">
-            <div class="moment-title"><a href="#"></a></div>
-            <div class="moment-excerpt"></div>
+            <a href="#" class="moment-link">
+                <div class="moment-title"></div>
+                <div class="moment-excerpt"></div>
+            </a>
             <div class="poem-themes"></div>
         </div>
 
@@ -215,7 +221,7 @@
     document.getElementById('hero-excerpt').textContent = hero.excerpt;
     var heroLink = document.getElementById('hero-link');
     heroLink.href = hero.href;
-    heroLink.textContent = 'Read \u201c' + hero.title + '\u201d \u2192';
+    document.getElementById('hero-link-text').textContent = 'Read \u201c' + hero.title + '\u201d \u2192';
 
     // Photo rotation
     var photo1 = pick(photos);
@@ -253,8 +259,8 @@
     for (var i = 0; i < 3; i++) {
         var el = document.getElementById('moment-' + i);
         var s = selected[i];
-        el.querySelector('.moment-title a').href = s.href;
-        el.querySelector('.moment-title a').textContent = s.title;
+        el.querySelector('.moment-link').href = s.href;
+        el.querySelector('.moment-title').textContent = s.title;
         el.querySelector('.moment-excerpt').textContent = s.excerpt;
         var pillsHtml = '';
         s.themes.forEach(function(t) {
