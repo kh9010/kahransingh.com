@@ -77,6 +77,13 @@ const poemData = {
     'have-you-watched-creepers-creep': { themes: ['nature', 'wonder'], title: 'Have you watched creepers creep' },
     'let-tomorrow-come': { themes: ['mortality', 'wonder'], title: 'Let tomorrow come' },
     'one-in-community': { themes: ['identity', 'wonder'], title: 'One in community community community' },
+    'not-in-my-life': { themes: ['identity', 'love'], title: 'Not in my life' },
+    'anuraag-oh-anuraag': { themes: ['love', 'nature'], title: 'Anuraag oh Anuraag' },
+    'sit-let-us-listen': { themes: ['wonder', 'nature'], title: 'Sit let us listen to the sound of this moment' },
+    'oh-the-horror-i-say': { themes: ['wonder', 'identity'], title: 'Oh the horror I say' },
+    'out-to-play-he-calls-them': { themes: ['nature', 'wonder'], title: 'Out to play He calls them' },
+    'late-why-so-late': { themes: ['love', 'identity'], title: 'Late why so late' },
+    'his-hair-was-curly': { themes: ['love', 'identity'], title: 'His hair was curly' },
 };
 
 const themeLabels = {

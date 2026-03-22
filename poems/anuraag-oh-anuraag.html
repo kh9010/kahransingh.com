@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Anuraag oh Anuraag &mdash; Kahran Singh</title>
+    <meta property="og:title" content="Anuraag oh Anuraag — Kahran Singh">
+    <meta property="og:description" content="As much as the one secures the river which continues to run">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kahransingh.com/poems/anuraag-oh-anuraag.html">
+    <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Anuraag oh Anuraag — Kahran Singh">
+    <meta name="twitter:description" content="As much as the one secures the river which continues to run">
+    <meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <link rel="canonical" href="https://kahransingh.com/poems/anuraag-oh-anuraag.html">
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">Anuraag oh Anuraag</div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Anuraag oh Anuraag
+Tell me where will you go?
+You are caught and snared
+Thrashing about
+Will only cause your predicament to grow</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Anuraag oh Anuraag
+Oh now, what shall be done?
+The chase is caught,
+Secured you are mine,
+As much as the one secures
+The river which continues
+to run</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Anuraag, oh Anuraag.
+Snared, you are to me. And so we shall sit,
+And wait in discontent
+To see what will be
+Will be</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>

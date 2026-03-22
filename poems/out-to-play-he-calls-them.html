@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Out to play He calls them &mdash; Kahran Singh</title>
+    <meta property="og:title" content="Out to play He calls them — Kahran Singh">
+    <meta property="og:description" content="Swim to me, swim to me, swim to me">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kahransingh.com/poems/out-to-play-he-calls-them.html">
+    <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Out to play He calls them — Kahran Singh">
+    <meta name="twitter:description" content="Swim to me, swim to me, swim to me">
+    <meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <link rel="canonical" href="https://kahransingh.com/poems/out-to-play-he-calls-them.html">
+    <link rel="stylesheet" href="poem.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="poem-scroll">
+        <div class="stanza title-slide">
+            <div class="stanza-text">Out to play He calls them</div>
+            <div class="scroll-hint">
+                <span>scroll</span>
+                <div class="chevron"></div>
+            </div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Out to play He calls them
+One, two, they come in a line
+Chasing, what else?</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Fish, fish come to me today
+To your brothers we&#x2019;ve paid dues
+To your sisters we&#x2019;ve given meals</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">Swim to me, swim to me, swim to me</div>
+        </div>
+
+        <div class="stanza">
+            <div class="stanza-text">One, two, they come in a line
+One, two, they fly West.</div>
+        </div>
+
+        <div class="stanza end-slide">
+            <div class="stanza-text"><a href="/poetry.html">&larr; poems</a></div>
+        </div>
+    </div>
+
+    <script>
+    const stanzas = document.querySelectorAll('.stanza-text');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'none';
+                entry.target.offsetHeight;
+                entry.target.style.animation = 'fadeIn 0.8s ease forwards';
+            }
+        });
+    }, { threshold: 0.5 });
+    stanzas.forEach(s => observer.observe(s));
+    </script>
+    <script src="related.js"></script>
+</body>
+</html>
