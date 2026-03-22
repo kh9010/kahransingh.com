@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>CV — Kahran Singh</title>
+    <meta name="description" content="Curriculum vitae of Kahran Singh — storyteller, poet, and creative consultant.">
+    <link rel="canonical" href="https://kahransingh.com/cv.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: #fafaf8;
+            color: #1a1a1a;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        .cv-wrap {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 5rem 2.5rem 6rem;
+        }
+
+        /* Header */
+        .cv-header {
+            margin-bottom: 3.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e0ddd8;
+        }
+
+        .cv-header h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 600;
+            font-size: 2.4rem;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.4rem;
+        }
+
+        .cv-tagline {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 1.25rem;
+        }
+
+        .cv-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.25rem 1.5rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .cv-contact a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .cv-contact a:hover {
+            color: #1a1a1a;
+        }
+
+        /* Sections */
+        .cv-section {
+            margin-bottom: 2.75rem;
+        }
+
+        .cv-section-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Entries */
+        .cv-entry {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0 2rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .cv-entry-body {}
+
+        .cv-entry-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.15rem;
+        }
+
+        .cv-entry-title a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .cv-entry-title a:hover {
+            color: #888;
+        }
+
+        .cv-entry-role {
+            font-size: 0.82rem;
+            color: #666;
+            margin-bottom: 0.35rem;
+        }
+
+        .cv-entry-desc {
+            font-size: 0.88rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .cv-entry-year {
+            font-size: 0.8rem;
+            color: #bbb;
+            white-space: nowrap;
+            padding-top: 0.1rem;
+            text-align: right;
+        }
+
+        /* Single-column entries (education, etc.) */
+        .cv-entry.full {
+            display: block;
+        }
+
+        .cv-entry.full .cv-entry-year {
+            display: inline;
+            text-align: left;
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Divider between sub-sections */
+        .cv-subsection-label {
+            font-size: 0.75rem;
+            color: #bbb;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin: 1.75rem 0 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Back link */
+        .cv-back {
+            margin-bottom: 2.5rem;
+        }
+
+        .cv-back a {
+            font-size: 0.82rem;
+            color: #bbb;
+            text-decoration: none;
+        }
+
+        .cv-back a:hover {
+            color: #1a1a1a;
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: #fff; font-size: 13px; }
+            .cv-wrap { padding: 2rem 1.5rem; max-width: 100%; }
+            .cv-back { display: none; }
+            a { color: inherit !important; }
+        }
+
+        @media (max-width: 600px) {
+            .cv-wrap { padding: 3rem 1.5rem 4rem; }
+            .cv-header h1 { font-size: 1.9rem; }
+            .cv-entry { grid-template-columns: 1fr; }
+            .cv-entry-year { text-align: left; margin-top: 0.1rem; color: #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-wrap">
+
+        <div class="cv-back">
+            <a href="/about.html">&larr; About</a>
+        </div>
+
+        <div class="cv-header">
+            <h1>Kahran Singh</h1>
+            <p class="cv-tagline">Storyteller. Poet. Creative Consultant.</p>
+            <div class="cv-contact">
+                <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+                <a href="https://kahransingh.com" target="_blank">kahransingh.com</a>
+                <a href="https://instagram.com/kahran" target="_blank">Instagram</a>
+                <span>Bangalore &amp; New York</span>
+            </div>
+        </div>
+
+        <!-- Current Work -->
+        <div class="cv-section">
+            <p class="cv-section-label">Current Work</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://joyus.studio" target="_blank">Joyus Studio</a></p>
+                    <p class="cv-entry-role">Co-founder &mdash; with Divya Tak</p>
+                    <p class="cv-entry-desc">A storytelling and experience design consultancy. Narrative strategy, behavior design, creative consulting, and an "AI Explained" video series for founders and leaders.</p>
+                </div>
+                <p class="cv-entry-year">2022&ndash;present</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://tresmonos.capital" target="_blank">Tres Monos Capital</a></p>
+                    <p class="cv-entry-role">General Partner &mdash; with Sweta Jagirdar and Sahil Sagar</p>
+                    <p class="cv-entry-desc">Early-stage venture fund focused on underrepresented entrepreneurs. Portfolio includes Swae, Kosha, and Doyobi.</p>
+                </div>
+                <p class="cv-entry-year">2017&ndash;present</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://klydo.in" target="_blank">Klydo</a></p>
+                    <p class="cv-entry-role">Founder</p>
+                    <p class="cv-entry-desc">Fashion platform built for India.</p>
+                </div>
+                <p class="cv-entry-year">2025&ndash;present</p>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="cv-section">
+            <p class="cv-section-label">Selected Experience</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://yourstory.com/2016/04/vidyanext" target="_blank">Vidyanext</a></p>
+                    <p class="cv-entry-role">Chief Executive Officer</p>
+                    <p class="cv-entry-desc">Led Indian edtech company Vidyanext.</p>
+                </div>
+                <p class="cv-entry-year">2018&ndash;2019</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title">Independent Consultant</p>
+                    <p class="cv-entry-role">Product &amp; Marketing Strategy</p>
+                    <p class="cv-entry-desc">Worked with Microsoft, McGraw-Hill, and TUI Travel across the US, UK, and India. Began career in technical program management before moving into product and marketing.</p>
+                </div>
+                <p class="cv-entry-year">2010s</p>
+            </div>
+        </div>
+
+        <!-- Writing & Art -->
+        <div class="cv-section">
+            <p class="cv-section-label">Writing &amp; Art</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.amazon.com.br/How-World-Works-Kahran-Singh/dp/9395621354" target="_blank">How the World Works</a></p>
+                    <p class="cv-entry-role">Poetry collection</p>
+                </div>
+                <p class="cv-entry-year">2022</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="/poetry.html">Poems</a></p>
+                    <p class="cv-entry-role">kahransingh.com &mdash; 65+ poems published</p>
+                </div>
+                <p class="cv-entry-year">ongoing</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="/poem-films.html">Poem Films</a></p>
+                    <p class="cv-entry-role">Video installation &mdash; with Divya Tak</p>
+                    <p class="cv-entry-desc">An experiment in how different visuals transform the feeling of a poem. Made using MidJourney and Stable Diffusion. Selected for <em>SEEN V</em>, a curated exhibition by Creativity Alive Boulder. Exhibited at Boulder Public Library.</p>
+                </div>
+                <p class="cv-entry-year">2024</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title">The Line Before</p>
+                    <p class="cv-entry-role">Interactive installation &mdash; with Divya Tak</p>
+                    <p class="cv-entry-desc">A touchscreen installation where visitors assemble a poem by choosing between emotional poles, drawing from 230 fragments. Each choice shapes a generative flower; every flower joins a living garden of all visitors&rsquo; poems. Submitted to Science Gallery Bengaluru&rsquo;s INTELLIGENCE open call.</p>
+                </div>
+                <p class="cv-entry-year">in development</p>
+            </div>
+        </div>
+
+        <!-- Speaking -->
+        <div class="cv-section">
+            <p class="cv-section-label">Speaking</p>
+
+            <p class="cv-subsection-label">Panels</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title">Narrative Threads: Weaving Voice, Vision, and Value</p>
+                    <p class="cv-entry-role">Common Ground Summit &rsquo;25 &mdash; Kauai</p>
+                    <p class="cv-entry-desc">With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan (Columbia University).</p>
+                </div>
+                <p class="cv-entry-year">Dec 2025</p>
+            </div>
+
+            <p class="cv-subsection-label">Talks &mdash; Fundraising (StartOut)</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank">Psychological Challenges &amp; How to Brace for Them</a></p>
+                    <p class="cv-entry-role">with Divya Tak</p>
+                </div>
+                <p class="cv-entry-year">Sep 2025</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank">Curating Your Story</a></p>
+                    <p class="cv-entry-role">with Divya Tak</p>
+                </div>
+                <p class="cv-entry-year">Aug 2025</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank">Understanding the Money You Can Raise</a></p>
+                    <p class="cv-entry-role">with Divya Tak</p>
+                </div>
+                <p class="cv-entry-year">Jul 2025</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank">Know Your Investors Before the First Meeting</a></p>
+                    <p class="cv-entry-role">with Divya Tak</p>
+                </div>
+                <p class="cv-entry-year">Jun 2025</p>
+            </div>
+
+            <p class="cv-subsection-label">Talks &mdash; Generative AI (StartOut)</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank">10 Tinkering Experiments To Do with AI</a></p>
+                </div>
+                <p class="cv-entry-year">Mar 2025</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank">Advanced Prompting: Controlling Style, Tone and Context</a></p>
+                </div>
+                <p class="cv-entry-year">Feb 2025</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank">Prompting: How to Talk to Our AI Friends</a></p>
+                </div>
+                <p class="cv-entry-year">Jan 2025</p>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="cv-section">
+            <p class="cv-section-label">Education</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title">Jack Kerouac School of Disembodied Poetics, Naropa University</p>
+                    <p class="cv-entry-role">MFA candidate, Writing and Poetics</p>
+                </div>
+                <p class="cv-entry-year">current</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title">French Culinary Institute, New York</p>
+                    <p class="cv-entry-role">Culinary Arts</p>
+                </div>
+                <p class="cv-entry-year">&nbsp;</p>
+            </div>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title">Tufts University</p>
+                    <p class="cv-entry-role">Computer Science</p>
+                </div>
+                <p class="cv-entry-year">&nbsp;</p>
+            </div>
+        </div>
+
+        <!-- Podcast -->
+        <div class="cv-section">
+            <p class="cv-section-label">Podcast</p>
+
+            <div class="cv-entry">
+                <div class="cv-entry-body">
+                    <p class="cv-entry-title"><a href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank">Thinking on Thinking</a></p>
+                    <p class="cv-entry-role">Co-host &mdash; with Divya Tak</p>
+                    <p class="cv-entry-desc">On behavior, entrepreneurship, and the real questions we avoid asking. Available on Spotify, Apple Podcasts, and iHeart.</p>
+                </div>
+                <p class="cv-entry-year">ongoing</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
