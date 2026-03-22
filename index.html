@@ -35,10 +35,13 @@
             margin: 0 0 2.5rem;
         }
         .poem-feature {
+            display: block;
             margin: 2.5rem 0;
             padding: 1.75rem 0;
             border-top: 1px solid #e0ddd8;
             border-bottom: 1px solid #e0ddd8;
+            text-decoration: none;
+            cursor: pointer;
         }
         .poem-feature-label {
             font-size: 0.75rem;
@@ -146,11 +149,11 @@
         <p class="home-greeting" id="greeting">Good evening.</p>
         <p class="home-bio">I'm Kahran. Come look with me — at what I've made, am making, and dreaming about.</p>
 
-        <div class="poem-feature fade-in" id="poem-spotlight">
+        <a href="#" class="poem-feature fade-in" id="poem-spotlight">
             <p class="poem-feature-label">A poem</p>
             <p class="poem-feature-excerpt"></p>
-            <a href="#" class="poem-feature-title"></a>
-        </div>
+            <span class="poem-feature-title"></span>
+        </a>
 
         <a href="photography.html" class="home-photo fade-in" id="second-photo">
             <img src="photos/lanterns.jpg" alt="">
@@ -252,8 +255,8 @@
     const spotlight = document.getElementById('poem-spotlight');
     const excerptEl = spotlight.querySelector('.poem-feature-excerpt');
     const titleEl = spotlight.querySelector('.poem-feature-title');
+    spotlight.href = poem.href;
     excerptEl.textContent = poem.excerpt;
-    titleEl.href = poem.href;
     titleEl.textContent = poem.title + ' \u2192';
 
     // Time-aware greeting
