@@ -7,7 +7,20 @@
         { line: 'Today is enough', href: '/poems/song-of-tomorrow.html' },
         { line: 'The world asked me if I wanted to call you today', href: '/poems/do-you-miss-me.html' },
         { line: 'Have you ever felt hands so soft', href: '/poems/these-water-nymphs.html' },
-        { line: 'If you shave my chest to expose my heart', href: '/poems/i-will-always-be-a-poet.html' }
+        { line: 'If you shave my chest to expose my heart', href: '/poems/i-will-always-be-a-poet.html' },
+        { line: 'As a single flower, opened and yet unmarked', href: '/poems/oh-that-again.html' },
+        { line: 'We take so much time to build our houses', href: '/poems/glass-houses.html' },
+        { line: 'These days are gone, never can they return', href: '/poems/these-days-are-gone.html' },
+        { line: 'Every decade we die and are reborn', href: '/poems/this-growing-older.html' },
+        { line: 'One beautiful moment where you don\u2019t have to decide anything', href: '/poems/one-beautiful-moment.html' },
+        { line: 'The light sings to me in the morning', href: '/poems/the-light-sings.html' },
+        { line: 'Till time razes these mountains to the ground', href: '/poems/kashmir.html' },
+        { line: 'I left my heart at home today', href: '/poems/i-left-my-heart-at-home-today.html' },
+        { line: 'Whose to say we aren\u2019t the moth', href: '/poems/i-was-feeling-sorry-for-a-moth.html' },
+        { line: 'Dream, dream dream, little tree', href: '/poems/hark-my-love.html' },
+        { line: 'To be alone with the mountains is a special gift', href: '/poems/to-be-alone.html' },
+        { line: 'It was hard to tell which person was being held', href: '/poems/today-i-saw-a-man-on-a-leash.html' },
+        { line: 'His eyes did not know how beautiful he was', href: '/poems/his-hair-was-curly.html' }
     ];
 
     // Don't run on mobile
