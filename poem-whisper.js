@@ -1,4 +1,4 @@
-// Poetry haunting the page — a whisper drifting through different places
+// Poetry accumulating on the page — lines find a home and stay
 (function() {
     var whispers = [
         { line: 'In the morning you can listen to the mist', href: '/poems/the-mist.html' },
@@ -13,120 +13,89 @@
     // Don't run on mobile
     if (window.innerWidth <= 768) return;
 
-    var el = document.createElement('a');
-    el.className = 'poem-whisper';
-    el.style.display = 'none';
-    document.body.appendChild(el);
-
-    var lastIndex = -1;
-    var lastLocation = -1;
-
-    function rand(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+    // Shuffle
+    for (var i = whispers.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = whispers[i]; whispers[i] = whispers[j]; whispers[j] = tmp;
     }
 
-    // Location strategies — each returns a parent element and a CSS class
-    function getLocations() {
-        var locations = [];
+    var placedPositions = [];
+    var index = 0;
 
-        // 1. Nav sidebar (original position)
-        var nav = document.querySelector('nav');
-        if (nav) {
-            locations.push({ parent: nav, className: 'poem-whisper--nav' });
-        }
+    function rand(min, max) { return Math.random() * (max - min) + min; }
 
-        // 2. Near the page header
-        var pageHeader = document.querySelector('.page-header') || document.querySelector('.intro');
-        if (pageHeader) {
-            locations.push({ parent: pageHeader, className: 'poem-whisper--header' });
-        }
+    function placeWhisper() {
+        if (index >= whispers.length) return;
 
-        // 3. Between content sections — pick a random .piece, .home-section, or .poetry-moment
-        var sections = document.querySelectorAll('.piece, .home-section, .poetry-moment, .poem-row');
-        if (sections.length > 1) {
-            var sectionIndex = rand(0, Math.min(sections.length - 2, sections.length - 1));
-            var section = sections[sectionIndex];
-            if (section && section.parentNode) {
-                locations.push({ parent: section.parentNode, insertBefore: section.nextSibling, className: 'poem-whisper--between' });
-            }
-        }
+        var whisper = whispers[index++];
 
-        // 4. Near footer/contact area
-        var contact = document.querySelector('.contact-row');
-        if (contact) {
-            locations.push({ parent: contact.parentNode, insertBefore: contact, className: 'poem-whisper--footer' });
-        }
+        // Find a position within the CURRENT scroll view, in page coordinates
+        var scrollY = window.scrollY || window.pageYOffset;
+        var vh = window.innerHeight;
+        var vw = window.innerWidth;
+        var pageH = document.body.scrollHeight;
 
-        // 5. After main content (bottom of main)
-        var main = document.querySelector('main');
-        if (main) {
-            locations.push({ parent: main, className: 'poem-whisper--bottom' });
-        }
-
-        return locations;
-    }
-
-    function pickRandom(arr, excludeIndex) {
-        if (arr.length === 0) return null;
-        if (arr.length === 1) return { item: arr[0], index: 0 };
-        var index;
+        // Pick a spot within the visible area, in absolute page coordinates
+        var attempts = 0;
+        var absX, absY;
         do {
-            index = rand(0, arr.length - 1);
-        } while (index === excludeIndex && arr.length > 1);
-        return { item: arr[index], index: index };
-    }
+            // Prefer edges: left margin, right margin, or between sections
+            var zone = Math.floor(Math.random() * 4);
+            switch (zone) {
+                case 0: // Left margin — well clear of nav
+                    absX = rand(10, Math.min(160, vw * 0.1));
+                    absY = scrollY + rand(vh * 0.15, vh * 0.85);
+                    break;
+                case 1: // Right margin — well clear of content
+                    absX = Math.max(vw * 0.75, 800) + rand(20, vw * 0.15);
+                    absY = scrollY + rand(vh * 0.15, vh * 0.85);
+                    break;
+                case 2: // Top margin — generous buffer
+                    absX = rand(vw * 0.15, vw * 0.8);
+                    absY = scrollY + rand(vh * 0.02, vh * 0.08);
+                    break;
+                case 3: // Bottom margin — generous buffer
+                    absX = rand(vw * 0.15, vw * 0.8);
+                    absY = scrollY + rand(vh * 0.9, vh * 0.97);
+                    break;
+            }
+            // Clamp to page bounds
+            absY = Math.min(absY, pageH - 30);
+            absX = Math.min(absX, vw - 200);
 
-    function cycle() {
-        // Pick a new poem line (different from last)
-        var pick = pickRandom(whispers, lastIndex);
-        if (!pick) return;
-        var whisper = pick.item;
-        lastIndex = pick.index;
+            attempts++;
+        } while (tooClose(absX, absY) && attempts < 30);
 
-        // Pick a new location (different from last)
-        var locations = getLocations();
-        if (locations.length === 0) return;
-        var locPick = pickRandom(locations, lastLocation);
-        var loc = locPick.item;
-        lastLocation = locPick.index;
+        placedPositions.push({ x: absX, y: absY });
 
-        // Remove from current parent
-        if (el.parentNode) {
-            el.parentNode.removeChild(el);
-        }
-
-        // Reset class and content
-        el.className = 'poem-whisper ' + loc.className;
+        var el = document.createElement('a');
+        el.className = 'poem-whisper';
         el.href = whisper.href;
         el.textContent = whisper.line;
-        el.style.display = '';
+        el.style.position = 'absolute';
+        el.style.left = absX + 'px';
+        el.style.top = absY + 'px';
+        el.style.transform = 'rotate(' + (rand(-3, 3)).toFixed(1) + 'deg)';
+        el.style.zIndex = '1';
+        document.body.appendChild(el);
 
-        // Place into new location
-        if (loc.insertBefore) {
-            loc.parent.insertBefore(el, loc.insertBefore);
-        } else {
-            loc.parent.appendChild(el);
+        setTimeout(function() { el.classList.add('visible'); }, 50);
+
+        // Schedule next
+        if (index < whispers.length) {
+            setTimeout(placeWhisper, Math.floor(rand(8000, 13000)));
         }
-
-        // Fade in after a brief moment (let DOM settle)
-        setTimeout(function() {
-            el.classList.add('visible');
-        }, 50);
-
-        // Hold for ~8 seconds, then fade out
-        setTimeout(function() {
-            el.classList.remove('visible');
-
-            // After fade-out transition completes (~2s), wait 10-15s, then cycle again
-            setTimeout(function() {
-                el.style.display = 'none';
-                var waitTime = rand(10000, 15000);
-                setTimeout(cycle, waitTime);
-            }, 2000);
-        }, 8000);
     }
 
-    // Initial delay: 5-8 seconds before first appearance
-    var initialDelay = rand(5000, 8000);
-    setTimeout(cycle, initialDelay);
+    function tooClose(x, y) {
+        for (var i = 0; i < placedPositions.length; i++) {
+            var dx = x - placedPositions[i].x;
+            var dy = y - placedPositions[i].y;
+            if (Math.sqrt(dx * dx + dy * dy) < 180) return true;
+        }
+        return false;
+    }
+
+    // First whisper after 5-8 seconds
+    setTimeout(placeWhisper, Math.floor(rand(5000, 8000)));
 })();
