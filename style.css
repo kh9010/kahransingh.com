@@ -551,8 +551,9 @@ hr {
         margin-bottom: 1.5rem;
     }
 
-    .nav-whisper {
-        display: none;
+    .nav-whisper,
+    .poem-whisper {
+        display: none !important;
     }
 
     .intro p {
@@ -731,7 +732,7 @@ hr {
     color: #1a1a1a;
 }
 
-/* Nav poem whisper */
+/* Nav poem whisper (legacy class kept for compatibility) */
 .nav-whisper {
     display: block;
     font-family: 'Fraunces', Georgia, serif;
@@ -751,6 +752,57 @@ hr {
 
 .nav-whisper:hover {
     color: #999;
+}
+
+/* Drifting poem whisper — ghost moving through the page */
+.poem-whisper {
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: transparent;
+    text-decoration: none;
+    line-height: 1.5;
+    letter-spacing: 0;
+    transition: color 1.8s ease;
+    pointer-events: none;
+}
+
+.poem-whisper.visible {
+    color: #d5d2cd;
+    pointer-events: auto;
+}
+
+.poem-whisper:hover {
+    color: #bbb;
+}
+
+/* Whisper in the nav sidebar */
+.poem-whisper--nav {
+    margin-top: 1.5rem;
+}
+
+/* Whisper near the page header / intro */
+.poem-whisper--header {
+    margin-top: 1rem;
+    text-align: right;
+}
+
+/* Whisper between content sections */
+.poem-whisper--between {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+/* Whisper near the footer / contact area */
+.poem-whisper--footer {
+    margin-bottom: 1rem;
+}
+
+/* Whisper at the bottom of main content */
+.poem-whisper--bottom {
+    margin-top: 2rem;
+    text-align: right;
 }
 
 /* Mobile header name */

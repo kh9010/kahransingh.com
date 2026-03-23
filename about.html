@@ -18,15 +18,31 @@
     <link rel="canonical" href="https://kahransingh.com/about.html">
     <link rel="stylesheet" href="style.css">
     <style>
-        .intro {
+        .word-pile {
             margin-bottom: 3.5rem;
+            min-height: 5.5rem;
+            display: flex;
+            align-items: center;
+            cursor: default;
         }
-        .intro p {
+        .word-pile p {
             font-family: 'Fraunces', Georgia, serif;
             font-style: italic;
             font-size: 1.25rem;
             line-height: 1.7;
             color: #1a1a1a;
+            opacity: 0;
+            animation: breathe 9s ease-in-out infinite;
+        }
+        .word-pile.paused p {
+            animation-play-state: paused;
+        }
+        @keyframes breathe {
+            0%   { opacity: 0; }
+            22%  { opacity: 1; }   /* fade in over ~2s */
+            67%  { opacity: 1; }   /* hold for ~4s */
+            89%  { opacity: 0; }   /* fade out over ~2s */
+            100% { opacity: 0; }   /* brief pause before JS swaps text */
         }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +62,8 @@
             <figcaption>Jaisalmer, 2022 &mdash; <a href="https://www.namanverma.com" target="_blank" rel="noopener">Naman Verma</a></figcaption>
         </div>
 
-        <div class="intro">
-            <p>Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.</p>
+        <div class="word-pile" id="word-pile">
+            <p id="word-pile-text">Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.</p>
         </div>
 
         <div class="piece plain">
@@ -124,6 +140,66 @@
                 smile.style.opacity = t;
             });
         }
+    })();
+    </script>
+
+    <script>
+    // Word pile — gentle breathing text rotation
+    (function() {
+        var fragments = [
+            'Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.',
+            'To know me is to know joy because I laugh a lot and I fall in love a lot.',
+            'What is a well lived life but a collection of moments of grace.',
+            'Kiss me and I\u2019ll smile, because I love smiling.',
+            'I created a work today. A mediation between my selves.',
+            'I felt for the place my anxiety had been and laughed when I saw its absence.'
+        ];
+
+        var pile = document.getElementById('word-pile');
+        var text = document.getElementById('word-pile-text');
+        if (!pile || !text) return;
+
+        var index = 0;
+        var cycleDuration = 9000; // matches CSS animation duration
+        var paused = false;
+
+        // Swap text at the end of each fade-out, just before the next cycle
+        // The CSS animation is 9s; text is invisible from ~89% onward (~8s mark)
+        // We swap at 8s so the new text is ready before the next fade-in
+        function scheduleSwap() {
+            setTimeout(function tick() {
+                if (paused) {
+                    // Check again shortly
+                    setTimeout(tick, 200);
+                    return;
+                }
+                index = (index + 1) % fragments.length;
+                text.textContent = fragments[index];
+                // Restart animation cleanly
+                text.style.animation = 'none';
+                text.offsetHeight; // force reflow
+                text.style.animation = '';
+                setTimeout(tick, cycleDuration);
+            }, cycleDuration);
+        }
+        scheduleSwap();
+
+        // Desktop: hover to pause
+        pile.addEventListener('mouseenter', function() {
+            paused = true;
+            pile.classList.add('paused');
+        });
+        pile.addEventListener('mouseleave', function() {
+            paused = false;
+            pile.classList.remove('paused');
+        });
+
+        // Mobile: tap to toggle pause
+        pile.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            paused = !paused;
+            pile.classList.toggle('paused', paused);
+        });
     })();
     </script>
     <script src="/poem-whisper.js"></script>
