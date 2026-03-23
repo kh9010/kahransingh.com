@@ -165,3 +165,35 @@ document.addEventListener('keydown', function(e) {
         window.location.href = '/poetry.html';
     }
 });
+
+// Swipe-down on title slide → back to /poetry.html
+(function() {
+    var titleSlide = document.querySelector('.stanza.title-slide');
+    if (!titleSlide) return;
+
+    var touchStartY = null;
+    var touchStartScrollTop = 0;
+
+    titleSlide.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1) return;
+        touchStartY = e.touches[0].clientY;
+        // Check scroll position of the nearest scrollable ancestor or the slide itself
+        var scrollable = titleSlide.closest('[style*="overflow"]') || titleSlide;
+        touchStartScrollTop = scrollable.scrollTop || window.scrollY || 0;
+    }, { passive: true });
+
+    titleSlide.addEventListener('touchend', function(e) {
+        if (touchStartY === null) return;
+        if (e.changedTouches.length !== 1) return;
+
+        var touchEndY = e.changedTouches[0].clientY;
+        var deltaY = touchEndY - touchStartY;
+
+        // Only trigger when swiping down at least 80px and already at top
+        if (deltaY >= 80 && touchStartScrollTop <= 0) {
+            window.location.href = '/poetry.html';
+        }
+
+        touchStartY = null;
+    }, { passive: true });
+})();

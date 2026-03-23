@@ -5,7 +5,8 @@
 }
 
 body {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Bodoni Moda', Georgia, serif;
+    font-weight: 400;
     background: #fafaf8;
     color: #1a1a1a;
     overflow-x: hidden;
@@ -33,6 +34,7 @@ body {
     max-width: 560px;
     font-size: 1.55rem;
     font-style: normal;
+    font-variation-settings: 'opsz' 6;
     line-height: 1.9;
     text-align: left;
     white-space: pre-line;
@@ -48,6 +50,7 @@ body {
 }
 
 .stanza.title-slide .stanza-text {
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: 2.4rem;
     font-style: normal;
     font-weight: 400;
@@ -56,7 +59,7 @@ body {
 }
 
 .stanza.title-slide .poem-meta {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.72rem;
     font-style: normal;
     text-transform: uppercase;
@@ -99,7 +102,7 @@ body {
 }
 
 .scroll-hint span {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -144,7 +147,7 @@ body {
 }
 
 .explore-label {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -159,7 +162,7 @@ body {
 }
 
 .explore-links a {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Bodoni Moda', Georgia, serif;
     font-size: 1.1rem;
     color: #999;
     text-decoration: none;
@@ -177,7 +180,7 @@ body {
 }
 
 .explore-cross a {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.85rem;
     color: #bbb;
     text-decoration: none;
@@ -223,7 +226,7 @@ body {
 }
 
 .video-label {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -245,7 +248,7 @@ body {
 }
 
 .video-credit {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.72rem;
     color: #666;
     text-align: center;
