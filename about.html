@@ -223,9 +223,10 @@
 
         // Generate a random pile position for a letter (at the bottom of the container)
         function randomPileState(containerW, containerH) {
+            var centerX = containerW * 0.5;
             return {
-                x: Math.random() * (containerW * 0.8) + containerW * 0.1,
-                y: containerH - 10 + (Math.random() * 10 - 5),
+                x: centerX + (Math.random() - 0.5) * containerW * 0.35,
+                y: containerH * 0.55 + Math.random() * containerH * 0.25,
                 rotation: (Math.random() - 0.5) * 16,
                 opacity: 0.15 + Math.random() * 0.15,
                 fontSize: (0.9 + Math.random() * 0.4) + 'em'
@@ -328,10 +329,9 @@
                     each: 0.02,
                     from: 'random'
                 },
-                y: function() { return ch - 10 + (Math.random() * 10 - 5); },
-                x: function(idx) {
-                    var base = positions[idx] ? positions[idx].x : cw * 0.5;
-                    return base + (Math.random() - 0.5) * 60;
+                y: function() { return ch * 0.55 + Math.random() * ch * 0.25; },
+                x: function() {
+                    return cw * 0.5 + (Math.random() - 0.5) * cw * 0.3;
                 },
                 rotation: function() { return (Math.random() - 0.5) * 16; },
                 opacity: function() { return 0.15 + Math.random() * 0.15; },
