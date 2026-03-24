@@ -304,15 +304,18 @@
             }
         }
 
-        // Assign text content for a quote, hide extras
+        // Assign text content for a quote, fade extras
         function assignLetters(text) {
             for (var i = 0; i < letters.length; i++) {
                 if (i < text.length) {
                     letters[i].textContent = text[i];
-                    letters[i].style.visibility = text[i] === ' ' ? 'hidden' : 'visible';
+                    // Spaces stay invisible but don't change visibility abruptly
+                    if (text[i] === ' ') {
+                        letters[i].style.opacity = '0';
+                    }
                 } else {
                     letters[i].textContent = '';
-                    letters[i].style.visibility = 'hidden';
+                    letters[i].style.opacity = '0';
                 }
             }
         }
@@ -370,10 +373,16 @@
                 fontSize: function() { return (0.9 + Math.random() * 0.4) + 'em'; }
             });
 
+            // Brief pause while letters are dim
+            masterTl.to({}, { duration: 0.3 });
+
             // Swap text content while letters are dim in the pile
             masterTl.call(function() {
                 assignLetters(nextText);
             });
+
+            // Another brief pause before rising
+            masterTl.to({}, { duration: 0.3 });
         }
 
         // Initialize: scatter letters and start
