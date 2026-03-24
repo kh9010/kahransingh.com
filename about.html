@@ -317,19 +317,20 @@
             }
         }
 
-        // Run one cycle: form current quote -> hold -> fall -> advance
+        // Run one cycle: form current quote -> hold -> fall -> swap text -> form next
         function cycle() {
             var text = quotes[currentIndex];
+            var nextIndex = (currentIndex + 1) % quotes.length;
+            var nextText = quotes[nextIndex];
             var cw = pile.offsetWidth;
             var ch = pile.offsetHeight;
 
-            assignLetters(text);
             var positions = measureQuote(text);
             var activeLetters = letters.slice(0, text.length);
 
             masterTl = gsap.timeline({
                 onComplete: function() {
-                    currentIndex = (currentIndex + 1) % quotes.length;
+                    currentIndex = nextIndex;
                     if (!paused) cycle();
                 }
             });
@@ -369,8 +370,10 @@
                 fontSize: function() { return (0.9 + Math.random() * 0.4) + 'em'; }
             });
 
-            // Brief settle before next cycle
-            masterTl.to({}, { duration: 0.4 });
+            // Swap text content while letters are dim in the pile
+            masterTl.call(function() {
+                assignLetters(nextText);
+            });
         }
 
         // Initialize: scatter letters and start
