@@ -21,26 +21,33 @@
         .word-pile {
             position: relative;
             margin-bottom: 3.5rem;
-            min-height: 5.5rem;
+            height: 7rem;
+            overflow: hidden;
             cursor: default;
         }
-        .wp-layer {
+        .word-pile .letter {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            will-change: filter, opacity, transform;
+            font-family: 'Fraunces', Georgia, serif;
+            font-style: italic;
+            color: #1a1a1a;
+            will-change: transform;
+            pointer-events: none;
+            white-space: pre;
         }
-        .wp-layer:first-child {
-            position: relative;
-        }
-        .wp-layer p {
+        .word-pile .measure {
+            position: absolute;
+            visibility: hidden;
             font-family: 'Fraunces', Georgia, serif;
             font-style: italic;
             font-size: 1.25rem;
             line-height: 1.7;
-            color: #1a1a1a;
-            margin: 0;
+            white-space: normal;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .word-pile .measure span {
+            white-space: pre;
         }
 
         /* Lenticular hint — gentle rock when photo enters view */
@@ -176,7 +183,7 @@
     </script>
 
     <script>
-    // Word pile — GSAP rack focus: quotes blur/sharpen like a camera lens
+    // Word pile — letters scatter and reassemble into quotes
     (function() {
         var quotes = [
             'Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.',
@@ -192,100 +199,185 @@
 
         var currentIndex = 0;
         var paused = false;
-        var tl = null;
+        var masterTl = null;
 
-        // Create two layers
-        var layerA = document.createElement('div');
-        var layerB = document.createElement('div');
-        layerA.className = 'wp-layer';
-        layerB.className = 'wp-layer';
-        pile.appendChild(layerA);
-        pile.appendChild(layerB);
-
-        function setQuote(layer, text) {
-            layer.innerHTML = '';
-            var p = document.createElement('p');
-            p.textContent = text;
-            layer.appendChild(p);
+        // Find the longest quote to size the letter pool
+        var maxLen = 0;
+        for (var i = 0; i < quotes.length; i++) {
+            if (quotes[i].length > maxLen) maxLen = quotes[i].length;
         }
 
-        // Initialize: layer A sharp with first quote, layer B blurred
-        setQuote(layerA, quotes[0]);
-        setQuote(layerB, quotes[1]);
-        gsap.set(layerA, { filter: 'blur(0px)', opacity: 1, scale: 1 });
-        gsap.set(layerB, { filter: 'blur(8px)', opacity: 0.15, scale: 0.99 });
+        // Create letter spans
+        var letters = [];
+        for (var i = 0; i < maxLen; i++) {
+            var span = document.createElement('span');
+            span.className = 'letter';
+            pile.appendChild(span);
+            letters.push(span);
+        }
 
-        var activeLayer = layerA;
-        var inactiveLayer = layerB;
+        // Create measuring div
+        var measureDiv = document.createElement('div');
+        measureDiv.className = 'measure';
+        pile.appendChild(measureDiv);
 
+        // Generate a random pile position for a letter (at the bottom of the container)
+        function randomPileState(containerW, containerH) {
+            return {
+                x: Math.random() * (containerW * 0.8) + containerW * 0.1,
+                y: containerH - 10 + (Math.random() * 10 - 5),
+                rotation: (Math.random() - 0.5) * 16,
+                opacity: 0.15 + Math.random() * 0.15,
+                fontSize: (0.9 + Math.random() * 0.4) + 'em'
+            };
+        }
+
+        // Measure target positions for a quote
+        function measureQuote(text) {
+            measureDiv.innerHTML = '';
+            var spans = [];
+            for (var i = 0; i < text.length; i++) {
+                var s = document.createElement('span');
+                s.textContent = text[i];
+                measureDiv.appendChild(s);
+                spans.push(s);
+            }
+
+            var containerRect = pile.getBoundingClientRect();
+            var positions = [];
+            for (var i = 0; i < spans.length; i++) {
+                var r = spans[i].getBoundingClientRect();
+                positions.push({
+                    x: r.left - containerRect.left,
+                    y: r.top - containerRect.top
+                });
+            }
+            return positions;
+        }
+
+        // Set all letters to a pile state
+        function scatterToPile() {
+            var cw = pile.offsetWidth;
+            var ch = pile.offsetHeight;
+            for (var i = 0; i < letters.length; i++) {
+                var p = randomPileState(cw, ch);
+                gsap.set(letters[i], {
+                    x: p.x,
+                    y: p.y,
+                    rotation: p.rotation,
+                    opacity: p.opacity,
+                    fontSize: p.fontSize,
+                    scale: 1
+                });
+            }
+        }
+
+        // Assign text content for a quote, hide extras
+        function assignLetters(text) {
+            for (var i = 0; i < letters.length; i++) {
+                if (i < text.length) {
+                    letters[i].textContent = text[i];
+                    letters[i].style.visibility = text[i] === ' ' ? 'hidden' : 'visible';
+                } else {
+                    letters[i].textContent = '';
+                    letters[i].style.visibility = 'hidden';
+                }
+            }
+        }
+
+        // Run one cycle: form current quote -> hold -> fall -> advance
         function cycle() {
-            tl = gsap.timeline({
+            var text = quotes[currentIndex];
+            var cw = pile.offsetWidth;
+            var ch = pile.offsetHeight;
+
+            assignLetters(text);
+            var positions = measureQuote(text);
+            var activeLetters = letters.slice(0, text.length);
+
+            masterTl = gsap.timeline({
                 onComplete: function() {
+                    currentIndex = (currentIndex + 1) % quotes.length;
                     if (!paused) cycle();
                 }
             });
 
-            // Hold the current sharp quote for 4 seconds
-            tl.to({}, { duration: 4 });
-
-            // Prepare next quote in the inactive layer
-            var nextIndex = (currentIndex + 1) % quotes.length;
-            var followIndex = (nextIndex + 1) % quotes.length;
-
-            // Rack focus: blur out current, sharpen incoming
-            // Outgoing: sharp -> blurred (with slight scale up)
-            tl.to(activeLayer, {
-                filter: 'blur(8px)',
-                opacity: 0.15,
-                scale: 1.01,
+            // FORM: letters rise from pile to spell quote
+            masterTl.to(activeLetters, {
                 duration: 1.5,
-                ease: 'sine.inOut'
-            }, '>');
-
-            // Incoming: blurred -> sharp (with slight scale up to 1)
-            // Offset by -1.0s to create 1.0s of overlap (both mid-blur for ~0.5s)
-            tl.to(inactiveLayer, {
-                filter: 'blur(0px)',
+                ease: 'power2.out',
+                stagger: {
+                    each: 0.02,
+                    from: 'random'
+                },
                 opacity: 1,
-                scale: 1,
-                duration: 1.5,
-                ease: 'sine.inOut'
-            }, '<+=0.5');
-
-            // After transition completes, swap roles and prep next quote
-            tl.call(function() {
-                var prev = activeLayer;
-                activeLayer = inactiveLayer;
-                inactiveLayer = prev;
-                currentIndex = nextIndex;
-
-                // Load the follow-up quote into the now-inactive (blurred) layer
-                setQuote(inactiveLayer, quotes[followIndex]);
-                gsap.set(inactiveLayer, { filter: 'blur(8px)', opacity: 0.15, scale: 0.99 });
+                rotation: 0,
+                fontSize: '1.25rem',
+                x: function(idx) { return positions[idx] ? positions[idx].x : 0; },
+                y: function(idx) { return positions[idx] ? positions[idx].y : 0; }
             });
+
+            // HOLD
+            masterTl.to({}, { duration: 3.5 });
+
+            // FALL: letters drift downward like leaves
+            masterTl.to(activeLetters, {
+                duration: 1.2,
+                ease: 'power1.in',
+                stagger: {
+                    each: 0.02,
+                    from: 'random'
+                },
+                y: function() { return ch - 10 + (Math.random() * 10 - 5); },
+                x: function(idx) {
+                    var base = positions[idx] ? positions[idx].x : cw * 0.5;
+                    return base + (Math.random() - 0.5) * 60;
+                },
+                rotation: function() { return (Math.random() - 0.5) * 16; },
+                opacity: function() { return 0.15 + Math.random() * 0.15; },
+                fontSize: function() { return (0.9 + Math.random() * 0.4) + 'em'; }
+            });
+
+            // Brief settle before next cycle
+            masterTl.to({}, { duration: 0.4 });
         }
 
-        // Start the cycle
+        // Initialize: scatter letters and start
+        assignLetters(quotes[0]);
+        scatterToPile();
         cycle();
 
         // Hover to pause (desktop)
         pile.addEventListener('mouseenter', function() {
             paused = true;
-            if (tl) tl.pause();
+            if (masterTl) masterTl.pause();
         });
         pile.addEventListener('mouseleave', function() {
             paused = false;
-            if (tl) tl.resume();
+            if (masterTl) masterTl.resume();
         });
 
         // Mobile tap to toggle pause
         pile.addEventListener('touchstart', function(e) {
             e.preventDefault();
             paused = !paused;
-            if (tl) {
-                if (paused) tl.pause();
-                else tl.resume();
+            if (masterTl) {
+                if (paused) masterTl.pause();
+                else masterTl.resume();
             }
+        });
+
+        // Recalculate on resize
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                if (masterTl) {
+                    masterTl.kill();
+                    scatterToPile();
+                    cycle();
+                }
+            }, 300);
         });
     })();
     </script>
