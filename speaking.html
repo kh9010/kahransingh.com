@@ -16,366 +16,535 @@
     <meta name="twitter:description" content="On storytelling, fundraising, and how we talk to machines.">
     <meta name="twitter:image" content="https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg">
     <link rel="canonical" href="https://kahransingh.com/speaking.html">
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        .speaking-intro {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
-        .speaking-available {
-            font-family: 'Fraunces', Georgia, serif;
-            font-style: italic;
-            font-size: 0.9rem;
-            color: #bbb;
-            margin-bottom: 2.5rem;
-        }
-
-        #speaking-photo {
-            width: 100%;
-            margin-bottom: 2.5rem;
-        }
-        #speaking-photo img {
-            width: 100%;
-            display: block;
-        }
-        #speaking-photo figcaption {
-            font-family: 'Fraunces', Georgia, serif;
-            font-style: italic;
-            font-size: 0.8rem;
-            color: #999;
-            padding: 0.5rem 0 0;
-        }
-
-        /* Featured talk */
-        .featured-talk {
-            border: 1px solid #e0ddd8;
-            border-radius: 6px;
-            padding: 2rem 2rem 1.75rem;
-            margin-bottom: 3rem;
-            background: #fff;
-        }
-
-        .featured-label {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: #b08d57;
-            margin-bottom: 0.75rem;
-        }
-
-        .featured-talk h2 {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.35rem;
-            font-weight: 400;
-            margin: 0 0 0.5rem;
-            color: #1a1a1a;
-        }
-
-        .featured-talk .meta {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 0.65rem;
-        }
-
-        .featured-talk p.desc {
-            font-size: 0.9rem;
-            color: #555;
+        *, *::before, *::after {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
+            color: #111;
+            background: #fff;
             line-height: 1.6;
         }
 
-        .featured-talk .panelists {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-
-        /* Talk sections */
-        .talk-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .talk {
-            padding: 1.1rem 0;
+        /* ---- NAV ---- */
+        .site-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100;
             border-bottom: 1px solid #eee;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1rem;
-            align-items: start;
         }
 
-        .talk-section .talk:first-of-type {
-            border-top: 1px solid #eee;
-        }
-
-        .talk-info h2 {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.05rem;
-            font-weight: 400;
-            margin: 0 0 0.2rem;
-        }
-
-        .talk-info h2 a {
-            color: #1a1a1a;
+        .site-nav a {
             text-decoration: none;
+            color: #111;
         }
 
-        .talk-info h2 a:hover {
-            color: #888;
+        .nav-home {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
         }
 
-        .talk-info .meta {
-            font-size: 0.78rem;
+        .nav-current {
+            font-size: 0.75rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
             color: #999;
-            margin: 0 0 0.3rem;
         }
 
-        .talk-info .desc {
-            font-size: 0.85rem;
-            color: #666;
-            margin: 0;
+        /* ---- HERO ---- */
+        .hero {
+            margin-top: 60px;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 72vh;
+            object-fit: cover;
+            object-position: center 30%;
+            display: block;
+        }
+
+        .hero-text {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 3rem 0;
+        }
+
+        .hero-text h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #333;
             line-height: 1.5;
         }
 
-        .talk .watch-link {
+        /* ---- CONTENT CONTAINER ---- */
+        .content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* ---- INTRO ---- */
+        .intro {
+            padding: 3rem 0 2.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .intro p {
+            font-size: 1.05rem;
+            color: #333;
+            line-height: 1.7;
+            max-width: 640px;
+        }
+
+        .intro .availability {
+            display: inline-block;
+            margin-top: 1.25rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #999;
+        }
+
+        /* ---- TOPICS GRID ---- */
+        .topics {
+            padding: 3rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #999;
+            margin-bottom: 1.75rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.75rem 3rem;
+        }
+
+        .topic h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .topic p {
+            font-size: 0.88rem;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* ---- TALKS ---- */
+        .talks {
+            padding: 3rem 0 1rem;
+        }
+
+        .talk-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .talk-group-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #999;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .talk-row {
+            display: grid;
+            grid-template-columns: 1fr 180px 100px 60px;
+            align-items: baseline;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 1rem;
+        }
+
+        .talk-row:first-of-type {
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .talk-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .talk-title a {
+            color: #111;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .talk-title a:hover {
+            color: #666;
+        }
+
+        .talk-event {
+            font-size: 0.82rem;
+            color: #666;
+        }
+
+        .talk-date {
+            font-size: 0.82rem;
+            color: #999;
+        }
+
+        .talk-link a {
             font-size: 0.78rem;
             color: #999;
             text-decoration: none;
-            white-space: nowrap;
-            padding-top: 0.15rem;
-            transition: color 0.2s;
+            transition: color 0.15s;
         }
 
-        .talk .watch-link:hover {
-            color: #444;
+        .talk-link a:hover {
+            color: #111;
         }
 
-        /* Topics section */
-        .topics-section {
-            margin: 3rem 0;
-            padding: 2rem 0;
-            border-top: 1px solid #e0ddd8;
-            border-bottom: 1px solid #e0ddd8;
+        /* ---- FEATURED PANEL ---- */
+        .featured {
+            padding: 3rem 0;
+            border-bottom: 1px solid #eee;
         }
 
-        .topics-section h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.72rem;
+        .featured-block {
+            border-left: 3px solid #111;
+            padding-left: 2rem;
+        }
+
+        .featured-block .featured-tag {
+            font-size: 0.65rem;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: #888;
-            margin-bottom: 1rem;
+            letter-spacing: 0.14em;
+            color: #999;
+            margin-bottom: 0.75rem;
         }
 
-        .topics-list {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem 2rem;
+        .featured-block h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
         }
 
-        .topics-list li {
-            font-size: 0.9rem;
-            color: #444;
-            padding-left: 1rem;
-            position: relative;
+        .featured-block .featured-meta {
+            font-size: 0.88rem;
+            color: #333;
+            margin-bottom: 0.75rem;
         }
 
-        .topics-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0.55em;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: #ccc;
+        .featured-block .featured-desc {
+            font-size: 0.92rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 0.4rem;
         }
 
-        /* CTA */
-        .speaking-cta {
-            margin: 3rem 0 2rem;
+        .featured-block .featured-panelists {
+            font-size: 0.82rem;
+            color: #999;
+        }
+
+        /* ---- CTA ---- */
+        .cta {
+            padding: 5rem 0;
             text-align: center;
-            padding: 2.5rem 2rem;
-            border: 1px solid #e0ddd8;
-            border-radius: 6px;
-            background: #fff;
         }
 
-        .speaking-cta p {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.1rem;
-            color: #444;
+        .cta h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
             margin-bottom: 1rem;
         }
 
-        .speaking-cta a {
+        .cta a {
             display: inline-block;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 0.85rem;
             font-weight: 500;
-            color: #1a1a1a;
+            color: #111;
             text-decoration: none;
-            padding: 0.6rem 1.6rem;
-            border: 1px solid #1a1a1a;
-            border-radius: 4px;
+            padding: 0.75rem 2rem;
+            border: 1.5px solid #111;
             transition: background 0.2s, color 0.2s;
         }
 
-        .speaking-cta a:hover {
-            background: #1a1a1a;
-            color: #fafaf8;
+        .cta a:hover {
+            background: #111;
+            color: #fff;
         }
 
-        @media (max-width: 700px) {
-            .topics-list {
-                grid-template-columns: 1fr;
+        /* ---- FOOTER ---- */
+        .site-footer {
+            border-top: 1px solid #eee;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .site-footer a {
+            font-size: 0.78rem;
+            color: #999;
+            text-decoration: none;
+            text-transform: lowercase;
+            letter-spacing: 0.04em;
+            transition: color 0.15s;
+        }
+
+        .site-footer a:hover {
+            color: #111;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 768px) {
+            .site-nav {
+                padding: 1.25rem 1.5rem;
             }
-            .talk {
+
+            .hero img {
+                height: 50vh;
+            }
+
+            .hero-text {
+                padding: 2rem 1.5rem 0;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 0 1.5rem;
+            }
+
+            .topics-grid {
                 grid-template-columns: 1fr;
-                gap: 0.3rem;
+                gap: 1.25rem;
+            }
+
+            .talk-row {
+                grid-template-columns: 1fr;
+                gap: 0.15rem;
+                padding: 0.85rem 0;
+            }
+
+            .talk-event,
+            .talk-date {
+                font-size: 0.78rem;
+            }
+
+            .talk-link {
+                margin-top: 0.15rem;
+            }
+
+            .featured-block {
+                padding-left: 1.25rem;
+            }
+
+            .cta h2 {
+                font-size: 1.5rem;
+            }
+
+            .site-footer {
+                padding: 2rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 1rem 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <main>
-        <a href="/" class="mobile-header">kahran</a>
-        <div class="page-header">
-            <h1>speaking</h1>
-            <p>On storytelling, fundraising, and how we talk to machines.</p>
+
+    <!-- Nav -->
+    <nav class="site-nav">
+        <a href="/" class="nav-home">kahran</a>
+        <span class="nav-current">speaking</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="photos/speaking-kauai.jpg" alt="Narrative Threads panel at Common Ground Summit, Kauai">
+        <div class="hero-text">
+            <h1>Speaking</h1>
+            <p class="subtitle">On storytelling, fundraising, and how we talk to machines.</p>
         </div>
+    </section>
 
-        <p class="speaking-intro">
-            I speak about the things I spend my days doing &mdash; building companies, raising capital, and figuring out how generative AI actually fits into creative and strategic work.
-        </p>
-        <p class="speaking-available">Available for panels, workshops, and keynotes.</p>
-
-        <div id="speaking-photo">
-            <img src="photos/speaking-kauai.jpg" alt="Narrative Threads panel at Common Ground Summit, Kauai">
-            <figcaption>Common Ground Summit, Kauai &mdash; December 2025</figcaption>
+    <!-- Intro -->
+    <div class="content">
+        <div class="intro">
+            <p>I speak about the things I spend my days doing &mdash; building companies, raising capital, and figuring out how generative AI actually fits into creative and strategic work.</p>
+            <span class="availability">Available for panels, workshops, and keynotes</span>
         </div>
+    </div>
 
-        <!-- Featured talk -->
-        <div class="featured-talk">
-            <div class="featured-label">Featured</div>
-            <h2>Narrative Threads: Weaving Voice, Vision, and Value</h2>
-            <p class="meta">Common Ground Summit &rsquo;25 &mdash; Kauai &mdash; December 2025</p>
-            <p class="desc">A panel on the power of narrative as a tool for connection, identity, and impact.</p>
-            <p class="panelists">With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan.</p>
-        </div>
-
-        <!-- Fundraising -->
-        <div class="talk-section">
-            <h3 class="section-label">Fundraising</h3>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank">Psychological Challenges &amp; How to Brace for Them</a></h2>
-                    <p class="meta">StartOut &mdash; September 2025 &mdash; with Divya Tak</p>
-                    <p class="desc">How to keep your head in the game when facing feedback, rejection, and pressure during a fundraise.</p>
+    <!-- Topics -->
+    <div class="content">
+        <div class="topics">
+            <p class="section-label">Topics I speak on</p>
+            <div class="topics-grid">
+                <div class="topic">
+                    <h3>Storytelling &amp; Narrative Strategy</h3>
+                    <p>How to build and deploy narrative as a tool for connection, identity, and impact.</p>
                 </div>
-                <a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank" class="watch-link">watch &rarr;</a>
-            </div>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank">Curating Your Story</a></h2>
-                    <p class="meta">StartOut &mdash; August 2025 &mdash; with Divya Tak</p>
-                    <p class="desc">How to hold the full complexity of your company while presenting the right facet in the right moment.</p>
+                <div class="topic">
+                    <h3>Fundraising for Early-Stage Companies</h3>
+                    <p>Raising the right kind of capital, managing investor psychology, and curating your story.</p>
                 </div>
-                <a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank" class="watch-link">watch &rarr;</a>
-            </div>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank">Understanding the Money You Can Raise</a></h2>
-                    <p class="meta">StartOut &mdash; July 2025 &mdash; with Divya Tak</p>
-                    <p class="desc">Strategic vs. passive vs. controlling capital &mdash; raising the right kind of money, not just the most.</p>
+                <div class="topic">
+                    <h3>Generative AI for Practitioners</h3>
+                    <p>Practical applications of AI in creative and strategic work, from prompting to production.</p>
                 </div>
-                <a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank" class="watch-link">watch &rarr;</a>
-            </div>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank">Know Your Investors Before the First Meeting</a></h2>
-                    <p class="meta">StartOut &mdash; June 2025 &mdash; with Divya Tak</p>
-                    <p class="desc">Understanding investor motivations and managing time in low-probability meetings.</p>
+                <div class="topic">
+                    <h3>Behavioral Design</h3>
+                    <p>Designing products and experiences that work with human psychology, not against it.</p>
                 </div>
-                <a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank" class="watch-link">watch &rarr;</a>
             </div>
         </div>
+    </div>
 
-        <!-- Generative AI -->
-        <div class="talk-section">
-            <h3 class="section-label">Generative AI</h3>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank">10 Tinkering Experiments To Do with AI</a></h2>
-                    <p class="meta">StartOut &mdash; March 2025</p>
-                    <p class="desc">Ten practical use cases for AI in your personal and professional life.</p>
-                </div>
-                <a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank" class="watch-link">watch &rarr;</a>
-            </div>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank">Advanced Prompting: Controlling Style, Tone and Context</a></h2>
-                    <p class="meta">StartOut &mdash; February 2025</p>
-                    <p class="desc">Working with AI models with more nuance &mdash; controlling style, building long conversations, and getting reliable results.</p>
-                </div>
-                <a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank" class="watch-link">watch &rarr;</a>
-            </div>
-
-            <div class="talk">
-                <div class="talk-info">
-                    <h2><a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank">Prompting: How to Talk to Our AI Friends</a></h2>
-                    <p class="meta">StartOut &mdash; January 2025</p>
-                    <p class="desc">Foundational prompting techniques for text generation &mdash; chaining, context, depth, and tone.</p>
-                </div>
-                <a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank" class="watch-link">watch &rarr;</a>
+    <!-- Featured Panel -->
+    <div class="content">
+        <div class="featured">
+            <div class="featured-block">
+                <p class="featured-tag">Featured Panel</p>
+                <h2>Narrative Threads: Weaving Voice, Vision, and Value</h2>
+                <p class="featured-meta">Common Ground Summit &rsquo;25 &mdash; Kauai &mdash; December 2025</p>
+                <p class="featured-desc">A panel on the power of narrative as a tool for connection, identity, and impact.</p>
+                <p class="featured-panelists">With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan.</p>
             </div>
         </div>
+    </div>
 
-        <!-- Topics -->
-        <div class="topics-section">
-            <h3>Topics I speak on</h3>
-            <ul class="topics-list">
-                <li>Storytelling &amp; narrative strategy</li>
-                <li>Fundraising for early-stage companies</li>
-                <li>Generative AI for practitioners</li>
-                <li>Behavioral design</li>
-            </ul>
+    <!-- Selected Talks -->
+    <div class="content">
+        <div class="talks">
+            <p class="section-label">Selected Talks</p>
+
+            <!-- Fundraising -->
+            <div class="talk-group">
+                <p class="talk-group-label">Fundraising</p>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank">Psychological Challenges &amp; How to Brace for Them</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Sep 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank">Watch</a></span>
+                </div>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank">Curating Your Story</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Aug 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank">Watch</a></span>
+                </div>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank">Understanding the Money You Can Raise</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Jul 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank">Watch</a></span>
+                </div>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank">Know Your Investors Before the First Meeting</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Jun 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank">Watch</a></span>
+                </div>
+            </div>
+
+            <!-- Generative AI -->
+            <div class="talk-group">
+                <p class="talk-group-label">Generative AI</p>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank">10 Tinkering Experiments To Do with AI</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Mar 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank">Watch</a></span>
+                </div>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank">Advanced Prompting: Controlling Style, Tone and Context</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Feb 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank">Watch</a></span>
+                </div>
+
+                <div class="talk-row">
+                    <span class="talk-title"><a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank">Prompting: How to Talk to Our AI Friends</a></span>
+                    <span class="talk-event">StartOut</span>
+                    <span class="talk-date">Jan 2025</span>
+                    <span class="talk-link"><a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank">Watch</a></span>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- CTA -->
-        <div class="speaking-cta">
-            <p>Interested in having me speak at your event?</p>
-            <a href="mailto:hello@joyus.studio">Get in touch &rarr;</a>
+    <!-- CTA -->
+    <div class="content">
+        <div class="cta">
+            <h2>Let's talk</h2>
+            <a href="mailto:hello@joyus.studio">Get in touch</a>
         </div>
+    </div>
 
-    </main>
-
-    <nav>
-        <a href="/" class="nav-name">kahran</a>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <a href="/">home</a>
         <a href="/poetry.html">poetry</a>
         <a href="/photography.html">photography</a>
         <a href="/projects.html">projects</a>
-        <a href="/speaking.html" class="active">speaking</a>
         <a href="/archive.html">archive</a>
         <a href="/about.html">about</a>
-    </nav>
+    </footer>
 
 </body>
 </html>
