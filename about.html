@@ -42,6 +42,19 @@
             color: #1a1a1a;
             margin-right: 0.3em;
         }
+
+        /* Lenticular hint — gentle rock when photo enters view */
+        @keyframes lenticularHint {
+            0% { transform: perspective(800px) rotateY(0deg); }
+            20% { transform: perspective(800px) rotateY(1.5deg); }
+            40% { transform: perspective(800px) rotateY(-1.2deg); }
+            60% { transform: perspective(800px) rotateY(0.8deg); }
+            80% { transform: perspective(800px) rotateY(-0.4deg); }
+            100% { transform: perspective(800px) rotateY(0deg); }
+        }
+        .lenticular.hint {
+            animation: lenticularHint 2.5s ease-in-out;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,10 +111,34 @@
         var container = document.querySelector('.lenticular');
         if (!container) return;
         var smile = container.querySelectorAll('img')[1];
-
-        // Desktop: moving cursor across the photo reveals the smile;
-        // crossing back reveals the serious one — like a lenticular print
         var showing = false;
+
+        // Subtle rocking hint when photo scrolls into view
+        var hinted = false;
+        var hintObserver = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting && !hinted) {
+                hinted = true;
+                // Brief delay so it feels natural, not immediate
+                setTimeout(function() {
+                    container.classList.add('hint');
+                    // Flash the smile briefly during the rock
+                    setTimeout(function() {
+                        smile.style.transition = 'opacity 0.6s ease';
+                        smile.style.opacity = '0.4';
+                        setTimeout(function() {
+                            smile.style.opacity = '0';
+                            smile.style.transition = 'opacity 0.4s ease';
+                        }, 800);
+                    }, 600);
+                    container.addEventListener('animationend', function() {
+                        container.classList.remove('hint');
+                    });
+                }, 800);
+            }
+        }, { threshold: 0.5 });
+        hintObserver.observe(container);
+
+        // Desktop: moving cursor across the photo reveals the smile
         var lastX = null;
         var direction = 0;
         container.addEventListener('mousemove', function(e) {
@@ -127,12 +164,10 @@
             direction = 0;
         });
 
-        // Mobile: device tilt
+        // Mobile: device tilt (already works, hint encourages discovery)
         if (window.DeviceOrientationEvent) {
             window.addEventListener('deviceorientation', function(e) {
                 if (e.gamma === null) return;
-                // gamma: -90 to 90, tilt left/right
-                // Map ~-15 to +15 degrees onto 0–1
                 var t = Math.max(0, Math.min(1, (e.gamma + 15) / 30));
                 smile.style.opacity = t;
             });
