@@ -21,46 +21,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
     <style>
-        /* Dark hero header for speaking page */
-        .speaking-hero-wrap {
-            background: #1a1a1a;
-            color: #fff;
-            margin: -15vh -2rem 0;
-            padding: 15vh 2rem 3.5rem;
-            margin-bottom: 3rem;
-        }
-        .speaking-hero-wrap .page-header {
-            border-bottom-color: rgba(255,255,255,0.15);
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-        }
-        .speaking-hero-wrap .page-header h1 {
-            color: #fff;
-        }
-        .speaking-hero-wrap .page-header p {
-            color: rgba(255,255,255,0.6);
-        }
         .speaking-intro {
             font-size: 0.95rem;
-            color: rgba(255,255,255,0.55);
+            color: #666;
             margin-bottom: 1rem;
             line-height: 1.7;
         }
         .speaking-available {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: rgba(255,255,255,0.35);
-            margin-bottom: 0;
+            font-family: 'Fraunces', Georgia, serif;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #bbb;
+            margin-bottom: 2.5rem;
         }
 
         #speaking-photo {
-            width: calc(100% + 4rem);
-            margin-left: -2rem;
-            margin-bottom: 3rem;
-            margin-top: -0.5rem;
+            width: 100%;
+            margin-bottom: 2.5rem;
         }
         #speaking-photo img {
             width: 100%;
@@ -71,7 +48,7 @@
             font-style: italic;
             font-size: 0.8rem;
             color: #999;
-            padding: 0.5rem 2rem 0;
+            padding: 0.5rem 0 0;
         }
 
         /* Featured talk */
@@ -274,17 +251,15 @@
 <body>
     <main>
         <a href="/" class="mobile-header">kahran</a>
-        <div class="speaking-hero-wrap">
-            <div class="page-header">
-                <h1>speaking</h1>
-                <p>On storytelling, fundraising, and how we talk to machines.</p>
-            </div>
-
-            <p class="speaking-intro">
-                I speak about the things I spend my days doing &mdash; building companies, raising capital, and figuring out how generative AI actually fits into creative and strategic work.
-            </p>
-            <p class="speaking-available">Available for panels, workshops, and keynotes</p>
+        <div class="page-header">
+            <h1>speaking</h1>
+            <p>On storytelling, fundraising, and how we talk to machines.</p>
         </div>
+
+        <p class="speaking-intro">
+            I speak about the things I spend my days doing &mdash; building companies, raising capital, and figuring out how generative AI actually fits into creative and strategic work.
+        </p>
+        <p class="speaking-available">Available for panels, workshops, and keynotes.</p>
 
         <div id="speaking-photo">
             <img src="photos/speaking-kauai.jpg" alt="Narrative Threads panel at Common Ground Summit, Kauai">
