@@ -21,64 +21,225 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
     <style>
-        .speaking-hero {
-            font-family: 'Fraunces', Georgia, serif;
-            font-style: italic;
-            font-size: 1.6rem;
-            line-height: 1.6;
-            color: #444;
-            max-width: 540px;
-            margin: 3rem 0 2.5rem;
+        .speaking-intro {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.7;
         }
-        .talk {
-            padding: 1.25rem 0;
-            border-bottom: 1px solid #e0ddd8;
+
+        .speaking-available {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #999;
+            margin-bottom: 2.5rem;
         }
-        .talk h2 {
+
+        /* Placeholder for future speaking photo */
+        #speaking-photo {
+            width: 100%;
+            min-height: 120px;
+            margin-bottom: 3rem;
+            display: none; /* hidden until a real photo is added */
+        }
+
+        /* Featured talk */
+        .featured-talk {
+            border: 1px solid #e0ddd8;
+            border-radius: 6px;
+            padding: 2rem 2rem 1.75rem;
+            margin-bottom: 3rem;
+            background: #fff;
+        }
+
+        .featured-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #b08d57;
+            margin-bottom: 0.75rem;
+        }
+
+        .featured-talk h2 {
             font-family: 'Fraunces', Georgia, serif;
-            font-size: 1.15rem;
+            font-size: 1.35rem;
             font-weight: 400;
-            margin: 0 0 0.3rem;
+            margin: 0 0 0.5rem;
+            color: #1a1a1a;
         }
-        .talk h2 a {
-            color: #222;
-            text-decoration: none;
-        }
-        .talk h2 a:hover {
-            color: #888;
-        }
-        .talk .meta {
+
+        .featured-talk .meta {
             font-size: 0.8rem;
             color: #999;
-            margin: 0 0 0.4rem;
+            margin-bottom: 0.65rem;
         }
-        .talk p:last-child {
+
+        .featured-talk p.desc {
             font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .featured-talk .panelists {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Talk sections */
+        .talk-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .talk {
+            padding: 1.1rem 0;
+            border-bottom: 1px solid #eee;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .talk-section .talk:first-of-type {
+            border-top: 1px solid #eee;
+        }
+
+        .talk-info h2 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            margin: 0 0 0.2rem;
+        }
+
+        .talk-info h2 a {
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .talk-info h2 a:hover {
+            color: #888;
+        }
+
+        .talk-info .meta {
+            font-size: 0.78rem;
+            color: #999;
+            margin: 0 0 0.3rem;
+        }
+
+        .talk-info .desc {
+            font-size: 0.85rem;
             color: #666;
             margin: 0;
             line-height: 1.5;
         }
+
         .talk .watch-link {
-            display: inline-block;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: #888;
+            font-size: 0.78rem;
+            color: #999;
             text-decoration: none;
+            white-space: nowrap;
+            padding-top: 0.15rem;
+            transition: color 0.2s;
         }
+
         .talk .watch-link:hover {
             color: #444;
         }
-        .speaking-bridge {
-            text-align: center;
-            padding: 3rem 0 2rem;
-            font-size: 0.95rem;
+
+        /* Topics section */
+        .topics-section {
+            margin: 3rem 0;
+            padding: 2rem 0;
+            border-top: 1px solid #e0ddd8;
+            border-bottom: 1px solid #e0ddd8;
         }
-        .speaking-bridge a {
+
+        .topics-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
             color: #888;
-            text-decoration: none;
+            margin-bottom: 1rem;
         }
-        .speaking-bridge a:hover {
+
+        .topics-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 2rem;
+        }
+
+        .topics-list li {
+            font-size: 0.9rem;
             color: #444;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .topics-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #ccc;
+        }
+
+        /* CTA */
+        .speaking-cta {
+            margin: 3rem 0 2rem;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border: 1px solid #e0ddd8;
+            border-radius: 6px;
+            background: #fff;
+        }
+
+        .speaking-cta p {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 1rem;
+        }
+
+        .speaking-cta a {
+            display: inline-block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 0.6rem 1.6rem;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .speaking-cta a:hover {
+            background: #1a1a1a;
+            color: #fafaf8;
+        }
+
+        @media (max-width: 700px) {
+            .topics-list {
+                grid-template-columns: 1fr;
+            }
+            .talk {
+                grid-template-columns: 1fr;
+                gap: 0.3rem;
+            }
         }
     </style>
 </head>
@@ -90,71 +251,110 @@
             <p>On storytelling, fundraising, and how we talk to machines.</p>
         </div>
 
-        <div class="speaking-hero">
-            To remember the sheer ecstasy of dreaming is a joy in itself.
-        </div>
+        <p class="speaking-intro">
+            I speak about the things I spend my days doing &mdash; building companies, raising capital, and figuring out how generative AI actually fits into creative and strategic work.
+        </p>
+        <p class="speaking-available">Available for panels, workshops, and keynotes</p>
 
-        <a href="photography.html" class="home-photo" id="speaking-photo">
-            <img src="" alt="">
-            <figcaption></figcaption>
-        </a>
+        <div id="speaking-photo"></div>
 
-        <h3 class="section-label">Fundraising</h3>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank">Psychological Challenges &amp; How to Brace for Them</a></h2>
-            <p class="meta">StartOut &mdash; September 2025 &mdash; with Divya Tak</p>
-            <p>How to keep your head in the game during a fundraise. Dealing with feedback, nos, ghosting, and not taking decisions impulsively or under pressure.</p>
-        </div>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank">Curating Your Story</a></h2>
-            <p class="meta">StartOut &mdash; August 2025 &mdash; with Divya Tak</p>
-            <p>How to hold the full complexity of your company while presenting the right facet in the right moment. Storytelling as strategic alignment.</p>
-        </div>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank">Understanding the Money You Can Raise</a></h2>
-            <p class="meta">StartOut &mdash; July 2025 &mdash; with Divya Tak</p>
-            <p>Raising money for success, not just vanity, is about what kind, not how much. Strategic vs. passive vs. controlling vs. patient capital using real company case studies.</p>
-        </div>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank">Know Your Investors Before the First Meeting</a></h2>
-            <p class="meta">StartOut &mdash; June 2025 &mdash; with Divya Tak</p>
-            <p>Understanding what motivations exist for different types of investors, what signals are noise, and how to manage time and energy in low probability meetings.</p>
-        </div>
-
-        <h3 class="section-label">Generative AI</h3>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank">10 Tinkering Experiments To Do with AI</a></h2>
-            <p class="meta">StartOut &mdash; March 2025</p>
-            <p>Ten specific use cases that leverage AI in your personal and professional life &mdash; from speeding up workflows to doing sentiment analysis on your journals.</p>
-        </div>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank">Advanced Prompting: Controlling Style, Tone and Context</a></h2>
-            <p class="meta">StartOut &mdash; February 2025</p>
-            <p>Working with AI models with more nuance &mdash; controlling style, tone, building long conversations, and getting reliable results.</p>
-        </div>
-
-        <div class="talk">
-            <h2><a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank">Prompting: How to Talk to Our AI Friends</a></h2>
-            <p class="meta">StartOut &mdash; January 2025</p>
-            <p>Prompting techniques for text generation &mdash; chaining requests, giving context, influencing depth and tone.</p>
-        </div>
-
-        <h3 class="section-label">Panels</h3>
-
-        <div class="talk">
+        <!-- Featured talk -->
+        <div class="featured-talk">
+            <div class="featured-label">Featured</div>
             <h2>Narrative Threads: Weaving Voice, Vision, and Value</h2>
-            <p class="meta">Common Ground Summit '25 &mdash; Kauai &mdash; December 2025</p>
-            <p>The power of narrative as a tool for connection, identity, and impact. With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan (Columbia University, "Storytelling with Data").</p>
+            <p class="meta">Common Ground Summit &rsquo;25 &mdash; Kauai &mdash; December 2025</p>
+            <p class="desc">A panel on the power of narrative as a tool for connection, identity, and impact.</p>
+            <p class="panelists">With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan (Columbia University).</p>
         </div>
 
-        <div class="speaking-bridge">
-            <a href="mailto:hello@joyus.studio">Get in touch about speaking &rarr;</a>
+        <!-- Fundraising -->
+        <div class="talk-section">
+            <h3 class="section-label">Fundraising</h3>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank">Psychological Challenges &amp; How to Brace for Them</a></h2>
+                    <p class="meta">StartOut &mdash; September 2025 &mdash; with Divya Tak</p>
+                    <p class="desc">How to keep your head in the game when facing feedback, rejection, and pressure during a fundraise.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=D7j-jQ12-Kk" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank">Curating Your Story</a></h2>
+                    <p class="meta">StartOut &mdash; August 2025 &mdash; with Divya Tak</p>
+                    <p class="desc">How to hold the full complexity of your company while presenting the right facet in the right moment.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=j2tkS5o6G0A" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank">Understanding the Money You Can Raise</a></h2>
+                    <p class="meta">StartOut &mdash; July 2025 &mdash; with Divya Tak</p>
+                    <p class="desc">Strategic vs. passive vs. controlling capital &mdash; raising the right kind of money, not just the most.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=2j3plyzLtRY" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank">Know Your Investors Before the First Meeting</a></h2>
+                    <p class="meta">StartOut &mdash; June 2025 &mdash; with Divya Tak</p>
+                    <p class="desc">Understanding investor motivations and managing time in low-probability meetings.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=qtYkYYBOJ8U" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Generative AI -->
+        <div class="talk-section">
+            <h3 class="section-label">Generative AI</h3>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank">10 Tinkering Experiments To Do with AI</a></h2>
+                    <p class="meta">StartOut &mdash; March 2025</p>
+                    <p class="desc">Ten practical use cases for AI in your personal and professional life.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=86KEXmW5CRE" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank">Advanced Prompting: Controlling Style, Tone and Context</a></h2>
+                    <p class="meta">StartOut &mdash; February 2025</p>
+                    <p class="desc">Working with AI models with more nuance &mdash; controlling style, building long conversations, and getting reliable results.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=n-8OI-cjPp8" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+
+            <div class="talk">
+                <div class="talk-info">
+                    <h2><a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank">Prompting: How to Talk to Our AI Friends</a></h2>
+                    <p class="meta">StartOut &mdash; January 2025</p>
+                    <p class="desc">Foundational prompting techniques for text generation &mdash; chaining, context, depth, and tone.</p>
+                </div>
+                <a href="https://www.youtube.com/watch?v=q6fTgWRc8UI" target="_blank" class="watch-link">watch &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Topics -->
+        <div class="topics-section">
+            <h3>Topics I speak on</h3>
+            <ul class="topics-list">
+                <li>Storytelling &amp; narrative strategy</li>
+                <li>Fundraising for early-stage companies</li>
+                <li>Generative AI for practitioners</li>
+                <li>Behavioral design</li>
+            </ul>
+        </div>
+
+        <!-- CTA -->
+        <div class="speaking-cta">
+            <p>Interested in having me speak at your event?</p>
+            <a href="mailto:hello@joyus.studio">Get in touch &rarr;</a>
         </div>
 
     </main>
@@ -169,23 +369,6 @@
         <a href="/about.html">about</a>
     </nav>
 
-    <script>
-    (function() {
-        var photos = [
-            { src: 'photos/staircase.jpg', alt: 'Staircase in Sayulita', caption: 'Sayulita, Nayarit &mdash; Leica Q2 Monochrome' },
-            { src: 'photos/roma-sidewalk.jpg', alt: 'Sidewalk in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City &mdash; Leica Q2 Monochrome' },
-            { src: 'photos/night-street.jpg', alt: 'Night street scene', caption: 'Mexico &mdash; Leica Q2 Monochrome' },
-            { src: 'photos/taco-cart.jpg', alt: 'Taco cart at night', caption: 'Mexico &mdash; Leica Q2 Monochrome' }
-        ];
-        var pick = photos[Math.floor(Math.random() * photos.length)];
-        var el = document.getElementById('speaking-photo');
-        if (el) {
-            el.querySelector('img').src = pick.src;
-            el.querySelector('img').alt = pick.alt;
-            el.querySelector('figcaption').innerHTML = pick.caption;
-        }
-    })();
-    </script>
     <script src="/poem-whisper.js"></script>
 </body>
 </html>
