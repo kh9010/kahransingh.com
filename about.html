@@ -41,12 +41,18 @@
             font-size: 1.25rem;
             line-height: 1.7;
             white-space: normal;
+            word-wrap: break-word;
             top: 0;
             left: 0;
             width: 100%;
         }
-        .word-pile .measure span {
-            white-space: pre;
+        .word-pile .measure .word {
+            white-space: nowrap;
+            display: inline;
+        }
+        .word-pile .measure .space {
+            white-space: normal;
+            display: inline;
         }
 
         /* Lenticular hint — gentle rock when photo enters view */
@@ -247,12 +253,27 @@
         function measureQuote(text) {
             measureDiv.innerHTML = '';
             var spans = [];
-            for (var i = 0; i < text.length; i++) {
-                var s = document.createElement('span');
-                s.textContent = text[i];
-                measureDiv.appendChild(s);
-                spans.push(s);
-            }
+            // Group characters into words so the browser can wrap at word boundaries
+            var words = text.split(/( )/); // split keeping spaces
+            words.forEach(function(word) {
+                if (word === ' ') {
+                    var s = document.createElement('span');
+                    s.className = 'space';
+                    s.textContent = ' ';
+                    measureDiv.appendChild(s);
+                    spans.push(s);
+                } else {
+                    var wordWrap = document.createElement('span');
+                    wordWrap.className = 'word';
+                    for (var i = 0; i < word.length; i++) {
+                        var s = document.createElement('span');
+                        s.textContent = word[i];
+                        wordWrap.appendChild(s);
+                        spans.push(s);
+                    }
+                    measureDiv.appendChild(wordWrap);
+                }
+            });
 
             var containerRect = pile.getBoundingClientRect();
             var positions = [];
