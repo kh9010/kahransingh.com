@@ -38,12 +38,21 @@
             margin-bottom: 2.5rem;
         }
 
-        /* Placeholder for future speaking photo */
         #speaking-photo {
             width: 100%;
-            min-height: 120px;
-            margin-bottom: 3rem;
-            display: none; /* hidden until a real photo is added */
+            margin-bottom: 2.5rem;
+        }
+        #speaking-photo img {
+            width: 100%;
+            display: block;
+            filter: contrast(1.05);
+        }
+        #speaking-photo figcaption {
+            font-family: 'Fraunces', Georgia, serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: #999;
+            padding: 0.5rem 0 0;
         }
 
         /* Featured talk */
@@ -256,7 +265,10 @@
         </p>
         <p class="speaking-available">Available for panels, workshops, and keynotes</p>
 
-        <div id="speaking-photo"></div>
+        <div id="speaking-photo">
+            <img src="photos/speaking-kauai.jpg" alt="Narrative Threads panel at Common Ground Summit, Kauai">
+            <figcaption>Common Ground Summit, Kauai &mdash; December 2025</figcaption>
+        </div>
 
         <!-- Featured talk -->
         <div class="featured-talk">
@@ -264,7 +276,7 @@
             <h2>Narrative Threads: Weaving Voice, Vision, and Value</h2>
             <p class="meta">Common Ground Summit &rsquo;25 &mdash; Kauai &mdash; December 2025</p>
             <p class="desc">A panel on the power of narrative as a tool for connection, identity, and impact.</p>
-            <p class="panelists">With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan (Columbia University).</p>
+            <p class="panelists">With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan.</p>
         </div>
 
         <!-- Fundraising -->
