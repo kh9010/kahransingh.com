@@ -29,18 +29,18 @@
             top: 0;
             left: 0;
             width: 100%;
+            will-change: filter, opacity, transform;
         }
         .wp-layer:first-child {
             position: relative;
         }
-        .wp-word {
-            display: inline-block;
+        .wp-layer p {
             font-family: 'Fraunces', Georgia, serif;
             font-style: italic;
             font-size: 1.25rem;
             line-height: 1.7;
             color: #1a1a1a;
-            margin-right: 0.3em;
+            margin: 0;
         }
 
         /* Lenticular hint — gentle rock when photo enters view */
@@ -176,9 +176,9 @@
     </script>
 
     <script>
-    // Word pile — GSAP: two layers crossfade, words scatter between quotes
+    // Word pile — GSAP rack focus: quotes blur/sharpen like a camera lens
     (function() {
-        var fragments = [
+        var quotes = [
             'Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.',
             'To know me is to know joy because I laugh a lot and I fall in love a lot.',
             'What is a well lived life but a collection of moments of grace.',
@@ -192,9 +192,9 @@
 
         var currentIndex = 0;
         var paused = false;
-        var master = null;
+        var tl = null;
 
-        // Create two layers for crossfading
+        // Create two layers
         var layerA = document.createElement('div');
         var layerB = document.createElement('div');
         layerA.className = 'wp-layer';
@@ -202,103 +202,89 @@
         pile.appendChild(layerA);
         pile.appendChild(layerB);
 
-        function fillLayer(layer, text) {
+        function setQuote(layer, text) {
             layer.innerHTML = '';
-            var words = text.split(/\s+/);
-            return words.map(function(word) {
-                var span = document.createElement('span');
-                span.className = 'wp-word';
-                span.textContent = word;
-                layer.appendChild(span);
-                return span;
-            });
+            var p = document.createElement('p');
+            p.textContent = text;
+            layer.appendChild(p);
         }
 
-        function scatterIn(spans) {
-            gsap.set(spans, {
-                x: function() { return (Math.random() - 0.5) * 90; },
-                y: function() { return (Math.random() - 0.5) * 30; },
-                rotation: function() { return (Math.random() - 0.5) * 12; },
-                opacity: 0
-            });
-            return gsap.to(spans, {
-                x: 0, y: 0, rotation: 0, opacity: 1,
-                duration: 1.1,
-                ease: 'power2.out',
-                stagger: { each: 0.035, from: 'random' }
-            });
-        }
+        // Initialize: layer A sharp with first quote, layer B blurred
+        setQuote(layerA, quotes[0]);
+        setQuote(layerB, quotes[1]);
+        gsap.set(layerA, { filter: 'blur(0px)', opacity: 1, scale: 1 });
+        gsap.set(layerB, { filter: 'blur(8px)', opacity: 0.15, scale: 0.99 });
 
-        function scatterOut(spans) {
-            return gsap.to(spans, {
-                x: function() { return (Math.random() - 0.5) * 80; },
-                y: function() { return (Math.random() - 0.5) * 25; },
-                rotation: function() { return (Math.random() - 0.5) * 10; },
-                opacity: 0,
-                duration: 0.9,
-                ease: 'power1.in',
-                stagger: { each: 0.025, from: 'random' }
-            });
-        }
-
-        // Show first quote
         var activeLayer = layerA;
-        var activeSpans = fillLayer(layerA, fragments[0]);
-        gsap.set(layerB, { opacity: 0 });
-        scatterIn(activeSpans);
+        var inactiveLayer = layerB;
 
         function cycle() {
-            master = gsap.timeline({
+            tl = gsap.timeline({
                 onComplete: function() {
                     if (!paused) cycle();
                 }
             });
 
-            // Hold
-            master.to({}, { duration: 3.5 });
+            // Hold the current sharp quote for 4 seconds
+            tl.to({}, { duration: 4 });
 
             // Prepare next quote in the inactive layer
-            var nextIndex = (currentIndex + 1) % fragments.length;
-            var inactiveLayer = activeLayer === layerA ? layerB : layerA;
-            var nextSpans = fillLayer(inactiveLayer, fragments[nextIndex]);
-            gsap.set(nextSpans, {
-                x: function() { return (Math.random() - 0.5) * 90; },
-                y: function() { return (Math.random() - 0.5) * 30; },
-                rotation: function() { return (Math.random() - 0.5) * 12; },
-                opacity: 0
-            });
-            gsap.set(inactiveLayer, { opacity: 1 });
+            var nextIndex = (currentIndex + 1) % quotes.length;
+            var followIndex = (nextIndex + 1) % quotes.length;
 
-            // Scatter out current + scatter in next simultaneously
-            master.add(scatterOut(activeSpans), '>');
-            master.add(scatterIn(nextSpans), '<+=0.3');
+            // Rack focus: blur out current, sharpen incoming
+            // Outgoing: sharp -> blurred (with slight scale up)
+            tl.to(activeLayer, {
+                filter: 'blur(8px)',
+                opacity: 0.15,
+                scale: 1.01,
+                duration: 1.5,
+                ease: 'sine.inOut'
+            }, '>');
 
-            master.call(function() {
-                currentIndex = nextIndex;
+            // Incoming: blurred -> sharp (with slight scale up to 1)
+            // Offset by -1.0s to create 1.0s of overlap (both mid-blur for ~0.5s)
+            tl.to(inactiveLayer, {
+                filter: 'blur(0px)',
+                opacity: 1,
+                scale: 1,
+                duration: 1.5,
+                ease: 'sine.inOut'
+            }, '<+=0.5');
+
+            // After transition completes, swap roles and prep next quote
+            tl.call(function() {
+                var prev = activeLayer;
                 activeLayer = inactiveLayer;
-                activeSpans = nextSpans;
+                inactiveLayer = prev;
+                currentIndex = nextIndex;
+
+                // Load the follow-up quote into the now-inactive (blurred) layer
+                setQuote(inactiveLayer, quotes[followIndex]);
+                gsap.set(inactiveLayer, { filter: 'blur(8px)', opacity: 0.15, scale: 0.99 });
             });
         }
 
-        setTimeout(cycle, 300);
+        // Start the cycle
+        cycle();
 
-        // Hover to pause
+        // Hover to pause (desktop)
         pile.addEventListener('mouseenter', function() {
             paused = true;
-            if (master) master.pause();
+            if (tl) tl.pause();
         });
         pile.addEventListener('mouseleave', function() {
             paused = false;
-            if (master) master.resume();
+            if (tl) tl.resume();
         });
 
-        // Mobile tap
+        // Mobile tap to toggle pause
         pile.addEventListener('touchstart', function(e) {
             e.preventDefault();
             paused = !paused;
-            if (master) {
-                if (paused) master.pause();
-                else master.resume();
+            if (tl) {
+                if (paused) tl.pause();
+                else tl.resume();
             }
         });
     })();
