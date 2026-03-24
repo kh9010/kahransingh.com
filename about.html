@@ -21,7 +21,6 @@
         .word-pile {
             position: relative;
             margin-bottom: 3.5rem;
-            height: 10rem;
             overflow: hidden;
             cursor: default;
         }
@@ -220,6 +219,17 @@
         var measureDiv = document.createElement('div');
         measureDiv.className = 'measure';
         pile.appendChild(measureDiv);
+
+        // Set container height to fit the tallest quote + room for pile
+        var maxH = 0;
+        quotes.forEach(function(q) {
+            measureDiv.innerHTML = '';
+            measureDiv.textContent = q;
+            var h = measureDiv.offsetHeight;
+            if (h > maxH) maxH = h;
+        });
+        measureDiv.innerHTML = '';
+        pile.style.height = Math.max(maxH + 60, 120) + 'px'; // quote height + pile space
 
         // Generate a random pile position for a letter (at the bottom of the container)
         function randomPileState(containerW, containerH) {
