@@ -89,9 +89,8 @@
         <div class="word-pile" id="word-pile"></div>
 
         <div class="piece plain">
-            <p>Co-founder of <a href="https://joyus.studio">Joyus Studio</a>, a storytelling and experience design consultancy, with Divya Tak. Currently also building <a href="https://klydo.in">Klydo</a>, a fashion platform in India (2025), and General Partner at <a href="https://tresmonos.capital">Tres Monos Capital</a>, an early-stage fund focused on underrepresented entrepreneurs (founded 2017).</p>
-            <p>I studied computer science at Tufts and culinary arts at the French Culinary Institute in New York; I am currently pursuing an MFA in Writing and Poetics at the Jack Kerouac School of Disembodied Poetics, Naropa University. My career started in technical program management before moving to product and marketing &mdash; consulting with companies like Microsoft, McGraw-Hill, and TUI Travel across the US, UK, and India. From 2018&ndash;2019, I was CEO of Indian edTech company Vidyanext.</p>
-            <p>In 2022, I published my first poetry collection, <a href="https://www.amazon.com/How-World-Works-Kahran-Singh/dp/9395621354">How the World Works</a>. That same year, I married <a href="/wedding-celebration.html">Gourav</a> in Jaisalmer. We live between Bangalore and New York City.</p>
+            <p>I studied computer science at Tufts, then went to culinary school at the French Culinary Institute, and now I'm getting an MFA in poetry at Naropa's Jack Kerouac School. If that sounds like a zigzag, it is. I run <a href="https://joyus.studio">Joyus Studio</a> with Divya Tak &mdash; we tell stories and design experiences for a living, which still feels like a strange and lucky thing to say. I'm also CRO at <a href="https://klydo.in">Klydo</a>, a fashion platform in India, and a General Partner at <a href="https://tresmonos.capital">Tres Monos Capital</a>, where we back founders who don't usually get backed.</p>
+            <p>In 2022 I published a poetry collection called <a href="https://www.amazon.com/How-World-Works-Kahran-Singh/dp/9395621354">How the World Works</a>. That same year I married <a href="/wedding-celebration.html">Gourav</a> in Jaisalmer, which was the better publication. We live between Bangalore and New York City, which means I'm always slightly jet-lagged and always slightly in love with wherever I just left.</p>
         </div>
 
         <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e0ddd8;">
@@ -340,7 +339,7 @@
 
             // FORM: letters rise from pile to spell quote
             masterTl.to(activeLetters, {
-                duration: 1.5,
+                duration: 1.2,
                 ease: 'power2.out',
                 stagger: {
                     each: 0.02,
@@ -354,11 +353,11 @@
             });
 
             // HOLD
-            masterTl.to({}, { duration: 3.5 });
+            masterTl.to({}, { duration: 2.5 });
 
-            // FALL: letters drift downward like leaves
+            // FALL: letters drift down and fade to near-invisible
             masterTl.to(activeLetters, {
-                duration: 1.2,
+                duration: 1,
                 ease: 'power1.in',
                 stagger: {
                     each: 0.02,
@@ -369,20 +368,17 @@
                     return cw * 0.5 + (Math.random() - 0.5) * cw * 0.3;
                 },
                 rotation: function() { return (Math.random() - 0.5) * 16; },
-                opacity: function() { return 0.15 + Math.random() * 0.15; },
+                opacity: 0.05,
                 fontSize: function() { return (0.9 + Math.random() * 0.4) + 'em'; }
             });
 
-            // Brief pause while letters are dim
-            masterTl.to({}, { duration: 0.3 });
-
-            // Swap text content while letters are dim in the pile
+            // Swap text while letters are nearly invisible
             masterTl.call(function() {
                 assignLetters(nextText);
             });
 
-            // Another brief pause before rising
-            masterTl.to({}, { duration: 0.3 });
+            // Brief crossfade moment at low opacity before rising
+            masterTl.to({}, { duration: 0.15 });
         }
 
         // Initialize: scatter letters and start

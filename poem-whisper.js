@@ -1,4 +1,4 @@
-// Poetry accumulating on the page — lines find a home and stay
+// Poetry whispers — lines appear, linger, then fade to make room for new ones
 (function() {
     var whispers = [
         { line: 'In the morning you can listen to the mist', href: '/poems/the-mist.html' },
@@ -33,12 +33,42 @@
     }
 
     var placedPositions = [];
+    var visibleEls = [];       // queue of currently visible whisper elements
     var index = 0;
+    var MAX_VISIBLE = 8;       // start fading oldest once we exceed this
 
     function rand(min, max) { return Math.random() * (max - min) + min; }
 
+    function fadeOutOldest() {
+        if (visibleEls.length <= MAX_VISIBLE) return;
+
+        var entry = visibleEls.shift();
+        var el = entry.el;
+        var posIndex = entry.posIndex;
+
+        // Gentle fade: transition color to transparent over 2 seconds
+        el.style.transition = 'color 2s ease, opacity 2s ease';
+        el.style.color = 'transparent';
+        el.style.opacity = '0';
+
+        // After the fade completes, remove the element and free its position
+        setTimeout(function() {
+            if (el.parentNode) el.parentNode.removeChild(el);
+            // Remove from placedPositions so future whispers can use that spot
+            placedPositions[posIndex] = null;
+        }, 2100);
+    }
+
     function placeWhisper() {
-        if (index >= whispers.length) return;
+        // Cycle back to the start once all lines have been shown
+        if (index >= whispers.length) {
+            index = 0;
+            // Re-shuffle for variety on each pass
+            for (var i = whispers.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = whispers[i]; whispers[i] = whispers[j]; whispers[j] = tmp;
+            }
+        }
 
         var whisper = whispers[index++];
 
@@ -79,6 +109,7 @@
             attempts++;
         } while (tooClose(absX, absY) && attempts < 30);
 
+        var posIndex = placedPositions.length;
         placedPositions.push({ x: absX, y: absY });
 
         var el = document.createElement('a');
@@ -94,14 +125,19 @@
 
         setTimeout(function() { el.classList.add('visible'); }, 50);
 
-        // Schedule next
-        if (index < whispers.length) {
-            setTimeout(placeWhisper, Math.floor(rand(8000, 13000)));
-        }
+        // Track this element in the visible queue
+        visibleEls.push({ el: el, posIndex: posIndex });
+
+        // If we've exceeded the max, fade out the oldest
+        fadeOutOldest();
+
+        // Always schedule next whisper — the cycle never ends
+        setTimeout(placeWhisper, Math.floor(rand(8000, 13000)));
     }
 
     function tooClose(x, y) {
         for (var i = 0; i < placedPositions.length; i++) {
+            if (placedPositions[i] === null) continue;
             var dx = x - placedPositions[i].x;
             var dy = y - placedPositions[i].y;
             if (Math.sqrt(dx * dx + dy * dy) < 180) return true;
