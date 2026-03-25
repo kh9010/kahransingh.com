@@ -22,15 +22,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
     <style>
         main {
-            max-width: 1100px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 2rem 1.5rem 4rem;
+            padding: 2rem 1.5rem 0;
         }
 
         .photo-page-header {
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #e0ddd8;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 1rem;
+            text-align: center;
         }
 
         .photo-page-header h1 {
@@ -43,35 +44,102 @@
         }
 
         .photo-page-header p {
-            color: #999;
-            font-size: 0.9rem;
+            color: #bbb;
+            font-size: 0.85rem;
             margin-top: 0.4rem;
+            letter-spacing: 0.03em;
         }
 
-        .masonry {
-            column-count: 3;
-            column-gap: 0.75rem;
+        /* Single-column gallery */
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 15vh;
         }
 
-        .masonry img {
+        .photo-wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 15vh 0;
+        }
+
+        .photo-wrap img {
+            max-width: 800px;
             width: 100%;
             display: block;
-            margin-bottom: 0.75rem;
             cursor: pointer;
+            filter: contrast(1.05);
             transition: opacity 0.2s ease;
         }
 
-        .masonry img:hover {
-            opacity: 0.85;
+        .photo-wrap img:hover {
+            opacity: 0.88;
         }
 
+        /* Alternate narrower widths for breathing rhythm */
+        .photo-wrap.narrow img {
+            max-width: 600px;
+        }
+
+        /* Fade-in animation */
+        .photo-wrap {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .photo-wrap.visible {
+            opacity: 1;
+        }
+
+        .photo-wrap.no-fade {
+            opacity: 1;
+            transition: none;
+        }
+
+        /* Photo counter */
+        .photo-counter {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: #ddd;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Footer */
         .photo-footer {
             text-align: center;
-            padding: 3rem 0 1rem;
+            padding: 10vh 0 6rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .photo-footer p {
             font-family: 'Fraunces', Georgia, serif;
             font-style: italic;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #bbb;
+            margin: 0 0 1.5rem;
+        }
+
+        .photo-footer a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: #999;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 2px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .photo-footer a:hover {
+            color: #333;
+            border-color: #999;
         }
 
         /* Lightbox */
@@ -82,7 +150,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -94,27 +162,47 @@
         }
 
         .lightbox img {
-            max-width: 92vw;
-            max-height: 92vh;
+            max-width: 100vw;
+            max-height: 100vh;
             object-fit: contain;
         }
 
         @media (max-width: 768px) {
             main {
-                padding: 1.5rem 1rem 3rem;
+                padding: 1.5rem 1rem 0;
             }
 
             .photo-page-header h1 {
                 font-size: 1.6rem;
             }
 
-            .masonry {
-                column-count: 2;
-                column-gap: 0.5rem;
+            .gallery {
+                padding-top: 10vh;
             }
 
-            .masonry img {
-                margin-bottom: 0.5rem;
+            .photo-wrap {
+                padding: 10vh 0;
+            }
+
+            .photo-wrap img {
+                max-width: 100%;
+                padding: 0 0.5rem;
+                box-sizing: border-box;
+            }
+
+            .photo-wrap.narrow img {
+                max-width: 100%;
+            }
+
+            .photo-counter {
+                bottom: 1.2rem;
+                right: 1.2rem;
+                font-size: 0.75rem;
+                color: #e0e0e0;
+            }
+
+            .photo-footer {
+                padding: 6vh 1rem 5rem;
             }
         }
     </style>
@@ -136,9 +224,12 @@
             <p>Leica Q2 & Q2 Monochrome</p>
         </div>
 
-        <div class="masonry" id="gallery"></div>
+        <div class="gallery" id="gallery"></div>
 
-        <p class="photo-footer">Shot on the Leica Q2 & Q2 Monochrome</p>
+        <div class="photo-footer">
+            <p>Shot on the Leica Q2 & Q2 Monochrome</p>
+            <a href="/">back to home</a>
+        </div>
     </main>
 
     <nav>
@@ -150,6 +241,8 @@
         <a href="/archive.html">archive</a>
         <a href="/about.html">about</a>
     </nav>
+
+    <div class="photo-counter" id="photo-counter"></div>
 
     <div class="lightbox" id="lightbox">
         <img id="lightbox-img" src="" alt="">
@@ -207,22 +300,78 @@
         'yosemite-valley.jpg'
     ];
 
-    // Shuffle photos for a fresh layout each visit
+    // Shuffle photos for a fresh order each visit
     for (let i = photos.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [photos[i], photos[j]] = [photos[j], photos[i]];
     }
 
     const gallery = document.getElementById('gallery');
+    const counter = document.getElementById('photo-counter');
 
-    photos.forEach(filename => {
+    photos.forEach((filename, index) => {
+        const wrap = document.createElement('div');
+        wrap.classList.add('photo-wrap');
+        wrap.dataset.index = index + 1;
+
+        // Alternate narrower widths: every 3rd photo (2nd, 5th, 8th...) is narrow
+        if ((index + 1) % 3 === 2) {
+            wrap.classList.add('narrow');
+        }
+
+        // First photo visible immediately
+        if (index === 0) {
+            wrap.classList.add('no-fade');
+        }
+
         const img = document.createElement('img');
         img.src = 'photos/' + filename;
         img.alt = '';
-        img.loading = 'lazy';
+        img.loading = index < 2 ? 'eager' : 'lazy';
         img.addEventListener('click', () => openLightbox('photos/' + filename));
-        gallery.appendChild(img);
+
+        wrap.appendChild(img);
+        gallery.appendChild(wrap);
     });
+
+    // IntersectionObserver for fade-in (skip first photo)
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.15
+    });
+
+    document.querySelectorAll('.photo-wrap:not(.no-fade)').forEach(wrap => {
+        fadeObserver.observe(wrap);
+    });
+
+    // Photo counter — update on scroll
+    const counterObserver = new IntersectionObserver((entries) => {
+        // Find the most visible photo
+        let bestEntry = null;
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                bestEntry = entry;
+            }
+        });
+        if (bestEntry) {
+            counter.textContent = bestEntry.target.dataset.index;
+        }
+    }, {
+        threshold: 0.5
+    });
+
+    document.querySelectorAll('.photo-wrap').forEach(wrap => {
+        counterObserver.observe(wrap);
+    });
+
+    // Set initial counter
+    counter.textContent = '1';
 
     // Lightbox
     const lightbox = document.getElementById('lightbox');
