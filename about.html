@@ -355,6 +355,7 @@
                 },
                 opacity: 1,
                 rotation: 0,
+                scale: 1,
                 fontSize: '1.25rem',
                 x: function(idx) { return positions[idx] ? positions[idx].x : 0; },
                 y: function(idx) { return positions[idx] ? positions[idx].y : 0; }
@@ -366,7 +367,7 @@
             // FALL: letters drift down and fade to near-invisible
             masterTl.to(activeLetters, {
                 duration: 1,
-                ease: 'power1.in',
+                ease: 'sine.inOut',
                 stagger: {
                     each: 0.02,
                     from: 'random'
@@ -376,7 +377,8 @@
                     return cw * 0.5 + (Math.random() - 0.5) * cw * 0.3;
                 },
                 rotation: function() { return (Math.random() - 0.5) * 16; },
-                opacity: 0.05,
+                opacity: 0.03,
+                scale: 0.97,
                 fontSize: function() { return (0.9 + Math.random() * 0.4) + 'em'; }
             });
 
@@ -386,7 +388,7 @@
             });
 
             // Brief crossfade moment at low opacity before rising
-            masterTl.to({}, { duration: 0.15 });
+            masterTl.to({}, { duration: 0.3 });
         }
 
         // Initialize: scatter letters and start

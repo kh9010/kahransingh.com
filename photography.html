@@ -87,27 +87,19 @@
         }
 
         .series-scroll {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .series-track {
+            overflow-x: auto;
             display: flex;
             gap: 0.5rem;
-            width: max-content;
-            animation: marquee var(--duration, 30s) linear infinite;
+            padding-right: 2rem;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        .series-scroll:hover .series-track {
-            animation-play-state: paused;
+        .series-scroll::-webkit-scrollbar {
+            display: none;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .series-track img {
+        .series-scroll img {
             height: 300px;
             width: auto;
             flex-shrink: 0;
@@ -356,25 +348,15 @@
         const scroll = document.createElement('div');
         scroll.className = 'series-scroll';
 
-        const track = document.createElement('div');
-        track.className = 'series-track';
+        s.photos.forEach(p => {
+            const img = document.createElement('img');
+            img.src = p.src;
+            img.alt = p.alt;
+            img.loading = 'lazy';
+            img.addEventListener('click', () => openLightbox(p.src, p.alt));
+            scroll.appendChild(img);
+        });
 
-        // Add photos twice for seamless loop
-        for (let pass = 0; pass < 2; pass++) {
-            s.photos.forEach(p => {
-                const img = document.createElement('img');
-                img.src = p.src;
-                img.alt = p.alt;
-                img.loading = 'lazy';
-                img.addEventListener('click', () => openLightbox(p.src, p.alt));
-                track.appendChild(img);
-            });
-        }
-
-        // Speed: ~8 seconds per photo
-        track.style.setProperty('--duration', (s.photos.length * 8) + 's');
-
-        scroll.appendChild(track);
         row.appendChild(scroll);
         container.appendChild(row);
     });
