@@ -28,18 +28,17 @@
 
         /* Cover photo hero */
         .cover-hero {
-            max-width: 900px;
+            max-width: 640px;
             margin: 0 auto;
-            height: 50vh;
             overflow: hidden;
             position: relative;
             margin-bottom: 0.5rem;
+            line-height: 0;
         }
 
         .cover-hero img {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+            display: block;
             filter: contrast(1.05);
             cursor: pointer;
         }
@@ -88,26 +87,29 @@
         }
 
         .series-scroll {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .series-track {
             display: flex;
             gap: 0.5rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 0.5rem;
+            width: max-content;
+            animation: marquee var(--duration, 30s) linear infinite;
         }
 
-        /* Hide scrollbar but keep functionality */
-        .series-scroll::-webkit-scrollbar {
-            height: 0;
-            display: none;
-        }
-        .series-scroll {
-            scrollbar-width: none;
+        .series-scroll:hover .series-track {
+            animation-play-state: paused;
         }
 
-        .series-scroll img {
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .series-track img {
             height: 300px;
             width: auto;
-            scroll-snap-align: start;
             flex-shrink: 0;
             filter: contrast(1.05);
             cursor: pointer;
@@ -318,45 +320,27 @@
         const scroll = document.createElement('div');
         scroll.className = 'series-scroll';
 
-        // Add original photos
-        s.photos.forEach(p => {
-            const img = document.createElement('img');
-            img.src = p.src;
-            img.alt = p.alt;
-            img.loading = 'lazy';
-            img.addEventListener('click', () => openLightbox(p.src, p.alt));
-            scroll.appendChild(img);
-        });
+        const track = document.createElement('div');
+        track.className = 'series-track';
 
-        // Duplicate photos for seamless looping
-        s.photos.forEach(p => {
-            const img = document.createElement('img');
-            img.src = p.src;
-            img.alt = p.alt;
-            img.loading = 'lazy';
-            img.className = 'clone';
-            img.addEventListener('click', () => openLightbox(p.src, p.alt));
-            scroll.appendChild(img);
-        });
+        // Add photos twice for seamless loop
+        for (let pass = 0; pass < 2; pass++) {
+            s.photos.forEach(p => {
+                const img = document.createElement('img');
+                img.src = p.src;
+                img.alt = p.alt;
+                img.loading = 'lazy';
+                img.addEventListener('click', () => openLightbox(p.src, p.alt));
+                track.appendChild(img);
+            });
+        }
 
+        // Speed: ~8 seconds per photo
+        track.style.setProperty('--duration', (s.photos.length * 8) + 's');
+
+        scroll.appendChild(track);
         row.appendChild(scroll);
         container.appendChild(row);
-
-        // Loop: when scrolled past originals, jump back silently
-        scroll.addEventListener('scroll', function() {
-            const originalWidth = scroll.scrollWidth / 2;
-            if (scroll.scrollLeft >= originalWidth) {
-                scroll.scrollLeft -= originalWidth;
-            } else if (scroll.scrollLeft <= 0) {
-                scroll.scrollLeft += originalWidth;
-            }
-        });
-
-        // Start scrolled slightly in so user can scroll both directions
-        setTimeout(() => {
-            scroll.scrollLeft = 1;
-            scroll.classList.add('scrollable');
-        }, 300);
     });
 
     // Lightbox
