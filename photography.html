@@ -91,14 +91,8 @@
             display: flex;
             gap: 0.5rem;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 0.5rem;
-            justify-content: center;
-        }
-        /* Only scroll when there are enough photos to overflow */
-        .series-scroll.scrollable {
-            justify-content: flex-start;
         }
 
         /* Hide scrollbar but keep functionality */
@@ -324,6 +318,7 @@
         const scroll = document.createElement('div');
         scroll.className = 'series-scroll';
 
+        // Add original photos
         s.photos.forEach(p => {
             const img = document.createElement('img');
             img.src = p.src;
@@ -333,15 +328,35 @@
             scroll.appendChild(img);
         });
 
+        // Duplicate photos for seamless looping
+        s.photos.forEach(p => {
+            const img = document.createElement('img');
+            img.src = p.src;
+            img.alt = p.alt;
+            img.loading = 'lazy';
+            img.className = 'clone';
+            img.addEventListener('click', () => openLightbox(p.src, p.alt));
+            scroll.appendChild(img);
+        });
+
         row.appendChild(scroll);
         container.appendChild(row);
 
-        // Check after images load if the row needs to scroll
-        setTimeout(() => {
-            if (scroll.scrollWidth > scroll.clientWidth) {
-                scroll.classList.add('scrollable');
+        // Loop: when scrolled past originals, jump back silently
+        scroll.addEventListener('scroll', function() {
+            const originalWidth = scroll.scrollWidth / 2;
+            if (scroll.scrollLeft >= originalWidth) {
+                scroll.scrollLeft -= originalWidth;
+            } else if (scroll.scrollLeft <= 0) {
+                scroll.scrollLeft += originalWidth;
             }
-        }, 500);
+        });
+
+        // Start scrolled slightly in so user can scroll both directions
+        setTimeout(() => {
+            scroll.scrollLeft = 1;
+            scroll.classList.add('scrollable');
+        }, 300);
     });
 
     // Lightbox
