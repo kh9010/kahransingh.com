@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <title>Photography — Kahran Singh</title>
-    <meta name="description" content="Photography by Kahran Singh. Black and white street photography from Mexico City, shot on the Leica Q2 Monochrome.">
+    <meta name="description" content="Photography by Kahran Singh. Black and white photography from around the world, shot on the Leica Q2 Monochrome.">
     <meta property="og:title" content="Photography — Kahran Singh">
-    <meta property="og:description" content="Black and white street photography from Mexico City, shot on the Leica Q2 Monochrome.">
+    <meta property="og:description" content="Black and white photography from around the world, shot on the Leica Q2 Monochrome.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kahransingh.com/photography.html">
     <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Photography — Kahran Singh">
-    <meta name="twitter:description" content="Black and white street photography from Mexico City, shot on the Leica Q2 Monochrome.">
+    <meta name="twitter:description" content="Black and white photography from around the world, shot on the Leica Q2 Monochrome.">
     <meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
     <link rel="canonical" href="https://kahransingh.com/photography.html">
     <link rel="stylesheet" href="style.css">
@@ -22,69 +22,147 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
     <style>
         main {
-            max-width: 900px;
+            max-width: none;
+            padding-top: 0;
         }
 
-        .photo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-
-        .photo-grid .photo {
+        /* Cover photo hero */
+        .cover-hero {
+            width: 100%;
+            height: 70vh;
             overflow: hidden;
-            border-radius: 4px;
-            line-height: 0;
+            position: relative;
+            margin-bottom: 0.5rem;
         }
 
-        .photo-grid .photo figcaption {
+        .cover-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.05);
+            cursor: pointer;
+        }
+
+        .cover-caption {
             font-family: 'Fraunces', Georgia, serif;
             font-style: italic;
             font-size: 0.8rem;
             color: #999;
-            line-height: 1.5;
-            padding: 0.5rem 0 0;
+            margin-bottom: 3rem;
         }
 
-        .photo-grid .photo.full {
-            grid-column: 1 / -1;
+        /* Page header below cover */
+        .photo-page-header {
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e0ddd8;
         }
 
-        .photo-grid .photo img {
-            width: 100%;
-            display: block;
-            filter: contrast(1.05);
-            transition: transform 0.6s ease;
+        .photo-page-header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.3;
         }
 
-        .photo-grid .photo:hover img {
-            transform: scale(1.02);
-        }
-
-        .photo-note {
-            margin-top: 2.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e0ddd8;
-            font-size: 0.85rem;
-            color: #999;
-            line-height: 1.7;
-        }
-
-        .series-description {
-            font-size: 0.95rem;
-            line-height: 1.7;
+        .photo-page-header p {
             color: #666;
-            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Series rows */
+        .series-row {
+            margin-bottom: 2.5rem;
+        }
+
+        .series-label {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+        }
+
+        .series-scroll {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .series-scroll::-webkit-scrollbar {
+            height: 0;
+            display: none;
+        }
+        .series-scroll {
+            scrollbar-width: none;
+        }
+
+        .series-scroll img {
+            height: 300px;
+            width: auto;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            filter: contrast(1.05);
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .series-scroll img:hover {
+            opacity: 0.85;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
         }
 
         @media (max-width: 768px) {
-            .photo-grid {
-                grid-template-columns: 1fr;
+            .cover-hero {
+                height: 50vh;
             }
 
-            .photo-grid .photo.full {
-                grid-column: auto;
+            main {
+                padding-top: 0;
+            }
+
+            .photo-page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .series-scroll img {
+                height: 220px;
+            }
+
+            .series-label {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -92,53 +170,18 @@
 <body>
     <main>
         <a href="/" class="mobile-header">kahran</a>
-        <div class="page-header">
+
+        <div class="cover-hero">
+            <img id="cover-img" src="photos/roma-sidewalk.jpg" alt="">
+        </div>
+        <p class="cover-caption" id="cover-caption"></p>
+
+        <div class="photo-page-header">
             <h1>photography</h1>
-            <p>Exploring light, people, and place.</p>
+            <p>Shot on the Leica Q2 Monochrome, across the world.</p>
         </div>
 
-        <h3 class="section-label">Mexico, March 2026</h3>
-
-        <div class="photo-grid">
-            <figure class="photo full">
-                <img src="photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma Norte, Mexico City">
-                <figcaption>Roma Norte, Mexico City — f/1.7, 1/125s, ISO 5000</figcaption>
-            </figure>
-            <figure class="photo">
-                <img src="photos/lanterns.jpg" alt="Lanterns and palm tree at night in Sayulita">
-                <figcaption>Sayulita, Nayarit — f/1.7, 1/125s, ISO 6400</figcaption>
-            </figure>
-            <figure class="photo">
-                <img src="photos/taco-cart.jpg" alt="Taco cart at night in Sayulita">
-                <figcaption>Sayulita, Nayarit — f/1.8, 1/125s, ISO 2500</figcaption>
-            </figure>
-            <figure class="photo full">
-                <img src="photos/papel-picado.jpg" alt="Street with papel picado overhead in Sayulita">
-                <figcaption>Sayulita, Nayarit — f/1.8, 1/125s, ISO 4000</figcaption>
-            </figure>
-            <figure class="photo">
-                <img src="photos/staircase.jpg" alt="Figure on a staircase in Sayulita">
-                <figcaption>Sayulita, Nayarit — f/1.7, 1/125s, ISO 6400</figcaption>
-            </figure>
-            <figure class="photo">
-                <img src="photos/night-market.jpg" alt="Night market vendors in Sayulita">
-                <figcaption>Sayulita, Nayarit — f/1.7, 1/125s, ISO 1250</figcaption>
-            </figure>
-            <figure class="photo full">
-                <img src="photos/night-street.jpg" alt="Night street with palm trees in Roma Norte, Mexico City">
-                <figcaption>Roma Norte, Mexico City — f/2.5, 1/125s, ISO 6400</figcaption>
-            </figure>
-            <figure class="photo full">
-                <img src="photos/cdmx-plaza.jpg" alt="Plaza at night in Roma Norte, Mexico City">
-                <figcaption>Roma Norte, Mexico City — f/2.5, 1/125s, ISO 6400</figcaption>
-            </figure>
-        </div>
-
-        <p class="photo-note">Shot on the Leica Q2 Monochrome &middot; Summilux 28mm f/1.7 ASPH.</p>
-
-        <h3 class="section-label">Art Through Their Eyes</h3>
-
-        <p class="series-description">A curated series about people engaging with art &mdash; the pause before a painting, a conversation in a gallery, the way a sculpture reshapes the space around its viewer. Coming soon.</p>
+        <div id="series-container"></div>
 
     </main>
 
@@ -151,5 +194,165 @@
         <a href="/archive.html">archive</a>
         <a href="/about.html">about</a>
     </nav>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+    // All photos with series groupings
+    const series = [
+        {
+            name: 'Mexico',
+            photos: [
+                { src: 'photos/roma-sidewalk.jpg', alt: 'Night sidewalk in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City' },
+                { src: 'photos/papel-picado.jpg', alt: 'Street with papel picado overhead in Sayulita', caption: 'Sayulita, Nayarit' },
+                { src: 'photos/night-street.jpg', alt: 'Night street with palm trees in Roma Norte', caption: 'Roma Norte, Mexico City' },
+                { src: 'photos/staircase.jpg', alt: 'Figure on a staircase in Sayulita', caption: 'Sayulita, Nayarit' },
+                { src: 'photos/cdmx-plaza.jpg', alt: 'Plaza at night in Roma Norte, Mexico City', caption: 'Roma Norte, Mexico City' },
+                { src: 'photos/lanterns.jpg', alt: 'Lanterns and palm tree at night in Sayulita', caption: 'Sayulita, Nayarit' },
+                { src: 'photos/taco-cart.jpg', alt: 'Taco cart at night in Sayulita', caption: 'Sayulita, Nayarit' },
+                { src: 'photos/night-market.jpg', alt: 'Night market vendors in Sayulita', caption: 'Sayulita, Nayarit' }
+            ]
+        },
+        {
+            name: 'Fire Island',
+            photos: [
+                { src: 'photos/beach-solitude.jpg', alt: 'Lone figure on a beach', caption: 'Fire Island, New York' },
+                { src: 'photos/reed-corridor.jpg', alt: 'Path through tall reeds', caption: 'Fire Island, New York' },
+                { src: 'photos/beach-boardwalk.jpg', alt: 'Boardwalk vanishing point through pines', caption: 'Fire Island, New York' }
+            ]
+        },
+        {
+            name: 'Wyoming',
+            photos: [
+                { src: 'photos/forest-path.jpg', alt: 'Path through a forest', caption: 'Wyoming' },
+                { src: 'photos/dead-forest.jpg', alt: 'Dead forest', caption: 'Wyoming' },
+                { src: 'photos/beach-painter.jpg', alt: 'Person painting on beach', caption: 'Wyoming' }
+            ]
+        },
+        {
+            name: 'Hawaii',
+            photos: [
+                { src: 'photos/misty-hillside.jpg', alt: 'Misty hillside with figure walking', caption: 'Big Island, Hawaii' },
+                { src: 'photos/hawaii-landscape.jpg', alt: 'Volcanic landscape at dusk', caption: 'Hawaii' },
+                { src: 'photos/van-sleeping.jpg', alt: 'Van on a quiet road', caption: 'Hawaii' }
+            ]
+        },
+        {
+            name: 'Berlin',
+            photos: [
+                { src: 'photos/sony-center-berlin.jpg', alt: 'Sony Center at night, Berlin', caption: 'Berlin' },
+                { src: 'photos/berlin-street.jpg', alt: 'Street with vintage Porsche', caption: 'Berlin' }
+            ]
+        },
+        {
+            name: 'Pacific Northwest',
+            photos: [
+                { src: 'photos/alpine-lake.jpg', alt: 'Alpine lake with mountains', caption: 'Mt Rainier, Washington' },
+                { src: 'photos/waterfall-path.jpg', alt: 'Path through trees toward waterfall', caption: 'Northern California' },
+                { src: 'photos/staircase-lights.jpg', alt: 'Staircase with wall lights and figure', caption: 'Washington' }
+            ]
+        },
+        {
+            name: 'New England',
+            photos: [
+                { src: 'photos/buoys-wall.jpg', alt: 'Wall of buoys', caption: 'Cape Cod' },
+                { src: 'photos/fireworks-water.jpg', alt: 'Fireworks over water', caption: 'Cape Cod' },
+                { src: 'photos/mountain-valley.jpg', alt: 'Mountain valley', caption: 'Cape Cod' },
+                { src: 'photos/rainy-night.jpg', alt: 'Rainy night by a house', caption: 'Portland, Maine' },
+                { src: 'photos/still-lake.jpg', alt: 'Still lake with cloud reflections', caption: 'Yellowstone' }
+            ]
+        },
+        {
+            name: 'New York',
+            photos: [
+                { src: 'photos/hudson-pier.jpg', alt: 'Waterfront pier', caption: 'New York City' },
+                { src: 'photos/beach-sunset-group.jpg', alt: 'Friends on beach at sunset', caption: 'New York' }
+            ]
+        },
+        {
+            name: 'India',
+            photos: [
+                { src: 'photos/restaurant-night.jpg', alt: 'Restaurant through foliage at night', caption: 'Kerala' },
+                { src: 'photos/scooter-beach.jpg', alt: 'Scooter on a beach', caption: 'Goa' },
+                { src: 'photos/misty-jungle.jpg', alt: 'Misty jungle foliage', caption: 'India' }
+            ]
+        },
+        {
+            name: 'Other',
+            photos: [
+                { src: 'photos/sidewalk-shadows.jpg', alt: 'Tree shadows on sidewalk', caption: 'Chicago' },
+                { src: 'photos/concrete-museum.jpg', alt: 'Concrete museum interior with art installation', caption: 'Naoshima, Japan' },
+                { src: 'photos/tree-tunnel.jpg', alt: 'Tree tunnel', caption: 'Monterey, California' },
+                { src: 'photos/kitchen-night.jpg', alt: 'Figure in kitchen at night', caption: 'Telluride, Colorado' }
+            ]
+        }
+    ];
+
+    // Flatten all photos for the cover picker
+    const allPhotos = series.flatMap(s => s.photos.map(p => ({ ...p, series: s.name })));
+
+    // Random cover photo
+    const cover = allPhotos[Math.floor(Math.random() * allPhotos.length)];
+    document.getElementById('cover-img').src = cover.src;
+    document.getElementById('cover-img').alt = cover.alt;
+    document.getElementById('cover-caption').textContent = cover.caption;
+
+    // Build series rows
+    const container = document.getElementById('series-container');
+    series.forEach(s => {
+        const row = document.createElement('div');
+        row.className = 'series-row';
+
+        const label = document.createElement('h3');
+        label.className = 'series-label';
+        label.textContent = s.name;
+        row.appendChild(label);
+
+        const scroll = document.createElement('div');
+        scroll.className = 'series-scroll';
+
+        s.photos.forEach(p => {
+            const img = document.createElement('img');
+            img.src = p.src;
+            img.alt = p.alt;
+            img.loading = 'lazy';
+            img.addEventListener('click', () => openLightbox(p.src, p.alt));
+            scroll.appendChild(img);
+        });
+
+        row.appendChild(scroll);
+        container.appendChild(row);
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Cover photo click opens lightbox too
+    document.getElementById('cover-img').addEventListener('click', () => {
+        openLightbox(cover.src, cover.alt);
+    });
+    </script>
 </body>
 </html>
