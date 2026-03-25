@@ -28,8 +28,9 @@
 
         /* Cover photo hero */
         .cover-hero {
-            width: 100%;
-            height: 70vh;
+            max-width: 900px;
+            margin: 0 auto;
+            height: 50vh;
             overflow: hidden;
             position: relative;
             margin-bottom: 0.5rem;
@@ -38,7 +39,7 @@
         .cover-hero img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             filter: contrast(1.05);
             cursor: pointer;
         }
@@ -93,6 +94,11 @@
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 0.5rem;
+            justify-content: center;
+        }
+        /* Only scroll when there are enough photos to overflow */
+        .series-scroll.scrollable {
+            justify-content: flex-start;
         }
 
         /* Hide scrollbar but keep functionality */
@@ -325,6 +331,13 @@
 
         row.appendChild(scroll);
         container.appendChild(row);
+
+        // Check after images load if the row needs to scroll
+        setTimeout(() => {
+            if (scroll.scrollWidth > scroll.clientWidth) {
+                scroll.classList.add('scrollable');
+            }
+        }, 500);
     });
 
     // Lightbox
