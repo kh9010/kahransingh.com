@@ -185,6 +185,35 @@
             object-fit: contain;
         }
 
+        /* Auto-scroll indicator */
+        .auto-scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0;
+            animation: scrollIndicatorFade 4s ease forwards;
+        }
+
+        .auto-scroll-indicator::after {
+            content: ' \u25BE';
+            font-size: 0.8em;
+        }
+
+        @keyframes scrollIndicatorFade {
+            0% { opacity: 0; }
+            15% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
         @media (max-width: 768px) {
             main {
                 padding: 1.5rem 1rem 0;
@@ -281,7 +310,6 @@
         'alpine-lake.jpg',
         'banyan-tree-6A29610A.jpg',
         'beach-boardwalk.jpg',
-        'beach-painter.jpg',
         'beach-solitude.jpg',
         'berlin-street.jpg',
         'bhutan-summit-6D1ECE66.jpg',
@@ -290,12 +318,10 @@
         'cdmx-plaza.jpg',
         'concrete-museum.jpg',
         'cypress-kayak-F5BA8A7A.jpg',
-        'dead-forest.jpg',
         'diwali-gifts-7E597412.jpg',
         'fireworks-water.jpg',
         'glass-sculpture-C9B56AB5.jpg',
         'hawaii-landscape.jpg',
-        'hudson-pier.jpg',
         'infinity-room-BD764E63.jpg',
         'japan-bridge-night-03BAB9C2.jpg',
         'japan-gallery-quilt-27BBE65D.jpg',
@@ -307,14 +333,12 @@
         'night-market.jpg',
         'night-street.jpg',
         'papel-picado.jpg',
-        'rainy-night.jpg',
         'reed-corridor.jpg',
         'restaurant-night.jpg',
         'roma-sidewalk.jpg',
         'sayulita-staircase.jpg',
         'scooter-beach.jpg',
         'sea-cliff-8632EF29.jpg',
-        'sidewalk-shadows.jpg',
         'snowy-pass-648E669E.jpg',
         'staircase.jpg',
         'still-lake.jpg',
@@ -323,7 +347,6 @@
         'tree-tunnel.jpg',
         'van-sleeping.jpg',
         'wood-spiral-4DC35586.jpg',
-        'wyoming-road.jpg',
         'yosemite-trail.jpg',
         'yosemite-valley.jpg',
         'tetrapods-C617472A.jpg',
@@ -479,6 +502,82 @@
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeLightbox();
     });
+
+    // --- Auto-scroll ---
+    (function() {
+        // Disable on mobile / touch devices
+        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        if (isMobile) return;
+
+        const speed = 0.4; // pixels per frame (~24px/sec at 60fps)
+        let paused = false;
+        let manualPauseTimer = null;
+        let manualPaused = false;
+        let stopped = false;
+
+        // Visual indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'auto-scroll-indicator';
+        indicator.textContent = 'scrolling';
+        document.body.appendChild(indicator);
+        // Remove from DOM after animation completes
+        indicator.addEventListener('animationend', () => {
+            indicator.remove();
+        });
+
+        // Pause on hover over photos
+        document.addEventListener('mouseover', function(e) {
+            if (e.target.closest('.photo-wrap') || e.target.closest('.photo-pair')) {
+                paused = true;
+            }
+        });
+
+        document.addEventListener('mouseout', function(e) {
+            const related = e.relatedTarget;
+            const leaving = e.target.closest('.photo-wrap') || e.target.closest('.photo-pair');
+            if (leaving && (!related || (!related.closest('.photo-wrap') && !related.closest('.photo-pair')))) {
+                paused = false;
+            }
+        });
+
+        // Pause on manual scroll (wheel or keyboard) for 5 seconds
+        function onManualScroll() {
+            manualPaused = true;
+            clearTimeout(manualPauseTimer);
+            manualPauseTimer = setTimeout(() => {
+                manualPaused = false;
+            }, 5000);
+        }
+
+        window.addEventListener('wheel', onManualScroll, { passive: true });
+        document.addEventListener('keydown', function(e) {
+            if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space'].includes(e.key)) {
+                onManualScroll();
+            }
+        });
+
+        // Animation loop
+        function tick() {
+            if (stopped) return;
+
+            if (!paused && !manualPaused && !lightbox.classList.contains('active')) {
+                // Check if we've reached the bottom
+                const scrollBottom = window.innerHeight + window.scrollY;
+                if (scrollBottom >= document.body.scrollHeight - 1) {
+                    stopped = true;
+                    return;
+                }
+                window.scrollBy(0, speed);
+            }
+
+            requestAnimationFrame(tick);
+        }
+
+        // Start after a brief delay so the page settles
+        setTimeout(() => {
+            requestAnimationFrame(tick);
+        }, 1500);
+    })();
     </script>
 </body>
 </html>
