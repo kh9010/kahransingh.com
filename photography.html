@@ -66,7 +66,7 @@
         }
 
         .photo-wrap img {
-            max-width: 700px;
+            max-width: 900px;
             width: 100%;
             display: block;
             cursor: pointer;
@@ -75,7 +75,7 @@
 
         /* Alternate narrower widths for breathing rhythm */
         .photo-wrap.narrow img {
-            max-width: 500px;
+            max-width: 650px;
         }
 
         /* Diptych pairs */
@@ -89,7 +89,7 @@
         .photo-pair .pair-inner {
             display: flex;
             gap: 0.5rem;
-            max-width: 900px;
+            max-width: 1100px;
             width: 100%;
         }
 
@@ -530,11 +530,26 @@
             wrap.addEventListener('mouseleave', () => { paused = false; });
         });
 
-        // Pause on manual scroll for 8 seconds
+        // Pause on manual scroll — stop auto completely, resume after 10s idle
         function onManualScroll() {
             manualPaused = true;
             clearTimeout(manualPauseTimer);
-            manualPauseTimer = setTimeout(() => { manualPaused = false; }, 8000);
+            manualPauseTimer = setTimeout(() => {
+                manualPaused = false;
+                // Find which photo is currently centered and resume from there
+                let closest = 0;
+                let closestDist = Infinity;
+                allWraps.forEach((wrap, i) => {
+                    const rect = wrap.getBoundingClientRect();
+                    const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+                    if (Math.abs(center) < closestDist) {
+                        closestDist = Math.abs(center);
+                        closest = i;
+                    }
+                });
+                currentPhotoIndex = closest + 1;
+                scrollToPhoto(currentPhotoIndex);
+            }, 10000);
         }
         window.addEventListener('wheel', onManualScroll, { passive: true });
 
