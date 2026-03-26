@@ -254,14 +254,6 @@
     heroEl.querySelector('img').alt = hero.alt;
     heroEl.querySelector('figcaption').textContent = hero.caption;
 
-    // Second photo — avoid same as hero
-    const availableSecond = secondPhotos.filter(p => p.src !== hero.src);
-    const second = pick(availableSecond.length ? availableSecond : secondPhotos);
-    const secondEl = document.getElementById('second-photo');
-    secondEl.querySelector('img').src = second.src;
-    secondEl.querySelector('img').alt = second.alt;
-    secondEl.querySelector('figcaption').textContent = second.caption;
-
     // Poem spotlight
     const poem = pick(poems);
     const spotlight = document.getElementById('poem-spotlight');
