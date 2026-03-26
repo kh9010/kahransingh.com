@@ -506,10 +506,9 @@
     // --- Auto-scroll ---
     (function() {
         // Disable on mobile / touch devices
-        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (isMobile) return;
+        if (window.innerWidth <= 768) return;
 
-        const speed = 0.4; // pixels per frame (~24px/sec at 60fps)
+        const speed = 0.6; // pixels per frame (~36px/sec at 60fps)
         let paused = false;
         let manualPauseTimer = null;
         let manualPaused = false;
