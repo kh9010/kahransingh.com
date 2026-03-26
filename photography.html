@@ -549,7 +549,7 @@
             const targetY = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
             const startY = window.scrollY;
             const distance = targetY - startY;
-            const duration = Math.min(Math.abs(distance) * 3, 4000); // slower: 3ms per pixel, max 4s
+            const duration = Math.min(Math.abs(distance) * 8, 8000); // very slow: 8ms per pixel, max 8s
             const startTime = performance.now();
 
             function animate(now) {
@@ -559,22 +559,20 @@
                 }
                 const elapsed = now - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                // Ease in-out
-                const ease = progress < 0.5
-                    ? 2 * progress * progress
-                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                // Gentle sine ease — barely noticeable start and stop
+                const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
                 window.scrollTo(0, startY + distance * ease);
 
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
-                    // Hold at center for 2.5 seconds
+                    // Hold at center for 4 seconds — let it breathe
                     setTimeout(() => {
                         if (!stopped) {
                             currentPhotoIndex++;
                             scrollToPhoto(currentPhotoIndex);
                         }
-                    }, 2500);
+                    }, 4000);
                 }
             }
             requestAnimationFrame(animate);
