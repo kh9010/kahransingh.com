@@ -506,15 +506,15 @@
         if (e.key === 'Escape') closeLightbox();
     });
 
-    // --- Auto-scroll ---
+    // --- Auto-scroll: scroll each photo to center, hold, then continue ---
     (function() {
-        // Disable on mobile / touch devices
         if (window.innerWidth <= 768) return;
 
-        const speed = 0.6; // pixels per frame (~36px/sec at 60fps)
+        const allWraps = document.querySelectorAll('.photo-wrap, .photo-pair');
+        let currentPhotoIndex = 0;
         let paused = false;
-        let manualPauseTimer = null;
         let manualPaused = false;
+        let manualPauseTimer = null;
         let stopped = false;
 
         // Visual indicator
@@ -522,63 +522,68 @@
         indicator.className = 'auto-scroll-indicator';
         indicator.textContent = 'scrolling';
         document.body.appendChild(indicator);
-        // Remove from DOM after animation completes
-        indicator.addEventListener('animationend', () => {
-            indicator.remove();
+        indicator.addEventListener('animationend', () => indicator.remove());
+
+        // Pause ONLY on photo hover
+        allWraps.forEach(wrap => {
+            wrap.addEventListener('mouseenter', () => { paused = true; });
+            wrap.addEventListener('mouseleave', () => { paused = false; });
         });
 
-        // Pause on hover over photos
-        document.addEventListener('mouseover', function(e) {
-            if (e.target.closest('.photo-wrap') || e.target.closest('.photo-pair')) {
-                paused = true;
-            }
-        });
-
-        document.addEventListener('mouseout', function(e) {
-            const related = e.relatedTarget;
-            const leaving = e.target.closest('.photo-wrap') || e.target.closest('.photo-pair');
-            if (leaving && (!related || (!related.closest('.photo-wrap') && !related.closest('.photo-pair')))) {
-                paused = false;
-            }
-        });
-
-        // Pause on manual scroll (wheel or keyboard) for 5 seconds
+        // Pause on manual scroll for 8 seconds
         function onManualScroll() {
             manualPaused = true;
             clearTimeout(manualPauseTimer);
-            manualPauseTimer = setTimeout(() => {
-                manualPaused = false;
-            }, 5000);
+            manualPauseTimer = setTimeout(() => { manualPaused = false; }, 8000);
         }
-
         window.addEventListener('wheel', onManualScroll, { passive: true });
-        document.addEventListener('keydown', function(e) {
-            if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Space'].includes(e.key)) {
-                onManualScroll();
-            }
-        });
 
-        // Animation loop
-        function tick() {
-            if (stopped) return;
+        function scrollToPhoto(index) {
+            if (index >= allWraps.length || stopped) { stopped = true; return; }
+            const wrap = allWraps[index];
+            const img = wrap.querySelector('img');
+            if (!img) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); return; }
 
-            if (!paused && !manualPaused && !lightbox.classList.contains('active')) {
-                // Check if we've reached the bottom
-                const scrollBottom = window.innerHeight + window.scrollY;
-                if (scrollBottom >= document.body.scrollHeight - 1) {
-                    stopped = true;
+            // Target: center the image in viewport
+            const rect = wrap.getBoundingClientRect();
+            const targetY = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+            const startY = window.scrollY;
+            const distance = targetY - startY;
+            const duration = Math.min(Math.abs(distance) * 3, 4000); // slower: 3ms per pixel, max 4s
+            const startTime = performance.now();
+
+            function animate(now) {
+                if (paused || manualPaused) {
+                    requestAnimationFrame(animate);
                     return;
                 }
-                window.scrollBy(0, speed);
-            }
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease in-out
+                const ease = progress < 0.5
+                    ? 2 * progress * progress
+                    : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                window.scrollTo(0, startY + distance * ease);
 
-            requestAnimationFrame(tick);
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // Hold at center for 2.5 seconds
+                    setTimeout(() => {
+                        if (!stopped) {
+                            currentPhotoIndex++;
+                            scrollToPhoto(currentPhotoIndex);
+                        }
+                    }, 2500);
+                }
+            }
+            requestAnimationFrame(animate);
         }
 
-        // Start after a brief delay so the page settles
+        // Start after page settles
         setTimeout(() => {
-            requestAnimationFrame(tick);
-        }, 1500);
+            scrollToPhoto(0);
+        }, 2000);
     })();
     </script>
 </body>
