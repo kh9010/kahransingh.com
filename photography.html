@@ -519,7 +519,7 @@
 
     // --- Auto-scroll: scroll each photo to center, hold, then continue ---
     (function() {
-        if (window.innerWidth <= 768) return;
+        // Auto-scroll on all devices — touch users can still scroll manually
 
         const allWraps = document.querySelectorAll('.photo-wrap, .photo-pair');
         let currentPhotoIndex = 0;
@@ -535,10 +535,11 @@
         document.body.appendChild(indicator);
         indicator.addEventListener('animationend', () => indicator.remove());
 
-        // Pause ONLY on photo hover
+        // Pause on photo hover (desktop) and tap (mobile)
         allWraps.forEach(wrap => {
             wrap.addEventListener('mouseenter', () => { paused = true; });
             wrap.addEventListener('mouseleave', () => { paused = false; });
+            wrap.addEventListener('touchstart', () => { paused = !paused; }, { passive: true });
         });
 
         // Pause on manual scroll — stop auto completely, resume after 10s idle
@@ -563,6 +564,7 @@
             }, 10000);
         }
         window.addEventListener('wheel', onManualScroll, { passive: true });
+        window.addEventListener('touchmove', onManualScroll, { passive: true });
 
         function scrollToPhoto(index) {
             if (index >= allWraps.length || stopped) { stopped = true; return; }
