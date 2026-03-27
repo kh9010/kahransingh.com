@@ -553,7 +553,8 @@
                 let closest = 0;
                 let closestDist = Infinity;
                 allWraps.forEach((wrap, i) => {
-                    const rect = wrap.getBoundingClientRect();
+                    const el = wrap.querySelector('.pair-inner') || wrap.querySelector('img') || wrap;
+                    const rect = el.getBoundingClientRect();
                     const center = rect.top + rect.height / 2 - window.innerHeight / 2;
                     if (Math.abs(center) < closestDist) {
                         closestDist = Math.abs(center);
@@ -573,16 +574,18 @@
             const img = wrap.querySelector('img');
             if (!img) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); return; }
 
-            // Wait for image to load before calculating position
+            // For pairs, center on the .pair-inner; for singles, center on the img
+            const centerEl = wrap.querySelector('.pair-inner') || img;
+
             function doScroll() {
-                const rect = wrap.getBoundingClientRect();
+                const imgRect = centerEl.getBoundingClientRect();
                 // If image hasn't loaded yet (height 0), wait
-                if (rect.height < 50 && img.naturalHeight === 0) {
+                if (imgRect.height < 50 && img.naturalHeight === 0) {
                     img.addEventListener('load', doScroll, { once: true });
                     return;
                 }
 
-                const targetY = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+                const targetY = window.scrollY + imgRect.top - (window.innerHeight - imgRect.height) / 2;
                 const startY = window.scrollY;
                 const distance = targetY - startY;
 
