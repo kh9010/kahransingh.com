@@ -62,7 +62,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            padding: 25vh 0;
+            padding: 40vh 0;
         }
 
         .photo-wrap img {
@@ -83,7 +83,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            padding: 25vh 0;
+            padding: 40vh 0;
         }
 
         .photo-pair .pair-inner {
@@ -104,7 +104,7 @@
         /* Fade-in animation */
         .photo-wrap, .photo-pair {
             opacity: 0;
-            transition: opacity 2.5s ease;
+            transition: opacity 1.5s ease;
         }
 
         .photo-wrap.visible, .photo-pair.visible {
@@ -465,7 +465,7 @@
             }
         });
     }, {
-        threshold: 0.3
+        threshold: 0.05
     });
 
     document.querySelectorAll('.photo-wrap:not(.no-fade), .photo-pair').forEach(el => {
