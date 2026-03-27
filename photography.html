@@ -573,38 +573,56 @@
             const img = wrap.querySelector('img');
             if (!img) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); return; }
 
-            // Target: center the image in viewport
-            const rect = wrap.getBoundingClientRect();
-            const targetY = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
-            const startY = window.scrollY;
-            const distance = targetY - startY;
-            const duration = Math.min(Math.abs(distance) * 8, 8000); // very slow: 8ms per pixel, max 8s
-            const startTime = performance.now();
-
-            function animate(now) {
-                if (paused || manualPaused) {
-                    requestAnimationFrame(animate);
+            // Wait for image to load before calculating position
+            function doScroll() {
+                const rect = wrap.getBoundingClientRect();
+                // If image hasn't loaded yet (height 0), wait
+                if (rect.height < 50 && img.naturalHeight === 0) {
+                    img.addEventListener('load', doScroll, { once: true });
                     return;
                 }
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                // Gentle sine ease — barely noticeable start and stop
-                const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
-                window.scrollTo(0, startY + distance * ease);
 
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    // Hold at center for 4 seconds — let it breathe
+                const targetY = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+                const startY = window.scrollY;
+                const distance = targetY - startY;
+
+                // Skip if already very close
+                if (Math.abs(distance) < 10) {
                     setTimeout(() => {
-                        if (!stopped) {
-                            currentPhotoIndex++;
-                            scrollToPhoto(currentPhotoIndex);
-                        }
+                        if (!stopped) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); }
                     }, 4000);
+                    return;
                 }
+
+                const duration = Math.min(Math.abs(distance) * 8, 8000);
+                let elapsed = 0;
+                let lastTime = performance.now();
+
+                function animate(now) {
+                    if (paused || manualPaused) {
+                        lastTime = now; // don't count paused time
+                        requestAnimationFrame(animate);
+                        return;
+                    }
+                    elapsed += now - lastTime;
+                    lastTime = now;
+
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
+                    window.scrollTo(0, startY + distance * ease);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        setTimeout(() => {
+                            if (!stopped) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); }
+                        }, 4000);
+                    }
+                }
+                requestAnimationFrame(animate);
             }
-            requestAnimationFrame(animate);
+
+            doScroll();
         }
 
         // Start after page settles
