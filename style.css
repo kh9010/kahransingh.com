@@ -142,7 +142,7 @@ main {
 .home-photo {
     display: block;
     width: calc(100vw - 260px);
-    max-width: 900px;
+    max-width: 600px;
     margin: 3rem 0 3.5rem;
     overflow: hidden;
     line-height: 0;
@@ -207,12 +207,14 @@ main {
 
 /* Content sections (cards) */
 .piece {
+    position: relative;
     margin-bottom: 1.25rem;
     padding: 1.5rem;
     background: #fff;
     border: 1px solid #e8e6e1;
     border-radius: 6px;
     transition: box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
 }
 
 .piece:hover {
@@ -561,10 +563,10 @@ hr {
     }
 
     .home-photo {
-        width: calc(100% + 3rem);
+        width: 100%;
         max-width: none;
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .page-header h1 {

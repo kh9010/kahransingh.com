@@ -156,6 +156,76 @@ const themeLabels = {
     endSlide.parentNode.insertBefore(exploreDiv, endSlide);
 })();
 
+// --- Progress bar ---
+(function() {
+    var bar = document.createElement('div');
+    bar.className = 'poem-progress';
+    document.body.appendChild(bar);
+
+    var scrollContainer = document.querySelector('.poem-scroll');
+    if (!scrollContainer) return;
+
+    var stanzas = scrollContainer.querySelectorAll('.stanza');
+    var total = stanzas.length;
+
+    var progressObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var index = Array.prototype.indexOf.call(stanzas, entry.target);
+                var progress = (index + 1) / total;
+                bar.style.width = (progress * 100) + '%';
+            }
+        });
+    }, { root: scrollContainer, threshold: 0.5 });
+
+    stanzas.forEach(function(s) { progressObserver.observe(s); });
+})();
+
+// --- Auto-navigate at end ---
+(function() {
+    var endSlide = document.querySelector('.stanza.end-slide');
+    var scrollContainer = document.querySelector('.poem-scroll');
+    if (!endSlide || !scrollContainer) return;
+
+    var endVisible = false;
+    var navigating = false;
+
+    var endObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            endVisible = entry.isIntersecting;
+        });
+    }, { root: scrollContainer, threshold: 0.5 });
+
+    endObserver.observe(endSlide);
+
+    function navigate() {
+        if (navigating) return;
+        navigating = true;
+        scrollContainer.classList.add('fade-out');
+        setTimeout(function() {
+            window.location.href = '/poetry.html';
+        }, 600);
+    }
+
+    // Wheel scroll past end
+    scrollContainer.addEventListener('wheel', function(e) {
+        if (endVisible && e.deltaY > 0) navigate();
+    }, { passive: true });
+
+    // Touch swipe up past end
+    var touchY = null;
+    scrollContainer.addEventListener('touchstart', function(e) {
+        if (endVisible) touchY = e.touches[0].clientY;
+    }, { passive: true });
+    scrollContainer.addEventListener('touchend', function(e) {
+        if (touchY !== null && endVisible) {
+            var delta = touchY - e.changedTouches[0].clientY;
+            if (delta > 60) navigate();
+        }
+        touchY = null;
+    }, { passive: true });
+})();
+
 // Escape key → back to all poems
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
