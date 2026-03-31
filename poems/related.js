@@ -65,7 +65,7 @@ const poemData = {
     'today-if-there-is-tomorrow': { themes: ['mortality', 'wonder'], title: 'Today if there is tomorrow' },
     'and-now-that-we-walk': { themes: ['identity'], title: 'And now that we walk in these days of light' },
     'everyday-i-can-spend': { themes: ['love', 'mortality'], title: 'Everyday I can spend' },
-    'its-funny': { themes: ['love', 'identity'], title: "It's funny" },
+    'its-funny': { themes: ['love', 'identity'], title: 'one year on' },
     'london': { themes: ['place', 'identity'], title: 'London' },
     'park': { themes: ['place', 'wonder', 'identity'], title: 'Park' },
     'sometimes-i-feel-cold': { themes: ['identity', 'mortality'], title: 'sometimes I feel cold' },
