@@ -1,10 +1,51 @@
 # Dock Records Research: 9010 NE 41st St, Yarrow Point, WA 98004
 
 **Property:** 9010 NE 41st St, Yarrow Point, WA 98004
-**Parcel #:** 220740-0080
+**Parcel #:** 2207400070 (APN per Redfin; Major=220740, Minor=0070)
 **Subdivision:** Easthams Yarrow Point Addition
 **Current house built:** 2000
 **Owner:** Pradeep Singh
+
+---
+
+## QUICK START - DO THESE FROM YOUR BROWSER RIGHT NOW
+
+### Step 1: Historic Aerial Photos (5 min)
+1. Open https://www.historicaerials.com/viewer
+2. In the search bar, type: `9010 NE 41st St, Yarrow Point, WA 98004`
+3. On the left sidebar, you'll see a timeline of available years
+4. Click on each year BEFORE 1972 (likely 1936, ~1950, ~1960, ~1968, ~1970)
+5. Zoom into the waterfront edge of the property
+6. **Screenshot anything showing a dock or boat ramp structure**
+7. Also check the "Topo" tab for USGS topographic maps from pre-1972
+
+### Step 2: WA Digital Archives Property Card (10 min)
+1. Open https://digitalarchives.wa.gov/Collections/TitleInfo/854
+2. This is the King County Assessor Record Cards (1937-1972) collection
+3. Try searching for: `2207400070` or `220740-0070` or just `9010 41st`
+4. These cards have PHOTOGRAPHS of the property - could show the dock
+5. If search doesn't work, try browsing by navigating the collection
+
+### Step 3: King County Assessor (5 min)
+1. Open https://blue.kingcounty.com/Assessor/eRealProperty/default.aspx
+2. Search for parcel `2207400070` OR address `9010 NE 41st St`
+3. Look at: Property Detail, Tax Roll History, Sales History
+4. Note any ownership changes, especially sales before 2000
+
+### Step 4: USGS EarthExplorer (15 min, free account needed)
+1. Open https://earthexplorer.usgs.gov/
+2. Create free account if you don't have one
+3. Under "Search Criteria" > "Address/Place", enter `Yarrow Point, WA`
+4. Set date range: `01/01/1950` to `12/31/1972`
+5. Click "Data Sets" tab > expand "Aerial Imagery" > check "Aerial Photo Single Frames"
+6. Click "Results" > browse and download available imagery (free)
+
+### Step 5: King County iMap - 1936 Aerial (5 min)
+1. Open https://gismaps.kingcounty.gov/iMap/
+2. In the basemap gallery (bottom right), switch to "Aerial 1936"
+3. Navigate to 9010 NE 41st St, Yarrow Point
+4. Look for any waterfront structures visible in the 1936 imagery
+5. Also switch between other historical basemaps (1998, 2000, 2002)
 
 ---
 
@@ -117,13 +158,21 @@ property photograph or described in the building details.
 
 **How to access:**
 - **Online (digitized):** https://digitalarchives.wa.gov/Collections/TitleInfo/854
-  - Search by parcel number: enter `220740-0080` (with hyphen between 6th and 7th
-    digits, so try `220740-0080`)
-  - Search by address: enter house number `9010` and street name `41st` (do NOT
-    include direction or suffix)
+  - Try these search variations (the site's search can be finicky):
+    - Parcel number: `2207400070` or `220740-0070` or `220740 0070`
+    - Address: `9010 41st` (do NOT include "NE" or "St")
+    - Street only: `41st` and browse results for Yarrow Point entries
+    - Legal description: try `Eastham` or `Easthams Yarrow Point`
+  - NOTE: The site's records are organized by parcel. The 10-digit parcel
+    number is the main search key. Major=220740, Minor=0070.
+  - If online search fails, the physical cards are at:
 - **In person:** Puget Sound Regional Archives, Bellevue, WA
   - Phone: (425) 564-3940
   - Email: psbrancharchives@sos.wa.gov
+  - **Ask specifically for:** "King County Assessor Real Property Record Card
+    for parcel 220740-0070, Easthams Yarrow Point Addition"
+  - These cards contain at least one PHOTOGRAPH of the property plus building
+    descriptions - this could show the dock
 
 ### 2. Historic Aerials - NETRonline [HIGH PRIORITY]
 
@@ -231,14 +280,14 @@ features including a dock.
 
 2. **Search the WA Digital Archives** for the property record card:
    https://digitalarchives.wa.gov/Collections/TitleInfo/854
-   Search for parcel 220740-0080 or address 9010 41st
+   Search for parcel 2207400070 or address 9010 41st
 
 3. **Search USGS EarthExplorer** for 1960s aerial photos of the property area
 
 ### Short-Term Actions (Before April 24 departure)
 
 4. **Contact Puget Sound Regional Archives** at (425) 564-3940 to request the
-   full property record card for parcel 220740-0080. These cards contain photos
+   full property record card for parcel 2207400070. These cards contain photos
    and building descriptions through 1972.
 
 5. **Contact King County Archives** about Department of Public Works aerial photos
