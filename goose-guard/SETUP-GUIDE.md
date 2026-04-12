@@ -10,16 +10,136 @@ A Raspberry Pi sits in a weatherproof box near the water, connected to an outdoo
 
 The system plays randomized goose distress calls, predator sounds (coyote, hawk, eagle), and startle sounds (dog barks, air horns). It never repeats the same pattern, so geese don't get used to it.
 
+### Physical Architecture
+
 ```
   Your Phone (on home WiFi)
         |
-        | WiFi
+        | HTTP over WiFi
         v
-  Raspberry Pi (at the water, in weatherproof box)
-        |
-        | Speaker wire
-        v
-  Outdoor Speaker (aimed at where geese hang out)
+  +--------------------------------------+
+  |  Weatherproof NEMA 4X Enclosure      |
+  |                                      |
+  |    +-----------------------+         |
+  |    |   Raspberry Pi 4      |         |
+  |    |   (Flask web server)  |         |
+  |    +-----------------------+         |
+  |              |                       |
+  |              | USB                   |
+  |              v                       |
+  |    +-----------------------+         |
+  |    |   USB Audio Adapter   |         |
+  |    +-----------------------+         |
+  |              |                       |
+  +--------------|-----------------------+
+                 | 3.5mm -> bare wire
+                 | through cable gland
+                 v
+         [Outdoor Speaker]
+         mounted 6-8 ft high
+         aimed at waterline
+```
+
+### Software Architecture
+
+The Pi runs a single Python process (`app.py`) that ties everything together:
+
+```
+                  +------------------------+
+                  |    Phone Browser       |
+                  |  (control + status)    |
+                  +-----------+------------+
+                              |
+                              | HTTP / JSON
+                              v
+  +---------------------------------------------------+
+  |                  Flask Web Server                 |
+  |                    (app.py)                       |
+  |                                                   |
+  |  Routes:                                          |
+  |    GET  /                -> control panel        |
+  |    GET  /status          -> status page          |
+  |    POST /api/play        -> trigger sound        |
+  |    POST /api/stop        -> stop playback        |
+  |    POST /api/volume      -> set volume           |
+  |    POST /api/mode        -> manual/auto/motion   |
+  |    POST /api/schedule    -> update schedule      |
+  |    GET  /api/status      -> playback state       |
+  |    GET  /api/system      -> health stats         |
+  |    GET  /api/hardware    -> component catalog    |
+  |    GET  /api/log         -> recent activity      |
+  +---+------------------+-----------------+---------+
+      |                  |                 |
+      v                  v                 v
+  +---------+   +----------------+   +---------------+
+  | Sound   |   |  Deterrent     |   |  Motion       |
+  | Engine  |   |  Scheduler     |   |  Monitor      |
+  |         |   |                |   |  (optional)   |
+  | pygame  |   | APScheduler    |   | RPi.GPIO      |
+  | mixer   |   | + astral       |   | PIR polling   |
+  +----+----+   +-------+--------+   +-------+-------+
+       |                |                    |
+       |  plays sound   |  triggers at       |  triggers on
+       |  files with    |  dawn/dusk/midday  |  motion
+       |  anti-habit-   |  using sunrise/    |  detection
+       |  uation logic  |  sunset calc       |
+       |                |                    |
+       +----------------+--------------------+
+                        |
+                        v
+              +-------------------+
+              | sounds/*/*.mp3    |
+              | (file system)     |
+              +-------------------+
+
+  +-----------------------------+
+  |  System Info Module         |
+  |  (system_info.py)           |
+  |                             |
+  |  Reads from:                |
+  |   /proc/uptime              |
+  |   /proc/meminfo             |
+  |   /proc/loadavg             |
+  |   /proc/net/wireless        |
+  |   /sys/class/thermal/...    |
+  |   aplay -l                  |
+  |   systemctl is-active       |
+  +-----------------------------+
+
+  +-----------------------------+
+  |  Persistent State           |
+  |                             |
+  |   config.json  (settings)   |
+  |   hardware.json (catalog)   |
+  |   sounds/      (audio)      |
+  +-----------------------------+
+
+  Managed by: systemd (goose-guard.service)
+  Auto-restarts on failure. Starts on boot.
+```
+
+### File Layout
+
+```
+goose-guard/
+  app.py              # Flask web server, routes, API
+  sound_engine.py     # pygame-based audio playback + anti-habituation
+  scheduler.py        # Dawn/dusk/midday scheduling via APScheduler
+  gpio_monitor.py     # PIR motion sensor polling (optional)
+  system_info.py      # System health readings for status page
+  config.json         # User settings (mode, volume, schedule)
+  hardware.json       # Component catalog with purchase links
+  requirements.txt    # Python dependencies
+  install.sh          # One-shot Pi setup script
+  goose-guard.service # systemd service definition
+  static/
+    index.html        # Control panel UI
+    status.html       # System status + hardware page
+  sounds/
+    predator/         # coyote, hawk, eagle, fox
+    distress/         # goose distress calls
+    startle/          # air horns, barks
+    custom/           # anything else
 ```
 
 ---
@@ -53,6 +173,8 @@ The system plays randomized goose distress calls, predator sounds (coyote, hawk,
 ### Where to Buy
 
 Everything is available on Amazon. Search the product names above. The Raspberry Pi is also available from Adafruit, SparkFun, or CanaKit.
+
+**Tip:** Once the system is running, the status page at `http://gooseguard.local:5000/status` has direct Amazon search links for every component — useful for ordering replacements later. You can also bookmark it on your phone for easy access.
 
 ---
 
@@ -250,6 +372,15 @@ If you bought the HC-SR501 PIR sensor:
 
 Open **http://gooseguard.local:5000** on your phone. Bookmark it to your home screen for app-like access (on iPhone: Share → Add to Home Screen).
 
+There are two pages:
+
+| Page | URL | What it's for |
+|------|-----|---------------|
+| **Control** | `/` | Day-to-day use: scare button, volume, mode, schedule |
+| **Status** | `/status` | Monitoring: CPU temp, uptime, WiFi signal, audio check, hardware purchase links |
+
+The control panel links to the status page at the bottom, and the status page has a back-link to control.
+
 ### Controls
 
 | Control | What It Does |
@@ -276,6 +407,22 @@ Open **http://gooseguard.local:5000** on your phone. Bookmark it to your home sc
 - **Midday:** 3-sound burst at a random time between 10am-2pm
 - **Quiet hours:** no sounds between 10pm and 5am
 - Sunrise and sunset times auto-adjust with the seasons
+
+### Status Page
+
+Tap **"system status & hardware"** at the bottom of the control panel, or go directly to `http://gooseguard.local:5000/status`. It shows:
+
+| Section | What it tells you |
+|---------|-------------------|
+| **Health banner** | Big green/yellow/red light — the one thing to glance at |
+| **Active warnings** | Specific problems (overheating, no audio device, disk full) |
+| **Goose Guard** | Service status, current mode, whether anything is playing, sound count |
+| **Hardware Health** | Uptime, CPU temp, memory, disk, audio device detection |
+| **Network** | Hostname, IP address, WiFi network name and signal strength |
+| **Sound Inventory** | How many files in each category, flags empty categories |
+| **Hardware — Buy / Replace** | Every component with its role, replacement signs, and an Amazon search link |
+
+The page auto-refreshes every 10 seconds.
 
 ---
 

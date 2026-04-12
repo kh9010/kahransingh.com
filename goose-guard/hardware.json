@@ -1,0 +1,179 @@
+{
+  "note": "Amazon search URLs — these open a search results page, not a specific listing. That way links stay valid even as products go in and out of stock.",
+  "components": [
+    {
+      "id": "pi",
+      "name": "Raspberry Pi 4 Model B (2GB)",
+      "role": "The brain — runs the software and web server",
+      "category": "core",
+      "essential": true,
+      "estimated_cost": "$45",
+      "search_query": "raspberry pi 4 model b 2gb",
+      "amazon_url": "https://www.amazon.com/s?k=raspberry+pi+4+model+b+2gb",
+      "replacement_signs": "Won't boot after power cycle, service keeps crashing, overheats under normal load",
+      "notes": "2GB is plenty. 4GB or 8GB also work if that's what's available."
+    },
+    {
+      "id": "sd_card",
+      "name": "MicroSD Card (32GB)",
+      "role": "Storage for the OS and sound files",
+      "category": "core",
+      "essential": true,
+      "estimated_cost": "$10",
+      "search_query": "sandisk extreme 32gb microsd a1",
+      "amazon_url": "https://www.amazon.com/s?k=sandisk+extreme+32gb+microsd+a1",
+      "replacement_signs": "Filesystem errors in logs, Pi fails to boot, read/write errors",
+      "notes": "Look for 'A1' or 'A2' rated cards for better random I/O."
+    },
+    {
+      "id": "power",
+      "name": "USB-C Power Supply (5V / 3A+)",
+      "role": "Powers the Raspberry Pi",
+      "category": "core",
+      "essential": true,
+      "estimated_cost": "$10",
+      "search_query": "raspberry pi 4 official power supply usb c",
+      "amazon_url": "https://www.amazon.com/s?k=raspberry+pi+4+official+power+supply+usb+c",
+      "replacement_signs": "Lightning bolt icon on screen, random reboots, under-voltage warnings",
+      "notes": "Must supply at least 3A. Cheap phone chargers cause flaky behavior."
+    },
+    {
+      "id": "usb_audio",
+      "name": "USB Audio Adapter",
+      "role": "Clean audio output to the speaker",
+      "category": "audio",
+      "essential": true,
+      "estimated_cost": "$8",
+      "search_query": "sabrent usb audio adapter 3.5mm",
+      "amazon_url": "https://www.amazon.com/s?k=sabrent+usb+audio+adapter+3.5mm",
+      "replacement_signs": "No sound, distorted sound, audio device not detected on status page",
+      "notes": "Better sound quality than the Pi's onboard jack."
+    },
+    {
+      "id": "speaker",
+      "name": "Outdoor Weatherproof Speaker",
+      "role": "Projects sound at the waterfront",
+      "category": "audio",
+      "essential": true,
+      "estimated_cost": "$60",
+      "search_query": "pyle pdwr62btbk outdoor speaker weatherproof",
+      "amazon_url": "https://www.amazon.com/s?k=pyle+pdwr62btbk+outdoor+speaker",
+      "replacement_signs": "No sound, distorted/crackling, visible water damage, corrosion",
+      "notes": "IP44+ weatherproof rating recommended. Marine-grade lasts longer near water."
+    },
+    {
+      "id": "speaker_alt",
+      "name": "Marine Speaker (alternative)",
+      "role": "Smaller marine-rated alternative",
+      "category": "audio",
+      "essential": false,
+      "estimated_cost": "$40",
+      "search_query": "pyle plmr24 marine speaker pair",
+      "amazon_url": "https://www.amazon.com/s?k=pyle+plmr24+marine+speaker",
+      "replacement_signs": "Same as main speaker",
+      "notes": "Marine-rated, good for very wet environments."
+    },
+    {
+      "id": "speaker_wire",
+      "name": "Outdoor Speaker Wire (16 AWG, 25 ft)",
+      "role": "Connects Pi audio output to the speaker",
+      "category": "audio",
+      "essential": true,
+      "estimated_cost": "$15",
+      "search_query": "16 gauge outdoor speaker wire 25ft",
+      "amazon_url": "https://www.amazon.com/s?k=16+gauge+outdoor+speaker+wire+25ft",
+      "replacement_signs": "Intermittent sound, visible wire damage, corrosion at terminals",
+      "notes": "Direct-burial rated if running underground."
+    },
+    {
+      "id": "audio_adapter",
+      "name": "3.5mm to Bare Wire Adapter",
+      "role": "Bridges the USB audio jack to speaker wire",
+      "category": "audio",
+      "essential": true,
+      "estimated_cost": "$6",
+      "search_query": "3.5mm stereo to bare wire adapter",
+      "amazon_url": "https://www.amazon.com/s?k=3.5mm+stereo+to+bare+wire+adapter",
+      "replacement_signs": "Sound cuts out when wiggled, visible cable wear",
+      "notes": "Alternative: a small amplifier board with speaker terminals."
+    },
+    {
+      "id": "enclosure",
+      "name": "Weatherproof Enclosure (NEMA 4X)",
+      "role": "Houses the Pi, keeps it dry",
+      "category": "enclosure",
+      "essential": true,
+      "estimated_cost": "$25",
+      "search_query": "bud industries nbf 32016 nema enclosure",
+      "amazon_url": "https://www.amazon.com/s?k=bud+industries+nbf+32016+nema+enclosure",
+      "replacement_signs": "Cracked, water inside, warped, damaged hinge or gasket",
+      "notes": "Any NEMA 4X or IP65+ junction box in the 8x6x4 inch range works."
+    },
+    {
+      "id": "cable_glands",
+      "name": "Cable Glands (PG7 / PG9)",
+      "role": "Waterproof cable entry points for the enclosure",
+      "category": "enclosure",
+      "essential": true,
+      "estimated_cost": "$8",
+      "search_query": "waterproof cable gland pg7 pg9 nylon",
+      "amazon_url": "https://www.amazon.com/s?k=waterproof+cable+gland+pg7+pg9+nylon",
+      "replacement_signs": "Water inside enclosure near cable entry, loose grip on cables",
+      "notes": "PG7 for thin cables, PG9 for USB-C power cable."
+    },
+    {
+      "id": "desiccant",
+      "name": "Silica Gel Desiccant Packs",
+      "role": "Absorbs moisture inside the enclosure",
+      "category": "enclosure",
+      "essential": false,
+      "estimated_cost": "$5",
+      "search_query": "indicating silica gel desiccant packs reusable",
+      "amazon_url": "https://www.amazon.com/s?k=indicating+silica+gel+desiccant+packs+reusable",
+      "replacement_signs": "Packs have turned pink/green (absorbed moisture), visible condensation in box",
+      "notes": "Reusable indicating packs turn color and can be dried in an oven. Check every few months."
+    },
+    {
+      "id": "bracket",
+      "name": "Stainless Steel Mounting Bracket",
+      "role": "Mounts the enclosure to a post or piling",
+      "category": "enclosure",
+      "essential": false,
+      "estimated_cost": "$5",
+      "search_query": "stainless steel l bracket outdoor mounting",
+      "amazon_url": "https://www.amazon.com/s?k=stainless+steel+l+bracket+outdoor",
+      "replacement_signs": "Rust, bending, loose screws",
+      "notes": "Stainless steel only — galvanized rusts fast near water."
+    },
+    {
+      "id": "pir",
+      "name": "PIR Motion Sensor (HC-SR501)",
+      "role": "Triggers sounds when geese approach (optional)",
+      "category": "optional",
+      "essential": false,
+      "estimated_cost": "$3",
+      "search_query": "hc-sr501 pir motion sensor",
+      "amazon_url": "https://www.amazon.com/s?k=hc-sr501+pir+motion+sensor",
+      "replacement_signs": "False triggers, never triggers, inconsistent behavior",
+      "notes": "Only needed for motion-trigger mode. Not essential to basic operation."
+    },
+    {
+      "id": "jumper_wires",
+      "name": "Female-to-Female Jumper Wires",
+      "role": "Connects the PIR sensor to the Pi GPIO header (optional)",
+      "category": "optional",
+      "essential": false,
+      "estimated_cost": "$3",
+      "search_query": "female to female jumper wires dupont",
+      "amazon_url": "https://www.amazon.com/s?k=female+to+female+jumper+wires+dupont",
+      "replacement_signs": "PIR sensor not responding after wire wiggle test",
+      "notes": "Only needed if using the PIR motion sensor."
+    }
+  ],
+  "categories": {
+    "core": "Core System",
+    "audio": "Audio Chain",
+    "enclosure": "Weatherproofing",
+    "optional": "Optional Add-ons"
+  }
+}

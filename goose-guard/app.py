@@ -13,12 +13,14 @@ from pathlib import Path
 
 from flask import Flask, jsonify, request, send_from_directory
 
+import system_info
 from gpio_monitor import MotionMonitor
 from scheduler import DeterrentScheduler
 from sound_engine import SoundEngine
 
 BASE_DIR = Path(__file__).parent
 CONFIG_PATH = BASE_DIR / "config.json"
+HARDWARE_PATH = BASE_DIR / "hardware.json"
 SOUNDS_DIR = BASE_DIR / "sounds"
 STATIC_DIR = BASE_DIR / "static"
 
@@ -83,6 +85,11 @@ motion = MotionMonitor(engine, config, log_callback=log_event)
 @app.route("/")
 def index():
     return send_from_directory(str(STATIC_DIR), "index.html")
+
+
+@app.route("/status")
+def status_page():
+    return send_from_directory(str(STATIC_DIR), "status.html")
 
 
 @app.route("/static/<path:filename>")
@@ -182,6 +189,31 @@ def api_mode():
 def api_log():
     with log_lock:
         return jsonify(list(activity_log))
+
+
+@app.route("/api/system")
+def api_system():
+    """Return live system health stats for the monitoring page."""
+    data = system_info.collect_all(sounds_dir=str(SOUNDS_DIR))
+    # Merge in application-level status
+    data["app"] = {
+        "playing": engine.is_playing(),
+        "current_sound": engine.get_current(),
+        "volume": engine.volume,
+        "mode": config.get("mode", "manual"),
+        "sound_count": sum(len(files) for files in engine.sounds.values()),
+    }
+    return jsonify(data)
+
+
+@app.route("/api/hardware")
+def api_hardware():
+    """Return the hardware catalog for the status page."""
+    try:
+        with open(HARDWARE_PATH) as f:
+            return jsonify(json.load(f))
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        return jsonify({"error": str(e), "components": []}), 500
 
 
 # --- Main ---
