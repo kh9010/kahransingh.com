@@ -1,7 +1,7 @@
 .DS_Store
 .claude/
 
-# Dock records - large binaries
-dock-records/*.tif.gz
-dock-records/*.jpg
-dock-records/*.docx
+# Private — moved to kh9010/kahransingh-private
+dock-records/
+pending/
+duplicate-review.html
