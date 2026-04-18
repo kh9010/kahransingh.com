@@ -84,6 +84,11 @@ const poemData = {
     'out-to-play-he-calls-them': { themes: ['nature', 'wonder'], title: 'Out to play He calls them' },
     'late-why-so-late': { themes: ['love', 'identity'], title: 'Late why so late' },
     'his-hair-was-curly': { themes: ['love', 'identity'], title: 'His hair was curly' },
+    'to-touch-in-a-way': { themes: ['love', 'identity'], title: 'To touch, in a way' },
+    'hey-you-there-hey-you-here': { themes: ['love', 'identity'], title: 'Hey you there, hey you here' },
+    'teental': { themes: ['identity', 'place', 'wonder'], title: 'Teental' },
+    'a-conversation-among-birds': { themes: ['nature', 'wonder', 'mortality'], title: 'A conversation among birds' },
+    'hey-you-tree-there': { themes: ['nature', 'wonder', 'place'], title: 'Hey you tree there' },
 };
 
 const themeLabels = {
