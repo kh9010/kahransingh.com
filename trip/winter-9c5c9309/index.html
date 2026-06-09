@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Family Winter Trip · Northern Thailand · Nov 2026</title>
+<meta property="og:title" content="Family Winter Trip — Northern Thailand">
+<meta property="og:description" content="A proposal for ~20 of us, three generations, 25–29 November 2026. Chiang Mai + the Golden Triangle.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #1a1a1a;
+    --bg: #fafaf8;
+    --card: #ffffff;
+    --line: #e7e5df;
+    --muted: #8a8780;
+    --accent: #9a5b34;
+    --accent-soft: #f3ece4;
+  }
+  body {
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 1.4rem; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.25; font-weight: 400; }
+
+  /* Hero */
+  header.hero { padding: 16vh 0 7vh; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.4rem; }
+  header.hero h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); letter-spacing: -0.01em; }
+  header.hero h1 em { font-style: italic; color: var(--accent); }
+  .dek { font-family: 'Fraunces', Georgia, serif; font-size: 1.3rem; font-style: italic; color: #4a4843; margin-top: 1.6rem; line-height: 1.5; }
+  .facts { display: flex; flex-wrap: wrap; gap: 1.6rem 2.4rem; margin-top: 2.6rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+  .fact .k { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .fact .v { font-size: 1.05rem; margin-top: 0.15rem; }
+  .stamp { display: inline-block; margin-top: 2.4rem; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--accent); background: var(--accent-soft); padding: 0.35rem 0.8rem; border-radius: 100px; }
+
+  section { padding: 4.5vh 0; }
+  .kicker { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.9rem; }
+  section > .wrap > h2 { font-size: clamp(1.7rem, 4.5vw, 2.2rem); margin-bottom: 1.3rem; }
+  p { margin-bottom: 1.1rem; }
+  p.lead { font-family: 'Fraunces', Georgia, serif; font-size: 1.22rem; line-height: 1.6; }
+  strong { font-weight: 600; }
+
+  /* Solving-for list */
+  ul.solve { list-style: none; margin: 0.5rem 0 0; }
+  ul.solve li { padding: 0.7rem 0 0.7rem 1.6rem; border-bottom: 1px solid var(--line); position: relative; }
+  ul.solve li:before { content: "→"; position: absolute; left: 0; color: var(--accent); }
+  ul.solve li b { font-weight: 600; }
+
+  /* Day cards */
+  .day { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.5rem 1.6rem; margin-bottom: 1.1rem; }
+  .day .top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.6rem; }
+  .day .date { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .day h3 { font-size: 1.3rem; }
+  .day .base { font-size: 0.8rem; color: var(--accent); white-space: nowrap; }
+  .day p { margin: 0.3rem 0 0; font-size: 0.97rem; line-height: 1.6; }
+  .day .who { margin-top: 0.9rem; font-size: 0.86rem; color: #59574f; background: var(--bg); border-radius: 8px; padding: 0.6rem 0.8rem; }
+  .day .who b { color: var(--ink); }
+
+  .basebar { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin: 0.4rem 0 2rem; font-size: 0.88rem; color: var(--muted); }
+  .basebar .pill { background: var(--accent-soft); color: var(--accent); border-radius: 100px; padding: 0.25rem 0.75rem; font-size: 0.82rem; }
+
+  /* Stay cards */
+  .stay { border-left: 2px solid var(--accent); padding: 0.2rem 0 0.2rem 1.2rem; margin: 1.4rem 0; }
+  .stay h3 { font-size: 1.2rem; }
+  .stay .meta { font-size: 0.8rem; color: var(--muted); margin: 0.15rem 0 0.5rem; }
+  .stay p { font-size: 0.96rem; margin: 0; }
+
+  /* Compare table */
+  table { width: 100%; border-collapse: collapse; margin-top: 0.6rem; font-size: 0.92rem; }
+  th, td { text-align: left; padding: 0.7rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.compare { font-size: 0.84rem; }
+  table.compare th, table.compare td { padding: 0.6rem 0.35rem; }
+  .alt { border-left: 2px solid var(--line); padding: 0.2rem 0 0.2rem 1.2rem; margin: 1.5rem 0; }
+  .alt h3 { font-size: 1.2rem; }
+  .alt h3 small { font-family: 'Space Grotesk'; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.2rem; }
+  .alt p { font-size: 0.96rem; margin: 0.4rem 0 0; }
+  th { font-family: 'Space Grotesk'; font-weight: 600; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  td:first-child { color: #59574f; }
+  .yes { color: var(--accent); font-weight: 600; }
+
+  /* Budget */
+  .budget { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem 1.6rem; }
+  .budget .row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px solid var(--line); font-size: 0.96rem; }
+  .budget .row:last-child { border-bottom: none; }
+  .budget .row.total { font-weight: 600; }
+  .budget .row .n { color: var(--accent); white-space: nowrap; }
+  .note { font-size: 0.85rem; color: var(--muted); margin-top: 0.9rem; }
+
+  /* Next steps */
+  .steps { counter-reset: s; list-style: none; }
+  .steps li { counter-increment: s; position: relative; padding: 0.6rem 0 0.6rem 2.4rem; border-bottom: 1px solid var(--line); }
+  .steps li:before { content: counter(s); position: absolute; left: 0; top: 0.55rem; width: 1.6rem; height: 1.6rem; background: var(--accent); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; }
+
+  footer { padding: 6vh 0 10vh; text-align: center; color: var(--muted); font-size: 0.85rem; }
+  footer em { font-family: 'Fraunces', Georgia, serif; }
+  hr.soft { border: none; border-top: 1px solid var(--line); margin: 0; }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    header.hero { padding: 12vh 0 6vh; }
+    .day .top { flex-direction: column; gap: 0.2rem; }
+    .day .base { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">A Family Gathering · Winter 2026</div>
+    <h1>Northern Thailand —<br><em>all of us, together.</em></h1>
+    <p class="dek">Twenty of us, three generations, one stretch of jungle, river and rice terrace where a two‑year‑old and a grandparent can have the best afternoon of the trip on the very same elephant walk.</p>
+    <div class="facts">
+      <div class="fact"><div class="k">When</div><div class="v">25–29 Nov 2026</div></div>
+      <div class="fact"><div class="k">Who</div><div class="v">~20 · three generations</div></div>
+      <div class="fact"><div class="k">Where</div><div class="v">Chiang Mai + Golden Triangle</div></div>
+      <div class="fact"><div class="k">Feel</div><div class="v">Active · together · new</div></div>
+    </div>
+    <span class="stamp">A proposal — nothing booked yet</span>
+  </div>
+</header>
+
+<hr class="soft">
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The idea</div>
+    <h2>Why this one</h2>
+    <p class="lead">We're an active, curious family who like to walk, hike and explore — so the trip should be too. Northern Thailand is the rare place that's genuinely thrilling for every age at once, easy enough to reach from both Delhi and the US, and somewhere we haven't gathered before.</p>
+    <p>Late November is the sweet spot: the start of the north's cool, dry season — clear skies, mild days. We keep it to two bases over four nights, with a single gentle travel morning in the middle, so the toddlers and grandparents are never on a long road.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">What we're solving for</div>
+    <h2>The brief, in order</h2>
+    <ul class="solve">
+      <li><b>Easy to get to</b> — works for the Delhi twelve and the US eight (with two little ones flying long‑haul).</li>
+      <li><b>All together</b> — one resort, one table, everyone under the same roof as much as possible.</li>
+      <li><b>Active</b> — we move. This is what ruled out a sit‑still beach trip.</li>
+      <li><b>Every generation</b> — real adventure for the kids, independence for the nineteen‑year‑olds, ease and comfort for the elders.</li>
+      <li><b>Somewhere new</b> — last time was Phuket; this is a different Thailand entirely.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Where we'd stay</div>
+    <h2>Two bases</h2>
+    <div class="basebar">
+      <span class="pill">2 nights</span> Chiang Mai
+      <span style="opacity:.5">·</span>
+      <span class="pill">2 nights</span> Golden Triangle
+    </div>
+
+    <div class="stay">
+      <h3>Four Seasons Chiang Mai</h3>
+      <div class="meta">Mae Rim valley · multi‑bedroom residences</div>
+      <p>Set in working rice paddies fifteen minutes from town. We take adjoining residences so we're all together, with pools, a cooking school, temples nearby, and a night market for the older kids. The #1‑rated resort in Thailand — and very easy on the grandparents.</p>
+    </div>
+
+    <div class="stay">
+      <h3>Anantara Golden Triangle Elephant Camp</h3>
+      <div class="meta">Where Thailand, Laos &amp; Myanmar meet · ~10‑room block</div>
+      <p>The showstopper. A small jungle resort built around an elephant camp: walk‑your‑own‑elephant mahout mornings, hikes to three‑country viewpoints, Mekong longtail boats, and glass "jungle bubbles" you can sleep in beside the elephants. Largely all‑inclusive, so once we're there, everything's handled.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Day by day</div>
+    <h2>The shape of it</h2>
+
+    <div class="day">
+      <div class="top"><h3>Arrive &amp; settle</h3><span class="base">Four Seasons · Chiang Mai</span></div>
+      <div class="date">Day 1 · Tue 25 Nov</div>
+      <p>Everyone converges in Chiang Mai and transfers to the resort. An easy first evening — rice‑paddy sunset, a welcome dinner together, early night for the jet‑lagged.</p>
+      <div class="who"><b>For everyone:</b> nothing scheduled but arriving and being together.</div>
+    </div>
+
+    <div class="day">
+      <div class="top"><h3>Temples, paddies &amp; the market</h3><span class="base">Four Seasons · Chiang Mai</span></div>
+      <div class="date">Day 2 · Wed 26 Nov</div>
+      <p>A morning temple visit (Doi Suthep, with the gentle hike for those who want it), a hands‑on Thai cooking class at the resort, free afternoon by the pools, and the Chiang Mai night market after dark.</p>
+      <div class="who"><b>Kids</b> water buffalo &amp; cooking school · <b>teens</b> the night market · <b>elders</b> temples then rest.</div>
+    </div>
+
+    <div class="day">
+      <div class="top"><h3>North to the river</h3><span class="base">Fly · then Anantara</span></div>
+      <div class="date">Day 3 · Thu 27 Nov</div>
+      <p>A relaxed morning, then the 40‑minute hop to Chiang Rai and a short drive to the Golden Triangle (we fly rather than make the long drive). Check in, meet the elephants, and watch the sun set over the Mekong.</p>
+      <div class="who"><b>For everyone:</b> one short, easy travel leg — door to door by mid‑afternoon.</div>
+    </div>
+
+    <div class="day">
+      <div class="top"><h3>Elephants, jungle &amp; the Mekong</h3><span class="base">Anantara · Golden Triangle</span></div>
+      <div class="date">Day 4 · Fri 28 Nov</div>
+      <p>The heart of the trip. A mahout morning learning to walk with your own elephant, a jungle hike to the three‑country viewpoint, a longtail boat on the Mekong, and — for the brave — a night in a jungle bubble.</p>
+      <div class="who"><b>Kids</b> elephants, all day · <b>teens</b> jungle bubbles &amp; the river · <b>elders</b> as much or as little as they like.</div>
+    </div>
+
+    <div class="day">
+      <div class="top"><h3>One last morning, then home</h3><span class="base">Depart · Chiang Rai</span></div>
+      <div class="date">Day 5 · Sat 29 Nov</div>
+      <p>A final elephant breakfast or spa hour, then transfers to Chiang Rai for flights onward — Delhi via Bangkok, the US via Bangkok and beyond.</p>
+      <div class="who"><b>For everyone:</b> unhurried departure; no dawn alarms required.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Getting there</div>
+    <h2>The flights</h2>
+    <table>
+      <tr><th>From</th><th>Route</th><th>Time</th></tr>
+      <tr><td><b>Delhi</b> (the twelve)</td><td>One stop via Bangkok → Chiang Mai</td><td>~7–9 hrs</td></tr>
+      <tr><td><b>US</b> — Seattle / NYC (the eight)</td><td>One connection (via Asia) → Chiang Mai</td><td>~18–22 hrs</td></tr>
+      <tr><td><b>Between bases</b></td><td>Chiang Mai → Chiang Rai, then transfer</td><td>40‑min flight</td></tr>
+      <tr><td><b>Home</b></td><td>Out of Chiang Rai via Bangkok</td><td>—</td></tr>
+    </table>
+    <p class="note">Specialist will lock exact routings once dates are confirmed. No long road drives at any point.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The money, roughly</div>
+    <h2>A ballpark to react to</h2>
+    <div class="budget">
+      <div class="row"><span>Golden Triangle — ~10 rooms, 2 nts, near‑all‑inclusive</span><span class="n">~$40k</span></div>
+      <div class="row"><span>Four Seasons residences — 2 nts</span><span class="n">~$20–30k</span></div>
+      <div class="row"><span>Internal flights + all transfers</span><span class="n">~$2k</span></div>
+      <div class="row total"><span>On the ground, the whole group</span><span class="n">~$65–75k</span></div>
+    </div>
+    <p class="note">Very roughly <b>$8–10k per family of four</b> for the four nights on the ground (rooms, most meals, activities, transfers) — <b>plus</b> international airfare (~$400–700pp from Delhi, ~$1,200–1,800pp from the US). All soft; a specialist will firm it with group rates.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Also on the table</div>
+    <h2>Two strong alternatives</h2>
+    <p>Each makes a different trade against the brief. Thailand still edges it for our dates — but here's the honest case for the other two.</p>
+
+    <div class="alt">
+      <h3><small>Option B</small>Bali — one villa, all of us under one roof</h3>
+      <p>The "never leave the compound" answer: a single 10‑plus‑bedroom estate, everyone together for the whole week, not a single internal move. Wonderful — but late November is the <em>start of Bali's wet season</em>, and the best single‑roof estates lean more pool‑and‑beach than hike‑and‑explore. Best if "one house, one week" is the thing that matters most.</p>
+    </div>
+
+    <div class="alt">
+      <h3><small>Option C</small>Vietnam — the grand journey, north to south</h3>
+      <p>The most adventurous of the three: Hanoi's old quarter, a night on a Halong Bay junk, the lantern streets of Hoi An, on down toward Ho Chi Minh. And it has the <em>easiest flight from Delhi of all</em> — direct, about 4½ hours. Two catches for our window, though: it's a <em>three‑ or four‑base journey</em> with several internal hops rather than one home — a lot of moving with a 2‑ and 4‑year‑old — and late November is <em>peak rainy season on the central coast</em>, with Hoi An (the marquee stop) prone to flooding. The north and south shine in November; the middle doesn't. It's a spectacular 10‑day trip waiting for a drier month — or, trimmed to just the north, a calm and dry few days, but then it isn't really "north to south."</p>
+    </div>
+
+    <table class="compare">
+      <tr><th>&nbsp;</th><th>Thailand</th><th>Bali</th><th>Vietnam</th></tr>
+      <tr><td>Easy from Delhi + US</td><td>1 stop</td><td>1 stop</td><td class="yes">Direct (Delhi)</td></tr>
+      <tr><td>Everyone together</td><td>One resort</td><td class="yes">One house</td><td>3–4 bases</td></tr>
+      <tr><td>Active / exploring</td><td class="yes">Best</td><td>Good</td><td class="yes">Best</td></tr>
+      <tr><td>Every generation</td><td class="yes">Best</td><td>Good</td><td>Good</td></tr>
+      <tr><td>Late‑Nov weather</td><td class="yes">Cool, dry</td><td>Wet season</td><td>Centre floods</td></tr>
+      <tr><td>Fits 4–5 days</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Wants 10+</td></tr>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">To make it real</div>
+    <h2>Next steps</h2>
+    <ol class="steps">
+      <li>A rough <b>budget band</b> per family — so we book to the right tier.</li>
+      <li>Confirm the <b>core dates</b> — 25–29 Nov looks right for most.</li>
+      <li>Kahran takes the block to a <b>specialist</b> for firm group rates &amp; the full itinerary.</li>
+      <li>Hold rooms, then sort everyone's flights.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <em>Put together for the family · June 2026</em><br>
+    Questions, or want to push back? Tell Kahran.
+  </div>
+</footer>
+
+</body>
+</html>

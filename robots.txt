@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /trip/
 
 Sitemap: https://kahransingh.com/sitemap.xml
