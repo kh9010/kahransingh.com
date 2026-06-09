@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /trip/
+Disallow: /winter/
 
 Sitemap: https://kahransingh.com/sitemap.xml
