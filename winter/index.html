@@ -159,6 +159,15 @@
   .gtk div h4 span { color: var(--terra); }
   .gtk div p { font-size: 0.81rem; margin: 0; }
 
+  /* Bench */
+  ul.bench { list-style: none; columns: 1; column-gap: 2rem; }
+  @media (min-width: 720px) { ul.bench { columns: 2; } }
+  ul.bench li { break-inside: avoid; padding: 0.55rem 0 0.55rem 1.1rem; border-bottom: 1px solid var(--line); font-size: 0.87rem; color: var(--ink-soft); position: relative; }
+  ul.bench li:before { content: "·"; position: absolute; left: 0.15rem; color: var(--terra); font-weight: 700; }
+  ul.bench li b { color: var(--ink); font-weight: 600; }
+  ul.bench li .who { display: block; font-size: 0.72rem; color: var(--muted); font-style: italic; font-family: 'Fraunces', serif; }
+  ul.bench li.skip b { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+
   ol.steps { counter-reset: s; list-style: none; }
   ol.steps li { counter-increment: s; position: relative; padding: 0.6rem 0 0.6rem 2.6rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.91rem; }
   ol.steps li:last-child { border-bottom: none; }
@@ -253,6 +262,7 @@
       <a href="#cost">Cost</a>
       <a href="#options">Options</a>
       <a href="#extend">Extend</a>
+      <a href="#bench">More</a>
     </nav>
   </div>
 </header>
@@ -290,7 +300,7 @@
     <div class="wrap">
       <div class="eyebrow">A family gathering · Winter 2026</div>
       <h1>Northern Thailand —<br><em>all of us, together.</em></h1>
-      <p class="dek">Twenty of us, three generations, four nights of jungle, river and rice terrace — thrilling for a two‑year‑old and a grandparent alike.</p>
+      <p class="dek">Twenty of us, three generations, four nights of jungle, river and rice terrace — thrilling at two and thrilling at seventy‑five.</p>
       <div class="chips">
         <span class="chip"><b>20–29 Nov</b> 2026 · core 25–29</span>
         <span class="chip"><b>~20</b> · 3 generations</span>
@@ -316,7 +326,7 @@
         <div><div class="k">Cost</div><div class="v">~$8–10k <small>/ family of 4, on the ground</small></div></div>
         <div><div class="k">Weather</div><div class="v">Cool &amp; dry <small>· best season</small></div></div>
       </div>
-      <p class="note">Why here: it's <b>active</b> (what ruled out the Maldives), keeps us <b>all together</b>, is <b>easy from Delhi &amp; the US</b>, works for <b>every age</b>, and it's <b>somewhere new</b> after Phuket. Bali and Vietnam are weighed honestly <a class="gallery" href="#options">further down</a>.</p>
+      <p class="note">Why here: it's <b>active</b> (what ruled out the Maldives), keeps us <b>all together</b>, is <b>easy from Delhi &amp; the US</b>, works for <b>every age</b>, and it's <b>somewhere new</b> after Phuket. Bali and Vietnam are weighed honestly <a class="gallery" href="#options">further down</a>. And one planning note: the grandparents have more passport stamps than the rest of us combined — plan accordingly.</p>
       <div class="jump">
         <a class="hot" href="#signature">✦ Why it's singular</a>
         <a href="#stays">The plan</a>
@@ -397,7 +407,7 @@
         <div class="in">
           <div class="tagx">The reason it's these exact dates</div>
           <h3>We arrive into the lantern festival</h3>
-          <p>Yi Peng — Chiang Mai's mass sky‑lantern release — falls on our very first nights. And there's a right way to do it: not the 25,000‑seat coach‑shuttle event, but <b>Yee Peng Lanna International at Mae Jo</b> — the original, ~3,000 seats, religious ceremony first, sells out within days of release. We grab a block the day sales open for the adults and teens, and stage a private riverside krathong release for the toddlers and grandparents the same night.</p>
+          <p>Yi Peng — Chiang Mai's mass sky‑lantern release — falls on our very first nights. And there's a right way to do it: not the 25,000‑seat coach‑shuttle event, but <b>Yee Peng Lanna International at Mae Jo</b> — the original, ~3,000 seats, religious ceremony first, sells out within days of release. We grab a block the day sales open — adults, teens, and grandparents who want in (most will) — and stage a private riverside krathong release the same night for the under‑fives and anyone who'd rather have the quiet version.</p>
           <span class="verified">✓ Official festival dates: 24–26 Nov 2026 · Loy Krathong falls 25 Nov</span>
         </div>
       </div>
@@ -410,7 +420,7 @@
       <ol class="sig">
         <li><h4>The dawn walk, with the man who started it all</h4><p>The camp's herd belongs to the GTAEF — the foundation run by <b>John Roberts</b>, who invented the "rescue the elephant <em>and</em> employ the mahout's whole family" model every ethical camp now copies. The ask we place with our ten‑room block: on the birthday morning, Roberts or his head biologist walks the herd out with us at dawn, before the camp opens. Every Aman has a spa. Nobody has this.</p></li>
         <li><h4>"Walking with Giants" — never riding</h4><p>The camp's signature, by name: two hours through the jungle alongside the herd, their mahouts, and a vet or biologist. 60+ rescued elephants; the kids train as junior mahouts. Nobody perches on a chair on an elephant's spine.</p></li>
-        <li><h4>A baci at Ban Khok Phou, three generations deep</h4><p>By boat to a 200‑year‑old Lao village, where the elders tie the white threads of a baci around our wrists — oldest hands first. The grandparents' headline moment: seated, honored, central. Not a photo op.</p></li>
+        <li><h4>A baci at Ban Khok Phou, three generations deep</h4><p>By boat to a 200‑year‑old Lao village, where baci protocol puts the most senior people at the center — the village's elders receive ours, rank meeting rank, white threads around three generations' wrists. The realest moment of the week.</p></li>
         <li><h4>"Dining by Design" — one long table by the baby elephant camp</h4><p>The resort's private dinner, in its most‑requested spot: a single long table set beside the nursery as the sun goes down. The birthday night that's no one else's.</p></li>
         <li><h4>Three countries in a single glance</h4><p>Sundowners by longtail on the Mekong at the exact point Thailand, Laos and Myanmar meet — a drink as the light goes down over three borders.</p></li>
         <li><h4>Sleep beside the elephants</h4><p>For whoever's brave: a glass "jungle bubble" out in the grassland, the herd grazing a few feet away under the stars.</p></li>
@@ -455,7 +465,7 @@
             <ul>
               <li>Temples, the Mae Rim rice valley, cooking schools</li>
               <li>Night market &amp; old town for the older kids</li>
-              <li>Gentle, cultural, easy on the grandparents</li>
+              <li>Slow on purpose — festival nights run late, mornings start at temples</li>
             </ul>
             <div class="amen"><span>Temples</span><span>Cooking school</span><span>Rice valley</span><span>Night market</span></div>
           </div>
@@ -529,10 +539,10 @@
             <tr><td>Fri 20</td><td>US → Asia</td><td>The US eight fly out. Long‑haul east — you lose Saturday to the date line.</td></tr>
             <tr><td>Sun 22</td><td>Chiang Mai</td><td>Land and settle. Nothing planned but a good night's sleep.</td></tr>
             <tr><td>Mon 23</td><td>Chiang Mai</td><td>6am: the Monk's Trail up to Wat Pha Lat, the half‑overgrown jungle temple, as the monks walk down for alms. Lunch is a bowl at Khao Soi Lung Prakit — the 40‑year‑old shophouse Michelin and <em>Somebody Feed Phil</em> found. Teens: pad work at a Lumpinee‑pedigree Muay Thai gym.</td></tr>
-            <tr><td>Tue 24</td><td>Chiang Mai</td><td><b>Yee Peng Lanna at Mae Jo</b> — the original ~3,000‑seat lantern ceremony — for the adults and teens; a private riverside krathong release for the toddlers and grandparents. Tickets snapped up the day sales open.</td></tr>
+            <tr><td>Tue 24</td><td>Chiang Mai</td><td><b>Yee Peng Lanna at Mae Jo</b> — the original ~3,000‑seat lantern ceremony — for everyone who wants in; a private riverside krathong release for the under‑fives and anyone preferring the quiet version. Tickets snapped up the day sales open.</td></tr>
             <tr class="coremark"><td colspan="3">↓ The core begins — everyone's here now, Gourav included</td></tr>
             <tr><td>Wed 25</td><td>Chiang Mai</td><td>The whole family's together. Loy Krathong on the river, then a private khantoke welcome dinner — sword and drum performers, Lanna grounds, ours alone — at the Old Chiangmai Cultural Center, running the original since 1971.</td></tr>
-            <tr><td>Thu 26</td><td>Chiang Mai</td><td><b>Thanksgiving, twice.</b> Kids' table at the hotel — turkey, the works, tradition intact at 18° north. Adults' table: a 16‑seat buyout at Blackitch, Chef Black's Michelin‑listed fermentation room, gratitude folded into ten Lanna courses. At 6pm, Doi Suthep for the grandparents — coaches gone, monks chanting the sun down over the city.</td></tr>
+            <tr><td>Thu 26</td><td>Chiang Mai</td><td><b>Thanksgiving, twice.</b> Kids' table at the hotel — turkey, the works, tradition intact at 18° north. Adults' table: a 16‑seat buyout at Blackitch, Chef Black's Michelin‑listed fermentation room, gratitude folded into ten Lanna courses. At 6pm, Doi Suthep — coaches gone, monks chanting the sun down over the city. The grandparents claimed this one first; there's room in the van.</td></tr>
             <tr><td>Fri 27</td><td>Fly north</td><td>40‑min hop to Chiang Rai → Golden Triangle. If our ask lands: <b>dawn with the herd and the GTAEF's founder</b> for the birthday morning — then "Dining by Design," one long table beside the baby elephant camp, for <b>Kahran's birthday</b> dinner.</td></tr>
             <tr><td>Sat 28</td><td>Golden Triangle</td><td>"Walking with Giants" in the morning; by boat to Ban Khok Phou for the family baci; Chiang Saen's ruins in the 4pm light; sundowners at the tri‑border. The brave sleep in the jungle bubbles — there's a two‑bedroom family one.</td></tr>
             <tr><td>Sun 29</td><td>Depart</td><td>Last elephant breakfast, then home — or onward to an add‑on below.</td></tr>
@@ -552,7 +562,7 @@
       <div class="mini">
         <div class="minicard"><div class="when">+2–3 nights · best for the festival</div><h4>Chiang Mai, early</h4><p>Arrive ahead and catch the <b>full Yi Peng</b> — the big organised lantern releases run the 24th–25th. Settle in, shake off the flight, be fresh when the family lands.</p></div>
         <div class="minicard"><div class="when">+2 nights · on the way up</div><h4>Bangkok stopover</h4><p>Break the long‑haul where you already connect — Grand Palace, the river, one good night out — then the short hop north. <a class="gallery" href="#extend">More on Bangkok →</a></p></div>
-        <div class="minicard"><div class="when">+2 nights · land softly</div><h4>A wellness reset</h4><p>A spa day or two in the Chiang Mai hills to arrive calm and adjusted before the group energy — lovely for the grandparents especially.</p></div>
+        <div class="minicard"><div class="when">+2 nights · land softly</div><h4>A wellness reset</h4><p>A spa day or two in the Chiang Mai hills to arrive calm and adjusted before the group energy — the smartest move on the longest itineraries.</p></div>
       </div>
     </div>
   </div>
@@ -570,7 +580,7 @@
             <tr><td><small>Age 10</small><b>The ten‑year‑old</b></td><td>Mahout training, jungle hikes, cooking class, lantern‑making — built for this age.</td></tr>
             <tr><td><small>Ages 19 &amp; 19</small><b>The teenagers</b></td><td>Pad work with an ex‑Lumpinee fighter, the Monk's Trail at 6am, a night in a glass jungle bubble, the Mekong by longtail — the stories they tell at college.</td></tr>
             <tr><td><small>The parents</small><b>Our generation</b></td><td>A private balloon basket over the Doi Saket paddies at dawn; coffee at Akha Ama with the story of the man who built it from his village's beans; kids handed to mahouts and nannies who are better at this than we are.</td></tr>
-            <tr><td><small>The elders</small><b>Grandparents</b></td><td>Village elders tie the baci threads around their wrists first. Doi Suthep at 6pm when the monks chant. The Princess Mother's villa at Doi Tung, where one woman turned opium country into coffee country. Honored guests, not passengers.</td></tr>
+            <tr><td><small>Most‑travelled</small><b>The grandparents</b></td><td>First claim on everything — the Mae Jo lantern block, the 6am Monk's Trail, the dawn walk with the herd. Plus the picks the rest of us will envy: Doi Suthep at 6pm when the monks chant, the Princess Mother's villa at Doi Tung, and the baci, where the village's elders receive ours. They've seen more of the world than anyone here; this is the part they haven't.</td></tr>
           </tbody>
         </table>
       </div>
@@ -638,7 +648,7 @@
           <div class="body">
             <h3>Luang Prabang, Laos</h3>
             <div class="ext-meta"><span><b>+2–3</b> nts</span><span><b>1h</b> flight from Chiang Mai</span><span>Dry in Nov</span><span>All ages</span></div>
-            <p>A tiny UNESCO town where the Mekong meets the mountains: dawn alms, the turquoise pools of Kuang Si Falls (pictured), sunset from Mount Phousi, an elephant sanctuary. Slow and soulful — perfect for grandparents and kids alike. The natural extension, and an easy one.</p>
+            <p>A tiny UNESCO town where the Mekong meets the mountains: dawn alms, the turquoise pools of Kuang Si Falls (pictured), sunset from Mount Phousi, an elephant sanctuary. Slow and soulful — the connoisseur's extension, and the one most worth the extra days.</p>
           </div>
         </div>
         <div class="extcard">
@@ -659,6 +669,34 @@
         </div>
       </div>
       <p class="note" style="margin-top:0.9rem">Also possible for the few with real time: <b>carry on to Japan</b> (an easy hop from Bangkok, following the family already heading there).</p>
+    </div>
+  </div>
+</section>
+
+<section id="bench">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The bench</div>
+      <h2 class="title">More, if we want it</h2>
+      <p class="sub" style="margin-bottom:0.6rem">Verified extras that didn't make the main plan — pull any of these up on a free morning. Two honest "skip it" calls included.</p>
+      <h4 class="subhead">Chiang Mai</h4>
+      <ul class="bench">
+        <li><b>Elephant Parade House</b> — paint your own elephant statue with the social enterprise's artists, 30% to elephant welfare; indoors.<span class="who">the 10‑year‑old's hour</span></li>
+        <li><b>Baan Kang Wat</b> — a wooded artists' commune below Doi Suthep; ceramics and printmaking studios, Sunday craft market, five minutes from the Monk's Trail trailhead.<span class="who">browsers, the 10‑year‑old</span></li>
+        <li><b>Studio Naenna</b> — Patricia Cheesman's teak‑house indigo studio (est. 1988); the indigo season runs Sep–Nov, exactly our window. Small groups, book ahead.<span class="who">whoever wants to make, not buy</span></li>
+        <li><b>Dawn cycle of the old‑city moat</b> — a private Grasshopper Adventures charter before traffic; the best hour of the city's day.<span class="who">early risers, teens</span></li>
+        <li><b>Mae Kampong</b> — a tea‑and‑coffee village in the cool hills an hour east, waterfall in the middle, café on stilts over the valley. Avoid weekends.<span class="who">the green, quiet half‑day</span></li>
+        <li><b>Bua Tong "sticky" waterfall</b> — calcified limestone you climb barefoot straight up the falls; genuinely grippy, ages 8 to 80.<span class="who">the single best kid‑energy burner</span></li>
+        <li class="skip"><b>Night Safari</b> — skip it: delisted by Tripadvisor on animal‑welfare grounds, and we'll be living beside 60 rescued elephants three days later.<span class="who">the honest call</span></li>
+      </ul>
+      <h4 class="subhead">Chiang Rai &amp; the Triangle</h4>
+      <ul class="bench">
+        <li><b>White Temple + Black House</b> — one artist's spectacle, not a living temple; worth a 45‑minute leg‑stretch on the transfer day if curious, not a detour for a family that's seen Angkor.<span class="who">the honest take</span></li>
+        <li><b>Choui Fong tea plantation</b> — Chiang Rai's biggest estate, terraced hills, a cantilevered tasting café; on the way to Doi Tung.<span class="who">the easy add‑on</span></li>
+        <li><b>Mae Fah Luang Art &amp; Culture Park</b> — Thailand's largest Lanna teak collection, the Haw Kham hall built from 32 dismantled houses; pairs with the Doi Tung story.<span class="who">the design‑minded</span></li>
+        <li><b>Ban Pha Mee</b> — a community‑run Akha coffee village above Mae Sai: pick beans, drip through bamboo, ride the Akha swing. Money stays in the village; hill‑tribe contact done right.<span class="who">the ethical answer</span></li>
+        <li><b>Kalm Village</b> — nine craft houses around old‑city courtyards: textile archive, rotating shows, rooftop view of Wat Chedi Luang.<span class="who">the all‑weather, all‑ages two hours</span></li>
+      </ul>
     </div>
   </div>
 </section>
