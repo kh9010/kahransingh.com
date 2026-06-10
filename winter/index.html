@@ -119,6 +119,7 @@
 
   table.days td:first-child { white-space: nowrap; color: var(--terra); font-weight: 600; font-size: 0.81rem; }
   table.days td:nth-child(2) { white-space: nowrap; color: var(--muted); font-size: 0.79rem; }
+  table.days tr.coremark td { background: var(--terra-soft); color: var(--terra); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; }
   table.ages td:first-child { white-space: nowrap; }
   table.ages td:first-child b { display: block; font-family: 'Fraunces', serif; font-weight: 400; font-size: 1rem; }
   table.ages td:first-child small { color: var(--terra); font-size: 0.69rem; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -201,6 +202,8 @@
   .minicard p { font-size: 0.84rem; margin: 0; }
   @media (min-width: 600px) { .cel { grid-template-columns: repeat(3, 1fr); } }
   @media (min-width: 720px) { .mini { grid-template-columns: repeat(3, 1fr); } }
+  .four { display: grid; gap: 0.8rem; grid-template-columns: 1fr 1fr; margin-top: 0.4rem; }
+  @media (min-width: 780px) { .four { grid-template-columns: repeat(4, 1fr); } }
 
   .closing { text-align: center; background: linear-gradient(180deg, var(--bg), var(--terra-soft)); }
   .closing h2 { font-size: clamp(1.6rem, 4.5vw, 2.3rem); margin-bottom: 0.6rem; }
@@ -240,8 +243,8 @@
       <a href="#signature">Singular</a>
       <a href="#stays">Stays</a>
       <a href="#hotels">Hotels</a>
-      <a href="#days">Days</a>
-      <a href="#before">Before</a>
+      <a href="#days">The week</a>
+      <a href="#before">Early days</a>
       <a href="#cost">Cost</a>
       <a href="#options">Options</a>
       <a href="#extend">Extend</a>
@@ -284,9 +287,9 @@
       <h1>Northern Thailand —<br><em>all of us, together.</em></h1>
       <p class="dek">Twenty of us, three generations, four nights of jungle, river and rice terrace — thrilling for a two‑year‑old and a grandparent alike.</p>
       <div class="chips">
-        <span class="chip"><b>25–29 Nov</b> 2026</span>
+        <span class="chip"><b>20–29 Nov</b> 2026 · core 25–29</span>
         <span class="chip"><b>~20</b> · 3 generations</span>
-        <span class="chip">2 bases · 4 nights</span>
+        <span class="chip">Most leave the US Fri the 20th</span>
         <span class="chip"><b>Into the lantern festival</b></span>
         <span class="chip">Proposal — nothing booked</span>
       </div>
@@ -302,9 +305,9 @@
       <div class="kicker">The whole thing, in ten seconds</div>
       <div class="snap">
         <div><div class="k">Where</div><div class="v">Chiang Mai → Golden Triangle</div></div>
-        <div><div class="k">When</div><div class="v">25–29 Nov <small>· 4 nights</small></div></div>
+        <div><div class="k">When</div><div class="v">20–29 Nov <small>· core 25–29</small></div></div>
         <div><div class="k">Who</div><div class="v">~20 <small>· ages 2 → 70s</small></div></div>
-        <div><div class="k">Shape</div><div class="v">Two bases, one short hop</div></div>
+        <div><div class="k">Shape</div><div class="v">A slow week, two bases</div></div>
         <div><div class="k">Cost</div><div class="v">~$8–10k <small>/ family of 4, on the ground</small></div></div>
         <div><div class="k">Weather</div><div class="v">Cool &amp; dry <small>· best season</small></div></div>
       </div>
@@ -313,8 +316,8 @@
         <a class="hot" href="#signature">✦ Why it's singular</a>
         <a href="#stays">The plan</a>
         <a href="#hotels">Hotels</a>
-        <a href="#days">Day by day</a>
-        <a href="#before">Come early</a>
+        <a href="#days">The week</a>
+        <a href="#before">Early days</a>
         <a href="#cost">Cost</a>
         <a href="#options">Bali &amp; Vietnam</a>
         <a href="#extend">Extend the trip</a>
@@ -406,6 +409,13 @@
         <li><h4>Three countries in a single glance</h4><p>Sundowners by longtail on the Mekong at the exact point Thailand, Laos and Myanmar meet — a drink as the light goes down over three borders.</p></li>
         <li><h4>Sleep beside the elephants</h4><p>For whoever's brave: a glass "jungle bubble" out in the grassland, the herd grazing a few feet away under the stars.</p></li>
       </ol>
+      <p class="sub" style="margin:1.4rem 0 0.3rem">And because we've all seen a lot of hotels — four sharper ones, for the restless:</p>
+      <div class="four">
+        <div class="minicard"><div class="when">Dawn · Nov–Mar only</div><h4>Balloon over the valley</h4><p>A private basket at sunrise over the Mae Rim paddies, mist in the folds, Champagne on landing.</p></div>
+        <div class="minicard"><div class="when">A Mekong quirk</div><h4>Lunch in a third country</h4><p>Longtail across to Don Sao — an immigration loophole lets you step into Laos with no visa, no stamp. Rice whisky, a Beer Lao.</p></div>
+        <div class="minicard"><div class="when">10 min from camp</div><h4>The forgotten capital</h4><p>Chiang Saen — a 700‑year‑old Lanna royal city, now half‑ruins on the river — plus the Hall of Opium, the Triangle's real, unsanitised history.</p></div>
+        <div class="minicard"><div class="when">For the eaters</div><h4>A khao soi pilgrimage</h4><p>The north's great curry‑noodle, hunted through the Michelin Guide's Chiang Mai picks. No stars up here — you'd know — just the best bowls in Thailand.</p></div>
+      </div>
       <p class="note">Add Luang Prabang and you also get the <b>dawn alms</b> — monks in saffron receiving rice in the half‑light, the region's oldest morning ritual. See <a class="gallery" href="#extend">extensions</a>.</p>
     </div>
   </div>
@@ -492,12 +502,18 @@
 <section id="days">
   <div class="wrap narrow">
     <div class="reveal">
-      <div class="kicker">Day by day</div>
-      <h2 class="title">The shape of it</h2>
+      <div class="kicker">The week</div>
+      <h2 class="title">The week, end to end</h2>
+      <p class="sub" style="margin-bottom:0.7rem">Most of us come for the <b>whole week</b>; the <b>25–29 core</b> is for the tightly‑scheduled (hi, Gourav). The Delhi twelve drift in over the 24th–25th; the US eight leave on the 20th to land on the 22nd.</p>
       <div class="tbl-wrap">
         <table class="days">
           <tbody>
-            <tr><td>Wed 25</td><td>Chiang Mai</td><td>Everyone arrives — into the Yi Peng lantern festival. Release a sky lantern together; welcome dinner.</td></tr>
+            <tr><td>Fri 20</td><td>US → Asia</td><td>The US eight fly out. Long‑haul east — you lose Saturday to the date line.</td></tr>
+            <tr><td>Sun 22</td><td>Chiang Mai</td><td>Land and settle. Nothing planned but a good night's sleep.</td></tr>
+            <tr><td>Mon 23</td><td>Chiang Mai</td><td>Ease in — old town, a massage, the markets. Shake off the flight.</td></tr>
+            <tr><td>Tue 24</td><td>Chiang Mai</td><td>The big Yi Peng night — the famous mass sky‑lantern release.</td></tr>
+            <tr class="coremark"><td colspan="3">↓ The core begins — everyone's here now, Gourav included</td></tr>
+            <tr><td>Wed 25</td><td>Chiang Mai</td><td>The whole family's together. More lanterns for Loy Krathong; the welcome dinner.</td></tr>
             <tr><td>Thu 26</td><td>Chiang Mai</td><td><b>Thanksgiving.</b> Doi Suthep temple &amp; a cooking class, then a proper Thanksgiving feast — our tradition, wherever we are.</td></tr>
             <tr><td>Fri 27</td><td>Fly north</td><td>40‑min hop to Chiang Rai → Golden Triangle. Meet the elephants — then, for <b>Kahran's birthday</b>, a private hilltop dinner over the Mekong.</td></tr>
             <tr><td>Sat 28</td><td>Golden Triangle</td><td>Mahout morning, jungle hike to the 3‑country view, longtail boat, jungle bubbles.</td></tr>
@@ -512,9 +528,9 @@
 <section id="before">
   <div class="wrap">
     <div class="reveal">
-      <div class="kicker">For the early birds</div>
-      <h2 class="title">Coming early?</h2>
-      <p class="sub" style="margin-bottom:0.9rem">Flying from the US on Friday 20 Nov, you land in Asia around Sunday the 22nd — two or three days before we all gather on the 25th. Worth using: beat the jet lag, and catch even more of the festival.</p>
+      <div class="kicker">The early days</div>
+      <h2 class="title">The early days, three ways</h2>
+      <p class="sub" style="margin-bottom:0.9rem">This is how most of us will actually travel — out Friday the 20th, landing the 22nd, with two or three unhurried days before the core. Not an add‑on; the default. Here's what to do with them.</p>
       <div class="mini">
         <div class="minicard"><div class="when">+2–3 nights · best for the festival</div><h4>Chiang Mai, early</h4><p>Arrive ahead and catch the <b>full Yi Peng</b> — the big organised lantern releases run the 24th–25th. Settle in, shake off the flight, be fresh when the family lands.</p></div>
         <div class="minicard"><div class="when">+2 nights · on the way up</div><h4>Bangkok stopover</h4><p>Break the long‑haul where you already connect — Grand Palace, the river, one good night out — then the short hop north. <a class="gallery" href="#extend">More on Bangkok →</a></p></div>
