@@ -204,6 +204,11 @@
   @media (min-width: 720px) { .mini { grid-template-columns: repeat(3, 1fr); } }
   .four { display: grid; gap: 0.8rem; grid-template-columns: 1fr 1fr; margin-top: 0.4rem; }
   @media (min-width: 780px) { .four { grid-template-columns: repeat(4, 1fr); } }
+  .four .minicard { padding: 0; overflow: hidden; }
+  .four .mshot { aspect-ratio: 4/3; overflow: hidden; }
+  .four .mshot img { width: 100%; height: 100%; object-fit: cover; }
+  .four .mbody { padding: 0.85rem 1rem 1rem; }
+  .four .mcap { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.68rem; color: var(--muted); margin-top: 0.45rem; }
 
   .closing { text-align: center; background: linear-gradient(180deg, var(--bg), var(--terra-soft)); }
   .closing h2 { font-size: clamp(1.6rem, 4.5vw, 2.3rem); margin-bottom: 0.6rem; }
@@ -411,10 +416,22 @@
       </ol>
       <p class="sub" style="margin:1.4rem 0 0.3rem">And because we've all seen a lot of hotels — four sharper ones, for the restless:</p>
       <div class="four">
-        <div class="minicard"><div class="when">Dawn · Nov–Mar only</div><h4>Balloon over the valley</h4><p>A private basket at sunrise over the Mae Rim paddies, mist in the folds, Champagne on landing.</p></div>
-        <div class="minicard"><div class="when">A Mekong quirk</div><h4>Lunch in a third country</h4><p>Longtail across to Don Sao — an immigration loophole lets you step into Laos with no visa, no stamp. Rice whisky, a Beer Lao.</p></div>
-        <div class="minicard"><div class="when">10 min from camp</div><h4>The forgotten capital</h4><p>Chiang Saen — a 700‑year‑old Lanna royal city, now half‑ruins on the river — plus the Hall of Opium, the Triangle's real, unsanitised history.</p></div>
-        <div class="minicard"><div class="when">For the eaters</div><h4>A khao soi pilgrimage</h4><p>The north's great curry‑noodle, hunted through the Michelin Guide's Chiang Mai picks. No stars up here — you'd know — just the best bowls in Thailand.</p></div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/International_Balloon_Festival_2011_Chiang_Mai.jpg/1280px-International_Balloon_Festival_2011_Chiang_Mai.jpg" alt="Hot air balloons over Chiang Mai" loading="lazy"></div>
+          <div class="mbody"><div class="when">Dawn · Nov–Mar only</div><h4>Balloon over the valley</h4><p>A private basket at sunrise over the Mae Rim paddies, mist in the folds, Champagne on landing.</p><div class="mcap">Balloons over Chiang Mai</div></div>
+        </div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Golden_Triangle_Mekong_at_Doi_Pu_Khao_06.jpg/1280px-Golden_Triangle_Mekong_at_Doi_Pu_Khao_06.jpg" alt="The Mekong at the Golden Triangle with Laos on the far bank" loading="lazy"></div>
+          <div class="mbody"><div class="when">A Mekong quirk</div><h4>Lunch in a third country</h4><p>Longtail across to Don Sao — an immigration loophole lets you step into Laos with no visa, no stamp. Rice whisky, a Beer Lao.</p><div class="mcap">The Mekong here — Laos is the far bank</div></div>
+        </div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Chiang_Saen_-_Wat_Pa_Sak_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9B%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B1%E0%B8%81_%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%81%E0%B8%AA%E0%B8%99_%282021%29_-_img_07.jpg/1280px-Chiang_Saen_-_Wat_Pa_Sak_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9B%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B1%E0%B8%81_%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%81%E0%B8%AA%E0%B8%99_%282021%29_-_img_07.jpg" alt="The ruined chedi of Wat Pa Sak in Chiang Saen" loading="lazy"></div>
+          <div class="mbody"><div class="when">10 min from camp</div><h4>The forgotten capital</h4><p>Chiang Saen — a 700‑year‑old Lanna royal city, now half‑ruins on the river — plus the Hall of Opium, the Triangle's real, unsanitised history.</p><div class="mcap">Wat Pa Sak, Chiang Saen</div></div>
+        </div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Khao_Soi_Northern_Thai_food_%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%8B%E0%B8%AD%E0%B8%A2_%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%AD%E0%B8%87.jpg/1280px-Khao_Soi_Northern_Thai_food_%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%8B%E0%B8%AD%E0%B8%A2_%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%AD%E0%B8%87.jpg" alt="A bowl of khao soi, northern Thailand's curry noodle dish" loading="lazy"></div>
+          <div class="mbody"><div class="when">For the eaters</div><h4>A khao soi pilgrimage</h4><p>The north's great curry‑noodle, hunted through the Michelin Guide's Chiang Mai picks. No stars up here — you'd know — just the best bowls in Thailand.</p><div class="mcap">Khao soi, the real thing</div></div>
+        </div>
       </div>
       <p class="note">Add Luang Prabang and you also get the <b>dawn alms</b> — monks in saffron receiving rice in the half‑light, the region's oldest morning ritual. See <a class="gallery" href="#extend">extensions</a>.</p>
     </div>
