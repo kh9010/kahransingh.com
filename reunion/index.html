@@ -337,40 +337,42 @@
    separate remembrance line can be added thoughtfully later.
 ---------------------------------------------------------------- */
 const CLASSMATES = [
-  { name: "Kahran Singh",        initials: "KS", coming: true },
-  { name: "Catherine Hinchliff", initials: "CH", coming: null },
-  { name: "Amanda Anglin",       initials: "AA", coming: null },
-  { name: "Anders Eliasen",      initials: "AE", coming: null },
-  { name: "Alvina Wong",         initials: "AW", coming: null },
-  { name: "Aaron Ko",            initials: "AK", coming: null },
-  { name: "Audrey Djunaedi",     initials: "AD", coming: null },
-  { name: "Caleb Lindgren",      initials: "CL", coming: null },
-  { name: "Carrie Hollenbeck",   initials: "CH", coming: null },
-  { name: "Danny Low",           initials: "DL", coming: null },
-  { name: "Emily Youatt",        initials: "EY", coming: null },
-  { name: "Kaarin Slotte",       initials: "KS", coming: null },
-  { name: "Kelly Skow",          initials: "KS", coming: null },
-  { name: "Krishanu Ray",        initials: "KR", coming: null },
-  { name: "Lara O'Neil-Dunne",   initials: "LO", coming: null },
-  { name: "Nick Llanos",         initials: "NL", coming: null },
-  { name: "Omkar Rane",          initials: "OR", coming: null },
-  { name: "Pia Rivera",          initials: "PR", coming: null },
-  { name: "Rosanne Garcia",      initials: "RG", coming: null },
-  { name: "Shawn Khademi",       initials: "SK", coming: null },
-  { name: "Spencer Winters",     initials: "SW", coming: null },
-  { name: "Steph Martin",        initials: "SM", coming: null },
-  { name: "Tucker Willsie",      initials: "TW", coming: null },
-  { name: "Walter Busch",        initials: "WB", coming: null },
+  // Roster source: the "ICS: Class of 2006" private Facebook group (66 members,
+  // read 2026-07-06) + 2005-06 email threads. Maiden names in parens where the
+  // email-era name differs from the current one.
+  { name: "Kahran Singh", coming: true },
+  { name: "Aaron Ko" }, { name: "Ali Byström" }, { name: "Alvina Wong" },
+  { name: "Amanda Anglin" }, { name: "Amanda Dopierala" }, { name: "Amanda Harmon" },
+  { name: "Anders Eliasen" }, { name: "Angela Rozmyn" }, { name: "Ann Gong" },
+  { name: "Anna Ozbek" }, { name: "Audrey Djunaedi" }, { name: "Brynn Hannah Weaver" },
+  { name: "Caleb Lindgren" }, { name: "Cara Morici" }, { name: "Carrie Lanman (Hollenbeck)" },
+  { name: "Catherine Hinchliff" }, { name: "Catherine Sherman" }, { name: "Christine Rubery Pace" },
+  { name: "Danny Low" }, { name: "David Michael Frank" }, { name: "Dylan Fisher" },
+  { name: "Elizabeth Tribo" }, { name: "Emily Youatt" }, { name: "Eyal Grayevsky" },
+  { name: "Jake Cecil" }, { name: "Jenn Ballard" }, { name: "Jessica Hanley-Sandal" },
+  { name: "Jessica Seitz" }, { name: "Kaarin Slotte" }, { name: "Kai Francis" },
+  { name: "Kay Hockeiser" }, { name: "Kelly Jean (Skow)" }, { name: "Kevin Chung" },
+  { name: "Kit Culbert" }, { name: "Krishanu Ray" }, { name: "Kurt Miller" },
+  { name: "Lara O'Neil-Dunne" }, { name: "Lauren Cornforth" }, { name: "Lauren Elizabeth Clark" },
+  { name: "Lucas Bischofberger" }, { name: "Megan Pearlman" }, { name: "Michelle Volk" },
+  { name: "Nick Llanos" }, { name: "Noah Moskat" }, { name: "Omkar Rane" },
+  { name: "Phil Geiger" }, { name: "Pia Rijo (Rivera)" }, { name: "Rachel Connelly" },
+  { name: "Rosanne Kelley (Garcia)" }, { name: "Sangita Kode" }, { name: "Shawn Khademi" },
+  { name: "Sorayya Dossett" }, { name: "Spencer Sult" }, { name: "Spencer Winters" },
+  { name: "Steph Martin" }, { name: "Stephanie Funez" }, { name: "Stephanie Rasmusson" },
+  { name: "Tal Yaacovi" }, { name: "Tom Courlas" }, { name: "Tucker Willsie" },
+  { name: "Walt Busch" }, { name: "Yasmin Khorram" },
 ];
-const CLASS_SIZE_GUESS = 60;
+const CLASS_SIZE_GUESS = 66;
 
 const grid = document.getElementById('yearbook');
 function tile(c) {
   const el = document.createElement('div');
   el.className = 'yb' + (c.coming ? ' coming' : '') + (c.mystery ? ' mystery' : '');
+  const initials = c.mystery ? '?' : c.name.split(' ').filter(w => w[0] !== '(').map(w => w[0]).slice(0, 2).join('');
   el.innerHTML = `
     <div class="frame">
-      <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${c.name}">` : `<div class="initials">${c.initials || '?'}</div>`}</div>
+      <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${c.name}">` : `<div class="initials">${initials}</div>`}</div>
       <div class="badge">✓</div>
     </div>
     <div class="nm">${c.name}</div>
@@ -380,11 +382,11 @@ function tile(c) {
 CLASSMATES.forEach(c => grid.appendChild(tile(c)));
 const missing = Math.max(0, CLASS_SIZE_GUESS - CLASSMATES.length);
 for (let i = 0; i < Math.min(missing, 6); i++) {
-  grid.appendChild(tile({ name: "Who are we forgetting?", initials: "?", coming: null, mystery: true }));
+  grid.appendChild(tile({ name: "Who are we forgetting?", mystery: true }));
 }
 const coming = CLASSMATES.filter(c => c.coming === true).length;
 document.getElementById('count-coming').textContent = coming;
-document.getElementById('count-rest').textContent = `${CLASSMATES.length} found · ~${missing} still to track down`;
+document.getElementById('count-rest').textContent = `${CLASSMATES.length} of us found — nearly the whole class`;
 
 /* countdown */
 const days = Math.max(0, Math.ceil((new Date('2026-08-28T13:00:00-07:00') - Date.now()) / 86400000));
