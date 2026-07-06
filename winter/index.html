@@ -173,6 +173,14 @@
   .four .mbody { padding: 0.85rem 1rem 1rem; }
   .four .mcap { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.68rem; color: var(--muted); margin-top: 0.45rem; }
 
+  ul.bench { list-style: none; columns: 1; column-gap: 2rem; }
+  @media (min-width: 720px) { ul.bench { columns: 2; } }
+  ul.bench li { break-inside: avoid; padding: 0.55rem 0 0.55rem 1.1rem; border-bottom: 1px solid var(--line); font-size: 0.87rem; color: var(--ink-soft); position: relative; }
+  ul.bench li:before { content: "·"; position: absolute; left: 0.15rem; color: var(--terra); font-weight: 700; }
+  ul.bench li b { color: var(--ink); font-weight: 600; }
+  ul.bench li .who { display: block; font-size: 0.72rem; color: var(--muted); font-style: italic; font-family: 'Fraunces', serif; }
+  ul.bench li.skip b { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+
   .gtk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 1.4rem; }
   .gtk div h4 { font-size: 0.91rem; margin-bottom: 0.15rem; }
   .gtk div h4 span { color: var(--terra); }
@@ -226,6 +234,7 @@
       <a href="#arrival">Getting there</a>
       <a href="#days">The days</a>
       <a href="#cost">Cost</a>
+      <a href="#bench">The bench</a>
       <a href="#know">Know</a>
       <a href="#next">Next</a>
     </nav>
@@ -382,23 +391,24 @@
       <div class="lagoon">
         <div class="in">
           <div class="tagx">The one thing worth scheduling</div>
-          <h3>Our own boat, our own bay</h3>
-          <p>Twenty people is exactly the size where a <b>private speed-catamaran charter</b> beats every tour boat on the sea: Maya Bay before the day-trippers, the green water of Pileh Lagoon, snorkeling off Bamboo Island, lunch on board — our schedule, our music, grandparents seated in shade, toddlers napping below. Roughly <b>$40–50 a head</b> for the day. We'll do it once, maybe twice, and it'll be the photo everyone frames.</p>
-          <span class="verified">✓ ~$800–1,000/day for the whole boat + ~$12pp marine-park fee</span>
+          <h3>Our own boats, our own bay — at 7am</h3>
+          <p>Staying <em>on</em> Phi Phi is a structural cheat code: Maya Bay opens at 07:00, and the Phuket day-boats don't arrive until ~09:30. From our beach it's a <b>20–30 minute hop</b> — we get the famous bay nearly empty. Two ways to run it: SAii's own <b>private longtail flotilla</b> (3,500 THB per 6-seat boat, 4 hrs — ~$390 for all four boats) or three of their <b>private speedboats for the full day</b> (~$1,050 total): Maya, the green water of Pileh Lagoon, Viking Cave, a Bamboo Island snorkel, grandparents in shade, toddlers napping. Book the earliest slot, not the last.</p>
+          <span class="verified">✓ SAii in-house charters: ฿3,500/longtail · ฿12,500/speedboat · + ฿400/adult park fee (cash)</span>
         </div>
       </div>
       <p class="sub" style="margin:1.3rem 0 0.2rem">And the calendar still stacks three celebrations into four nights:</p>
       <div class="cel">
-        <div class="cel-card"><div class="d">Wed 25 Nov</div><h4>Loy Krathong</h4><p>Thailand's water-lantern night — we float krathongs off our own beach after dinner.</p></div>
+        <div class="cel-card"><div class="d">Tue 24 / Wed 25 Nov</div><h4>Loy Krathong</h4><p>Thailand's water-lantern night — krathongs off our own beach. Calendars split on 24 vs 25; we confirm the resort's night before booking flights.</p></div>
         <div class="cel-card"><div class="d">Thu 26 Nov</div><h4>Thanksgiving</h4><p>One long table by the water — the feast travels with us.</p></div>
         <div class="cel-card"><div class="d">Fri 27 Nov</div><h4>Kahran's birthday</h4><p>Boat day, then a beach barbecue as the sun drops behind the karsts.</p></div>
       </div>
       <ol class="sig">
-        <li><h4>A reef off the sand</h4><p>Laem Tong has living coral <b>right off the beach</b> — grandparents and the four-year-old can snorkel from a standing start, no boat, no schedule. This is the single best all-ages feature on the island.</p></li>
-        <li><h4>Krathongs on our own beach</h4><p>We land on Loy Krathong night. Banana-leaf boats, candles, three generations wading in to set them afloat — the quiet version of the festival, no crowds required.</p></li>
-        <li><h4>Sunset longtails</h4><p>A pair of wooden longtail boats at golden hour, drinks aboard, karsts going purple. The Andaman's oldest luxury, a few hundred baht at a time.</p></li>
-        <li><h4>The viewpoint, for whoever's restless</h4><p>The climb to the Phi Phi viewpoint — the twin-bay postcard shot — for teens and early risers. Everyone else sees the photo at lunch and feels fine about it.</p></li>
-        <li><h4>Fire shows &amp; feet in the sand</h4><p>Evening beach fire shows and barefoot dinners are just… what happens here. Zero planning, maximum small-kid delight.</p></li>
+        <li><h4>A reef off the sand</h4><p>Laem Tong has living coral <b>right off the beach</b> — waist-deep over reef at low tide, a swimmable drop-off beyond — so grandparents and the four-year-old snorkel from a standing start. One honest caveat: the tide swings hard here (wide flats at low tide, a thin beach at high), which is why the swim-all-day beach comparison matters below.</p></li>
+        <li><h4>Hin Klang — the secret snorkel upgrade</h4><p>A submerged coral plateau 2km straight off Laem Tong: anemone fields, sea fans, barracuda, the odd turtle and blacktip reef shark. One of southern Thailand's best snorkel sites, a short longtail hop from our towels — most visitors never hear of it.</p></li>
+        <li><h4>Krathongs on our own beach</h4><p>We arrive into Loy Krathong. Banana-leaf boats, candles, three generations wading in to set them afloat off our own sand — the quiet version of the festival. SAii runs krathong-making and a floating ceremony; we'll confirm which night.</p></li>
+        <li><h4>First scuba, cheapest place on earth to learn</h4><p>Phi Phi is where backpackers learn to dive because it's warm, calm and absurdly cheap: Discover Scuba runs ~฿3,800 (~$105), full PADI Open Water ~฿13,900. The 19-year-olds come home certified; the 10-year-old gets a pool "bubblemaker" intro at the dive centre. Late Nov = the year's best visibility.</p></li>
+        <li><h4>The viewpoint, for whoever's restless</h4><p>The twin-bay postcard climb: 45–60 minutes of hot jungle trail from Loh Ba Gao for the teens and early risers. Everyone else sees the photo at lunch and feels fine about it.</p></li>
+        <li><h4>Sunset longtails &amp; fire shows</h4><p>Wooden longtails at golden hour, drinks aboard, karsts going purple — a few hundred baht at a time. Then beach fire shows after dinner, which are just… what happens here. Zero planning, maximum small-kid delight.</p></li>
       </ol>
     </div>
   </div>
@@ -417,13 +427,13 @@
           <div class="body">
             <div class="nights">Option A · the easy pick</div>
             <h3>Phi Phi Holiday Resort</h3>
-            <div class="loc">Laem Tong Beach · 4★ · ~$150/night <a class="gallery" href="https://www.phiphiholidayresort.com" target="_blank" rel="noopener">site →</a></div>
+            <div class="loc">Laem Tong Beach · 4★ · ~$150–200/night late Nov <a class="gallery" href="https://www.phiphiholidayresort.com" target="_blank" rel="noopener">site →</a></div>
             <ul>
-              <li><strong>Flat, walkable grounds</strong> — no hillside stairs, the kindest layout for grandparents</li>
-              <li>The house reef directly off the beach — snorkel from your towel</li>
-              <li>Casual, family-centric, and priced so nobody blinks at the bar tab</li>
+              <li>The former Holiday Inn Resort, now independent — <strong>the only one with a real kids' club</strong>, plus 4 pools (one for kids)</li>
+              <li><strong>Flat beachfront core</strong> (we skip the "Hilltop" room categories) + the house reef off the sand</li>
+              <li>A 141sqm two-bedroom Family Suite with plunge pool; three restaurants (Tai Rom Prao for Thai, Jimmy Cafe on the beach) + a beach-BBQ night</li>
             </ul>
-            <div class="amen"><span>House reef</span><span>Flat grounds</span><span>Pool</span><span>Local prices</span></div>
+            <div class="amen"><span>Kids' club</span><span>4 pools</span><span>House reef</span><span>Flat core</span></div>
           </div>
         </div>
         <div class="basecard">
@@ -432,17 +442,30 @@
           <div class="body">
             <div class="nights">Option B · the notch up</div>
             <h3>SAii Phi Phi Island Village</h3>
-            <div class="loc">Loh Ba Gao Bay · 5★ · ~$235/night <a class="gallery" href="https://www.saiiresorts.com/phiphiisland/village/" target="_blank" rel="noopener">site →</a></div>
+            <div class="loc">Loh Ba Gao Bay · 5★ · ~$230–300/night late Nov <a class="gallery" href="https://www.saiiresorts.com/phiphiisland/village/" target="_blank" rel="noopener">site →</a></div>
             <ul>
-              <li>An <strong>800-metre private beach</strong>, infinity pool, kids' marine-discovery centre</li>
-              <li>Multi-bedroom family bungalows — clusters of us under shared roofs</li>
-              <li>A small local village just behind it — independent Thai restaurants at street prices</li>
+              <li>An <strong>800m private beach that swims at every tide</strong> — the better toddler beach — plus a Fun Pool with waterslide</li>
+              <li>The <strong>Marine Discovery Centre</strong>: resident marine biologists, shark &amp; clownfish rooms, free kids' workshops, coral-nursery visits (note: no formal kids' club — this is what replaces it)</li>
+              <li>102sqm two-bedroom Family Bungalows at beach level (we'd keep everyone off the buggy-dependent hillside); Loh Ba Kao village behind — real Thai restaurants at street prices</li>
             </ul>
-            <div class="amen"><span>800m beach</span><span>Family bungalows</span><span>Kids' club</span><span>Village behind</span></div>
+            <div class="amen"><span>800m beach</span><span>Marine centre</span><span>Family bungalows</span><span>Village behind</span></div>
           </div>
         </div>
       </div>
-      <p class="note"><b>The honest read:</b> Holiday Resort wins on ease, accessibility and the reef; SAii wins on polish and room configurations. Both greet us at Phuket with their own vans and boats. If the budget question comes back "comfortable, not fancy" — Option A and done. <em>(Villa 360 and Centara Villas exist on the same coast but are built into hillsides — lots of stairs, wrong for us.)</em></p>
+      <p class="note"><b>The honest read:</b> Holiday Resort wins on kids' infrastructure, flat ground and price; SAii wins on the swimming beach, the marine biologists and polish. If the answer comes back "comfortable, not fancy" — Option A and done. <em>(Villa 360 and Centara Villas share the coast but are built into hillsides — stairs everywhere, wrong for us.)</em></p>
+
+      <h4 class="subhead">The wildcard, and the rooms math</h4>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Base</th><th>The block for ~20</th><th>Rooms, 4 nights</th><th>Read</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>Phi Phi Holiday Resort <span class="tag">Value pick</span></td><td class="tsub">2BR Family Suite + family studio + 4–5 bungalows ≈ 7–8 keys</td><td class="price">~$6.5–7.6k</td><td class="tsub">Kids' club + flat + cheapest</td></tr>
+            <tr><td>SAii Phi Phi Island Village</td><td class="tsub">2× 2BR Family Bungalow + 4 premium bungalows ≈ 6 keys, all beach-level</td><td class="price">~$8–9.5k</td><td class="tsub">Best beach + marine centre</td></tr>
+            <tr><td><a href="https://www.outrigger.com/thailand/outrigger-phi-phi-island-resort" target="_blank" rel="noopener">Outrigger Phi Phi Island</a> <span class="tag warm">Wildcard</span></td><td class="tsub">Boutique — 62 keys total; a big block is a stretch</td><td class="price">~$9.5–13k</td><td class="tsub">The old Zeavola, reborn May 2026 — currently the island's #1 hotel. Barefoot-luxury, honeymoon-leaning; better as an upgrade wing than the family base</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Estimates from public late-Nov rate bands, not quotes — both big resorts take group enquiries, and late-Nov is the front edge of high season, so the block enquiry should go out <b>now</b>.</p>
     </div>
   </div>
 </section>
@@ -464,7 +487,10 @@
           </tbody>
         </table>
       </div>
-      <p class="note"><b>Cost for the whole group:</b> ~$1,000–1,150 each way, all-in (vans + boat) — about <b>$50–58 a person</b>, and the boat waits if a flight runs late. Return flights out of HKT should depart <b>after 2pm</b>. Operators: the resort's own transfer desk, or 5 Star Marine for a fully private charter.</p>
+      <p class="note"><b>The group-size cheat:</b> SAii's fully <b>private boat is ฿22,000 (~$620) each way for all of us</b> — literally half the price of 20 shared-boat seats (฿1,800++ pp) — and it times itself to our arrival. Phi Phi Holiday runs its own shuttle from Ao Po Grand Marina (schedule on enquiry); 5 Star Marine quotes fully private Phuket charters with boats that seat all 20.</p>
+      <h4 class="subhead">The Krabi back door</h4>
+      <p class="sub" style="font-size:0.9rem">Anyone routing via <b>Krabi (KBV)</b> instead of Phuket has it even easier: a scheduled speedboat runs from Klong Jilad pier <b>directly onto Laem Tong Beach</b> — ฿1,150–1,250 pp <em>including</em> the airport pickup, ~90 minutes, and the airport-to-pier drive is shorter than Phuket's. Worth checking both cities' fares before anyone books.</p>
+      <p class="note"><b>Return flights</b> out of HKT/KBV should depart <b>after 2pm</b>. Late Nov sits at the start of the calm season — crossings are at their smoothest — but shared boats are fixed-departure (last ~16:00): miss it and you overnight on the mainland, which is exactly why the private boat is worth it for the arrival day.</p>
     </div>
   </div>
 </section>
@@ -478,10 +504,10 @@
       <div class="tbl-wrap">
         <table class="days">
           <tbody>
-            <tr><td>Wed 25</td><td>Arrive</td><td>Land before 1pm, on the sand by 3. Swim, unpack, long dinner — then <b>krathongs on the beach</b> for Loy Krathong night.</td></tr>
-            <tr><td>Thu 26</td><td>Resort</td><td>Nothing planned. Pool and reef by day; <b>Thanksgiving at one long table</b> by the water in the evening.</td></tr>
-            <tr><td>Fri 27</td><td>Boat day</td><td><b>The private charter:</b> Maya Bay early, Pileh Lagoon, Bamboo Island snorkel, lunch aboard. Back by 3 for naps. <b>Kahran's birthday</b> beach barbecue at sunset.</td></tr>
-            <tr><td>Sat 28</td><td>Resort</td><td>Pure horizontal. Massages, the viewpoint climb for the restless, sunset longtails for whoever wants one more ride.</td></tr>
+            <tr><td>Wed 25</td><td>Arrive</td><td>Land before 1pm, on the sand by 3. Swim, unpack, long dinner — then <b>krathongs on the beach</b> if the resort floats on the 25th (calendars split 24/25; early arrivals catch it either way).</td></tr>
+            <tr><td>Thu 26</td><td>Resort</td><td>Nothing planned. Pool and reef by day; the 10-year-old's first marine-centre workshop; <b>Thanksgiving at one long table</b> by the water in the evening.</td></tr>
+            <tr><td>Fri 27</td><td>Boat day</td><td><b>07:00 charter, on purpose:</b> Maya Bay in its empty first hour (no swimming there now — a floating pier and a boardwalk, ~an hour ashore), then Pileh Lagoon, Viking Cave, a Bamboo Island snorkel, lunch aboard. Back by 3 for naps. <b>Kahran's birthday</b> beach barbecue at sunset.</td></tr>
+            <tr><td>Sat 28</td><td>Resort</td><td>Pure horizontal. Beach massages (village shops run half the spa price), a Hin Klang snorkel run, the viewpoint climb for the restless, sunset longtails for whoever wants one more ride.</td></tr>
             <tr><td>Sun 29</td><td>Depart</td><td>Morning swim, boat at ~10am, HKT flights out after 2pm — or extend (Krabi's beaches and Railay are one boat away).</td></tr>
           </tbody>
         </table>
@@ -500,8 +526,8 @@
         <table class="ages">
           <tbody>
             <tr><td><small>Ages 2 &amp; 4</small><b>Little ones</b></td><td>Sand, shallow warm water, a pool with a shallow end, fish visible from ankle depth. The easiest trip we will ever give their parents.</td></tr>
-            <tr><td><small>Age 10</small><b>The ten-year-old</b></td><td>First real snorkel on the house reef, kayaks off the beach, the marine-discovery centre if we pick SAii.</td></tr>
-            <tr><td><small>Ages 19 &amp; 19</small><b>The teenagers</b></td><td>The viewpoint climb, a discover-scuba dive (Phi Phi is one of the cheapest good places on earth to learn), paddleboards, the fire shows.</td></tr>
+            <tr><td><small>Age 10</small><b>The ten-year-old</b></td><td>First real snorkel on the house reef, kayaks off the beach, a pool scuba intro at the dive centre — and if we pick SAii, the Marine Discovery Centre's shark room, clownfish releases and marine-biologist workshops (free).</td></tr>
+            <tr><td><small>Ages 19 &amp; 19</small><b>The teenagers</b></td><td>The viewpoint climb, Discover Scuba at ~$105 (or the full Open Water cert in these four days), paddleboards, the fire shows.</td></tr>
             <tr><td><small>The parents</small><b>Our generation</b></td><td>A beach bar where the round costs what a round should. Massages on the sand. The boat day. Actual rest.</td></tr>
             <tr><td><small>Most-travelled</small><b>The grandparents</b></td><td>This one was <b>designed around them</b>: flat grounds, the reef a wade away, shaded seats on the charter, dinner tables that don't require a transfer. The relaxing they asked for, in a place worth flying for.</td></tr>
           </tbody>
@@ -517,13 +543,13 @@
       <div class="kicker">The money, roughly</div>
       <h2 class="title">A ballpark to react to</h2>
       <div class="budget">
-        <div class="row"><span>Rooms — ~10 rooms × 4 nights (Option A ↔ Option B)</span><span class="n">~$6–10k</span></div>
-        <div class="row"><span>Meals &amp; drinks, whole group, 4 days — resort + beach restaurants</span><span class="n">~$6–9k</span></div>
-        <div class="row"><span>Private boat day(s) + marine-park fees</span><span class="n">~$1–2k</span></div>
-        <div class="row"><span>Transfers — private vans + speedboat, both ways, everyone</span><span class="n">~$2.2k</span></div>
-        <div class="row total"><span>On the ground, whole group</span><span class="n">~$15–23k</span></div>
+        <div class="row"><span>Rooms — 6–8 keys × 4 nights (Holiday ↔ SAii block)</span><span class="n">~$6.5–9.5k</span></div>
+        <div class="row"><span>Meals &amp; drinks, whole group, 4 days — resort tables + village dinners</span><span class="n">~$6–9k</span></div>
+        <div class="row"><span>Boat days — private charter(s), longtail sunsets, park fees (฿400/adult/day)</span><span class="n">~$0.7–1.5k</span></div>
+        <div class="row"><span>Transfers — private boat both ways (~$620/way at SAii) + odds and ends</span><span class="n">~$1.5–2.5k</span></div>
+        <div class="row total"><span>On the ground, whole group</span><span class="n">~$15–22k</span></div>
       </div>
-      <p class="note"><b>~$3.5–5k per family of four</b> on the ground — roughly <b>a quarter of the Chiang Mai plan</b> — plus airfare (Delhi and the US both connect to Phuket one-stop; Delhi has direct options). Soft numbers from public late-Nov rates; a group block will firm them up and likely improve them.</p>
+      <p class="note"><b>~$3.5–5k per family of four</b> on the ground — roughly <b>a quarter of the Chiang Mai plan</b> — plus airfare (Delhi and the US both reach Phuket one-stop; check Krabi fares too). Numbers are researched public rates, not quotes; a group block firms them up and usually improves them. The meals line shrinks further every time we eat in the village instead of the resort.</p>
     </div>
   </div>
 </section>
@@ -556,6 +582,31 @@
   </div>
 </section>
 
+<section id="bench">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The bench</div>
+      <h2 class="title">More, if we want it — named and vetted</h2>
+      <p class="sub" style="margin-bottom:0.6rem">The extras that didn't make the main plan, plus the honest "skip it" calls. Nothing here needs deciding now.</p>
+      <h4 class="subhead">Eating &amp; drinking off-resort</h4>
+      <ul class="bench">
+        <li><b>Jasmin Restaurant</b> — the original Laem Tong independent, at the edge of the chao leh (sea-gypsy) village: feet-in-sand tables, grilled seabass, BBQ ribs, run by Tan &amp; Pete for decades; the top-rated meal on the north coast, and far cheaper than the resorts. Cash (5% card surcharge).<span class="who">the one dinner everyone should defect for</span></li>
+        <li><b>Oasis Bar &amp; Restaurant</b> — the anchor of Loh Ba Kao village behind SAii; Thai + seafood at village prices, the standard "escape the resort bill" table.<span class="who">weeknight defectors</span></li>
+        <li><b>The beer math, verified</b> — a Chang at village restaurants runs ~฿50–80 ($1.50–2.50); resort bars charge 3–4×. Village massage shops run about half the spa rate too.<span class="who">everyone's inner accountant</span></li>
+        <li><b>Sunset Satay Bar</b> — drinks with the best sunset angle above Laem Tong; a 10-minute uphill walk, so not one for the grandparents.<span class="who">the parents, one evening</span></li>
+      </ul>
+      <h4 class="subhead">On and under the water</h4>
+      <ul class="bench">
+        <li><b>Leisure Dive Center</b> — the PADI shop right on Laem Tong beach, serving all the north-coast resorts; SAii also runs its own PADI 5★ centre with a dive boat off the resort. Late Nov opens the year's best-visibility season.<span class="who">the teens' certification week</span></li>
+        <li><b>Bamboo Island</b> — white-sand islet 15–20 min north, shallow easy snorkeling; the best kid-friendly boat stop.<span class="who">the 10-year-old's favorite hour</span></li>
+        <li><b>Mangrove &amp; village stroll</b> — the flat walk from SAii through Loh Ba Kao village along the stream to the mangroves: the grandparents' gentle morning loop.<span class="who">the flat-terrain option</span></li>
+        <li class="skip"><b>Monkey Beach</b> — skip landing: feeding is illegal, and monkey bites (rabies shots included) are a documented 2024–25 problem. Wave from the boat.<span class="who">the honest call</span></li>
+        <li class="skip"><b>Ton Sai town</b> — skip it: the ferry-pier party village is loud, dense and not why we came. Our end of the island exists precisely to avoid it.<span class="who">the other honest call</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section id="know">
   <div class="wrap">
     <div class="reveal">
@@ -565,9 +616,12 @@
         <div><h4><span>·</span> Weather</h4><p>Late Nov is the turn into dry season: ~30°C days, 29°C sea, calm crossings. The odd short afternoon shower is possible — it passes.</p></div>
         <div><h4><span>·</span> The flight rule</h4><p>The one hard constraint: land at HKT <b>before ~1pm</b>, fly out <b>after 2pm</b>. Boats don't cross in the dark.</p></div>
         <div><h4><span>·</span> No cars</h4><p>None on the island. Our end is boat-in, boat-out — the resort handles every bag.</p></div>
+        <div><h4><span>·</span> Tides</h4><p>Laem Tong swings hard — reef-snorkeling at low tide, thin beach at high. Loh Ba Gao (SAii) swims at every tide; worth weighing in the resort vote.</p></div>
+        <div><h4><span>·</span> Mosquitoes</h4><p>The resorts back onto jungle and a stream — real DEET at dusk, especially for the toddlers. Rash guards double as sting cover on jellyfish days.</p></div>
+        <div><h4><span>·</span> Money</h4><p>Thai baht; cards at resorts, <b>cash for the village, park fees and Jasmin</b> — no real ATMs on our end. Stock the room fridges from mainland Phuket before the boat.</p></div>
         <div><h4><span>·</span> Visas</h4><p>Visa-free / e-visa for Indian &amp; US passports, same as before.</p></div>
-        <div><h4><span>·</span> Money</h4><p>Thai baht; cards fine at the resorts, cash for beach vendors. A trick worth using: stock the room fridges with beer/wine from mainland Phuket before the boat.</p></div>
-        <div><h4><span>·</span> Kids</h4><p>Cribs and family rooms standard; the sea here is bath-warm and the north beaches are calm and shallow at the edges.</p></div>
+        <div><h4><span>·</span> Quiet by design</h4><p>The north coast goes silent by ~9pm and the clinic is in Ton Sai (serious cases boat to Phuket). For this trip, the silence is the point — just know it going in.</p></div>
+        <div><h4><span>·</span> Kids</h4><p>Cribs and family rooms standard; the sea is bath-warm, and morning seas are the calmest for small stomachs on boats — longtails ride gentler than speedboats.</p></div>
       </div>
     </div>
   </div>
@@ -579,11 +633,11 @@
       <div class="kicker">To make it real</div>
       <h2 class="title">Next steps</h2>
       <ol class="steps">
-        <li>Pick the tier: <b>Holiday Resort (easy)</b> or <b>SAii (polished)</b> — this is the only real decision.</li>
+        <li>Pick the tier: <b>Holiday Resort (kids' club, flat, cheapest)</b> or <b>SAii (best beach, marine centre)</b> — the only real decision.</li>
         <li>Confirm <b>25–29 Nov</b> works for the core, and who's coming early.</li>
-        <li>Count heads → block <b>~10 rooms</b>. Late Nov edges toward high season; sooner is cheaper.</li>
-        <li>Book flights into HKT <b>landing before 1pm</b> — this is the constraint that bites late bookers.</li>
-        <li>Kahran books the <b>private transfer + boat-day charter</b> once the block is set.</li>
+        <li>Kahran sends the <b>group-block enquiry to both resorts now</b> (late Nov = front edge of high season) and asks each: which night is your Loy Krathong ceremony, 24 or 25?</li>
+        <li>Book flights into <b>HKT or KBV landing before 1pm</b> — the one constraint that bites late bookers. Check both airports' fares.</li>
+        <li>Once the block is set: the <b>private arrival boat</b> + the <b>07:00 boat-day charter</b>, booked ≥5 days out.</li>
       </ol>
     </div>
   </div>
