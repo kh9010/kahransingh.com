@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Kahran's 40th · The Ride · Nov 2027</title>
+<meta property="og:title" content="Kahran's 40th — the ride we owe ourselves">
+<meta property="og:description" content="Chiang Mai → the Golden Triangle by bike, Nov 2027. The 33rd-birthday plan the pandemic ate, back with seven years of interest.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #ece4d4; --ink-soft: #b8ad97; --bg: #191713; --card: #221f19;
+    --line: #353026; --line-strong: #4a4238; --muted: #857b66;
+    --road: #e0762e; --road-soft: #33261a; --leaf: #7da05e; --leaf-soft: #232a1c;
+    --gold: #d9a04a;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 40px rgba(0,0,0,.35);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hanken Grotesk', -apple-system, sans-serif; color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.62; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 140px 140px; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 1.4rem; }
+  h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; line-height: 1.14; font-weight: 400; letter-spacing: -0.012em; }
+  a { color: inherit; }
+  ::selection { background: var(--road); color: #191713; }
+  .gallery { color: var(--road); text-decoration: none; border-bottom: 1px dotted var(--road); }
+  .gallery:hover { border-bottom-style: solid; }
+  p { margin-bottom: 0.8rem; color: var(--ink-soft); }
+  p:last-child { margin-bottom: 0; }
+  strong, b { font-weight: 600; color: var(--ink); }
+  .em { color: var(--road); font-style: italic; font-family: 'Fraunces', serif; }
+
+  .hero { position: relative; padding: clamp(3.5rem, 9vh, 6rem) 0 2.4rem; overflow: hidden; }
+  .hero:before { content: ""; position: absolute; inset: 0; background:
+    radial-gradient(ellipse 80% 55% at 75% 0%, rgba(224,118,46,.14), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 100%, rgba(125,160,94,.10), transparent 60%); }
+  .hero .wrap { position: relative; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--road); margin-bottom: 1rem; font-weight: 600; }
+  .hero h1 { font-size: clamp(2.3rem, 6.5vw, 3.8rem); letter-spacing: -0.022em; }
+  .hero h1 em { font-style: italic; color: var(--road); }
+  .dek { font-family: 'Fraunces', serif; font-size: clamp(1rem, 2.2vw, 1.25rem); font-style: italic; color: var(--ink-soft); margin-top: 1rem; max-width: 52ch; }
+  .snap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 1.8rem; }
+  .snap div { background: var(--card); padding: 0.85rem 1rem; }
+  .snap .k { font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .snap .v { font-size: 0.95rem; margin-top: 0.1rem; color: var(--ink); font-weight: 500; }
+  .snap .v small { font-weight: 400; color: var(--ink-soft); }
+  @media (max-width: 620px) { .snap { grid-template-columns: repeat(2, 1fr); } }
+
+  section { padding: clamp(2.4rem, 6vh, 4rem) 0; }
+  section + section { border-top: 1px solid var(--line); }
+  .kicker { font-size: 0.71rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--road); margin-bottom: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 0.55rem; }
+  .kicker:before { content: ""; width: 1.5rem; height: 1px; background: var(--road); opacity: .6; }
+  h2.title { font-size: clamp(1.6rem, 4vw, 2.1rem); margin-bottom: 1rem; }
+  .sub { color: var(--ink-soft); }
+
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  blockquote { border-left: 3px solid var(--road); padding: 0.4rem 0 0.4rem 1.1rem; margin: 1.1rem 0; font-family: 'Fraunces', serif; font-style: italic; color: var(--ink); font-size: 1.02rem; }
+  blockquote cite { display: block; font-family: 'Hanken Grotesk', sans-serif; font-style: normal; font-size: 0.75rem; color: var(--muted); margin-top: 0.35rem; }
+
+  .stage { position: relative; padding-left: 2rem; }
+  .stage:before { content: ""; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: repeating-linear-gradient(180deg, var(--road) 0 10px, transparent 10px 18px); opacity: 0.6; }
+  .leg { position: relative; padding: 0.7rem 0 1.1rem; }
+  .leg:before { content: ""; position: absolute; left: -1.63rem; top: 1.05rem; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 3px solid var(--road); }
+  .leg .d { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--road); font-weight: 700; }
+  .leg h4 { font-size: 1.12rem; margin: 0.15rem 0 0.2rem; }
+  .leg p { font-size: 0.9rem; margin: 0; }
+  .leg .km { display: inline-block; font-size: 0.7rem; color: var(--gold); border: 1px solid rgba(217,160,74,.4); border-radius: 100px; padding: 0.1rem 0.6rem; margin-left: 0.4rem; vertical-align: middle; }
+
+  ul.plain { list-style: none; }
+  ul.plain li { padding: 0.5rem 0 0.5rem 1.2rem; position: relative; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.92rem; }
+  ul.plain li:last-child { border-bottom: none; }
+  ul.plain li:before { content: "·"; position: absolute; left: 0.2rem; color: var(--road); font-weight: 700; }
+  ul.plain li .who { display: block; font-size: 0.73rem; color: var(--muted); font-style: italic; font-family: 'Fraunces', serif; }
+
+  .cardrow { display: grid; gap: 0.9rem; margin-top: 0.5rem; }
+  @media (min-width: 640px) { .cardrow { grid-template-columns: 1fr 1fr; } }
+  .kcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.15rem; box-shadow: var(--shadow); }
+  .kcard .when { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--road); font-weight: 600; }
+  .kcard h4 { font-size: 1.05rem; margin: 0.2rem 0 0.25rem; }
+  .kcard p { font-size: 0.85rem; margin: 0; }
+
+  ol.steps { counter-reset: s; list-style: none; }
+  ol.steps li { counter-increment: s; position: relative; padding: 0.6rem 0 0.6rem 2.6rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.91rem; }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li:before { content: counter(s); position: absolute; left: 0; top: 0.55rem; width: 1.7rem; height: 1.7rem; background: var(--road); color: #191713; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; font-family: 'Fraunces', serif; font-weight: 600; }
+
+  .note { font-size: 0.81rem; color: var(--muted); margin-top: 0.8rem; }
+  .note b { color: var(--ink-soft); }
+
+  footer { text-align: center; padding: 2.6rem 0 4rem; color: var(--muted); font-size: 0.79rem; border-top: 1px solid var(--line); }
+  footer em { font-family: 'Fraunces', serif; }
+  footer a { color: var(--road); text-decoration: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Kahran's 40th · November 2027 · friends only</div>
+    <h1>The ride we owe ourselves,<br><em>seven years late.</em></h1>
+    <p class="dek">In 2019, Jessica and I started planning a cycling trip through northern Thailand for my 33rd — November 2020. You know what happened to November 2020. The plan never died; it's been waiting. For the 40th, we ride it.</p>
+    <div class="snap">
+      <div><div class="k">Route</div><div class="v">Chiang Mai → Golden Triangle <small>· by bike</small></div></div>
+      <div><div class="k">When</div><div class="v">Late Nov 2027 <small>· ~1 week</small></div></div>
+      <div><div class="k">Who</div><div class="v">10–12 friends <small>· fit-ish, no kids</small></div></div>
+      <div><div class="k">Status</div><div class="v">Seed <small>· keeping it warm</small></div></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section id="story">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The receipts</div>
+      <h2 class="title">This plan has history</h2>
+      <p>October 2019: Andrew Wileman plants the idea — bike from northern Thailand to the Mekong, cross into Laos, roll into Luang Prabang. Jessica Pollett (now Seitz), event planner extraordinaire and dear friend, takes it to SpiceRoads and starts engineering a custom trip for 10–12 of us: <strong>20–30km a day, "reasonably fit but not serious cyclists, nothing too, too strenuous."</strong></p>
+      <blockquote>"For my 33rd birthday (Nov 2020, please be there!) I am planning to cycle from Thailand to Laos, over a 4–5 night trip."
+      <cite>— me, to Andrew, October 2019. Reader: nobody went anywhere in Nov 2020.</cite></blockquote>
+      <p>We even found the flaw before the pandemic did: the Chiang Rai → Luang Prabang route needs <strong>two days on the slow boat</strong>, which killed the fun ("Ugh. This seems not that fun."). Kie at SpiceRoads had already offered the fix in her last email — <strong>ride Chiang Mai → Chiang Rai instead</strong>, all riding, no boat — and then the world shut. That fix is now the plan.</p>
+    </div>
+  </div>
+</section>
+
+<section id="route">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The route</div>
+      <h2 class="title">Chiang Mai → the Golden Triangle</h2>
+      <p class="sub" style="margin-bottom:1.2rem">Four to five riding days north through the mountains — support vehicle always trailing, so any day can end early with a beer in the truck. Shape, not gospel:</p>
+      <div class="stage">
+        <div class="leg"><div class="d">Day 0 · Chiang Mai</div><h4>Assemble &amp; bike fitting</h4><p>Land, fit bikes, khao soi at a Michelin Bib Gourmand shophouse, early night. (Whoever comes early gets the temples and the old city.)</p></div>
+        <div class="leg"><div class="d">Day 1</div><h4>Chiang Mai → the hot springs country <span class="km">~40–50 km</span></h4><p>Out of the valley through rice paddies and back roads, ending somewhere with hot springs and cold Chang.</p></div>
+        <div class="leg"><div class="d">Day 2</div><h4>Into the hills <span class="km">~40 km</span></h4><p>The mountain day — climbs earned, descents savored, support truck for the honest. Night in a hill town.</p></div>
+        <div class="leg"><div class="d">Day 3</div><h4>Tea country — Doi Mae Salong <span class="km">~40 km</span></h4><p>Ridgeline tea plantations settled by Yunnanese exiles; oolong tastings at altitude. The best views of the week.</p></div>
+        <div class="leg"><div class="d">Day 4</div><h4>Down to the Mekong <span class="km">~50 km</span></h4><p>The long roll down to Chiang Saen's 700-year-old ruins and the river. First sight of Laos across the water.</p></div>
+        <div class="leg"><div class="d">Day 5 · the birthday</div><h4>The Golden Triangle</h4><p>Short victory lap to the tri-border point, then off the bikes: <b>walking with the elephants at the Anantara camp</b>, sundowners by longtail where Thailand, Laos and Myanmar meet, one long dinner.</p></div>
+        <div class="leg"><div class="d">Optional epilogue</div><h4>Luang Prabang — by air, not slow boat</h4><p>The 2020 lesson, learned: the 1-hour flight from Chiang Rai gets us the dawn alms, Kuang Si Falls and the Mekong sunsets <em>without</em> two days on a boat. +2–3 nights for whoever can.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="borrowed">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Borrowed from the family plan</div>
+      <h2 class="title">The best of Chiang Mai '26, repurposed</h2>
+      <p class="sub" style="margin-bottom:0.8rem">The family's winter gathering moved to the beach, which frees the northern-Thailand research for this trip. The keepers:</p>
+      <div class="cardrow">
+        <div class="kcard"><div class="when">If the dates align</div><h4>The lantern festival</h4><p>Yi Peng / Loy Krathong falls around <b>mid-Nov 2027</b> (date TBC) — likely a week or so before the ride. Early arrivals could catch it in Chiang Mai; worth checking before fixing dates.</p></div>
+        <div class="kcard"><div class="when">The birthday closer</div><h4>Anantara's elephant camp</h4><p>"Walking with Giants" — two hours through the jungle beside 60 rescued elephants and their mahouts. Ends the ride the way nothing else could.</p></div>
+        <div class="kcard"><div class="when">Daily fuel</div><h4>The khao soi pilgrimage</h4><p>Bib Gourmand bowls for a few dollars — Khao Soi Mae Sai sits right on our route north.</p></div>
+        <div class="kcard"><div class="when">The last night</div><h4>Tri-border sundowners</h4><p>Drinks by longtail at the exact point three countries meet, light going down over the Mekong.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">How it gets booked</div>
+      <h2 class="title">Operators &amp; the old thread</h2>
+      <ul class="plain">
+        <li><b>SpiceRoads</b> — custom-trip desk, where the 2019 thread lives. Contact was Kie (Pornwadee Photchanabanphot), custom@spiceroads.com. They run private groups our size routinely; more riders = cheaper per head; ~30 days' notice on final headcount.<span class="who">the front-runner — we just reopen the thread</span></li>
+        <li><b>Grasshopper Adventures</b> — the boutique alternative, strong in northern Thailand day rides and multi-day tours.<span class="who">worth a competing quote</span></li>
+        <li><b>Exodus / KE Adventure</b> — UK group-tour operators Andrew recommended; scheduled departures if we'd rather join than charter.<span class="who">the fallback</span></li>
+        <li><b>Jessica</b> — planned the Galapagos trip, the engagement party, and half of 2019–20. First message goes to her: <i>"remember Chiang Rai? It's back on, for the 40th."</i><span class="who">the co-conspirator</span></li>
+      </ul>
+      <p class="note"><b>Ballpark from 2019, inflated honestly:</b> mid-range custom cycling tours run roughly $200–350/person/day with support vehicle, guides, bikes and hotels — call it <b>$1.5–2.5k/person</b> for the week before flights, less as the group grows. To firm up with quotes.</p>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Keeping it warm</div>
+      <h2 class="title">Next moves (no rush — but not never)</h2>
+      <ol class="steps">
+        <li><b>Message Jessica.</b> She started this; she gets first right of co-conspiracy.</li>
+        <li>Pin the window: <b>my birthday sits at the end of Nov 2027</b>; check the 2027 lantern-festival dates before locking.</li>
+        <li>Float it to the likely riders — a one-line "in principle?" to 12–15 people to find the 10.</li>
+        <li>Reopen the SpiceRoads thread + get a Grasshopper quote (route: Chiang Mai → Chiang Rai/Golden Triangle, 4–5 riding days, support vehicle).</li>
+        <li>By ~Feb 2027: dates fixed, deposits in, training excuses begin.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <em>A seed, planted July 2026 · watered since October 2019</em><br>
+    Object, volunteer, or claim a bike: <a href="mailto:kahran.singh@gmail.com?subject=The%2040th%20ride">tell Kahran</a> &nbsp;·&nbsp; The family's winter plan lives at <a href="/winter/">/winter</a>.
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) { revs.forEach(function (r) { r.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    revs.forEach(function (r) { io.observe(r); });
+  }
+})();
+</script>
+
+</body>
+</html>
