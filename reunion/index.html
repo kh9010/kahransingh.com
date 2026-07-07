@@ -78,6 +78,29 @@
   .btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--gold); }
   .cta-row .aside { font-family: 'Courier Prime', monospace; font-size: 0.74rem; color: var(--muted); }
 
+  /* ---- in-page RSVP widget ---- */
+  .rsvp { margin-top: 1.2rem; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--card); padding: 1rem 1.1rem 1.1rem; }
+  .rsvp .q { font-weight: 700; font-size: 0.88rem; color: var(--ink); margin: 0.75rem 0 0.35rem; }
+  .rsvp .q:first-of-type { margin-top: 0.5rem; }
+  .ti { font: inherit; font-size: 0.9rem; padding: 0.5rem 0.75rem; border: 1.5px solid var(--line-strong); border-radius: 4px; background: #fffdf6; color: var(--ink); width: 100%; }
+  .ti:focus { outline: none; border-color: var(--crimson); }
+  textarea.ti { resize: vertical; margin-top: 0.7rem; }
+  .namebox { position: relative; max-width: 24rem; }
+  .matches { position: absolute; top: 100%; left: 0; right: 0; z-index: 6; background: #fffdf6; border: 1px solid var(--line-strong); border-top: none; border-radius: 0 0 4px 4px; box-shadow: 0 8px 20px rgba(35,29,22,.16); max-height: 14rem; overflow: auto; }
+  .matches button { display: block; width: 100%; text-align: left; padding: 0.45rem 0.8rem; border: none; background: none; font: inherit; font-size: 0.9rem; color: var(--ink); cursor: pointer; border-bottom: 1px dashed var(--line); }
+  .matches button:last-child { border-bottom: none; }
+  .matches button:hover { background: var(--gold-soft); }
+  .matches button.free { font-style: italic; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .chip { font-family: 'Courier Prime', monospace; font-size: 0.74rem; letter-spacing: 0.04em; padding: 0.32rem 0.75rem; border-radius: 100px; border: 1.5px solid var(--line-strong); background: #fffdf6; color: var(--ink-soft); cursor: pointer; }
+  .chip.sel { border-color: var(--crimson); background: var(--crimson); color: var(--paper); }
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 0.9rem; }
+  @media (max-width: 560px) { .opt-grid { grid-template-columns: 1fr; } }
+  #date-alt { max-width: 24rem; margin-top: 0.55rem; }
+  button.btn { font-family: inherit; cursor: pointer; }
+  .hide { display: none; }
+  .rsvp .done-msg { font-size: 1rem; color: var(--ink); font-weight: 700; }
+
   /* ---- sections ---- */
   section { padding: 1.9rem 0; }
   section + section { border-top: 1px solid var(--line); }
@@ -183,17 +206,51 @@
       <div class="row"><div class="k">Evening</div><div class="v">7 pm–late · reserved corner of a downtown Kirkland bar — scouting Chainline / Flatstick / Lake St <span class="pill open">scouting</span></div></div>
       <div class="row"><div class="k">Cost</div><div class="v"><b>Free.</b> Picnic covered; evening you buy your own drinks</div></div>
       <div class="row"><div class="k">Who</div><div class="v">Class of '06 core; '05 and '07 friends welcome</div></div>
-      <div class="row"><div class="k">RSVP</div><div class="v">Proper form coming <span class="pill soon">soon</span> — for now, email works (button below)</div></div>
+      <div class="row"><div class="k">RSVP</div><div class="v"><b>Right on this page</b>, just below — type your name, tap a couple of buttons, done <span class="pill soon">new</span></div></div>
     </div>
 
     <div class="flex-note">
       <b>⚠ The date is a proposal, not a decree.</b> A couple of people already have conflicts on Aug 28. Nothing is reserved yet, so it can still move — a Saturday, a different weekend. <b>If Aug 28 doesn't work for you, say so now</b> and tell us what does. The date gets locked by the people who reply, not by me. <span class="hand">— speak now! seriously</span>
     </div>
 
-    <div class="cta-row">
-      <!-- RSVP: swap the href below for the Google Form URL once created -->
-      <a class="btn" href="mailto:kahran.singh@gmail.com?subject=ICS%20%2706%20Reunion&body=Name%3A%0ADoes%20Fri%20Aug%2028%20work%20for%20you%3F%20(yes%20%2F%20no%20%2F%20maybe%20%E2%80%94%20if%20no%2C%20what%20does%3F)%0AComing%20to%3A%20afternoon%20%2F%20evening%20%2F%20both%0ABringing%3A%20(partner%2C%20kids%2C%20headcount)%0A">Reply — even a "maybe" →</a>
-      <span class="aside">30 seconds. "can't make it" counts too — it moves the date.</span>
+    <div class="rsvp" id="rsvp">
+      <div class="kicker">RSVP — right here, ~30 seconds, no login</div>
+      <div id="rsvp-form">
+        <div class="q">Your name</div>
+        <div class="namebox">
+          <input class="ti" id="nm-in" type="text" placeholder="start typing — it finds you" autocomplete="off">
+          <div class="matches hide" id="nm-matches"></div>
+        </div>
+        <div id="rsvp-rest" class="hide">
+          <div class="q">Does Fri, Aug 28 work for you?</div>
+          <div class="chips" data-key="dateWorks">
+            <button type="button" class="chip" data-v="works for me">works for me</button>
+            <button type="button" class="chip" data-v="doesn't work">doesn't work</button>
+            <button type="button" class="chip" data-v="not sure yet">not sure yet</button>
+          </div>
+          <input class="ti hide" id="date-alt" type="text" placeholder="what date / weekend would work?">
+          <div class="q">I'm in for…</div>
+          <div class="chips" data-key="coming">
+            <button type="button" class="chip" data-v="both">both</button>
+            <button type="button" class="chip" data-v="just the afternoon">just the afternoon</button>
+            <button type="button" class="chip" data-v="just the evening">just the evening</button>
+            <button type="button" class="chip" data-v="can't make it">can't make it</button>
+          </div>
+          <div class="opt-grid">
+            <input class="ti" id="bringing" type="text" placeholder="bringing anyone? (partner, kids, #)">
+            <input class="ti" id="email" type="email" placeholder="email — for updates (optional)">
+          </div>
+          <textarea class="ti" id="note" rows="2" placeholder="say something to the class (optional)"></textarea>
+          <div class="cta-row" style="margin-top:0.9rem">
+            <button class="btn" id="send" type="button">Send it →</button>
+            <span class="aside">"can't make it" counts too — it moves the date.</span>
+          </div>
+        </div>
+      </div>
+      <div id="rsvp-done" class="hide">
+        <p class="done-msg" id="rsvp-done-msg"></p>
+        <p style="font-size:0.88rem; margin-top:0.4rem">Changed your mind or slipped a typo? Just submit again — the newest answer wins. Or <a href="mailto:kahran.singh@gmail.com">email Kahran</a>.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -208,7 +265,8 @@
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Date confirmed</b> — waiting on your replies before locking anything</span></li>
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Park shelter reserved</b> — Kirkland Parks takes bookings by phone; happens right after the date locks</span></li>
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Evening venue booked</b> — shortlist exists, no calls made yet <span class="note">want to own this one?</span></span></li>
-      <li><span class="box">[&nbsp;]</span><span class="what"><b>Proper RSVP form</b> — replacing the email button above</span></li>
+      <li class="done"><span class="box">[x]</span><span class="what"><b>In-page RSVP</b> — type your name up top, no email needed</span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>RSVPs wired to the grid</b> — so the yearbook below colors in live as answers land</span></li>
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Yearbook photos</b> — need someone's 2006 yearbook, see the grid below</span></li>
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Teachers invited</b> — Castañeda, Rubin, McFaul, Over for the afternoon</span></li>
     </ul>
@@ -269,6 +327,8 @@
     <div class="kicker">Questions</div>
     <h2 class="title">The fine print <em>(there barely is any)</em></h2>
     <dl class="qa">
+      <dt>How do I RSVP?</dt><dd>Right on this page, at the top — start typing your name, it finds you, tap a couple of buttons. No login, no app. Even a "can't make it" helps.</dd>
+      <dt>Can my photo be current instead of 2006?</dt><dd>Sure — email Kahran a photo you like and it goes up. Nothing gets pulled from anywhere without you handing it over.</dd>
       <dt>Is Aug 28 final?</dt><dd>No — see the note at the top. It's the working date. If it doesn't work for you, saying so now is the most useful thing you can do.</dd>
       <dt>Can I bring my partner / kids?</dt><dd>Afternoon: yes, absolutely. Evening: partners welcome, kids stay home.</dd>
       <dt>What does it cost?</dt><dd>Nothing. The picnic is covered; in the evening you buy your own drinks.</dd>
@@ -327,32 +387,148 @@ const CLASSMATES = [
 const CLASS_SIZE_GUESS = 66;
 
 const grid = document.getElementById('yearbook');
+const tiles = new Map();
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+const esc = s => s.replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
+
 function tile(c) {
   const el = document.createElement('div');
   el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.mystery ? ' mystery' : '');
   const initials = c.mystery ? '?' : c.name.split(' ').map(w => w[0]).slice(0, 2).join('');
   el.innerHTML = `
     <div class="frame">
-      <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${c.name}">` : `<div class="initials">${initials}</div>`}</div>
+      <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}">` : `<div class="initials">${initials}</div>`}</div>
       <div class="badge">${c.coming === false ? '·' : '✓'}</div>
     </div>
-    <div class="nm">${c.name}</div>
+    <div class="nm">${esc(c.name)}</div>
     <div class="st">${c.coming === true ? 'in!' : (c.coming === false ? 'can’t (so far)' : 'not heard yet')}</div>`;
   return el;
 }
-CLASSMATES.forEach(c => grid.appendChild(tile(c)));
+CLASSMATES.forEach(c => { const el = tile(c); tiles.set(norm(c.name), { el, c }); grid.appendChild(el); });
 const missing = Math.max(0, CLASS_SIZE_GUESS - CLASSMATES.length);
 for (let i = 0; i < Math.min(missing, 6); i++) {
   grid.appendChild(tile({ name: "Who are we forgetting?", mystery: true }));
 }
-const coming = CLASSMATES.filter(c => c.coming === true).length;
-const out = CLASSMATES.filter(c => c.coming === false).length;
-const unheard = CLASSMATES.length - coming - out;
-document.getElementById('tally').innerHTML =
-  `<span><b>${coming}</b> in so far</span>` +
-  `<span>${out} can't (yet — the date can still move)</span>` +
-  `<span>${unheard} not heard from</span>` +
-  `<span>${CLASSMATES.length} of ~${CLASS_SIZE_GUESS} found</span>`;
+
+let extras = 0; // RSVPs from people not on the roster ('05/'07, plus-ones)
+function setStatus(name, coming) {
+  const t = tiles.get(norm(name));
+  if (!t) return false;
+  t.c.coming = coming;
+  t.el.classList.toggle('coming', coming === true);
+  t.el.classList.toggle('out', coming === false);
+  t.el.querySelector('.st').textContent = coming === true ? 'in!' : (coming === false ? 'can’t (so far)' : 'not heard yet');
+  t.el.querySelector('.badge').textContent = coming === false ? '·' : '✓';
+  return true;
+}
+function renderTally() {
+  const coming = CLASSMATES.filter(c => c.coming === true).length;
+  const out = CLASSMATES.filter(c => c.coming === false).length;
+  const unheard = CLASSMATES.length - coming - out;
+  document.getElementById('tally').innerHTML =
+    `<span><b>${coming}</b> in so far</span>` +
+    `<span>${out} can't (yet — the date can still move)</span>` +
+    `<span>${unheard} not heard from</span>` +
+    `<span>${CLASSMATES.length} of ~${CLASS_SIZE_GUESS} found</span>` +
+    (extras ? `<span>+${extras} from other years</span>` : '');
+}
+renderTally();
+
+/* ---------------------------------------------------------------
+   IN-PAGE RSVP — submits into a Google Form; the grid colors in
+   from a published read-only sheet. To wire up:
+     formId   — the long id in the form's /forms/d/e/<ID>/viewform URL
+     entries  — each question's entry.NNNNN id (from the form's
+                "Get pre-filled link")
+     sheetCsv — publish-to-web CSV URL of a tab holding ONLY the
+                Name + "I'm in for" columns. NEVER publish the raw
+                responses tab — it contains people's emails.
+   Until formId is set, Send falls back to a pre-filled email.
+---------------------------------------------------------------- */
+const RSVP_CONFIG = {
+  formId: "",
+  entries: { name: "", dateWorks: "", dateAlt: "", coming: "", bringing: "", email: "", note: "" },
+  sheetCsv: ""
+};
+
+const $ = id => document.getElementById(id);
+const rsvpState = { name: "", dateWorks: "", coming: "" };
+const nmIn = $('nm-in'), nmMatches = $('nm-matches'), rest = $('rsvp-rest');
+
+nmIn.addEventListener('input', () => {
+  const q = norm(nmIn.value);
+  rsvpState.name = ""; rest.classList.add('hide');
+  if (!q) { nmMatches.classList.add('hide'); return; }
+  const hits = CLASSMATES.filter(c => norm(c.name).includes(q)).slice(0, 6);
+  nmMatches.innerHTML = hits.map(c => `<button type="button" data-n="${esc(c.name)}">${esc(c.name)}</button>`).join('') +
+    `<button type="button" class="free" data-n="${esc(nmIn.value)}">none of these — I'm “${esc(nmIn.value)}”</button>`;
+  nmMatches.classList.remove('hide');
+});
+nmMatches.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  rsvpState.name = b.dataset.n; nmIn.value = rsvpState.name;
+  nmMatches.classList.add('hide'); rest.classList.remove('hide');
+});
+document.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  g.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+  b.classList.add('sel'); rsvpState[g.dataset.key] = b.dataset.v;
+  if (g.dataset.key === 'dateWorks') $('date-alt').classList.toggle('hide', b.dataset.v !== "doesn't work");
+}));
+$('send').addEventListener('click', () => {
+  if (!rsvpState.name) { nmIn.focus(); return; }
+  const answers = {
+    name: rsvpState.name, dateWorks: rsvpState.dateWorks, dateAlt: $('date-alt').value,
+    coming: rsvpState.coming, bringing: $('bringing').value, email: $('email').value, note: $('note').value
+  };
+  if (RSVP_CONFIG.formId) {
+    const body = new URLSearchParams();
+    for (const k in RSVP_CONFIG.entries) {
+      if (RSVP_CONFIG.entries[k] && answers[k]) body.append(RSVP_CONFIG.entries[k], answers[k]);
+    }
+    fetch(`https://docs.google.com/forms/d/e/${RSVP_CONFIG.formId}/formResponse`, { method: 'POST', mode: 'no-cors', body });
+    $('rsvp-done-msg').textContent = `Got it, ${rsvpState.name.split(' ')[0]} — you're down. The grid syncs within a few minutes.`;
+  } else {
+    const lines = Object.entries(answers).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join('\n');
+    location.href = 'mailto:kahran.singh@gmail.com?subject=' + encodeURIComponent(`ICS '06 RSVP — ${rsvpState.name}`) + '&body=' + encodeURIComponent(lines);
+    $('rsvp-done-msg').textContent = `Almost there — your email app just opened with everything filled in. Hit send and you're down.`;
+  }
+  if (rsvpState.coming && !setStatus(rsvpState.name, rsvpState.coming !== "can't make it")) extras++;
+  renderTally();
+  $('rsvp-form').classList.add('hide'); $('rsvp-done').classList.remove('hide');
+});
+
+/* live readback: color the grid from the published responses tab */
+function parseCsv(t) {
+  const rows = [[]]; let cur = '', q = false;
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (q) { if (ch === '"') { if (t[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { rows[rows.length - 1].push(cur); cur = ''; }
+    else if (ch === '\n') { rows[rows.length - 1].push(cur.replace(/\r$/, '')); cur = ''; rows.push([]); }
+    else cur += ch;
+  }
+  rows[rows.length - 1].push(cur.replace(/\r$/, ''));
+  if (rows[rows.length - 1].length === 1 && !rows[rows.length - 1][0]) rows.pop();
+  return rows;
+}
+if (RSVP_CONFIG.sheetCsv) fetch(RSVP_CONFIG.sheetCsv).then(r => r.text()).then(txt => {
+  const rows = parseCsv(txt);
+  if (rows.length < 2) return;
+  const head = rows[0].map(norm);
+  const iName = head.findIndex(h => h.includes('name'));
+  const iComing = head.findIndex(h => h.includes('in for') || h.includes('coming'));
+  if (iName < 0 || iComing < 0) return;
+  const extraSet = new Set();
+  rows.slice(1).forEach(r => {                    // in order — newest row wins
+    const n = r[iName], v = norm(r[iComing] || '');
+    if (!n || !v) return;
+    if (!setStatus(n, !/can.?t/.test(v))) extraSet.add(norm(n));
+  });
+  extras = extraSet.size;
+  renderTally();
+}).catch(() => {});
 </script>
 
 </body>
