@@ -5,15 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>ICS Class of 2006 · Twenty-Year Reunion · Aug 28, 2026</title>
-<meta property="og:title" content="ICS Class of 2006 — Twenty-Year Reunion">
-<meta property="og:description" content="Friday, August 28, 2026 · Kirkland, WA. An afternoon on the water, an evening downtown. It has been twenty years. Come home for a day.">
+<title>ICS Class of 2006 · 20-Year Reunion — the working plan</title>
+<meta property="og:title" content="ICS Class of 2006 — Twenty-Year Reunion (planning page)">
+<meta property="og:description" content="Aiming for Friday, August 28, 2026 in Kirkland. Nothing is booked yet — this is the live working plan. Tell us if the date works.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kahransingh.com/reunion/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:ital,wght@0,400;0,500;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js');</script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -24,159 +23,141 @@
     --gold: #b98a2e; --gold-soft: #f0e5c9; --gold-bright: #d4a743;
     --line: #ddd5c0; --line-strong: #c8bda0;
     --pen: #2b3a6b; /* ballpoint */
-    --shadow: 0 1px 2px rgba(35,29,22,.06), 0 12px 36px rgba(35,29,22,.10);
   }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Karla', -apple-system, sans-serif; color: var(--ink); background: var(--paper); font-size: 16.5px; line-height: 1.62; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body { font-family: 'Karla', -apple-system, sans-serif; color: var(--ink); background: var(--paper); font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   /* paper grain */
   body::before { content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: .05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 140px 140px; }
-  .wrap { max-width: 940px; margin: 0 auto; padding: 0 1.4rem; }
-  .narrow { max-width: 640px; }
-  h1, h2, h3 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
-  a { color: inherit; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 1.3rem; }
+  h1, h2, h3 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; }
+  a { color: var(--crimson); }
   ::selection { background: var(--gold-soft); }
-  img { display: block; max-width: 100%; }
-  p { margin-bottom: 0.85rem; color: var(--ink-soft); }
+  p { margin-bottom: 0.7rem; color: var(--ink-soft); }
   p:last-child { margin-bottom: 0; }
   strong { font-weight: 700; color: var(--ink); }
-  .hand { font-family: 'Caveat', cursive; }
+  .hand { font-family: 'Caveat', cursive; color: var(--pen); }
+  .mono { font-family: 'Courier Prime', monospace; }
 
-  /* ---- masthead: yearbook cover band ---- */
+  /* ---- masthead ---- */
   header.mast { background: var(--crimson); color: var(--paper); border-bottom: 4px solid var(--gold); position: relative; z-index: 4; }
-  .mast-inner { max-width: 940px; margin: 0 auto; padding: 0.8rem 1.4rem; display: flex; align-items: baseline; gap: 1rem; }
-  .mast .school { font-family: 'Instrument Serif', serif; font-size: 1.05rem; }
+  .mast-inner { max-width: 880px; margin: 0 auto; padding: 0.7rem 1.3rem; display: flex; align-items: baseline; gap: 1rem; }
+  .mast .school { font-family: 'Instrument Serif', serif; font-size: 1rem; }
   .mast .school em { color: var(--gold-bright); }
-  .mast .tag { margin-left: auto; font-family: 'Courier Prime', monospace; font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(245,241,230,.75); white-space: nowrap; }
+  .mast .tag { margin-left: auto; font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; color: rgba(245,241,230,.75); white-space: nowrap; }
   @media (max-width: 560px) { .mast .tag { display: none; } }
 
-  /* ---- hero ---- */
-  .hero { position: relative; padding: clamp(3.4rem, 9vh, 6rem) 0 clamp(2.4rem, 6vh, 4rem); overflow: hidden; }
-  .hero .bigyear { position: absolute; right: -0.04em; top: 46%; transform: translateY(-50%) rotate(3deg); font-family: 'Instrument Serif', serif; font-size: clamp(11rem, 32vw, 23rem); line-height: 1; color: transparent; -webkit-text-stroke: 1.5px var(--line-strong); z-index: 0; pointer-events: none; user-select: none; }
-  .hero-content { position: relative; z-index: 2; }
-  .eyebrow { font-family: 'Courier Prime', monospace; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--crimson); margin-bottom: 1rem; }
-  .hero h1 { font-size: clamp(2.7rem, 7.5vw, 5rem); max-width: 12ch; }
-  .hero h1 em { font-style: italic; color: var(--crimson); }
-  .dek { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(1.1rem, 2.4vw, 1.4rem); color: var(--ink-soft); margin-top: 1.1rem; max-width: 44ch; }
-  .hero .cta-row { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
-  .btn { display: inline-block; text-decoration: none; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; padding: 0.78rem 1.7rem; border-radius: 3px; background: var(--crimson); color: var(--paper); border: 1px solid var(--crimson-deep); box-shadow: 3px 3px 0 var(--gold); transition: transform .15s, box-shadow .15s; }
-  .btn:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--gold); }
-  .btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--gold); }
-  .btn.ghost { background: transparent; color: var(--crimson); border: 1.5px solid var(--crimson); box-shadow: none; }
-  .btn.ghost:hover { background: var(--crimson-soft); }
-  .countdown { font-family: 'Courier Prime', monospace; font-size: 0.8rem; color: var(--ink-soft); border: 1px dashed var(--line-strong); border-radius: 100px; padding: 0.35rem 0.95rem; background: var(--card); }
-  .countdown b { color: var(--crimson); font-size: 0.95rem; }
+  /* ---- title block: memo header ---- */
+  .memo { padding: 2rem 0 1.4rem; border-bottom: 1px solid var(--line); position: relative; }
+  .memo h1 { font-size: clamp(1.9rem, 5vw, 2.7rem); max-width: 22ch; }
+  .memo h1 em { font-style: italic; color: var(--crimson); }
+  .memo .sub { margin-top: 0.5rem; font-size: 0.98rem; max-width: 58ch; }
+  .stamp { position: absolute; right: 1.3rem; top: 1.6rem; transform: rotate(-7deg); border: 3px solid var(--crimson); color: var(--crimson); border-radius: 4px; padding: 0.3rem 0.7rem; font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; text-align: center; opacity: .75; line-height: 1.5; }
+  .stamp small { display: block; font-weight: 400; letter-spacing: 0.05em; text-transform: none; }
+  @media (max-width: 700px) { .stamp { position: static; display: inline-block; margin-top: 1rem; transform: rotate(-2deg); } }
 
-  /* handwritten yearbook signatures scattered in the hero */
-  .sig { position: absolute; font-family: 'Caveat', cursive; color: var(--pen); opacity: 0; z-index: 1; pointer-events: none; white-space: nowrap; transition: opacity 1s ease .3s, transform 1s ease .3s; }
-  .js .sig { transform: translateY(8px); }
-  .js .sigs-in .sig { opacity: var(--o, .55); transform: none; }
-  .sig.s1 { top: 9%;  right: 30%; font-size: 1.5rem; transform: rotate(-7deg); --o:.5; transition-delay: .5s; }
-  .sig.s2 { top: 30%; right: 5%;  font-size: 1.35rem; color: var(--crimson); transform: rotate(5deg); --o:.55; transition-delay: .9s; }
-  .sig.s3 { bottom: 26%; right: 22%; font-size: 1.5rem; transform: rotate(-4deg); --o:.5; transition-delay: 1.3s; }
-  .sig.s4 { bottom: 6px; right: 5%; font-size: 1.3rem; color: #5a6b3f; transform: rotate(-3deg); --o:.55; transition-delay: 1.7s; }
-  @media (max-width: 760px) { .sig.s1, .sig.s3 { display: none; } .sig.s2 { top: 12%; } }
+  /* ---- facts table ---- */
+  .facts { margin: 1.4rem 0 0; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--card); overflow: hidden; }
+  .facts .row { display: grid; grid-template-columns: 9.5rem 1fr; border-bottom: 1px solid var(--line); }
+  .facts .row:last-child { border-bottom: none; }
+  .facts .k { font-family: 'Courier Prime', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.55rem 0.9rem; background: var(--paper-deep); border-right: 1px solid var(--line); display: flex; align-items: center; }
+  .facts .v { padding: 0.55rem 0.9rem; font-size: 0.92rem; color: var(--ink-soft); }
+  .facts .v b { color: var(--ink); }
+  @media (max-width: 540px) { .facts .row { grid-template-columns: 6.8rem 1fr; } }
+  .pill { display: inline-block; font-family: 'Courier Prime', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.1rem 0.5rem; border-radius: 100px; margin-left: 0.35rem; vertical-align: 1px; white-space: nowrap; }
+  .pill.open { border: 1px solid var(--crimson); color: var(--crimson); background: var(--crimson-soft); }
+  .pill.soon { border: 1px solid var(--gold); color: var(--gold); background: var(--gold-soft); }
+  .pill.done { border: 1px solid #5a6b3f; color: #5a6b3f; background: #e7ead9; }
 
-  .snap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; margin-top: 2.4rem; box-shadow: var(--shadow); }
-  .snap > div { background: var(--card); padding: 0.95rem 1.1rem; }
-  .snap .k { font-family: 'Courier Prime', monospace; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-  .snap .v { font-size: 1rem; margin-top: 0.15rem; font-weight: 700; }
-  .snap .v small { font-weight: 400; color: var(--ink-soft); }
-  @media (max-width: 640px) { .snap { grid-template-columns: 1fr; } }
+  /* ---- date-flex callout ---- */
+  .flex-note { margin-top: 1.2rem; border: 1.5px dashed var(--gold); border-radius: 6px; background: var(--gold-soft); padding: 0.85rem 1rem; font-size: 0.94rem; color: var(--ink-soft); position: relative; }
+  .flex-note b { color: var(--ink); }
+  .flex-note .hand { font-size: 1.15rem; }
 
-  /* ---- 2006 time-capsule ticker ---- */
-  .capsule { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--paper-deep); overflow: hidden; padding: 0.65rem 0; position: relative; }
-  .capsule .lbl { position: absolute; left: 0; top: 0; bottom: 0; z-index: 2; display: flex; align-items: center; background: var(--gold); color: #fff; font-family: 'Courier Prime', monospace; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0 0.9rem; }
-  .tickerband { display: flex; width: max-content; animation: tick 60s linear infinite; }
-  .capsule:hover .tickerband { animation-play-state: paused; }
-  .ticker { display: flex; gap: 2.6rem; padding-left: 2.6rem; font-family: 'Courier Prime', monospace; font-size: 0.8rem; color: var(--ink-soft); white-space: nowrap; }
-  .ticker b { color: var(--crimson); font-weight: 700; }
-  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .tickerband { animation: none; } }
+  .cta-row { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
+  .btn { display: inline-block; text-decoration: none; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em; padding: 0.6rem 1.4rem; border-radius: 3px; background: var(--crimson); color: var(--paper); border: 1px solid var(--crimson-deep); box-shadow: 2px 2px 0 var(--gold); transition: transform .15s, box-shadow .15s; }
+  .btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--gold); }
+  .btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--gold); }
+  .cta-row .aside { font-family: 'Courier Prime', monospace; font-size: 0.74rem; color: var(--muted); }
 
   /* ---- sections ---- */
-  section { padding: clamp(2.6rem, 6vh, 4.2rem) 0; }
+  section { padding: 1.9rem 0; }
   section + section { border-top: 1px solid var(--line); }
-  .kicker { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem; font-weight: 700; display: flex; align-items: center; gap: 0.55rem; }
-  .kicker:before { content: ""; width: 1.6rem; height: 2px; background: var(--gold); }
-  h2.title { font-size: clamp(1.9rem, 4.5vw, 2.6rem); margin-bottom: 1rem; }
+  .kicker { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; font-weight: 700; }
+  h2.title { font-size: clamp(1.4rem, 3.4vw, 1.8rem); margin-bottom: 0.7rem; }
   h2.title em { font-style: italic; color: var(--crimson); }
 
-  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
-  .js .reveal.in { opacity: 1; transform: none; }
+  /* ---- status board: the to-do list in the open ---- */
+  .board { margin-top: 0.9rem; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--card); }
+  .board li { list-style: none; display: grid; grid-template-columns: 1.7rem 1fr; gap: 0.6rem; padding: 0.6rem 0.9rem; border-bottom: 1px dashed var(--line); font-size: 0.92rem; color: var(--ink-soft); align-items: baseline; }
+  .board li:last-child { border-bottom: none; }
+  .board .box { font-family: 'Courier Prime', monospace; font-weight: 700; font-size: 1rem; }
+  .board li.done .box { color: #5a6b3f; }
+  .board li.done { color: var(--muted); }
+  .board li.done .what b { color: var(--ink-soft); }
+  .board li .box { color: var(--crimson); }
+  .board .what b { color: var(--ink); }
+  .board .note { font-family: 'Caveat', cursive; color: var(--pen); font-size: 1.05rem; margin-left: 0.4rem; }
 
-  /* ---- schedule cards ---- */
-  .sched { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.6rem; }
-  @media (max-width: 700px) { .sched { grid-template-columns: 1fr; } }
-  .sc { background: var(--card); border: 1px solid var(--line-strong); border-radius: 8px; padding: 1.5rem 1.5rem 1.3rem; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-  .sc::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+  /* ---- schedule (compact, two chapters) ---- */
+  .sched { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; margin-top: 0.9rem; }
+  @media (max-width: 640px) { .sched { grid-template-columns: 1fr; } }
+  .sc { background: var(--card); border: 1px solid var(--line-strong); border-radius: 6px; padding: 1rem 1.1rem 0.9rem; position: relative; overflow: hidden; }
+  .sc::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
   .sc.day::before { background: linear-gradient(90deg, var(--gold-bright), var(--gold)); }
   .sc.night::before { background: linear-gradient(90deg, var(--crimson), var(--crimson-deep)); }
-  .sc .when { font-family: 'Courier Prime', monospace; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-  .sc h3 { font-size: 1.55rem; margin: 0.35rem 0 0.6rem; }
-  .sc .where { font-size: 0.86rem; color: var(--ink-soft); border-top: 1px dashed var(--line-strong); margin-top: 1rem; padding-top: 0.8rem; }
+  .sc .when { font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .sc h3 { font-size: 1.25rem; margin: 0.2rem 0 0.4rem; }
+  .sc p { font-size: 0.9rem; }
+  .sc .where { font-size: 0.82rem; color: var(--ink-soft); border-top: 1px dashed var(--line-strong); margin-top: 0.7rem; padding-top: 0.6rem; }
   .sc .where b { color: var(--ink); }
-  .sc .note { font-family: 'Caveat', cursive; font-size: 1.15rem; color: var(--pen); opacity: .75; position: absolute; right: 1.1rem; top: 0.85rem; transform: rotate(3deg); }
-  .pill { display: inline-block; font-family: 'Courier Prime', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.6rem; border-radius: 100px; border: 1px solid var(--line-strong); color: var(--ink-soft); background: var(--paper); margin-left: 0.4rem; vertical-align: 2px; }
 
-  /* ---- the yearbook grid: taped polaroids ---- */
-  .gridnote { font-family: 'Caveat', cursive; font-size: 1.25rem; color: var(--pen); margin-top: 0.4rem; transform: rotate(-1deg); display: inline-block; }
-  .yearbook { margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 1.5rem 1.1rem; }
+  /* ---- the yearbook grid: compact polaroids ---- */
+  .yearbook { margin-top: 1.3rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 1rem 0.7rem; }
   .yb { text-align: center; position: relative; }
-  .yb .frame { position: relative; aspect-ratio: 4 / 5; background: #fffdf6; border: 1px solid var(--line-strong); border-radius: 2px; padding: 7px 7px 8px; box-shadow: 0 2px 5px rgba(35,29,22,.16); transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s; }
-  /* varied polaroid tilt */
-  .yb:nth-child(4n+1) .frame { transform: rotate(-1.4deg); }
-  .yb:nth-child(4n+2) .frame { transform: rotate(1.1deg); }
-  .yb:nth-child(4n+3) .frame { transform: rotate(-0.5deg); }
-  .yb:nth-child(4n)   .frame { transform: rotate(1.7deg); }
-  .yb:hover .frame { transform: rotate(0deg) translateY(-4px) scale(1.04); box-shadow: 0 10px 26px rgba(35,29,22,.22); z-index: 2; }
-  /* tape strip */
-  .yb .frame::after { content: ""; position: absolute; top: -9px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 52px; height: 17px; background: rgba(222,207,158,.65); border-left: 1px dashed rgba(35,29,22,.12); border-right: 1px dashed rgba(35,29,22,.12); box-shadow: 0 1px 2px rgba(35,29,22,.08); }
-  .yb:nth-child(3n) .frame::after { transform: translateX(-50%) rotate(3deg); }
-  .yb.coming .frame::after { background: rgba(212,167,67,.75); }
+  .yb .frame { position: relative; aspect-ratio: 4 / 5; background: #fffdf6; border: 1px solid var(--line-strong); border-radius: 2px; padding: 5px 5px 6px; box-shadow: 0 1px 3px rgba(35,29,22,.14); transition: transform .25s, box-shadow .25s; }
+  .yb:nth-child(4n+1) .frame { transform: rotate(-1.2deg); }
+  .yb:nth-child(4n+2) .frame { transform: rotate(0.9deg); }
+  .yb:nth-child(4n+3) .frame { transform: rotate(-0.4deg); }
+  .yb:nth-child(4n)   .frame { transform: rotate(1.3deg); }
+  .yb:hover .frame { transform: rotate(0deg) translateY(-3px); box-shadow: 0 6px 16px rgba(35,29,22,.2); z-index: 2; }
   .yb .photo { width: 100%; height: 100%; border-radius: 1px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #d9d0ba, #cbc0a5); }
-  .yb .photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) sepia(.28) contrast(.92); transition: filter .6s; }
-  .yb .initials { font-family: 'Instrument Serif', serif; font-size: 1.9rem; color: #a2977e; }
+  .yb .photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) sepia(.28) contrast(.92); transition: filter .5s; }
+  .yb .initials { font-family: 'Instrument Serif', serif; font-size: 1.4rem; color: #a2977e; }
   .yb.coming .photo img { filter: none; }
-  .yb.coming .frame { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-soft), 0 4px 14px rgba(185,138,46,.3); }
+  .yb.coming .frame { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-soft), 0 3px 10px rgba(185,138,46,.28); }
   .yb.coming .photo { background: linear-gradient(160deg, var(--gold-soft), #e8d9b0); }
   .yb.coming .initials { color: var(--gold); }
-  .yb .badge { position: absolute; top: -6px; right: -7px; background: var(--crimson); color: var(--paper); font-size: 0.85rem; line-height: 1; width: 24px; height: 24px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(35,29,22,.3); z-index: 2; }
-  .yb.coming .badge { display: flex; }
-  .yb .nm { font-size: 0.8rem; font-weight: 700; margin-top: 0.55rem; line-height: 1.25; }
-  .yb .st { font-family: 'Courier Prime', monospace; font-size: 0.64rem; letter-spacing: 0.06em; color: var(--muted); }
+  .yb.out { opacity: .55; }
+  .yb .badge { position: absolute; top: -5px; right: -6px; background: var(--crimson); color: var(--paper); font-size: 0.72rem; line-height: 1; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(35,29,22,.3); z-index: 2; }
+  .yb.coming .badge, .yb.out .badge { display: flex; }
+  .yb.out .badge { background: var(--muted); }
+  .yb .nm { font-size: 0.72rem; font-weight: 700; margin-top: 0.4rem; line-height: 1.2; }
+  .yb .st { font-family: 'Courier Prime', monospace; font-size: 0.58rem; letter-spacing: 0.04em; color: var(--muted); }
   .yb.coming .st { color: var(--gold); font-weight: 700; }
-  .yb.mystery .frame { border-style: dashed; box-shadow: none; background: transparent; padding: 7px; }
-  .yb.mystery .frame::after { display: none; }
+  .yb.mystery .frame { border-style: dashed; box-shadow: none; background: transparent; padding: 5px; }
   .yb.mystery .photo { background: transparent; }
-  .yb.mystery .initials { font-size: 1.5rem; color: var(--line-strong); }
+  .yb.mystery .initials { font-size: 1.15rem; color: var(--line-strong); }
 
-  /* coloring-in progress bar */
-  .progressbar { margin-top: 2rem; }
-  .progressbar .track { height: 12px; border-radius: 100px; background: var(--paper-deep); border: 1px solid var(--line-strong); overflow: hidden; }
-  .progressbar .fill { height: 100%; width: 0; border-radius: 100px; background: linear-gradient(90deg, var(--gold-bright), var(--crimson)); transition: width 1.2s cubic-bezier(.2,.7,.2,1) .3s; }
-  .progressbar .cap { display: flex; justify-content: space-between; font-family: 'Courier Prime', monospace; font-size: 0.75rem; color: var(--ink-soft); margin-top: 0.45rem; }
-  .progressbar .cap b { color: var(--crimson); }
+  .tally { margin-top: 1.1rem; font-family: 'Courier Prime', monospace; font-size: 0.78rem; color: var(--ink-soft); border: 1px dashed var(--line-strong); border-radius: 6px; background: var(--card); padding: 0.55rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+  .tally b { color: var(--crimson); }
 
   /* ---- help wanted ---- */
-  .help { background: var(--card); border: 1px solid var(--line-strong); border-radius: 8px; box-shadow: var(--shadow); padding: 1.6rem 1.7rem; margin-top: 1.4rem; }
-  .help ul { list-style: none; margin: 0.8rem 0 0; }
-  .help li { padding: 0.55rem 0; border-bottom: 1px dashed var(--line); font-size: 0.94rem; color: var(--ink-soft); }
+  .help ul { list-style: none; margin: 0.7rem 0 0; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--card); }
+  .help li { padding: 0.5rem 0.9rem; border-bottom: 1px dashed var(--line); font-size: 0.9rem; color: var(--ink-soft); }
   .help li:last-child { border-bottom: none; }
   .help li b { color: var(--ink); }
-  .help li .hand { color: var(--pen); font-size: 1.1rem; }
+  .help li .hand { font-size: 1.05rem; }
 
-  /* ---- faq ---- */
-  details { border-bottom: 1px solid var(--line); padding: 0.9rem 0; }
-  details summary { cursor: pointer; font-weight: 700; font-size: 1rem; list-style: none; display: flex; align-items: baseline; gap: 0.6rem; }
-  details summary::before { content: "+"; font-family: 'Instrument Serif', serif; color: var(--crimson); font-size: 1.2rem; transition: transform .2s; }
-  details[open] summary::before { content: "–"; }
-  details p { margin-top: 0.6rem; font-size: 0.95rem; }
+  /* ---- faq: dense Q/A ---- */
+  .qa { margin-top: 0.6rem; }
+  .qa dt { font-weight: 700; font-size: 0.92rem; margin-top: 0.9rem; }
+  .qa dt::before { content: "Q · "; color: var(--crimson); font-family: 'Courier Prime', monospace; font-size: 0.8rem; }
+  .qa dd { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.15rem; }
 
-  /* ---- footer with sign-off ---- */
-  footer { border-top: 3px double var(--line-strong); padding: 2.4rem 0 3.4rem; }
-  .signoff { font-family: 'Caveat', cursive; font-size: clamp(1.7rem, 4vw, 2.3rem); color: var(--pen); transform: rotate(-2deg); margin-bottom: 1.6rem; }
+  /* ---- footer ---- */
+  footer { border-top: 3px double var(--line-strong); padding: 1.8rem 0 2.6rem; }
+  .signoff { font-family: 'Caveat', cursive; font-size: clamp(1.4rem, 3.4vw, 1.8rem); color: var(--pen); transform: rotate(-1.5deg); margin-bottom: 1.1rem; }
   .signoff b { color: var(--crimson); font-weight: 600; }
-  footer .meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; align-items: baseline; font-family: 'Courier Prime', monospace; font-size: 0.78rem; color: var(--muted); }
+  footer .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: baseline; font-family: 'Courier Prime', monospace; font-size: 0.74rem; color: var(--muted); }
   footer a { color: var(--crimson); text-decoration: none; border-bottom: 1px dotted var(--crimson); }
 </style>
 </head>
@@ -185,82 +166,72 @@
 <header class="mast">
   <div class="mast-inner">
     <div class="school"><em>International Community School</em> · Kirkland, WA</div>
-    <div class="tag">est. reunion no. 1 — twenty years on</div>
+    <div class="tag">class of 2006 · reunion planning page</div>
   </div>
 </header>
 
-<div class="hero" id="hero">
-  <div class="bigyear" aria-hidden="true">’06</div>
-  <span class="sig s1" aria-hidden="true">HAGS!! no really, this time</span>
-  <span class="sig s2" aria-hidden="true">never change lol</span>
-  <span class="sig s3" aria-hidden="true">K.I.T. — we mean it now</span>
-  <span class="sig s4" aria-hidden="true">see you in 20 yrs → ok deal</span>
-  <div class="wrap hero-content">
-    <div class="eyebrow">Class of 2006 · Twenty-Year Reunion</div>
-    <h1>It has been <em>twenty years.</em> Come home for a day.</h1>
-    <p class="dek">Friday, August 28, 2026 — an afternoon on the water in Kirkland, an evening downtown. Partners and kids welcome by day; just us by night.</p>
+<div class="wrap">
+  <div class="memo">
+    <div class="stamp">Work in progress<small>last updated July 7, 2026</small></div>
+    <h1>Twenty years. <em>One day in Kirkland.</em></h1>
+    <p class="sub">This is the <strong>working plan</strong>, not the invitation — it changes as things get booked and as you all weigh in. Nothing below is final except the fact that this is happening.</p>
+
+    <div class="facts">
+      <div class="row"><div class="k">Date</div><div class="v"><b>Friday, August 28, 2026</b> — aiming for this, <b>not locked yet</b> <span class="pill open">movable</span></div></div>
+      <div class="row"><div class="k">Shape</div><div class="v">Afternoon picnic on the water (partners + kids), evening drinks downtown (just us)</div></div>
+      <div class="row"><div class="k">Afternoon</div><div class="v">1–4 pm · Juanita Beach Park or Marina Park — shelter not reserved yet <span class="pill open">not booked</span></div></div>
+      <div class="row"><div class="k">Evening</div><div class="v">7 pm–late · reserved corner of a downtown Kirkland bar — scouting Chainline / Flatstick / Lake St <span class="pill open">scouting</span></div></div>
+      <div class="row"><div class="k">Cost</div><div class="v"><b>Free.</b> Picnic covered; evening you buy your own drinks</div></div>
+      <div class="row"><div class="k">Who</div><div class="v">Class of '06 core; '05 and '07 friends welcome</div></div>
+      <div class="row"><div class="k">RSVP</div><div class="v">Proper form coming <span class="pill soon">soon</span> — for now, email works (button below)</div></div>
+    </div>
+
+    <div class="flex-note">
+      <b>⚠ The date is a proposal, not a decree.</b> A couple of people already have conflicts on Aug 28. Nothing is reserved yet, so it can still move — a Saturday, a different weekend. <b>If Aug 28 doesn't work for you, say so now</b> and tell us what does. The date gets locked by the people who reply, not by me. <span class="hand">— speak now! seriously</span>
+    </div>
+
     <div class="cta-row">
       <!-- RSVP: swap the href below for the Google Form URL once created -->
-      <a class="btn" href="mailto:kahran.singh@gmail.com?subject=ICS%20%2706%20Reunion%20RSVP&body=Name%3A%0AComing%20to%3A%20afternoon%20%2F%20evening%20%2F%20both%0ABringing%3A%20(partner%2C%20kids%2C%20headcount)%0A">RSVP →</a>
-      <a class="btn ghost" href="#class">Find yourself</a>
-      <span class="countdown"><b id="days-left"></b> days to go</span>
-    </div>
-    <div class="snap">
-      <div><div class="k">When</div><div class="v">Fri, Aug 28, 2026</div></div>
-      <div><div class="k">Where</div><div class="v">Kirkland, WA <small>— where else?</small></div></div>
-      <div><div class="k">Cost</div><div class="v">Free <small>— evening drinks on you</small></div></div>
+      <a class="btn" href="mailto:kahran.singh@gmail.com?subject=ICS%20%2706%20Reunion&body=Name%3A%0ADoes%20Fri%20Aug%2028%20work%20for%20you%3F%20(yes%20%2F%20no%20%2F%20maybe%20%E2%80%94%20if%20no%2C%20what%20does%3F)%0AComing%20to%3A%20afternoon%20%2F%20evening%20%2F%20both%0ABringing%3A%20(partner%2C%20kids%2C%20headcount)%0A">Reply — even a "maybe" →</a>
+      <span class="aside">30 seconds. "can't make it" counts too — it moves the date.</span>
     </div>
   </div>
 </div>
 
-<div class="capsule" aria-hidden="true">
-  <div class="lbl">June 2006</div>
-  <div class="tickerband" id="tickerband">
-    <div class="ticker">
-      <span>last time we were all in one room:</span>
-      <span>gas was <b>$2.87</b> a gallon</span>
-      <span>your phone was a <b>Motorola RAZR</b></span>
-      <span><b>Pluto</b> was still a planet <i>(demoted that August — we barely made it out)</i></span>
-      <span>#1 song: <b>“Crazy” — Gnarls Barkley</b></span>
-      <span>you had a <b>MySpace Top 8</b> and it caused problems</span>
-      <span><b>Facebook</b> still required a college email</span>
-      <span>we burned each other <b>mix CDs</b></span>
-      <span>the iPhone was <b>a year away</b></span>
-      <span>away messages were <b>a love language</b></span>
-    </div>
-    <div class="ticker">
-      <span>last time we were all in one room:</span>
-      <span>gas was <b>$2.87</b> a gallon</span>
-      <span>your phone was a <b>Motorola RAZR</b></span>
-      <span><b>Pluto</b> was still a planet <i>(demoted that August — we barely made it out)</i></span>
-      <span>#1 song: <b>“Crazy” — Gnarls Barkley</b></span>
-      <span>you had a <b>MySpace Top 8</b> and it caused problems</span>
-      <span><b>Facebook</b> still required a college email</span>
-      <span>we burned each other <b>mix CDs</b></span>
-      <span>the iPhone was <b>a year away</b></span>
-      <span>away messages were <b>a love language</b></span>
-    </div>
+<section id="status">
+  <div class="wrap">
+    <div class="kicker">Where things actually stand</div>
+    <h2 class="title">The to-do list, <em>in the open</em></h2>
+    <ul class="board">
+      <li class="done"><span class="box">[x]</span><span class="what"><b>Class roster assembled</b> — 59 of ~66 of us found and named below</span></li>
+      <li class="done"><span class="box">[x]</span><span class="what"><b>Date proposed</b> — Fri Aug 28, 2026 <span class="note">← being stress-tested right now, see above</span></span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>Date confirmed</b> — waiting on your replies before locking anything</span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>Park shelter reserved</b> — Kirkland Parks takes bookings by phone; happens right after the date locks</span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>Evening venue booked</b> — shortlist exists, no calls made yet <span class="note">want to own this one?</span></span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>Proper RSVP form</b> — replacing the email button above</span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>Yearbook photos</b> — need someone's 2006 yearbook, see the grid below</span></li>
+      <li><span class="box">[&nbsp;]</span><span class="what"><b>Teachers invited</b> — Castañeda, Rubin, McFaul, Over for the afternoon</span></li>
+    </ul>
+    <p style="margin-top:0.8rem; font-size:0.88rem;">This list shrinks as things get done and the page updates each time. Bookmark it — this is the single source of truth, no Facebook required.</p>
   </div>
-</div>
+</section>
 
 <section id="day">
   <div class="wrap">
-    <div class="kicker reveal">The plan</div>
-    <h2 class="title reveal">One day, <em>two chapters</em></h2>
+    <div class="kicker">The shape of the day</div>
+    <h2 class="title">One day, <em>two chapters</em></h2>
     <div class="sched">
-      <div class="sc day reveal">
-        <span class="note">bring the kids!</span>
+      <div class="sc day">
         <div class="when">Afternoon · 1–4 pm</div>
         <h3>Picnic on the lake</h3>
-        <p>The unhurried part. Bring your partner, bring your kids, bring the story about what actually happened senior year. Food, lawn games, the water, and a very long overdue catch-up.</p>
-        <div class="where"><b>Venue:</b> Juanita Beach Park or Marina Park — shelter being reserved now <span class="pill">confirming</span></div>
+        <p>The unhurried part. Partners, kids, lawn games, the water, and the story about what actually happened senior year.</p>
+        <div class="where"><b>Venue:</b> Juanita Beach Park or Marina Park <span class="pill open">not booked</span></div>
       </div>
-      <div class="sc night reveal">
-        <span class="note">adults only ;)</span>
+      <div class="sc night">
         <div class="when">Evening · 7 pm – late</div>
         <h3>Drinks downtown</h3>
-        <p>The other part. Adults only, downtown Kirkland, a reserved corner of a bar and no set agenda. Fly in just for this if that's all you can make — it counts.</p>
-        <div class="where"><b>Venue:</b> downtown Kirkland — being booked <span class="pill">confirming</span></div>
+        <p>Adults only, downtown Kirkland, a reserved corner of a bar, no agenda. Fly in just for this if that's all travel allows — it counts.</p>
+        <div class="where"><b>Venue:</b> downtown Kirkland, TBD <span class="pill open">scouting</span></div>
       </div>
     </div>
   </div>
@@ -268,58 +239,54 @@
 
 <section id="class">
   <div class="wrap">
-    <div class="kicker reveal">The yearbook</div>
-    <h2 class="title reveal">Sixty-odd of us, <em>give or take</em></h2>
-    <p class="reveal">Here's the class, taped up the way we left it. Photos go from yearbook-sepia to <strong>full color</strong> when someone RSVPs — help us color the whole page in. Names dug out of 2006 email threads and old lists, so: spot someone missing, a wrong spelling, or a name that shouldn't be here? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20fix%20the%20grid" style="color:var(--crimson)">Tell Kahran</a> and it's fixed same-day.</p>
-    <p class="reveal"><span class="gridnote">senior-photo scans coming — got a yearbook? photograph the senior pages!</span></p>
+    <div class="kicker">The yearbook</div>
+    <h2 class="title">Sixty-odd of us, <em>give or take</em></h2>
+    <p>The class as we've found it so far — built from old email threads and the Facebook group, so treat it as a draft. Photos go from yearbook-sepia to <strong>full color</strong> when someone's in. Spot someone missing, a wrong spelling, or a name that shouldn't be here? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20fix%20the%20grid">Tell Kahran</a> — fixed same-day.</p>
+    <p><span class="hand" style="font-size:1.15rem;">no photos yet — got a 2006 yearbook? photograph the senior pages and they all go up</span></p>
     <div class="yearbook" id="yearbook"></div>
-    <div class="progressbar reveal">
-      <div class="track"><div class="fill" id="fill"></div></div>
-      <div class="cap"><span><b id="count-coming"></b> coming so far</span><span id="count-rest"></span></div>
-    </div>
+    <div class="tally" id="tally"></div>
   </div>
 </section>
 
 <section id="help">
-  <div class="wrap narrow">
-    <div class="kicker reveal">Make it better</div>
-    <h2 class="title reveal">Own <em>one thing</em></h2>
-    <p class="reveal">This is happening either way — but it'll be better with more hands. Each of these is one small, ownable job:</p>
-    <div class="help reveal">
-      <ul>
-        <li><b>Outreach</b> — chase down the classmates who aren't in the Facebook group <span class="hand">← the big one</span></li>
-        <li><b>Evening venue</b> — pick the bar, sweet-talk them into a reserved area</li>
-        <li><b>Day-of picnic</b> — food run, setup, lawn games</li>
-        <li><b>Yearbook scans</b> — got a 2006 yearbook? Photograph the senior pages</li>
-        <li><b>Teachers</b> — track down Castañeda, Rubin, McFaul, Over for the afternoon</li>
-      </ul>
-    </div>
-    <p class="reveal" style="margin-top:1rem">Claim one: <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20I%27ll%20own%20it" style="color:var(--crimson)">email Kahran</a> or message him where you found this link.</p>
+  <div class="wrap help">
+    <div class="kicker">Make it better</div>
+    <h2 class="title">Own <em>one thing</em></h2>
+    <p>This is currently a one-person operation, which is exactly why the to-do list above is mostly unchecked. Each of these is one small, ownable job:</p>
+    <ul>
+      <li><b>Outreach</b> — chase down the ~7 classmates who aren't in the Facebook group <span class="hand">← the big one</span></li>
+      <li><b>Evening venue</b> — pick the bar, sweet-talk them into a reserved area</li>
+      <li><b>Day-of picnic</b> — food run, setup, lawn games</li>
+      <li><b>Yearbook scans</b> — got a 2006 yearbook? Photograph the senior pages</li>
+      <li><b>Teachers</b> — track down Castañeda, Rubin, McFaul, Over for the afternoon</li>
+    </ul>
+    <p style="margin-top:0.8rem">Claim one: <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20I%27ll%20own%20it">email Kahran</a> or message him where you found this link.</p>
   </div>
 </section>
 
 <section id="faq">
-  <div class="wrap narrow">
-    <div class="kicker reveal">Questions</div>
-    <h2 class="title reveal">The fine print <em>(there barely is any)</em></h2>
-    <div class="reveal">
-      <details><summary>Can I bring my partner / kids?</summary><p>Afternoon: yes, absolutely — it's a park, it's built for it. Evening: partners welcome, kids stay home.</p></details>
-      <details><summary>What does it cost?</summary><p>Nothing. The picnic is covered. In the evening you buy your own drinks.</p></details>
-      <details><summary>I live far away. Is it worth flying in?</summary><p>Twenty years only happens once. Come for the evening alone if that's what travel allows — out-of-towners get priority hugs.</p></details>
-      <details><summary>I only sort of graduated with you / I was '05 or '07.</summary><p>If you were part of our world at ICS, you're welcome. Bring yourself.</p></details>
-      <details><summary>My name / photo on this page is wrong (or I want it off).</summary><p>Email Kahran and it's swapped, fixed, or gone the same day, no questions asked.</p></details>
-      <details><summary>I'm not on Facebook — how do I stay in the loop?</summary><p>This page is the loop. RSVP with your email and updates come to you.</p></details>
-      <details><summary>Who's organizing this?</summary><p>Kahran Singh — yes, the same one who organized everything in 2006. Some things don't change. Want to co-conspire? See "Own one thing" above.</p></details>
-    </div>
+  <div class="wrap">
+    <div class="kicker">Questions</div>
+    <h2 class="title">The fine print <em>(there barely is any)</em></h2>
+    <dl class="qa">
+      <dt>Is Aug 28 final?</dt><dd>No — see the note at the top. It's the working date. If it doesn't work for you, saying so now is the most useful thing you can do.</dd>
+      <dt>Can I bring my partner / kids?</dt><dd>Afternoon: yes, absolutely. Evening: partners welcome, kids stay home.</dd>
+      <dt>What does it cost?</dt><dd>Nothing. The picnic is covered; in the evening you buy your own drinks.</dd>
+      <dt>I live far away. Worth flying in?</dt><dd>Twenty years only happens once. Come for the evening alone if that's what travel allows.</dd>
+      <dt>I was '05 or '07.</dt><dd>If you were part of our world at ICS, you're welcome.</dd>
+      <dt>My name on this page is wrong (or I want it off).</dt><dd>Email Kahran — swapped, fixed, or gone the same day, no questions asked.</dd>
+      <dt>I'm not on Facebook — how do I stay in the loop?</dt><dd>This page is the loop; it's updated as things change. RSVP with your email and updates come to you too.</dd>
+      <dt>Who's organizing this?</dt><dd>Kahran Singh — yes, the same one who organized everything in 2006. Some things don't change. Want to co-conspire? See "Own one thing" above.</dd>
+    </dl>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div class="signoff">had the best time sitting next to you in Castañeda's — <b>see you Aug 28. — K</b></div>
+    <div class="signoff">had the best time sitting next to you in Castañeda's — <b>see you this summer. — K</b></div>
     <div class="meta">
       <span>ICS Class of 2006 · Twenty-Year Reunion</span>
-      <span>Fri Aug 28, 2026 · Kirkland, WA</span>
+      <span>target: Fri Aug 28, 2026 · Kirkland, WA</span>
       <a href="mailto:kahran.singh@gmail.com">kahran.singh@gmail.com</a>
     </div>
   </div>
@@ -328,7 +295,7 @@
 <script>
 /* ---------------------------------------------------------------
    THE CLASS — edit this list as people are confirmed + RSVP.
-   { name, initials, photo (optional /reunion/photos/xx.jpg),
+   { name, photo (optional /reunion/photos/xx.jpg),
      coming: true | false | null (null = haven't heard yet) }
    If someone has passed away, remove them from this list — a
    separate remembrance line can be added thoughtfully later.
@@ -336,24 +303,24 @@
 const CLASSMATES = [
   { name: "Kahran Singh", coming: true },
   { name: "Aaron Ko" }, { name: "Ali Byström" }, { name: "Alvina Wong" },
-  { name: "Amanda Dopierala" }, { name: "Amanda Harmon (Anglin)" },
+  { name: "Amanda Dopierala" }, { name: "Amanda Harmon" },
   { name: "Anders Eliasen" }, { name: "Angela Rozmyn" }, { name: "Ann Gong" },
   { name: "Anna Ozbek" }, { name: "Audrey Djunaedi" }, { name: "Brynn Hannah Weaver" },
-  { name: "Caleb Lindgren" }, { name: "Cara Morici" }, { name: "Carrie Lanman (Hollenbeck)" },
-  { name: "Catherine Hinchliff" }, { name: "Catherine Sherman" }, { name: "Christine Rubery Pace" },
+  { name: "Caleb Lindgren" }, { name: "Cara Morici" }, { name: "Carrie Lanman" },
+  { name: "Catherine Hinchliff", coming: false }, { name: "Catherine Sherman" }, { name: "Christine Rubery Pace" },
   { name: "David Michael Frank" }, { name: "Dylan Fisher" },
   { name: "Elizabeth Tribo" }, { name: "Emily Youatt" }, { name: "Eyal Grayevsky" },
   { name: "Jake Cecil" }, { name: "Jenn Ballard" }, { name: "Jessica Hanley-Sandal" },
   { name: "Jessica Seitz" }, { name: "Kaarin Slotte" }, { name: "Kai Francis" },
-  { name: "Kay Hockeiser" }, { name: "Kelly Jean (Skow)" }, { name: "Kevin Chung" },
+  { name: "Kay Hockeiser" }, { name: "Kelly Jean" }, { name: "Kevin Chung" },
   { name: "Kit Culbert" }, { name: "Krishanu Ray" }, { name: "Kurt Miller" },
   { name: "Lara O'Neil-Dunne" }, { name: "Lauren Cornforth" }, { name: "Lauren Elizabeth Clark" },
   { name: "Lucas Bischofberger" }, { name: "Megan Pearlman" }, { name: "Michelle Volk" },
   { name: "Nick Llanos" }, { name: "Noah Moskat" }, { name: "Omkar Rane" },
-  { name: "Phil Geiger" }, { name: "Pia Rijo (Rivera)" }, { name: "Rachel Connelly" },
-  { name: "Rosanne Kelley (Garcia)" }, { name: "Sangita Kode" }, { name: "Shawn Khademi" },
+  { name: "Phil Geiger" }, { name: "Pia Rijo" }, { name: "Rachel Connelly" },
+  { name: "Rosanne Kelley" }, { name: "Sangita Kode" }, { name: "Shawn Khademi" },
   { name: "Sorayya Dossett" }, { name: "Spencer Sult" }, { name: "Spencer Winters" },
-  { name: "Stephanie Funez (Martin)" }, { name: "Stephanie Rasmusson" },
+  { name: "Stephanie Funez" }, { name: "Stephanie Rasmusson" },
   { name: "Tal Yaacovi" }, { name: "Tom Courlas" }, { name: "Tucker Willsie" },
   { name: "Walt Busch" }, { name: "Yasmin Khorram" },
 ];
@@ -362,15 +329,15 @@ const CLASS_SIZE_GUESS = 66;
 const grid = document.getElementById('yearbook');
 function tile(c) {
   const el = document.createElement('div');
-  el.className = 'yb' + (c.coming ? ' coming' : '') + (c.mystery ? ' mystery' : '');
-  const initials = c.mystery ? '?' : c.name.split(' ').filter(w => w[0] !== '(').map(w => w[0]).slice(0, 2).join('');
+  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.mystery ? ' mystery' : '');
+  const initials = c.mystery ? '?' : c.name.split(' ').map(w => w[0]).slice(0, 2).join('');
   el.innerHTML = `
     <div class="frame">
       <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${c.name}">` : `<div class="initials">${initials}</div>`}</div>
-      <div class="badge">✓</div>
+      <div class="badge">${c.coming === false ? '·' : '✓'}</div>
     </div>
     <div class="nm">${c.name}</div>
-    <div class="st">${c.coming === true ? 'coming!' : (c.coming === false ? 'can’t make it' : 'not heard yet')}</div>`;
+    <div class="st">${c.coming === true ? 'in!' : (c.coming === false ? 'can’t (so far)' : 'not heard yet')}</div>`;
   return el;
 }
 CLASSMATES.forEach(c => grid.appendChild(tile(c)));
@@ -379,22 +346,13 @@ for (let i = 0; i < Math.min(missing, 6); i++) {
   grid.appendChild(tile({ name: "Who are we forgetting?", mystery: true }));
 }
 const coming = CLASSMATES.filter(c => c.coming === true).length;
-document.getElementById('count-coming').textContent = coming;
-document.getElementById('count-rest').textContent = `${CLASSMATES.length} of us found — nearly the whole class`;
-
-/* countdown */
-const days = Math.max(0, Math.ceil((new Date('2026-08-28T13:00:00-07:00') - Date.now()) / 86400000));
-document.getElementById('days-left').textContent = days;
-
-/* progress bar fills to % of found classmates who've RSVP'd yes (min sliver so it reads) */
-requestAnimationFrame(() => {
-  document.getElementById('fill').style.width = Math.max(2.5, (coming / CLASS_SIZE_GUESS) * 100) + '%';
-});
-
-/* scroll reveals + hero signatures */
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-window.addEventListener('load', () => document.getElementById('hero').classList.add('sigs-in'));
+const out = CLASSMATES.filter(c => c.coming === false).length;
+const unheard = CLASSMATES.length - coming - out;
+document.getElementById('tally').innerHTML =
+  `<span><b>${coming}</b> in so far</span>` +
+  `<span>${out} can't (yet — the date can still move)</span>` +
+  `<span>${unheard} not heard from</span>` +
+  `<span>${CLASSMATES.length} of ~${CLASS_SIZE_GUESS} found</span>`;
 </script>
 
 </body>
