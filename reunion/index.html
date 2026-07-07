@@ -224,16 +224,16 @@
         <div id="rsvp-rest" class="hide">
           <div class="q">Does Fri, Aug 28 work for you?</div>
           <div class="chips" data-key="dateWorks">
-            <button type="button" class="chip" data-v="works for me">works for me</button>
-            <button type="button" class="chip" data-v="doesn't work">doesn't work</button>
-            <button type="button" class="chip" data-v="not sure yet">not sure yet</button>
+            <button type="button" class="chip" data-v="Works for me">works for me</button>
+            <button type="button" class="chip" data-v="Does not work">doesn't work</button>
+            <button type="button" class="chip" data-v="Not sure yet">not sure yet</button>
           </div>
           <input class="ti hide" id="date-alt" type="text" placeholder="what date / weekend would work?">
           <div class="q">I'm in for…</div>
           <div class="chips" data-key="coming">
             <button type="button" class="chip" data-v="both">both</button>
-            <button type="button" class="chip" data-v="just the afternoon">just the afternoon</button>
-            <button type="button" class="chip" data-v="just the evening">just the evening</button>
+            <button type="button" class="chip" data-v="afternoon">just the afternoon</button>
+            <button type="button" class="chip" data-v="evening">just the evening</button>
             <button type="button" class="chip" data-v="can't make it">can't make it</button>
           </div>
           <div class="opt-grid">
@@ -446,9 +446,12 @@ renderTally();
    Until formId is set, Send falls back to a pre-filled email.
 ---------------------------------------------------------------- */
 const RSVP_CONFIG = {
-  formId: "",
-  entries: { name: "", dateWorks: "", dateAlt: "", coming: "", bringing: "", email: "", note: "" },
-  sheetCsv: ""
+  formId: "1FAIpQLSdQWs8Ey6Ir7aPli5rAzRpve1kiWSy61ZiDvZhtzc89YKZ6iw",
+  entries: {
+    name: "entry.1496006545", dateWorks: "entry.2085792944", dateAlt: "entry.1982201187",
+    coming: "entry.1356312993", bringing: "entry.1851317096", email: "entry.2065118714", note: "entry.1401140843"
+  },
+  sheetCsv: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTE7ILsRH7gJTKk1KdvBUHHHHT4HTeJq3FOb6dSEDqtd_cca0d9jC-6FZb9mSKIbwwvjtf-eL3WNNQ9/pub?gid=1636200995&single=true&output=csv"
 };
 
 const $ = id => document.getElementById(id);
@@ -473,7 +476,7 @@ document.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e =
   const b = e.target.closest('.chip'); if (!b) return;
   g.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
   b.classList.add('sel'); rsvpState[g.dataset.key] = b.dataset.v;
-  if (g.dataset.key === 'dateWorks') $('date-alt').classList.toggle('hide', b.dataset.v !== "doesn't work");
+  if (g.dataset.key === 'dateWorks') $('date-alt').classList.toggle('hide', b.dataset.v !== "Does not work");
 }));
 $('send').addEventListener('click', () => {
   if (!rsvpState.name) { nmIn.focus(); return; }
