@@ -235,8 +235,8 @@ const themeLabels = {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         // Don't navigate if a video overlay is open
-        var overlay = document.querySelector('[style*="position:fixed"][style*="z-index:1000"]');
-        if (overlay && overlay.style.display !== 'none') return;
+        var vo = document.getElementById('video-sound-overlay');
+        if (vo && vo.style.display !== 'none') return;
         window.location.href = '/poetry.html';
     }
 });

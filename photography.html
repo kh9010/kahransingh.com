@@ -188,6 +188,25 @@
             object-fit: contain;
         }
 
+        .lightbox-close {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 1001;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #fff;
+        }
+
         /* Auto-scroll indicator */
         .auto-scroll-indicator {
             position: fixed;
@@ -307,94 +326,95 @@
     <div class="photo-counter" id="photo-counter"></div>
 
     <div class="lightbox" id="lightbox">
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
         <img id="lightbox-img" src="" alt="">
     </div>
 
     <script>
     const allPhotos = [
         // Q2 Monochrome (B&W)
-        { f: 'alpine-lake.jpg', c: 'q2mono' },
-        { f: 'beach-boardwalk.jpg', c: 'q2mono' },
-        { f: 'beach-solitude.jpg', c: 'q2mono' },
-        { f: 'buoys-wall.jpg', c: 'q2mono' },
-        { f: 'cdmx-plaza.jpg', c: 'q2mono' },
-        { f: 'concrete-museum.jpg', c: 'q2mono' },
-        { f: 'fireworks-water.jpg', c: 'q2mono' },
-        { f: 'hawaii-landscape.jpg', c: 'q2mono' },
-        { f: 'kitchen-night.jpg', c: 'q2mono' },
-        { f: 'lanterns.jpg', c: 'q2mono' },
-        { f: 'misty-hillside.jpg', c: 'q2mono' },
-        { f: 'night-market.jpg', c: 'q2mono' },
-        { f: 'night-street.jpg', c: 'q2mono' },
-        { f: 'papel-picado.jpg', c: 'q2mono' },
-        { f: 'reed-corridor.jpg', c: 'q2mono' },
-        { f: 'restaurant-night.jpg', c: 'q2mono' },
-        { f: 'roma-sidewalk.jpg', c: 'q2mono' },
-        { f: 'sayulita-staircase.jpg', c: 'q2mono' },
-        { f: 'scooter-beach.jpg', c: 'q2mono' },
-        { f: 'staircase.jpg', c: 'q2mono' },
-        { f: 'still-lake.jpg', c: 'q2mono' },
-        { f: 'taco-cart.jpg', c: 'q2mono' },
-        { f: 'tree-tunnel.jpg', c: 'q2mono' },
-        { f: 'van-sleeping.jpg', c: 'q2mono' },
-        { f: 'yosemite-trail.jpg', c: 'q2mono' },
-        { f: 'yosemite-valley.jpg', c: 'q2mono' },
-        { f: 'tetrapods-C617472A.jpg', c: 'q2mono' },
-        { f: 'lavender-field-44DFB472.jpg', c: 'q2mono' },
-        { f: 'calla-lilies-1CB0954F.jpg', c: 'q2mono' },
-        { f: 'pine-boardwalk-7FB4DA90.jpg', c: 'q2mono' },
-        { f: 'gnarled-tree-beach-9254A749.jpg', c: 'q2mono' },
-        { f: 'misty-walkway-48FA8D97.jpg', c: 'q2mono' },
-        { f: 'museum-hallway-4BC2AB1E.jpg', c: 'q2mono' },
-        { f: 'dune-grass-path-2EFABBF7.jpg', c: 'q2mono' },
-        { f: 'nyc-riverfront-DE8723B3.jpg', c: 'q2mono' },
-        { f: 'forest-sunrays-C5ED39F1.jpg', c: 'q2mono' },
-        { f: 'juniper-berries-07D3E4F0.jpg', c: 'q2mono' },
-        { f: 'geranium-bw-1A1B3229.jpg', c: 'q2mono' },
-        { f: 'beach-umbrella-1EB3BFB6.jpg', c: 'q2mono' },
+        { f: 'alpine-lake.jpg', c: 'q2mono', alt: 'Alpine lake with mountains', w: 1200, h: 800 },
+        { f: 'beach-boardwalk.jpg', c: 'q2mono', alt: 'Boardwalk vanishing point through pines', w: 1400, h: 934 },
+        { f: 'beach-solitude.jpg', c: 'q2mono', alt: 'Lone figure on a beach', w: 1200, h: 800 },
+        { f: 'buoys-wall.jpg', c: 'q2mono', alt: 'Wall of buoys', w: 1200, h: 800 },
+        { f: 'cdmx-plaza.jpg', c: 'q2mono', alt: 'Plaza at night in Roma Norte, Mexico City', w: 2170, h: 1448 },
+        { f: 'concrete-museum.jpg', c: 'q2mono', alt: 'Concrete museum interior with art installation', w: 1400, h: 934 },
+        { f: 'fireworks-water.jpg', c: 'q2mono', alt: 'Fireworks over water', w: 1400, h: 934 },
+        { f: 'hawaii-landscape.jpg', c: 'q2mono', alt: 'Volcanic landscape at dusk', w: 1400, h: 934 },
+        { f: 'kitchen-night.jpg', c: 'q2mono', alt: 'Figure in kitchen at night', w: 1200, h: 800 },
+        { f: 'lanterns.jpg', c: 'q2mono', alt: 'Lanterns and palm tree at night in Sayulita', w: 1448, h: 2170 },
+        { f: 'misty-hillside.jpg', c: 'q2mono', alt: 'Misty hillside with figure walking', w: 1200, h: 800 },
+        { f: 'night-market.jpg', c: 'q2mono', alt: 'Night market vendors in Sayulita', w: 2170, h: 1448 },
+        { f: 'night-street.jpg', c: 'q2mono', alt: 'Night street with palm trees in Roma Norte', w: 2170, h: 1448 },
+        { f: 'papel-picado.jpg', c: 'q2mono', alt: 'Street with papel picado overhead in Sayulita', w: 2170, h: 1448 },
+        { f: 'reed-corridor.jpg', c: 'q2mono', alt: 'Path through tall reeds', w: 1200, h: 800 },
+        { f: 'restaurant-night.jpg', c: 'q2mono', alt: 'Restaurant through foliage at night', w: 1200, h: 800 },
+        { f: 'roma-sidewalk.jpg', c: 'q2mono', alt: 'Night sidewalk in Roma Norte, Mexico City', w: 2170, h: 1448 },
+        { f: 'sayulita-staircase.jpg', c: 'q2mono', alt: 'Staircase at night in Sayulita', w: 1400, h: 934 },
+        { f: 'scooter-beach.jpg', c: 'q2mono', alt: 'Scooter on a beach', w: 1200, h: 800 },
+        { f: 'staircase.jpg', c: 'q2mono', alt: 'Figure on a staircase in Sayulita', w: 2170, h: 1448 },
+        { f: 'still-lake.jpg', c: 'q2mono', alt: 'Still lake with cloud reflections', w: 1400, h: 934 },
+        { f: 'taco-cart.jpg', c: 'q2mono', alt: 'Taco cart at night in Sayulita', w: 2170, h: 1448 },
+        { f: 'tree-tunnel.jpg', c: 'q2mono', alt: 'Tree tunnel', w: 1400, h: 934 },
+        { f: 'van-sleeping.jpg', c: 'q2mono', alt: 'Person sleeping in a van', w: 1400, h: 934 },
+        { f: 'yosemite-trail.jpg', c: 'q2mono', alt: 'Yosemite trail', w: 1200, h: 800 },
+        { f: 'yosemite-valley.jpg', c: 'q2mono', alt: 'Yosemite valley', w: 1200, h: 800 },
+        { f: 'tetrapods-C617472A.jpg', c: 'q2mono', alt: 'Concrete tetrapods along a shoreline', w: 1400, h: 934 },
+        { f: 'lavender-field-44DFB472.jpg', c: 'q2mono', alt: 'Field of lavender', w: 1400, h: 934 },
+        { f: 'calla-lilies-1CB0954F.jpg', c: 'q2mono', alt: 'Calla lilies', w: 1400, h: 934 },
+        { f: 'pine-boardwalk-7FB4DA90.jpg', c: 'q2mono', alt: 'Boardwalk through a pine forest', w: 1400, h: 934 },
+        { f: 'gnarled-tree-beach-9254A749.jpg', c: 'q2mono', alt: 'Gnarled tree on a beach', w: 1400, h: 934 },
+        { f: 'misty-walkway-48FA8D97.jpg', c: 'q2mono', alt: 'Misty walkway', w: 1400, h: 934 },
+        { f: 'museum-hallway-4BC2AB1E.jpg', c: 'q2mono', alt: 'Museum hallway', w: 1400, h: 934 },
+        { f: 'dune-grass-path-2EFABBF7.jpg', c: 'q2mono', alt: 'Path through dune grass', w: 1400, h: 934 },
+        { f: 'nyc-riverfront-DE8723B3.jpg', c: 'q2mono', alt: 'New York City riverfront', w: 1400, h: 934 },
+        { f: 'forest-sunrays-C5ED39F1.jpg', c: 'q2mono', alt: 'Sun rays through a forest', w: 1400, h: 934 },
+        { f: 'juniper-berries-07D3E4F0.jpg', c: 'q2mono', alt: 'Juniper berries', w: 1400, h: 934 },
+        { f: 'geranium-bw-1A1B3229.jpg', c: 'q2mono', alt: 'Geranium in black and white', w: 1400, h: 934 },
+        { f: 'beach-umbrella-1EB3BFB6.jpg', c: 'q2mono', alt: 'Beach umbrella', w: 1400, h: 934 },
         // Q2 Color
-        { f: 'banyan-tree-6A29610A.jpg', c: 'q2' },
-        { f: 'berlin-street.jpg', c: 'q2' },
-        { f: 'bhutan-summit-6D1ECE66.jpg', c: 'q2' },
-        { f: 'boat-friends-A963213F.jpg', c: 'q2' },
-        { f: 'cypress-kayak-F5BA8A7A.jpg', c: 'q2' },
-        { f: 'glass-sculpture-C9B56AB5.jpg', c: 'q2' },
-        { f: 'infinity-room-BD764E63.jpg', c: 'q2' },
-        { f: 'japan-bridge-night-03BAB9C2.jpg', c: 'q2' },
-        { f: 'japan-gallery-quilt-27BBE65D.jpg', c: 'q2' },
-        { f: 'jungle-path-DAB66F7D.jpg', c: 'q2' },
-        { f: 'mexico-plaza-476B1258.jpg', c: 'q2' },
-        { f: 'sea-cliff-8632EF29.jpg', c: 'q2' },
-        { f: 'snowy-pass-648E669E.jpg', c: 'q2' },
-        { f: 'surfers-walking-6CE80723.jpg', c: 'q2' },
-        { f: 'winnebago-4069A7FC.jpg', c: 'q2' },
-        { f: 'jeep-stream-A0C4CAF7.jpg', c: 'q2' },
+        { f: 'banyan-tree-6A29610A.jpg', c: 'q2', alt: 'Banyan tree', w: 1400, h: 934 },
+        { f: 'berlin-street.jpg', c: 'q2', alt: 'Street with vintage Porsche', w: 1400, h: 934 },
+        { f: 'bhutan-summit-6D1ECE66.jpg', c: 'q2', alt: 'Mountain summit in Bhutan', w: 1400, h: 934 },
+        { f: 'boat-friends-A963213F.jpg', c: 'q2', alt: 'Friends on a boat', w: 1400, h: 934 },
+        { f: 'cypress-kayak-F5BA8A7A.jpg', c: 'q2', alt: 'Kayak among cypress trees', w: 1400, h: 934 },
+        { f: 'glass-sculpture-C9B56AB5.jpg', c: 'q2', alt: 'Glass sculpture', w: 1400, h: 934 },
+        { f: 'infinity-room-BD764E63.jpg', c: 'q2', alt: 'Infinity mirror room', w: 1400, h: 934 },
+        { f: 'japan-bridge-night-03BAB9C2.jpg', c: 'q2', alt: 'Bridge at night in Japan', w: 1400, h: 934 },
+        { f: 'japan-gallery-quilt-27BBE65D.jpg', c: 'q2', alt: 'Quilt in a gallery in Japan', w: 1400, h: 934 },
+        { f: 'jungle-path-DAB66F7D.jpg', c: 'q2', alt: 'Path through the jungle', w: 1400, h: 934 },
+        { f: 'mexico-plaza-476B1258.jpg', c: 'q2', alt: 'Plaza in Mexico', w: 1400, h: 934 },
+        { f: 'sea-cliff-8632EF29.jpg', c: 'q2', alt: 'Sea cliff', w: 1400, h: 934 },
+        { f: 'snowy-pass-648E669E.jpg', c: 'q2', alt: 'Snowy mountain pass', w: 1400, h: 934 },
+        { f: 'surfers-walking-6CE80723.jpg', c: 'q2', alt: 'Surfers walking', w: 1400, h: 934 },
+        { f: 'winnebago-4069A7FC.jpg', c: 'q2', alt: 'Winnebago camper', w: 1400, h: 934 },
+        { f: 'jeep-stream-A0C4CAF7.jpg', c: 'q2', alt: 'Jeep crossing a stream', w: 1400, h: 934 },
         // Fuji X100
-        { f: 'forest-bridge-creek-194CECED.jpg', c: 'fuji' },
-        { f: 'bougainvillea-street-887A6F65.jpg', c: 'fuji' },
-        { f: 'puget-sound-clouds-836485B6.jpg', c: 'fuji' },
+        { f: 'forest-bridge-creek-194CECED.jpg', c: 'fuji', alt: 'Wooden bridge over a forest creek', w: 2400, h: 1600 },
+        { f: 'bougainvillea-street-887A6F65.jpg', c: 'fuji', alt: 'Street lined with bougainvillea', w: 1200, h: 800 },
+        { f: 'puget-sound-clouds-836485B6.jpg', c: 'fuji', alt: 'Clouds over Puget Sound', w: 4896, h: 3264 },
         // Canon
-        { f: 'diwali-gifts-7E597412.jpg', c: 'canon' },
-        { f: 'wood-spiral-4DC35586.jpg', c: 'canon' },
-        { f: 'chive-flowers-043155D7.jpg', c: 'canon' },
-        { f: 'red-leaves-10B89607.jpg', c: 'canon' },
-        { f: 'sheep-valley-18920780.jpg', c: 'canon' },
-        { f: 'glacial-lake-28B7AF30.jpg', c: 'canon' },
-        { f: 'poppy-macro-2B2A81D7.jpg', c: 'canon' },
-        { f: 'buddha-plant-333E9F81.jpg', c: 'canon' },
-        { f: 'firework-burst-5004742B.jpg', c: 'canon' },
-        { f: 'langur-sitting-6C239336.jpg', c: 'canon' },
-        { f: 'langur-climbing-9B6D6B84.jpg', c: 'canon' },
-        { f: 'spotted-deer-D8AE667C.jpg', c: 'canon' },
-        { f: 'beach-reflection-DDAF92C4.jpg', c: 'canon' },
+        { f: 'diwali-gifts-7E597412.jpg', c: 'canon', alt: 'Diwali gifts', w: 1400, h: 934 },
+        { f: 'wood-spiral-4DC35586.jpg', c: 'canon', alt: 'Spiral wood carving', w: 1400, h: 934 },
+        { f: 'chive-flowers-043155D7.jpg', c: 'canon', alt: 'Chive flowers', w: 1400, h: 933 },
+        { f: 'red-leaves-10B89607.jpg', c: 'canon', alt: 'Red autumn leaves', w: 1400, h: 933 },
+        { f: 'sheep-valley-18920780.jpg', c: 'canon', alt: 'Sheep in a valley', w: 1400, h: 933 },
+        { f: 'glacial-lake-28B7AF30.jpg', c: 'canon', alt: 'Glacial lake', w: 1400, h: 933 },
+        { f: 'poppy-macro-2B2A81D7.jpg', c: 'canon', alt: 'Close-up of a poppy', w: 1400, h: 933 },
+        { f: 'buddha-plant-333E9F81.jpg', c: 'canon', alt: 'Buddha statue with a plant', w: 1400, h: 933 },
+        { f: 'firework-burst-5004742B.jpg', c: 'canon', alt: 'Burst of fireworks', w: 1400, h: 933 },
+        { f: 'langur-sitting-6C239336.jpg', c: 'canon', alt: 'Langur monkey sitting', w: 1400, h: 933 },
+        { f: 'langur-climbing-9B6D6B84.jpg', c: 'canon', alt: 'Langur monkey climbing', w: 1400, h: 933 },
+        { f: 'spotted-deer-D8AE667C.jpg', c: 'canon', alt: 'Spotted deer', w: 1400, h: 933 },
+        { f: 'beach-reflection-DDAF92C4.jpg', c: 'canon', alt: 'Reflection on a beach', w: 1400, h: 933 },
     ];
 
     // Filter by URL parameter: ?camera=mono, ?camera=q2, ?camera=fuji, ?camera=canon
     const params = new URLSearchParams(window.location.search);
     const cameraFilter = params.get('camera');
     let photos = cameraFilter
-        ? allPhotos.filter(p => p.c === cameraFilter).map(p => p.f)
-        : allPhotos.map(p => p.f);
+        ? allPhotos.filter(p => p.c === cameraFilter)
+        : allPhotos.slice();
 
     // Shuffle
     for (let i = photos.length - 1; i > 0; i--) {
@@ -421,12 +441,14 @@
             inner.classList.add('pair-inner');
 
             for (let p = 0; p < 2; p++) {
-                const filename = photos[photoIndex];
+                const photo = photos[photoIndex];
+                const filename = photo.f;
                 const img = document.createElement('img');
                 img.src = 'photos/' + filename;
-                img.alt = '';
+                img.alt = photo.alt;
+                if (photo.w && photo.h) img.style.aspectRatio = photo.w + '/' + photo.h;
                 img.loading = photoIndex < 2 ? 'eager' : 'lazy';
-                img.addEventListener('click', () => openLightbox('photos/' + filename));
+                setupLightboxTrigger(img, 'photos/' + filename, photo.alt);
                 inner.appendChild(img);
                 photoIndex++;
             }
@@ -434,7 +456,8 @@
             pair.appendChild(inner);
             gallery.appendChild(pair);
         } else {
-            const filename = photos[photoIndex];
+            const photo = photos[photoIndex];
+            const filename = photo.f;
             const wrap = document.createElement('div');
             wrap.classList.add('photo-wrap');
             wrap.dataset.index = displayIndex;
@@ -451,9 +474,10 @@
 
             const img = document.createElement('img');
             img.src = 'photos/' + filename;
-            img.alt = '';
+            img.alt = photo.alt;
+            if (photo.w && photo.h) img.style.aspectRatio = photo.w + '/' + photo.h;
             img.loading = photoIndex < 2 ? 'eager' : 'lazy';
-            img.addEventListener('click', () => openLightbox('photos/' + filename));
+            setupLightboxTrigger(img, 'photos/' + filename, photo.alt);
 
             wrap.appendChild(img);
             gallery.appendChild(wrap);
@@ -503,19 +527,50 @@
     // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    let lightboxOpener = null;
 
-    function openLightbox(src) {
+    function openLightbox(src, alt) {
         lightboxImg.src = src;
+        lightboxImg.alt = alt || '';
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+        // Move focus to the close control for keyboard users
+        lightboxClose.focus();
     }
 
     function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        // Restore focus to the image that opened the lightbox
+        if (lightboxOpener && typeof lightboxOpener.focus === 'function') {
+            lightboxOpener.focus();
+        }
+        lightboxOpener = null;
+    }
+
+    // Make a gallery image open the lightbox by click or keyboard (Enter/Space)
+    function setupLightboxTrigger(img, src, alt) {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        const open = () => {
+            lightboxOpener = img;
+            openLightbox(src, alt);
+        };
+        img.addEventListener('click', open);
+        img.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                open();
+            }
+        });
     }
 
     lightbox.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
+    });
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeLightbox();
@@ -523,6 +578,11 @@
 
     // --- Auto-scroll: scroll each photo to center, hold, then continue ---
     (function() {
+        // Respect users who prefer reduced motion — don't self-scroll the page
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
         // Auto-scroll on all devices — touch users can still scroll manually
 
         const allWraps = document.querySelectorAll('.photo-wrap, .photo-pair');
@@ -530,7 +590,12 @@
         let paused = false;
         let manualPaused = false;
         let manualPauseTimer = null;
+        let holdTimer = null;
         let stopped = false;
+        // Generation token: incremented whenever the scroll chain must be
+        // invalidated (manual scroll, resume) so stale loops/timers bail out
+        // instead of fighting each other and double-incrementing the index.
+        let scrollGen = 0;
 
         // Visual indicator
         const indicator = document.createElement('div');
@@ -550,7 +615,10 @@
         // Pause on manual scroll — stop auto completely, resume after 10s idle
         function onManualScroll() {
             manualPaused = true;
+            // Invalidate any in-flight scroll chain so old loops/timers bail
+            scrollGen++;
             clearTimeout(manualPauseTimer);
+            clearTimeout(holdTimer);
             manualPauseTimer = setTimeout(() => {
                 manualPaused = false;
                 // Find which photo is currently centered and resume from there
@@ -566,6 +634,8 @@
                     }
                 });
                 currentPhotoIndex = closest + 1;
+                // Fresh generation for the resumed chain
+                scrollGen++;
                 scrollToPhoto(currentPhotoIndex);
             }, 10000);
         }
@@ -573,6 +643,9 @@
         window.addEventListener('touchmove', onManualScroll, { passive: true });
 
         function scrollToPhoto(index) {
+            // Capture the generation for this chain; bail if superseded
+            const myGen = scrollGen;
+            if (myGen !== scrollGen) return;
             if (index >= allWraps.length || stopped) { stopped = true; return; }
             const wrap = allWraps[index];
             const img = wrap.querySelector('img');
@@ -582,6 +655,7 @@
             const centerEl = wrap.querySelector('.pair-inner') || img;
 
             function doScroll() {
+                if (myGen !== scrollGen) return;
                 const imgRect = centerEl.getBoundingClientRect();
                 // If image hasn't loaded yet (height 0), wait
                 if (imgRect.height < 50 && img.naturalHeight === 0) {
@@ -595,7 +669,8 @@
 
                 // Skip if already very close
                 if (Math.abs(distance) < 10) {
-                    setTimeout(() => {
+                    holdTimer = setTimeout(() => {
+                        if (myGen !== scrollGen) return;
                         if (!stopped) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); }
                     }, 4000);
                     return;
@@ -606,6 +681,7 @@
                 let lastTime = performance.now();
 
                 function animate(now) {
+                    if (myGen !== scrollGen) return;
                     if (paused || manualPaused) {
                         lastTime = now; // don't count paused time
                         requestAnimationFrame(animate);
@@ -621,7 +697,8 @@
                     if (progress < 1) {
                         requestAnimationFrame(animate);
                     } else {
-                        setTimeout(() => {
+                        holdTimer = setTimeout(() => {
+                            if (myGen !== scrollGen) return;
                             if (!stopped) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); }
                         }, 4000);
                     }

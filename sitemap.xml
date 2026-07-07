@@ -41,8 +41,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/cv.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/elopement/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/all.html</loc>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/a-conversation-among-birds.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/anuraag-oh-anuraag.html</loc>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://kahransingh.com/poems/a-wedding-toast.html</loc>
@@ -125,6 +141,22 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/have-you-watched-creepers-creep.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/hey-you-there-hey-you-here.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/hey-you-tree-there.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/his-hair-was-curly.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/how-can-you-just-be-gone.html</loc>
     <priority>0.6</priority>
   </url>
@@ -165,6 +197,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/it-used-to-be-me.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/its-funny.html</loc>
     <priority>0.6</priority>
   </url>
@@ -174,6 +210,14 @@
   </url>
   <url>
     <loc>https://kahransingh.com/poems/large-objects.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/late-why-so-late.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/let-tomorrow-come.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -193,7 +237,15 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/not-in-my-life.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/oh-that-again.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/oh-the-horror-i-say.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -201,7 +253,15 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/one-in-community.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/out-of-many-one.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/out-to-play-he-calls-them.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -210,6 +270,14 @@
   </url>
   <url>
     <loc>https://kahransingh.com/poems/platitudes-of-suffering.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/sit-let-us-listen.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/social-media-is-not-the-right-place-for-grief.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -230,6 +298,10 @@
   </url>
   <url>
     <loc>https://kahransingh.com/poems/song-of-tomorrow.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/teental.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -265,6 +337,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/thrum-thrum.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/time-in-a-fig-grove.html</loc>
     <priority>0.6</priority>
   </url>
@@ -282,6 +358,10 @@
   </url>
   <url>
     <loc>https://kahransingh.com/poems/to-see-such-beauty.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/to-touch-in-a-way.html</loc>
     <priority>0.6</priority>
   </url>
   <url>

@@ -103,8 +103,8 @@
             <h2><a href="/poems/when-i-dance-with-you.html">When I Dance with You</a></h2>
             <p class="film-meta">a sunset room &middot; a city at night</p>
             <div class="film-video-pair">
-                <video src="video-poems/when-i-dance-with-you-1.mp4" autoplay muted loop playsinline></video>
-                <video src="video-poems/when-i-dance-with-you-2.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/when-i-dance-with-you-1.mp4" poster="video-poems/posters/when-i-dance-with-you-1.jpg" preload="none" muted loop playsinline></video>
+                <video src="video-poems/when-i-dance-with-you-2.mp4" poster="video-poems/posters/when-i-dance-with-you-2.jpg" preload="none" muted loop playsinline></video>
             </div>
         </div>
 
@@ -112,8 +112,8 @@
             <h2><a href="/poems/everytime-you-wink-at-me.html">Every Time You Wink at Me</a></h2>
             <p class="film-meta">an abstract swirl &middot; a luminous figure</p>
             <div class="film-video-pair">
-                <video src="video-poems/everytime-you-wink-at-me-1.mp4" autoplay muted loop playsinline></video>
-                <video src="video-poems/everytime-you-wink-at-me-2.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/everytime-you-wink-at-me-1.mp4" poster="video-poems/posters/everytime-you-wink-at-me-1.jpg" preload="none" muted loop playsinline></video>
+                <video src="video-poems/everytime-you-wink-at-me-2.mp4" poster="video-poems/posters/everytime-you-wink-at-me-2.jpg" preload="none" muted loop playsinline></video>
             </div>
         </div>
 
@@ -121,8 +121,8 @@
             <h2><a href="/poems/in-my-heart-something-called-to-the-rain.html">In My Heart Something Called to the Rain</a></h2>
             <p class="film-meta">rain on still water &middot; a rainy street</p>
             <div class="film-video-pair">
-                <video src="video-poems/in-my-heart-something-called-to-the-rain-1.mp4" autoplay muted loop playsinline></video>
-                <video src="video-poems/in-my-heart-something-called-to-the-rain-2.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/in-my-heart-something-called-to-the-rain-1.mp4" poster="video-poems/posters/in-my-heart-something-called-to-the-rain-1.jpg" preload="none" muted loop playsinline></video>
+                <video src="video-poems/in-my-heart-something-called-to-the-rain-2.mp4" poster="video-poems/posters/in-my-heart-something-called-to-the-rain-2.jpg" preload="none" muted loop playsinline></video>
             </div>
         </div>
 
@@ -130,8 +130,8 @@
             <h2><a href="/poems/i-saw-something-beautiful-today.html">I Saw Something Beautiful Today</a></h2>
             <p class="film-meta">a golden field &middot; a figure in the dark</p>
             <div class="film-video-pair">
-                <video src="video-poems/i-saw-something-beautiful-today-1.mp4" autoplay muted loop playsinline></video>
-                <video src="video-poems/i-saw-something-beautiful-today-2.mp4" autoplay muted loop playsinline></video>
+                <video src="video-poems/i-saw-something-beautiful-today-1.mp4" poster="video-poems/posters/i-saw-something-beautiful-today-1.jpg" preload="none" muted loop playsinline></video>
+                <video src="video-poems/i-saw-something-beautiful-today-2.mp4" poster="video-poems/posters/i-saw-something-beautiful-today-2.jpg" preload="none" muted loop playsinline></video>
             </div>
         </div>
 
@@ -142,26 +142,44 @@
     </main>
 
     <!-- Fullscreen overlay -->
-    <div id="film-overlay" style="display:none; position:fixed; inset:0; background:#000; z-index:1000; cursor:pointer; align-items:center; justify-content:center;">
+    <div id="film-overlay" role="dialog" aria-modal="true" aria-label="Poem film with sound" tabindex="-1" style="display:none; position:fixed; inset:0; background:#000; z-index:1000; cursor:pointer; align-items:center; justify-content:center;">
         <video id="overlay-video" style="max-width:100%; max-height:100vh; width:100%;" controls playsinline></video>
-        <button id="overlay-close" style="position:fixed; top:1.5rem; right:1.5rem; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer; z-index:1001; font-family:inherit; opacity:0.7;">✕</button>
+        <button id="overlay-close" aria-label="Close" style="position:fixed; top:1.5rem; right:1.5rem; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer; z-index:1001; font-family:inherit; opacity:0.7;">✕</button>
     </div>
 
     <script>
     const overlay = document.getElementById('film-overlay');
     const overlayVideo = document.getElementById('overlay-video');
     const closeBtn = document.getElementById('overlay-close');
+    const tiles = document.querySelectorAll('.film-video-pair video');
+    let lastFocused = null;
 
-    // Make every ambient video clickable
-    document.querySelectorAll('.film-video-pair video').forEach(vid => {
+    function openOverlay(vid) {
+        lastFocused = vid;
+        overlayVideo.src = vid.src;
+        overlayVideo.currentTime = 0;
+        overlay.style.display = 'flex';
+        overlayVideo.play();
+        // Move focus into the overlay
+        closeBtn.focus();
+    }
+
+    // Make every ambient video clickable and keyboard-openable
+    tiles.forEach(vid => {
         vid.style.cursor = 'pointer';
         vid.title = 'Click to watch with sound';
+        vid.setAttribute('tabindex', '0');
+        vid.setAttribute('role', 'button');
+        vid.setAttribute('aria-label', 'Watch this poem film with sound');
         vid.addEventListener('click', (e) => {
             e.preventDefault();
-            overlayVideo.src = vid.src;
-            overlayVideo.currentTime = 0;
-            overlay.style.display = 'flex';
-            overlayVideo.play();
+            openOverlay(vid);
+        });
+        vid.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                openOverlay(vid);
+            }
         });
     });
 
@@ -169,6 +187,11 @@
         overlayVideo.pause();
         overlayVideo.src = '';
         overlay.style.display = 'none';
+        // Restore focus to the tile that opened the overlay
+        if (lastFocused && typeof lastFocused.focus === 'function') {
+            lastFocused.focus();
+        }
+        lastFocused = null;
     }
 
     closeBtn.addEventListener('click', closeOverlay);
@@ -176,8 +199,26 @@
         if (e.target === overlay) closeOverlay();
     });
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeOverlay();
+        if (e.key === 'Escape' && overlay.style.display !== 'none') closeOverlay();
     });
+
+    // Defer offscreen video loading: only play tiles while they are in view.
+    // Respect reduced-motion — leave tiles paused on their poster.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const vid = entry.target;
+                if (entry.isIntersecting) {
+                    const p = vid.play();
+                    if (p && typeof p.catch === 'function') p.catch(() => {});
+                } else {
+                    vid.pause();
+                }
+            });
+        }, { threshold: 0.25 });
+        tiles.forEach(vid => io.observe(vid));
+    }
     </script>
 
     <nav>

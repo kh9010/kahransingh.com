@@ -26,6 +26,9 @@
     // Don't run on mobile
     if (window.innerWidth <= 768) return;
 
+    // Respect reduced-motion preference — don't start the cycle at all
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     // Shuffle
     for (var i = whispers.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -116,6 +119,8 @@
         el.className = 'poem-whisper';
         el.href = whisper.href;
         el.textContent = whisper.line;
+        el.setAttribute('tabindex', '-1');
+        el.setAttribute('aria-hidden', 'true');
         el.style.position = 'absolute';
         el.style.left = absX + 'px';
         el.style.top = absY + 'px';
