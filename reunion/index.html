@@ -151,8 +151,13 @@
   .yb.coming .initials { color: var(--gold); }
   .yb.out { opacity: .55; }
   .yb .badge { position: absolute; top: -5px; right: -6px; background: var(--crimson); color: var(--paper); font-size: 0.72rem; line-height: 1; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(35,29,22,.3); z-index: 2; }
-  .yb.coming .badge, .yb.out .badge { display: flex; }
+  .yb.coming .badge, .yb.out .badge, .yb.maybe .badge { display: flex; }
   .yb.out .badge { background: var(--muted); }
+  /* tentative — said yes to a part but unsure on the date; stays sepia, gold-ringed, "?" */
+  .yb.maybe .frame { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold-soft), 0 2px 8px rgba(185,138,46,.2); }
+  .yb.maybe .initials { color: var(--gold); }
+  .yb.maybe .badge { background: var(--gold); }
+  .yb.maybe .st { color: var(--gold); font-weight: 700; }
   .yb .nm { font-size: 0.72rem; font-weight: 700; margin-top: 0.4rem; line-height: 1.2; }
   .yb .st { font-family: 'Courier Prime', monospace; font-size: 0.58rem; letter-spacing: 0.04em; color: var(--muted); }
   .yb.coming .st { color: var(--gold); font-weight: 700; }
@@ -260,7 +265,7 @@
     <div class="kicker">Where things actually stand</div>
     <h2 class="title">The to-do list, <em>in the open</em></h2>
     <ul class="board">
-      <li class="done"><span class="box">[x]</span><span class="what"><b>Class roster assembled</b> — 61 of ~66 of us found and named below</span></li>
+      <li class="done"><span class="box">[x]</span><span class="what"><b>Class roster assembled</b> — 63 of ~66 of us found and named below</span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>Date proposed</b> — Fri Aug 28, 2026 <span class="note">← being stress-tested right now, see above</span></span></li>
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Date confirmed</b> — waiting on your replies before locking anything</span></li>
       <li><span class="box">[&nbsp;]</span><span class="what"><b>Park shelter reserved</b> — Kirkland Parks takes bookings by phone; happens right after the date locks</span></li>
@@ -362,7 +367,7 @@
 ---------------------------------------------------------------- */
 const CLASSMATES = [
   { name: "Kahran Singh", coming: true },
-  { name: "Aaron Ko" }, { name: "Ali Byström" }, { name: "Alvina Wong" },
+  { name: "Aaron Ko" }, { name: "Ali Byström" }, { name: "Alicia Maggard" }, { name: "Alvina Wong" },
   { name: "Amanda Dopierala" }, { name: "Amanda Harmon" },
   { name: "Anders Eliasen" }, { name: "Angela Rozmyn" }, { name: "Ann Gong" },
   { name: "Anna Ozbek" }, { name: "Audrey Djunaedi" }, { name: "Brynn Hannah Weaver" },
@@ -391,20 +396,27 @@ const tiles = new Map();
 const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 const esc = s => s.replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 
+/* coming: true = in · false = can't · "maybe" = tentative (unsure on date) · null = not heard */
+const statusText  = c => c === true ? 'in!' : c === false ? 'can’t (so far)' : c === 'maybe' ? 'maybe' : 'not heard yet';
+const statusBadge = c => c === false ? '·' : c === 'maybe' ? '?' : '✓';
+
 function tile(c) {
   const el = document.createElement('div');
-  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.mystery ? ' mystery' : '');
+  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.coming === 'maybe' ? ' maybe' : '') + (c.mystery ? ' mystery' : '');
   const initials = c.mystery ? '?' : c.name.split(' ').map(w => w[0]).slice(0, 2).join('');
   el.innerHTML = `
     <div class="frame">
       <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}">` : `<div class="initials">${initials}</div>`}</div>
-      <div class="badge">${c.coming === false ? '·' : '✓'}</div>
+      <div class="badge">${statusBadge(c.coming)}</div>
     </div>
     <div class="nm">${esc(c.name)}</div>
-    <div class="st">${c.coming === true ? 'in!' : (c.coming === false ? 'can’t (so far)' : 'not heard yet')}</div>`;
+    <div class="st">${statusText(c.coming)}</div>`;
   return el;
 }
-CLASSMATES.forEach(c => { const el = tile(c); tiles.set(norm(c.name), { el, c }); grid.appendChild(el); });
+/* a `pin` on a classmate forces their status and makes the live sheet unable to
+   override it — use when someone reports the grid has them wrong (e.g. the sheet
+   can't see their date answer). Remove the pin once they give a firm RSVP. */
+CLASSMATES.forEach(c => { if (c.pin !== undefined) c.coming = c.pin; const el = tile(c); tiles.set(norm(c.name), { el, c }); grid.appendChild(el); });
 const missing = Math.max(0, CLASS_SIZE_GUESS - CLASSMATES.length);
 for (let i = 0; i < Math.min(missing, 6); i++) {
   grid.appendChild(tile({ name: "Who are we forgetting?", mystery: true }));
@@ -417,16 +429,19 @@ function setStatus(name, coming) {
   t.c.coming = coming;
   t.el.classList.toggle('coming', coming === true);
   t.el.classList.toggle('out', coming === false);
-  t.el.querySelector('.st').textContent = coming === true ? 'in!' : (coming === false ? 'can’t (so far)' : 'not heard yet');
-  t.el.querySelector('.badge').textContent = coming === false ? '·' : '✓';
+  t.el.classList.toggle('maybe', coming === 'maybe');
+  t.el.querySelector('.st').textContent = statusText(coming);
+  t.el.querySelector('.badge').textContent = statusBadge(coming);
   return true;
 }
 function renderTally() {
   const coming = CLASSMATES.filter(c => c.coming === true).length;
   const out = CLASSMATES.filter(c => c.coming === false).length;
-  const unheard = CLASSMATES.length - coming - out;
+  const maybe = CLASSMATES.filter(c => c.coming === 'maybe').length;
+  const unheard = CLASSMATES.length - coming - out - maybe;
   document.getElementById('tally').innerHTML =
     `<span><b>${coming}</b> in so far</span>` +
+    (maybe ? `<span><b>${maybe}</b> maybe</span>` : '') +
     `<span>${out} can't (yet — the date can still move)</span>` +
     `<span>${unheard} not heard from</span>` +
     `<span>${CLASSMATES.length} of ~${CLASS_SIZE_GUESS} found</span>` +
@@ -496,7 +511,13 @@ $('send').addEventListener('click', () => {
     location.href = 'mailto:kahran.singh@gmail.com?subject=' + encodeURIComponent(`ICS '06 RSVP — ${rsvpState.name}`) + '&body=' + encodeURIComponent(lines);
     $('rsvp-done-msg').textContent = `Almost there — your email app just opened with everything filled in. Hit send and you're down.`;
   }
-  if (rsvpState.coming && !setStatus(rsvpState.name, rsvpState.coming !== "can't make it")) extras++;
+  if (rsvpState.coming) {
+    let s;
+    if (rsvpState.coming === "can't make it") s = false;
+    else if (rsvpState.dateWorks === "Does not work" || rsvpState.dateWorks === "Not sure yet") s = 'maybe';
+    else s = true;
+    if (!setStatus(rsvpState.name, s)) extras++;
+  }
   renderTally();
   $('rsvp-form').classList.add('hide'); $('rsvp-done').classList.remove('hide');
 });
@@ -522,12 +543,24 @@ if (RSVP_CONFIG.sheetCsv) fetch(RSVP_CONFIG.sheetCsv).then(r => r.text()).then(t
   const head = rows[0].map(norm);
   const iName = head.findIndex(h => h.includes('name'));
   const iComing = head.findIndex(h => h.includes('in for') || h.includes('coming'));
+  // optional date-confidence column. Publish it alongside Name + "I'm in for" and a
+  // "not sure"/"does not work" answer downgrades a yes to "maybe" instead of a firm
+  // "in!". If the column isn't published, a yes just stays a yes (old behaviour).
+  const iDate = head.findIndex(h => h.includes('work for you') || h.includes('aug 28') || h.includes('date'));
   if (iName < 0 || iComing < 0) return;
   const extraSet = new Set();
   rows.slice(1).forEach(r => {                    // in order — newest row wins
     const n = r[iName], v = norm(r[iComing] || '');
     if (!n || !v) return;
-    if (!setStatus(n, !/can.?t/.test(v))) extraSet.add(norm(n));
+    const t = tiles.get(norm(n));
+    if (t && t.c.pin !== undefined) return;       // pinned by hand — the sheet can't override
+    let status;
+    if (/can.?t/.test(v)) status = false;         // "can't make it" → out
+    else {
+      const date = iDate >= 0 ? norm(r[iDate] || '') : '';
+      status = /not sure|unsure|does not|doesn|^no$/.test(date) ? 'maybe' : true;
+    }
+    if (!setStatus(n, status)) extraSet.add(norm(n));
   });
   extras = extraSet.size;
   renderTally();
