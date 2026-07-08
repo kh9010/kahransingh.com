@@ -170,10 +170,13 @@
   .yb.sel .frame { outline: 2px solid var(--gold); outline-offset: 1px; transform: rotate(0deg) translateY(-3px); }
 
   /* ---- rotating senior-quote card (also driven by hovering a face) ---- */
-  .quoteroll { position: relative; margin: 1.2rem 0 0.5rem; padding: 1.15rem 1.3rem 0.95rem; background: var(--card); border: 1px solid var(--line-strong); border-left: 3px solid var(--gold); border-radius: 6px; cursor: pointer; box-shadow: 0 1px 3px rgba(35,29,22,.1); }
+  .quoteroll { position: sticky; top: 6px; z-index: 5; margin: 1.2rem 0 0.5rem; padding: 1.05rem 1.3rem 0.9rem; background: var(--card); border: 1px solid var(--line-strong); border-left: 3px solid var(--gold); border-radius: 6px; cursor: pointer; box-shadow: 0 3px 14px rgba(35,29,22,.16); }
+  @media (max-width: 560px) { .quoteroll { top: 4px; padding: 0.85rem 1rem 0.75rem; } .qr-text { font-size: 1.02rem; } .qr-hint { display: none; } }
   .qr-mark { position: absolute; top: -4px; left: 11px; font-family: 'Instrument Serif', serif; font-size: 2.7rem; color: var(--gold-soft); line-height: 1; user-select: none; }
   .qr-text { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.16rem; line-height: 1.36; margin: 0 0 0.35rem; color: var(--ink); transition: opacity .22s; min-height: 1.5em; }
   .qr-text.song { font-style: normal; letter-spacing: 0.01em; }
+  .qr-text.none { font-style: italic; color: var(--muted); }
+  .yb.q-none .qflag { color: var(--muted); opacity: .5; font-size: 0.62rem; }
   .qr-text .qnote { font-family: 'Courier Prime', monospace; font-style: normal; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
   .qr-who { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); transition: opacity .22s; }
   .qr-who b { color: var(--ink); }
@@ -326,15 +329,17 @@
     <h2 class="title">Seventy-odd of us, <em>give or take</em></h2>
     <p>The class as we've found it — old email threads, the Facebook group, and now the actual 2006 senior pages. Photos go from yearbook-sepia to <strong>full color</strong> when someone's in. Spot someone missing, a wrong spelling, or a name that shouldn't be here? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20fix%20the%20grid">Tell Kahran</a> — fixed same-day.</p>
     <p><span class="hand" style="font-size:1.15rem;">photos are up! Jessica found her yearbook — everyone say thank you, Jessica</span></p>
-    <div class="quoteroll" id="quoteroll" title="tap for another">
-      <div class="qr-mark">&#8220;</div>
-      <blockquote class="qr-text" id="qrText"></blockquote>
-      <div class="qr-who" id="qrWho"></div>
-      <div class="qr-hint">senior quotes, straight off the page &middot; tap for another</div>
+    <div class="qzone">
+      <div class="quoteroll" id="quoteroll" title="tap for another">
+        <div class="qr-mark">&#8220;</div>
+        <blockquote class="qr-text" id="qrText"></blockquote>
+        <div class="qr-who" id="qrWho"></div>
+        <div class="qr-hint">senior quotes, straight off the page &middot; tap for another</div>
+      </div>
+      <p class="qr-note">Hover a photo below (or tap on a phone) to see what they wrote under their name in 2006.</p>
+      <div class="yearbook" id="yearbook"></div>
+      <div class="tally" id="tally"></div>
     </div>
-    <p class="qr-note">Hover a photo below (or tap on a phone) to see what they wrote under their name in 2006.</p>
-    <div class="yearbook" id="yearbook"></div>
-    <div class="tally" id="tally"></div>
     <figure class="classphoto">
       <img src="/reunion/photos/class-of-2006.jpg" alt="ICS Class of 2006 group photo from the yearbook" loading="lazy">
       <figcaption>All of us, more or less &mdash; the Class of 2006 spread from the back of the senior section. <span class="hand">yes, the light glare is real. so are we.</span></figcaption>
@@ -542,6 +547,15 @@ const QUOTES = {
   "spencer-winters": { q: "Lean Wit It, Rock Wit It", by: "Dem Franchize Boyz", song: true },
   "alvina-wong": { q: "Peace cannot be kept by force; it can only be achieved by understanding.", by: "Albert Einstein" },
   "colin-wood": { q: "And thus the snails took over the world in a glorious revolution, feasting on lettuce in their incongruous castles of slime.", by: null },
+  // photographed, but no real senior quote on the page — a doodle or blank.
+  // marked so hovering still responds instead of feeling broken.
+  "ali-bystrom": { none: true, q: "No quote — just a doodle reading “blee bloh bloh bleep.”" },
+  "jenn-ballard": { none: true, q: "No quote — just a hand-drawn “TIME MACHINE.”" },
+  "catherine-hinchliff": { none: true, q: "No quote of her own — only friends’ notes in the margin." },
+  "kurt-miller": { none: true, q: "No quote — a page of little doodles instead." },
+  "stephanie-rasmusson": { none: true, q: "Left the quote space blank." },
+  "tal-yaacovi": { none: true, q: "No quote — a friend’s robot doodle where it should be." },
+  "tucker-willsie": { none: true, q: "No words — a hand-drawn cross, Om, Star of David and crescent." },
 };
 const slugOf = c => c.photo ? c.photo.split('/').pop().replace('.jpg', '') : null;
 
@@ -557,15 +571,17 @@ const statusBadge = c => c === false ? '·' : c === 'maybe' ? '?' : '✓';
 function tile(c) {
   const el = document.createElement('div');
   const slug = slugOf(c);
-  const hasQuote = slug && QUOTES[slug];
-  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.coming === 'maybe' ? ' maybe' : '') + (c.mystery ? ' mystery' : '') + (hasQuote ? ' has-quote' : '');
+  const qd = slug ? QUOTES[slug] : null;
+  const hasQuote = !!qd;
+  const noneQuote = hasQuote && qd.none;
+  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.coming === 'maybe' ? ' maybe' : '') + (c.mystery ? ' mystery' : '') + (hasQuote ? ' has-quote' : '') + (noneQuote ? ' q-none' : '');
   if (hasQuote) el.dataset.slug = slug;
   const initials = c.mystery ? '?' : c.name.split(' ').map(w => w[0]).slice(0, 2).join('');
   el.innerHTML = `
     <div class="frame">
       <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}">` : `<div class="initials">${initials}</div>`}</div>
       <div class="badge">${statusBadge(c.coming)}</div>
-      ${hasQuote ? '<div class="qflag" aria-hidden="true">&#10078;</div>' : ''}
+      ${hasQuote ? `<div class="qflag" aria-hidden="true">${noneQuote ? '&#9702;' : '&#10078;'}</div>` : ''}
     </div>
     <div class="nm">${esc(c.name)}</div>
     <div class="st">${statusText(c.coming)}</div>`;
@@ -618,17 +634,18 @@ renderTally();
   if (!card || !tEl || !wEl) return;
   const nameBySlug = {};
   CLASSMATES.forEach(c => { const s = slugOf(c); if (s) nameBySlug[s] = c.name; });
-  const list = Object.keys(QUOTES).filter(s => nameBySlug[s]);
+  const list = Object.keys(QUOTES).filter(s => nameBySlug[s] && !QUOTES[s].none);
   for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
   let idx = 0, timer = null, selected = null;
   function show(slug) {
     const q = QUOTES[slug]; if (!q) return;
     tEl.classList.toggle('song', !!q.song);
+    tEl.classList.toggle('none', !!q.none);
     tEl.innerHTML = q.song ? `&#9834; <em>${esc(q.q)}</em>` : esc(q.q);
-    wEl.innerHTML = `— <b>${esc(nameBySlug[slug] || '')}</b>` + (q.by ? ` &middot; ${esc(q.by)}` : '') + (q.song ? ' <span class="qnote">their senior song</span>' : '');
+    wEl.innerHTML = `— <b>${esc(nameBySlug[slug] || '')}</b>` + (q.by ? ` &middot; ${esc(q.by)}` : '') + (q.song ? ' <span class="qnote">their senior song</span>' : '') + (q.none ? ' <span class="qnote">no senior quote</span>' : '');
   }
   function tick() { show(list[idx % list.length]); idx++; }
-  function start() { stop(); timer = setInterval(tick, 6500); }
+  function start() { stop(); timer = setInterval(tick, 4200); }
   function stop() { if (timer) { clearInterval(timer); timer = null; } }
   function select(el) { if (selected) selected.classList.remove('sel'); selected = el; if (el) el.classList.add('sel'); }
   tick(); start();
