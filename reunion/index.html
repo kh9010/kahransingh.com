@@ -188,6 +188,14 @@
   .classphoto img { width: 100%; border-radius: 4px; border: 1px solid var(--line-strong); box-shadow: 0 2px 12px rgba(35,29,22,.16); display: block; }
   .classphoto figcaption { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.55rem; text-align: center; line-height: 1.5; }
 
+  /* ---- search party: classmates we can't reach ---- */
+  #find { border-top: 1px solid var(--line); }
+  #find .finders { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.3rem 0 1rem; }
+  #find .finder { font-size: 0.85rem; padding: 0.4rem 0.85rem; border: 1px solid var(--line-strong); border-radius: 100px; background: var(--card); color: var(--ink); text-decoration: none; transition: transform .12s, border-color .12s, background .12s; }
+  #find .finder:hover { border-color: var(--gold); background: var(--gold-soft); transform: translateY(-1px); }
+  #find .find-foot { font-size: 0.92rem; color: var(--ink-soft); }
+  #find .find-foot b { color: var(--crimson); }
+
   .tally { margin-top: 1.1rem; font-family: 'Courier Prime', monospace; font-size: 0.78rem; color: var(--ink-soft); border: 1px dashed var(--line-strong); border-radius: 6px; background: var(--card); padding: 0.55rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
   .tally b { color: var(--crimson); }
 
@@ -347,13 +355,23 @@
   </div>
 </section>
 
+<section id="find">
+  <div class="wrap">
+    <div class="kicker">The search party</div>
+    <h2 class="title">Help us find <em>these ones</em></h2>
+    <p>Most of the class has been emailed. But these classmates we have <strong>no working way to reach</strong> — no current address, or the one we tried bounced. This is the job everyone can help with: scan the names, and if you have a current email, phone, Instagram, or even a "pretty sure they're in Portland now" for anyone here, tap their name (or <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20I%20can%20help%20find%20people">email Kahran</a>). One good lead each and the gap closes fast.</p>
+    <div class="finders" id="finders"></div>
+    <p class="find-foot"><b id="findCount"></b> of us still unreachable. You almost certainly know one of them.</p>
+  </div>
+</section>
+
 <section id="help">
   <div class="wrap help">
     <div class="kicker">Make it better</div>
     <h2 class="title">Own <em>one thing</em></h2>
     <p>This is currently a one-person operation, which is exactly why the to-do list above is mostly unchecked. Each of these is one small, ownable job:</p>
     <ul>
-      <li><b>Outreach</b> — chase down the ~7 classmates who aren't in the Facebook group <span class="hand">← the big one</span></li>
+      <li><b>Outreach</b> — help reach the classmates we've got no contact for → <a href="#find">the search-party list</a> <span class="hand">← the big one</span></li>
       <li><b>Evening venue</b> — pick the bar, sweet-talk them into a reserved area</li>
       <li><b>Day-of picnic</b> — food run, setup, lawn games</li>
       <li><b>Yearbook scans</b> — <s>got a 2006 yearbook? Photograph the senior pages</s> ✓ done — thank you, Jessica! <span class="hand">one claimed, four to go</span></li>
@@ -414,7 +432,7 @@ const CLASSMATES = [
   { name: "Angela Rozmyn", photo: "/reunion/photos/angela-rozmyn.jpg" },
   { name: "Ann Gong", photo: "/reunion/photos/ann-gong.jpg" },
   { name: "Anna Ozbek" },
-  { name: "Anthony Cutler" },
+  { name: "Anthony Cutler", photo: "/reunion/photos/anthony-cutler.jpg" },
   { name: "Audrey Djunaedi", photo: "/reunion/photos/audrey-djunaedi.jpg" },
   { name: "Benjamin Rich", photo: "/reunion/photos/benjamin-rich.jpg" },
   { name: "Brynn Hannah Weaver", photo: "/reunion/photos/brynn-hannah-weaver.jpg" },
@@ -428,7 +446,7 @@ const CLASSMATES = [
   { name: "David Michael Frank", photo: "/reunion/photos/david-frank.jpg" },
   { name: "Dylan Fisher", photo: "/reunion/photos/dylan-fisher.jpg" },
   { name: "Eli Bolotin", photo: "/reunion/photos/eli-bolotin.jpg" },
-  { name: "Elizabeth Tribo" },
+  { name: "Elizabeth Tribo", photo: "/reunion/photos/liz-pennington.jpg" },
   { name: "Emily Youatt", photo: "/reunion/photos/emily-youatt.jpg" },
   { name: "Eyal Grayevsky", photo: "/reunion/photos/eyal-grayevsky.jpg" },
   { name: "Jake Cecil", photo: "/reunion/photos/jake-cecil.jpg" },
@@ -439,7 +457,7 @@ const CLASSMATES = [
   { name: "Josie Ng", photo: "/reunion/photos/josie-ng.jpg" },
   { name: "Kaarin Slotte", photo: "/reunion/photos/kaarin-slotte.jpg" },
   { name: "Kai Francis", photo: "/reunion/photos/kai-francis.jpg" },
-  { name: "Kay Hockeiser" },
+  { name: "Kay Hockeiser", photo: "/reunion/photos/kay-hockeiser.jpg" },
   { name: "Kayla Jan", photo: "/reunion/photos/kayla-jan.jpg" },
   { name: "Kelly Jean", photo: "/reunion/photos/kelly-jean.jpg" },
   { name: "Kevin Chung", photo: "/reunion/photos/kevin-chung.jpg" },
@@ -665,6 +683,34 @@ renderTally();
     card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     setTimeout(start, 9000);
   });
+})();
+
+/* ---------------------------------------------------------------
+   SEARCH PARTY — classmates with no working contact (no findable
+   email, or the address we tried bounced). Edit as leads come in.
+---------------------------------------------------------------- */
+const NEED_FINDING = [
+  "Ali Holden", "Amanda Harmon", "Anthony Cutler", "Benjamin Rich", "Caleb Lindgren",
+  "Cara Morici", "Colin Wood", "Eli Bolotin", "Elizabeth Tribo", "John Pennington",
+  "Kaarin Slotte", "Kay Hockeiser", "Kayla Jan", "Kevin Chung", "Kurt Miller",
+  "Lauren Elizabeth Clark", "Lia Heilman", "Nick Llanos", "Noah Moskat", "Phil Geiger",
+  "Rosanne Kelley", "Russ Wung", "Ryan Manjarrez", "Sangita Kode", "Shawn Khademi",
+  "Sorayya Dossett", "Spencer Sult", "Spencer Winters", "Stephanie Rasmusson",
+  "Tal Yaacovi", "Tucker Willsie", "Walt Busch", "Yasmin Khorram", "Zack Morse",
+];
+(function () {
+  const box = document.getElementById('finders');
+  if (!box) return;
+  NEED_FINDING.forEach(name => {
+    const a = document.createElement('a');
+    a.className = 'finder';
+    a.textContent = name;
+    a.href = 'mailto:kahran.singh@gmail.com?subject=' + encodeURIComponent('ICS reunion — I can reach ' + name)
+      + '&body=' + encodeURIComponent('I have a way to reach ' + name + ':\n\n(email / phone / Instagram / "they live in ___ now" — anything helps)\n\n');
+    box.appendChild(a);
+  });
+  const cnt = document.getElementById('findCount');
+  if (cnt) cnt.textContent = NEED_FINDING.length;
 })();
 
 /* ---------------------------------------------------------------
