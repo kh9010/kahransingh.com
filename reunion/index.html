@@ -303,9 +303,9 @@
 <section id="class">
   <div class="wrap">
     <div class="kicker">The yearbook</div>
-    <h2 class="title">Sixty-odd of us, <em>give or take</em></h2>
-    <p>The class as we've found it so far — built from old email threads and the Facebook group, so treat it as a draft. Photos go from yearbook-sepia to <strong>full color</strong> when someone's in. Spot someone missing, a wrong spelling, or a name that shouldn't be here? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20fix%20the%20grid">Tell Kahran</a> — fixed same-day.</p>
-    <p><span class="hand" style="font-size:1.15rem;">no photos yet — got a 2006 yearbook? photograph the senior pages and they all go up</span></p>
+    <h2 class="title">Seventy-odd of us, <em>give or take</em></h2>
+    <p>The class as we've found it — old email threads, the Facebook group, and now the actual 2006 senior pages. Photos go from yearbook-sepia to <strong>full color</strong> when someone's in. Spot someone missing, a wrong spelling, or a name that shouldn't be here? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20fix%20the%20grid">Tell Kahran</a> — fixed same-day.</p>
+    <p><span class="hand" style="font-size:1.15rem;">photos are up! Jessica found her yearbook — everyone say thank you, Jessica</span></p>
     <div class="yearbook" id="yearbook"></div>
     <div class="tally" id="tally"></div>
   </div>
@@ -320,7 +320,7 @@
       <li><b>Outreach</b> — chase down the ~7 classmates who aren't in the Facebook group <span class="hand">← the big one</span></li>
       <li><b>Evening venue</b> — pick the bar, sweet-talk them into a reserved area</li>
       <li><b>Day-of picnic</b> — food run, setup, lawn games</li>
-      <li><b>Yearbook scans</b> — got a 2006 yearbook? Photograph the senior pages</li>
+      <li><b>Yearbook scans</b> — <s>got a 2006 yearbook? Photograph the senior pages</s> ✓ done — thank you, Jessica! <span class="hand">one claimed, four to go</span></li>
       <li><b>Teachers</b> — track down Castañeda, Rubin, McFaul, Over for the afternoon</li>
     </ul>
     <p style="margin-top:0.8rem">Claim one: <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20I%27ll%20own%20it">email Kahran</a> or message him where you found this link.</p>
@@ -366,30 +366,82 @@
    separate remembrance line can be added thoughtfully later.
 ---------------------------------------------------------------- */
 const CLASSMATES = [
-  { name: "Kahran Singh", coming: true },
-  { name: "Aaron Ko" }, { name: "Ali Byström" }, { name: "Alicia Maggard" }, { name: "Alvina Wong" },
-  { name: "Amanda Dopierala" }, { name: "Amanda Harmon" },
-  { name: "Anders Eliasen" }, { name: "Angela Rozmyn" }, { name: "Ann Gong" },
-  { name: "Anna Ozbek" }, { name: "Audrey Djunaedi" }, { name: "Brynn Hannah Weaver" },
-  { name: "Caleb Lindgren" }, { name: "Cara Morici" }, { name: "Carrie Lanman" },
-  { name: "Catherine Hinchliff", coming: false }, { name: "Catherine Sherman" }, { name: "Christine Rubery Pace" },
-  { name: "David Michael Frank" }, { name: "Dylan Fisher" },
-  { name: "Elizabeth Tribo" }, { name: "Emily Youatt" }, { name: "Eyal Grayevsky" },
-  { name: "Jake Cecil" }, { name: "Jenn Ballard" }, { name: "Jessica Hanley-Sandal" },
-  { name: "Jessica Seitz" }, { name: "Josie Ng" }, { name: "Kaarin Slotte" }, { name: "Kai Francis" },
-  { name: "Kay Hockeiser" }, { name: "Kelly Jean" }, { name: "Kevin Chung" },
-  { name: "Kit Culbert" }, { name: "Krishanu Ray" }, { name: "Kurt Miller" },
-  { name: "Lara O'Neil-Dunne" }, { name: "Lauren Cornforth" }, { name: "Lauren Elizabeth Clark" },
-  { name: "Lucas Bischofberger" }, { name: "Max Brockman" }, { name: "Megan Pearlman" }, { name: "Michelle Volk" },
-  { name: "Nick Llanos" }, { name: "Noah Moskat" }, { name: "Omkar Rane" },
-  { name: "Phil Geiger" }, { name: "Pia Rijo" }, { name: "Rachel Connelly" },
-  { name: "Rosanne Kelley" }, { name: "Sangita Kode" }, { name: "Shawn Khademi" },
-  { name: "Sorayya Dossett" }, { name: "Spencer Sult" }, { name: "Spencer Winters" },
-  { name: "Stephanie Funez" }, { name: "Stephanie Rasmusson" },
-  { name: "Tal Yaacovi" }, { name: "Tom Courlas" }, { name: "Tucker Willsie" },
-  { name: "Walt Busch" }, { name: "Yasmin Khorram" },
+  { name: "Kahran Singh", coming: true, photo: "/reunion/photos/kahran-singh.jpg" },
+  { name: "Aaron Ko", photo: "/reunion/photos/aaron-ko.jpg" },
+  { name: "Ali Byström", photo: "/reunion/photos/ali-bystrom.jpg" },
+  { name: "Ali Holden", photo: "/reunion/photos/ali-holden.jpg" },
+  { name: "Alicia Maggard", photo: "/reunion/photos/alicia-maggard.jpg" },
+  { name: "Alvina Wong", photo: "/reunion/photos/alvina-wong.jpg" },
+  { name: "Amanda Dopierala", photo: "/reunion/photos/amanda-dopierala.jpg" },
+  { name: "Amanda Harmon", photo: "/reunion/photos/amanda-harmon.jpg" },
+  { name: "Anders Eliasen", photo: "/reunion/photos/anders-eliasen.jpg" },
+  { name: "Angela Rozmyn", photo: "/reunion/photos/angela-rozmyn.jpg" },
+  { name: "Ann Gong", photo: "/reunion/photos/ann-gong.jpg" },
+  { name: "Anna Ozbek" },
+  { name: "Anthony Cutler" },
+  { name: "Audrey Djunaedi", photo: "/reunion/photos/audrey-djunaedi.jpg" },
+  { name: "Benjamin Rich", photo: "/reunion/photos/benjamin-rich.jpg" },
+  { name: "Brynn Hannah Weaver", photo: "/reunion/photos/brynn-hannah-weaver.jpg" },
+  { name: "Caleb Lindgren", photo: "/reunion/photos/caleb-lindgren.jpg" },
+  { name: "Cara Morici", photo: "/reunion/photos/cara-morici.jpg" },
+  { name: "Carrie Lanman", photo: "/reunion/photos/carrie-lanman.jpg" },
+  { name: "Catherine Hinchliff", coming: false, photo: "/reunion/photos/catherine-hinchliff.jpg" },
+  { name: "Catherine Sherman", photo: "/reunion/photos/catherine-sherman.jpg" },
+  { name: "Christine Rubery Pace", photo: "/reunion/photos/christine-rubery-pace.jpg" },
+  { name: "Colin Wood", photo: "/reunion/photos/colin-wood.jpg" },
+  { name: "David Michael Frank", photo: "/reunion/photos/david-frank.jpg" },
+  { name: "Dylan Fisher", photo: "/reunion/photos/dylan-fisher.jpg" },
+  { name: "Eli Bolotin", photo: "/reunion/photos/eli-bolotin.jpg" },
+  { name: "Elizabeth Tribo" },
+  { name: "Emily Youatt", photo: "/reunion/photos/emily-youatt.jpg" },
+  { name: "Eyal Grayevsky", photo: "/reunion/photos/eyal-grayevsky.jpg" },
+  { name: "Jake Cecil", photo: "/reunion/photos/jake-cecil.jpg" },
+  { name: "Jenn Ballard", photo: "/reunion/photos/jenn-ballard.jpg" },
+  { name: "Jessica Hanley-Sandal", photo: "/reunion/photos/jessica-hanley-sandal.jpg" },
+  { name: "Jessica Seitz", photo: "/reunion/photos/jessica-seitz.jpg" },
+  { name: "John Pennington", photo: "/reunion/photos/john-pennington.jpg" },
+  { name: "Josie Ng", photo: "/reunion/photos/josie-ng.jpg" },
+  { name: "Kaarin Slotte", photo: "/reunion/photos/kaarin-slotte.jpg" },
+  { name: "Kai Francis", photo: "/reunion/photos/kai-francis.jpg" },
+  { name: "Kay Hockeiser" },
+  { name: "Kayla Jan", photo: "/reunion/photos/kayla-jan.jpg" },
+  { name: "Kelly Jean", photo: "/reunion/photos/kelly-jean.jpg" },
+  { name: "Kevin Chung", photo: "/reunion/photos/kevin-chung.jpg" },
+  { name: "Kit Culbert", photo: "/reunion/photos/kit-culbert.jpg" },
+  { name: "Krishanu Ray", photo: "/reunion/photos/krishanu-ray.jpg" },
+  { name: "Kurt Miller", photo: "/reunion/photos/kurt-miller.jpg" },
+  { name: "Lara O'Neil-Dunne", photo: "/reunion/photos/lara-oneil-dunne.jpg" },
+  { name: "Lauren Elizabeth Clark", photo: "/reunion/photos/lauren-elizabeth-clark.jpg" },
+  { name: "Lia Heilman", photo: "/reunion/photos/lia-heilman.jpg" },
+  { name: "Liz Pennington" },
+  { name: "Lucas Bischofberger", photo: "/reunion/photos/lucas-bischofberger.jpg" },
+  { name: "Max Brockman", photo: "/reunion/photos/max-brockman.jpg" },
+  { name: "Megan Pearlman", photo: "/reunion/photos/megan-pearlman.jpg" },
+  { name: "Michelle Volk", photo: "/reunion/photos/michelle-volk.jpg" },
+  { name: "Nick Llanos", photo: "/reunion/photos/nick-llanos.jpg" },
+  { name: "Noah Moskat", photo: "/reunion/photos/noah-moskat.jpg" },
+  { name: "Omkar Rane", photo: "/reunion/photos/omkar-rane.jpg" },
+  { name: "Phil Geiger", photo: "/reunion/photos/phil-geiger.jpg" },
+  { name: "Pia Rijo", photo: "/reunion/photos/pia-rijo.jpg" },
+  { name: "Rachel Connelly", photo: "/reunion/photos/rachel-connelly.jpg" },
+  { name: "Rosanne Kelley", photo: "/reunion/photos/rosanne-kelley.jpg" },
+  { name: "Russ Wung", photo: "/reunion/photos/russ-wung.jpg" },
+  { name: "Ryan Manjarrez", photo: "/reunion/photos/ryan-manjarrez.jpg" },
+  { name: "Sangita Kode", photo: "/reunion/photos/sangita-kode.jpg" },
+  { name: "Shawn Khademi", photo: "/reunion/photos/shawn-khademi.jpg" },
+  { name: "Sorayya Dossett", photo: "/reunion/photos/sorayya-dossett.jpg" },
+  { name: "Spencer Sult", photo: "/reunion/photos/spencer-sult.jpg" },
+  { name: "Spencer Winters", photo: "/reunion/photos/spencer-winters.jpg" },
+  { name: "Stephanie Funez", photo: "/reunion/photos/stephanie-funez.jpg" },
+  { name: "Stephanie Rasmusson", photo: "/reunion/photos/stephanie-rasmusson.jpg" },
+  { name: "Tal Yaacovi", photo: "/reunion/photos/tal-yaacovi.jpg" },
+  { name: "Tom Courlas", photo: "/reunion/photos/tom-courlas.jpg" },
+  { name: "Tucker Willsie", photo: "/reunion/photos/tucker-willsie.jpg" },
+  { name: "Walt Busch", photo: "/reunion/photos/walt-busch.jpg" },
+  { name: "Yasmin Khorram", photo: "/reunion/photos/yasmin-khorram.jpg" },
+  { name: "Zack Morse", photo: "/reunion/photos/zack-morse.jpg" },
 ];
-const CLASS_SIZE_GUESS = 66;
+const CLASS_SIZE_GUESS = 76;
 
 const grid = document.getElementById('yearbook');
 const tiles = new Map();
