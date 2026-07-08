@@ -164,6 +164,26 @@
   .yb.mystery .frame { border-style: dashed; box-shadow: none; background: transparent; padding: 5px; }
   .yb.mystery .photo { background: transparent; }
   .yb.mystery .initials { font-size: 1.15rem; color: var(--line-strong); }
+  /* a small dog-ear mark on anyone whose senior quote we have */
+  .yb .qflag { position: absolute; top: 1px; right: 2px; font-family: 'Instrument Serif', serif; font-size: 0.95rem; line-height: 1; color: var(--gold); opacity: .72; z-index: 3; pointer-events: none; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+  .yb.has-quote { cursor: help; }
+  .yb.sel .frame { outline: 2px solid var(--gold); outline-offset: 1px; transform: rotate(0deg) translateY(-3px); }
+
+  /* ---- rotating senior-quote card (also driven by hovering a face) ---- */
+  .quoteroll { position: relative; margin: 1.2rem 0 0.5rem; padding: 1.15rem 1.3rem 0.95rem; background: var(--card); border: 1px solid var(--line-strong); border-left: 3px solid var(--gold); border-radius: 6px; cursor: pointer; box-shadow: 0 1px 3px rgba(35,29,22,.1); }
+  .qr-mark { position: absolute; top: -4px; left: 11px; font-family: 'Instrument Serif', serif; font-size: 2.7rem; color: var(--gold-soft); line-height: 1; user-select: none; }
+  .qr-text { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.16rem; line-height: 1.36; margin: 0 0 0.35rem; color: var(--ink); transition: opacity .22s; min-height: 1.5em; }
+  .qr-text.song { font-style: normal; letter-spacing: 0.01em; }
+  .qr-text .qnote { font-family: 'Courier Prime', monospace; font-style: normal; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .qr-who { font-family: 'Courier Prime', monospace; font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--gold); transition: opacity .22s; }
+  .qr-who b { color: var(--ink); }
+  .qr-hint { font-family: 'Courier Prime', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.65rem; }
+  .qr-note { font-size: 0.83rem; color: var(--ink-soft); margin: 0.25rem 0 0; }
+
+  /* ---- the class group photo ---- */
+  .classphoto { margin: 1.7rem 0 0; }
+  .classphoto img { width: 100%; border-radius: 4px; border: 1px solid var(--line-strong); box-shadow: 0 2px 12px rgba(35,29,22,.16); display: block; }
+  .classphoto figcaption { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.55rem; text-align: center; line-height: 1.5; }
 
   .tally { margin-top: 1.1rem; font-family: 'Courier Prime', monospace; font-size: 0.78rem; color: var(--ink-soft); border: 1px dashed var(--line-strong); border-radius: 6px; background: var(--card); padding: 0.55rem 0.9rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
   .tally b { color: var(--crimson); }
@@ -306,8 +326,19 @@
     <h2 class="title">Seventy-odd of us, <em>give or take</em></h2>
     <p>The class as we've found it — old email threads, the Facebook group, and now the actual 2006 senior pages. Photos go from yearbook-sepia to <strong>full color</strong> when someone's in. Spot someone missing, a wrong spelling, or a name that shouldn't be here? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20—%20fix%20the%20grid">Tell Kahran</a> — fixed same-day.</p>
     <p><span class="hand" style="font-size:1.15rem;">photos are up! Jessica found her yearbook — everyone say thank you, Jessica</span></p>
+    <div class="quoteroll" id="quoteroll" title="tap for another">
+      <div class="qr-mark">&#8220;</div>
+      <blockquote class="qr-text" id="qrText"></blockquote>
+      <div class="qr-who" id="qrWho"></div>
+      <div class="qr-hint">senior quotes, straight off the page &middot; tap for another</div>
+    </div>
+    <p class="qr-note">Hover a photo below (or tap on a phone) to see what they wrote under their name in 2006.</p>
     <div class="yearbook" id="yearbook"></div>
     <div class="tally" id="tally"></div>
+    <figure class="classphoto">
+      <img src="/reunion/photos/class-of-2006.jpg" alt="ICS Class of 2006 group photo from the yearbook" loading="lazy">
+      <figcaption>All of us, more or less &mdash; the Class of 2006 spread from the back of the senior section. <span class="hand">yes, the light glare is real. so are we.</span></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -413,7 +444,6 @@ const CLASSMATES = [
   { name: "Lara O'Neil-Dunne", photo: "/reunion/photos/lara-oneil-dunne.jpg" },
   { name: "Lauren Elizabeth Clark", photo: "/reunion/photos/lauren-elizabeth-clark.jpg" },
   { name: "Lia Heilman", photo: "/reunion/photos/lia-heilman.jpg" },
-  { name: "Liz Pennington" },
   { name: "Lucas Bischofberger", photo: "/reunion/photos/lucas-bischofberger.jpg" },
   { name: "Max Brockman", photo: "/reunion/photos/max-brockman.jpg" },
   { name: "Megan Pearlman", photo: "/reunion/photos/megan-pearlman.jpg" },
@@ -443,6 +473,78 @@ const CLASSMATES = [
 ];
 const CLASS_SIZE_GUESS = 76;
 
+/* ---------------------------------------------------------------
+   SENIOR QUOTES — read off the 2006 senior pages, keyed by photo slug.
+   { q: text, by: attribution or null, song: true (q is a song title,
+   shown with a ♫ instead of the lyric) }. Edit freely; a few reads
+   were low-confidence handwriting — fix any that are off.
+---------------------------------------------------------------- */
+const QUOTES = {
+  "sorayya-dossett": { q: "Tie no strings of tomorrow on today, for what if they should fray? Tomorrow will still be tomorrow — but you’ll wonder, “What happened to yesterday?”", by: "My Mom" },
+  "amanda-harmon": { q: "Man in the Mirror", by: "Michael Jackson", song: true },
+  "walt-busch": { q: "If you come to a fork in the road, take it.", by: "Yogi Berra" },
+  "jake-cecil": { q: "I can resist everything except temptation.", by: "Oscar Wilde" },
+  "kit-culbert": { q: "I guess sometimes there just aren’t enough rocks.", by: "Forrest Gump" },
+  "catherine-sherman": { q: "Your perspective of yourself determines the places you will go.", by: null },
+  "cara-morici": { q: "Forever Young", by: "Youth Group", song: true },
+  "lucas-bischofberger": { q: "Hummingbird", by: "Wilco", song: true },
+  "eli-bolotin": { q: "Picture Me Rollin’", by: "Tupac Shakur", song: true },
+  "max-brockman": { q: "Max: “I missed that.” Ryan: “That’s because you don’t listen.” Max: “yep.”", by: null },
+  "kevin-chung": { q: "I don’t know the key to success, but the key to failure is trying to please everybody.", by: "Bill Cosby" },
+  "lauren-elizabeth-clark": { q: "It is only with the heart that one can see rightly; what is essential is invisible to the eye.", by: "The Little Prince" },
+  "tom-courlas": { q: "The Road Goes On Forever", by: "the Highwaymen", song: true },
+  "audrey-djunaedi": { q: "Fallaces sunt rerum species — the appearances of things are deceptive.", by: "Seneca" },
+  "amanda-dopierala": { q: "Everything has its beauty, but not everyone sees it.", by: "Confucius" },
+  "anders-eliasen": { q: "It is only in adventure that some people succeed in knowing themselves — in finding themselves.", by: "André Gide" },
+  "dylan-fisher": { q: "There There", by: "Radiohead", song: true },
+  "kai-francis": { q: "Laughter is the shortest distance between two people.", by: null },
+  "david-frank": { q: "A dyslexic guy walks into a bra…", by: null },
+  "eyal-grayevsky": { q: "Stay Fly", by: "Three 6 Mafia", song: true },
+  "jessica-hanley-sandal": { q: "When You’re Smiling", by: "Frank Sinatra", song: true },
+  "lia-heilman": { q: "It’s better to be hated for who you are than loved for who you’re not.", by: null },
+  "kayla-jan": { q: "Those who sow in tears shall reap with joyful shouting.", by: "Psalm 126:5" },
+  "shawn-khademi": { q: "Forever, the Prince of Persia.", by: null },
+  "yasmin-khorram": { q: "Your vision becomes clear only when you look into your heart. Who looks outside, dreams; who looks inside, awakens.", by: "Carl Jung" },
+  "rosanne-kelley": { q: "I have no special talents. I am only passionately curious.", by: "Albert Einstein" },
+  "phil-geiger": { q: "Courage is grace under pressure.", by: "Ernest Hemingway" },
+  "ann-gong": { q: "You have to fight the idea of losing.", by: "Eric Cantona" },
+  "ali-holden": { q: "Too low they build, who build beneath the stars.", by: "Edward Young" },
+  "carrie-lanman": { q: "Woot!", by: null },
+  "aaron-ko": { q: "Another Brick in the Wall", by: "Pink Floyd", song: true },
+  "sangita-kode": { q: "The most wasted of all days is one without laughter.", by: "E.E. Cummings" },
+  "caleb-lindgren": { q: "…forever fresh in memory.", by: "Brian Jacques, “The Ballad of Tammo”" },
+  "nick-llanos": { q: "Don’t be afraid to care.", by: "Roger Waters" },
+  "alicia-maggard": { q: "Adventure must start with running away from home.", by: null },
+  "ryan-manjarrez": { q: "Freedom is something that dies unless it’s used.", by: "Hunter S. Thompson" },
+  "noah-moskat": { q: "Any intelligent fool can make things bigger and more complex; it takes a touch of genius — and a lot of courage — to move in the opposite direction.", by: "Albert Einstein" },
+  "josie-ng": { q: "Pure Imagination", by: "Willy Wonka", song: true },
+  "lara-oneil-dunne": { q: "The worst is not, so long as we can say “this is the worst.”", by: "King Lear" },
+  "jessica-seitz": { q: "Keep smiling — it makes people wonder what you’ve been up to.", by: null },
+  "omkar-rane": { q: "Free at last, free at last, thank God almighty, I’m free at last!", by: "Dr. King" },
+  "stephanie-funez": { q: "At the end of the day, I’m a lioness.", by: "Tori Amos" },
+  "angela-rozmyn": { q: "To enjoy warmth, some small part of you must be cold; there is no quality that is not merely by contrast. Nothing exists in itself.", by: "Herman Melville" },
+  "megan-pearlman": { q: "I got a fever, and the only prescription is more cowbell!", by: "Christopher Walken" },
+  "john-pennington": { q: "I just loved playing ping-pong with my Flexolite ping-pong paddle.", by: "Forrest Gump" },
+  "krishanu-ray": { q: "…yes, I remember, I had lasagna.", by: "Airplane!" },
+  "benjamin-rich": { q: "Nonconformists are conformists who just conform to different norms.", by: null },
+  "pia-rijo": { q: "The philosophers have only interpreted the world; the point is to change it.", by: "Karl Marx" },
+  "zack-morse": { q: "Fat Lip", by: "Sum 41", song: true },
+  "christine-rubery-pace": { q: "In the end it’s not the years in your life that count, but the life in your years.", by: "Abraham Lincoln" },
+  "kahran-singh": { q: "The most interesting people I know didn’t know at 22 what they wanted to do with their lives — and some of the most interesting 40-year-olds still don’t.", by: "Baz Luhrmann" },
+  "michelle-volk": { q: "Country Comfort", by: "Keith Urban", song: true },
+  "rachel-connelly": { q: "Whenever you find that you are on the side of the majority, it is time to reform.", by: "Mark Twain" },
+  "brynn-hannah-weaver": { q: "Scoot Scoot Freedom!", by: null },
+  "russ-wung": { q: "Those who trust to chance must abide by the results of chance.", by: "Calvin Coolidge" },
+  "emily-youatt": { q: "Live in the sunshine, swim the sea, drink the wild air.", by: "Emerson" },
+  "kelly-jean": { q: "Holla, Bernardo! “Say what!!”", by: "Shakespeare, a fishmonger" },
+  "kaarin-slotte": { q: "Most folks are about as happy as they make up their minds to be.", by: "Abraham Lincoln" },
+  "spencer-sult": { q: "Plush safe… he think.", by: "Jean-Michel Basquiat" },
+  "spencer-winters": { q: "Lean Wit It, Rock Wit It", by: "Dem Franchize Boyz", song: true },
+  "alvina-wong": { q: "Peace cannot be kept by force; it can only be achieved by understanding.", by: "Albert Einstein" },
+  "colin-wood": { q: "And thus the snails took over the world in a glorious revolution, feasting on lettuce in their incongruous castles of slime.", by: null },
+};
+const slugOf = c => c.photo ? c.photo.split('/').pop().replace('.jpg', '') : null;
+
 const grid = document.getElementById('yearbook');
 const tiles = new Map();
 const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’']/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
@@ -454,12 +556,16 @@ const statusBadge = c => c === false ? '·' : c === 'maybe' ? '?' : '✓';
 
 function tile(c) {
   const el = document.createElement('div');
-  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.coming === 'maybe' ? ' maybe' : '') + (c.mystery ? ' mystery' : '');
+  const slug = slugOf(c);
+  const hasQuote = slug && QUOTES[slug];
+  el.className = 'yb' + (c.coming === true ? ' coming' : '') + (c.coming === false ? ' out' : '') + (c.coming === 'maybe' ? ' maybe' : '') + (c.mystery ? ' mystery' : '') + (hasQuote ? ' has-quote' : '');
+  if (hasQuote) el.dataset.slug = slug;
   const initials = c.mystery ? '?' : c.name.split(' ').map(w => w[0]).slice(0, 2).join('');
   el.innerHTML = `
     <div class="frame">
       <div class="photo">${c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}">` : `<div class="initials">${initials}</div>`}</div>
       <div class="badge">${statusBadge(c.coming)}</div>
+      ${hasQuote ? '<div class="qflag" aria-hidden="true">&#10078;</div>' : ''}
     </div>
     <div class="nm">${esc(c.name)}</div>
     <div class="st">${statusText(c.coming)}</div>`;
@@ -500,6 +606,49 @@ function renderTally() {
     (extras ? `<span>+${extras} from other years</span>` : '');
 }
 renderTally();
+
+/* ---------------------------------------------------------------
+   SENIOR-QUOTE ROTATOR — the card auto-cycles; hovering or tapping
+   a flagged face pins that person's quote into it.
+---------------------------------------------------------------- */
+(function () {
+  const card = document.getElementById('quoteroll');
+  const tEl = document.getElementById('qrText');
+  const wEl = document.getElementById('qrWho');
+  if (!card || !tEl || !wEl) return;
+  const nameBySlug = {};
+  CLASSMATES.forEach(c => { const s = slugOf(c); if (s) nameBySlug[s] = c.name; });
+  const list = Object.keys(QUOTES).filter(s => nameBySlug[s]);
+  for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [list[i], list[j]] = [list[j], list[i]]; }
+  let idx = 0, timer = null, selected = null;
+  function show(slug) {
+    const q = QUOTES[slug]; if (!q) return;
+    tEl.classList.toggle('song', !!q.song);
+    tEl.innerHTML = q.song ? `&#9834; <em>${esc(q.q)}</em>` : esc(q.q);
+    wEl.innerHTML = `— <b>${esc(nameBySlug[slug] || '')}</b>` + (q.by ? ` &middot; ${esc(q.by)}` : '') + (q.song ? ' <span class="qnote">their senior song</span>' : '');
+  }
+  function tick() { show(list[idx % list.length]); idx++; }
+  function start() { stop(); timer = setInterval(tick, 6500); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function select(el) { if (selected) selected.classList.remove('sel'); selected = el; if (el) el.classList.add('sel'); }
+  tick(); start();
+  card.addEventListener('click', () => { select(null); tick(); start(); });
+  grid.addEventListener('mouseover', e => {
+    const yb = e.target.closest('.yb.has-quote'); if (!yb) return;
+    stop(); select(yb); show(yb.dataset.slug);
+  });
+  grid.addEventListener('mouseout', e => {
+    const yb = e.target.closest('.yb.has-quote'); if (!yb) return;
+    if (e.relatedTarget && yb.contains(e.relatedTarget)) return;
+    select(null); start();
+  });
+  grid.addEventListener('click', e => {
+    const yb = e.target.closest('.yb.has-quote'); if (!yb) return;
+    stop(); select(yb); show(yb.dataset.slug);
+    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    setTimeout(start, 9000);
+  });
+})();
 
 /* ---------------------------------------------------------------
    IN-PAGE RSVP — submits into a Google Form; the grid colors in
