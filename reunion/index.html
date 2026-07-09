@@ -96,7 +96,6 @@
   .chip.sel { border-color: var(--crimson); background: var(--crimson); color: var(--paper); }
   .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 0.9rem; }
   @media (max-width: 560px) { .opt-grid { grid-template-columns: 1fr; } }
-  #date-alt { max-width: 24rem; margin-top: 0.55rem; }
   button.btn { font-family: inherit; cursor: pointer; }
   .hide { display: none; }
   .rsvp .done-msg { font-size: 1rem; color: var(--ink); font-weight: 700; }
@@ -261,14 +260,7 @@
           <div class="matches hide" id="nm-matches"></div>
         </div>
         <div id="rsvp-rest" class="hide">
-          <div class="q">Does Sat, Aug 29 work for you?</div>
-          <div class="chips" data-key="dateWorks">
-            <button type="button" class="chip" data-v="Works for me">works for me</button>
-            <button type="button" class="chip" data-v="Does not work">doesn't work</button>
-            <button type="button" class="chip" data-v="Not sure yet">not sure yet</button>
-          </div>
-          <input class="ti hide" id="date-alt" type="text" placeholder="what date / weekend would work?">
-          <div class="q">I'm in for…</div>
+          <div class="q">Can you make it?</div>
           <div class="chips" data-key="coming">
             <button type="button" class="chip" data-v="both">both</button>
             <button type="button" class="chip" data-v="afternoon">just the afternoon</button>
@@ -282,7 +274,7 @@
           <textarea class="ti" id="note" rows="2" placeholder="say something to the class (optional)"></textarea>
           <div class="cta-row" style="margin-top:0.9rem">
             <button class="btn" id="send" type="button">Send it →</button>
-            <span class="aside">"can't make it" counts too — it moves the date.</span>
+            <span class="aside">even a "can't make it" helps us plan.</span>
           </div>
         </div>
       </div>
@@ -755,14 +747,14 @@ function syncFinders() {
 const RSVP_CONFIG = {
   formId: "1FAIpQLSdQWs8Ey6Ir7aPli5rAzRpve1kiWSy61ZiDvZhtzc89YKZ6iw",
   entries: {
-    name: "entry.1496006545", dateWorks: "entry.2085792944", dateAlt: "entry.1982201187",
+    name: "entry.1496006545", dateWorks: "entry.2085792944",
     coming: "entry.1356312993", bringing: "entry.1851317096", email: "entry.2065118714", note: "entry.1401140843"
   },
   sheetCsv: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTE7ILsRH7gJTKk1KdvBUHHHHT4HTeJq3FOb6dSEDqtd_cca0d9jC-6FZb9mSKIbwwvjtf-eL3WNNQ9/pub?gid=1636200995&single=true&output=csv"
 };
 
 const $ = id => document.getElementById(id);
-const rsvpState = { name: "", dateWorks: "", coming: "" };
+const rsvpState = { name: "", coming: "" };
 const nmIn = $('nm-in'), nmMatches = $('nm-matches'), rest = $('rsvp-rest');
 
 nmIn.addEventListener('input', () => {
@@ -783,12 +775,11 @@ document.querySelectorAll('.chips').forEach(g => g.addEventListener('click', e =
   const b = e.target.closest('.chip'); if (!b) return;
   g.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
   b.classList.add('sel'); rsvpState[g.dataset.key] = b.dataset.v;
-  if (g.dataset.key === 'dateWorks') $('date-alt').classList.toggle('hide', b.dataset.v !== "Does not work");
 }));
 $('send').addEventListener('click', () => {
   if (!rsvpState.name) { nmIn.focus(); return; }
   const answers = {
-    name: rsvpState.name, dateWorks: rsvpState.dateWorks, dateAlt: $('date-alt').value,
+    name: rsvpState.name, dateWorks: "Works for me",
     coming: rsvpState.coming, bringing: $('bringing').value, email: $('email').value, note: $('note').value
   };
   if (RSVP_CONFIG.formId) {
@@ -804,10 +795,7 @@ $('send').addEventListener('click', () => {
     $('rsvp-done-msg').textContent = `Almost there — your email app just opened with everything filled in. Hit send and you're down.`;
   }
   if (rsvpState.coming) {
-    let s;
-    if (rsvpState.coming === "can't make it") s = false;
-    else if (rsvpState.dateWorks === "Does not work" || rsvpState.dateWorks === "Not sure yet") s = 'maybe';
-    else s = true;
+    const s = rsvpState.coming === "can't make it" ? false : true;
     if (!setStatus(rsvpState.name, s)) extras++;
   }
   renderTally();
