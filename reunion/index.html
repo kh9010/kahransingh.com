@@ -221,6 +221,14 @@
   footer .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; align-items: baseline; font-family: 'Courier Prime', monospace; font-size: 0.74rem; color: var(--muted); }
   footer a { color: var(--crimson); text-decoration: none; border-bottom: 1px dotted var(--crimson); }
 </style>
+<!-- Google tag (gtag.js) — same property as kahransingh.com -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H63H3KD6WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H63H3KD6WQ');
+</script>
 </head>
 <body>
 
@@ -412,6 +420,11 @@
 </footer>
 
 <script>
+/* --- lightweight, non-identifying analytics (same GA property as the root site) --- */
+function trk(name, params) { try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {} }
+let quoteEngaged = false;
+function trackQuote() { if (!quoteEngaged) { quoteEngaged = true; trk('quote_engage'); } }
+
 /* ---------------------------------------------------------------
    THE CLASS — edit this list as people are confirmed + RSVP.
    { name, photo (optional /reunion/photos/xx.jpg),
@@ -667,10 +680,10 @@ renderTally();
   function stop() { if (timer) { clearInterval(timer); timer = null; } }
   function select(el) { if (selected) selected.classList.remove('sel'); selected = el; if (el) el.classList.add('sel'); }
   tick(); start();
-  card.addEventListener('click', () => { select(null); tick(); start(); });
+  card.addEventListener('click', () => { trackQuote(); select(null); tick(); start(); });
   grid.addEventListener('mouseover', e => {
     const yb = e.target.closest('.yb.has-quote'); if (!yb) return;
-    stop(); select(yb); show(yb.dataset.slug);
+    trackQuote(); stop(); select(yb); show(yb.dataset.slug);
   });
   grid.addEventListener('mouseout', e => {
     const yb = e.target.closest('.yb.has-quote'); if (!yb) return;
@@ -679,7 +692,7 @@ renderTally();
   });
   grid.addEventListener('click', e => {
     const yb = e.target.closest('.yb.has-quote'); if (!yb) return;
-    stop(); select(yb); show(yb.dataset.slug);
+    trackQuote(); stop(); select(yb); show(yb.dataset.slug);
     card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     setTimeout(start, 9000);
   });
@@ -725,6 +738,7 @@ function syncFinders() {
       if (track) a.dataset.n = norm(name);
       a.href = 'mailto:kahran.singh@gmail.com?subject=' + encodeURIComponent('ICS reunion — I can reach ' + name)
         + '&body=' + encodeURIComponent('I have a way to reach ' + name + ':\n\n(email / phone / Instagram / "they live in ___ now" — anything helps)\n\n');
+      a.addEventListener('click', () => trk('find_click', { group: id === 'teacherFinders' ? 'teacher' : 'classmate' }));
       box.appendChild(a);
     });
   }
@@ -798,6 +812,7 @@ $('send').addEventListener('click', () => {
     const s = rsvpState.coming === "can't make it" ? false : true;
     if (!setStatus(rsvpState.name, s)) extras++;
   }
+  trk('rsvp_submit', { coming: rsvpState.coming || 'unspecified' });
   renderTally();
   $('rsvp-form').classList.add('hide'); $('rsvp-done').classList.remove('hide');
 });
