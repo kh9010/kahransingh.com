@@ -698,32 +698,47 @@ renderTally();
    email, or the address we tried bounced). Edit as leads come in.
 ---------------------------------------------------------------- */
 const NEED_FINDING = [
-  "Ali Holden", "Amanda Harmon", "Anthony Cutler", "Benjamin Rich", "Caleb Lindgren",
+  "Ali Holden", "Anthony Cutler", "Benjamin Rich", "Caleb Lindgren",
   "Cara Morici", "Colin Wood", "Eli Bolotin", "Elizabeth Tribo", "John Pennington",
   "Kay Hockeiser", "Kayla Jan", "Kevin Chung",
   "Lauren Elizabeth Clark", "Lia Heilman", "Nick Llanos", "Noah Moskat", "Phil Geiger",
   "Rosanne Kelley", "Russ Wung", "Ryan Manjarrez", "Sangita Kode", "Shawn Khademi",
-  "Sorayya Dossett", "Spencer Sult", "Spencer Winters", "Stephanie Rasmusson",
+  "Sorayya Dossett", "Spencer Winters", "Stephanie Rasmusson",
   "Tal Yaacovi", "Tucker Willsie", "Walt Busch", "Yasmin Khorram", "Zack Morse",
 ];
-const TEACHERS = ["Ms. Castañeda", "Mr. McFaul", "Mr. Over"];
+const TEACHERS = ["Ms. Castañeda", "Mr. McFaul", "Mr. Over", "Mrs. Rubin"];
+/* hide a search-party chip once that classmate has an RSVP status, so the
+   list self-corrects as the live sheet loads — no one who's replied stays on it. */
+function syncFinders() {
+  const box = document.getElementById('finders');
+  if (!box) return;
+  let shown = 0;
+  box.querySelectorAll('.finder').forEach(a => {
+    const t = tiles.get(a.dataset.n);
+    const responded = t && t.c.coming !== null && t.c.coming !== undefined;
+    a.style.display = responded ? 'none' : '';
+    if (!responded) shown++;
+  });
+  const cnt = document.getElementById('findCount');
+  if (cnt) cnt.textContent = shown;
+}
 (function () {
-  function fill(id, names) {
+  function fill(id, names, track) {
     const box = document.getElementById(id);
     if (!box) return;
     names.forEach(name => {
       const a = document.createElement('a');
       a.className = 'finder';
       a.textContent = name;
+      if (track) a.dataset.n = norm(name);
       a.href = 'mailto:kahran.singh@gmail.com?subject=' + encodeURIComponent('ICS reunion — I can reach ' + name)
         + '&body=' + encodeURIComponent('I have a way to reach ' + name + ':\n\n(email / phone / Instagram / "they live in ___ now" — anything helps)\n\n');
       box.appendChild(a);
     });
   }
-  fill('finders', NEED_FINDING);
-  fill('teacherFinders', TEACHERS);
-  const cnt = document.getElementById('findCount');
-  if (cnt) cnt.textContent = NEED_FINDING.length;
+  fill('finders', NEED_FINDING, true);
+  fill('teacherFinders', TEACHERS, false);
+  syncFinders();
 })();
 
 /* ---------------------------------------------------------------
@@ -841,6 +856,7 @@ if (RSVP_CONFIG.sheetCsv) fetch(RSVP_CONFIG.sheetCsv).then(r => r.text()).then(t
   });
   extras = extraSet.size;
   renderTally();
+  syncFinders();
 }).catch(() => {});
 </script>
 
