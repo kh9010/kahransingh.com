@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Lately — Kahran Singh</title>
+  <meta name="description" content="A living view of what Kahran Singh has been making and exploring lately.">
+  <meta property="og:title" content="Lately — Kahran Singh">
+  <meta property="og:description" content="A living view of what Kahran Singh has been making and exploring lately.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kahransingh.com/lately/">
+  <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lately — Kahran Singh">
+  <meta name="twitter:description" content="A living view of what Kahran Singh has been making and exploring lately.">
+  <meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+  <link rel="canonical" href="https://kahransingh.com/lately/">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    :root { --ember:#c8431b; --cool:#8193a0; --rule:#e0ddd8; }
+    main { max-width:720px; padding-top:5rem; }
+    .lately-head { margin-bottom:2.75rem; }
+    .eyebrow { color:#888; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { font-family:'Fraunces',Georgia,serif; font-size:clamp(2.8rem,8vw,5rem); font-weight:300; margin:.5rem 0; }
+    .standfirst { color:#666; max-width:40rem; line-height:1.65; }
+    .heartbeat { display:flex; align-items:end; gap:3px; height:46px; margin:2rem 0 .5rem; }
+    .heartbeat span { flex:1; min-height:2px; background:var(--cool); opacity:.35; }
+    .heartbeat span.warm { background:var(--ember); opacity:.8; }
+    .scale { display:flex; justify-content:space-between; color:#999; font-size:.68rem; padding-bottom:1.5rem; border-bottom:1px solid var(--rule); }
+    .filters { display:flex; flex-wrap:wrap; gap:.45rem; margin:1.5rem 0 2.5rem; }
+    button { border:1px solid var(--rule); border-radius:2rem; background:none; padding:.4rem .7rem; color:#777; cursor:pointer; }
+    button[aria-pressed=true] { color:white; background:#222; border-color:#222; }
+    .feed { border-left:1px solid var(--rule); padding-left:1.6rem; }
+    .entry { display:block; color:inherit; text-decoration:none; position:relative; padding:0 0 2.2rem; }
+    .entry::before { content:''; position:absolute; width:8px; height:8px; border-radius:50%; background:var(--cool); left:-1.87rem; top:.45rem; box-shadow:0 0 0 4px #fff; }
+    .entry.fresh::before { background:var(--ember); }
+    .entry time,.strand { color:#999; font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; }
+    .strand { margin-left:.7rem; }
+    .entry p { font-family:'Fraunces',Georgia,serif; font-size:1.25rem; line-height:1.45; margin:.35rem 0; }
+    .entry .through { color:#888; font-size:.78rem; }
+    .entry:hover p,.entry:focus-visible p { text-decoration:underline; text-underline-offset:4px; }
+    .empty { color:#888; padding:2rem 0; }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+<main>
+  <a href="/" class="mobile-header">kahran</a>
+  <header class="lately-head">
+    <p class="eyebrow">A live index</p>
+    <h1>lately</h1>
+    <p class="standfirst">Not a portfolio. A changing view of what I&rsquo;m making, learning, and tending&mdash;with a way through to the work itself.</p>
+    <div class="heartbeat" id="heartbeat" aria-label="Activity over the last 30 days"></div>
+    <div class="scale"><span>30 days ago</span><span id="total">0 entries</span><span>today</span></div>
+    <div class="filters" id="filters" aria-label="Filter by strand"></div>
+  </header>
+  <section class="feed" id="feed" aria-live="polite"><p class="empty">Loading&hellip;</p></section>
+</main>
+<nav>
+  <a href="/" class="nav-name">kahran</a><a href="/poetry.html">poetry</a>
+  <a href="/photography.html">photography</a><a href="/projects.html">projects</a>
+  <a href="/archive.html">archive</a><a href="/about.html">about</a>
+</nav>
+<script>
+(function () {
+  'use strict';
+  var entries = [], active = 'all';
+  var feed = document.getElementById('feed'), filters = document.getElementById('filters');
+  function ageDays(date) { return Math.max(0, Math.floor((Date.now() - new Date(date + 'T12:00:00').getTime()) / 86400000)); }
+  function ago(date) { var d=ageDays(date); return d===0?'today':d===1?'yesterday':d+' days ago'; }
+  function render() {
+    var shown=entries.filter(function(e){return active==='all'||e.strand===active;});
+    document.getElementById('total').textContent=shown.length+' '+(shown.length===1?'entry':'entries');
+    if(!shown.length){feed.innerHTML='<p class="empty">Nothing public in this view yet.</p>';return;}
+    feed.innerHTML=shown.map(function(e){
+      var safeText=document.createElement('div'); safeText.textContent=e.summary;
+      return '<a class="entry '+(ageDays(e.date)<3?'fresh':'')+'" href="'+encodeURI(e.link)+'" target="_blank" rel="noopener">'+
+        '<time datetime="'+e.date+'">'+ago(e.date)+'</time><span class="strand">'+e.strand+'</span>'+
+        '<p>'+safeText.innerHTML+'</p><span class="through">open the work &rarr;</span></a>';
+    }).join('');
+  }
+  function controls(){
+    ['all'].concat(Array.from(new Set(entries.map(function(e){return e.strand;})))).forEach(function(tag){
+      var b=document.createElement('button'); b.textContent=tag; b.setAttribute('aria-pressed',tag===active);
+      b.onclick=function(){active=tag;Array.from(filters.children).forEach(function(x){x.setAttribute('aria-pressed',x.textContent===tag);});render();};
+      filters.appendChild(b);
+    });
+  }
+  function pulse(){var counts=new Array(30).fill(0);entries.forEach(function(e){var d=ageDays(e.date);if(d<30)counts[29-d]++;});
+    document.getElementById('heartbeat').innerHTML=counts.map(function(c,i){return '<span class="'+(i>26?'warm':'')+'" style="height:'+Math.max(2,c*9)+'px" title="'+c+' entries"></span>';}).join('');}
+  fetch('entries.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error(r.status);return r.json();}).then(function(data){
+    entries=(data.entries||[]).filter(function(e){return e&&e.id&&e.date&&e.summary&&e.strand&&e.link;}).sort(function(a,b){return b.date.localeCompare(a.date);});
+    controls();pulse();render();
+  }).catch(function(){feed.innerHTML='<p class="empty">The feed is resting right now.</p>';});
+}());
+</script>
+</body>
+</html>
