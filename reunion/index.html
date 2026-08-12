@@ -198,16 +198,6 @@
   .classphoto img { width: 100%; border-radius: 4px; border: 1px solid var(--line-strong); box-shadow: 0 2px 12px rgba(35,29,22,.16); display: block; }
   .classphoto figcaption { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.55rem; text-align: center; line-height: 1.5; }
 
-  /* ---- search party: classmates we can't reach ---- */
-  #find { border-top: 1px solid var(--line); }
-  #find .finders { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.3rem 0 1rem; }
-  #find .finder { font-size: 0.85rem; padding: 0.4rem 0.85rem; border: 1px solid var(--line-strong); border-radius: 100px; background: var(--card); color: var(--ink); text-decoration: none; transition: transform .12s, border-color .12s, background .12s; }
-  #find .finder:hover { border-color: var(--gold); background: var(--gold-soft); transform: translateY(-1px); }
-  #find .find-foot { font-size: 0.92rem; color: var(--ink-soft); }
-  #find .find-foot b { color: var(--crimson); }
-  #find .teachers { margin-top: 1.6rem; padding-top: 1.1rem; border-top: 1px dashed var(--line-strong); }
-  #find .teachers-lead { font-size: 0.92rem; color: var(--ink-soft); margin: 0 0 0.2rem; }
-  #find .teachers-sub { font-size: 0.85rem; color: var(--muted); margin: 0.6rem 0 0; }
 
   .tally b { color: var(--crimson); }
 
@@ -357,26 +347,12 @@
       <li class="done"><span class="box">[x]</span><span class="what"><b>Venue booked</b> — the patio at Moss Bay Hall, 2–7 pm; Josie worked the downtown bars until she found it</span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>Food ordered &amp; paid</b> — fruit &amp; veg out at 2, cinnamon pretzel bites at 4; drinks on your own tab <span class="note">that was the last to-do</span></span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>Yearbook photos up</b> — Jessica photographed the whole 2006 senior section <span class="note">thank you, Jessica</span></span></li>
-      <li><span class="box">[&nbsp;]</span><span class="what"><b>Teachers</b> — Castañeda, Rubin, McFaul, Over. Lines are out to two of them already <span class="note">the one open thread</span></span></li>
     </ul>
     <p style="margin-top:0.8rem; font-size:0.88rem;">This page has been the working plan since day one — it's just run out of work. Bookmark it anyway; it updates as answers land, no Facebook required.</p>
   </div>
 </section>
 
-<section id="find">
-  <div class="wrap">
-    <div class="kicker">The search party</div>
-    <h2 class="title">Help us find <em>these ones</em></h2>
-    <p>Most of the class has been emailed — but these folks we can't reach at all. Got a current email, number, or Instagram for anyone here (even "pretty sure they're in Portland now")? Tap their name, or <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20%E2%80%94%20I%20can%20help%20find%20people">email Kahran</a>. One lead each and we're there.</p>
-    <div class="finders" id="finders"></div>
-    <p class="find-foot"><b id="findCount"></b> of us still unreachable. You almost certainly know one of them.</p>
-    <div class="teachers">
-      <p class="teachers-lead">And we're bringing a few teachers back for the afternoon &mdash; leads have come in for two of them already, so keep them coming &mdash;</p>
-      <div class="finders" id="teacherFinders"></div>
-      <p class="teachers-sub">Got a line to one of them, or another teacher we should ask? <a href="mailto:kahran.singh@gmail.com?subject=ICS%20reunion%20%E2%80%94%20teachers">Tell Kahran.</a></p>
-    </div>
-  </div>
-</section>
+
 
 
 <section id="faq">
@@ -701,53 +677,7 @@ renderTally();
   });
 })();
 
-/* ---------------------------------------------------------------
-   SEARCH PARTY — classmates with no working contact (no findable
-   email, or the address we tried bounced). Edit as leads come in.
----------------------------------------------------------------- */
-const NEED_FINDING = [
-  "Anthony Cutler", "Benjamin Rich", "Caleb Lindgren",
-  "Colin Wood", "Eli Bolotin",
-  "Kay Hockeiser", "Kevin Chung",
-  "Lia Heilman", "Nick Llanos", "Noah Moskat", "Phil Geiger",
-  "Russ Wung", "Sangita Kode",
-  "Walt Busch", "Yasmin Khorram", "Zack Morse",
-];
-const TEACHERS = ["Ms. Castañeda", "Mr. McFaul", "Mr. Over", "Mrs. Rubin"];
-/* hide a search-party chip once that classmate has an RSVP status, so the
-   list self-corrects as the live sheet loads — no one who's replied stays on it. */
-function syncFinders() {
-  const box = document.getElementById('finders');
-  if (!box) return;
-  let shown = 0;
-  box.querySelectorAll('.finder').forEach(a => {
-    const t = tiles.get(a.dataset.n);
-    const responded = t && t.c.coming !== null && t.c.coming !== undefined;
-    a.style.display = responded ? 'none' : '';
-    if (!responded) shown++;
-  });
-  const cnt = document.getElementById('findCount');
-  if (cnt) cnt.textContent = shown;
-}
-(function () {
-  function fill(id, names, track) {
-    const box = document.getElementById(id);
-    if (!box) return;
-    names.forEach(name => {
-      const a = document.createElement('a');
-      a.className = 'finder';
-      a.textContent = name;
-      if (track) a.dataset.n = norm(name);
-      a.href = 'mailto:kahran.singh@gmail.com?subject=' + encodeURIComponent('ICS reunion — I can reach ' + name)
-        + '&body=' + encodeURIComponent('I have a way to reach ' + name + ':\n\n(email / phone / Instagram / "they live in ___ now" — anything helps)\n\n');
-      a.addEventListener('click', () => trk('find_click', { group: id === 'teacherFinders' ? 'teacher' : 'classmate' }));
-      box.appendChild(a);
-    });
-  }
-  fill('finders', NEED_FINDING, true);
-  fill('teacherFinders', TEACHERS, false);
-  syncFinders();
-})();
+
 
 /* ---------------------------------------------------------------
    IN-PAGE RSVP — submits into a Google Form; the grid colors in
@@ -865,7 +795,6 @@ if (RSVP_CONFIG.sheetCsv) fetch(RSVP_CONFIG.sheetCsv).then(r => r.text()).then(t
   });
   extras = extraSet.size;
   renderTally();
-  syncFinders();
 }).catch(() => {});
 </script>
 
