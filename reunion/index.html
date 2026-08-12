@@ -248,7 +248,7 @@
 
 <div class="wrap">
   <div class="memo">
-    <div class="stamp">It's booked<small>last updated July 29, 2026</small></div>
+    <div class="stamp">It's booked<small>last updated August 12, 2026</small></div>
     <h1>Twenty years. <em>Friday the 28th, on the water.</em></h1>
     <p class="sub">The date has a place now. Long tables on the patio at Moss Bay Hall, right where the lake starts — <strong>2 pm until they throw us out</strong>. This page stays the working plan; it just has a lot more ticked off than it did.</p>
 
@@ -310,7 +310,7 @@
       <li class="done"><span class="box">[x]</span><span class="what"><b>Date locked</b> — Friday, August 28, 2026 <span class="note">a Friday on purpose</span></span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>Venue locked</b> — the patio at Moss Bay Hall, 2–7 pm, no venue fee at that window</span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>Venue scouting</b> — Josie worked the downtown bars, ruled out the ones that are really restaurants, and found this one</span></li>
-      <li><span class="box">[&nbsp;]</span><span class="what"><b>Platters ordered</b> — working out the menu with the Hall; food comes out to the table, you order drinks yourself <span class="note">last real to-do</span></span></li>
+      <li class="done"><span class="box">[x]</span><span class="what"><b>Platters ordered &amp; paid</b> — fruit &amp; veg out at 2, cinnamon pretzel bites at 4; you order drinks yourself <span class="note">that was the last real to-do</span></span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>School fields ruled out</b> — summer field use runs through the city and Facilitron, and ICS has its own event that day. The waterfront wins anyway</span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>In-page RSVP</b> — type your name up top, no email needed</span></li>
       <li class="done"><span class="box">[x]</span><span class="what"><b>RSVPs wired to the grid</b> — the yearbook colors in live as answers land</span></li>
@@ -449,7 +449,7 @@ const CLASSMATES = [
   { name: "Kahran Singh", coming: true, photo: "/reunion/photos/kahran-singh.jpg" },
   { name: "Aaron Ko", photo: "/reunion/photos/aaron-ko.jpg" },
   { name: "Ali Byström", photo: "/reunion/photos/ali-bystrom.jpg" },
-  { name: "Ali Holden", photo: "/reunion/photos/ali-holden.jpg", pin: "maybe" },
+  { name: "Ali Reshamvala", photo: "/reunion/photos/ali-holden.jpg", pin: "maybe" },
   { name: "Alicia Maggard", photo: "/reunion/photos/alicia-maggard.jpg" },
   { name: "Alvina Wong", photo: "/reunion/photos/alvina-wong.jpg" },
   { name: "Amanda Dopierala", photo: "/reunion/photos/amanda-dopierala.jpg" },
@@ -457,7 +457,7 @@ const CLASSMATES = [
   { name: "Anders Eliasen", photo: "/reunion/photos/anders-eliasen.jpg" },
   { name: "Angela Rozmyn", photo: "/reunion/photos/angela-rozmyn.jpg" },
   { name: "Ann Gong", photo: "/reunion/photos/ann-gong.jpg", pin: false },
-  { name: "Anna Ozbek" },
+  { name: "Anna Ozbek", pin: false },
   { name: "Anthony Cutler", photo: "/reunion/photos/anthony-cutler.jpg" },
   { name: "Audrey Djunaedi", photo: "/reunion/photos/audrey-djunaedi.jpg" },
   { name: "Benjamin Rich", photo: "/reunion/photos/benjamin-rich.jpg" },
@@ -489,7 +489,7 @@ const CLASSMATES = [
   { name: "Kevin Chung", photo: "/reunion/photos/kevin-chung.jpg" },
   { name: "Kit Culbert", photo: "/reunion/photos/kit-culbert.jpg" },
   { name: "Krishanu Ray", photo: "/reunion/photos/krishanu-ray.jpg" },
-  { name: "Kurt Miller", photo: "/reunion/photos/kurt-miller.jpg" },
+  { name: "Kurt Miller", photo: "/reunion/photos/kurt-miller.jpg", pin: "maybe" },
   { name: "Lara O'Neil-Dunne", photo: "/reunion/photos/lara-oneil-dunne.jpg" },
   { name: "Lauren Elizabeth Clark", photo: "/reunion/photos/lauren-elizabeth-clark.jpg" },
   { name: "Lia Heilman", photo: "/reunion/photos/lia-heilman.jpg" },
@@ -512,10 +512,10 @@ const CLASSMATES = [
   { name: "Spencer Sult", photo: "/reunion/photos/spencer-sult.jpg" },
   { name: "Spencer Winters", photo: "/reunion/photos/spencer-winters.jpg" },
   { name: "Stephanie Funez", photo: "/reunion/photos/stephanie-funez.jpg" },
-  { name: "Stephanie Rasmusson", photo: "/reunion/photos/stephanie-rasmusson.jpg" },
+  { name: "Stephanie Justice", photo: "/reunion/photos/stephanie-rasmusson.jpg", pin: false },
   { name: "Tal Yaacovi", photo: "/reunion/photos/tal-yaacovi.jpg" },
   { name: "Tom Courlas", photo: "/reunion/photos/tom-courlas.jpg" },
-  { name: "Tucker Willsie", photo: "/reunion/photos/tucker-willsie.jpg" },
+  { name: "Tucker Willsie", photo: "/reunion/photos/tucker-willsie.jpg", pin: false },
   { name: "Walt Busch", photo: "/reunion/photos/walt-busch.jpg" },
   { name: "Yasmin Khorram", photo: "/reunion/photos/yasmin-khorram.jpg" },
   { name: "Zack Morse", photo: "/reunion/photos/zack-morse.jpg" },
@@ -718,7 +718,7 @@ renderTally();
 const NEED_FINDING = [
   "Anthony Cutler", "Benjamin Rich", "Caleb Lindgren",
   "Colin Wood", "Eli Bolotin",
-  "Kay Hockeiser", "Kayla Jan", "Kevin Chung",
+  "Kay Hockeiser", "Kevin Chung",
   "Lia Heilman", "Nick Llanos", "Noah Moskat", "Phil Geiger",
   "Russ Wung", "Sangita Kode",
   "Walt Busch", "Yasmin Khorram", "Zack Morse",
