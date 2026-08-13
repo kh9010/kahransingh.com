@@ -146,7 +146,7 @@
       <div class="fact"><div class="n">8</div><div class="l">pack mules (us)</div></div>
     </div>
     <div class="days">
-      <div class="day"><div class="d">Fri Aug 21</div><h3>In</h3><p>Snow Lakes TH → up the switchbacks past Nada Lake → camp at a designated Snow Lakes site. Long, steady, hot in the afternoon — start early.</p></div>
+      <div class="day"><div class="d">Fri Aug 21</div><h3>In</h3><p>7 AM out of Seattle, two cars. Snow Lakes TH → up the switchbacks past Nada Lake → camp at a designated Snow Lakes site. Long, steady, hot in the afternoon.</p></div>
       <div class="day"><div class="d">Sat Aug 22</div><h3>The Core</h3><p>Light packs up the granite slabs to Lake Viviane and the upper lakes. This is the postcard day. Back to the same camp for dinner two.</p></div>
       <div class="day"><div class="d">Sun Aug 23</div><h3>Out</h3><p>Break camp, back down the way we came, pretzels and beer in Leavenworth. Knees will have opinions.</p></div>
     </div>
@@ -226,21 +226,22 @@ const GEAR = [
   { grp: "Water & kitchen" },
   { id:"stove1", ico:"🔥", name:"Jetboil #1 + fuel", note:"Fuel for 8 people × 2 dinners + 2 breakfasts", taken:"Jay" },
   { id:"stove2", ico:"🔥", name:"Jetboil #2 + fuel", note:"Pradeep's loaner — collect, carry, bring fuel", sug:"Gourav" },
-  { id:"filter1", ico:"💧", name:"Water filter #1", note:"Squeeze or gravity — lakes everywhere, treat everything", sug:"Ambika" },
+  { id:"filter1", ico:"💧", name:"Water filter #1", note:"Squeeze or gravity — lakes everywhere, treat everything. Still unowned after the call", sug:"Ambika" },
   { id:"filter2", ico:"💧", name:"Water filter #2", note:"Backup — a clogged filter with no spare is a bad weekend", sug:"Mathias" },
-  { id:"dinner1", ico:"🍜", name:"Group dinner, night one", note:"Rehydratable and generous — feeds 8", sug:"Ambika" },
-  { id:"dinner2", ico:"🍛", name:"Group dinner, night two", note:"Post-Core-day appetites. Feeds 8, err large", sug:"Shivani" },
-  { id:"breakfast", ico:"☕", name:"Coffee + breakfast kit", note:"Instant coffee counts; oatmeal for 8 × 2 mornings. Morale cargo.", sug:"Paige" },
+  { id:"dinner1", ico:"🍜", name:"Ramen dinner", note:"Settled at the call — feeds 8", taken:"Ambika" },
+  { id:"dinner2", ico:"🥟", name:"Calzone dinner", note:"Yes, calzones, at 5,400 ft. Settled at the call", taken:"Kahran + Gourav" },
+  { id:"breakfast", ico:"☕", name:"Breakfast + coffee × 2 mornings", note:"Eggs under discussion. Morale cargo", taken:"Jay + Shivani" },
+  { id:"lunch", ico:"🥪", name:"Trail lunches", note:"Pencilled to Paige + Mathias at the call with a question mark — confirm or claim", sug:"Paige + Mathias" },
   { grp: "Safety & camp" },
-  { id:"bear1", ico:"🐻", name:"Bear canister #1 (lightweight)", note:"REQUIRED storage: a forest order says all smellables must be stored bear-resistant, and trees at Snow Lakes are too sparse to count on a hang", sug:"Gourav" },
-  { id:"bear2", ico:"🐻", name:"Bear canister #2 (or Ursack)", note:"Eight people's food + toiletries won't fit in one; Ursacks also satisfy the order and weigh less", sug:"Jay" },
+  { id:"bear1", ico:"🐻", name:"Bear canister #1 (lightweight)", note:"REQUIRED storage: a forest order says all smellables must be stored bear-resistant, and trees at Snow Lakes are too sparse to count on a hang", taken:"Jay" },
+  { id:"bear2", ico:"🐻", name:"Bear canister #2 (or Ursack)", note:"The call's official '+1' — eight people's food and toiletries won't fit in one; Ursacks also satisfy the order and weigh less", sug:"Gourav" },
   { id:"firstaid", ico:"🩹", name:"Group first-aid kit", note:"Small kit covered; top up blister care + wrap + painkillers for 8", taken:"Shivani + Gourav" },
   { id:"blanket", ico:"🧣", name:"Emergency blanket", note:"Settled at the call", taken:"Shivani" },
   { id:"inreach", ico:"🛰️", name:"Satellite communicator", note:"Not required by anyone, strongly required by common sense — zero cell signal up there", sug:"Kahran" },
   { id:"repair", ico:"🧰", name:"Repair kit", note:"Duct tape, cord, pad patches, spare buckle", sug:"Mathias" },
   { grp: "Logistics" },
-  { id:"car1", ico:"🚗", name:"Carpool driver #1", note:"Seattle → Snow Lakes TH, forest pass on the dash", sug:"Jay" },
-  { id:"car2", ico:"🚗", name:"Carpool driver #2", note:"Four humans + four overnight packs per car is the math", sug:"Shankar" },
+  { id:"car1", ico:"🚗", name:"Car #1 — Shankar + Ambika's", note:"7 AM Friday departure from Seattle. Forest pass on the dash", taken:"Shankar + Ambika" },
+  { id:"car2", ico:"🚗", name:"Car #2 — Jay + Shivani's", note:"Four humans + four overnight packs per car is the math", taken:"Jay + Shivani" },
   { id:"permit", ico:"📜", name:"Permit printout", note:"Paper copy + ID; the named holder hikes with the group all three days", sug:"Kahran" },
 ];
 
@@ -260,7 +261,7 @@ const PERSONAL = [
   ["2–3 L water capacity", "bottles or bladder"],
   ["Trekking poles", "4,100 ft up, and your knees on the way down"],
   ["Broken-in boots or trail runners", "no new footwear on a 7-mile climb"],
-  ["Snacks + lunch × 3 days", "more than you think"],
+  ["Snacks × 3 days", "more than you think; lunches may be communal — see the gear list"],
   ["Bowl or mug + spork", "for the group dinners"],
   ["Personal meds + blister kit", "know your own feet"],
   ["Phone + battery bank", "offline maps downloaded before Leavenworth"],
