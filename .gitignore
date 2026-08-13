@@ -7,3 +7,9 @@ dock-records/
 pending/
 duplicate-review.html
 **/.DS_Store
+
+# The weekly record's input extract. It lives outside this repo by design and
+# carries commit subjects, file names and meeting counts — none of which may be
+# published. Ignored here so a stray copy can never be committed by accident.
+coding-days.json
+**/coding-days.json
