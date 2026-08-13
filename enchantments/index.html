@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>The Enchantments · 21–23 Aug · Gear Sign-up</title>
+<meta property="og:title" content="The Enchantments — who's carrying what?">
+<meta property="og:description" content="Two nights at Snow Lakes, one day in the Core. Claim your communal gear, check off your own kit.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kahransingh.com/enchantments/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #1c2124; --ink-soft: #4a555c; --bg: #f1f1ec; --card: #fcfcf8;
+    --line: #dfdfd4; --line-strong: #c8cabc; --muted: #7f8a86;
+    --pine: #2f5d50; --pine-soft: #e0eae4; --granite: #5d6a72;
+    --larch: #c2872f; --larch-soft: #f4e8d4; --lake: #d3e6e3;
+    --shadow: 0 1px 2px rgba(28,40,44,.05), 0 10px 34px rgba(28,40,44,.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hanken Grotesk', -apple-system, sans-serif; color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.62; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 140px 140px; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 1.4rem; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; line-height: 1.14; font-weight: 400; letter-spacing: -0.012em; }
+  a { color: var(--pine); }
+  ::selection { background: var(--pine-soft); }
+
+  .hero { position: relative; overflow: hidden; display: flex; align-items: flex-end; min-height: min(46vh, 420px); }
+  .hero .scene { position: absolute; inset: 0; background: linear-gradient(168deg, #e8ecea 0%, #c9d8d3 45%, #8fb0a6 100%); }
+  .hero .ridge { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; }
+  .hero-content { position: relative; z-index: 2; width: 100%; padding: clamp(2.4rem, 6vh, 4rem) 0 1.8rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--pine); margin-bottom: 0.8rem; font-weight: 600; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: -0.022em; }
+  .dek { font-family: 'Fraunces', serif; font-style: italic; font-size: clamp(1rem, 2.1vw, 1.2rem); color: var(--ink-soft); margin-top: 0.9rem; max-width: 52ch; }
+
+  section { padding: clamp(2.4rem, 6vh, 4rem) 0; }
+  section + section { border-top: 1px solid var(--line); }
+  .kicker { font-size: 0.71rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--pine); margin-bottom: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 0.55rem; }
+  .kicker:before { content: ""; width: 1.5rem; height: 1px; background: var(--pine); opacity: .5; }
+  h2.title { font-size: clamp(1.6rem, 4vw, 2.05rem); margin-bottom: 0.9rem; }
+  p { margin-bottom: 0.8rem; color: var(--ink-soft); }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.8rem; margin-top: 1.4rem; }
+  .fact { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0.8rem 1rem; }
+  .fact .n { font-family: 'Fraunces', serif; font-size: 1.35rem; color: var(--ink); }
+  .fact .l { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+  .days { display: grid; gap: 0.8rem; margin-top: 1.3rem; }
+  @media (min-width: 640px) { .days { grid-template-columns: 1fr 1fr 1fr; } }
+  .day { background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 1rem 1.15rem; box-shadow: var(--shadow); }
+  .day .d { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--larch); font-weight: 700; margin-bottom: 0.3rem; }
+  .day h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .day p { font-size: 0.86rem; margin: 0; }
+
+  /* name picker */
+  .whoami { position: sticky; top: 0; z-index: 40; background: rgba(241,241,236,.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); padding: 0.6rem 0; }
+  .whoami-inner { display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap; }
+  .whoami .lbl { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-right: 0.2rem; }
+  .whoami button { font: inherit; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.26rem 0.85rem; color: var(--ink-soft); background: var(--card); cursor: pointer; transition: all .15s; }
+  .whoami button:hover { border-color: var(--pine); color: var(--pine); }
+  .whoami button.on { background: var(--pine); border-color: var(--pine); color: #fff; }
+
+  /* communal gear */
+  .gear { display: grid; gap: 0.55rem; margin-top: 1.3rem; }
+  .gitem { display: flex; align-items: center; gap: 0.9rem; background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 0.75rem 1rem; box-shadow: var(--shadow); }
+  .gitem .ico { font-size: 1.25rem; width: 1.7rem; text-align: center; flex-shrink: 0; }
+  .gitem .body { flex-grow: 1; min-width: 0; }
+  .gitem .name { font-weight: 600; }
+  .gitem .note { font-size: 0.82rem; color: var(--muted); }
+  .gitem .sug { font-size: 0.75rem; color: var(--larch); font-weight: 600; }
+  .gitem button.claim { font: inherit; flex-shrink: 0; font-size: 0.78rem; font-weight: 700; border: 1.5px solid var(--line-strong); border-radius: 100px; padding: 0.38rem 1rem; background: var(--card); color: var(--ink-soft); cursor: pointer; transition: all .15s; white-space: nowrap; }
+  .gitem button.claim:hover { border-color: var(--pine); color: var(--pine); }
+  .gitem.mine { border-color: var(--pine); background: var(--pine-soft); }
+  .gitem.mine button.claim { background: var(--pine); border-color: var(--pine); color: #fff; }
+  .gitem.settled { opacity: 0.82; }
+  .gitem .taken { flex-shrink: 0; font-size: 0.78rem; font-weight: 700; color: var(--pine); background: var(--pine-soft); border-radius: 100px; padding: 0.38rem 1rem; white-space: nowrap; }
+  .ghead { font-size: 0.71rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin: 1.5rem 0 0.2rem; }
+  .ghead:first-child { margin-top: 0; }
+
+  /* claim bar */
+  .claimbar { position: fixed; left: 50%; transform: translate(-50%, 130%); bottom: 1rem; z-index: 50; background: var(--ink); color: #fff; border-radius: 100px; padding: 0.6rem 0.6rem 0.6rem 1.3rem; display: flex; align-items: center; gap: 0.9rem; box-shadow: 0 12px 40px rgba(28,40,44,.35); transition: transform .35s cubic-bezier(.2,.7,.2,1); max-width: calc(100vw - 2rem); }
+  .claimbar.show { transform: translate(-50%, 0); }
+  .claimbar .msg { font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .claimbar button { font: inherit; font-size: 0.82rem; font-weight: 700; border: none; border-radius: 100px; padding: 0.5rem 1.15rem; background: var(--larch); color: #fff; cursor: pointer; white-space: nowrap; }
+  .claimbar button:active { transform: scale(.97); }
+
+  /* personal checklist */
+  .plist { display: grid; gap: 0.35rem; margin-top: 1.2rem; }
+  @media (min-width: 640px) { .plist { grid-template-columns: 1fr 1fr; column-gap: 1.2rem; } }
+  .pitem { display: flex; align-items: baseline; gap: 0.65rem; padding: 0.45rem 0.6rem; border-radius: 9px; cursor: pointer; transition: background .15s; -webkit-user-select: none; user-select: none; }
+  .pitem:hover { background: var(--card); }
+  .pitem .box { flex-shrink: 0; width: 1.05rem; height: 1.05rem; border: 1.5px solid var(--line-strong); border-radius: 5px; position: relative; top: 0.18rem; transition: all .15s; }
+  .pitem.done .box { background: var(--pine); border-color: var(--pine); }
+  .pitem.done .box:after { content: "✓"; position: absolute; inset: 0; color: #fff; font-size: 0.75rem; line-height: 1.05rem; text-align: center; font-weight: 700; }
+  .pitem .txt { color: var(--ink-soft); }
+  .pitem.done .txt { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-strong); }
+  .pitem .why { font-size: 0.8rem; color: var(--muted); }
+  .progress-note { font-size: 0.85rem; color: var(--muted); margin-top: 0.9rem; font-style: italic; font-family: 'Fraunces', serif; }
+
+  /* rules cards */
+  .rules { display: grid; gap: 0.8rem; margin-top: 1.3rem; }
+  @media (min-width: 640px) { .rules { grid-template-columns: 1fr 1fr; } }
+  .rule { background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 1rem 1.15rem; box-shadow: var(--shadow); }
+  .rule h3 { font-size: 1.05rem; margin-bottom: 0.35rem; }
+  .rule p { font-size: 0.88rem; margin: 0; }
+  .rule .tag { display: inline-block; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; border-radius: 100px; padding: 0.12rem 0.6rem; margin-bottom: 0.5rem; }
+  .tag.must { background: var(--larch-soft); color: var(--larch); }
+  .tag.know { background: var(--pine-soft); color: var(--pine); }
+  .tag.watch { background: #f6dfda; color: #b25b38; }
+
+  .fears { margin-top: 1.4rem; background: var(--card); border: 1px solid var(--line); border-radius: 13px; padding: 1rem 1.25rem; box-shadow: var(--shadow); }
+  .fears h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+  .fears p { font-size: 0.88rem; margin: 0; }
+
+  footer { padding: 2.5rem 0 3rem; border-top: 1px solid var(--line); }
+  footer p { font-size: 0.85rem; color: var(--muted); }
+
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="scene"></div>
+  <svg class="ridge" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,200 L0,120 L90,70 L170,110 L260,40 L340,95 L430,20 L520,85 L610,45 L700,100 L790,30 L880,90 L970,55 L1060,105 L1140,75 L1200,110 L1200,200 Z" fill="#5d6a72" opacity="0.55"/>
+    <path d="M0,200 L0,150 L120,105 L230,140 L330,85 L450,130 L560,70 L670,125 L780,90 L900,135 L1010,100 L1120,140 L1200,115 L1200,200 Z" fill="#2f5d50" opacity="0.75"/>
+  </svg>
+  <div class="wrap hero-content">
+    <div class="eyebrow">21 – 23 August · Snow Lakes · Eight of us</div>
+    <h1>The Enchantments</h1>
+    <p class="dek">Two nights under the granite, one full day in the Core, and goats with no sense of personal space. One shared load — claim your piece of it below.</p>
+    <div class="facts">
+      <div class="fact"><div class="n">~7 mi</div><div class="l">hike in, day 1</div></div>
+      <div class="fact"><div class="n">+4,100 ft</div><div class="l">to camp</div></div>
+      <div class="fact"><div class="n">2</div><div class="l">nights at snow lakes</div></div>
+      <div class="fact"><div class="n">8</div><div class="l">pack mules (us)</div></div>
+    </div>
+    <div class="days">
+      <div class="day"><div class="d">Fri Aug 21</div><h3>In</h3><p>Snow Lakes TH → up the switchbacks past Nada Lake → camp at a designated Snow Lakes site. Long, steady, hot in the afternoon — start early.</p></div>
+      <div class="day"><div class="d">Sat Aug 22</div><h3>The Core</h3><p>Light packs up the granite slabs to Lake Viviane and the upper lakes. This is the postcard day. Back to the same camp for dinner two.</p></div>
+      <div class="day"><div class="d">Sun Aug 23</div><h3>Out</h3><p>Break camp, back down the way we came, pretzels and beer in Leavenworth. Knees will have opinions.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="whoami">
+  <div class="wrap whoami-inner">
+    <span class="lbl">Who are you?</span>
+    <!-- buttons injected -->
+  </div>
+</div>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="kicker">Step one</div>
+    <h2 class="title">Claim the communal gear</h2>
+    <p>Green means it was settled at the planning call — thank you, heroes. Everything with a button still needs an owner: pick your name above, tap what you'll bring, then hit the button that appears — it copies a ready-made message for the group chat so everyone knows what's covered. Gold names are suggestions, not orders; trade freely.</p>
+    <div class="gear" id="gear"><!-- injected --></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="kicker">Step two</div>
+    <h2 class="title">Your own kit — nobody carries this for you</h2>
+    <p>Every item below is per-person, sized for two nights. Checkboxes save on your phone, so you can pack against this list the night before.</p>
+    <div class="plist" id="personal"><!-- injected --></div>
+    <p class="progress-note" id="prognote"></p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="kicker">Step three</div>
+    <h2 class="title">Know before you go</h2>
+    <div class="rules">
+      <div class="rule"><span class="tag watch">Watch</span><h3>Fires &amp; smoke</h3><p>Fires have closed trails and roads near the pass; the Enchantments are expected to stay open, but air quality depends on the wind. Check the Okanogan–Wenatchee alerts page and an AQI map the day before we drive. Some rain is in the Leavenworth forecast, which helps.</p></div>
+      <div class="rule"><span class="tag must">Required</span><h3>Permit &amp; camp rules</h3><p>Our overnight permit covers the Snow Lakes zone: designated hiker campsites at Nada or Snow Lakes only. The named permit holder must be with the group, permit on paper — rangers do check on this trail.</p></div>
+      <div class="rule"><span class="tag must">Required</span><h3>Parking pass</h3><p>A Northwest Forest Pass (or America the Beautiful) on the dash of every car at Snow Lakes TH. In-and-out route, so no car shuttle needed — just carpools.</p></div>
+      <div class="rule"><span class="tag must">Required</span><h3>No campfires, ever</h3><p>Stoves only, everywhere in the Enchantments — a hard rule year-round, and doubly so in a smoky August.</p></div>
+      <div class="rule"><span class="tag must">Required</span><h3>Waste</h3><p>There are well-signed pit toilets throughout (some with mighty fine views), but carry a blue bag from the trailhead dispenser as backup and pack out what the toilets don't take. Everything else walks out with us.</p></div>
+      <div class="rule"><span class="tag know">Know</span><h3>The goats are bold</h3><p>They crave salt: they'll chew sweaty pack straps and follow anyone who pees near the trail. Pee on bare rock well away from trails and camp, never feed them. Rodents will raid any food left out — hence the canisters.</p></div>
+      <div class="rule"><span class="tag know">Know</span><h3>August up high</h3><p>Hot sun on bare granite by day, near-freezing possible at camp before dawn. Afternoon thunderstorms happen — start the Core day early. Water is everywhere but treat all of it.</p></div>
+      <div class="rule"><span class="tag know">Know</span><h3>No signal</h3><p>Phones are cameras up there. Download offline maps before Leavenworth, leave the plan with someone at home, and the satellite communicator on the gear list is our real safety line.</p></div>
+    </div>
+    <div class="fears">
+      <h3>Official group fear ranking, per the planning call</h3>
+      <p>1. Aggressive goats &nbsp;·&nbsp; 2. Bugs &nbsp;·&nbsp; 3. Bears &nbsp;·&nbsp; 4. Aggressive marmots (disputed — no marmot has ever been met in Washington) &nbsp;·&nbsp; agenda time allocated: 90%.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Check current conditions and fire restrictions at the Okanogan–Wenatchee NF site the week we go. Page lives quietly at kahransingh.com/enchantments — not indexed, just for us.</p>
+  </div>
+</footer>
+
+<div class="claimbar" id="claimbar">
+  <span class="msg" id="claimmsg"></span>
+  <button id="copybtn">Copy for group chat</button>
+</div>
+
+<script>
+const PEOPLE = ["Kahran","Shankar","Ambika","Shivani","Jay","Paige","Mathias","Gourav"];
+
+// Communal items. `taken` = settled at the Aug 12 planning call (shown green, no button).
+// `sug` = suggested owner, purely advisory.
+const GEAR = [
+  { grp: "Shelter & sleep" },
+  { id:"tent1", ico:"⛺", name:"Tent #1", note:"With footprint + stakes", taken:"Paige" },
+  { id:"tent2", ico:"⛺", name:"Tent #2", note:"Pradeep's loaner — someone collects it and carries it", sug:"Shankar" },
+  { id:"tent3", ico:"⛺", name:"Tent #3", note:"With footprint + stakes", taken:"Shivani" },
+  { id:"tent4", ico:"⛺", name:"Tent #4", note:"Still to buy or borrow — the open shelter slot", sug:"Kahran" },
+  { grp: "Water & kitchen" },
+  { id:"stove1", ico:"🔥", name:"Jetboil #1 + fuel", note:"Fuel for 8 people × 2 dinners + 2 breakfasts", taken:"Jay" },
+  { id:"stove2", ico:"🔥", name:"Jetboil #2 + fuel", note:"Pradeep's loaner — collect, carry, bring fuel", sug:"Gourav" },
+  { id:"filter1", ico:"💧", name:"Water filter #1", note:"Squeeze or gravity — lakes everywhere, treat everything", sug:"Ambika" },
+  { id:"filter2", ico:"💧", name:"Water filter #2", note:"Backup — a clogged filter with no spare is a bad weekend", sug:"Mathias" },
+  { id:"dinner1", ico:"🍜", name:"Group dinner, night one", note:"Rehydratable and generous — feeds 8", sug:"Ambika" },
+  { id:"dinner2", ico:"🍛", name:"Group dinner, night two", note:"Post-Core-day appetites. Feeds 8, err large", sug:"Shivani" },
+  { id:"breakfast", ico:"☕", name:"Coffee + breakfast kit", note:"Instant coffee counts; oatmeal for 8 × 2 mornings. Morale cargo.", sug:"Paige" },
+  { grp: "Safety & camp" },
+  { id:"bear1", ico:"🐻", name:"Bear canister #1 (lightweight)", note:"For goat/rodent/bear-proof food storage — still an open question from the call", sug:"Gourav" },
+  { id:"bear2", ico:"🐻", name:"Bear canister #2 (lightweight)", note:"Eight people's food won't fit in one", sug:"Jay" },
+  { id:"firstaid", ico:"🩹", name:"Group first-aid kit", note:"Small kit covered; top up blister care + wrap + painkillers for 8", taken:"Shivani + Gourav" },
+  { id:"blanket", ico:"🧣", name:"Emergency blanket", note:"Settled at the call", taken:"Shivani" },
+  { id:"inreach", ico:"🛰️", name:"Satellite communicator", note:"inReach/Zoleo — zero cell signal up there", sug:"Kahran" },
+  { id:"repair", ico:"🧰", name:"Repair kit", note:"Duct tape, cord, pad patches, spare buckle", sug:"Mathias" },
+  { grp: "Logistics" },
+  { id:"car1", ico:"🚗", name:"Carpool driver #1", note:"Seattle → Snow Lakes TH, forest pass on the dash", sug:"Jay" },
+  { id:"car2", ico:"🚗", name:"Carpool driver #2", note:"Four humans + four overnight packs per car is the math", sug:"Shankar" },
+  { id:"permit", ico:"📜", name:"Permit printout", note:"Paper copy + ID; the named holder hikes with the group all three days", sug:"Kahran" },
+];
+
+const PERSONAL = [
+  ["Pack, 50–65 L", "two nights of food adds up; rain cover or liner"],
+  ["Day pack or stuff-sack", "for the light-pack Core day"],
+  ["Sleeping bag", "rated ~25 °F — it drops hard at 5,400 ft"],
+  ["Sleeping pad", ""],
+  ["Headlamp", "fresh batteries"],
+  ["Rain shell", "doubles as wind layer"],
+  ["Warm puffy", "you will want it at both dinners"],
+  ["Hiking layers + 2 spare pairs of socks", "no cotton"],
+  ["Beanie + light gloves", "cold mornings by the lake"],
+  ["Sun hat + sunglasses", "bare granite doubles the sun"],
+  ["Sunscreen + lip balm", ""],
+  ["Bug spray", "the lakes still bite in August"],
+  ["2–3 L water capacity", "bottles or bladder"],
+  ["Trekking poles", "4,100 ft up, and your knees on the way down"],
+  ["Broken-in boots or trail runners", "no new footwear on a 7-mile climb"],
+  ["Snacks + lunch × 3 days", "more than you think"],
+  ["Bowl or mug + spork", "for the group dinners"],
+  ["Personal meds + blister kit", "know your own feet"],
+  ["Phone + battery bank", "offline maps downloaded before Leavenworth"],
+  ["Blue bag", "trailhead dispenser — backup for the pit toilets"],
+  ["Trash ziplock", "everything walks out with you"],
+  ["Swimsuit", "optional; the lakes are cold and the brave are smug"],
+  ["ID + a little cash", "and Leavenworth pretzel money for after"],
+];
+
+const LS = "enchant2026";
+const state = JSON.parse(localStorage.getItem(LS) || "{}");
+function save() { localStorage.setItem(LS, JSON.stringify(state)); }
+
+// --- who am I ---
+const whoWrap = document.querySelector(".whoami-inner");
+PEOPLE.forEach(p => {
+  const b = document.createElement("button");
+  b.textContent = p;
+  b.onclick = () => { state.me = p; save(); render(); };
+  whoWrap.appendChild(b);
+});
+
+// --- communal gear ---
+const gearWrap = document.getElementById("gear");
+function renderGear() {
+  gearWrap.innerHTML = "";
+  const claims = state.claims || {};
+  GEAR.forEach(g => {
+    if (g.grp) {
+      const h = document.createElement("div");
+      h.className = "ghead"; h.textContent = g.grp;
+      gearWrap.appendChild(h);
+      return;
+    }
+    const mine = claims[g.id] === state.me && state.me;
+    const row = document.createElement("div");
+    row.className = "gitem" + (mine ? " mine" : "") + (g.taken ? " settled" : "");
+    row.innerHTML = `<div class="ico">${g.ico}</div>
+      <div class="body"><div class="name">${g.name}</div>
+      <div class="note">${g.note}</div>
+      ${g.taken ? "" : `<div class="sug">suggested: ${g.sug}</div>`}</div>`;
+    if (g.taken) {
+      const t = document.createElement("span");
+      t.className = "taken"; t.textContent = g.taken + " ✓";
+      row.appendChild(t);
+    } else {
+      const btn = document.createElement("button");
+      btn.className = "claim";
+      btn.textContent = mine ? "You've got it ✓" : "I'll bring it";
+      btn.onclick = () => {
+        if (!state.me) { alert("Pick your name at the top first!"); return; }
+        state.claims = state.claims || {};
+        if (state.claims[g.id] === state.me) delete state.claims[g.id];
+        else state.claims[g.id] = state.me;
+        save(); render();
+      };
+      row.appendChild(btn);
+    }
+    gearWrap.appendChild(row);
+  });
+}
+
+// --- claim bar ---
+const bar = document.getElementById("claimbar");
+const msgEl = document.getElementById("claimmsg");
+document.getElementById("copybtn").onclick = async () => {
+  const items = myClaims().map(g => g.name).join(", ");
+  const text = `🏔️ Enchantments gear — ${state.me} claiming: ${items}`;
+  try { await navigator.clipboard.writeText(text); } catch { prompt("Copy this:", text); return; }
+  msgEl.textContent = "Copied — paste it in the group chat!";
+  setTimeout(renderBar, 2200);
+};
+function myClaims() {
+  const c = state.claims || {};
+  return GEAR.filter(g => g.id && !g.taken && c[g.id] === state.me);
+}
+function renderBar() {
+  const n = myClaims().length;
+  if (state.me && n > 0) {
+    msgEl.textContent = `${state.me}: ${n} item${n > 1 ? "s" : ""} claimed`;
+    bar.classList.add("show");
+  } else bar.classList.remove("show");
+}
+
+// --- personal checklist ---
+const pWrap = document.getElementById("personal");
+const prog = document.getElementById("prognote");
+function renderPersonal() {
+  pWrap.innerHTML = "";
+  const done = state.packed || {};
+  PERSONAL.forEach(([txt, why], i) => {
+    const el = document.createElement("div");
+    el.className = "pitem" + (done[i] ? " done" : "");
+    el.innerHTML = `<span class="box"></span><span class="txt">${txt}${why ? ` <span class="why">— ${why}</span>` : ""}</span>`;
+    el.onclick = () => {
+      state.packed = state.packed || {};
+      state.packed[i] = !state.packed[i];
+      save(); renderPersonal();
+    };
+    pWrap.appendChild(el);
+  });
+  const n = Object.values(done).filter(Boolean).length;
+  prog.textContent = n === 0 ? "Nothing packed yet — the mountain is patient."
+    : n === PERSONAL.length ? "Fully packed. See you at the trailhead. 🏔️"
+    : `${n} of ${PERSONAL.length} packed${n > PERSONAL.length * 0.7 ? " — nearly there." : "."}`;
+}
+
+function render() {
+  whoWrap.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.textContent === state.me));
+  renderGear(); renderBar(); renderPersonal();
+}
+render();
+
+// scroll reveals
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("in")), { threshold: 0.08 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
