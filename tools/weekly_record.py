@@ -61,10 +61,18 @@ ROLLUP_FAMILIES = (
 )
 ROLLUP_PREFIXES = {"dfw": "day-flow"}
 
+# A project whose directory name marks it private publishes as "private" and
+# nothing more — Kahran's own instruction. The rule matches the marker rather
+# than one spelled-out repo name, so that a worktree or a spike cut from a
+# private repo (`…-private-worktrees`, `…-private-wt-x`) can never publish the
+# name it came from, and so that this file — which is itself served from a
+# public repo — never has to write that name down. Everything that matches
+# collapses onto the same single line.
+PRIVATE_MARKERS = ("-private", "private-", "_private")
+PRIVATE_LABEL = "private"
+
 # Exact project name -> the name printed on the page.
-# `kahransingh-private` -> `private` is Kahran's own instruction.
 PUBLIC_NAME = {
-    "kahransingh-private": "private",
     "dev-misc": "unnamed sessions",
     "scratchpad": "scratch",
     "retired-20260807-openclaw-dispatcher": "openclaw-dispatcher",
@@ -187,6 +195,12 @@ def ramp(t: float) -> str:
 
 
 def roll_project(name: str) -> str:
+    # A denied name is never folded into a family: rolling it up first would
+    # rename it out from under DENY and silently stop the retraction firing.
+    if name in DENY:
+        return name
+    if name == PRIVATE_LABEL or any(m in name for m in PRIVATE_MARKERS):
+        return PRIVATE_LABEL
     for fam in ROLLUP_FAMILIES:
         if name == fam or name.startswith(fam + "-"):
             return fam

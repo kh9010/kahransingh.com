@@ -72,13 +72,20 @@ never read, so they cannot leak. The rendered page is static HTML with **no
 embedded data blob** — no `<script id="coding-data">`, no fetch. What is visible
 on the page is the entirety of what the page contains.
 
-Three naming controls sit together at the top of the script:
+Four naming controls sit together at the top of the script:
 
-- `PUBLIC_NAME` — renames a project for publication. `kahransingh-private` ->
-  `private`; `dev-misc` -> `unnamed sessions`.
+- `PRIVATE_MARKERS` — a project whose directory name marks it private publishes
+  as `private` and nothing else, and every worktree or spike cut from it
+  collapses onto that same single line. The rule matches the marker rather than
+  a spelled-out repo name, so this file — served from a public repo like every
+  other file here — never writes that name down either.
+- `PUBLIC_NAME` — renames a project for publication, e.g. `dev-misc` ->
+  `unnamed sessions`.
 - `DENY` — names that must never print. Anything listed still contributes its
   minutes to the bars but renders as "a private project". Currently empty, per
-  Kahran's stated floor. Adding one line here is the whole retraction mechanism.
+  Kahran's stated floor. Adding one line here is the whole retraction mechanism,
+  and it fires on the exact name you type: a denied project is never rolled into
+  a family first, so denying one spike does not require denying its parent.
 - `NAMED_PROJECTS = 4` — only the four largest projects are ever named on a page;
   everything below is summed into "N smaller projects". The long tail of repo
   names therefore never publishes, even as the roster changes week to week.
