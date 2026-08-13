@@ -146,9 +146,9 @@
       <div class="fact"><div class="n">8</div><div class="l">pack mules (us)</div></div>
     </div>
     <div class="days">
-      <div class="day"><div class="d">Fri Aug 21</div><h3>In</h3><p>7 AM out of Seattle, two cars. Snow Lakes TH → up the switchbacks past Nada Lake → camp at a designated Snow Lakes site. Long, steady, hot in the afternoon.</p></div>
-      <div class="day"><div class="d">Sat Aug 22</div><h3>The Core</h3><p>Light packs up the granite slabs to Lake Viviane and the upper lakes. This is the postcard day. Back to the same camp for dinner two.</p></div>
-      <div class="day"><div class="d">Sun Aug 23</div><h3>Out</h3><p>Break camp, back down the way we came, pretzels and beer in Leavenworth. Knees will have opinions.</p></div>
+      <div class="day"><div class="d">Fri Aug 21</div><h3>In</h3><p>7 AM out of Seattle, breakfast in Leavenworth, one car dropped at each trailhead. In from the Snow Lakes side, up past Nada Lake, claim a good lakeside campsite, lunch on trail.</p></div>
+      <div class="day"><div class="d">Sat Aug 22</div><h3>The big day</h3><p>Full day-hike on light packs from base camp — up through the Core toward Colchuck, with Aasgard as an up-and-back option for the ambitious. Back to camp for calzones.</p></div>
+      <div class="day"><div class="d">Sun Aug 23</div><h3>Out</h3><p>Short morning hike, pack out, cars by ~2, late Leavenworth lunch ~4. Kahran sprints straight from trail to a 9:30 PM flight, which is very on brand.</p></div>
     </div>
   </div>
 </div>
@@ -188,7 +188,7 @@
       <div class="rule"><span class="tag must">Required</span><h3>Permit &amp; camp rules</h3><p>Our overnight permit covers the Snow Lakes zone: designated hiker campsites at Nada or Snow Lakes only. The named permit holder must be with the group, permit on paper — rangers do check on this trail.</p></div>
       <div class="rule"><span class="tag must">Required</span><h3>Parking pass</h3><p>A Northwest Forest Pass (or America the Beautiful) on the dash of every car at Snow Lakes TH. In-and-out route, so no car shuttle needed — just carpools.</p></div>
       <div class="rule"><span class="tag must">Required</span><h3>No campfires, ever</h3><p>Stoves only, everywhere in the Enchantments — a hard rule year-round, and doubly so in a smoky August.</p></div>
-      <div class="rule"><span class="tag must">Required</span><h3>Waste</h3><p>There are well-signed pit toilets throughout (some with mighty fine views), but carry a blue bag from the trailhead dispenser as backup and pack out what the toilets don't take. Everything else walks out with us.</p></div>
+      <div class="rule"><span class="tag must">Required</span><h3>Waste</h3><p>There are well-signed pit toilets throughout (some with mighty fine views). Away from them: catholes are legal in our camp zone — hence Greg's shovel — but carry a blue bag from the trailhead dispenser for the Core day, where packing out is the strong norm. All trash walks out with us.</p></div>
       <div class="rule"><span class="tag must">Required</span><h3>Bear-resistant food storage</h3><p>Not just good practice: an Okanogan–Wenatchee forest order requires all food, trash, and smellables (toothpaste, sunscreen, bug spray) stored in a bear-resistant manner. A proper tree hang technically counts, but up at Snow Lakes the trees are thin — canisters or Ursacks are the reliable way to comply. Everything scented goes in at night and whenever camp is empty.</p></div>
       <div class="rule"><span class="tag know">Know</span><h3>The goats are bold</h3><p>They crave salt: they'll chew sweaty pack straps and follow anyone who pees near the trail. Pee on bare rock well away from trails and camp, never feed them. Rodents will raid any food left out — hence the canisters.</p></div>
       <div class="rule"><span class="tag know">Know</span><h3>August up high</h3><p>Hot sun on bare granite by day, near-freezing possible at camp before dawn. Afternoon thunderstorms happen — start the Core day early. Water is everywhere but treat all of it.</p></div>
@@ -196,7 +196,7 @@
     </div>
     <div class="fears">
       <h3>Official group fear ranking, per the planning call</h3>
-      <p>1. Aggressive goats &nbsp;·&nbsp; 2. Bugs &nbsp;·&nbsp; 3. Bears &nbsp;·&nbsp; 4. Aggressive marmots (disputed — no marmot has ever been met in Washington) &nbsp;·&nbsp; agenda time allocated: 90%.</p>
+      <p>1. Mosquitoes (the practical one — hence permethrin + head nets) &nbsp;·&nbsp; 2. Aggressive goats &nbsp;·&nbsp; 3. Bears (mitigation: the poncho trick, for looking large) &nbsp;·&nbsp; 4. Aggressive marmots (disputed — no marmot has ever been met in Washington) &nbsp;·&nbsp; agenda time allocated: 90%.</p>
     </div>
   </div>
 </section>
@@ -224,24 +224,27 @@ const GEAR = [
   { id:"tent3", ico:"⛺", name:"Tent #3", note:"With footprint + stakes", taken:"Shivani" },
   { id:"tent4", ico:"⛺", name:"Tent #4", note:"Still to buy or borrow — the open shelter slot", sug:"Kahran" },
   { grp: "Water & kitchen" },
-  { id:"stove1", ico:"🔥", name:"Jetboil #1 + fuel", note:"Fuel for 8 people × 2 dinners + 2 breakfasts", taken:"Jay" },
+  { id:"stove1", ico:"🔥", name:"Jetboil #1 + fuel", note:"Fuel for 8 people × 2 dinners + 2 breakfasts", taken:"Shivani + Jay" },
   { id:"stove2", ico:"🔥", name:"Jetboil #2 + fuel", note:"Pradeep's loaner — collect, carry, bring fuel", sug:"Gourav" },
-  { id:"filter1", ico:"💧", name:"Water filter #1", note:"Squeeze or gravity — lakes everywhere, treat everything. Still unowned after the call", sug:"Ambika" },
-  { id:"filter2", ico:"💧", name:"Water filter #2", note:"Backup — a clogged filter with no spare is a bad weekend", sug:"Mathias" },
-  { id:"dinner1", ico:"🍜", name:"Ramen dinner", note:"Settled at the call — feeds 8", taken:"Ambika" },
+  { id:"propane", ico:"🍳", name:"Small propane stove", note:"Confirmed on the call — opens up real cooking beyond hot water. The calzones depend on this", taken:"Jay" },
+  { id:"filter1", ico:"💧", name:"Water filtration", note:"Declared covered on the call: Jay's filter straw + everyone's bottle filters. Bring yours (it's on the personal list)", taken:"Jay + bottle filters" },
+  { id:"dinner1", ico:"🍜", name:"Ramen dinner", note:"Settled at the call — feeds 8", taken:"Ambika + Shankar" },
   { id:"dinner2", ico:"🥟", name:"Calzone dinner", note:"Yes, calzones, at 5,400 ft. Settled at the call", taken:"Kahran + Gourav" },
-  { id:"breakfast", ico:"☕", name:"Breakfast + coffee × 2 mornings", note:"Eggs under discussion. Morale cargo", taken:"Jay + Shivani" },
-  { id:"lunch", ico:"🥪", name:"Trail lunches", note:"Pencilled to Paige + Mathias at the call with a question mark — confirm or claim", sug:"Paige + Mathias" },
+  { id:"breakfast", ico:"☕", name:"Breakfast + coffee × 2 mornings", note:"Instant coffee + eggs or freeze-dried stand-in", taken:"Jay + Shivani" },
+  { id:"lunch", ico:"🥪", name:"Trail lunches", note:"Settled at the call. Paige is in from out of town, so Seattle handles the actual shopping — Instacart fills gaps", taken:"Paige + Mathias" },
+  { id:"cheer", ico:"🥃", name:"Camp cheer (whiskey etc.)", note:"On the call's extras list — someone make it official", sug:"Gourav" },
   { grp: "Safety & camp" },
   { id:"bear1", ico:"🐻", name:"Bear canister #1 (lightweight)", note:"REQUIRED storage: a forest order says all smellables must be stored bear-resistant, and trees at Snow Lakes are too sparse to count on a hang", taken:"Jay" },
-  { id:"bear2", ico:"🐻", name:"Bear canister #2 (or Ursack)", note:"The call's official '+1' — eight people's food and toiletries won't fit in one; Ursacks also satisfy the order and weigh less", sug:"Gourav" },
-  { id:"firstaid", ico:"🩹", name:"Group first-aid kit", note:"Small kit covered; top up blister care + wrap + painkillers for 8", taken:"Shivani + Gourav" },
+  { id:"bear2", ico:"🐻", name:"Bear canister #2 (or Ursack)", note:"The call's official '+1' — buying OR renting from a local outfitter both count. Eight people's food won't fit in one", sug:"Gourav" },
+  { id:"firstaid", ico:"🩹", name:"First-aid kits", note:"Multiple small kits across the group — covered per the call", taken:"Shivani + Gourav" },
   { id:"blanket", ico:"🧣", name:"Emergency blanket", note:"Settled at the call", taken:"Shivani" },
-  { id:"inreach", ico:"🛰️", name:"Satellite communicator", note:"Not required by anyone, strongly required by common sense — zero cell signal up there", sug:"Kahran" },
+  { id:"inreach", ico:"🛰️", name:"Satellite communicator", note:"The call says someone in the group already owns one — claim it so we know who's carrying it", sug:"whoever owns it" },
+  { id:"shovel", ico:"🪏", name:"Small shovel / trowel", note:"For catholes. The call's plan: borrow from Greg", sug:"Kahran" },
+  { id:"games", ico:"🎲", name:"Camp games", note:"Pens, paper + Fishbowl rules committed on the call; Dominion if it fits in a pack", taken:"Mathias + Paige" },
   { id:"repair", ico:"🧰", name:"Repair kit", note:"Duct tape, cord, pad patches, spare buckle", sug:"Mathias" },
   { grp: "Logistics" },
-  { id:"car1", ico:"🚗", name:"Car #1 — Shankar + Ambika's", note:"7 AM Friday departure from Seattle. Forest pass on the dash", taken:"Shankar + Ambika" },
-  { id:"car2", ico:"🚗", name:"Car #2 — Jay + Shivani's", note:"Four humans + four overnight packs per car is the math", taken:"Jay + Shivani" },
+  { id:"car1", ico:"🚗", name:"Car #1 — Shankar drives", note:"7 AM Friday from Seattle; one car parks at each trailhead. Forest pass on both dashes", taken:"Shankar + Ambika" },
+  { id:"car2", ico:"🚗", name:"Car #2 — Jay drives", note:"Which car ends up at which trailhead depends on the Bellingham-after question — Paige + Shivani syncing", taken:"Jay + Shivani" },
   { id:"permit", ico:"📜", name:"Permit printout", note:"Paper copy + ID; the named holder hikes with the group all three days", sug:"Kahran" },
 ];
 
@@ -257,8 +260,10 @@ const PERSONAL = [
   ["Beanie + light gloves", "cold mornings by the lake"],
   ["Sun hat + sunglasses", "bare granite doubles the sun"],
   ["Sunscreen + lip balm", ""],
-  ["Bug spray", "the lakes still bite in August"],
-  ["2–3 L water capacity", "bottles or bladder"],
+  ["Bug spray", "mosquitoes were the call's #1 practical fear"],
+  ["Permethrin-treat your clothes before Friday", "strongly recommended on the call — spray + dry, lasts weeks"],
+  ["Head net", "~$10 on Amazon; the cheapest sanity insurance sold"],
+  ["2–3 L water capacity", "bottles or bladder; a bottle filter counts toward group filtration"],
   ["Trekking poles", "4,100 ft up, and your knees on the way down"],
   ["Broken-in boots or trail runners", "no new footwear on a 7-mile climb"],
   ["Snacks × 3 days", "more than you think; lunches may be communal — see the gear list"],
