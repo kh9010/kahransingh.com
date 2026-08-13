@@ -1,5 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at": null,
-  "entries": []
+  "generated_at": "2026-08-13T09:13:27-04:00",
+  "entries": [
+    {
+      "id": "record-2026-w32",
+      "date": "2026-08-09",
+      "strand": "code",
+      "summary": "28h 57m at the keyboard, 435 commits across 21 repositories, 92 sessions.",
+      "link": "/record/2026-w32/"
+    }
+  ]
 }
