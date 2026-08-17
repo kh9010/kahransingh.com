@@ -145,8 +145,8 @@ Notes for whoever wires the job:
   message on: missing data file, no complete week, a week with no recorded
   activity, unparseable `entries.json`, or a hand-edited target. Any non-zero
   exit should surface as an alert rather than being retried blindly.
-- **Keep it disabled until Kahran has reviewed the first issue.** `/lately/` is
-  deliberately absent from the site navigation until then — see
+- **Keep it disabled until Kahran has reviewed the first issue.** The nav and
+  sitemap links land in a separate change for exactly that reason — see
   `lately/README.md`, which is the gate this build honours.
 
 ## Reviewing an issue before it goes out
