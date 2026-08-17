@@ -17,6 +17,6 @@ issue is also copied to `lately/record/`, a door whose canonical points back at 
 URL. Only `tools/weekly_record.py` writes those; it is barred from `index.html` and this
 file by an allowlist, so a page reviewed by hand stays a page reviewed by hand.
 
-This page is deliberately absent from the site navigation until Kahran reviews the first export.
+This page was held out of the site navigation until Kahran reviewed the first export. It is in the nav now, and in the sitemap.
 Future GitHub, Instagram, and Substack adapters should produce the same canonical record contract,
 not add source-specific rendering branches to this page.

@@ -123,6 +123,7 @@ NAV_LINKS = (
     ("/poetry.html", "poetry"),
     ("/photography.html", "photography"),
     ("/projects.html", "projects"),
+    (f"/{SECTION}/", SECTION),
     ("/working-with-me.html", "work with me"),
     ("/speaking.html", "speaking"),
     ("/archive.html", "archive"),
@@ -749,8 +750,13 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
     if w["bulk_lines"]:
         lines += f" (a bulk import of {commas(w['bulk_lines'])} moved lines set aside)"
 
-    nav = "\n".join(f'        <a href="{href}">{esc(label)}</a>'
-                    for href, label in NAV_LINKS)
+    # The section's own link is the active one on every generated page.
+    active = f"/{SECTION}/"
+    nav = "\n".join(
+        '        <a href="{}"{}>{}</a>'.format(
+            href, ' class="active"' if href == active else "", esc(label))
+        for href, label in NAV_LINKS
+    )
 
     sections = "\n".join(
         f'  <section>\n    <h2 class="section-label">{head}</h2>\n{fig}\n  </section>\n'
