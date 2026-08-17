@@ -28,8 +28,9 @@
   font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1}
 /* Each section owns one h2, so style.css's `.section-label:first-of-type`
    would zero every top margin. Space the sections here instead. */
-main section{margin-bottom:3rem}
-main section .section-label{margin-top:0}
+main{padding-top:9vh}
+main section{margin-bottom:2rem}
+main section .section-label{margin-top:0; margin-bottom:.9rem}
 .page-header p .issue{color:#9a958c; letter-spacing:.1em; text-transform:uppercase;
   font-size:.72rem}
 
@@ -69,11 +70,11 @@ tr.off .dom{color:#9a958c}
   border-bottom:1px solid #e0ddd8; padding:.6rem 0; font-size:.7rem; letter-spacing:.06em;
   text-transform:uppercase; color:#6e6e6e}
 .dateline b{color:#1a1a1a; font-weight:500}
-.reading{font-family:'Fraunces',Georgia,serif; font-size:1.1rem; line-height:1.65;
-  color:#1a1a1a; margin:1.4rem 0 1.6rem}
+.reading{font-family:'Fraunces',Georgia,serif; font-size:.98rem; line-height:1.5;
+  color:#3d3a35; margin:.7rem 0 0}
 
 /* hours of the day */
-.ridge{display:flex; align-items:flex-end; gap:2px; height:84px;
+.ridge{display:flex; align-items:flex-end; gap:2px; height:72px;
   border-bottom:1px solid #e0ddd8}
 .hr{flex:1; min-height:1px}
 .ridge-axis{display:flex; gap:2px; margin-top:.3rem}
@@ -81,7 +82,7 @@ tr.off .dom{color:#9a958c}
 
 /* projects */
 .projects{list-style:none}
-.projects li{display:flex; align-items:center; gap:.8rem; padding:.3rem 0;
+.projects li{display:flex; align-items:center; gap:.8rem; padding:.22rem 0;
   border-bottom:1px solid #f0ede8}
 .pname{width:9.5rem; flex:none; font-size:.85rem; color:#3d3a35; overflow:hidden;
   text-overflow:ellipsis; white-space:nowrap}
@@ -98,28 +99,31 @@ tr.off .dom{color:#9a958c}
 .wk.on{background:#c3bdb1}
 .wk.now{background:#1a1a1a}
 a.tick:hover .wk{background:#1a1a1a}
-.arc-axis{margin-top:.35rem; font-size:.6rem; color:#9a958c; letter-spacing:.08em;
+.arc-axis{margin-top:.3rem; font-size:.6rem; color:#9a958c; letter-spacing:.08em;
   text-transform:uppercase}
 
-.note{font-size:.8rem; line-height:1.65; color:#6e6e6e; margin-top:.9rem}
-.note b{color:#1a1a1a; font-weight:500}
+.fignote{font-size:.7rem; line-height:1.5; color:#9a958c; letter-spacing:.04em;
+  margin-top:.45rem}
+.fignote b{color:#3d3a35; font-weight:500}
 
 /* colophon */
-.colophon{border-top:1px solid #e0ddd8; margin-top:3rem; padding-top:1.4rem}
-.colophon p{font-size:.8rem; line-height:1.7; color:#6e6e6e}
-.colophon p+p{margin-top:.7rem}
-.ways{display:flex; flex-wrap:wrap; gap:1.3rem; margin-top:1.3rem}
-.ways a{font-size:.85rem; color:#6e6e6e; text-decoration:none}
+.colophon{border-top:1px solid #e0ddd8; margin-top:1.6rem; padding-top:.9rem;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem 1.3rem}
+.colophon p{font-size:.7rem; line-height:1.6; color:#9a958c; letter-spacing:.03em;
+  flex:1 1 20rem}
+.ways{display:flex; flex-wrap:wrap; gap:1.2rem}
+.ways a{font-size:.75rem; color:#6e6e6e; text-decoration:none}
 .ways a:hover{color:#1a1a1a}
 
 @media (max-width:768px){
+  main{padding-top:2rem}
   .strata th:first-child{width:3.1rem}
   .strata td.n,.strata th:nth-child(3){width:3.7rem}
   .strata td:last-child,.strata th:last-child{width:2.8rem}
   .strata td.n{font-size:.7rem}
   .dom{font-size:.94rem}
   .band{height:13px}
-  .reading{font-size:1.02rem}
+  .reading{font-size:.94rem}
   .legend{gap:.3rem .8rem; font-size:.66rem}
   .pname{width:7rem; font-size:.78rem}
   .pmin{width:3.8rem; font-size:.7rem}
@@ -135,12 +139,12 @@ a.tick:hover .wk{background:#1a1a1a}
         <a href="/" class="mobile-header">kahran</a>
         <div class="page-header">
             <h1>10–16 August 2026</h1>
-            <p><span class="issue">2026-w33</span> &middot; a week of building
-            software with Claude, in numbers.</p>
+            <p><span class="issue">2026-w33</span> &middot; building software
+            with Claude</p>
         </div>
 
   <section>
-    <h2 class="section-label">The week, day by day</h2>
+    <h2 class="section-label">Day by day</h2>
       <table class="strata">
         <thead><tr><th scope="col">day</th><th scope="col">the work</th>
         <th scope="col">clock</th><th scope="col">commits</th></tr></thead>
@@ -155,39 +159,36 @@ a.tick:hover .wk{background:#1a1a1a}
         </tbody>
       </table>
       <ul class="legend"><li><span class="sw" style="background:#1a1a1a"></span>day-flow</li><li><span class="sw" style="background:#4f4a43"></span>voice-gepa</li><li><span class="sw" style="background:#867f74"></span>pending-work</li><li><span class="sw" style="background:#b3ada2"></span>kahransingh.com</li><li><span class="sw" style="background:#cfc9be"></span>unnamed sessions</li><li><span class="sw" style="background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)"></span>11 smaller projects</li><li class="sep"><span class="sw rule" style="background:#1a1a1a"></span>time on the clock</li></ul>
-    <p class="reading">Twenty-two hours at the keyboard across six of seven days. 159 commits landed in eleven repositories. The longest unbroken stretch was three hours and forty-two minutes, on Wednesday. Friday had no sessions at all; the always-on mini logged 58 messages of its own.</p>
     <div class="dateline"><span><b>21h 50m</b> on the clock</span><span><b>159</b> commits</span><span><b>43</b> sessions</span><span><b>11</b> repositories</span><span><b>6.0M</b> tokens of model output</span></div>
+    <p class="reading">longest stretch 3h 42m, wednesday · fri off — 58 mini messages anyway</p>
   </section>
 
   <section>
-    <h2 class="section-label">When the work happened</h2>
+    <h2 class="section-label">By hour</h2>
       <div class="ridge"><span class="hr" style="height:2.1964%;background:#d4d0c9" title="00:00 · 51 events"></span><span class="hr" style="height:5.5125%;background:#c5c2bb" title="01:00 · 128 events"></span><span class="hr" style="height:2.4548%;background:#d2cfc8" title="02:00 · 57 events"></span><span class="hr" style="height:2.9716%;background:#d0ccc5" title="03:00 · 69 events"></span><span class="hr" style="height:1.2%;background:#e1ded6" title="04:00 · 7 events"></span><span class="hr" style="height:3.0577%;background:#cfccc5" title="05:00 · 71 events"></span><span class="hr" style="height:4.8665%;background:#c8c4bd" title="06:00 · 113 events"></span><span class="hr" style="height:2.9716%;background:#d0ccc5" title="07:00 · 69 events"></span><span class="hr" style="height:16.4944%;background:#a4a19c" title="08:00 · 383 events"></span><span class="hr" style="height:27.2179%;background:#8c8985" title="09:00 · 632 events"></span><span class="hr" style="height:38.4152%;background:#767470" title="10:00 · 892 events"></span><span class="hr" style="height:100%;background:#1a1a1a" title="11:00 · 2,322 events"></span><span class="hr" style="height:48.7511%;background:#64625f" title="12:00 · 1,132 events"></span><span class="hr" style="height:37.4677%;background:#777672" title="13:00 · 870 events"></span><span class="hr" style="height:27.6916%;background:#8b8884" title="14:00 · 643 events"></span><span class="hr" style="height:2.2825%;background:#d3d0c8" title="15:00 · 53 events"></span><span class="hr" style="height:6.3307%;background:#c2bfb8" title="16:00 · 147 events"></span><span class="hr" style="height:32.3859%;background:#817f7b" title="17:00 · 752 events"></span><span class="hr" style="height:8.0534%;background:#bcb9b3" title="18:00 · 187 events"></span><span class="hr" style="height:4.565%;background:#c9c5bf" title="19:00 · 106 events"></span><span class="hr" style="height:1.9811%;background:#d5d1ca" title="20:00 · 46 events"></span><span class="hr" style="height:3.7037%;background:#ccc9c2" title="21:00 · 86 events"></span><span class="hr" style="height:16.8389%;background:#a3a09b" title="22:00 · 391 events"></span><span class="hr" style="height:10.7235%;background:#b4b1ab" title="23:00 · 249 events"></span></div>
       <div class="ridge-axis"><span>00</span><span></span><span></span><span></span><span></span><span></span><span>06</span><span></span><span></span><span></span><span></span><span></span><span>12</span><span></span><span></span><span></span><span></span><span></span><span>18</span><span></span><span></span><span></span><span></span><span></span></div>
-      <p class="note">Every logged event, stacked by the hour it happened in.
-      Busiest hour: <b>11:00</b>, 2,322 events across the seven days.</p>
+      <p class="fignote">every logged event by hour &middot; peak
+      <b>11:00</b>, 2,322</p>
   </section>
 
   <section>
-    <h2 class="section-label">Where the hours went</h2>
+    <h2 class="section-label">By project</h2>
       <ul class="projects"><li><span class="pname">unnamed sessions</span><span class="pbar"><b style="width:100%;background:#cfc9be"></b></span><span class="pmin">9h 38m</span></li><li><span class="pname">day-flow</span><span class="pbar"><b style="width:94.4637%;background:#1a1a1a"></b></span><span class="pmin">9h 06m</span></li><li><span class="pname">voice-gepa</span><span class="pbar"><b style="width:85.8131%;background:#4f4a43"></b></span><span class="pmin">8h 16m</span></li><li><span class="pname">pending-work</span><span class="pbar"><b style="width:44.8097%;background:#867f74"></b></span><span class="pmin">4h 19m</span></li><li><span class="pname">kahransingh.com</span><span class="pbar"><b style="width:14.0138%;background:#b3ada2"></b></span><span class="pmin">1h 21m</span></li><li><span class="pname">11 smaller projects</span><span class="pbar"><b style="width:44.6367%;background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)"></b></span><span class="pmin">4h 18m</span></li></ul>
-      <p class="note">Project time sums to 36h 58m against 21h 50m
-      on the clock. Two Claude windows at once put two minutes of work inside one minute of the
-      day. Both numbers are true.</p>
+      <p class="fignote">36h 58m of project time inside
+      21h 50m on the clock &middot; parallel sessions overlap</p>
   </section>
 
 
   <section>
-    <h2 class="section-label">Every week so far</h2>
+    <h2 class="section-label">By week</h2>
       <div class="arc" style="--tw:calc((100% - 10px) / 6)"><span class="tick"><span class="wk on" style="height:80.829%" title="2026-W28 · 23h 24m · 253 commits"></span></span><span class="tick"><span class="wk on" style="height:30.9154%" title="2026-W29 · 8h 57m · 45 commits"></span></span><span class="tick"><span class="wk on" style="height:90.7311%" title="2026-W30 · 26h 16m · 201 commits"></span></span><span class="tick"><span class="wk on" style="height:17.8469%" title="2026-W31 · 5h 10m · 90 commits"></span></span><span class="tick"><span class="wk on" style="height:100%" title="2026-W32 · 28h 57m · 435 commits"></span></span><span class="tick"><span class="wk on now" style="height:75.4174%" title="2026-W33 · 21h 50m · 159 commits"></span></span></div>
-      <div class="arc-axis">2026 · w28 &rarr; 2026 · w33</div>
-      <p class="note">Six weeks on the clock so far · 1,183 commits · 114h 34m at the keyboard. The clock starts here, with the session logs. The commits reach further back — 755 since January, worked without one.</p>
+      <div class="arc-axis"><span>2026 · w28 &rarr; 2026 · w33</span></div>
+      <p class="fignote">6 weeks on the clock · 1,183 commits · 114h 34m · 755 more since January, before the clock</p>
   </section>
 
   <footer class="colophon">
-    <p>Built once a week from session logs and commit metadata on my own machines. It carries counts, durations and project names. No commit messages, no file names, no calendar, no message text. Nothing is embedded behind the page: what is on it is all of it.</p>
-    <p>This week: +69,216 / −5,809 lines. Model output came from fable-5 4.2M, opus-5 1.8M.
-    Merge commits are set aside throughout. Time on the clock is measured from real session
-    activity, not from the first and last events of the day.</p>
+    <p>+69,216 / −5,809 lines &middot; fable-5 4.2M, opus-5 1.8M &middot; merge commits set
+    aside &middot; Built weekly from my own session logs and commits. Counts, durations and project names, nothing else.</p>
     <div class="ways">
       <a href="/lately/">every issue</a>
       <a href="/">kahransingh.com</a>

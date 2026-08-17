@@ -98,10 +98,8 @@ BULK_IMPORT_LINES = 100_000
 # The one paragraph of standing prose on the page. Edit it HERE, never in a
 # rendered issue — the weekly job regenerates those.
 COLOPHON = (
-    "Built once a week from session logs and commit metadata on my own "
-    "machines. It carries counts, durations and project names. No commit "
-    "messages, no file names, no calendar, no message text. Nothing is "
-    "embedded behind the page: what is on it is all of it."
+    "Built weekly from my own session logs and commits. Counts, durations and "
+    "project names, nothing else."
 )
 
 # The page is drawn in the site's own inks. Projects are told apart by weight
@@ -423,57 +421,37 @@ def long_arc(days: dict, upto_week: str) -> list:
 # Prose — assembled from the numbers, never from the data's text
 # --------------------------------------------------------------------------
 
-def reading_paragraph(w: dict) -> str:
+def reading_line(w: dict) -> str:
+    """One line, and only what the marks cannot say: the longest unbroken
+    stretch, how much of the week was co-authored, what still landed on a day
+    off. Everything the table already states is left to the table."""
     t = w["totals"]
-    worked = [d for d in w["days"] if d["active_min"] > 0]
-    hours = int(round(t["active"] / 60))
     bits = []
-
-    if worked:
-        bits.append(
-            f"{spell(hours).capitalize()} {plural(hours, 'hour')} at the keyboard across "
-            f"{spell(len(worked))} of seven days."
-        )
-    else:
-        bits.append("No sessions at the keyboard this week.")
-
-    claude_share = pct(t["claude"], t["commits"])
-    if t["commits"]:
-        clause = (f"{commas(t['commits'])} commits landed in "
-                  f"{spell(w['repos'])} repositories")
-        if claude_share >= 60:
-            clause += f", {claude_share:.0f}% of them co-authored with Claude"
-        bits.append(clause + ".")
 
     best = max(w["days"], key=lambda d: d["longest_focus_min"])
     if best["longest_focus_min"] >= 45:
-        bits.append(
-            f"The longest unbroken stretch was {spoken_duration(best['longest_focus_min'])}, "
-            f"on {best['date'].strftime('%A')}."
-        )
+        bits.append(f'longest stretch {hm(best["longest_focus_min"])}, '
+                    f'{best["date"].strftime("%A").lower()}')
+
+    if t["commits"]:
+        share = pct(t["claude"], t["commits"])
+        if share >= 60:
+            bits.append(f"{share:.0f}% of commits with Claude")
 
     rest = [d for d in w["days"] if d["active_min"] == 0]
     if rest:
-        r = rest[0]
-        extras = []
-        if r["commits"] and worked:
-            n = sum(d["commits"] for d in rest)
-            extras.append(f"{spell(n) if n < 21 else commas(n)} commits still landed")
-        if sum(d["mini_msgs"] for d in rest):
-            extras.append(
-                f"the always-on mini logged {commas(sum(d['mini_msgs'] for d in rest))} "
-                "messages of its own"
-            )
-        if extras:
-            if worked:
-                names = ", ".join(d["date"].strftime("%A") for d in rest)
-                bits.append(f"{names} had no sessions at all; "
-                            + " and ".join(extras) + ".")
-            else:
-                joined = " and ".join(extras)
-                bits.append(joined[0].upper() + joined[1:] + ".")
+        landed = sum(d["commits"] for d in rest)
+        mini = sum(d["mini_msgs"] for d in rest)
+        off = ", ".join(d["date"].strftime("%a").lower() for d in rest)
+        tail = []
+        if landed:
+            tail.append(f"{commas(landed)} commits")
+        if mini:
+            tail.append(f"{commas(mini)} mini messages")
+        if tail:
+            bits.append(f"{off} off — " + " and ".join(tail) + " anyway")
 
-    return " ".join(bits)
+    return " · ".join(bits)
 
 
 # --------------------------------------------------------------------------
@@ -557,8 +535,8 @@ def render_ridge(w: dict) -> str:
     )
     return f"""      <div class="ridge">{"".join(cols)}</div>
       <div class="ridge-axis">{ticks}</div>
-      <p class="note">Every logged event, stacked by the hour it happened in.
-      Busiest hour: <b>{peak_hour:02d}:00</b>, {commas(peak)} events across the seven days.</p>"""
+      <p class="fignote">every logged event by hour &middot; peak
+      <b>{peak_hour:02d}:00</b>, {commas(peak)}</p>"""
 
 
 def render_projects(w: dict) -> str:
@@ -576,9 +554,8 @@ def render_projects(w: dict) -> str:
         )
     t = w["totals"]
     return f"""      <ul class="projects">{"".join(rows)}</ul>
-      <p class="note">Project time sums to {esc(hm(t["work"]))} against {esc(hm(t["active"]))}
-      on the clock. Two Claude windows at once put two minutes of work inside one minute of the
-      day. Both numbers are true.</p>"""
+      <p class="fignote">{esc(hm(t["work"]))} of project time inside
+      {esc(hm(t["active"]))} on the clock &middot; parallel sessions overlap</p>"""
 
 
 def render_arc(w: dict, arc: list, issues: set) -> str:
@@ -613,19 +590,18 @@ def render_arc(w: dict, arc: list, issues: set) -> str:
             ticks.append(f'<span class="tick">{body}</span>')
     total_hours = sum(b["active"] for b in arc)
     total_commits = sum(b["commits"] for b in arc)
-    where = "on the clock so far" if total_hours else "recorded so far"
-    note = (f"{spell(len(arc)).capitalize()} {plural(len(arc), 'week')} {where} · "
-            f"{commas(total_commits)} commits")
-    note += f" · {hm(total_hours)} at the keyboard." if total_hours else "."
+    note = f"{len(arc)} {plural(len(arc), 'week')} on the clock · {commas(total_commits)} commits"
+    if total_hours:
+        note += f" · {hm(total_hours)}"
     if before:
         earlier = sum(b["commits"] for b in before)
         first = monday_of(before[0]["week"])
-        note += (f" The clock starts here, with the session logs. The commits reach further "
-                 f"back — {commas(earlier)} since {first.strftime('%B')}, worked without one.")
+        note += (f" · {commas(earlier)} more since {first.strftime('%B')}, "
+                 f"before the clock")
     n = max(1, len(ticks))
     return f"""      <div class="arc" style="--tw:calc((100% - {(n - 1) * 2}px) / {n})">{"".join(ticks)}</div>
-      <div class="arc-axis">{esc(arc[0]["week"].lower().replace("-w", " · w"))} &rarr; {esc(w["week_id"].lower().replace("-w", " · w"))}</div>
-      <p class="note">{note}</p>"""
+      <div class="arc-axis"><span>{esc(arc[0]["week"].lower().replace("-w", " · w"))} &rarr; {esc(w["week_id"].lower().replace("-w", " · w"))}</span></div>
+      <p class="fignote">{esc(note)}</p>"""
 
 
 CSS = """
@@ -636,8 +612,9 @@ CSS = """
   font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1}
 /* Each section owns one h2, so style.css's `.section-label:first-of-type`
    would zero every top margin. Space the sections here instead. */
-main section{margin-bottom:3rem}
-main section .section-label{margin-top:0}
+main{padding-top:9vh}
+main section{margin-bottom:2rem}
+main section .section-label{margin-top:0; margin-bottom:.9rem}
 .page-header p .issue{color:#9a958c; letter-spacing:.1em; text-transform:uppercase;
   font-size:.72rem}
 
@@ -677,11 +654,11 @@ tr.off .dom{color:#9a958c}
   border-bottom:1px solid #e0ddd8; padding:.6rem 0; font-size:.7rem; letter-spacing:.06em;
   text-transform:uppercase; color:#6e6e6e}
 .dateline b{color:#1a1a1a; font-weight:500}
-.reading{font-family:'Fraunces',Georgia,serif; font-size:1.1rem; line-height:1.65;
-  color:#1a1a1a; margin:1.4rem 0 1.6rem}
+.reading{font-family:'Fraunces',Georgia,serif; font-size:.98rem; line-height:1.5;
+  color:#3d3a35; margin:.7rem 0 0}
 
 /* hours of the day */
-.ridge{display:flex; align-items:flex-end; gap:2px; height:84px;
+.ridge{display:flex; align-items:flex-end; gap:2px; height:72px;
   border-bottom:1px solid #e0ddd8}
 .hr{flex:1; min-height:1px}
 .ridge-axis{display:flex; gap:2px; margin-top:.3rem}
@@ -689,7 +666,7 @@ tr.off .dom{color:#9a958c}
 
 /* projects */
 .projects{list-style:none}
-.projects li{display:flex; align-items:center; gap:.8rem; padding:.3rem 0;
+.projects li{display:flex; align-items:center; gap:.8rem; padding:.22rem 0;
   border-bottom:1px solid #f0ede8}
 .pname{width:9.5rem; flex:none; font-size:.85rem; color:#3d3a35; overflow:hidden;
   text-overflow:ellipsis; white-space:nowrap}
@@ -706,28 +683,31 @@ tr.off .dom{color:#9a958c}
 .wk.on{background:#c3bdb1}
 .wk.now{background:#1a1a1a}
 a.tick:hover .wk{background:#1a1a1a}
-.arc-axis{margin-top:.35rem; font-size:.6rem; color:#9a958c; letter-spacing:.08em;
+.arc-axis{margin-top:.3rem; font-size:.6rem; color:#9a958c; letter-spacing:.08em;
   text-transform:uppercase}
 
-.note{font-size:.8rem; line-height:1.65; color:#6e6e6e; margin-top:.9rem}
-.note b{color:#1a1a1a; font-weight:500}
+.fignote{font-size:.7rem; line-height:1.5; color:#9a958c; letter-spacing:.04em;
+  margin-top:.45rem}
+.fignote b{color:#3d3a35; font-weight:500}
 
 /* colophon */
-.colophon{border-top:1px solid #e0ddd8; margin-top:3rem; padding-top:1.4rem}
-.colophon p{font-size:.8rem; line-height:1.7; color:#6e6e6e}
-.colophon p+p{margin-top:.7rem}
-.ways{display:flex; flex-wrap:wrap; gap:1.3rem; margin-top:1.3rem}
-.ways a{font-size:.85rem; color:#6e6e6e; text-decoration:none}
+.colophon{border-top:1px solid #e0ddd8; margin-top:1.6rem; padding-top:.9rem;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem 1.3rem}
+.colophon p{font-size:.7rem; line-height:1.6; color:#9a958c; letter-spacing:.03em;
+  flex:1 1 20rem}
+.ways{display:flex; flex-wrap:wrap; gap:1.2rem}
+.ways a{font-size:.75rem; color:#6e6e6e; text-decoration:none}
 .ways a:hover{color:#1a1a1a}
 
 @media (max-width:768px){
+  main{padding-top:2rem}
   .strata th:first-child{width:3.1rem}
   .strata td.n,.strata th:nth-child(3){width:3.7rem}
   .strata td:last-child,.strata th:last-child{width:2.8rem}
   .strata td.n{font-size:.7rem}
   .dom{font-size:.94rem}
   .band{height:13px}
-  .reading{font-size:1.02rem}
+  .reading{font-size:.94rem}
   .legend{gap:.3rem .8rem; font-size:.66rem}
   .pname{width:7rem; font-size:.78rem}
   .pmin{width:3.8rem; font-size:.7rem}
@@ -767,16 +747,15 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
 
     lines = f"+{commas(t['ins'])} / −{commas(t['del'])} lines"
     if w["bulk_lines"]:
-        lines += (f", not counting a bulk import of {commas(w['bulk_lines'])} lines "
-                  "that was moved rather than written")
+        lines += f" (a bulk import of {commas(w['bulk_lines'])} moved lines set aside)"
 
     nav = "\n".join(f'        <a href="{href}">{esc(label)}</a>'
                     for href, label in NAV_LINKS)
 
     sections = "\n".join(
         f'  <section>\n    <h2 class="section-label">{head}</h2>\n{fig}\n  </section>\n'
-        for head, fig in (("When the work happened", render_ridge(w)),
-                          ("Where the hours went", render_projects(w)))
+        for head, fig in (("By hour", render_ridge(w)),
+                          ("By project", render_projects(w)))
         if fig
     )
 
@@ -809,29 +788,27 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
         <a href="/" class="mobile-header">kahran</a>
         <div class="page-header">
             <h1>{esc(span)} {sun.year}</h1>
-            <p><span class="issue">{esc(w['week_id'].lower())}</span> &middot; a week of building
-            software with Claude, in numbers.</p>
+            <p><span class="issue">{esc(w['week_id'].lower())}</span> &middot; building software
+            with Claude</p>
         </div>
 
   <section>
-    <h2 class="section-label">The week, day by day</h2>
+    <h2 class="section-label">Day by day</h2>
 {render_strata(w)}
-    <p class="reading">{esc(reading_paragraph(w))}</p>
     <div class="dateline">{''.join(dateline)}</div>
+    <p class="reading">{esc(reading_line(w))}</p>
   </section>
 
 {sections}
 
   <section>
-    <h2 class="section-label">Every week so far</h2>
+    <h2 class="section-label">By week</h2>
 {render_arc(w, arc, issues)}
   </section>
 
   <footer class="colophon">
-    <p>{esc(COLOPHON)}</p>
-    <p>This week: {esc(lines)}. Model output came from {esc(models or 'no logged model')}.
-    Merge commits are set aside throughout. Time on the clock is measured from real session
-    activity, not from the first and last events of the day.</p>
+    <p>{esc(lines)} &middot; {esc(models or 'no logged model')} &middot; merge commits set
+    aside &middot; {esc(COLOPHON)}</p>
     <div class="ways">
       <a href="/{SECTION}/">every issue</a>
       <a href="/">kahransingh.com</a>
