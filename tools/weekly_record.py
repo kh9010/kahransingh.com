@@ -4,12 +4,14 @@
 Reads the private coding-days.json extract, aggregates the most recent COMPLETE
 Monday-Sunday week, and writes exactly three paths inside the site:
 
-    record/<iso-week>/index.html   the permanent dated issue
-    record/index.html              a copy of the newest issue, canonical -> dated
+    lately/<iso-week>/index.html   the permanent dated issue
+    lately/record/index.html       a copy of the newest issue, canonical -> dated
     lately/entries.json            one entry per issue, merged in place
 
-It writes nothing else. It cannot reach index.html, any <nav>, sitemap.xml or
-style.css, so the recurring job can never clobber a hand-edited page.
+It writes nothing else, and an allowlist in Writer.write enforces that rather
+than leaving it to habit. It cannot reach lately/index.html, the site's
+index.html, any <nav>, sitemap.xml or style.css, so the recurring job can never
+clobber a hand-edited page.
 
 PRIVACY FLOOR (hard law, enforced structurally)
     The generator only ever reads these fields out of a day:
@@ -22,7 +24,7 @@ PRIVACY FLOOR (hard law, enforced structurally)
 
 Usage
     python3 tools/weekly_record.py ~/Sync/pending-work/coding-record/coding-days.json
-    python3 tools/weekly_record.py DATA --week 2026-W32     # rebuild one issue
+    python3 tools/weekly_record.py DATA --week 2026-W33     # rebuild one issue
     python3 tools/weekly_record.py DATA --dry-run           # print, write nothing
 
 Re-running for the same week rewrites that week's files byte-identically and
@@ -96,17 +98,38 @@ BULK_IMPORT_LINES = 100_000
 # The one paragraph of standing prose on the page. Edit it HERE, never in a
 # rendered issue — the weekly job regenerates those.
 COLOPHON = (
-    "Generated once a week from session logs and commit metadata on my own "
-    "machines. It carries counts, durations and project names and nothing "
-    "else: no commit messages, no file names, no calendar, no message text. "
-    "The page is static HTML with no data embedded behind it — what is on "
-    "it is all of it."
+    "Built once a week from session logs and commit metadata on my own "
+    "machines. It carries counts, durations and project names. No commit "
+    "messages, no file names, no calendar, no message text. Nothing is "
+    "embedded behind the page: what is on it is all of it."
 )
 
-PALETTE = ["#008a7a", "#b8790a", "#414f9e", "#ae3c72"]
-NEUTRAL_UNNAMED = "#8d887e"
-NEUTRAL_OTHER = "#c6c1b7"
-EMBER = "#c8431b"
+# The page is drawn in the site's own inks. Projects are told apart by weight
+# and texture, not by hue: a four-step grey scale for the named projects, a
+# lighter grey for unnamed sessions, and a hatch for the summed tail. Colour
+# follows the project across the whole page, never its rank inside a day.
+PALETTE = ["#1a1a1a", "#4f4a43", "#867f74", "#b3ada2"]
+NEUTRAL_UNNAMED = "#cfc9be"
+NEUTRAL_OTHER = ("repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)")
+INK = "#1a1a1a"
+RULE = "#e0ddd8"
+ARC_PAST = "#c3bdb1"
+
+# Where the section lives. Every published URL is under /lately/.
+SECTION = "lately"
+
+# The site's own navigation, copied verbatim from the hand-written pages. The
+# generator renders it into its own pages and reaches no other file: adding a
+# link to the site's nav is still a hand edit, made once, everywhere.
+NAV_LINKS = (
+    ("/poetry.html", "poetry"),
+    ("/photography.html", "photography"),
+    ("/projects.html", "projects"),
+    ("/working-with-me.html", "work with me"),
+    ("/speaking.html", "speaking"),
+    ("/archive.html", "archive"),
+    ("/about.html", "about"),
+)
 
 OG_IMAGE = "https://kahransingh.com/photos/roma-sidewalk.jpg"
 
@@ -188,9 +211,9 @@ def fmt_pct(v: float) -> str:
 
 
 def ramp(t: float) -> str:
-    """Pale paper -> ember, a single-hue sequential step for magnitude."""
+    """Pale paper -> ink. Magnitude reads as weight, not as colour."""
     t = max(0.0, min(1.0, t)) ** 0.62
-    lo, hi = (0xEC, 0xDF, 0xD8), (0xC8, 0x43, 0x1B)
+    lo, hi = (0xE7, 0xE3, 0xDB), (0x1A, 0x1A, 0x1A)
     return "#" + "".join(f"{round(a + (b - a) * t):02x}" for a, b in zip(lo, hi))
 
 
@@ -501,7 +524,7 @@ def render_strata(w: dict) -> str:
         f'<li><span class="sw" style="background:{o["color"]}"></span>'
         f'{esc(o["label"])}</li>' for o in order
     )
-    legend += (f'<li class="sep"><span class="sw rule" style="background:{EMBER}">'
+    legend += (f'<li class="sep"><span class="sw rule" style="background:{INK}">'
                f"</span>time on the clock</li>")
 
     return f"""      <table class="strata">
@@ -534,8 +557,8 @@ def render_ridge(w: dict) -> str:
     )
     return f"""      <div class="ridge">{"".join(cols)}</div>
       <div class="ridge-axis">{ticks}</div>
-      <p class="note">Every logged event of the week, stacked by the hour it happened in.
-      The busiest hour was <b>{peak_hour:02d}:00</b>, with {commas(peak)} events across the seven days.</p>"""
+      <p class="note">Every logged event, stacked by the hour it happened in.
+      Busiest hour: <b>{peak_hour:02d}:00</b>, {commas(peak)} events across the seven days.</p>"""
 
 
 def render_projects(w: dict) -> str:
@@ -553,9 +576,9 @@ def render_projects(w: dict) -> str:
         )
     t = w["totals"]
     return f"""      <ul class="projects">{"".join(rows)}</ul>
-      <p class="note">These sum to {esc(hm(t["work"]))} against {esc(hm(t["active"]))} on the
-      clock. Two Claude windows running at once make two minutes of work inside one minute of
-      the day; both numbers are true.</p>"""
+      <p class="note">Project time sums to {esc(hm(t["work"]))} against {esc(hm(t["active"]))}
+      on the clock. Two Claude windows at once put two minutes of work inside one minute of the
+      day. Both numbers are true.</p>"""
 
 
 def render_arc(w: dict, arc: list, issues: set) -> str:
@@ -585,7 +608,7 @@ def render_arc(w: dict, arc: list, issues: set) -> str:
                 f'title="{esc(label)}"></span>')
         slug = week_slug(b["week"])
         if slug in issues and not current:
-            ticks.append(f'<a href="/record/{slug}/" class="tick">{body}</a>')
+            ticks.append(f'<a href="/{SECTION}/{slug}/" class="tick">{body}</a>')
         else:
             ticks.append(f'<span class="tick">{body}</span>')
     total_hours = sum(b["active"] for b in arc)
@@ -597,9 +620,8 @@ def render_arc(w: dict, arc: list, issues: set) -> str:
     if before:
         earlier = sum(b["commits"] for b in before)
         first = monday_of(before[0]["week"])
-        note += (f" The hour-by-hour record starts here, with the session logs. The commits "
-                 f"reach further back — {commas(earlier)} of them since "
-                 f"{first.strftime('%B')}, worked without a clock running.")
+        note += (f" The clock starts here, with the session logs. The commits reach further "
+                 f"back — {commas(earlier)} since {first.strftime('%B')}, worked without one.")
     n = max(1, len(ticks))
     return f"""      <div class="arc" style="--tw:calc((100% - {(n - 1) * 2}px) / {n})">{"".join(ticks)}</div>
       <div class="arc-axis">{esc(arc[0]["week"].lower().replace("-w", " · w"))} &rarr; {esc(w["week_id"].lower().replace("-w", " · w"))}</div>
@@ -607,153 +629,113 @@ def render_arc(w: dict, arc: list, issues: set) -> str:
 
 
 CSS = """
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --paper:#fafaf8; --ink:#1a1a1a; --soft:#3d3a35; --muted:#6e6e6e;
-  --faint:#9a958c; --rule:#e0ddd8; --hair:#eeebe5; --ember:#c8431b;
-}
-html{-webkit-text-size-adjust:100%}
-body{
-  background:var(--paper); color:var(--ink);
-  font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
-  font-size:17px; line-height:1.7; -webkit-font-smoothing:antialiased;
-}
-.wrap{max-width:themax; margin:0 auto; padding:0 1.6rem}
-b,strong{font-weight:500}
-.mono,.n,.dow,.eyebrow,h2,.ridge-axis,.arc-axis,.legend,.pmin,.dateline{
-  font-family:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace;
-  font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1;
-}
+/* The record inherits /style.css: the site's paper, inks, fonts and spacing.
+   What follows is only the marks this page adds — the day strata, the hour
+   ridge, the project bars and the long arc — drawn in those same inks. */
+.strata,.dateline,.legend,.pmin,.n,.ridge-axis,.arc-axis,.dom,.dow{
+  font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1}
+/* Each section owns one h2, so style.css's `.section-label:first-of-type`
+   would zero every top margin. Space the sections here instead. */
+main section{margin-bottom:3rem}
+main section .section-label{margin-top:0}
+.page-header p .issue{color:#9a958c; letter-spacing:.1em; text-transform:uppercase;
+  font-size:.72rem}
 
-/* masthead */
-.mast{border-bottom:1px solid var(--ink); margin-top:2.2rem}
-.mast .wrap{display:flex; align-items:baseline; gap:1rem; padding-bottom:.55rem}
-.wordmark{font-family:'Fraunces',Georgia,serif; font-style:italic; font-size:1.25rem;
-  color:var(--ink); text-decoration:none; letter-spacing:-.01em}
-.wordmark:hover{color:var(--ember)}
-.mast .issue{margin-left:auto; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
-  white-space:nowrap}
-
-/* lede */
-.lede{padding:2.6rem 0 1.4rem}
-.eyebrow{font-size:.66rem; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--ember); margin-bottom:.9rem}
-h1{font-family:'Fraunces',Georgia,serif; font-weight:300; letter-spacing:-.025em;
-  font-size:clamp(2.15rem,7vw,3.3rem); line-height:1.06}
-h1 .yr{color:var(--faint); font-style:italic}
-
-/* the week */
-section{padding:0 0 2.9rem}
-h2{font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
-  font-weight:400; padding-bottom:.5rem; border-bottom:1px solid var(--rule);
-  margin-bottom:1.3rem}
+/* the week, day by day */
 .strata{width:100%; border-collapse:collapse; table-layout:fixed}
-.strata thead th{font-size:.6rem; letter-spacing:.11em; text-transform:uppercase;
-  color:var(--faint); font-weight:400; text-align:left; padding-bottom:.5rem;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.strata thead th{font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  color:#9a958c; font-weight:500; text-align:left; padding-bottom:.5rem}
 .strata thead th:nth-child(3),.strata thead th:nth-child(4){text-align:right;
-  padding-left:.7rem}
-.strata th:first-child{width:4.4rem}
-.strata td.n,.strata th:nth-child(3){width:5.4rem}
-.strata td:last-child,.strata th:last-child{width:4.4rem}
-.strata tbody tr{border-top:1px solid var(--hair)}
-.strata tbody tr:last-child{border-bottom:1px solid var(--hair)}
+  padding-left:.6rem}
+.strata th:first-child{width:4.2rem}
+.strata td.n,.strata th:nth-child(3){width:4.8rem}
+.strata td:last-child,.strata th:last-child{width:3.6rem}
+.strata tbody tr{border-top:1px solid #f0ede8}
+.strata tbody tr:last-child{border-bottom:1px solid #f0ede8}
 .strata th[scope=row]{text-align:left; font-weight:400; vertical-align:middle;
-  padding:.62rem .5rem .62rem 0; white-space:nowrap}
-.dow{font-size:.62rem; letter-spacing:.13em; text-transform:uppercase; color:var(--faint)}
-.dom{font-family:'Fraunces',Georgia,serif; font-size:1.02rem; margin-left:.34rem;
-  color:var(--soft)}
-tr.off .dom{color:var(--faint)}
-.track{padding:.62rem 0; vertical-align:middle}
-.band{display:flex; height:15px; min-width:2px}
-.band span{box-shadow:inset -2px 0 0 var(--paper); min-width:1px}
+  padding:.6rem .5rem .6rem 0; white-space:nowrap}
+.dow{font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:#9a958c}
+.dom{font-family:'Fraunces',Georgia,serif; font-size:1rem; margin-left:.3rem; color:#3d3a35}
+tr.off .dom{color:#9a958c}
+.track{padding:.6rem 0; vertical-align:middle}
+.band{display:flex; height:14px; min-width:2px}
+.band span{box-shadow:inset -1px 0 0 #fafaf8; min-width:1px}
 .band span:last-child{box-shadow:none}
-.clock{height:3px; margin-top:3px; background:var(--ember); min-width:2px}
-.rest{font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--faint);
-  border-top:1px dashed var(--rule); padding-top:.36rem;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-.strata td.n{text-align:right; font-size:.76rem; color:var(--soft); padding:.62rem 0 .62rem .6rem;
-  white-space:nowrap}
-.strata td.n:last-child{color:var(--muted)}
-.legend{list-style:none; display:flex; flex-wrap:wrap; gap:.35rem 1.05rem; margin-top:1.05rem;
-  font-size:.67rem; letter-spacing:.04em; color:var(--muted)}
+.clock{height:2px; margin-top:4px; background:#1a1a1a; min-width:2px}
+.rest{font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; color:#9a958c;
+  border-top:1px dashed #e0ddd8; padding-top:.35rem}
+.strata td.n{text-align:right; font-size:.76rem; color:#3d3a35;
+  padding:.6rem 0 .6rem .6rem; white-space:nowrap}
+.strata td.n:last-child{color:#6e6e6e}
+.legend{list-style:none; display:flex; flex-wrap:wrap; gap:.3rem 1rem; margin-top:1rem;
+  font-size:.7rem; color:#6e6e6e}
 .sw{display:inline-block; width:9px; height:9px; margin-right:.4rem; vertical-align:baseline}
-.sw.rule{height:3px; margin-bottom:2px}
+.sw.rule{height:2px; margin-bottom:3px}
 
-/* dateline */
-.dateline{border-top:1px solid var(--ink); border-bottom:1px solid var(--rule);
-  padding:.62rem 0; margin:0; display:flex; flex-wrap:wrap; gap:.2rem 1.4rem;
-  font-size:.68rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted)}
-.dateline b{color:var(--ink); font-weight:500; letter-spacing:.04em}
-.reading{font-family:'Fraunces',Georgia,serif; font-size:1.14rem; line-height:1.66;
-  color:var(--soft); max-width:38rem; margin:1.5rem 0 1.9rem}
+/* the week in a line */
+.dateline{display:flex; flex-wrap:wrap; gap:.2rem 1.3rem; border-top:1px solid #1a1a1a;
+  border-bottom:1px solid #e0ddd8; padding:.6rem 0; font-size:.7rem; letter-spacing:.06em;
+  text-transform:uppercase; color:#6e6e6e}
+.dateline b{color:#1a1a1a; font-weight:500}
+.reading{font-family:'Fraunces',Georgia,serif; font-size:1.1rem; line-height:1.65;
+  color:#1a1a1a; margin:1.4rem 0 1.6rem}
 
-/* ridge */
-.ridge{display:flex; align-items:flex-end; gap:2px; height:88px;
-  border-bottom:1px solid var(--rule)}
+/* hours of the day */
+.ridge{display:flex; align-items:flex-end; gap:2px; height:84px;
+  border-bottom:1px solid #e0ddd8}
 .hr{flex:1; min-height:1px}
 .ridge-axis{display:flex; gap:2px; margin-top:.3rem}
-.ridge-axis span{flex:1; font-size:.6rem; color:var(--faint); letter-spacing:.06em}
+.ridge-axis span{flex:1; font-size:.6rem; color:#9a958c; letter-spacing:.05em}
 
 /* projects */
 .projects{list-style:none}
-.projects li{display:flex; align-items:center; gap:.85rem; padding:.32rem 0;
-  border-bottom:1px solid var(--hair)}
-.pname{width:11rem; flex:none; font-size:.85rem; color:var(--soft);
-  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.projects li{display:flex; align-items:center; gap:.8rem; padding:.3rem 0;
+  border-bottom:1px solid #f0ede8}
+.pname{width:9.5rem; flex:none; font-size:.85rem; color:#3d3a35; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap}
 .pbar{flex:1; min-width:0}
 .pbar b{display:block; height:9px}
-.pmin{width:4.6rem; flex:none; text-align:right; font-size:.74rem; color:var(--muted)}
+.pmin{width:4.4rem; flex:none; text-align:right; font-size:.74rem; color:#6e6e6e}
 
-/* long arc */
+/* every week so far */
 .arc{display:flex; align-items:flex-end; gap:2px; height:54px;
-  border-bottom:1px solid var(--rule)}
+  border-bottom:1px solid #e0ddd8}
 .tick{flex:0 0 auto; width:min(22px,var(--tw)); display:flex; align-items:flex-end;
   height:100%; text-decoration:none}
-.wk{width:100%; background:var(--rule); min-height:2px}
-.wk.on{background:#b9b2a4}
-.wk.now{background:var(--ember)}
-a.tick:hover .wk{background:var(--ember)}
-.arc-axis{margin-top:.35rem; font-size:.6rem; color:var(--faint);
-  letter-spacing:.08em; text-transform:uppercase}
+.wk{width:100%; background:#e0ddd8; min-height:2px}
+.wk.on{background:#c3bdb1}
+.wk.now{background:#1a1a1a}
+a.tick:hover .wk{background:#1a1a1a}
+.arc-axis{margin-top:.35rem; font-size:.6rem; color:#9a958c; letter-spacing:.08em;
+  text-transform:uppercase}
 
-.note{font-size:.79rem; line-height:1.65; color:var(--muted); margin-top:.95rem;
-  max-width:36rem}
-.note b{color:var(--soft)}
+.note{font-size:.8rem; line-height:1.65; color:#6e6e6e; margin-top:.9rem}
+.note b{color:#1a1a1a; font-weight:500}
 
 /* colophon */
-.colophon{border-top:1px solid var(--ink); padding:1.5rem 0 4.5rem; margin-top:.6rem}
-.colophon p{font-size:.82rem; line-height:1.72; color:var(--muted); max-width:36rem}
-.colophon p+p{margin-top:.75rem}
-.ways{display:flex; flex-wrap:wrap; gap:1.4rem; margin-top:1.5rem}
-.ways a{font-size:.82rem; color:var(--muted); text-decoration:none;
-  border-bottom:1px solid var(--rule); padding-bottom:1px}
-.ways a:hover{color:var(--ink); border-color:var(--ember)}
-a:focus-visible,.tick:focus-visible{outline:2px solid var(--ember); outline-offset:3px}
+.colophon{border-top:1px solid #e0ddd8; margin-top:3rem; padding-top:1.4rem}
+.colophon p{font-size:.8rem; line-height:1.7; color:#6e6e6e}
+.colophon p+p{margin-top:.7rem}
+.ways{display:flex; flex-wrap:wrap; gap:1.3rem; margin-top:1.3rem}
+.ways a{font-size:.85rem; color:#6e6e6e; text-decoration:none}
+.ways a:hover{color:#1a1a1a}
 
-@media (max-width:620px){
-  body{font-size:16px}
-  .wrap{padding:0 1.15rem}
-  .mast{margin-top:1.2rem}
-  .mast .issue{font-size:.6rem; letter-spacing:.1em}
-  .lede{padding:1.5rem 0 .9rem}
+@media (max-width:768px){
   .strata th:first-child{width:3.1rem}
   .strata td.n,.strata th:nth-child(3){width:3.7rem}
   .strata td:last-child,.strata th:last-child{width:2.8rem}
   .strata td.n{font-size:.7rem}
   .dom{font-size:.94rem}
   .band{height:13px}
-  .reading{font-size:1.05rem}
-  .legend{gap:.3rem .8rem; font-size:.63rem}
-  .pname{width:7.6rem; font-size:.78rem}
-  .pmin{width:3.9rem; font-size:.7rem}
-  .ridge{height:70px; gap:1px}
+  .reading{font-size:1.02rem}
+  .legend{gap:.3rem .8rem; font-size:.66rem}
+  .pname{width:7rem; font-size:.78rem}
+  .pmin{width:3.8rem; font-size:.7rem}
+  .ridge{height:68px; gap:1px}
   .ridge-axis{gap:1px}
   .arc{gap:1px}
   .dateline{gap:.15rem .9rem; font-size:.63rem}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 """
 
 
@@ -761,11 +743,10 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
     mon, sun = w["monday"], w["sunday"]
     t = w["totals"]
     span = day_range_phrase(mon, sun)
-    title = f"The Record · {span} {sun.year} — Kahran Singh"
+    title = f"{span} {sun.year} — Kahran Singh"
     desc = (f"A week of building software with Claude, in numbers: "
             f"{hm(t['active'])} at the keyboard, {commas(t['commits'])} commits, "
             f"{commas(t['sessions'])} sessions.")
-    dated = f"https://kahransingh.com/record/{week_slug(w['week_id'])}/"
 
     models = ", ".join(
         f"{m.replace('claude-', '')} {tokens_short(v)}"
@@ -789,10 +770,11 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
         lines += (f", not counting a bulk import of {commas(w['bulk_lines'])} lines "
                   "that was moved rather than written")
 
-    css = CSS.replace("themax", "812px")
+    nav = "\n".join(f'        <a href="{href}">{esc(label)}</a>'
+                    for href, label in NAV_LINKS)
 
     sections = "\n".join(
-        f"  <section>\n    <h2>{head}</h2>\n{fig}\n  </section>\n"
+        f'  <section>\n    <h2 class="section-label">{head}</h2>\n{fig}\n  </section>\n'
         for head, fig in (("When the work happened", render_ridge(w)),
                           ("Where the hours went", render_projects(w)))
         if fig
@@ -807,36 +789,32 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{esc(canonical)}">
-<meta property="og:title" content="The Record — {esc(span)} {sun.year}">
+<meta property="og:title" content="{esc(span)} {sun.year} — Kahran Singh">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{esc(canonical)}">
 <meta property="og:image" content="{OG_IMAGE}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Record — {esc(span)} {sun.year}">
+<meta name="twitter:title" content="{esc(span)} {sun.year} — Kahran Singh">
 <meta name="twitter:description" content="{esc(desc)}">
 <meta name="twitter:image" content="{OG_IMAGE}">
+<link rel="stylesheet" href="/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
-<style>{css}</style>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>{CSS}</style>
 </head>
 <body>
-<header class="mast">
-  <div class="wrap">
-    <a class="wordmark" href="/">kahran</a>
-    <span class="issue">the record · {esc(w['week_id'].lower())}</span>
-  </div>
-</header>
-
-<main class="wrap">
-  <div class="lede">
-    <p class="eyebrow">a week spent building software with claude</p>
-    <h1>Week of {esc(span)} <span class="yr">{sun.year}</span></h1>
-  </div>
+    <main>
+        <a href="/" class="mobile-header">kahran</a>
+        <div class="page-header">
+            <h1>{esc(span)} {sun.year}</h1>
+            <p><span class="issue">{esc(w['week_id'].lower())}</span> &middot; a week of building
+            software with Claude, in numbers.</p>
+        </div>
 
   <section>
-    <h2>The week, layer by layer</h2>
+    <h2 class="section-label">The week, day by day</h2>
 {render_strata(w)}
     <p class="reading">{esc(reading_paragraph(w))}</p>
     <div class="dateline">{''.join(dateline)}</div>
@@ -845,21 +823,26 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
 {sections}
 
   <section>
-    <h2>The record so far</h2>
+    <h2 class="section-label">Every week so far</h2>
 {render_arc(w, arc, issues)}
   </section>
 
   <footer class="colophon">
     <p>{esc(COLOPHON)}</p>
     <p>This week: {esc(lines)}. Model output came from {esc(models or 'no logged model')}.
-    Merge commits are set aside throughout. Time on the clock is measured from real
-    session activity, not from the first and last events of the day.</p>
+    Merge commits are set aside throughout. Time on the clock is measured from real session
+    activity, not from the first and last events of the day.</p>
     <div class="ways">
-      <a href="/lately/">every issue</a>
+      <a href="/{SECTION}/">every issue</a>
       <a href="/">kahransingh.com</a>
     </div>
   </footer>
-</main>
+    </main>
+
+    <nav>
+        <a href="/" class="nav-name">kahran</a>
+{nav}
+    </nav>
 </body>
 </html>
 """
@@ -868,6 +851,15 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
 # --------------------------------------------------------------------------
 # Writing — archive first, refuse to clobber a hand edit
 # --------------------------------------------------------------------------
+
+# The complete set of paths this script may write. The issues now live in the
+# same directory as a hand-written page (`lately/index.html`) and a hand-written
+# note (`lately/README.md`), so the blast radius is asserted here rather than
+# left to the calling code being careful.
+WRITABLE = re.compile(
+    rf"^{SECTION}/(entries\.json|record/index\.html|\d{{4}}-w\d{{2}}/index\.html)$"
+)
+
 
 class Writer:
     def __init__(self, root: Path, archive_dir: Path, dry_run: bool, force: bool):
@@ -889,6 +881,8 @@ class Writer:
         return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
     def write(self, rel: str, content: str) -> str:
+        if not WRITABLE.fullmatch(rel):
+            raise SystemExit(f"REFUSING to write {rel}: not one of this script's three paths")
         target = self.root / rel
         verdict = "created"
         if target.exists():
@@ -941,7 +935,7 @@ def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
         "strand": "code",
         "summary": (f"{hm(t['active'])} at the keyboard, {commas(t['commits'])} commits "
                     f"across {w['repos']} repositories, {commas(t['sessions'])} sessions."),
-        "link": f"/record/{week_slug(w['week_id'])}/",
+        "link": f"/{SECTION}/{week_slug(w['week_id'])}/",
     }
     entries = [e for e in doc.get("entries", []) if e.get("id") != entry["id"]]
     before = json.dumps(doc.get("entries", []), sort_keys=True)
@@ -956,10 +950,12 @@ def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
     return doc
 
 
-def existing_issues(record_dir: Path) -> set:
-    if not record_dir.exists():
+def existing_issues(section_dir: Path) -> set:
+    """Dated issues already published. `record/` and every hand-written file in
+    the section fail the pattern, so only real issues are ever linked."""
+    if not section_dir.exists():
         return set()
-    return {p.name for p in record_dir.iterdir()
+    return {p.name for p in section_dir.iterdir()
             if p.is_dir() and re.fullmatch(r"\d{4}-w\d{2}", p.name)}
 
 
@@ -998,20 +994,21 @@ def main(argv=None) -> int:
     if not w["totals"]["active"] and not w["totals"]["commits"]:
         raise SystemExit(f"{week_id} has no recorded activity; refusing to publish an empty issue")
     arc = long_arc(days, week_id)
-    issues = existing_issues(root / "record") | {week_slug(week_id)}
+    issues = existing_issues(root / SECTION) | {week_slug(week_id)}
 
     slug = week_slug(week_id)
-    dated_url = f"https://kahransingh.com/record/{slug}/"
-    dated_html = render_page(w, arc, issues, canonical=dated_url)
-    latest_html = render_page(w, arc, issues, canonical=dated_url)  # same canonical: /record/ is a door
+    dated_url = f"https://kahransingh.com/{SECTION}/{slug}/"
+    # One canonical for both copies: /lately/record/ is a door, the dated URL is
+    # the address. Google sees one page, not two.
+    page = render_page(w, arc, issues, canonical=dated_url)
 
     writer = Writer(root, archive, args.dry_run, args.force)
-    writer.write(f"record/{slug}/index.html", dated_html)
-    writer.write("record/index.html", latest_html)
+    writer.write(f"{SECTION}/{slug}/index.html", page)
+    writer.write(f"{SECTION}/record/index.html", page)
 
-    entries_path = root / "lately" / "entries.json"
+    entries_path = root / SECTION / "entries.json"
     doc = update_entries(entries_path, w, args.dry_run)
-    writer.write("lately/entries.json", json.dumps(doc, indent=2) + "\n")
+    writer.write(f"{SECTION}/entries.json", json.dumps(doc, indent=2) + "\n")
     writer.close()
 
     t = w["totals"]

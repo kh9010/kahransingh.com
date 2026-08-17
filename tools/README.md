@@ -6,19 +6,27 @@ python3, no dependencies, no build step.
 ## What it writes — exactly three paths, and nothing else
 
 ```
-record/<iso-week>/index.html   the permanent dated issue     (canonical -> itself)
-record/index.html              a copy of the newest issue    (canonical -> the dated URL)
+lately/<iso-week>/index.html   the permanent dated issue
+lately/record/index.html       a copy of the newest issue
 lately/entries.json            one merged entry per issue
 ```
 
-It never touches `index.html`, any `<nav>`, `sitemap.xml`, `style.css` or any
-other page. That is deliberate and structural: those are hand-reviewed files, and
-a job that runs unattended every week must not be *able* to reach them. If the
-record ever needs a nav or sitemap change, a human makes it once.
+Everything the record publishes lives under `/lately/`, and `/lately/` itself
+stays what `lately/README.md` says it is: an index rendered from
+`entries.json`, one strand among the several to come. The latest issue is a
+door at `/lately/record/` rather than the top of the index, because the index
+is a hand-reviewed page and the generator must not be able to write it.
 
-`record/index.html` is byte-identical to the newest dated issue, including its
-`<link rel="canonical">`, which points at the dated URL. `/record/` is a door;
-the dated URL is the durable address; Google sees one page, not two.
+It never touches `lately/index.html`, the site `index.html`, any `<nav>`,
+`sitemap.xml`, `style.css` or any other page. `Writer.write` checks every path
+against `WRITABLE` and exits rather than writing a fourth one — the issues now
+sit in the same directory as a hand-written page, so the blast radius is
+asserted in code instead of left to the caller being careful.
+
+`lately/record/index.html` is byte-identical to the newest dated issue,
+including its `<link rel="canonical">`, which points at the dated URL.
+`/lately/record/` is a door; the dated URL is the durable address; Google sees
+one page, not two.
 
 ## Running it
 
@@ -30,7 +38,7 @@ python3 tools/weekly_record.py ~/Sync/pending-work/coding-record/coding-days.jso
 | flag | what it does |
 |---|---|
 | *(positional)* | path to `coding-days.json`; defaults to `~/Sync/pending-work/coding-record/coding-days.json` |
-| `--week 2026-W32` | rebuild one specific issue instead of the newest complete week |
+| `--week 2026-W33` | rebuild one specific issue instead of the newest complete week |
 | `--site-root PATH` | repo root, if not the parent of `tools/` |
 | `--archive-dir PATH` | where pre-overwrite copies land (default `<data dir>/_archive`) |
 | `--dry-run` | print what would happen, write nothing |
@@ -55,6 +63,20 @@ then re-run with `--force`.
 Consequence worth stating plainly: **do not hand-edit a rendered issue.** The
 standing prose lives in the `COLOPHON` constant at the top of the script. Change
 it there.
+
+## How it looks
+
+The issue links `/style.css` and carries the site's chrome — the same sidebar
+nav, the same `.page-header`, Fraunces and Space Grotesk, the same paper and
+inks. The `<style>` block adds only the marks this page needs. Those marks are
+monochrome by rule: projects are told apart by weight and texture (a four-step
+grey scale, then a hatch for the summed tail), never by hue, and the hour ridge
+ramps from pale paper to ink. A categorical colour scheme is what made an
+earlier draft read as a different publication rather than as this site.
+
+`NAV_LINKS` holds the site's navigation. Adding a link to the site nav is still
+a hand edit made once across the hand-written pages; changing it here is what
+carries it into the generated ones.
 
 ## The privacy floor
 
@@ -104,7 +126,7 @@ change lands through a PR like every other site change.
 cd ~/dev/kahransingh.com
 git fetch origin && git checkout -B kahran-$(date +%b%d | tr A-Z a-z)-record origin/main
 python3 tools/weekly_record.py ~/Sync/pending-work/coding-record/coding-days.json
-git add record lately/entries.json          # exact paths only, never `git add -A`
+git add lately                              # exact paths only, never `git add -A`
 git commit -m "Publish the weekly record for $(date -v-7d +%G-W%V)"
 git push -u origin HEAD
 gh pr create --fill && gh pr merge --merge --delete-branch
@@ -131,7 +153,7 @@ Notes for whoever wires the job:
 
 ```sh
 python3 -m http.server 8791          # from the repo root
-open http://127.0.0.1:8791/record/
+open http://127.0.0.1:8791/lately/record/
 ```
 
 `file://` will not do: the page's own assets are fine, but `/lately/` uses
