@@ -3,6 +3,7 @@
 # Publish, not deploy: writes a branch, lands through a PR like every site change.
 # Idempotent: a week already published exits 0 without touching git.
 set -euo pipefail
+export PATH="/opt/homebrew/bin:$PATH"   # mini launchd/ssh shells lack it; gh and python3 live there
 cd "$(dirname "$0")/.."
 git fetch origin && git checkout -q main && git pull -q --ff-only
 python3 tools/weekly_record.py "$HOME/Sync/pending-work/coding-record/coding-days.json"
