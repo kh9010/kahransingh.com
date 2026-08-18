@@ -11,6 +11,9 @@ the heartbeat summarizer's fail-closed privacy rules and must carry a reviewed p
 ## What lives in this directory
 
 `index.html` is the index and stays that way: it renders `entries.json` and nothing else.
+A row's mark and stat fragment come from that file too — `mark` and `stats`, both optional,
+both strand-agnostic, defined once in `tools/weekly_record.py` beside `ENTRIES_SCHEMA`. A new
+strand describes itself in those fields; it does not earn a branch in the page.
 Everything a strand publishes sits beside it, in its own dated directory —
 `lately/2026-w33/` for the weekly coding record, one URL per issue, permanent. The newest
 issue is also copied to `lately/record/`, a door whose canonical points back at the dated

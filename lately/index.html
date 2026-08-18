@@ -5,100 +5,278 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <title>Lately — Kahran Singh</title>
-  <meta name="description" content="A living view of what Kahran Singh has been making and exploring lately.">
+  <meta name="description" content="Every public issue of Kahran Singh's record, newest first.">
   <meta property="og:title" content="Lately — Kahran Singh">
-  <meta property="og:description" content="A living view of what Kahran Singh has been making and exploring lately.">
+  <meta property="og:description" content="Every public issue of Kahran Singh's record, newest first.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kahransingh.com/lately/">
   <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Lately — Kahran Singh">
-  <meta name="twitter:description" content="A living view of what Kahran Singh has been making and exploring lately.">
+  <meta name="twitter:description" content="Every public issue of Kahran Singh's record, newest first.">
   <meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
   <link rel="canonical" href="https://kahransingh.com/lately/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
   <style>
-    :root { --ember:#c8431b; --cool:#8193a0; --rule:#e0ddd8; }
-    main { max-width:720px; padding-top:5rem; }
-    .lately-head { margin-bottom:2.75rem; }
-    .eyebrow { color:#888; font-size:.72rem; letter-spacing:.13em; text-transform:uppercase; }
-    h1 { font-family:'Fraunces',Georgia,serif; font-size:clamp(2.8rem,8vw,5rem); font-weight:300; margin:.5rem 0; }
-    .standfirst { color:#666; max-width:40rem; line-height:1.65; }
-    .heartbeat { display:flex; align-items:end; gap:3px; height:46px; margin:2rem 0 .5rem; }
-    .heartbeat span { flex:1; min-height:2px; background:var(--cool); opacity:.35; }
-    .heartbeat span.warm { background:var(--ember); opacity:.8; }
-    .scale { display:flex; justify-content:space-between; color:#999; font-size:.68rem; padding-bottom:1.5rem; border-bottom:1px solid var(--rule); }
-    .filters { display:flex; flex-wrap:wrap; gap:.45rem; margin:1.5rem 0 2.5rem; }
-    button { border:1px solid var(--rule); border-radius:2rem; background:none; padding:.4rem .7rem; color:#777; cursor:pointer; }
-    button[aria-pressed=true] { color:white; background:#222; border-color:#222; }
-    .feed { border-left:1px solid var(--rule); padding-left:1.6rem; }
-    .entry { display:block; color:inherit; text-decoration:none; position:relative; padding:0 0 2.2rem; }
-    .entry::before { content:''; position:absolute; width:8px; height:8px; border-radius:50%; background:var(--cool); left:-1.87rem; top:.45rem; box-shadow:0 0 0 4px #fff; }
-    .entry.fresh::before { background:var(--ember); }
-    .entry time,.strand { color:#999; font-size:.7rem; text-transform:uppercase; letter-spacing:.1em; }
-    .strand { margin-left:.7rem; }
-    .entry p { font-family:'Fraunces',Georgia,serif; font-size:1.25rem; line-height:1.45; margin:.35rem 0; }
-    .entry .through { color:#888; font-size:.78rem; }
-    .entry:hover p,.entry:focus-visible p { text-decoration:underline; text-underline-offset:4px; }
-    .empty { color:#888; padding:2rem 0; }
-    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; } }
+  /* The index inherits /style.css — paper, inks, fonts, the sidebar. What
+     follows is only the ledger: one row per issue, each carrying a small mark
+     drawn from its own numbers. Monochrome, like the issues it points at. */
+  .dateline,.stats,.when,.count,.mark{font-variant-numeric:tabular-nums;
+    font-feature-settings:'tnum' 1}
+  main{padding-top:9vh}
+
+  .page-header p .issue{color:#9a958c; letter-spacing:.1em; text-transform:uppercase;
+    font-size:.72rem}
+
+  .dateline{display:flex; flex-wrap:wrap; gap:.2rem 1.3rem; padding:0;
+    font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:#6e6e6e}
+  .dateline b{color:#1a1a1a; font-weight:500}
+
+  .filters{display:flex; flex-wrap:wrap; gap:.4rem .5rem; margin:.9rem 0 0}
+  .filters:empty{margin:0}
+  .filters button{font-family:inherit; font-size:.66rem; letter-spacing:.1em;
+    text-transform:uppercase; color:#9a958c; background:none; border:0; cursor:pointer;
+    padding:.15rem 0; margin-right:.6rem; border-bottom:1px solid transparent}
+  .filters button:hover{color:#3d3a35}
+  .filters button[aria-pressed=true]{color:#1a1a1a; border-bottom-color:#1a1a1a}
+
+  /* the ledger */
+  .index{list-style:none; margin:.9rem 0 0; padding:0}
+  .index li{border-top:1px solid #f0ede8}
+  .index li:last-child{border-bottom:1px solid #f0ede8}
+  .index li.year{border-top:1px solid #1a1a1a; border-bottom:0}
+  .index li.year span{display:block; font-size:.62rem; letter-spacing:.12em;
+    text-transform:uppercase; color:#9a958c; padding:.45rem 0 .05rem}
+
+  .row{display:grid; grid-template-columns:3.4rem 3.9rem 1fr auto; gap:0 .9rem;
+    align-items:baseline; padding:.85rem 0; text-decoration:none; color:inherit}
+  .when{font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:#9a958c;
+    white-space:nowrap}
+  .when .dom{font-family:'Fraunces',Georgia,serif; font-size:1rem; letter-spacing:0;
+    color:#3d3a35; margin-right:.25rem}
+
+  .mark{display:flex; align-items:flex-end; gap:2px; height:20px;
+    align-self:center; justify-self:start}
+  .mark i{width:6px; background:#dcd7ce; min-height:1px; display:block}
+  .mark i.nil{height:1px; background:#e0ddd8}
+  .mark.rule{display:block; width:100%; height:1px; background:#e0ddd8}
+
+  .body{min-width:0}
+  .title{display:block; font-family:'Fraunces',Georgia,serif; font-size:1rem;
+    line-height:1.35; color:#1a1a1a}
+  .stats{display:block; font-size:.72rem; letter-spacing:.04em; color:#6e6e6e;
+    margin-top:.15rem; overflow:hidden; text-overflow:ellipsis}
+  .strand{font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:#9a958c;
+    white-space:nowrap}
+
+  .row:hover .title,.row:focus-visible .title{text-decoration:underline;
+    text-underline-offset:4px; text-decoration-thickness:1px}
+  .row:hover .mark i,.row:focus-visible .mark i{background:#1a1a1a}
+  .row:hover .mark i.nil,.row:focus-visible .mark i.nil{background:#9a958c}
+  .row:hover .strand,.row:focus-visible .strand{color:#3d3a35}
+
+  .fignote{font-size:.7rem; line-height:1.5; color:#9a958c; letter-spacing:.04em;
+    margin-top:1.1rem}
+  .empty{font-size:.85rem; color:#9a958c; padding:1.6rem 0}
+
+  @media (max-width:768px){
+    main{padding-top:2rem}
+    .row{grid-template-columns:3rem 3.9rem 1fr; gap:0 .7rem; padding:.8rem 0}
+    .strand{grid-column:3; margin-top:.2rem}
+    .title{font-size:.94rem}
+    .stats{font-size:.68rem}
+    .dateline{gap:.15rem .9rem; font-size:.63rem}
+  }
   </style>
 </head>
 <body>
-<main>
-  <a href="/" class="mobile-header">kahran</a>
-  <header class="lately-head">
-    <p class="eyebrow">A live index</p>
-    <h1>lately</h1>
-    <p class="standfirst">Not a portfolio. A changing view of what I&rsquo;m making, learning, and tending&mdash;with a way through to the work itself.</p>
-    <div class="heartbeat" id="heartbeat" aria-label="Activity over the last 30 days"></div>
-    <div class="scale"><span>30 days ago</span><span id="total">0 entries</span><span>today</span></div>
+  <main>
+    <a href="/" class="mobile-header">kahran</a>
+    <div class="page-header">
+      <h1>lately</h1>
+      <p><span class="issue">the public record</span> &middot; every issue,
+      newest first</p>
+    </div>
+
+    <div class="dateline" id="dateline"></div>
     <div class="filters" id="filters" aria-label="Filter by strand"></div>
-  </header>
-  <section class="feed" id="feed" aria-live="polite"><p class="empty">Loading&hellip;</p></section>
-</main>
-<nav>
-  <a href="/" class="nav-name">kahran</a><a href="/poetry.html">poetry</a>
-  <a href="/photography.html">photography</a><a href="/projects.html">projects</a>
-  <a href="/lately/" class="active">lately</a><a href="/working-with-me.html">work with me</a>
-  <a href="/speaking.html">speaking</a><a href="/archive.html">archive</a>
-  <a href="/about.html">about</a>
-</nav>
+    <ol class="index" id="index"><li><p class="empty">Loading&hellip;</p></li></ol>
+    <p class="fignote" id="fignote"></p>
+  </main>
+
+  <nav>
+    <a href="/" class="nav-name">kahran</a>
+    <a href="/poetry.html">poetry</a>
+    <a href="/photography.html">photography</a>
+    <a href="/projects.html">projects</a>
+    <a href="/lately/" class="active">lately</a>
+    <a href="/working-with-me.html">work with me</a>
+    <a href="/speaking.html">speaking</a>
+    <a href="/archive.html">archive</a>
+    <a href="/about.html">about</a>
+  </nav>
+
 <script>
 (function () {
   'use strict';
-  var entries = [], active = 'all';
-  var feed = document.getElementById('feed'), filters = document.getElementById('filters');
-  function ageDays(date) { return Math.max(0, Math.floor((Date.now() - new Date(date + 'T12:00:00').getTime()) / 86400000)); }
-  function ago(date) { var d=ageDays(date); return d===0?'today':d===1?'yesterday':d+' days ago'; }
-  function render() {
-    var shown=entries.filter(function(e){return active==='all'||e.strand===active;});
-    document.getElementById('total').textContent=shown.length+' '+(shown.length===1?'entry':'entries');
-    if(!shown.length){feed.innerHTML='<p class="empty">Nothing public in this view yet.</p>';return;}
-    feed.innerHTML=shown.map(function(e){
-      var safeText=document.createElement('div'); safeText.textContent=e.summary;
-      var offsite=e.link.charAt(0)!=='/'?' target="_blank" rel="noopener"':'';
-      return '<a class="entry '+(ageDays(e.date)<3?'fresh':'')+'" href="'+encodeURI(e.link)+'"'+offsite+'>'+
-        '<time datetime="'+e.date+'">'+ago(e.date)+'</time><span class="strand">'+e.strand+'</span>'+
-        '<p>'+safeText.innerHTML+'</p><span class="through">open the work &rarr;</span></a>';
-    }).join('');
+  // entries.json is the only input. Every strand describes itself in the same
+  // three optional fields — title, stats, mark — so a new one lands here as a
+  // row, not as a rendering branch.
+  var ONES = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+              'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  var MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+                'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+  var LONG = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
+              'august', 'september', 'october', 'november', 'december'];
+
+  var all = [], active = 'all';
+  var index = document.getElementById('index');
+  var dateline = document.getElementById('dateline');
+  var filters = document.getElementById('filters');
+  var fignote = document.getElementById('fignote');
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (text !== undefined) { n.textContent = text; }
+    return n;
   }
-  function controls(){
-    ['all'].concat(Array.from(new Set(entries.map(function(e){return e.strand;})))).forEach(function(tag){
-      var b=document.createElement('button'); b.textContent=tag; b.setAttribute('aria-pressed',tag===active);
-      b.onclick=function(){active=tag;Array.from(filters.children).forEach(function(x){x.setAttribute('aria-pressed',x.textContent===tag);});render();};
+  function spell(n) { return n < ONES.length ? ONES[n] : String(n); }
+  function parts(iso) {
+    var d = new Date(iso + 'T12:00:00');
+    return isNaN(d) ? null : { y: d.getFullYear(), m: d.getMonth(), d: d.getDate() };
+  }
+
+  // A small multiple, scaled against the entry's own maximum: the shape of the
+  // week, not a comparison between weeks.
+  function mark(spec) {
+    var vals = (spec && spec.shape === 'bars' && Array.isArray(spec.values))
+      ? spec.values.map(Number).filter(function (v) { return isFinite(v) && v >= 0; })
+      : [];
+    if (!vals.length) { return el('span', 'mark rule'); }
+    var top = Math.max.apply(null, vals) || 1;
+    var wrap = el('span', 'mark');
+    wrap.setAttribute('role', 'img');
+    wrap.setAttribute('aria-label', String(spec.label || 'shape of the entry'));
+    vals.slice(0, 31).forEach(function (v) {
+      var bar = el('i');
+      if (!v) { bar.className = 'nil'; return void wrap.appendChild(bar); }
+      var r = v / top;
+      bar.style.height = Math.max(2, Math.round(r * 20)) + 'px';
+      // darkest at the peak, paling down the scale — the issues' own ink.
+      var g = Math.round(220 - r * 194);
+      bar.style.background = 'rgb(' + g + ',' + (g - 4) + ',' + (g - 10) + ')';
+      wrap.appendChild(bar);
+    });
+    return wrap;
+  }
+
+  function row(e) {
+    var a = el('a', 'row');
+    a.href = encodeURI(e.link);
+    if (e.link.charAt(0) !== '/') { a.target = '_blank'; a.rel = 'noopener'; }
+
+    var p = parts(e.date), when = el('span', 'when');
+    if (p) {
+      when.appendChild(el('span', 'dom', String(p.d)));
+      when.appendChild(document.createTextNode(MONTHS[p.m]));
+    }
+    a.appendChild(when);
+    a.appendChild(mark(e.mark));
+
+    var body = el('span', 'body');
+    body.appendChild(el('span', 'title', e.title || e.summary));
+    var stats = Array.isArray(e.stats) && e.stats.length
+      ? e.stats.map(String).join(' · ')
+      : (e.title ? e.summary : '');
+    if (stats) { body.appendChild(el('span', 'stats', stats)); }
+    a.appendChild(body);
+    a.appendChild(el('span', 'strand', e.strand));
+
+    var li = document.createElement('li');
+    li.appendChild(a);
+    return li;
+  }
+
+  function render() {
+    var shown = all.filter(function (e) { return active === 'all' || e.strand === active; });
+    index.textContent = '';
+    if (!shown.length) {
+      var none = document.createElement('li');
+      none.appendChild(el('p', 'empty', 'Nothing public in this view yet.'));
+      index.appendChild(none);
+      dateline.textContent = '';
+      fignote.textContent = '';
+      return;
+    }
+
+    var year = null;
+    shown.forEach(function (e) {
+      var p = parts(e.date);
+      if (p && p.y !== year) {
+        year = p.y;
+        var sep = el('li', 'year');
+        sep.appendChild(el('span', null, String(year)));
+        index.appendChild(sep);
+      }
+      index.appendChild(row(e));
+    });
+
+    var strands = Array.from(new Set(shown.map(function (e) { return e.strand; })));
+    var first = parts(shown[shown.length - 1].date);
+    dateline.textContent = '';
+    dateline.appendChild(bit(spell(shown.length), shown.length === 1 ? 'issue' : 'issues'));
+    dateline.appendChild(bit(strands.join(', '), ''));
+    if (first) {
+      dateline.appendChild(bit('since', LONG[first.m] + ' ' + first.y));
+    }
+    fignote.textContent =
+      'public records only · counts, durations and project names, nothing else';
+  }
+
+  function bit(strong, tail) {
+    var s = el('span');
+    s.appendChild(el('b', null, strong));
+    if (tail) { s.appendChild(document.createTextNode(' ' + tail)); }
+    return s;
+  }
+
+  function controls() {
+    var strands = Array.from(new Set(all.map(function (e) { return e.strand; })));
+    if (strands.length < 2) { return; }   // one strand needs no chooser
+    ['all'].concat(strands).forEach(function (tag) {
+      var b = el('button', null, tag);
+      b.type = 'button';
+      b.setAttribute('aria-pressed', String(tag === active));
+      b.onclick = function () {
+        active = tag;
+        Array.from(filters.children).forEach(function (x) {
+          x.setAttribute('aria-pressed', String(x.textContent === tag));
+        });
+        render();
+      };
       filters.appendChild(b);
     });
   }
-  function pulse(){var counts=new Array(30).fill(0);entries.forEach(function(e){var d=ageDays(e.date);if(d<30)counts[29-d]++;});
-    document.getElementById('heartbeat').innerHTML=counts.map(function(c,i){return '<span class="'+(i>26?'warm':'')+'" style="height:'+Math.max(2,c*9)+'px" title="'+c+' entries"></span>';}).join('');}
-  fetch('entries.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error(r.status);return r.json();}).then(function(data){
-    entries=(data.entries||[]).filter(function(e){return e&&e.id&&e.date&&e.summary&&e.strand&&e.link;}).sort(function(a,b){return b.date.localeCompare(a.date);});
-    controls();pulse();render();
-  }).catch(function(){feed.innerHTML='<p class="empty">The feed is resting right now.</p>';});
+
+  fetch('entries.json', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) { throw Error(r.status); } return r.json(); })
+    .then(function (data) {
+      all = (data.entries || [])
+        .filter(function (e) { return e && e.id && e.date && e.strand && e.link && (e.title || e.summary); })
+        .sort(function (a, b) { return b.date.localeCompare(a.date); });
+      controls();
+      render();
+    })
+    .catch(function () {
+      index.textContent = '';
+      var li = document.createElement('li');
+      li.appendChild(el('p', 'empty', 'The record is resting right now.'));
+      index.appendChild(li);
+    });
 }());
 </script>
 </body>

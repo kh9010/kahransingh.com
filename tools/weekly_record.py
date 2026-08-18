@@ -903,9 +903,25 @@ class Writer:
         self.state_path.write_text(json.dumps(self.state, indent=1, sort_keys=True) + "\n")
 
 
+"""The index draws each entry's mark and stat fragment from entries.json alone, so
+whatever a strand wants shown there has to be IN the file. Two optional fields
+carry it, and both are strand-agnostic on purpose:
+
+    "mark":  {"shape": "bars", "values": [...], "label": "..."}
+             a small multiple, one number per bar, scaled by the index against
+             the entry's own maximum. A photo strand can send frames per day and
+             a writing strand words per day; neither needs a rendering branch.
+    "stats": ["21h 50m", "163 commits", "43 sessions"]
+             the fragment under the summary, already worded, joined by the index.
+
+Both are optional. An entry without them still renders — summary and date only —
+so a v1 file and a strand that has no shape to publish both stay valid."""
+ENTRIES_SCHEMA = 2
+
+
 def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
     """Merge one entry into lately/entries.json, leaving every other entry alone."""
-    doc = {"schema_version": 1, "generated_at": None, "entries": []}
+    doc = {"schema_version": ENTRIES_SCHEMA, "generated_at": None, "entries": []}
     if path.exists():
         try:
             doc = json.loads(path.read_text(encoding="utf-8"))
@@ -916,8 +932,20 @@ def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
         "id": f"record-{week_slug(w['week_id'])}",
         "date": w["sunday"].isoformat(),
         "strand": "code",
+        # The issue's own h1 without the year — the index groups by year already.
+        "title": day_range_phrase(w["monday"], w["sunday"]),
         "summary": (f"{hm(t['active'])} at the keyboard, {commas(t['commits'])} commits "
                     f"across {w['repos']} repositories, {commas(t['sessions'])} sessions."),
+        "stats": [
+            hm(t["active"]),
+            f"{commas(t['commits'])} commits",
+            f"{commas(t['sessions'])} sessions",
+        ],
+        "mark": {
+            "shape": "bars",
+            "values": [d["active_min"] for d in w["days"]],
+            "label": "minutes on the clock, monday to sunday",
+        },
         "link": f"/{SECTION}/{week_slug(w['week_id'])}/",
     }
     entries = [e for e in doc.get("entries", []) if e.get("id") != entry["id"]]
@@ -926,7 +954,7 @@ def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
     entries.sort(key=lambda e: (e.get("date", ""), e.get("id", "")), reverse=True)
     after = json.dumps(entries, sort_keys=True)
     doc["entries"] = entries
-    doc["schema_version"] = doc.get("schema_version", 1)
+    doc["schema_version"] = max(int(doc.get("schema_version", 1) or 1), ENTRIES_SCHEMA)
     if before != after or not doc.get("generated_at"):
         doc["generated_at"] = dt.datetime.now().astimezone().replace(
             microsecond=0).isoformat()
