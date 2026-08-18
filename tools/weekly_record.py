@@ -75,7 +75,7 @@ PRIVATE_LABEL = "private"
 
 # Exact project name -> the name printed on the page.
 PUBLIC_NAME = {
-    "dev-misc": "unnamed sessions",
+    "dev-misc": "unfiled work",
     "scratchpad": "scratch",
     "retired-20260807-openclaw-dispatcher": "openclaw-dispatcher",
 }
@@ -104,7 +104,7 @@ COLOPHON = (
 
 # The page is drawn in the site's own inks. Projects are told apart by weight
 # and texture, not by hue: a four-step grey scale for the named projects, a
-# lighter grey for unnamed sessions, and a hatch for the summed tail. Colour
+# lighter grey for unfiled work, and a hatch for the summed tail. Colour
 # follows the project across the whole page, never its rank inside a day.
 PALETTE = ["#1a1a1a", "#4f4a43", "#867f74", "#b3ada2"]
 NEUTRAL_UNNAMED = "#cfc9be"
@@ -353,7 +353,7 @@ def aggregate_week(days: dict, week_id: str) -> dict:
     named, tail = [], Counter()
     for name, minutes in week_projects.most_common():
         label = public_name(name)
-        if label in ("unnamed sessions", "a private project") or len(named) >= NAMED_PROJECTS:
+        if label in ("unfiled work", "a private project") or len(named) >= NAMED_PROJECTS:
             tail[label] += minutes
         else:
             named.append((name, label, minutes))
@@ -361,9 +361,9 @@ def aggregate_week(days: dict, week_id: str) -> dict:
     order = []
     for i, (raw, label, minutes) in enumerate(named):
         order.append({"key": raw, "label": label, "min": minutes, "color": PALETTE[i]})
-    unnamed_min = tail.pop("unnamed sessions", 0)
+    unnamed_min = tail.pop("unfiled work", 0)
     if unnamed_min:
-        order.append({"key": "dev-misc", "label": "unnamed sessions",
+        order.append({"key": "dev-misc", "label": "unfiled work",
                       "min": unnamed_min, "color": NEUTRAL_UNNAMED})
     rest_min = sum(tail.values())
     rest_count = len([n for n in week_projects if public_name(n) not in
@@ -382,7 +382,7 @@ def aggregate_week(days: dict, week_id: str) -> dict:
             label = public_name(name)
             if name in named_keys:
                 split[name] += minutes
-            elif label == "unnamed sessions":
+            elif label == "unfiled work":
                 split["dev-misc"] += minutes
             else:
                 split["__rest__"] += minutes
