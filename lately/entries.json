@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-17T21:41:25-04:00",
+  "generated_at": "2026-08-17T21:49:17-04:00",
   "entries": [
     {
       "id": "record-2026-w33",
@@ -27,6 +27,136 @@
         "label": "minutes on the clock, monday to sunday"
       },
       "link": "/lately/2026-w33/"
+    },
+    {
+      "id": "record-2026-w32",
+      "date": "2026-08-09",
+      "strand": "code",
+      "title": "3\u20139 August",
+      "summary": "28h 57m at the keyboard, 435 commits across 21 repositories, 92 sessions.",
+      "stats": [
+        "28h 57m",
+        "435 commits",
+        "92 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          347,
+          221,
+          545,
+          355,
+          177,
+          0,
+          92
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w32/"
+    },
+    {
+      "id": "record-2026-w31",
+      "date": "2026-08-02",
+      "strand": "code",
+      "title": "27 July \u2013 2 August",
+      "summary": "5h 10m at the keyboard, 90 commits across 6 repositories, 12 sessions.",
+      "stats": [
+        "5h 10m",
+        "90 commits",
+        "12 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          126,
+          28,
+          65,
+          72,
+          1,
+          0,
+          18
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w31/"
+    },
+    {
+      "id": "record-2026-w30",
+      "date": "2026-07-26",
+      "strand": "code",
+      "title": "20\u201326 July",
+      "summary": "26h 16m at the keyboard, 201 commits across 9 repositories, 151 sessions.",
+      "stats": [
+        "26h 16m",
+        "201 commits",
+        "151 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          163,
+          401,
+          483,
+          53,
+          269,
+          139,
+          68
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w30/"
+    },
+    {
+      "id": "record-2026-w29",
+      "date": "2026-07-19",
+      "strand": "code",
+      "title": "13\u201319 July",
+      "summary": "7h 00m at the keyboard, 45 commits across 12 repositories, 9 sessions.",
+      "stats": [
+        "7h 00m",
+        "45 commits",
+        "9 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          85,
+          4,
+          0,
+          34,
+          9,
+          288,
+          0
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w29/"
+    },
+    {
+      "id": "record-2026-w28",
+      "date": "2026-07-12",
+      "strand": "code",
+      "title": "6\u201312 July",
+      "summary": "5h 19m at the keyboard, 253 commits across 13 repositories, 5 sessions.",
+      "stats": [
+        "5h 19m",
+        "253 commits",
+        "5 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          0,
+          0,
+          0,
+          30,
+          159,
+          109,
+          21
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w28/"
     }
   ]
 }
