@@ -5,95 +5,433 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Sangeli it is · Family Winter 2026</title>
-<meta name="description" content="OBLU Select Sangeli · Nov 24–29, 2026 · five nights · the family winter plan.">
-<meta property="og:title" content="Sangeli it is.">
-<meta property="og:description" content="OBLU Select Sangeli · Nov 24–29 · five nights · all-inclusive.">
+<title>Family Winter 2026 · Sangeli, Maldives · 24–29 Nov</title>
+<meta name="description" content="We're going to the Maldives. OBLU Select Sangeli, Tuesday 24 to Sunday 29 November 2026 — booked. Five nights, one island, all of us.">
+<meta property="og:title" content="We're going to the Maldives.">
+<meta property="og:description" content="OBLU Select Sangeli · Tue 24 – Sun 29 Nov 2026 · booked · five nights, one island, all of us.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kahransingh.com/winter/">
 <link rel="canonical" href="https://kahransingh.com/winter/">
-<link rel="stylesheet" href="/winter/selected.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #172223; --ink-soft: #46595b; --bg: #f2f0e7; --card: #fdfcf6;
+    --line: #e0ded0; --line-strong: #cbccb8; --muted: #7e8b85;
+    --terra: #0e6e78; --terra-soft: #dfeae5; --jungle: #b25b38; --jungle-soft: #f3e4da;
+    --water: #cfe7e4; --gold: #c98a3d;
+    --shadow: 0 1px 2px rgba(23,50,52,.05), 0 10px 34px rgba(23,50,52,.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hanken Grotesk', -apple-system, sans-serif; color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.62; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 140px 140px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 1.4rem; }
+  .narrow { max-width: 660px; }
+  h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; line-height: 1.14; font-weight: 400; letter-spacing: -0.012em; }
+  a { color: inherit; }
+  ::selection { background: var(--terra-soft); }
+  a.out { color: var(--terra); text-decoration: none; border-bottom: 1px dotted var(--terra); }
+  a.out:hover { border-bottom-style: solid; }
+
+  .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--terra), var(--gold)); z-index: 60; transition: width .1s linear; }
+  header.bar { position: sticky; top: 0; z-index: 50; background: rgba(242,240,231,.86); backdrop-filter: saturate(150%) blur(12px); -webkit-backdrop-filter: saturate(150%) blur(12px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  header.bar.stuck { border-bottom-color: var(--line); }
+  .bar-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.4rem; }
+  .brand { font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; white-space: nowrap; text-decoration: none; }
+  .brand b { font-style: normal; font-weight: 500; }
+  nav.links { margin-left: auto; display: flex; gap: 1rem; overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, transparent, #000 8px, #000 calc(100% - 8px), transparent); }
+  nav.links::-webkit-scrollbar { display: none; }
+  nav.links a { text-decoration: none; font-size: 0.78rem; letter-spacing: 0.02em; color: var(--muted); white-space: nowrap; padding: 0.1rem 0; border-bottom: 1.5px solid transparent; transition: color .25s, border-color .25s; }
+  nav.links a:hover { color: var(--ink); }
+  nav.links a.active { color: var(--terra); border-bottom-color: var(--terra); }
+
+  /* Hero — lagoon, a low sun, ripples */
+  .hero { position: relative; overflow: hidden; min-height: min(78vh, 720px); display: flex; align-items: flex-end; color: #fff; }
+  .hero .scene { position: absolute; inset: 0; z-index: 0; background: linear-gradient(178deg, #f6e7c7 0%, #bfe3db 22%, #5fb7b0 48%, #1b7680 76%, #0b4a52 100%); }
+  .hero .sun { position: absolute; z-index: 1; left: 50%; top: 9%; width: clamp(110px, 16vw, 190px); aspect-ratio: 1; margin-left: calc(-0.5 * clamp(110px, 16vw, 190px)); border-radius: 50%; background: radial-gradient(circle at 50% 45%, #fff4d6 0%, #ffd98c 55%, rgba(255,217,140,0) 72%); opacity: .95; }
+  .hero .rip { position: absolute; z-index: 1; left: 50%; top: 54%; width: 170vw; max-width: 1600px; aspect-ratio: 1; transform: translate(-50%, -50%) scaleY(.22); border-radius: 50%; border: 1px solid rgba(255,255,255,.22); pointer-events: none; }
+  .hero .rip.r2 { width: 120vw; max-width: 1150px; border-color: rgba(255,255,255,.28); }
+  .hero .rip.r3 { width: 72vw; max-width: 700px; border-color: rgba(255,255,255,.34); }
+  .hero .rip.r4 { width: 36vw; max-width: 360px; border-color: rgba(255,255,255,.4); }
+  .hero-content { position: relative; z-index: 2; width: 100%; padding: clamp(4rem, 10vh, 6rem) 0 1.7rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.8rem; font-weight: 600; }
+  .hero .eyebrow { color: #eafcf8; }
+  .hero h1 { font-size: clamp(2.5rem, 7vw, 4.4rem); line-height: 0.98; letter-spacing: -0.025em; color: #fff; text-wrap: balance; }
+  .hero h1 em { font-style: italic; color: #f3f9d9; }
+  .dek { font-family: 'Fraunces', serif; font-size: clamp(1rem, 2.1vw, 1.22rem); font-style: italic; color: var(--ink-soft); margin-top: 0.9rem; max-width: 48ch; }
+  .hero .dek { color: rgba(255,255,255,.94); }
+  .hero .snap { margin-top: 1.6rem; }
+  .hero .snap > div { background: rgba(253,252,246,.92); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+
+  section { padding: clamp(2.6rem, 6vh, 4.5rem) 0; }
+  section + section { border-top: 1px solid var(--line); }
+  .kicker { font-size: 0.71rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 0.55rem; }
+  .kicker:before { content: ""; width: 1.5rem; height: 1px; background: var(--terra); opacity: .5; }
+  h2.title { font-size: clamp(1.7rem, 4vw, 2.3rem); margin-bottom: 1rem; text-wrap: balance; }
+  h2.title em { font-style: italic; color: var(--terra); }
+  p { margin-bottom: 0.85rem; color: var(--ink-soft); }
+  p:last-child { margin-bottom: 0; }
+  p.lead { font-size: 1.08rem; color: var(--ink); }
+  strong { font-weight: 600; color: var(--ink); }
+
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  .snap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .snap > div { background: var(--card); padding: 0.9rem 1rem; color: var(--ink); }
+  .snap .k { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .snap .v { font-size: 0.97rem; margin-top: 0.1rem; color: var(--ink); font-weight: 500; }
+  .snap .v small { font-weight: 400; color: var(--ink-soft); }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 2.2rem; align-items: start; }
+  @media (max-width: 680px) { .two { grid-template-columns: 1fr; gap: 1.2rem; } }
+
+  /* The week */
+  ol.week { list-style: none; margin-top: 1.2rem; border-top: 1px solid var(--line); }
+  ol.week li { display: grid; grid-template-columns: 7.2rem 1fr; gap: 1.2rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  ol.week .day { font-family: 'Fraunces', serif; font-size: 1.05rem; color: var(--ink); line-height: 1.25; }
+  ol.week .day small { display: block; font-family: 'Hanken Grotesk', sans-serif; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terra); font-weight: 600; margin-top: 0.15rem; }
+  ol.week p { font-size: 0.93rem; margin: 0; }
+  ol.week li.thanks { background: linear-gradient(90deg, var(--terra-soft), transparent 70%); margin: 0 -0.8rem; padding-left: 0.8rem; padding-right: 0.8rem; border-radius: 10px; border-bottom-color: transparent; }
+  ol.week li.thanks + li { border-top: 1px solid var(--line); }
+  @media (max-width: 560px) { ol.week li { grid-template-columns: 1fr; gap: 0.3rem; } }
+
+  /* Cards grid */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; margin-top: 1.2rem; }
+  @media (max-width: 760px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.05rem 1.1rem 1.1rem; box-shadow: var(--shadow); }
+  .card .ic { font-size: 1.35rem; line-height: 1; margin-bottom: 0.55rem; }
+  .card h4 { font-size: 1.05rem; margin-bottom: 0.25rem; }
+  .card p { font-size: 0.86rem; margin: 0; }
+
+  /* Ages */
+  ol.sig { list-style: none; counter-reset: g; margin-top: 1rem; }
+  ol.sig li { counter-increment: g; position: relative; padding: 1rem 0 1rem 3.2rem; border-bottom: 1px solid var(--line); }
+  ol.sig li:last-child { border-bottom: none; }
+  ol.sig li:before { content: counter(g, decimal-leading-zero); position: absolute; left: 0; top: 1rem; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.25rem; color: var(--terra); }
+  ol.sig li h4 { font-size: 1.05rem; margin-bottom: 0.15rem; }
+  ol.sig li p { font-size: 0.9rem; margin: 0; }
+
+  /* Villas */
+  .lagoon { background: linear-gradient(115deg, #06343b, #0d5b64); color: #e6f3f0; border-radius: 16px; padding: 1.5rem 1.6rem; position: relative; overflow: hidden; box-shadow: var(--shadow); margin-top: 1.2rem; }
+  .lagoon:before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 82% 8%, rgba(120,220,214,.35), transparent 46%), radial-gradient(circle at 15% 95%, rgba(120,220,214,.18), transparent 42%); }
+  .lagoon .in { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  @media (max-width: 620px) { .lagoon .in { grid-template-columns: 1fr; } }
+  .lagoon .tagx { font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase; color: #7bd8ce; font-weight: 600; }
+  .lagoon h3 { font-size: 1.35rem; color: #f1fbf8; margin: 0.3rem 0 0.4rem; }
+  .lagoon p { color: #cfe8e2; font-size: 0.9rem; margin: 0; }
+  .lagoon .foot { position: relative; margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid rgba(123,216,206,.3); font-size: 0.84rem; color: #bfe0da; }
+
+  /* Getting there */
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th, td { text-align: left; padding: 0.65rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-soft); }
+  table.arrive td:first-child { white-space: nowrap; color: var(--terra); font-weight: 600; font-size: 0.85rem; }
+  table.arrive td:nth-child(2) { white-space: nowrap; color: var(--muted); font-size: 0.8rem; }
+  @media (max-width: 600px) {
+    table.arrive, table.arrive tbody { display: block; }
+    table.arrive tr { display: grid; grid-template-columns: auto 1fr; column-gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+    table.arrive td { display: block; border: 0; padding: 0; }
+    table.arrive td:nth-child(2) { align-self: end; }
+    table.arrive td:nth-child(3) { grid-column: 1 / -1; padding-top: 0.25rem; }
+  }
+
+  /* Status */
+  ol.stat { list-style: none; margin-top: 1rem; }
+  ol.stat li { position: relative; padding: 0.55rem 0 0.55rem 1.9rem; color: var(--ink-soft); font-size: 0.93rem; }
+  ol.stat li:before { content: ""; position: absolute; left: 0.45rem; top: 1.05rem; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--terra); }
+  ol.stat li.next:before { background: var(--card); border: 2px solid var(--gold); }
+  ol.stat li.next { color: var(--ink); }
+  ol.stat li + li:after { content: ""; position: absolute; left: 0.72rem; top: -0.5rem; height: 1.1rem; width: 1px; background: var(--line-strong); }
+  ol.stat b { color: var(--ink); }
+  .archnote-box { background: var(--terra-soft); border: 1px solid var(--line-strong); border-radius: 12px; padding: 0.8rem 1.1rem; font-size: 0.88rem; color: var(--ink-soft); margin-top: 1.2rem; }
+  .archnote-box b { color: var(--ink); }
+
+  /* Checklist */
+  ul.check { list-style: none; margin-top: 1rem; }
+  ul.check li { padding: 0.6rem 0 0.6rem 2rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.92rem; position: relative; }
+  ul.check li:last-child { border-bottom: none; }
+  ul.check li:before { content: ""; position: absolute; left: 0; top: 0.8rem; width: 1.05rem; height: 1.05rem; border: 1.5px solid var(--terra); border-radius: 5px; }
+  ul.check li b { color: var(--ink); }
+
+  .closing { text-align: center; background: linear-gradient(180deg, var(--bg), var(--terra-soft)); }
+  .closing h2 { font-size: clamp(1.7rem, 4.8vw, 2.5rem); margin-bottom: 0.6rem; text-wrap: balance; }
+  .closing h2 em { font-style: italic; color: var(--terra); }
+  .closing p { max-width: 44ch; margin: 0 auto; }
+  .btn { display: inline-block; background: var(--terra); color: #fff; text-decoration: none; border-radius: 100px; padding: 0.7rem 1.6rem; font-weight: 600; font-size: 0.92rem; }
+  footer { text-align: center; padding: 2.6rem 0 4rem; color: var(--muted); font-size: 0.79rem; }
+  footer em { font-family: 'Fraunces', serif; }
+  footer a { color: var(--terra); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .snap { grid-template-columns: repeat(2, 1fr); }
+    .brand .full { display: none; }
+    .hero .rip { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+</style>
 </head>
 <body>
-<a class="skip" href="#plan">Skip to the plan</a>
 
-<header class="site-head">
-  <a class="brand" href="/winter/">Winter '26 / Sangeli</a>
-  <nav aria-label="Page">
-    <a href="#why">Why this one</a>
-    <a href="#booking">Booking</a>
-    <a href="/winter/maldives/">Full plan</a>
-  </nav>
+<div class="progress" id="progress"></div>
+
+<header class="bar" id="bar">
+  <div class="bar-inner">
+    <a class="brand" href="#top"><b>Winter '26</b><span class="full"> · Sangeli, Maldives</span></a>
+    <nav class="links" id="nav">
+      <a href="#island">The island</a>
+      <a href="#week">The week</a>
+      <a href="#included">Taken care of</a>
+      <a href="#ages">Every age</a>
+      <a href="#villas">Where we sleep</a>
+      <a href="#getting-there">Getting there</a>
+      <a href="#status">Where it stands</a>
+    </nav>
+  </div>
 </header>
 
-<section class="hero" aria-labelledby="hero-title">
-  <div class="hero-inner">
-    <p class="eyebrow">The family picked the island</p>
-    <h1 id="hero-title">Sangeli <em>it is.</em></h1>
-    <p class="hero-line">OBLU Select Sangeli · 24–29 Nov · five nights · all-inclusive.</p>
+<a id="top"></a>
+<div class="hero">
+  <div class="scene" aria-hidden="true"></div>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="rip" aria-hidden="true"></div>
+  <div class="rip r2" aria-hidden="true"></div>
+  <div class="rip r3" aria-hidden="true"></div>
+  <div class="rip r4" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="eyebrow">A family gathering · Thanksgiving week 2026</div>
+      <h1>We're going to <em>the Maldives.</em></h1>
+      <p class="dek">OBLU Select Sangeli — Tuesday 24 to Sunday 29 November. Five nights, one island, three generations, and not a bill in sight.</p>
+      <div class="snap" id="snapshot">
+        <div><div class="k">Where</div><div class="v">Sangeli <small>· North Malé Atoll</small></div></div>
+        <div><div class="k">When</div><div class="v">Tue 24 – Sun 29 Nov <small>· 5 nights</small></div></div>
+        <div><div class="k">Who</div><div class="v">Eighteen of us <small>· ages 3 to 76</small></div></div>
+        <div><div class="k">Status</div><div class="v">Booked <small>· go book your flights</small></div></div>
+      </div>
+    </div>
   </div>
-  <div class="fact-ribbon" aria-label="Trip facts">
-    <div><small>Family</small><strong>Ages 3 → 76</strong></div>
-    <div><small>Route</small><strong>Malé → Sangeli · speedboat</strong></div>
-    <div><small>Status</small><strong>Selected. Not booked.</strong></div>
+</div>
+
+<main>
+
+<section id="island" style="padding-top:2rem">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The island</div>
+      <h2 class="title">Two small islands, a wooden jetty, <em>and a reef you can swim to.</em></h2>
+      <div class="two">
+        <div>
+          <p class="lead">Sangeli sits out on the northwest edge of North Malé Atoll — under an hour by speedboat from the airport, no seaplane. The boat is ours, and it's included.</p>
+          <p>The main island holds the villas, the pools and the kids club. A jetty walks you across to <strong>One Banyan</strong>, the quieter adults-only island with its own pool and the two à-la-carte restaurants. The house reef starts off the beach, so snorkelling is a morning swim, not an excursion.</p>
+        </div>
+        <div>
+          <p>Everything is on the sand. Every villa has a terrace and a few steps to the water; nobody is on a boardwalk over the lagoon. A hundred and thirty-seven villas in all — small enough to feel like ours for the week.</p>
+          <p>The kitchen is a point of pride: a live-cooking buffet that changes theme every night, a big share of Indian chefs, and a team that takes special requests at the table.</p>
+          <p><a class="out" href="https://coloursofoblu.com/oblu-select-sangeli/en" target="_blank" rel="noopener">The resort's own pages →</a> &nbsp;·&nbsp; <a class="out" href="https://www.youtube.com/playlist?list=PL418Dp0KbTk6NDE6mKSzBgoBybkJFDpRa" target="_blank" rel="noopener">Walk-through videos of the villas →</a></p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<main id="plan">
-  <section class="section" id="why">
-    <div class="section-inner">
-      <div class="section-head reveal">
-        <p class="kicker">Why this one</p>
-        <h2>The dates. The rooms. <em>The route.</em></h2>
-      </div>
-      <div class="poster-grid reveal">
-        <div class="big-statement">
-          <span>One island · five nights</span>
-          <h3>One island. Eight rooms. All of us.</h3>
-        </div>
-        <ol class="reason-list">
-          <li><span class="num">01</span><p><b>Dates</b><br>24–29 Nov. Five nights.</p></li>
-          <li><span class="num">02</span><p><b>Rooms</b><br>One family suite. Seven beach villas.</p></li>
-          <li><span class="num">03</span><p><b>Route</b><br>One speedboat from Malé.</p></li>
-          <li><span class="num">04</span><p><b>Plan</b><br>All-inclusive.</p></li>
-        </ol>
-      </div>
+<section id="week">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The week</div>
+      <h2 class="title">Five days, <em>loosely.</em></h2>
+      <p>A sketch, not a schedule. The only fixed thing is Thursday's table.</p>
+      <ol class="week">
+        <li>
+          <div class="day">Tuesday 24<small>Arrive</small></div>
+          <p>Land in Malé, walk to the jetty, and the speedboat does the rest. Find your villa, find the water, find each other. Drinks on the suite's terrace before the first dinner at the Courtyard.</p>
+        </li>
+        <li>
+          <div class="day">Wednesday 25<small>Settle in</small></div>
+          <p>First reef swim off the beach. Kids club opens its doors; the divers start in the pool. Sunset fishing from the dhoni for anyone who wants to bring something back for the chefs.</p>
+        </li>
+        <li class="thanks">
+          <div class="day">Thursday 26<small>Thanksgiving</small></div>
+          <p>A slow day by design. Naps on One Banyan, the kids in the pool, and in the evening <strong>one long table for all of us</strong> — we're asking the island to set it.</p>
+        </li>
+        <li>
+          <div class="day">Friday 27<small>Out on the water</small></div>
+          <p>Boat day: a sandbank, a dolphin run, a snorkel spot beyond the reef — the excursions are part of the plan. Spa slots in the afternoon. First à-la-carte dinner across the jetty.</p>
+        </li>
+        <li>
+          <div class="day">Saturday 28<small>Last full day</small></div>
+          <p>The divers do their open-water dives. Everyone else does whatever they missed. Second à-la-carte dinner, or the Saturday theme night, or both ends of the same evening.</p>
+        </li>
+        <li>
+          <div class="day">Sunday 29<small>Home</small></div>
+          <p>An early boat back to Malé for the midday Delhi flight; a later one for everyone else. Same jetty, slightly browner.</p>
+        </li>
+      </ol>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section plan-strip" id="booking">
-    <div class="section-inner reveal">
-      <h2>Next: book Sangeli.</h2>
-      <a class="button" href="/winter/maldives/">The full Sangeli plan →</a>
+<section id="included">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Already taken care of</div>
+      <h2 class="title">Nobody touches a wallet <em>all week.</em></h2>
+      <p>The island runs on the <strong>Serenity Plan</strong>: every meal, every drink, every snack, and most of the things to do are already handled before we land. Order the second coffee. Take the boat.</p>
+      <div class="grid">
+        <div class="card"><div class="ic">🍽</div><h4>Every meal</h4><p>Live-cooking buffet at the Courtyard with a different theme each night, plus two à-la-carte dinners each on One Banyan.</p></div>
+        <div class="card"><div class="ic">🥂</div><h4>Every drink</h4><p>Wines, beers, spirits and cocktails at all the bars, plus a minibar in each villa restocked every day.</p></div>
+        <div class="card"><div class="ic">🤿</div><h4>The reef</h4><p>Snorkel gear for the week and a house reef that starts off the beach — go whenever you like, no sign-up.</p></div>
+        <div class="card"><div class="ic">⛵</div><h4>Out on the water</h4><p>Sunset fishing and a set of boat excursions included in the plan — sandbanks, dolphins, snorkel spots.</p></div>
+        <div class="card"><div class="ic">🧖</div><h4>The spa</h4><p>A 45-minute treatment for every grown-up. Book yours the day we arrive.</p></div>
+        <div class="card"><div class="ic">🪁</div><h4>The kids club</h4><p>Its own pool and a full day of organised things to do, so the grown-ups get One Banyan.</p></div>
+      </div>
+      <p style="margin-top:1rem;font-size:0.84rem"><a class="out" href="https://coloursofoblu.com/oblu-select-sangeli/en/serenity-plan" target="_blank" rel="noopener">The full Serenity Plan, in the resort's words →</a></p>
     </div>
-  </section>
+  </div>
+</section>
+
+<section id="ages">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">Every age</div>
+      <h2 class="title">Something for the three-year-old <em>and for the seventy-six-year-old.</em></h2>
+      <ol class="sig">
+        <li><h4>The little ones — 3, 5 and 8</h4><p>A kids club with its own pool, shallow warm water off the beach, and cousins to chase. The two older ones are in from day one; we've asked the island to make sure the youngest joins his brother.</p></li>
+        <li><h4>The divers</h4><p>A proper PADI centre on the island. Two of us want our open-water certification — do the theory online before we fly and the four dives fit inside the week.</p></li>
+        <li><h4>The grandparents</h4><p>Beach villas on the sand, a short flat walk to everything, a speedboat rather than a seaplane, and a quiet island across the jetty when the pool gets loud.</p></li>
+        <li><h4>The ones who want to do nothing</h4><p>One Banyan is adults-only by day: a pool, a bar, a book, and a spa treatment with your name on it.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="villas">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Where we sleep</div>
+      <h2 class="title">Eight villas on the beach, <em>one of them with a pool big enough for all of us.</em></h2>
+      <div class="lagoon">
+        <div class="in">
+          <div>
+            <div class="tagx">Family headquarters</div>
+            <h3>The two-bedroom beach pool suite</h3>
+            <p>Two bedrooms, a living room, a private pool and a terrace that opens onto the sand. Home for the family with the two youngest — and the place everyone drops in for a drink before dinner.</p>
+          </div>
+          <div>
+            <div class="tagx">Everyone else</div>
+            <h3>Beach villas along the shore</h3>
+            <p>Seven of them, each with its own stretch of beach, a terrace and room for a third bed where a kid or a nineteen-year-old needs one. A five-minute walk end to end, at most.</p>
+          </div>
+        </div>
+        <div class="foot">We've asked the island to keep us together on a quiet stretch of beach — the Maldives never guarantees which villa is which, but our agent has people on the island making it happen.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="getting-there">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">Getting there</div>
+      <h2 class="title">Fly to Malé; <em>the boat is waiting.</em></h2>
+      <div class="tbl-wrap">
+        <table class="arrive">
+          <tbody>
+            <tr><td>Delhi → Malé</td><td>~4h · nonstop</td><td>Air India's morning flight lands around noon, which puts us on the island by mid-afternoon. The Delhi contingent is booking as a block.</td></tr>
+            <tr><td>Bangalore → Malé</td><td>nonstop</td><td>Lands mid-afternoon; a later boat, same jetty.</td></tr>
+            <tr><td>Seattle / NYC → Malé</td><td>~23h · one stop</td><td>Via the Gulf or Europe. Arrive the night before or early on the 24th.</td></tr>
+            <tr><td>Malé → Sangeli</td><td>&lt; 1h · speedboat</td><td>Included, one per villa, met at the airport jetty. No seaplane, no waiting around.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:1rem;font-size:0.86rem">Late November is the start of the Maldives dry season — warm, mostly sunny, the odd short shower. Water around 28°C.</p>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">Where it stands</div>
+      <h2 class="title">Said yes on the 18th. <em>Booked on the 20th.</em></h2>
+      <ol class="stat">
+        <li><b>Tuesday 18 Aug</b> — the family said yes to Sangeli and to five nights, Tuesday to Sunday.</li>
+        <li><b>Wednesday 19 Aug</b> — go-ahead to Amit at Simply Maldives, who held the eight villas while the names came in.</li>
+        <li><b>Thursday 20 Aug</b> — booked. Eight villas, Tuesday 24 to Sunday 29 November.</li>
+        <li class="next"><b>Next</b> — flights. Delhi is booking as a block; everyone else, see below.</li>
+      </ol>
+      <div class="archnote-box"><b>Two things we've asked the island for:</b> our villas clustered on one quiet stretch of beach, and the three-year-old welcome in the kids club alongside his brother.</div>
+    </div>
+  </div>
+</section>
+
+<section id="before">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">Before you book flights</div>
+      <h2 class="title">Five small things.</h2>
+      <ul class="check">
+        <li><b>Check your name reached us as it appears on your passport</b> (and the kids' dates of birth) — a quick message to Kahran or Pradeep if you're not sure.</li>
+        <li><b>Land in Malé on Tuesday 24</b> by mid-afternoon if you can; leave <b>Sunday 29</b> any time after late morning.</li>
+        <li><b>Passports</b> valid six months past the trip; Indian and US passports get a visa on arrival.</li>
+        <li><b>Divers:</b> finish the PADI eLearning before you fly, so the week is water, not classroom.</li>
+        <li><b>Pack</b> reef-safe sunscreen, rash guards for the kids, a hat — and one nice outfit for Thursday night.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <h2>One island, all of us, <em>Tuesday to Sunday.</em></h2>
+      <p>Questions, changes, someone new who wants to come — the family WhatsApp group, or just email Kahran.</p>
+      <p style="margin-top:1.2rem"><a class="btn" href="mailto:kahran.singh@gmail.com?subject=Sangeli%20%E2%80%94%20November">Email Kahran →</a></p>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<footer class="archive">
-  <div class="archive-inner">
-    <strong>Family winter · Nov 2026</strong>
-    <span>Earlier routes, kept for the record: <a href="/winter/phi-phi/">Phi Phi</a> · <a href="/winter/chiang-mai/">Chiang Mai</a></span>
+<footer>
+  <div class="wrap">
+    <em>Put together for the family · updated 20 August 2026</em><br>
+    For the record, the roads not taken: <a href="/winter/phi-phi/">Phi Phi</a> &nbsp;·&nbsp; <a href="/winter/chiang-mai/">Chiang Mai</a> &nbsp;·&nbsp; <a href="#top">↑ Top</a><br>
+    <span style="font-size:0.71rem; opacity:0.7">No stock photos here — the island's own pictures and videos are linked above.</span>
   </div>
 </footer>
 
 <script>
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items = [].slice.call(document.querySelectorAll('.reveal'));
-  if (reduce || !('IntersectionObserver' in window)) {
-    items.forEach(function (item) { item.classList.add('in'); });
-    return;
+  var prog = document.getElementById('progress'), bar = document.getElementById('bar');
+  function onScroll() {
+    var h = document.documentElement, top = h.scrollTop || document.body.scrollTop, max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? top / max * 100 : 0) + '%';
+    bar.classList.toggle('stuck', top > 8);
   }
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  items.forEach(function (item) { observer.observe(item); });
+  document.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) { revs.forEach(function (r) { r.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    revs.forEach(function (r) { io.observe(r); });
+  }
+  var navLinks = [].slice.call(document.querySelectorAll('#nav a'));
+  var secs = navLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { var id = e.target.id; navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); }); } }); }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(function (s) { spy.observe(s); });
+  }
 })();
 </script>
+
 </body>
 </html>

@@ -1,43 +1,797 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>Chiang Mai · Archived winter route</title>
-<meta name="description" content="The archived Chiang Mai route. OBLU Select Sangeli is the selected family plan.">
-<link rel="canonical" href="https://kahransingh.com/winter/chiang-mai/">
-<link rel="stylesheet" href="/winter/selected.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Family Winter Gathering · The Chiang Mai Option · Nov 2026</title>
+<meta property="og:title" content="Family Winter Gathering — the Chiang Mai option">
+<meta property="og:description" content="The original northern-Thailand proposal — Chiang Mai + the Golden Triangle. Kept for the record; the current plan is the Phi Phi Islands.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kahransingh.com/winter/chiang-mai/">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Wat_Phra_That_Doi_Suthep_-_Chiang_Mai.jpg/1280px-Wat_Phra_That_Doi_Suthep_-_Chiang_Mai.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #211d18; --ink-soft: #57514a; --bg: #f6efe4; --card: #fffdf8;
+    --line: #e7ded0; --line-strong: #d7cab6; --muted: #908878;
+    --terra: #a4542b; --terra-soft: #f1e3d4; --jungle: #46603f; --jungle-soft: #e4ebdd;
+    --water: #d4e4e3; --gold: #b9863a;
+    --shadow: 0 1px 2px rgba(60,42,24,.05), 0 10px 34px rgba(60,42,24,.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hanken Grotesk', -apple-system, sans-serif; color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.62; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  body::before { content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 140px 140px; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 1.4rem; }
+  .narrow { max-width: 660px; }
+  h1, h2, h3, h4 { font-family: 'Fraunces', Georgia, serif; line-height: 1.14; font-weight: 400; letter-spacing: -0.012em; }
+  a { color: inherit; }
+  ::selection { background: var(--terra-soft); }
+  img { display: block; max-width: 100%; }
+  .gallery, td a { color: var(--terra); text-decoration: none; border-bottom: 1px dotted var(--terra); }
+  .gallery:hover, td a:hover { border-bottom-style: solid; }
+
+  .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--terra), var(--gold)); z-index: 60; transition: width .1s linear; }
+  .plantabs { max-width: 1000px; margin: 0 auto; padding: 0.85rem 1.4rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; row-gap: 0.4rem; align-items: center; }
+  .plantabs .lbl { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-right: 0.3rem; }
+  .plantabs a { text-decoration: none; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.32rem 0.95rem; color: var(--ink-soft); background: var(--card); transition: all .2s; }
+  .plantabs a:hover { border-color: var(--terra); color: var(--terra); }
+  .plantabs a.on { background: var(--terra); border-color: var(--terra); color: #fff; }
+  .archnote { max-width: 1000px; margin: 0.7rem auto 0; padding: 0 1.4rem; }
+  .archnote > div { background: var(--terra-soft); border: 1px solid var(--line-strong); border-radius: 12px; padding: 0.65rem 1rem; font-size: 0.84rem; color: var(--ink-soft); }
+  .archnote a { color: var(--terra); font-weight: 600; }
+  header.bar { position: sticky; top: 0; z-index: 50; background: rgba(246,239,228,.86); backdrop-filter: saturate(150%) blur(12px); -webkit-backdrop-filter: saturate(150%) blur(12px); border-bottom: 1px solid transparent; transition: border-color .3s; }
+  header.bar.stuck { border-bottom-color: var(--line); }
+  .bar-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1.4rem; }
+  .brand { font-family: 'Fraunces', serif; font-style: italic; font-size: 1rem; white-space: nowrap; text-decoration: none; }
+  .brand b { font-style: normal; font-weight: 500; }
+  nav.links { margin-left: auto; display: flex; gap: 1rem; overflow-x: auto; scrollbar-width: none; mask-image: linear-gradient(90deg, transparent, #000 8px, #000 calc(100% - 8px), transparent); }
+  nav.links::-webkit-scrollbar { display: none; }
+  nav.links a { text-decoration: none; font-size: 0.78rem; letter-spacing: 0.02em; color: var(--muted); white-space: nowrap; padding: 0.1rem 0; border-bottom: 1.5px solid transparent; transition: color .25s, border-color .25s; }
+  nav.links a:hover { color: var(--ink); }
+  nav.links a.active { color: var(--terra); border-bottom-color: var(--terra); }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; min-height: min(78vh, 720px); display: flex; align-items: flex-end; }
+  .hero .scene { position: absolute; inset: 0; z-index: 0; }
+  .hero .scene svg { width: 100%; height: 100%; display: block; }
+  .hero-content { position: relative; z-index: 2; width: 100%; padding: clamp(2.2rem, 5vh, 3.5rem) 0 1.6rem; }
+  .eyebrow { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.8rem; font-weight: 600; }
+  .hero h1 { font-size: clamp(2.1rem, 5.5vw, 3.4rem); line-height: 1.02; letter-spacing: -0.022em; }
+  .hero .snap { margin-top: 1.5rem; }
+  .hero .snap div { background: rgba(255,253,248,.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+  .hero .note { background: rgba(255,253,248,.7); border-radius: 10px; padding: 0.55rem 0.8rem; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .hero h1 em { font-style: italic; color: var(--terra); }
+  .dek { font-family: 'Fraunces', serif; font-size: clamp(1rem, 2.1vw, 1.2rem); font-style: italic; color: var(--ink-soft); margin-top: 0.9rem; max-width: 44ch; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+  .chip { font-size: 0.79rem; background: rgba(255,253,248,.74); border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.35rem 0.85rem; backdrop-filter: blur(4px); }
+  .chip b { font-weight: 600; }
+
+  section { padding: clamp(2.6rem, 6vh, 4.5rem) 0; }
+  section + section { border-top: 1px solid var(--line); }
+  .kicker { font-size: 0.71rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 0.55rem; }
+  .kicker:before { content: ""; width: 1.5rem; height: 1px; background: var(--terra); opacity: .5; }
+  h2.title { font-size: clamp(1.65rem, 4vw, 2.15rem); margin-bottom: 1rem; }
+  .sub { color: var(--ink-soft); }
+  p { margin-bottom: 0.8rem; color: var(--ink-soft); }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 600; color: var(--ink); }
+  .em { color: var(--terra); font-style: italic; font-family: 'Fraunces', serif; }
+
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  .snap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .snap div { background: var(--card); padding: 0.9rem 1rem; }
+  .snap .k { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .snap .v { font-size: 0.97rem; margin-top: 0.1rem; color: var(--ink); font-weight: 500; }
+  .snap .v small { font-weight: 400; color: var(--ink-soft); }
+
+  .mapcard { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 0.6rem; box-shadow: var(--shadow); }
+  .mapcard svg { width: 100%; height: auto; display: block; border-radius: 12px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.7rem; padding: 0 0.4rem 0.3rem; font-size: 0.77rem; color: var(--ink-soft); }
+  .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .dotb { width: 11px; height: 11px; border-radius: 50%; background: var(--terra); }
+  .doto { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--terra); }
+  .dotf { width: 16px; height: 0; border-top: 2px dashed var(--jungle); }
+
+  .bases { display: grid; gap: 1.2rem; }
+  .basecard { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .basecard .shot { aspect-ratio: 16/9; overflow: hidden; }
+  .basecard .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .cap { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.76rem; color: var(--muted); padding: 0.45rem 1.3rem 0; }
+  .basecard .body { padding: 0.7rem 1.3rem 1.2rem; }
+  .basecard .nights { font-size: 0.69rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terra); font-weight: 600; }
+  .basecard h3 { font-size: 1.3rem; margin: 0.2rem 0 0.1rem; }
+  .basecard .loc { font-size: 0.81rem; color: var(--muted); margin-bottom: 0.7rem; }
+  .basecard ul { list-style: none; margin: 0 0 0.8rem; }
+  .basecard ul li { font-size: 0.89rem; padding: 0.15rem 0 0.15rem 1.1rem; position: relative; color: var(--ink-soft); }
+  .basecard ul li:before { content: "·"; position: absolute; left: 0.2rem; color: var(--terra); font-weight: 700; }
+  .amen { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .amen span { font-size: 0.71rem; background: var(--jungle-soft); color: var(--jungle); border-radius: 6px; padding: 0.2rem 0.55rem; }
+
+  .tbl-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; min-width: 480px; }
+  th, td { text-align: left; padding: 0.6rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-weight: 600; font-size: 0.67rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  td.tsub { color: var(--ink-soft); }
+  tr.pick td { background: var(--terra-soft); }
+  tr.pick td:first-child { font-weight: 600; }
+  .tag { font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; background: var(--terra); border-radius: 5px; padding: 0.08rem 0.4rem; margin-left: 0.35rem; vertical-align: middle; }
+  .tag.warm { background: var(--gold); }
+  .price { color: var(--gold); font-weight: 600; letter-spacing: 0.04em; }
+  .yes { color: var(--jungle); font-weight: 600; }
+  .no { color: var(--muted); }
+  .star { color: var(--terra); font-weight: 600; }
+  h4.subhead { font-size: 0.95rem; margin: 1.2rem 0 0.3rem; color: var(--ink); }
+
+  table.days td:first-child { white-space: nowrap; color: var(--terra); font-weight: 600; font-size: 0.81rem; }
+  table.days td:nth-child(2) { white-space: nowrap; color: var(--muted); font-size: 0.79rem; }
+  table.days tr.coremark td { background: var(--terra-soft); color: var(--terra); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  table.ages td:first-child { white-space: nowrap; }
+  table.ages td:first-child b { display: block; font-family: 'Fraunces', serif; font-weight: 400; font-size: 1rem; }
+  table.ages td:first-child small { color: var(--terra); font-size: 0.69rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .budget { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.3rem; box-shadow: var(--shadow); }
+  .budget .row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.45rem 0; border-bottom: 1px solid var(--line); font-size: 0.89rem; color: var(--ink-soft); }
+  .budget .row .n { color: var(--terra); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .budget .row.total { font-weight: 600; color: var(--ink); border-bottom: none; border-top: 2px solid var(--line-strong); margin-top: 0.2rem; padding-top: 0.7rem; }
+  .note { font-size: 0.81rem; color: var(--muted); margin-top: 0.8rem; }
+  .note b { color: var(--ink-soft); }
+
+  .opt { display: grid; gap: 1rem; }
+  .optcard { display: grid; grid-template-columns: 104px 1fr; background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .optcard .shot { overflow: hidden; }
+  .optcard .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .optcard .body { padding: 0.85rem 1.05rem; }
+  .optcard h3 { font-size: 1.08rem; }
+  .optcard h3 small { display: block; font-family: 'Hanken Grotesk'; font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--terra); font-weight: 700; margin-bottom: 0.1rem; }
+  .optcard p { font-size: 0.85rem; margin: 0.25rem 0 0; }
+  .optcard .imgcap { font-size: 0.66rem; color: var(--muted); font-style: italic; font-family: 'Fraunces', serif; margin-top: 0.3rem; }
+
+  .ext { display: grid; gap: 1rem; }
+  .extcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  .extcard.feature { border-color: var(--terra); }
+  .extcard .shot { aspect-ratio: 16/10; overflow: hidden; position: relative; }
+  .extcard .shot img { width: 100%; height: 100%; object-fit: cover; }
+  .extcard .flag { position: absolute; top: 0; left: 0; background: var(--terra); color: #fff; font-size: 0.61rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-bottom-right-radius: 10px; font-weight: 600; }
+  .extcard .body { padding: 0.9rem 1.1rem 1.05rem; }
+  .extcard h3 { font-size: 1.12rem; }
+  .ext-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.5rem 0; }
+  .ext-meta span { font-size: 0.71rem; border: 1px solid var(--line-strong); border-radius: 6px; padding: 0.18rem 0.5rem; color: var(--ink-soft); }
+  .ext-meta span b { color: var(--terra); }
+  .extcard p { font-size: 0.84rem; margin: 0; }
+
+  .gtk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 1.4rem; }
+  .gtk div h4 { font-size: 0.91rem; margin-bottom: 0.15rem; }
+  .gtk div h4 span { color: var(--terra); }
+  .gtk div p { font-size: 0.81rem; margin: 0; }
+
+  /* Bench */
+  ul.bench { list-style: none; columns: 1; column-gap: 2rem; }
+  @media (min-width: 720px) { ul.bench { columns: 2; } }
+  ul.bench li { break-inside: avoid; padding: 0.55rem 0 0.55rem 1.1rem; border-bottom: 1px solid var(--line); font-size: 0.87rem; color: var(--ink-soft); position: relative; }
+  ul.bench li:before { content: "·"; position: absolute; left: 0.15rem; color: var(--terra); font-weight: 700; }
+  ul.bench li b { color: var(--ink); font-weight: 600; }
+  ul.bench li .who { display: block; font-size: 0.72rem; color: var(--muted); font-style: italic; font-family: 'Fraunces', serif; }
+  ul.bench li.skip b { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+
+  ol.steps { counter-reset: s; list-style: none; }
+  ol.steps li { counter-increment: s; position: relative; padding: 0.6rem 0 0.6rem 2.6rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.91rem; }
+  ol.steps li:last-child { border-bottom: none; }
+  ol.steps li b { color: var(--ink); }
+  ol.steps li:before { content: counter(s); position: absolute; left: 0; top: 0.55rem; width: 1.7rem; height: 1.7rem; background: var(--terra); color: #fff; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; font-family: 'Fraunces', serif; }
+
+  /* Jump links */
+  .jump { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1rem; }
+  .jump a { font-size: 0.77rem; text-decoration: none; color: var(--ink-soft); background: var(--card); border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.3rem 0.85rem; transition: all .2s; }
+  .jump a:hover { color: #fff; background: var(--terra); border-color: var(--terra); }
+  .jump a.hot { color: var(--terra); border-color: var(--terra); font-weight: 600; }
+  .jump a.hot:hover { color: #fff; }
+
+  /* Lantern callout */
+  .lantern { background: linear-gradient(115deg, #2a1b11, #50311c); color: #f7ead9; border-radius: 16px; padding: 1.5rem 1.6rem; position: relative; overflow: hidden; box-shadow: var(--shadow); }
+  .lantern:before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 82% 8%, rgba(245,182,92,.4), transparent 46%), radial-gradient(circle at 15% 95%, rgba(245,182,92,.2), transparent 42%); }
+  .lantern .in { position: relative; }
+  .lantern .tagx { font-size: 0.67rem; letter-spacing: 0.18em; text-transform: uppercase; color: #f1b765; font-weight: 600; }
+  .lantern h3 { font-size: clamp(1.4rem, 4vw, 1.8rem); color: #fdf3e6; margin: 0.35rem 0 0.5rem; }
+  .lantern p { color: #e9d6c1; font-size: 0.93rem; margin: 0; }
+  .lantern .verified { display: inline-block; margin-top: 0.8rem; font-size: 0.73rem; color: #f1b765; border: 1px solid rgba(241,183,101,.45); border-radius: 100px; padding: 0.22rem 0.75rem; }
+
+  /* Signature list */
+  ol.sig { list-style: none; counter-reset: g; margin-top: 1.3rem; }
+  ol.sig li { counter-increment: g; position: relative; padding: 1rem 0 1rem 3.2rem; border-bottom: 1px solid var(--line); }
+  ol.sig li:last-child { border-bottom: none; }
+  ol.sig li:before { content: counter(g, decimal-leading-zero); position: absolute; left: 0; top: 1rem; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.25rem; color: var(--terra); }
+  ol.sig li h4 { font-size: 1.1rem; margin-bottom: 0.15rem; }
+  ol.sig li p { font-size: 0.89rem; margin: 0; }
+
+  /* Celebrations + come-early */
+  .cel { display: grid; gap: 0.7rem; margin-bottom: 0.3rem; }
+  .cel-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0.85rem 1rem; }
+  .cel-card .d { font-family: 'Fraunces', serif; font-style: italic; color: var(--terra); font-size: 0.82rem; }
+  .cel-card h4 { font-size: 1.05rem; margin: 0.1rem 0 0.12rem; }
+  .cel-card p { font-size: 0.8rem; margin: 0; }
+  .mini { display: grid; gap: 0.8rem; margin-top: 0.4rem; }
+  .minicard { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; box-shadow: var(--shadow); }
+  .minicard .when { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--terra); font-weight: 600; }
+  .minicard h4 { font-size: 1.05rem; margin: 0.2rem 0 0.25rem; }
+  .minicard p { font-size: 0.84rem; margin: 0; }
+  @media (min-width: 600px) { .cel { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 720px) { .mini { grid-template-columns: repeat(3, 1fr); } }
+  .four { display: grid; gap: 0.8rem; grid-template-columns: 1fr 1fr; margin-top: 0.4rem; }
+  @media (min-width: 780px) { .four { grid-template-columns: repeat(4, 1fr); } }
+  .four .minicard { padding: 0; overflow: hidden; }
+  .four .mshot { aspect-ratio: 4/3; overflow: hidden; }
+  .four .mshot img { width: 100%; height: 100%; object-fit: cover; }
+  .four .mbody { padding: 0.85rem 1rem 1rem; }
+  .four .mcap { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.68rem; color: var(--muted); margin-top: 0.45rem; }
+
+  .closing { text-align: center; background: linear-gradient(180deg, var(--bg), var(--terra-soft)); }
+  .closing h2 { font-size: clamp(1.6rem, 4.5vw, 2.3rem); margin-bottom: 0.6rem; }
+  .closing h2 em { font-style: italic; color: var(--terra); }
+  .closing p { max-width: 40ch; margin: 0 auto; }
+  footer { text-align: center; padding: 2.6rem 0 4rem; color: var(--muted); font-size: 0.79rem; }
+  footer em { font-family: 'Fraunces', serif; }
+  footer a { color: var(--terra); text-decoration: none; }
+
+  @media (min-width: 720px) {
+    .bases { grid-template-columns: 1fr 1fr; }
+    .ext { grid-template-columns: repeat(3, 1fr); }
+    .extcard.feature { grid-column: 1 / -1; display: grid; grid-template-columns: 1.4fr 1fr; }
+    .extcard.feature .shot { aspect-ratio: auto; height: 100%; }
+  }
+  @media (max-width: 560px) {
+    .snap { grid-template-columns: repeat(2, 1fr); }
+    .gtk { grid-template-columns: 1fr; }
+    .brand .full { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+</style>
 </head>
-<body class="detail-page">
-<header class="site-head">
-  <a class="brand" href="/winter/">Winter ’26 / Sangeli</a>
-  <nav aria-label="Winter plan"><a href="/winter/">Selected plan</a></nav>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="bar" id="bar">
+  <div class="bar-inner">
+    <a class="brand" href="#top"><b>Winter '26</b><span class="full"> · a family gathering</span></a>
+    <nav class="links" id="nav">
+      <a href="#snapshot">Snapshot</a>
+      <a href="#map">Map</a>
+      <a href="#signature">Singular</a>
+      <a href="#stays">Stays</a>
+      <a href="#hotels">Hotels</a>
+      <a href="#days">The week</a>
+      <a href="#before">Early days</a>
+      <a href="#cost">Cost</a>
+      <a href="#options">Options</a>
+      <a href="#extend">Extend</a>
+      <a href="#bench">More</a>
+    </nav>
+  </div>
 </header>
-<main>
-<section class="hero detail-hero" aria-labelledby="title">
-  <div class="hero-inner">
-    <p class="eyebrow">Archived route</p>
-    <h1 id="title">Chiang Mai, <em>archived.</em></h1>
-    <p class="hero-line">The first route. Not the final one.</p>
+
+<a id="top"></a>
+<div class="plantabs">
+  <span class="lbl">The plans</span>
+  <a href="/winter/">🥂 Sangeli — where we're going</a>
+  <a href="/winter/phi-phi/">🏝 Phi Phi — archived</a>
+  <a class="on" href="/winter/chiang-mai/">🏮 Chiang Mai — archived</a>
+</div>
+<div class="archnote"><div><b>This was the original proposal.</b> After the family weighed in (relaxed &gt; scheduled), the plan moved to the beach, and in August the family chose <a href="/winter/">OBLU Select Sangeli in the Maldives, 24–29 November</a>. This page stays up for the record: the lanterns, the elephants and the Golden Triangle aren't gone, just waiting for another year.</div></div>
+<div class="hero">
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 760" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5e8d7"/><stop offset="0.55" stop-color="#f8efe1"/><stop offset="1" stop-color="#f6efe4"/></linearGradient>
+        <radialGradient id="sun" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#f3d1a2"/><stop offset="0.5" stop-color="#edc296" stop-opacity="0.5"/><stop offset="1" stop-color="#edc296" stop-opacity="0"/></radialGradient>
+        <linearGradient id="h1g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e1cfb8"/><stop offset="1" stop-color="#dac5a9"/></linearGradient>
+        <linearGradient id="h2g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bbbd9b"/><stop offset="1" stop-color="#acb48d"/></linearGradient>
+        <linearGradient id="h3g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#879675"/><stop offset="1" stop-color="#768a66"/></linearGradient>
+        <linearGradient id="h4g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#53684d"/><stop offset="1" stop-color="#41573e"/></linearGradient>
+      </defs>
+      <rect width="1440" height="760" fill="url(#sky)"/>
+      <circle cx="1080" cy="250" r="300" fill="url(#sun)"/>
+      <circle cx="1080" cy="250" r="72" fill="#f0cb9a" opacity="0.85"/>
+      <path d="M0 360 Q360 332 720 360 T1440 360 V440 H0 Z" fill="#ffffff" opacity="0.26"/>
+      <path d="M0 430 Q260 360 520 415 T1040 400 T1440 430 V760 H0 Z" fill="url(#h1g)"/>
+      <path d="M0 505 Q300 430 600 500 T1180 480 T1440 520 V760 H0 Z" fill="url(#h2g)"/>
+      <path d="M0 600 Q320 515 680 590 T1440 575 V760 H0 Z" fill="url(#h3g)"/>
+      <path d="M0 690 Q360 615 760 680 T1440 660 V760 H0 Z" fill="url(#h4g)"/>
+      <g fill="#324630" opacity="0.95">
+        <path d="M1320 760 C1326 690 1330 648 1332 620 C1334 648 1338 690 1344 760 Z"/>
+        <path d="M1332 624 C1300 612 1278 619 1262 633 C1290 627 1312 627 1332 634 Z"/>
+        <path d="M1332 624 C1364 612 1386 619 1402 633 C1374 627 1352 627 1332 634 Z"/>
+        <path d="M1332 620 C1320 592 1302 578 1280 571 C1306 583 1322 599 1332 624 Z"/>
+        <path d="M1332 620 C1344 592 1362 578 1384 571 C1358 583 1342 599 1332 624 Z"/>
+      </g>
+    </svg>
   </div>
-  <div class="fact-ribbon">
-    <div><small>Status</small><strong>Archived</strong></div>
-    <div><small>Selected</small><strong>OBLU Sangeli</strong></div>
-    <div><small>Dates</small><strong>24–29 Nov</strong></div>
-  </div>
-</section>
-<section class="section">
-  <div class="section-inner">
-    <div class="section-head reveal">
-      <p class="kicker">The record</p>
-      <h2>Northern Thailand, <em>then the beach won.</em></h2>
+  <div class="hero-content">
+    <div class="wrap">
+      <div class="eyebrow">A family gathering · Winter 2026</div>
+      <h1>Northern Thailand —<br><em>all of us, together.</em></h1>
+      <p class="dek">Twenty of us, three generations, four nights of jungle, river and rice terrace — thrilling at two and thrilling at seventy‑five.</p>
+      <div class="snap" id="snapshot">
+        <div><div class="k">Where</div><div class="v">Chiang Mai → Golden Triangle</div></div>
+        <div><div class="k">When</div><div class="v">20–29 Nov <small>· core 25–29</small></div></div>
+        <div><div class="k">Who</div><div class="v">~20 <small>· ages 2 → 70s</small></div></div>
+        <div><div class="k">The hook</div><div class="v">We land in the lantern festival</div></div>
+        <div><div class="k">Cost</div><div class="v">~$8–10k <small>/ family of 4, on the ground</small></div></div>
+        <div><div class="k">Status</div><div class="v">Archived <small>· we chose Sangeli</small></div></div>
+      </div>
     </div>
-    <p class="lead-small">Chiang Mai was the active first route: lanterns, elephants and two bases. Sangeli is the selected plan.</p>
-    <p><a class="button" href="/winter/">See Sangeli →</a></p>
+  </div>
+</div>
+
+<main>
+
+<section id="why" style="padding-top:1.8rem">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="note">Why here: it's <b>active</b> (what ruled out the Maldives), keeps us <b>all together</b>, is <b>easy from Delhi &amp; the US</b>, works for <b>every age</b>, and it's <b>somewhere new</b> after Phuket. Bali and Vietnam are weighed honestly <a class="gallery" href="#options">further down</a>. And one planning note: the grandparents have more passport stamps than the rest of us combined — plan accordingly.</p>
+      <div class="jump">
+        <a class="hot" href="#signature">✦ Why it's singular</a>
+        <a href="#stays">The plan</a>
+        <a href="#hotels">Hotels</a>
+        <a href="#days">The week</a>
+        <a href="#before">Early days</a>
+        <a href="#cost">Cost</a>
+        <a href="#options">Bali &amp; Vietnam</a>
+        <a href="#extend">Extend the trip</a>
+      </div>
+    </div>
   </div>
 </section>
+
+<section id="map">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The geography</div>
+      <h2 class="title">Everything's clustered in the north</h2>
+      <p class="sub" style="margin-bottom:1rem">Two bases a 40‑minute hop apart, with every add‑on within an hour or two. Nobody touches a long road.</p>
+      <div class="mapcard">
+        <svg viewBox="0 0 1000 660" role="img" aria-label="Map: Chiang Mai and the Golden Triangle in northern Thailand, with add-ons to Luang Prabang, Bangkok and the Andaman coast.">
+          <defs><linearGradient id="land" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe7d6"/><stop offset="1" stop-color="#e9ddc8"/></linearGradient></defs>
+          <rect width="1000" height="660" fill="#f9f3ea"/>
+          <path d="M0 660 H320 Q250 540 300 470 Q200 430 150 480 Q60 470 0 520 Z" fill="var(--water)"/>
+          <path d="M380 660 H720 Q700 560 600 540 Q480 560 440 600 Z" fill="var(--water)"/>
+          <text x="120" y="600" font-family="Fraunces, serif" font-style="italic" font-size="20" fill="#7c9d9d">Andaman</text>
+          <text x="540" y="630" font-family="Fraunces, serif" font-style="italic" font-size="20" fill="#7c9d9d">Gulf of Thailand</text>
+          <path d="M150 120 Q360 70 560 110 Q760 90 860 200 Q900 320 820 430 Q740 560 600 540 Q470 560 440 600 Q360 560 300 470 Q220 440 200 360 Q150 300 170 220 Q150 170 150 120 Z" fill="url(#land)" stroke="#ddd0ba" stroke-width="2"/>
+          <path d="M620 150 Q800 150 860 250 Q880 360 800 430 Q720 470 660 420 Q640 320 660 250 Q630 200 620 150 Z" fill="#e5dbc4" opacity="0.7"/>
+          <text x="720" y="210" font-family="Fraunces, serif" font-style="italic" font-size="22" fill="#b3a585">Laos</text>
+          <text x="250" y="200" font-family="Fraunces, serif" font-style="italic" font-size="22" fill="#bfb193">Myanmar</text>
+          <text x="430" y="330" font-family="Fraunces, serif" font-style="italic" font-size="24" fill="#b3a585">Thailand</text>
+          <path d="M470 150 Q520 220 600 250 Q700 300 720 420 Q740 520 700 600" fill="none" stroke="#98bdbd" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+          <text x="735" y="500" font-family="Fraunces, serif" font-style="italic" font-size="16" fill="#7c9d9d" transform="rotate(70 735 500)">Mekong</text>
+          <path d="M30 250 Q170 250 300 300" fill="none" stroke="#a4542b" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round" opacity="0.7"/>
+          <text x="20" y="235" font-family="Hanken Grotesk" font-size="15" fill="#a4542b" font-weight="600">From Delhi →</text>
+          <path d="M120 70 Q230 130 300 290" fill="none" stroke="#a4542b" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round" opacity="0.7"/>
+          <text x="120" y="58" font-family="Hanken Grotesk" font-size="15" fill="#a4542b" font-weight="600">From US (SEA / NYC) ↘</text>
+          <path d="M320 300 L430 215" stroke="#46603f" stroke-width="2.5" stroke-dasharray="3 6" fill="none"/>
+          <path d="M320 300 Q480 250 620 255" stroke="#46603f" stroke-width="2.5" stroke-dasharray="3 6" fill="none"/>
+          <path d="M430 215 Q420 360 450 460" stroke="#bbad97" stroke-width="2" stroke-dasharray="3 6" fill="none"/>
+          <path d="M450 460 Q400 560 380 600" stroke="#bbad97" stroke-width="2" stroke-dasharray="3 6" fill="none"/>
+          <g font-family="Hanken Grotesk" font-size="13" font-weight="600">
+            <g transform="translate(355 245)"><rect x="-30" y="-15" width="60" height="24" rx="12" fill="#fff" stroke="#ddd0ba"/><text x="0" y="2" text-anchor="middle" fill="#46603f">40 min ✈</text></g>
+            <g transform="translate(490 232)"><rect x="-26" y="-15" width="52" height="24" rx="12" fill="#fff" stroke="#ddd0ba"/><text x="0" y="2" text-anchor="middle" fill="#46603f">1 hr ✈</text></g>
+            <g transform="translate(470 520)"><rect x="-34" y="-15" width="68" height="24" rx="12" fill="#fff" stroke="#ddd0ba"/><text x="0" y="2" text-anchor="middle" fill="#998a72">via BKK</text></g>
+          </g>
+          <g font-family="Hanken Grotesk" font-weight="600" font-size="16" fill="#211d18">
+            <circle cx="320" cy="300" r="10" fill="#a4542b" stroke="#fff" stroke-width="2.5"/>
+            <text x="305" y="332">Chiang Mai</text><text x="305" y="350" font-size="11" font-weight="400" fill="#908878">Base 1 · nights 1–2</text>
+            <circle cx="430" cy="210" r="10" fill="#a4542b" stroke="#fff" stroke-width="2.5"/>
+            <text x="448" y="206">Golden Triangle</text><text x="448" y="224" font-size="11" font-weight="400" fill="#908878">Base 2 · nights 3–4</text>
+            <circle cx="620" cy="255" r="8" fill="#fff" stroke="#a4542b" stroke-width="3"/>
+            <text x="636" y="252" font-size="14">Luang Prabang</text><text x="636" y="268" font-size="10.5" font-weight="400" fill="#908878">add‑on · Laos</text>
+            <circle cx="450" cy="460" r="8" fill="#fff" stroke="#a4542b" stroke-width="3"/>
+            <text x="466" y="457" font-size="14">Bangkok</text><text x="466" y="473" font-size="10.5" font-weight="400" fill="#908878">add‑on · on the way home</text>
+            <circle cx="380" cy="600" r="8" fill="#fff" stroke="#a4542b" stroke-width="3"/>
+            <text x="396" y="597" font-size="14">Andaman coast</text><text x="396" y="613" font-size="10.5" font-weight="400" fill="#908878">add‑on · beaches</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><i class="dotb"></i> Base (where we sleep)</span>
+          <span><i class="doto"></i> Optional add‑on</span>
+          <span><i class="dotf"></i> Short flight</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="signature">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">Why this won't feel like the other twenty</div>
+      <h2 class="title">The moments that make it ours</h2>
+      <div class="lantern">
+        <div class="in">
+          <div class="tagx">The reason it's these exact dates</div>
+          <h3>We arrive into the lantern festival</h3>
+          <p>Yi Peng — Chiang Mai's mass sky‑lantern release — falls on our very first nights. And there's a right way to do it: not the 25,000‑seat coach‑shuttle event, but <b>Yee Peng Lanna International at Mae Jo</b> — the original, ~3,000 seats, religious ceremony first, sells out within days of release. We grab a block the day sales open — adults, teens, and grandparents who want in (most will) — and stage a private riverside krathong release the same night for the under‑fives and anyone who'd rather have the quiet version.</p>
+          <span class="verified">✓ Official festival dates: 24–26 Nov 2026 · Loy Krathong falls 25 Nov</span>
+        </div>
+      </div>
+      <p class="sub" style="margin:1.3rem 0 0.2rem">And as the calendar would have it, three celebrations stack into four nights:</p>
+      <div class="cel">
+        <div class="cel-card"><div class="d">Wed 25 Nov</div><h4>The lanterns</h4><p>Yi Peng — sky lanterns over Chiang Mai, arrival night.</p></div>
+        <div class="cel-card"><div class="d">Thu 26 Nov</div><h4>Thanksgiving</h4><p>Our family feast, carried halfway around the world.</p></div>
+        <div class="cel-card"><div class="d">Fri 27 Nov</div><h4>Kahran's birthday</h4><p>A private hilltop dinner, the elephants below.</p></div>
+      </div>
+      <ol class="sig">
+        <li><h4>The dawn walk, with the man who started it all</h4><p>The camp's herd belongs to the GTAEF — the foundation run by <b>John Roberts</b>, who invented the "rescue the elephant <em>and</em> employ the mahout's whole family" model every ethical camp now copies. The ask we place with our ten‑room block: on the birthday morning, Roberts or his head biologist walks the herd out with us at dawn, before the camp opens. Every Aman has a spa. Nobody has this.</p></li>
+        <li><h4>"Walking with Giants" — never riding</h4><p>The camp's signature, by name: two hours through the jungle alongside the herd, their mahouts, and a vet or biologist. 60+ rescued elephants; the kids train as junior mahouts. Nobody perches on a chair on an elephant's spine.</p></li>
+        <li><h4>A baci at Ban Khok Phou, three generations deep</h4><p>By boat to a 200‑year‑old Lao village, where baci protocol puts the most senior people at the center — the village's elders receive ours, rank meeting rank, white threads around three generations' wrists. The realest moment of the week.</p></li>
+        <li><h4>"Dining by Design" — one long table by the baby elephant camp</h4><p>The resort's private dinner, in its most‑requested spot: a single long table set beside the nursery as the sun goes down. The birthday night that's no one else's.</p></li>
+        <li><h4>Three countries in a single glance</h4><p>Sundowners by longtail on the Mekong at the exact point Thailand, Laos and Myanmar meet — a drink as the light goes down over three borders.</p></li>
+        <li><h4>Sleep beside the elephants</h4><p>For whoever's brave: a glass "jungle bubble" out in the grassland, the herd grazing a few feet away under the stars.</p></li>
+      </ol>
+      <p class="sub" style="margin:1.4rem 0 0.3rem">And because we've all seen a lot of hotels — four sharper ones, for the restless:</p>
+      <div class="four">
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/International_Balloon_Festival_2011_Chiang_Mai.jpg/1280px-International_Balloon_Festival_2011_Chiang_Mai.jpg" alt="Hot air balloons over Chiang Mai" loading="lazy"></div>
+          <div class="mbody"><div class="when">Dawn · Nov–Mar only</div><h4>Balloon over the valley</h4><p>A private basket with Balloon Adventure Thailand — the country's first licensed operator — sunrise over the Doi Saket paddies, mist in the folds, Champagne on landing.</p><div class="mcap">Balloons over Chiang Mai</div></div>
+        </div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Golden_Triangle_Mekong_at_Doi_Pu_Khao_06.jpg/1280px-Golden_Triangle_Mekong_at_Doi_Pu_Khao_06.jpg" alt="The Mekong at the Golden Triangle with Laos on the far bank" loading="lazy"></div>
+          <div class="mbody"><div class="when">A Mekong quirk</div><h4>Lunch in a third country</h4><p>Longtail across to Don Sao — an immigration loophole lets you step into Laos with no visa, no stamp. Rice whisky, a Beer Lao.</p><div class="mcap">The Mekong here — Laos is the far bank</div></div>
+        </div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Chiang_Saen_-_Wat_Pa_Sak_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9B%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B1%E0%B8%81_%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%81%E0%B8%AA%E0%B8%99_%282021%29_-_img_07.jpg/1280px-Chiang_Saen_-_Wat_Pa_Sak_%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9B%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B1%E0%B8%81_%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%81%E0%B8%AA%E0%B8%99_%282021%29_-_img_07.jpg" alt="The ruined chedi of Wat Pa Sak in Chiang Saen" loading="lazy"></div>
+          <div class="mbody"><div class="when">10 min from camp</div><h4>The forgotten capital</h4><p>Chiang Saen — a 700‑year‑old Lanna royal city, now half‑ruins on the river — plus the Hall of Opium, the Triangle's real, unsanitised history.</p><div class="mcap">Wat Pa Sak, Chiang Saen</div></div>
+        </div>
+        <div class="minicard">
+          <div class="mshot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Khao_Soi_Northern_Thai_food_%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%8B%E0%B8%AD%E0%B8%A2_%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%AD%E0%B8%87.jpg/1280px-Khao_Soi_Northern_Thai_food_%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%E0%B8%8B%E0%B8%AD%E0%B8%A2_%E0%B8%9C%E0%B8%B1%E0%B8%81%E0%B8%94%E0%B8%AD%E0%B8%87.jpg" alt="A bowl of khao soi, northern Thailand's curry noodle dish" loading="lazy"></div>
+          <div class="mbody"><div class="when">For the eaters</div><h4>A khao soi pilgrimage</h4><p>Two named stops: Khao Soi Mae Sai and Khao Soi Lung Prakit Kad Kom — both Bib Gourmand in the 2026 Michelin Guide, both a few dollars a bowl. No stars up here — you'd know — just the best bowls in Thailand.</p><div class="mcap">Khao soi, the real thing</div></div>
+        </div>
+      </div>
+      <p class="note">Add Luang Prabang and you also get the <b>dawn alms</b> — monks in saffron receiving rice in the half‑light, the region's oldest morning ritual. See <a class="gallery" href="#extend">extensions</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="stays">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The plan</div>
+      <h2 class="title">Two bases, four nights</h2>
+      <div class="bases">
+        <div class="basecard">
+          <div class="shot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Wat_Phra_That_Doi_Suthep_-_Chiang_Mai.jpg/1280px-Wat_Phra_That_Doi_Suthep_-_Chiang_Mai.jpg" alt="Golden chedi of Wat Phra That Doi Suthep above Chiang Mai" loading="lazy"></div>
+          <div class="cap">Wat Phra That Doi Suthep, above Chiang Mai — the city, not the hotel.</div>
+          <div class="body">
+            <div class="nights">Nights 1–2 · Chiang Mai</div>
+            <h3>Chiang Mai</h3>
+            <div class="loc">Hotel still being decided — see options below</div>
+            <ul>
+              <li>Temples, the Mae Rim rice valley, cooking schools</li>
+              <li>Night market &amp; old town for the older kids</li>
+              <li>Slow on purpose — festival nights run late, mornings start at temples</li>
+            </ul>
+            <div class="amen"><span>Temples</span><span>Cooking school</span><span>Rice valley</span><span>Night market</span></div>
+          </div>
+        </div>
+        <div class="basecard">
+          <div class="shot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Golden_Triangle_P1110585.JPG/1280px-Golden_Triangle_P1110585.JPG" alt="The Mekong river at the Golden Triangle where Thailand, Laos and Myanmar meet" loading="lazy"></div>
+          <div class="cap">The Golden Triangle — where the Mekong meets the Ruak, and the camp sits.</div>
+          <div class="body">
+            <div class="nights">Nights 3–4 · Golden Triangle</div>
+            <h3>Anantara Golden Triangle</h3>
+            <div class="loc"><a class="gallery" href="https://www.anantara.com/en/golden-triangle-chiang-rai" target="_blank" rel="noopener">anantara.com →</a></div>
+            <ul>
+              <li>Built around an elephant camp — walk your own</li>
+              <li>Jungle hikes, Mekong boats, glass "jungle bubbles"</li>
+              <li>Only 61 rooms — a ~10‑room block, near all‑inclusive</li>
+            </ul>
+            <div class="amen"><span>Elephant camp</span><span>Near all‑inclusive</span><span>Jungle bubbles</span><span>Mekong</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hotels">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The hotel question</div>
+      <h2 class="title">Where we could stay at each base</h2>
+      <p class="sub" style="margin-bottom:0.5rem">Vetted choices per base. The Golden Triangle is settled; <b>Chiang Mai is genuinely open</b> — tap a name for its own gallery.</p>
+
+      <h4 class="subhead">Chiang Mai — still deciding</h4>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Hotel</th><th>Style</th><th>The honest read</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr><td><a href="https://www.anantara.com/en/chiang-mai" target="_blank" rel="noopener">Anantara Chiang Mai</a> <span class="tag warm">Finalist</span></td><td class="tsub">Riverside, in the old town (the former Chedi)</td><td class="tsub">Refined &amp; walkable; no detached villas</td><td class="price">$$$</td></tr>
+            <tr><td><a href="https://www.fourseasons.com/chiangmai" target="_blank" rel="noopener">Four Seasons Chiang Mai</a> <span class="tag warm">Finalist</span></td><td class="tsub">Rice‑paddy residences, Mae Rim valley</td><td class="tsub">Most space to be together, and the toddler ace: the rice‑farmer day with Tone &amp; Thong, the resident water buffaloes. But reviewers (and Bika) find it a touch dated, low on wow</td><td class="price">$$$$</td></tr>
+            <tr><td><a href="https://137pillarshotels.com/en/chiangmai" target="_blank" rel="noopener">137 Pillars House</a></td><td class="tsub">Teak heritage, 30 suites, in town</td><td class="tsub">Characterful; limited connecting rooms for big families</td><td class="price">$$$</td></tr>
+            <tr><td>Raya Heritage</td><td class="tsub">Design‑led Lanna craft, riverside</td><td class="tsub">Quietly beautiful; small, better for fewer of us</td><td class="price">$$$</td></tr>
+            <tr><td>Rachamankha</td><td class="tsub">Tiny Lanna boutique, old city</td><td class="tsub">Exquisite, intimate — not built for a group of 20</td><td class="price">$$$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><b>The real trade‑off:</b> Four Seasons has the space to keep all of us in one place — but it's the contested one. The in‑town <b>Anantara</b> is the more refined room‑for‑room, at the cost of detached villas. <em>Dhara Dhevi</em>, the palatial option some of us remember, was <b>badly damaged by fire in April 2025</b> and its reopening is uncertain — so it's off the table for now.</p>
+
+      <h4 class="subhead">Golden Triangle — settled</h4>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Hotel</th><th>Style</th><th>The honest read</th><th>Tier</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td><a href="https://www.anantara.com/en/golden-triangle-chiang-rai" target="_blank" rel="noopener">Anantara Golden Triangle</a> <span class="tag">Our pick</span></td><td class="tsub">61‑room jungle resort + elephant camp</td><td class="tsub">Best for families &amp; a group block; near all‑inclusive</td><td class="price">$$$$</td></tr>
+            <tr><td><a href="https://www.fourseasons.com/goldentriangle" target="_blank" rel="noopener">Four Seasons Tented Camp</a></td><td class="tsub">15 all‑inclusive luxury tents</td><td class="tsub">Dreamier &amp; more exclusive — but only 15 tents, skews couples; too small for us as a base</td><td class="price">$$$$$</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Images on this page are of the <b>destinations</b>, not the hotels — tap a hotel's name for its own photography. I'd rather show you the real place than a mislabeled stock shot.</p>
+    </div>
+  </div>
+</section>
+
+<section id="days">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">The week</div>
+      <h2 class="title">The week, end to end</h2>
+      <p class="sub" style="margin-bottom:0.7rem">Most of us come for the <b>whole week</b>; the <b>25–29 core</b> is for the tightly‑scheduled (hi, Gourav). The Delhi twelve drift in over the 24th–25th; the US eight leave on the 20th to land on the 22nd.</p>
+      <div class="tbl-wrap">
+        <table class="days">
+          <tbody>
+            <tr><td>Fri 20</td><td>US → Asia</td><td>The US eight fly out. Long‑haul east — you lose Saturday to the date line.</td></tr>
+            <tr><td>Sun 22</td><td>Chiang Mai</td><td>Land and settle. Nothing planned but a good night's sleep.</td></tr>
+            <tr><td>Mon 23</td><td>Chiang Mai</td><td>6am: the Monk's Trail up to Wat Pha Lat, the half‑overgrown jungle temple, as the monks walk down for alms. Lunch is a bowl at Khao Soi Lung Prakit — the 40‑year‑old shophouse Michelin and <em>Somebody Feed Phil</em> found. Teens: pad work at a Lumpinee‑pedigree Muay Thai gym.</td></tr>
+            <tr><td>Tue 24</td><td>Chiang Mai</td><td><b>Yee Peng Lanna at Mae Jo</b> — the original ~3,000‑seat lantern ceremony — for everyone who wants in; a private riverside krathong release for the under‑fives and anyone preferring the quiet version. Tickets snapped up the day sales open.</td></tr>
+            <tr class="coremark"><td colspan="3">↓ The core begins — everyone's here now, Gourav included</td></tr>
+            <tr><td>Wed 25</td><td>Chiang Mai</td><td>The whole family's together. Loy Krathong on the river, then a private khantoke welcome dinner — sword and drum performers, Lanna grounds, ours alone — at the Old Chiangmai Cultural Center, running the original since 1971.</td></tr>
+            <tr><td>Thu 26</td><td>Chiang Mai</td><td><b>Thanksgiving, twice.</b> Kids' table at the hotel — turkey, the works, tradition intact at 18° north. Adults' table: a 16‑seat buyout at Blackitch, Chef Black's Michelin‑listed fermentation room, gratitude folded into ten Lanna courses. At 6pm, Doi Suthep — coaches gone, monks chanting the sun down over the city. The grandparents claimed this one first; there's room in the van.</td></tr>
+            <tr><td>Fri 27</td><td>Fly north</td><td>40‑min hop to Chiang Rai → Golden Triangle. If our ask lands: <b>dawn with the herd and the GTAEF's founder</b> for the birthday morning — then "Dining by Design," one long table beside the baby elephant camp, for <b>Kahran's birthday</b> dinner.</td></tr>
+            <tr><td>Sat 28</td><td>Golden Triangle</td><td>"Walking with Giants" in the morning; by boat to Ban Khok Phou for the family baci; Chiang Saen's ruins in the 4pm light; sundowners at the tri‑border. The brave sleep in the jungle bubbles — there's a two‑bedroom family one.</td></tr>
+            <tr><td>Sun 29</td><td>Depart</td><td>Last elephant breakfast, then home — or onward to an add‑on below.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="before">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The early days</div>
+      <h2 class="title">The early days, three ways</h2>
+      <p class="sub" style="margin-bottom:0.9rem">This is how most of us will actually travel — out Friday the 20th, landing the 22nd, with two or three unhurried days before the core. Not an add‑on; the default. Here's what to do with them.</p>
+      <div class="mini">
+        <div class="minicard"><div class="when">+2–3 nights · best for the festival</div><h4>Chiang Mai, early</h4><p>Arrive ahead and catch the <b>full Yi Peng</b> — the big organised lantern releases run the 24th–25th. Settle in, shake off the flight, be fresh when the family lands.</p></div>
+        <div class="minicard"><div class="when">+2 nights · on the way up</div><h4>Bangkok stopover</h4><p>Break the long‑haul where you already connect — Grand Palace, the river, one good night out — then the short hop north. <a class="gallery" href="#extend">More on Bangkok →</a></p></div>
+        <div class="minicard"><div class="when">+2 nights · land softly</div><h4>A wellness reset</h4><p>A spa day or two in the Chiang Mai hills to arrive calm and adjusted before the group energy — the smartest move on the longest itineraries.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="everyone">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">Something for everyone</div>
+      <h2 class="title">Nobody's just along for the ride</h2>
+      <div class="tbl-wrap">
+        <table class="ages">
+          <tbody>
+            <tr><td><small>Ages 2 &amp; 4</small><b>Little ones</b></td><td>Baby elephants, kids' club, water buffalo, nannies on hand. Under‑12s free in parents' room.</td></tr>
+            <tr><td><small>Age 10</small><b>The ten‑year‑old</b></td><td>Mahout training, jungle hikes, cooking class, lantern‑making — built for this age.</td></tr>
+            <tr><td><small>Ages 19 &amp; 19</small><b>The teenagers</b></td><td>Pad work with an ex‑Lumpinee fighter, the Monk's Trail at 6am, a night in a glass jungle bubble, the Mekong by longtail — the stories they tell at college.</td></tr>
+            <tr><td><small>The parents</small><b>Our generation</b></td><td>A private balloon basket over the Doi Saket paddies at dawn; coffee at Akha Ama with the story of the man who built it from his village's beans; kids handed to mahouts and nannies who are better at this than we are.</td></tr>
+            <tr><td><small>Most‑travelled</small><b>The grandparents</b></td><td>First claim on everything — the Mae Jo lantern block, the 6am Monk's Trail, the dawn walk with the herd. Plus the picks the rest of us will envy: Doi Suthep at 6pm when the monks chant, the Princess Mother's villa at Doi Tung, and the baci, where the village's elders receive ours. They've seen more of the world than anyone here; this is the part they haven't.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cost">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">The money, roughly</div>
+      <h2 class="title">A ballpark to react to</h2>
+      <div class="budget">
+        <div class="row"><span>Golden Triangle — ~10 rooms, 2 nts, near‑all‑inclusive</span><span class="n">~$40k</span></div>
+        <div class="row"><span>Chiang Mai hotel (Anantara or Four Seasons) — 2 nts</span><span class="n">~$18–30k</span></div>
+        <div class="row"><span>Internal flights + all transfers</span><span class="n">~$2k</span></div>
+        <div class="row"><span>The signature layer — Mae Jo block, Blackitch buyout, private khantoke, balloons, baci day</span><span class="n">~$8–12k</span></div>
+        <div class="row total"><span>On the ground, whole group</span><span class="n">~$70–85k</span></div>
+      </div>
+      <p class="note"><b>~$9–11k per family of four</b> on the ground (rooms, most meals, activities, transfers, the signature layer), <b>plus</b> airfare (~$400–700pp Delhi · ~$1,200–1,800pp US). Soft numbers — a specialist firms them with group rates. The signature layer is itemized so we can trim it line by line if we'd rather.</p>
+    </div>
+  </div>
+</section>
+
+<section id="options">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Also on the table</div>
+      <h2 class="title">Two alternatives, honestly weighed</h2>
+      <div class="opt" style="margin-bottom:1.2rem">
+        <div class="optcard">
+          <div class="shot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Pura_Luhur_Uluwatu_2017-08-17_%2834%29.jpg/1280px-Pura_Luhur_Uluwatu_2017-08-17_%2834%29.jpg" alt="Uluwatu clifftop temple in Bali" loading="lazy"></div>
+          <div class="body"><h3><small>Option B</small>Bali — one villa, one roof</h3><p>Everyone in a single 10+‑bedroom estate, no internal move. But late Nov starts the <span class="em">wet season</span>, and the best estates lean beach over hike.</p><div class="imgcap">Uluwatu, Bali</div></div>
+        </div>
+        <div class="optcard">
+          <div class="shot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Ha_Long_Bay_in_2019.jpg/1280px-Ha_Long_Bay_in_2019.jpg" alt="Limestone karsts in Ha Long Bay, Vietnam" loading="lazy"></div>
+          <div class="body"><h3><small>Option C</small>Vietnam — north to south</h3><p>The grand journey, and the <span class="em">easiest Delhi flight</span> (direct, 4½h). But it's 3–4 bases, and late Nov <span class="em">floods the central coast</span> (Hoi An). Wants 10+ days.</p><div class="imgcap">Ha Long Bay, Vietnam</div></div>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table class="compare">
+          <thead><tr><th>&nbsp;</th><th>Thailand</th><th>Bali</th><th>Vietnam</th></tr></thead>
+          <tbody>
+            <tr><td>Easy from Delhi + US</td><td>1 stop</td><td>1 stop</td><td class="yes">Direct (Delhi)</td></tr>
+            <tr><td>Everyone together</td><td>One resort</td><td class="yes">One house</td><td class="no">3–4 bases</td></tr>
+            <tr><td>Active / exploring</td><td class="yes">Best</td><td>Good</td><td class="yes">Best</td></tr>
+            <tr><td>Every generation</td><td class="yes">Best</td><td>Good</td><td>Good</td></tr>
+            <tr><td>Late‑Nov weather</td><td class="yes">Cool, dry</td><td class="no">Wet season</td><td class="no">Centre floods</td></tr>
+            <tr><td>Fits 4–5 days</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Wants 10+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="extend">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">For those who can stay longer</div>
+      <h2 class="title">Extend your stay</h2>
+      <p class="sub" style="margin-bottom:1rem">The core is the four nights; the rest fly home on the 29th. But the Golden Triangle is well placed for an add‑on — easiest for anyone already in India or with a flexible week.</p>
+      <div class="ext">
+        <div class="extcard feature">
+          <div class="shot"><span class="flag">Top pick</span><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/The_river_of_Kuang_si_waterfalls.jpg/1280px-The_river_of_Kuang_si_waterfalls.jpg" alt="Turquoise pools of Kuang Si Falls near Luang Prabang" loading="lazy"></div>
+          <div class="body">
+            <h3>Luang Prabang, Laos</h3>
+            <div class="ext-meta"><span><b>+2–3</b> nts</span><span><b>1h</b> flight from Chiang Mai</span><span>Dry in Nov</span><span>All ages</span></div>
+            <p>A tiny UNESCO town where the Mekong meets the mountains: dawn alms, the turquoise pools of Kuang Si Falls (pictured), sunset from Mount Phousi, an elephant sanctuary. Slow and soulful — the connoisseur's extension, and the one most worth the extra days.</p>
+          </div>
+        </div>
+        <div class="extcard">
+          <div class="shot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg/1280px-%E0%B9%80%E0%B8%88%E0%B8%94%E0%B8%B5%E0%B8%A2%E0%B9%8C%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%98%E0%B8%B2%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%87%E0%B8%9B%E0%B8%A3%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B9%8C%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B8%B8%E0%B8%932.jpg" alt="Wat Arun temple on the Bangkok riverside" loading="lazy"></div>
+          <div class="body">
+            <h3>Bangkok</h3>
+            <div class="ext-meta"><span><b>+2–3</b> nts</span><span>On the route home</span></div>
+            <p>The easiest bolt‑on — everyone connects through it. Grand Palace and Wat Pho early, longtail canals, rooftops, IconSiam for the teens. A day or two is plenty.</p>
+          </div>
+        </div>
+        <div class="extcard">
+          <div class="shot"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Railay_Beach_5.jpg/1280px-Railay_Beach_5.jpg" alt="Railay Beach limestone cliffs on the Andaman coast" loading="lazy"></div>
+          <div class="body">
+            <h3>Andaman coast</h3>
+            <div class="ext-meta"><span><b>+3–4</b> nts</span><span>Krabi / Phang Nga</span><span>Dry side in Nov</span></div>
+            <p>End soft and horizontal. The Andaman side is sunny in late Nov (the Gulf isn't): limestone cliffs, island‑hopping, warm water. Skip Phuket — we've done it.</p>
+          </div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:0.9rem">Also possible for the few with real time: <b>carry on to Japan</b> (an easy hop from Bangkok, following the family already heading there).</p>
+    </div>
+  </div>
+</section>
+
+<section id="bench">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">The bench</div>
+      <h2 class="title">More, if we want it</h2>
+      <p class="sub" style="margin-bottom:0.6rem">Verified extras that didn't make the main plan — pull any of these up on a free morning. Two honest "skip it" calls included.</p>
+      <h4 class="subhead">Chiang Mai</h4>
+      <ul class="bench">
+        <li><b>Elephant Parade House</b> — paint your own elephant statue with the social enterprise's artists, 30% to elephant welfare; indoors.<span class="who">the 10‑year‑old's hour</span></li>
+        <li><b>Baan Kang Wat</b> — a wooded artists' commune below Doi Suthep; ceramics and printmaking studios, Sunday craft market, five minutes from the Monk's Trail trailhead.<span class="who">browsers, the 10‑year‑old</span></li>
+        <li><b>Studio Naenna</b> — Patricia Cheesman's teak‑house indigo studio (est. 1988); the indigo season runs Sep–Nov, exactly our window. Small groups, book ahead.<span class="who">whoever wants to make, not buy</span></li>
+        <li><b>Dawn cycle of the old‑city moat</b> — a private Grasshopper Adventures charter before traffic; the best hour of the city's day.<span class="who">early risers, teens</span></li>
+        <li><b>Mae Kampong</b> — a tea‑and‑coffee village in the cool hills an hour east, waterfall in the middle, café on stilts over the valley. Avoid weekends.<span class="who">the green, quiet half‑day</span></li>
+        <li><b>Bua Tong "sticky" waterfall</b> — calcified limestone you climb barefoot straight up the falls; genuinely grippy, ages 8 to 80.<span class="who">the single best kid‑energy burner</span></li>
+        <li class="skip"><b>Night Safari</b> — skip it: delisted by Tripadvisor on animal‑welfare grounds, and we'll be living beside 60 rescued elephants three days later.<span class="who">the honest call</span></li>
+      </ul>
+      <h4 class="subhead">Chiang Rai &amp; the Triangle</h4>
+      <ul class="bench">
+        <li><b>White Temple + Black House</b> — one artist's spectacle, not a living temple; worth a 45‑minute leg‑stretch on the transfer day if curious, not a detour for a family that's seen Angkor.<span class="who">the honest take</span></li>
+        <li><b>Choui Fong tea plantation</b> — Chiang Rai's biggest estate, terraced hills, a cantilevered tasting café; on the way to Doi Tung.<span class="who">the easy add‑on</span></li>
+        <li><b>Mae Fah Luang Art &amp; Culture Park</b> — Thailand's largest Lanna teak collection, the Haw Kham hall built from 32 dismantled houses; pairs with the Doi Tung story.<span class="who">the design‑minded</span></li>
+        <li><b>Ban Pha Mee</b> — a community‑run Akha coffee village above Mae Sai: pick beans, drip through bamboo, ride the Akha swing. Money stays in the village; hill‑tribe contact done right.<span class="who">the ethical answer</span></li>
+        <li><b>Kalm Village</b> — nine craft houses around old‑city courtyards: textile archive, rotating shows, rooftop view of Wat Chedi Luang.<span class="who">the all‑weather, all‑ages two hours</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="know">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Good to know</div>
+      <h2 class="title">The practical bits</h2>
+      <div class="gtk">
+        <div><h4><span>·</span> Weather</h4><p>Cool, dry, ~18–28°C. A light layer for jungle mornings.</p></div>
+        <div><h4><span>·</span> Bring</h4><p>Walking shoes, swimwear, temple cover (shoulders &amp; knees), a hat.</p></div>
+        <div><h4><span>·</span> Visas</h4><p>Visa‑free / e‑visa for Indian &amp; US passports. Steps to follow once booked.</p></div>
+        <div><h4><span>·</span> Time</h4><p>GMT+7 — 1½h ahead of India, ~12h ahead of the US East Coast.</p></div>
+        <div><h4><span>·</span> Money</h4><p>Thai baht; cards everywhere. Anantara is largely all‑inclusive.</p></div>
+        <div><h4><span>·</span> Kids</h4><p>Cribs, nannies, kids' clubs standard. Under‑12s free at Anantara.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <div class="kicker">To make it real</div>
+      <h2 class="title">Next steps</h2>
+      <ol class="steps">
+        <li>A rough <b>budget band</b> per family — so we book the right tier.</li>
+        <li>Settle the <b>Chiang Mai hotel</b> — Anantara (refined) vs Four Seasons (space).</li>
+        <li>Confirm the <b>core dates</b> — 25–29 Nov looks right for most.</li>
+        <li>Who wants to <b>extend</b>, and where — book flights once, not twice.</li>
+        <li>Kahran takes the block to a <b>specialist</b> for firm group rates.</li>
+        <li><b>The one clock:</b> Mae Jo lantern tickets sell out within days of release — we grab the block the morning sales open, before anything else is booked.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap narrow">
+    <div class="reveal">
+      <h2>Let's get <em>all of us</em> in one place.</h2>
+      <p>The family chose the Maldives. Chiang Mai stays written down for another year.</p>
+      <p style="margin-top:1.2rem"><a href="/winter/" style="display:inline-block;background:var(--terra);color:#fff;text-decoration:none;border-radius:100px;padding:0.7rem 1.6rem;font-weight:600;font-size:0.92rem">See the Sangeli plan →</a></p>
+    </div>
+  </div>
+</section>
+
 </main>
-<footer class="archive"><div class="archive-inner"><a href="/winter/">← Sangeli it is</a><span>Archived after selection</span></div></footer>
+
+<footer>
+  <div class="wrap">
+    <em>Put together for the family · June 2026</em><br>
+    Questions or objections? Tell Kahran. &nbsp;·&nbsp; <a href="#top">↑ Top</a><br>
+    <span style="font-size:0.71rem; opacity:0.7">Destination photos: Wikimedia Commons. Hotel imagery via the links above.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var prog = document.getElementById('progress'), bar = document.getElementById('bar');
+  function onScroll() {
+    var h = document.documentElement, top = h.scrollTop || document.body.scrollTop, max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? top / max * 100 : 0) + '%';
+    bar.classList.toggle('stuck', top > 8);
+  }
+  document.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  var revs = [].slice.call(document.querySelectorAll('.reveal'));
+  if (reduce || !('IntersectionObserver' in window)) { revs.forEach(function (r) { r.classList.add('in'); }); }
+  else {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    revs.forEach(function (r) { io.observe(r); });
+  }
+  var navLinks = [].slice.call(document.querySelectorAll('#nav a'));
+  var secs = navLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window) {
+    var spy = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { var id = e.target.id; navLinks.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + id); }); } }); }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(function (s) { spy.observe(s); });
+  }
+})();
+</script>
+
 </body>
 </html>
