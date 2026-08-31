@@ -1,7 +1,33 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-24T08:05:07-04:00",
+  "generated_at": "2026-08-31T08:05:06-04:00",
   "entries": [
+    {
+      "id": "record-2026-w35",
+      "date": "2026-08-30",
+      "strand": "code",
+      "title": "24\u201330 August",
+      "summary": "34h 05m at the keyboard, 130 commits across 6 repositories, 28 sessions.",
+      "stats": [
+        "34h 05m",
+        "130 commits",
+        "28 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          37,
+          522,
+          276,
+          439,
+          375,
+          6,
+          390
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w35/"
+    },
     {
       "id": "record-2026-w34",
       "date": "2026-08-23",
