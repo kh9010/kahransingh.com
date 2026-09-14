@@ -1,7 +1,33 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-09-07T08:05:03-04:00",
+  "generated_at": "2026-09-14T08:05:04-04:00",
   "entries": [
+    {
+      "id": "record-2026-w37",
+      "date": "2026-09-13",
+      "strand": "code",
+      "title": "7\u201313 September",
+      "summary": "7h 39m at the keyboard, 45 commits across 6 repositories, 19 sessions.",
+      "stats": [
+        "7h 39m",
+        "45 commits",
+        "19 sessions"
+      ],
+      "mark": {
+        "shape": "bars",
+        "values": [
+          111,
+          62,
+          0,
+          62,
+          219,
+          0,
+          5
+        ],
+        "label": "minutes on the clock, monday to sunday"
+      },
+      "link": "/lately/2026-w37/"
+    },
     {
       "id": "record-2026-w36",
       "date": "2026-09-06",
