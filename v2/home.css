@@ -1,0 +1,365 @@
+/* kahransingh.com — v2 home.
+   Sibling to /style.css: same warm paper, same dark ink, same two families.
+   The idea: everything above the rule is grayscale (the photographs are all
+   Leica Q2 Monochrome), so colour arrives exactly once, at the bottom, as
+   pigment on a leaning column of tools. Fraunces carries the voice — poems and
+   tool names alike, because the tools are named like characters. Space Grotesk
+   carries only the apparatus: the date, the caption, the group names, "soon".
+   No build step; this file is loaded on its own, it does not extend /style.css. */
+
+/* ---------------------------------------------------------------- tokens -- */
+
+:root {
+  --paper:      #fafaf8;
+  --ink:        #1a1a1a;
+  --ink-soft:   #575349;
+  --ink-quiet:  #787266;
+  --rule:       #e3e0d9;
+  --frame:      #ece9e2;
+
+  /* Five pigments. Each band sets --h and --s; lightness, tint and edge are
+     shared, so dark mode re-tunes the whole family by changing three numbers. */
+  --pig-l: 40%;
+  --tint:  .085;
+  --edge:  .26;
+
+  /* The lean. One shear on .wall-stack makes the parallelogram; every box is a
+     slice of it, and only the text inside is counter-sheared back to upright. */
+  --lean:      -6deg;
+  --box-w:     300px;
+  --shear-pad: 58px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:     #171613;
+    --ink:       #ece7db;
+    --ink-soft:  #b3ada0;
+    --ink-quiet: #8f897c;
+    --rule:      #2e2b25;
+    --frame:     #211f1a;
+
+    --pig-l: 66%;
+    --tint:  .14;
+    --edge:  .34;
+  }
+}
+
+.band--catching    { --h: 192; --s: 23%; }
+.band--remembering { --h:  96; --s: 22%; }
+.band--knowing     { --h:  41; --s: 38%; }
+.band--alive       { --h: 352; --s: 30%; }
+.band--public      { --h: 230; --s: 26%; }
+
+/* ------------------------------------------------------------------ base -- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.sheet {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(2.25rem, 6vh, 5rem) clamp(16px, 4vw, 48px) clamp(5rem, 12vh, 8rem);
+}
+
+/* -------------------------------------------------------------- masthead -- */
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .75rem 2rem;
+  margin: 0 0 clamp(2rem, 5vh, 3.25rem);
+}
+
+.wordmark {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.3vw, 1.8rem);
+  line-height: 1.1;
+  letter-spacing: -.005em;
+}
+
+.day { display: flex; flex-direction: column; align-items: flex-end; gap: .15rem; }
+
+.day-date {
+  margin: 0;
+  font-size: .76rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.day-walk { display: flex; gap: 1.1rem; }
+
+.day-step {
+  margin: 0; padding: 0; border: 0; background: none;
+  font: inherit; font-size: .73rem; line-height: 1.5;
+  color: var(--ink-quiet);
+  cursor: pointer;
+}
+.day-step:hover:not([disabled]) { color: var(--ink); }
+.day-step[disabled] { opacity: .34; cursor: default; }
+
+/* --------------------------------------------------------------- opening -- */
+
+.opening {
+  display: grid;
+  grid-template-columns: minmax(0, .86fr) minmax(0, 1.14fr);
+  gap: clamp(1.75rem, 4vw, 3.4rem);
+  align-items: start;
+}
+
+.plate { margin: 0; }
+
+.frame {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--frame);
+}
+.frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.plate-caption {
+  margin: .7rem 0 0;
+  font-size: .72rem;
+  line-height: 1.55;
+  letter-spacing: .012em;
+  color: var(--ink-quiet);
+}
+
+.poem-title {
+  margin: 0 0 1.3rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.1vw, 1.58rem);
+  line-height: 1.3;
+  letter-spacing: -.006em;
+}
+.poem-title a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .24em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+.poem-title a:hover { text-decoration-color: var(--ink); }
+
+.poem-body {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 1.1rem;
+  line-height: 1.78;
+  max-width: 58ch;
+}
+
+.stanza { margin: 0 0 1.45rem; }
+.stanza:last-child { margin-bottom: 0; }
+
+/* A wrapped line is not a new line: hang the runover so verse stays readable. */
+.line { display: block; text-indent: -1.05em; padding-left: 1.05em; }
+
+.fallback, .poem-body .trouble {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .85rem;
+  color: var(--ink-soft);
+}
+
+/* The only motion on the page, and it answers a click: turning to another day. */
+@keyframes turn { from { opacity: 0; } to { opacity: 1; } }
+.turned { animation: turn .32s ease both; }
+
+/* ----------------------------------------------------------------- rule --- */
+
+.divide {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: clamp(3.25rem, 9vh, 5.5rem) 0 clamp(2.75rem, 7vh, 4.5rem);
+}
+
+/* ----------------------------------------------------------------- wall --- */
+
+/* The sentence is a caption to the object, so it sits close to it, not stranded
+   at the far margin. Content-sized column, not 1fr. */
+.wall {
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) auto;
+  gap: clamp(1.75rem, 3.5vw, 3rem);
+  align-items: start;
+  justify-content: start;
+}
+
+.wall-line {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: clamp(1.16rem, 1.85vw, 1.4rem);
+  line-height: 1.5;
+  letter-spacing: -.004em;
+}
+
+.wall-object { padding-inline: var(--shear-pad); }
+
+.wall-stack {
+  width: var(--box-w);
+  margin-inline: auto;
+  transform: skewX(var(--lean));
+}
+
+.band { margin: 0 0 14px; }
+.band:last-child { margin-bottom: 0; }
+
+.band-name {
+  margin: 0 0 6px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .7rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .015em;
+  color: var(--ink-soft);
+}
+
+/* The counter-shear: the slice leans, the words do not. */
+.band-in, .tool-in {
+  transform: skewX(calc(-1 * var(--lean)));
+  transform-origin: left center;
+}
+
+.band-in { display: inline-flex; align-items: center; gap: .5rem; }
+.band-in::before {
+  content: '';
+  flex: none;
+  width: .5rem; height: .5rem;
+  background: hsl(var(--h) var(--s) var(--pig-l));
+}
+
+.band-tools { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+
+.tool {
+  padding: .6rem .95rem;
+  background: hsl(var(--h) var(--s) var(--pig-l) / var(--tint));
+  border: 1px solid hsl(var(--h) var(--s) var(--pig-l) / var(--edge));
+}
+
+.tool-in { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem; }
+
+.tool-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: .97rem;
+  line-height: 1.32;
+  color: var(--ink);
+}
+a.tool-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 28%, transparent);
+}
+a.tool-name:hover { text-decoration-color: var(--ink); }
+
+/* Not a badge and not a disabled state — just a mark. */
+.soon {
+  flex: none;
+  font-size: .62rem;
+  line-height: 1.6;
+  letter-spacing: .03em;
+  color: var(--ink-quiet);
+}
+
+/* One-line description hook. Fill data-note on a .tool and the line appears. */
+.tool::after {
+  content: attr(data-note);
+  display: block;
+  margin-top: .22rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .68rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  transform: skewX(calc(-1 * var(--lean)));
+  transform-origin: left center;
+}
+.tool[data-note=""]::after, .tool:not([data-note])::after { content: none; }
+
+/* ------------------------------------------------- version switch (v2·v1) --
+   Self-contained component. Drop this block and the matching markup into any
+   page; it carries its own colours so it needs nothing else from this file. */
+
+.vswitch {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .34rem .68rem;
+  border: 1px solid #e3e0d9;
+  border-radius: 999px;
+  background: rgba(250, 250, 248, .92);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .7rem;
+  line-height: 1;
+  letter-spacing: .02em;
+}
+.vswitch a { color: #787266; text-decoration: none; }
+.vswitch a:hover { color: #1a1a1a; }
+.vswitch .vswitch-here { color: #1a1a1a; font-weight: 500; }
+.vswitch > * + *::before { content: '\00b7'; margin-right: .45rem; color: #c9c4ba; }
+
+@media (prefers-color-scheme: dark) {
+  .vswitch { border-color: #2e2b25; background: rgba(23, 22, 19, .92); }
+  .vswitch a { color: #8f897c; }
+  .vswitch a:hover { color: #ece7db; }
+  .vswitch .vswitch-here { color: #ece7db; }
+  .vswitch > * + *::before { color: #413d35; }
+}
+
+/* ----------------------------------------------------------- responsive -- */
+
+@media (max-width: 900px) {
+  .masthead { align-items: flex-start; }
+  .day { align-items: flex-start; }
+  .opening { grid-template-columns: 1fr; gap: 1.9rem; }
+  .poem-body { max-width: 62ch; }
+  .wall { grid-template-columns: 1fr; gap: 1.9rem; }
+  .wall-line { max-width: 30ch; }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --lean: -4deg;
+    --box-w: min(252px, 100vw - 120px);
+    --shear-pad: 38px;
+  }
+  body { font-size: 16px; }
+  .poem-body { font-size: 1.06rem; }
+  .vswitch { right: 12px; bottom: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turned { animation: none; }
+  *, *::before, *::after { transition-duration: .001ms !important; }
+}
