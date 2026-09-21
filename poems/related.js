@@ -195,9 +195,20 @@ const themeLabels = {
     var endVisible = false;
     var navigating = false;
 
+    // Safari trackpads keep emitting wheel events (momentum) after the
+    // snap lands on the end slide. Arm only after the end slide has been
+    // still for a moment, then require a deliberate accumulated push.
+    var armedAt = 0;
+    var ARM_DELAY = 450;      // ms of quiet after the end slide appears
+    var PUSH_NEEDED = 140;    // accumulated deltaY past the end
+    var pushed = 0;
+    var lastWheel = 0;
+
     var endObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             endVisible = entry.isIntersecting;
+            armedAt = endVisible ? Date.now() + ARM_DELAY : 0;
+            pushed = 0;
         });
     }, { root: scrollContainer, threshold: 0.5 });
 
@@ -214,7 +225,18 @@ const themeLabels = {
 
     // Wheel scroll past end
     scrollContainer.addEventListener('wheel', function(e) {
-        if (endVisible && e.deltaY > 0) navigate();
+        if (!endVisible || e.deltaY <= 0) return;
+        var now = Date.now();
+        // A fresh gesture after a pause resets the accumulator, so a
+        // momentum tail cannot add up to a push on its own.
+        if (now - lastWheel > 250) pushed = 0;
+        lastWheel = now;
+        if (now < armedAt) return;
+        var atBottom = scrollContainer.scrollTop + scrollContainer.clientHeight
+            >= scrollContainer.scrollHeight - 2;
+        if (!atBottom) return;
+        pushed += e.deltaY;
+        if (pushed >= PUSH_NEEDED) navigate();
     }, { passive: true });
 
     // Touch swipe up past end
