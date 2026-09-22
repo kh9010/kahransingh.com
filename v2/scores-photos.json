@@ -1,0 +1,431 @@
+{
+ "version": 1,
+ "axes": [
+  "light",
+  "warmth",
+  "wet",
+  "stillness",
+  "season",
+  "inside",
+  "mood"
+ ],
+ "scored_at": "2026-09-21",
+ "photos": {
+  "/photos/roma-sidewalk.jpg": {
+   "light": 0.15,
+   "warmth": 0.55,
+   "wet": 0.1,
+   "stillness": 0.15,
+   "season": 0.5,
+   "inside": 0.45,
+   "mood": 0.35,
+   "hour": "night",
+   "place": {
+    "name": "Roma Norte, Mexico City",
+    "lat": 19.42,
+    "lon": -99.16
+   },
+   "notes": "Empty night sidewalk, lit shop window, mannequins watching"
+  },
+  "/photos/papel-picado.jpg": {
+   "light": 0.15,
+   "warmth": 0.8,
+   "wet": 0.1,
+   "stillness": 0.88,
+   "season": 0.7,
+   "inside": 0.4,
+   "mood": 0.76,
+   "hour": "night",
+   "place": {
+    "name": "Sayulita, Nayarit",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Papel picado overhead, couple walking, truck and bike moving"
+  },
+  "/photos/night-street.jpg": {
+   "light": 0.1,
+   "warmth": 0.5,
+   "wet": 0.08,
+   "stillness": 0.12,
+   "season": 0.5,
+   "inside": 0.55,
+   "mood": 0.24,
+   "hour": "night",
+   "place": {
+    "name": "Roma Norte, Mexico City",
+    "lat": 19.42,
+    "lon": -99.16
+   },
+   "notes": "Deserted road, parked cars, one lamp, palms overhead"
+  },
+  "/photos/staircase.jpg": {
+   "light": 0.25,
+   "warmth": 0.65,
+   "wet": 0.05,
+   "stillness": 0.25,
+   "season": 0.65,
+   "inside": 0.08,
+   "mood": 0.5,
+   "hour": "night",
+   "place": {
+    "name": "Sayulita, Nayarit",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Man perched on stair rail beneath a pendant lamp"
+  },
+  "/photos/cdmx-plaza.jpg": {
+   "light": 0.15,
+   "warmth": 0.5,
+   "wet": 0.1,
+   "stillness": 0.15,
+   "season": 0.5,
+   "inside": 0.6,
+   "mood": 0.22,
+   "hour": "night",
+   "place": {
+    "name": "Roma Norte, Mexico City",
+    "lat": 19.42,
+    "lon": -99.16
+   },
+   "notes": "Emptied plaza after dark, CDMX letters, bollards, bare ground"
+  },
+  "/photos/alpine-lake.jpg": {
+   "light": 0.7,
+   "warmth": 0.08,
+   "wet": 0.85,
+   "stillness": 0.3,
+   "season": 0.22,
+   "inside": 0.95,
+   "mood": 0.62,
+   "hour": "day",
+   "place": {
+    "name": "Mt Rainier, Washington",
+    "lat": 46.85,
+    "lon": -121.76
+   },
+   "notes": "Cold lake below snow-streaked ridge, conifers, rippled surface"
+  },
+  "/photos/beach-solitude.jpg": {
+   "light": 0.82,
+   "warmth": 0.76,
+   "wet": 0.8,
+   "stillness": 0.6,
+   "season": 0.88,
+   "inside": 0.95,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Fire Island, New York",
+    "lat": 40.65,
+    "lon": -73.15
+   },
+   "notes": "Wide bright sand, breaking surf, one small figure"
+  },
+  "/photos/reed-corridor.jpg": {
+   "light": 0.85,
+   "warmth": 0.72,
+   "wet": 0.3,
+   "stillness": 0.58,
+   "season": 0.82,
+   "inside": 0.45,
+   "mood": 0.65,
+   "hour": "day",
+   "place": {
+    "name": "Fire Island, New York",
+    "lat": 40.65,
+    "lon": -73.15
+   },
+   "notes": "Sunlit path walled by wind-bent reeds and plumes"
+  },
+  "/photos/buoys-wall.jpg": {
+   "light": 0.8,
+   "warmth": 0.72,
+   "wet": 0.15,
+   "stillness": 0.2,
+   "season": 0.85,
+   "inside": 0.85,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Cape Cod",
+    "lat": 41.87,
+    "lon": -70.02
+   },
+   "notes": "Towel on hot dune sand, driftwood shelter beyond"
+  },
+  "/photos/fireworks-water.jpg": {
+   "light": 0.06,
+   "warmth": 0.6,
+   "wet": 0.76,
+   "stillness": 0.95,
+   "season": 0.85,
+   "inside": 0.9,
+   "mood": 0.86,
+   "hour": "night",
+   "place": {
+    "name": "Cape Cod",
+    "lat": 41.87,
+    "lon": -70.02
+   },
+   "notes": "Single burst over black harbour, distant masts lit"
+  },
+  "/photos/still-lake.jpg": {
+   "light": 0.62,
+   "warmth": 0.12,
+   "wet": 0.95,
+   "stillness": 0.03,
+   "season": 0.2,
+   "inside": 0.95,
+   "mood": 0.3,
+   "hour": "dawn",
+   "place": {
+    "name": "Yellowstone",
+    "lat": 44.6,
+    "lon": -110.5
+   },
+   "notes": "Mirror water, grey cloud, cold silence, one far island"
+  },
+  "/photos/sayulita-staircase.jpg": {
+   "light": 0.2,
+   "warmth": 0.6,
+   "wet": 0.05,
+   "stillness": 0.2,
+   "season": 0.65,
+   "inside": 0.08,
+   "mood": 0.42,
+   "hour": "night",
+   "place": {
+    "name": "Sayulita, Nayarit",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Figure at stair top on a phone, long shadow"
+  },
+  "/photos/concrete-museum.jpg": {
+   "light": 0.5,
+   "warmth": 0.15,
+   "wet": 0.03,
+   "stillness": 0.05,
+   "season": 0.5,
+   "inside": 0.04,
+   "mood": 0.18,
+   "hour": "day",
+   "place": {
+    "name": "Berlin",
+    "lat": 52.52,
+    "lon": 13.4
+   },
+   "notes": "Bare concrete hall, empty stairs, austere metal installation"
+  },
+  "/photos/tree-tunnel.jpg": {
+   "light": 0.76,
+   "warmth": 0.7,
+   "wet": 0.25,
+   "stillness": 0.15,
+   "season": 0.78,
+   "inside": 0.4,
+   "mood": 0.65,
+   "hour": "day",
+   "place": {
+    "name": "Hawaii",
+    "lat": 20.8,
+    "lon": -156.33
+   },
+   "notes": "Dappled dirt road tunnelling through bright mossy trees"
+  },
+  "/photos/hawaii-landscape.jpg": {
+   "light": 0.42,
+   "warmth": 0.65,
+   "wet": 0.12,
+   "stillness": 0.1,
+   "season": 0.7,
+   "inside": 0.9,
+   "mood": 0.5,
+   "hour": "dusk",
+   "place": {
+    "name": "Hawaii",
+    "lat": 20.8,
+    "lon": -156.33
+   },
+   "notes": "Dusk over lava field, pale coral rubble, distant volcano"
+  },
+  "/photos/lanterns.jpg": {
+   "light": 0.22,
+   "warmth": 0.78,
+   "wet": 0.1,
+   "stillness": 0.1,
+   "season": 0.7,
+   "inside": 0.28,
+   "mood": 0.6,
+   "hour": "night",
+   "place": {
+    "name": "Sayulita, Nayarit",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Woven lanterns glowing in a passage, palm trunk beyond"
+  },
+  "/photos/taco-cart.jpg": {
+   "light": 0.3,
+   "warmth": 0.85,
+   "wet": 0.08,
+   "stillness": 0.5,
+   "season": 0.75,
+   "inside": 0.4,
+   "mood": 0.78,
+   "hour": "night",
+   "place": {
+    "name": "Sayulita, Nayarit",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Ring-lit taco cart, vendor working the warm window"
+  },
+  "/photos/night-market.jpg": {
+   "light": 0.35,
+   "warmth": 0.78,
+   "wet": 0.1,
+   "stillness": 0.62,
+   "season": 0.7,
+   "inside": 0.45,
+   "mood": 0.66,
+   "hour": "night",
+   "place": {
+    "name": "Sayulita, Nayarit",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Lit stalls both sides, vendors waiting, warm street night"
+  },
+  "/photos/misty-hillside.jpg": {
+   "light": 0.5,
+   "warmth": 0.22,
+   "wet": 0.78,
+   "stillness": 0.6,
+   "season": 0.55,
+   "inside": 0.85,
+   "mood": 0.48,
+   "hour": "dusk",
+   "place": {
+    "name": "Big Island, Hawaii",
+    "lat": 19.6,
+    "lon": -155.5
+   },
+   "notes": "Walkers descending into a cold fog-filled green valley"
+  },
+  "/photos/kitchen-night.jpg": {
+   "light": 0.2,
+   "warmth": 0.6,
+   "wet": 0.02,
+   "stillness": 0.82,
+   "season": 0.18,
+   "inside": 0.05,
+   "mood": 0.82,
+   "hour": "night",
+   "place": {
+    "name": "Telluride, Colorado",
+    "lat": 37.94,
+    "lon": -107.81
+   },
+   "notes": "Blurred dancing in a dark kitchen, mountain-house warmth"
+  },
+  "/photos/restaurant-night.jpg": {
+   "light": 0.12,
+   "warmth": 0.82,
+   "wet": 0.3,
+   "stillness": 0.15,
+   "season": 0.75,
+   "inside": 0.45,
+   "mood": 0.22,
+   "hour": "night",
+   "place": {
+    "name": "Kerala",
+    "lat": 10.85,
+    "lon": 76.27
+   },
+   "notes": "Empty lamplit pavilion glimpsed through black foliage"
+  },
+  "/photos/yosemite-trail.jpg": {
+   "light": 0.55,
+   "warmth": 0.48,
+   "wet": 0.1,
+   "stillness": 0.08,
+   "season": 0.76,
+   "inside": 0.95,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Yosemite",
+    "lat": 37.87,
+    "lon": -119.54
+   },
+   "notes": "Dark granite canyon walls opening to bright clouded sky"
+  },
+  "/photos/scooter-beach.jpg": {
+   "light": 0.72,
+   "warmth": 0.8,
+   "wet": 0.78,
+   "stillness": 0.6,
+   "season": 0.7,
+   "inside": 0.85,
+   "mood": 0.62,
+   "hour": "day",
+   "place": {
+    "name": "Goa",
+    "lat": 15.3,
+    "lon": 74.08
+   },
+   "notes": "Scooter on rock, bathers in the surf beyond"
+  },
+  "/photos/yosemite-valley.jpg": {
+   "light": 0.68,
+   "warmth": 0.55,
+   "wet": 0.08,
+   "stillness": 0.08,
+   "season": 0.76,
+   "inside": 0.92,
+   "mood": 0.65,
+   "hour": "day",
+   "place": {
+    "name": "Yosemite",
+    "lat": 37.87,
+    "lon": -119.54
+   },
+   "notes": "Sunlit granite domes, lone pine, trail sign, open sky"
+  },
+  "/photos/beach-boardwalk.jpg": {
+   "light": 0.8,
+   "warmth": 0.42,
+   "wet": 0.15,
+   "stillness": 0.25,
+   "season": 0.22,
+   "inside": 0.6,
+   "mood": 0.52,
+   "hour": "day",
+   "place": {
+    "name": "Fire Island, New York",
+    "lat": 40.65,
+    "lon": -73.15
+   },
+   "notes": "Boardwalk to a blank white sky, pines, distant figure"
+  },
+  "/photos/berlin-street.jpg": {
+   "light": 0.7,
+   "warmth": 0.55,
+   "wet": 0.05,
+   "stillness": 0.78,
+   "season": 0.78,
+   "inside": 0.5,
+   "mood": 0.78,
+   "hour": "day",
+   "place": {
+    "name": "Berlin",
+    "lat": 52.52,
+    "lon": 13.4
+   },
+   "notes": "Old Porsche, traffic, passers-by, baby in a pram"
+  }
+ }
+}
