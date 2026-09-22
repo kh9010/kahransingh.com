@@ -15,6 +15,6 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
 
 ## Two versions live side by side (since 2026-09-21)
 
-- `/` is **v2**: the daily photo + poem opening and the wall of tools (`/index.html`, `/v2/home.css`, `/v2/home.js`, data in `/v2/data.json`). Day choice is a deterministic hash of the date, so a past day never reshuffles.
+- `/` is **v2**: the daily photo + poem opening and the wall of tools (`/index.html`, `/v2/home.css`, `/v2/home.js`, data in `/v2/data.json`). Today's pick follows the live weather reading shown under the date (`v2/pick.js`, `v2/weather.js`); a past day replays its frozen archive entry (`v2/days.json`, written nightly by `tools/daily_pick.py`); anything neither can answer falls back to a deterministic hash of the date, so a past day never reshuffles. Full formula: `docs/2026-09-21-daily-pick-design.md`.
 - `/v1/index.html` is the old home, untouched in content. Every other old page (about, poetry, photography, projects, speaking, cv, poem-films, the private event pages, `/poems/`, `/lately/`) stays at its original URL and is shared by both versions; their nav "kahran" link points at `/v1/`.
 - A small fixed "v2 · v1" tab switches between them. Nothing gets migrated into v2 until Kahran decides where it goes; when a box on the wall gets a page, link it from `/v2/home.js`.

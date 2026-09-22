@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 """daily_pick.py — picks TODAY's poem and photograph and freezes the choice.
 
-Each morning (via publish_daily_pick.sh on the mini) this script reads where
-Kahran is (~/Sync/pending-work/presence.json) and the day's weather at that
-place (Open-Meteo, no key), turns both into a small "day vector" of 0..1
-axes, and picks the poem and photograph whose own vectors (v2/scores-poems.json,
+Each night at 23:50 local (via publish_daily_pick.sh on the mini, once the
+day is effectively over) this script reads where Kahran is
+(~/Sync/pending-work/presence.json) and the day's weather at that place
+(Open-Meteo, no key), turns both into a small "day vector" of 0..1 axes, and
+picks the poem and photograph whose own vectors (v2/scores-poems.json,
 v2/scores-photos.json) sit closest to it. The pick is appended to exactly one
-path, v2/days.json, and never touched again — v2/home.js reads it and falls
-back to its existing date-hash pick for any day that isn't there.
+path, v2/days.json, and never touched again — it becomes that day's permanent
+archive entry.
 
-It is deliberately hard to make this crash a morning: a missing scores file
+During the day itself, v2/home.js and v2/pick.js pick TODAY live in the
+browser from the same weather reading v2/weather.js renders under the date —
+see docs/2026-09-21-daily-pick-design.md. This script's frozen entry for
+today (once 23:50 has run) becomes a fallback for that day, read only if a
+visitor's weather fetch fails; v2/home.js falls back to it, then to the date
+hash, for any day that isn't in v2/days.json at all.
+
+It is deliberately hard to make this crash a run: a missing scores file
 degrades every item to a neutral 0.5 on every axis (so the picker becomes
 novelty + a stable tiebreak), a missing/low-confidence presence degrades to
 home coordinates with no place named, and any weather-API failure should be
@@ -198,7 +206,7 @@ def fetch_weather(lat, lon, tz, date_iso):
     --offline in tests; the publish script should let a real failure abort
     the run rather than pick blind.
     """
-    fields = "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,sunshine_duration,daylight_duration,wind_speed_10m_max"
+    fields = "weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,sunshine_duration,daylight_duration,wind_speed_10m_max,cloud_cover_mean"
     url = (
         "https://api.open-meteo.com/v1/forecast"
         f"?latitude={lat}&longitude={lon}&daily={fields}"
@@ -244,6 +252,10 @@ def _extract_daily_for(payload, date_iso):
         "sunshine_s": at("sunshine_duration", 0.0) or 0.0,
         "daylight_s": at("daylight_duration", 1.0) or 1.0,
         "wind_kmh": at("wind_speed_10m_max", 0.0) or 0.0,
+        # Recorded into "why" alongside the axes, for the archive — not read
+        # back into the scoring formula (light/stillness above already derive
+        # from sunshine/daylight/wind); see build_pick().
+        "cloud_pct": at("cloud_cover_mean", None),
     }
 
 
@@ -422,7 +434,17 @@ def build_pick(date_iso, presence, weather, data_doc, poem_scores, photo_scores,
         "poem": poem_slug,
         "photo": photo_src,
         "place": place_name,
-        "why": dict(day, weather_code=weather["weather_code"], tmax=weather["tmax"]),
+        "why": dict(
+            day,
+            weather_code=weather["weather_code"],
+            tmax=weather["tmax"],
+            # Recorded for the archive (the mini now writes this at 23:50, after
+            # the day is over) alongside the seven axes; not new inputs to the
+            # scoring formula. Older days.json entries predate these two keys
+            # and stay valid — every reader treats them as optional.
+            wind_kmh=weather["wind_kmh"],
+            cloud_pct=weather.get("cloud_pct"),
+        ),
     }
     return entry
 
