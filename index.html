@@ -81,6 +81,7 @@
         <h1 class="wordmark">Kahran Singh</h1>
         <div class="day">
           <p class="day-date" id="day-date">&nbsp;</p>
+          <p class="day-where" id="day-where"></p>
           <nav class="day-walk" aria-label="Choose a day">
             <button type="button" class="day-step" id="day-back" data-step="-1">&#8592; yesterday</button>
             <button type="button" class="day-step" id="day-fwd" data-step="1">today &#8594;</button>
@@ -151,5 +152,7 @@
 </nav>
 
 <script src="/v2/home.js"></script>
+<script src="/v2/weather.js"></script>
+<script>if (window.kahranWeather) window.kahranWeather.load(document.getElementById('day-where'));</script>
 </body>
 </html>
