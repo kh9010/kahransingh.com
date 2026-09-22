@@ -144,6 +144,9 @@ body {
 }
 
 .day { display: flex; flex-direction: column; align-items: flex-end; gap: .1rem; }
+/* Kahran, 2026-09-22: the date, the weather line and the day arrows are off the page.
+   The elements stay for the pick (weather.js still reads and drives it); [hidden] wins. */
+.day[hidden] { display: none; }
 
 .day-date {
   margin: 0;
