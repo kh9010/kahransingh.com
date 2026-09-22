@@ -34,7 +34,9 @@
   /* the flow view: the space between its rows, and the side lanes a connector
      that skips a row bows out into */
   --fgap:  7px;
-  --frail: 30px;
+  --frail: 22px;
+  --fme:   48px;          /* the lane at the right where the system ends and he begins */
+  --me-ink: 38 46% 74%;   /* warm, and nothing else on the page uses it */
 }
 
 @media (prefers-color-scheme: dark) { :root { --paper: #171613; } }
@@ -435,7 +437,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   position: relative;
   display: grid;
   width: var(--tools-w);
-  padding: 0 var(--frail);
+  padding: 0 calc(var(--frail) + var(--fme)) 0 var(--frail);
   grid-template-columns: repeat(3, var(--tile));
   grid-template-rows: auto repeat(5, var(--tile)) auto var(--tile);
   grid-auto-rows: auto;
@@ -548,6 +550,81 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .flow-wire--watch { transition: opacity .3s ease; }
 }
 
+/* ---------------------------------------------------------------- me ----
+
+   Everything above is the system talking to itself. These are the only lines
+   that leave it: the tools whose output actually reaches Kahran, each one
+   labelled with the channel it reaches him by. They are a different kind of
+   thing from a data connector and are drawn like it — warm ink instead of the
+   target's hue, thinner, no arrowhead and no travelling dot, ending in an open
+   circle on the lane at the right. The circles line up, so the right-hand edge
+   of the drawing reads as the boundary of the system: outside it is him.
+
+   Quiet at rest. The channel names appear when you touch the tile they leave
+   from, or all of them at once when you touch the word "me". */
+
+.flow-reach {
+  fill: none;
+  stroke: hsl(var(--me-ink) / 1);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: .2;
+}
+.flow-cap {
+  fill: none;
+  stroke: hsl(var(--me-ink) / 1);
+  stroke-width: 1.1;
+  opacity: .3;
+}
+.flow-me {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: 11px;
+  letter-spacing: .07em;
+  fill: hsl(var(--me-ink) / .62);
+}
+/* The channel, as a second line on the tile's own card. Only in the flow view:
+   on the wall the note says what the tool is, and that is all it should say. */
+.note-reach { display: none; }
+.is-flow .note-reach {
+  display: block;
+  margin-top: .42rem;
+  padding-top: .38rem;
+  border-top: 1px solid hsl(var(--me-ink) / .22);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .68rem;
+  line-height: 1.4;
+  letter-spacing: .01em;
+  color: hsl(var(--me-ink) / .92);
+}
+.is-flow .note-reach::before {
+  content: 'reaches me by \2009\2014\2009';
+  color: hsl(var(--me-ink) / .55);
+}
+
+/* Lit: either because its own tile is under the pointer, or because "me" is. */
+.flow-wires.is-me .flow-reach,
+.flow-reach.is-lit { opacity: .72; }
+.flow-wires.is-me .flow-cap,
+.flow-cap.is-lit { opacity: .9; }
+.flow-wires.is-me .flow-me { fill: hsl(var(--me-ink) / .95); }
+
+/* The data connectors step back while the channels are being read, so the two
+   layers are never competing for the same glance. */
+.flow-wires.is-me .flow-wire--main,
+.flow-wires.is-me .flow-wire--light { opacity: .22; }
+.flow-wires.is-me .flow-tip { opacity: .22; }
+.flow-wires.is-me .flow-dot { opacity: 0 !important; }
+
+.flow-me--other { font-size: 9.5px; letter-spacing: .05em; fill: hsl(var(--me-ink) / .5); }
+.flow-wires.is-me .flow-me--other { fill: hsl(var(--me-ink) / .8); }
+
+.flow-me-hit { fill: transparent; cursor: default; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .flow-reach, .flow-cap, .flow-me,
+  .flow-wire--main, .flow-wire--light, .flow-tip { transition: opacity .28s ease, fill .28s ease; }
+}
+
 /* Room to unfold. On the wall the block hangs level with the poem's first
    line; in the flow view it lifts to just under the masthead, which is as far
    up as it can go without running into the date. The poem does not move. */
@@ -635,7 +712,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 }
 
 @media (max-width: 600px) {
-  :root { --fgap: 6px; --frail: 22px; }
+  :root { --fgap: 6px; --frail: 16px; --fme: 36px; }
   .flow-head { font-size: .6rem; letter-spacing: .07em; }
   .flow-keys { font-size: .6rem; gap: .16rem .7rem; }
 }
