@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.kahran.place-feed-publish</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/kahransingh/Dev/kahransingh.com/tools/publish_place.sh</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/kahransingh/Dev/kahransingh.com</string>
+    <key>StartInterval</key>
+    <integer>10800</integer>
+    <key>StandardOutPath</key>
+    <string>/Users/kahransingh/Library/Logs/place-feed-publish.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/kahransingh/Library/Logs/place-feed-publish.log</string>
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>
