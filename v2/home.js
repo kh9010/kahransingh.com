@@ -271,6 +271,63 @@
     });
   });
 
+  /* ------------------------------------------- this moment's poem ------- */
+
+  /* At rest the column carries the label alone. Hover (after a short intent
+     delay, so crossing the column does not trigger it), tap, or keyboard focus
+     brings the poem forward; moving the pointer off the column sends it back.
+     The poem only joins the layout while it is on screen, which is what keeps
+     the page one screen tall at rest however long the poem is. */
+  (function reveal() {
+    var hold  = document.getElementById('poem-hold');
+    var label = document.getElementById('poem-label');
+    if (!hold || !label) return;
+
+    var SHUT = 280, INTENT = 120;
+    var shown = false, intentTimer = null, flowTimer = null;
+
+    function show() {
+      clearTimeout(flowTimer);
+      if (shown) return;
+      shown = true;
+      hold.classList.add('is-live');   /* into the flow first, still invisible */
+      void hold.offsetWidth;           /* so the transition has a start state */
+      hold.classList.add('is-open');
+      label.setAttribute('aria-expanded', 'true');
+    }
+
+    function hide() {
+      clearTimeout(intentTimer);
+      if (!shown) return;
+      shown = false;
+      hold.classList.remove('is-open');
+      label.setAttribute('aria-expanded', 'false');
+      flowTimer = setTimeout(function () {
+        if (!shown) hold.classList.remove('is-live');   /* out of the flow again */
+      }, SHUT + 40);
+    }
+
+    /* the whole column is the target, so scrolling a long poem never dismisses it */
+    hold.addEventListener('mouseenter', function () {
+      clearTimeout(intentTimer);
+      intentTimer = setTimeout(show, INTENT);
+    });
+    hold.addEventListener('mouseleave', hide);
+
+    label.addEventListener('click', function () { if (shown) hide(); else show(); });
+    /* keyboard only: a tap's focus is already answered by the click above */
+    label.addEventListener('focus', function () {
+      if (!label.matches || label.matches(':focus-visible')) show();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (shown && !hold.contains(e.target)) hide();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hide();
+    });
+  })();
+
   /* ---------------------------------------------------------- the notes -- */
 
   /* One line per tool, on hover, on tap, and on keyboard focus. Built from each
