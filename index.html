@@ -78,7 +78,7 @@
 
     <div class="stage-copy">
       <header class="masthead">
-        <h1 class="wordmark">Kahran Singh</h1>
+        <h1 class="wordmark"><a href="/">kahran singh</a></h1>
         <div class="day" hidden>
           <p class="day-date" id="day-date">&nbsp;</p>
           <p class="day-where" id="day-where"></p>
@@ -89,12 +89,17 @@
         </div>
       </header>
 
+      <!-- At rest this column carries only the label. Hover, tap or keyboard
+           focus brings the poem forward; v2/home.js drives it. -->
       <main class="opening" id="opening" aria-live="polite">
-        <article class="poem">
-          <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
-          <div class="poem-body" id="poem-body"></div>
-        </article>
-        <p class="plate-caption" id="caption"></p>
+        <div class="poem-hold" id="poem-hold">
+          <button type="button" class="poem-label" id="poem-label"
+                  aria-expanded="false" aria-controls="poem">this moment&rsquo;s poem</button>
+          <article class="poem" id="poem">
+            <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
+            <div class="poem-body" id="poem-body"></div>
+          </article>
+        </div>
       </main>
 
       <noscript>
@@ -103,6 +108,9 @@
         are also on their own pages.</p>
       </noscript>
     </div>
+
+    <!-- bottom-left of the photograph, the way a caption sits on a print -->
+    <p class="plate-caption" id="caption"></p>
   </div>
 
   <!-- Wide: lifted into the right of the first screen, level with the poem's
