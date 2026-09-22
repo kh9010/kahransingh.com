@@ -65,18 +65,18 @@
 </head>
 <body>
 
-<!-- The photograph is an ordinary element that scrolls with the page. It is tall
-     (see --stage-min) and covers the whole stage, so the poem sits over its
-     upper part and the tiles over its lower part; scroll past its bottom edge
-     and the page ends on plain paper. -->
 <div class="stage">
-  <div class="stage-photo">
-    <img id="photo" src="" alt="" loading="eager" decoding="async" fetchpriority="high">
-  </div>
-  <div class="stage-scrim" aria-hidden="true"></div>
 
-  <div class="stage-copy">
-    <div class="screen-one">
+  <!-- The photograph covers exactly this block, so it is one viewport for a
+       short poem and grows with a long one. On a phone the tools sit below it
+       rather than inside it, which keeps the crop a composition, not a slice. -->
+  <div class="screen">
+    <div class="stage-photo">
+      <img id="photo" src="" alt="" loading="eager" decoding="async" fetchpriority="high">
+    </div>
+    <div class="stage-scrim" aria-hidden="true"></div>
+
+    <div class="stage-copy">
       <header class="masthead">
         <h1 class="wordmark">Kahran Singh</h1>
         <div class="day">
@@ -102,40 +102,45 @@
         are also on their own pages.</p>
       </noscript>
     </div>
-
-    <!-- The tiles, in the poem's column, a screen further down. Colour alone
-         carries the grouping now; there are no labels. -->
-    <section class="wall" aria-labelledby="wall-line">
-      <h2 class="wall-line" id="wall-line">Right now I&rsquo;m building tools to support myself.</h2>
-
-      <div class="wall-block">
-        <ul class="wall-row" style="--r:0">
-          <li class="tile tile--catching" data-note=""><span class="tile-name">Raw store</span><span class="soon">soon</span></li>
-          <li class="tile tile--catching" data-note=""><span class="tile-name">Mail triage</span><span class="soon">soon</span></li>
-          <li class="tile tile--catching" data-note=""><span class="tile-name">Voice &amp; WhatsApp capture</span><span class="soon">soon</span></li>
-          <li class="tile tile--remembering" data-note=""><span class="tile-name">The miners</span><span class="soon">soon</span></li>
-        </ul>
-        <ul class="wall-row" style="--r:1">
-          <li class="tile tile--remembering" data-note=""><span class="tile-name">The judge</span><span class="soon">soon</span></li>
-          <li class="tile tile--remembering" data-note=""><span class="tile-name">The Curator</span><span class="soon">soon</span></li>
-          <li class="tile tile--remembering" data-note=""><span class="tile-name">The sparks garden</span><span class="soon">soon</span></li>
-          <li class="tile tile--remembering" data-note=""><span class="tile-name">Noticings</span><span class="soon">soon</span></li>
-        </ul>
-        <ul class="wall-row" style="--r:2">
-          <li class="tile tile--knowing" data-note=""><span class="tile-name">Movement</span><span class="soon">soon</span></li>
-          <li class="tile tile--knowing" data-note=""><span class="tile-name">The now brain</span><span class="soon">soon</span></li>
-          <li class="tile tile--knowing" data-note=""><span class="tile-name">The workout planner</span><span class="soon">soon</span></li>
-          <li class="tile tile--knowing" data-note=""><span class="tile-name">Travel days</span><span class="soon">soon</span></li>
-        </ul>
-        <ul class="wall-row" style="--r:3">
-          <li class="tile tile--alive" data-note=""><span class="tile-name">Samwise</span><span class="soon">soon</span></li>
-          <li class="tile tile--alive" data-note=""><span class="tile-name">The repairer</span><span class="soon">soon</span></li>
-          <li class="tile tile--alive" data-note=""><span class="tile-name">The health page</span><span class="soon">soon</span></li>
-          <li class="tile tile--public tile--live" data-note=""><a class="tile-name" href="/lately/">The weekly record</a></li>
-        </ul>
-      </div>
-    </section>
   </div>
+
+  <!-- Wide: lifted into the right of the first screen, level with the poem's
+       opening, so poem and tools are in view together. Narrow: falls back into
+       the flow, below the photograph, on its own dark band. -->
+  <div class="tools-layer">
+    <div class="tools-inner">
+      <section class="wall" aria-labelledby="wall-line">
+        <h2 class="wall-line" id="wall-line">Right now I&rsquo;m building tools to support myself.</h2>
+        <div class="wall-block">
+            <ul class="wall-row" style="--r:0">
+              <li class="tile tile--catching" data-note=""><span class="tile-name">Raw store</span><span class="soon">soon</span></li>
+              <li class="tile tile--catching" data-note=""><span class="tile-name">Mail triage</span><span class="soon">soon</span></li>
+              <li class="tile tile--catching" data-note=""><span class="tile-name">Voice &amp; WhatsApp capture</span><span class="soon">soon</span></li>
+              <li class="tile tile--remembering" data-note=""><span class="tile-name">The miners</span><span class="soon">soon</span></li>
+            </ul>
+            <ul class="wall-row" style="--r:1">
+              <li class="tile tile--remembering" data-note=""><span class="tile-name">The judge</span><span class="soon">soon</span></li>
+              <li class="tile tile--remembering" data-note=""><span class="tile-name">The Curator</span><span class="soon">soon</span></li>
+              <li class="tile tile--remembering" data-note=""><span class="tile-name">The sparks garden</span><span class="soon">soon</span></li>
+              <li class="tile tile--remembering" data-note=""><span class="tile-name">Noticings</span><span class="soon">soon</span></li>
+            </ul>
+            <ul class="wall-row" style="--r:2">
+              <li class="tile tile--knowing" data-note=""><span class="tile-name">Movement</span><span class="soon">soon</span></li>
+              <li class="tile tile--knowing" data-note=""><span class="tile-name">The now brain</span><span class="soon">soon</span></li>
+              <li class="tile tile--knowing" data-note=""><span class="tile-name">The workout planner</span><span class="soon">soon</span></li>
+              <li class="tile tile--knowing" data-note=""><span class="tile-name">Travel days</span><span class="soon">soon</span></li>
+            </ul>
+            <ul class="wall-row" style="--r:3">
+              <li class="tile tile--alive" data-note=""><span class="tile-name">Samwise</span><span class="soon">soon</span></li>
+              <li class="tile tile--alive" data-note=""><span class="tile-name">The repairer</span><span class="soon">soon</span></li>
+              <li class="tile tile--alive" data-note=""><span class="tile-name">The health page</span><span class="soon">soon</span></li>
+              <li class="tile tile--public tile--live" data-note=""><a class="tile-name" href="/lately/">The weekly record</a></li>
+            </ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
 </div>
 
 <!-- Version switch. Self-contained: the .vswitch block in home.css is the whole
