@@ -241,6 +241,7 @@
 
   window.addEventListener('hashchange', function () {
     var asked = location.hash.replace(/^#/, '');
+    if (asked === 'flow') return;             /* not a day — v2/flow.js owns it */
     var iso = clampDay(asked, today);
     if (iso === current) {
       /* Asking for a day outside the range lands on one already shown. Still
@@ -375,13 +376,16 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
     window.addEventListener('scroll', hide, { passive: true });
     window.addEventListener('resize', hide);
+
+    /* v2/flow.js shuts an open note before it moves the tile out from under it. */
+    window.kahranWall = { hideNote: hide };
   })();
 
   /* ------------------------------------------------------------- go ------- */
 
   var asked = location.hash.replace(/^#/, '');
   var start = clampDay(asked, today);
-  goTo(start, false, asked !== '' && asked !== start);
+  goTo(start, false, asked !== '' && asked !== 'flow' && asked !== start);
 
   /* v2/days.json holds the mini's frozen daily picks. It is optional and
      fetched once, in parallel with data.json: if it's missing, empty, or

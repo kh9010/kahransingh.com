@@ -17,4 +17,9 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
 
 - `/` is **v2**: the daily photo + poem opening and the wall of tools (`/index.html`, `/v2/home.css`, `/v2/home.js`, data in `/v2/data.json`). Today's pick follows the live weather reading shown under the date (`v2/pick.js`, `v2/weather.js`); a past day replays its frozen archive entry (`v2/days.json`, written nightly by `tools/daily_pick.py`); anything neither can answer falls back to a deterministic hash of the date, so a past day never reshuffles. Full formula: `docs/2026-09-21-daily-pick-design.md`.
 - `/v1/index.html` is the old home, untouched in content. Every other old page (about, poetry, photography, projects, speaking, cv, poem-films, the private event pages, `/poems/`, `/lately/`) stays at its original URL and is shared by both versions; their nav "kahran" link points at `/v1/`.
+- "how they fit together" on the wall flies the same sixteen tiles into a data-flow layout
+  (`/v2/flow.js`, styles at the end of `/v2/home.css`; `#flow` opens it directly). Where each
+  tool lands and **what feeds what** live in `PLACE` and `EDGES` at the top of `flow.js` and
+  nowhere else — they are read off day-flow's own docs and code, so check there before changing
+  an arrow, and keep the edge list honest rather than tidy.
 - A small fixed "v2 · v1" tab switches between them. Nothing gets migrated into v2 until Kahran decides where it goes; when a box on the wall gets a page, link it from `/v2/home.js`.

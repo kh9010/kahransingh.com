@@ -111,8 +111,14 @@
   <div class="tools-layer">
     <div class="tools-inner">
       <section class="wall" aria-labelledby="wall-line">
-        <h2 class="wall-line" id="wall-line">Right now I&rsquo;m building tools to support myself.</h2>
-        <div class="wall-block">
+        <div class="wall-head">
+          <h2 class="wall-line" id="wall-line">Right now I&rsquo;m building tools to support myself.</h2>
+          <!-- The one control. v2/flow.js unhides it; with JavaScript off the
+               wall is all there is, which is what it was before. -->
+          <button type="button" class="wall-toggle" id="wall-toggle"
+                  aria-pressed="false" aria-controls="wall-block" hidden>how they fit together</button>
+        </div>
+        <div class="wall-block" id="wall-block">
             <ul class="wall-row" style="--r:0">
               <li class="tile tile--catching" data-note="Everything I make, mail, chats, meetings, sleep, commits, kept once in one place."><span class="tile-name">Raw store</span></li>
               <li class="tile tile--catching" data-note="Sorts my inbox into people, feeds and paper trail so I only read the people."><span class="tile-name">Mail triage</span></li>
@@ -153,6 +159,7 @@
 
 <script src="/v2/pick.js"></script>
 <script src="/v2/home.js"></script>
+<script src="/v2/flow.js"></script>
 <script src="/v2/weather.js"></script>
 <script>if (window.kahranWeather) window.kahranWeather.load(document.getElementById('day-where'));</script>
 </body>

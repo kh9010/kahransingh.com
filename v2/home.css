@@ -30,6 +30,11 @@
   --gap:    8px;
   --tile-a: .80;
   --tools-w: calc(4 * var(--tile) + 3 * var(--gap) + var(--tan) * 3 * (var(--tile) + var(--gap)));
+
+  /* the flow view: the space between its rows, and the side lanes a connector
+     that skips a row bows out into */
+  --fgap:  7px;
+  --frail: 30px;
 }
 
 @media (prefers-color-scheme: dark) { :root { --paper: #171613; } }
@@ -245,8 +250,10 @@ body {
 .wall { pointer-events: auto; width: max-content; }
 
 /* His voice, kept quiet — the tiles are the thing here. */
+.wall-head { margin: 0 0 .85rem; }
+
 .wall-line {
-  margin: 0 0 1.05rem;
+  margin: 0;
   max-width: 34ch;
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
@@ -335,7 +342,6 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 @media (prefers-reduced-motion: no-preference) {
   .tile { transition: opacity .25s ease, filter .25s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 }
-}
 
 /* The one-line note. A square tile has no room for it, so it appears as a small
    glass card on hover, tap or keyboard focus — the tile never changes size, so
@@ -375,6 +381,154 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .tile.is-noted .note { animation: noteIn .14s ease both; }
 }
 @keyframes noteIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+/* --------------------------------------------------------- the flow view --
+
+   The wall says what exists; this says how it runs. The same sixteen tiles are
+   flown out of the lean into three columns — what comes in, what gets made of
+   it, what reads it — with the watcher on its own row beneath and the
+   connectors drawn behind the glass. The block keeps the wall's exact width,
+   so the sentence above it does not move when the layout changes underneath.
+   v2/flow.js holds where each tool lands and what feeds what; this holds only
+   the geometry they land in. */
+
+.wall-toggle {
+  display: block;
+  width: fit-content;
+  margin: .34rem 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .72rem;
+  line-height: 1.5;
+  letter-spacing: .015em;
+  color: var(--on-photo-soft);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .3em;
+  text-decoration-color: rgba(246, 243, 236, .3);
+}
+.wall-toggle:hover { color: var(--on-photo); text-decoration-color: var(--on-photo); }
+
+/* Nothing of the flow view exists on the wall: it must not take a line of
+   height there, and the wires must not find a containing block. */
+.flow-head, .flow-keys, .flow-wires { display: none; }
+
+.is-flow .wall-block {
+  position: relative;
+  display: grid;
+  width: var(--tools-w);
+  padding: 0 var(--frail);
+  grid-template-columns: repeat(3, var(--tile));
+  grid-template-rows: auto repeat(5, var(--tile)) auto var(--tile);
+  grid-auto-rows: auto;
+  justify-content: space-between;
+  row-gap: var(--fgap);
+}
+.is-flow .wall-row { display: contents; }
+
+.is-flow .tile {
+  grid-column: var(--fc);
+  grid-row: calc(var(--fr) + 1);
+  z-index: 1;
+}
+
+/* On the wall a dim tile means "nothing to click yet". Here every tile is a
+   node in a drawing and has to read as one, so the unlaunched ones come up —
+   still plainly quieter than a launched tile, which keeps its full colour, its
+   firmer edge and its lift. */
+.is-flow .tile:not(.tile--live) { opacity: .76; filter: saturate(.88); }
+.is-flow .tile:not(.tile--live):hover,
+.is-flow .tile:not(.tile--live):focus-visible,
+.is-flow .tile:not(.tile--live).is-noted { opacity: .96; filter: saturate(1); }
+
+.is-flying .tile { pointer-events: none; }
+
+/* Apparatus, in the diagram voice the /movement/ page uses: small, spaced,
+   lower case, and never louder than the thing it labels. */
+.is-flow .flow-head { display: block; grid-column: var(--fc); grid-row: 1; }
+.is-flow .flow-head--watch { grid-column: 1 / -1; grid-row: 7; margin-top: .28rem; }
+.is-flow .flow-keys { display: flex; grid-column: 1 / -1; grid-row: 9; }
+.is-flow .flow-wires { display: block; }
+
+.flow-head {
+  margin: 0 0 .08rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .64rem;
+  line-height: 1.35;
+  letter-spacing: .085em;
+  color: rgba(222, 217, 207, .74);
+  white-space: nowrap;
+  opacity: 0;
+}
+
+/* Colour is the wall's only grouping and it carries no labels anywhere else.
+   This is the one view where naming the five pigments earns its line. */
+.flow-keys {
+  margin: .62rem 0 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+  gap: .18rem .9rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .63rem;
+  line-height: 1.5;
+  letter-spacing: .012em;
+  color: rgba(222, 217, 207, .62);
+  opacity: 0;
+}
+.flow-keys li { display: flex; align-items: center; gap: .34rem; }
+.flow-keys i {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: hsl(var(--h) var(--s) calc(var(--l) + 16%) / .95);
+  border: 1px solid hsl(var(--h) var(--s) calc(var(--l) + 32%) / .7);
+}
+
+.is-landed .flow-head, .is-landed .flow-keys { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .flow-head, .flow-keys { transition: opacity .42s ease; }
+}
+
+/* Under the tiles, so a connector that has to cross a column passes behind the
+   glass rather than over it. Each one takes the hue of the tile it arrives at. */
+.flow-wires {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.flow-wire { fill: none; stroke-linecap: round; }
+.flow-wire--main  { stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / .62); stroke-width: 1.4; }
+.flow-wire--light { stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / .3);  stroke-width: 1.1; }
+.flow-tip { fill: hsl(var(--h) var(--s) calc(var(--l) + 46%) / .8); }
+.flow-dot { fill: hsl(var(--h) var(--s) calc(var(--l) + 56%) / .95); }
+
+/* Samwise has an edge to every lane it watches. Thirteen of them at full
+   strength would be a cage, so they are dashed — attention, not data — kept
+   at the threshold of visible, and come up when you touch the tile they leave
+   from. */
+.flow-wire--watch {
+  stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / 1);
+  stroke-width: .9;
+  opacity: .13;
+}
+.flow-wires.is-watched .flow-wire--watch { opacity: .44; }
+@media (prefers-reduced-motion: no-preference) {
+  .flow-wire--watch { transition: opacity .3s ease; }
+}
+
+/* Room to unfold. On the wall the block hangs level with the poem's first
+   line; in the flow view it lifts to just under the masthead, which is as far
+   up as it can go without running into the date. The poem does not move. */
+@media (min-width: 901px) {
+  .is-flow .tools-inner { padding-top: calc(var(--pad-top) + var(--mast-h) + .35rem); }
+}
+
 
 /* ------------------------------------------------- version switch (v2·v1) --
    Self-contained component. Drop this block and the matching markup into any
@@ -447,8 +601,24 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .vswitch { right: 12px; bottom: 12px; }
 }
 
+/* The narrow band. Three columns hold here too — three tiles across fit inside
+   a 390px phone with room between them for the connectors — so the drawing
+   says the same thing on a phone as it does wide, only narrower. */
+@media (max-width: 900px) {
+  .is-flow .wall-block { width: min(100%, 26rem); margin-inline: 0 auto; }
+}
+
+@media (max-width: 600px) {
+  :root { --fgap: 6px; --frail: 22px; }
+  .flow-head { font-size: .6rem; letter-spacing: .07em; }
+  .flow-keys { font-size: .6rem; gap: .16rem .7rem; }
+}
+
+
 @media (prefers-reduced-motion: reduce) {
   .turned { animation: none; }
   *, *::before, *::after { transition-duration: .001ms !important; }
   .tile--live:hover, .tile--live:focus-within { transform: none; }
+  /* The layouts simply swap; the connectors are already drawn. */
+  .is-flow .flow-head, .is-flow .flow-keys { opacity: 1; }
 }
