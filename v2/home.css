@@ -1,58 +1,42 @@
 /* kahransingh.com — v2 home.
-   Two worlds, one page. Above: the photograph of the day fills the viewport and
-   stays fixed while the poem scrolls over it on a measured scrim. Below: the
-   wall of tools on warm paper, the only colour anywhere, a leaning block of
-   square tiles. Fraunces carries the voice (poem and tool names alike, because
-   the tools are named like characters); Space Grotesk carries only apparatus.
+   One tall photograph of the day that you scroll down. The poem sits over its
+   upper half, the tools over its lower half, both in the same left column on a
+   measured scrim; past the photograph's bottom edge the page ends on paper.
+   Fraunces carries the voice (poem and tool names alike, because the tools are
+   named like characters); Space Grotesk carries only apparatus. Colour alone
+   groups the tools — there are no labels.
    No build step; this file stands alone and does not extend /style.css. */
 
 /* ---------------------------------------------------------------- tokens -- */
 
 :root {
-  --paper:      #fafaf8;
-  --ink:        #1a1a1a;
-  --ink-soft:   #575349;
-  --ink-quiet:  #787266;
-  --rule:       #e3e0d9;
+  --paper: #fafaf8;
 
-  /* type over the photograph. Measured against the brightest local region of
-     all 26 photographs through the scrim below — see the scrim note. */
-  --on-photo:       #f6f3ec;
-  --on-photo-soft:  #ded9cf;
+  /* type over the photograph, measured against the brightest local region of
+     all 26 photographs through the scrim below */
+  --on-photo:      #f6f3ec;
+  --on-photo-soft: #ded9cf;
 
-  /* Five pigments. Each band sets --h and --s; lightness, tint and edge are
-     shared, so dark mode retunes the whole family by changing three numbers. */
-  --pig-l: 40%;
-  --tint:  .11;
-  --edge:  .26;
+  --pad-top: clamp(1.75rem, 5vh, 3.25rem);
+  --air:     38vh;            /* quiet between the poem and the tools */
 
-  /* The lean. Every row of tiles steps further right in proportion to how far
-     down it sits, so the block's left edge is one straight diagonal. */
-  --tan:  .13;
-  --tile: 124px;
-  --gap:  10px;
-  --lab:  26px;
+  /* the leaning block: 4 rows of 4, each row stepping right by --tan of its
+     own distance from the top, so the outline is a true parallelogram */
+  --tan:    .17;
+  --tile:   104px;
+  --gap:    10px;
+  --tile-a: .66;              /* tinted glass over the photograph */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:     #171613;
-    --ink:       #ece7db;
-    --ink-soft:  #b3ada0;
-    --ink-quiet: #8f897c;
-    --rule:      #2e2b25;
+@media (prefers-color-scheme: dark) { :root { --paper: #171613; } }
 
-    --pig-l: 66%;
-    --tint:  .16;
-    --edge:  .34;
-  }
-}
-
-.band--catching    { --h: 192; --s: 23%; }
-.band--remembering { --h:  96; --s: 22%; }
-.band--knowing     { --h:  41; --s: 38%; }
-.band--alive       { --h: 352; --s: 30%; }
-.band--public      { --h: 230; --s: 26%; }
+/* Five pigments, dark enough that near-white names clear 4.5:1 on every one of
+   the 26 photographs, and far enough apart to stay distinct as glass. */
+.tile--catching    { --h: 192; --s: 40%; --l: 26%; }
+.tile--remembering { --h:  96; --s: 32%; --l: 24%; }
+.tile--knowing     { --h:  41; --s: 45%; --l: 26%; }
+.tile--alive       { --h: 352; --s: 38%; --l: 30%; }
+.tile--public      { --h: 230; --s: 38%; --l: 32%; }
 
 /* ------------------------------------------------------------------ base -- */
 
@@ -60,37 +44,36 @@
 
 body {
   margin: 0;
-  background: #100f0d;          /* behind the photograph, never a white flash */
-  color: var(--ink);
+  background: var(--paper);
+  color: var(--on-photo);
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 17px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  padding-bottom: clamp(3.5rem, 12vh, 7rem); /* the paper the page ends on */
 }
 
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.stage :focus-visible { outline-color: var(--on-photo); }
+:focus-visible { outline: 2px solid var(--on-photo); outline-offset: 3px; }
 
 /* ----------------------------------------------------------------- stage -- */
 
-/* svh, not vh: the first screen must be photograph even with the iOS toolbar
-   showing, so the wall never peeks above the fold. */
-.stage { position: relative; min-height: 100svh; }
+/* The photograph scrolls with the page. It covers the whole stage, so however
+   long the poem runs the picture is still behind the tools. */
+.stage { position: relative; min-height: 150vh; }
 
-/* position:fixed, not background-attachment:fixed, which iOS Safari ignores.
-   Nothing above this may carry a transform or the fixing silently breaks. */
-.stage-photo { position: fixed; inset: 0; z-index: 0; }
+.stage-photo { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .stage-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
 /* The scrim is sized from measurement, not taste: the brightest local region
    across all 26 photographs sits at relative luminance .956, and #f6f3ec type
-   needs the backdrop at or under .157 to clear 4.5:1. That means a black veil
-   of at least .58 wherever a glyph can land. The gradients below never fall
-   under .66 across the column the poem occupies, and open up to .26 on the
-   right where, on desktop, no text goes. */
+   needs the backdrop at or under .157 to clear 4.5:1 — a black veil of at least
+   .58 wherever a glyph can land. The ramp below never falls under .67 across
+   the band the column occupies, and opens to .28 on the right where no text
+   goes. Vertical percentages run over the whole tall stage, and the vertical
+   layer only ever adds, so the floor holds at any scroll position. */
 .stage-scrim {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
@@ -99,17 +82,30 @@ body {
     linear-gradient(90deg,  rgba(8,8,7,.80) 0%, rgba(8,8,7,.73) 34%, rgba(8,8,7,.67) 62%, rgba(8,8,7,.38) 82%, rgba(8,8,7,.28) 100%);
 }
 
+/* A soft landing where the photograph's bottom edge meets the paper. */
+.stage::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 8vh;                 /* shorter than the wall's bottom padding, so it
+                                  never washes the last row of tiles */
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(23,22,19,0), var(--paper));
+}
+
 .stage-copy {
   position: relative;
   z-index: 2;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
   max-width: 1080px;
   margin: 0 auto;
-  padding: clamp(1.75rem, 5vh, 3.25rem) clamp(16px, 4vw, 48px) clamp(3rem, 8vh, 5rem);
-  color: var(--on-photo);
+  padding: var(--pad-top) clamp(16px, 4vw, 48px) 0;
 }
+
+/* Holds the poem alone in the first screen: whatever is left of a viewport once
+   the top padding and the air below are accounted for. A long poem overruns it
+   and pushes the tools further down, which is the point. */
+.screen-one { min-height: calc(100svh - var(--pad-top) - var(--air)); }
 
 /* -------------------------------------------------------------- masthead -- */
 
@@ -203,80 +199,46 @@ body {
   color: var(--on-photo-soft);
 }
 
-.fallback, .poem-body .trouble {
+.fallback {
   font-family: 'Space Grotesk', sans-serif;
   font-size: .85rem;
   color: var(--on-photo-soft);
 }
 .fallback a, .poem-body .trouble a { color: var(--on-photo); }
+.poem-body .trouble { font-family: 'Space Grotesk', sans-serif; font-size: .85rem; color: var(--on-photo-soft); }
 
 /* The only motion on the page, and it answers a click: turning to another day. */
 @keyframes turn { from { opacity: 0; } to { opacity: 1; } }
 .turned { animation: turn .32s ease both; }
 
-/* ------------------------------------------------------------------ wall -- */
+/* ------------------------------------------------------------- the tools -- */
 
-/* Opaque, so it scrolls up over the photograph and releases it. */
-.wall-section {
-  position: relative;
-  z-index: 2;
-  min-height: 100svh;
-  background: var(--paper);
-  color: var(--ink);
-}
+.wall { margin-top: var(--air); padding-bottom: 10vh; }
 
-.sheet {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: clamp(3rem, 9vh, 5.5rem) clamp(16px, 4vw, 48px) clamp(4rem, 10vh, 7rem);
-}
-
+/* His voice, but kept quiet — the tiles are the thing here. */
 .wall-line {
-  margin: 0 0 clamp(1.75rem, 4vh, 2.75rem);
-  max-width: 19ch;
+  margin: 0 0 1.15rem;
+  max-width: 30ch;
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-size: clamp(1.16rem, 1.85vw, 1.4rem);
+  font-size: .95rem;
   line-height: 1.5;
-  letter-spacing: -.004em;
+  letter-spacing: -.002em;
+  color: var(--on-photo-soft);
 }
 
 .wall-block { width: max-content; }
 
-/* Each row steps right by the lean times its own distance from the top, so the
-   left edges of every row fall on one straight line and the block reads as a
-   parallelogram — while the tiles themselves stay square and upright.
-   --pt / --pl on each row count the tile rows and label rows above it. */
 .wall-row {
   display: flex;
   gap: var(--gap);
   margin: 0 0 var(--gap);
   padding: 0;
   list-style: none;
-  margin-left: calc(var(--tan) * (var(--pt) * (var(--tile) + var(--gap)) + var(--pl) * (var(--lab) + var(--gap))));
+  margin-left: calc(var(--tan) * var(--r) * (var(--tile) + var(--gap)));
 }
-
-.wall-row--label { height: var(--lab); align-items: flex-end; }
-
-.band-name {
-  display: flex;
-  align-items: center;
-  gap: .45rem;
-  margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: .7rem;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: .015em;
-  color: var(--ink-soft);
-}
-.band-name::before {
-  content: '';
-  width: .5rem; height: .5rem;
-  border-radius: 2px;
-  background: hsl(var(--h) var(--s) var(--pig-l));
-}
+.wall-row:last-child { margin-bottom: 0; }
 
 .tile {
   position: relative;
@@ -285,29 +247,38 @@ body {
   height: var(--tile);
   display: flex;
   align-items: center;
-  padding: .7rem .7rem 1.5rem;
+  padding: .65rem .65rem 1.4rem;
   border-radius: 13px;
-  background: hsl(var(--h) var(--s) var(--pig-l) / var(--tint));
-  border: 1px solid hsl(var(--h) var(--s) var(--pig-l) / var(--edge));
+  background: hsl(var(--h) var(--s) var(--l) / var(--tile-a));
+  border: 1px solid hsl(var(--h) var(--s) calc(var(--l) + 24%) / .34);
+}
+
+/* Frosted where it is supported; a more solid tint where it is not, so the
+   names stay legible either way. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tile { -webkit-backdrop-filter: blur(14px) saturate(115%); backdrop-filter: blur(14px) saturate(115%); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tile { --tile-a: .85; }
 }
 
 .tile-name {
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-size: .88rem;
-  line-height: 1.28;
-  letter-spacing: -.003em;
-  color: var(--ink);
+  font-size: .84rem;
+  line-height: 1.26;
+  letter-spacing: -.002em;
+  color: var(--on-photo);
   hyphens: none;
 }
 a.tile-name {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: .2em;
-  text-decoration-color: color-mix(in srgb, var(--ink) 28%, transparent);
+  text-decoration-color: rgba(246, 243, 236, .45);
 }
-a.tile-name:hover { text-decoration-color: var(--ink); }
+a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 /* Not a badge and not a disabled look — a mark in the corner. */
 .soon {
@@ -317,7 +288,7 @@ a.tile-name:hover { text-decoration-color: var(--ink); }
   font-size: .58rem;
   line-height: 1;
   letter-spacing: .04em;
-  color: var(--ink-quiet);
+  color: var(--on-photo-soft);
 }
 
 /* Every tile keeps a data-note hook for a one-line description later. A square
@@ -363,7 +334,7 @@ a.tile-name:hover { text-decoration-color: var(--ink); }
 /* ----------------------------------------------------------- responsive -- */
 
 @media (max-width: 900px) {
-  /* The poem now runs the full width, so the veil has to hold everywhere
+  /* The column now runs the full width, so the veil has to hold everywhere
      rather than only down the left. Never below .66. */
   .stage-scrim {
     background:
@@ -373,16 +344,16 @@ a.tile-name:hover { text-decoration-color: var(--ink); }
   .masthead { align-items: flex-start; }
   .day { align-items: flex-start; }
   .opening { max-width: none; }
-  .wall-line { max-width: 30ch; }
 }
 
 @media (max-width: 600px) {
-  :root { --tan: .085; --tile: 92px; --gap: 8px; --lab: 22px; }
+  :root { --tan: .10; --tile: 78px; --gap: 5px; --air: 34vh; }
   body { font-size: 16px; }
   .poem-body { font-size: 1.08rem; }
-  .tile { border-radius: 11px; padding: .6rem .55rem 1.25rem; }
-  .tile-name { font-size: .78rem; line-height: 1.25; }
-  .soon { right: .45rem; bottom: .4rem; font-size: .55rem; }
+  .tile { border-radius: 11px; padding: .5rem .45rem 1.1rem; }
+  .tile-name { font-size: .7rem; line-height: 1.22; }
+  .soon { right: .38rem; bottom: .34rem; font-size: .52rem; }
+  .wall-line { font-size: .9rem; }
   .vswitch { right: 12px; bottom: 12px; }
 }
 
