@@ -89,6 +89,12 @@ const poemData = {
     'teental': { themes: ['identity', 'place', 'wonder'], title: 'Teental' },
     'a-conversation-among-birds': { themes: ['nature', 'wonder', 'mortality'], title: 'A conversation among birds' },
     'hey-you-tree-there': { themes: ['nature', 'wonder', 'place'], title: 'Hey you tree there' },
+    'animals-in-love': { themes: ['love', 'identity'], title: 'Animals in Love' },
+    'being-loved': { themes: ['identity', 'love'], title: 'Being Loved' },
+    'bladder-bag': { themes: ['nature', 'identity'], title: 'Bladder bag' },
+    'hey': { themes: ['love', 'identity'], title: 'hey' },
+    'i-came-out': { themes: ['identity', 'nature'], title: 'I came out' },
+    'wrestle': { themes: ['identity', 'mortality'], title: 'wrestle' },
 };
 
 const themeLabels = {
