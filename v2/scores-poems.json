@@ -9,7 +9,7 @@
   "inside",
   "mood"
  ],
- "scored_at": "2026-09-21",
+ "scored_at": "2026-09-22",
  "poems": {
   "a-conversation-among-birds": {
    "light": 0.6,
@@ -482,7 +482,7 @@
    "inside": 0.85,
    "mood": 0.15,
    "hour": "day",
-   "notes": "London cold, jagged faces, afraid to look"
+   "notes": "London cold, jagged faces afraid to look; wrong person"
   },
   "mama": {
    "light": 0.4,
@@ -989,6 +989,72 @@
    "mood": 0.9,
    "hour": "any",
    "notes": "How lucky, surrounded by love; choosing whose"
+  },
+  "i-came-out": {
+   "light": 0.65,
+   "warmth": 0.3,
+   "wet": 0.9,
+   "stillness": 0.2,
+   "season": 0.4,
+   "inside": 0.9,
+   "mood": 0.65,
+   "hour": "dawn",
+   "notes": "Mist fleeing dawn sun; dew; ocean come out to play"
+  },
+  "being-loved": {
+   "light": 0.6,
+   "warmth": 0.55,
+   "wet": 0.1,
+   "stillness": 0.45,
+   "season": 0.6,
+   "inside": 0.35,
+   "mood": 0.3,
+   "hour": "day",
+   "notes": "Walled backyard swing; mother's shock; shame eats wonder"
+  },
+  "animals-in-love": {
+   "light": 0.35,
+   "warmth": 0.2,
+   "wet": 0.35,
+   "stillness": 0.6,
+   "season": 0.4,
+   "inside": 0.1,
+   "mood": 0.15,
+   "hour": "night",
+   "notes": "Cold fridge meat, rip tear chew; ends at your death"
+  },
+  "wrestle": {
+   "light": 0.35,
+   "warmth": 0.45,
+   "wet": 0.3,
+   "stillness": 0.3,
+   "season": 0.4,
+   "inside": 0.15,
+   "mood": 0.45,
+   "hour": "any",
+   "notes": "Oily dark wrongness in the chest; purples in light; abstract"
+  },
+  "bladder-bag": {
+   "light": 0.4,
+   "warmth": 0.4,
+   "wet": 0.85,
+   "stillness": 0.35,
+   "season": 0.4,
+   "inside": 0.05,
+   "mood": 0.55,
+   "hour": "dawn",
+   "notes": "Enema bag made cold, then warm; soup, soft hand, reborn"
+  },
+  "hey": {
+   "light": 0.4,
+   "warmth": 0.8,
+   "wet": 0.2,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 0.15,
+   "mood": 0.85,
+   "hour": "night",
+   "notes": "Shoulder caught in shirt, shared breath; beat; hi"
   }
  }
 }
