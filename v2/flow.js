@@ -255,6 +255,12 @@
     while (svg.childNodes.length > 1) svg.removeChild(svg.lastChild);
     wires = [];
 
+    /* Measure first, attach after. A path's length and points come from its own
+       data, so they can be read while it is still detached — reading them back
+       after appending made the document flush layout once per wire, and there
+       are three dozen wires plus the surface lines. Same drawing, one flush. */
+    var pending = document.createDocumentFragment();
+
     var br = block.getBoundingClientRect();
     if (!br.width) return;
 
@@ -310,7 +316,6 @@
     function add(d, cls, target, withDot) {
       var path = svgEl('path', 'flow-wire ' + cls + ' ' + groupOf(target.tile));
       path.setAttribute('d', d);
-      svg.appendChild(path);
       var len = 0;
       try { len = path.getTotalLength(); } catch (e) { len = 0; }
       var tip = null, dot = null;
@@ -321,14 +326,15 @@
         tip = svgEl('path', 'flow-tip ' + groupOf(target.tile));
         tip.setAttribute('d', 'M0 0 L-5.6 -3.1 L-5.6 3.1 Z');
         tip.setAttribute('transform', 'translate(' + r1(p0.x) + ',' + r1(p0.y) + ') rotate(' + r1(ang) + ')');
-        svg.appendChild(tip);
         if (withDot) {
           dot = svgEl('circle', 'flow-dot ' + groupOf(target.tile));
           dot.setAttribute('r', '2.5');
           dot.setAttribute('opacity', '0');
-          svg.appendChild(dot);
         }
       }
+      pending.appendChild(path);
+      if (tip) pending.appendChild(tip);
+      if (dot) pending.appendChild(dot);
       wires.push({ path: path, tip: tip, dot: dot, len: len, watch: cls === 'flow-wire--watch' });
     }
 
@@ -362,19 +368,19 @@
               ' ' + r1(ex) + ' ' + r1(ey);
       var path = svgEl('path', 'flow-line');
       path.setAttribute('d', d);
-      svg.appendChild(path);
       var len = 0;
       try { len = path.getTotalLength(); } catch (e) { len = 0; }
       var tip = svgEl('path', 'flow-line-tip');
       tip.setAttribute('d', 'M0 0 L-5 -2.8 L-5 2.8 Z');
       tip.setAttribute('transform', 'translate(' + r1(ex) + ',' + r1(ey) + ')');
-      svg.appendChild(tip);
       var pulse = null;
       if (f[1] === 'morning' && len > 8) {
         pulse = svgEl('circle', 'flow-pulse');
         pulse.setAttribute('r', '2.2');
-        svg.appendChild(pulse);
       }
+      pending.appendChild(path);
+      pending.appendChild(tip);
+      if (pulse) pending.appendChild(pulse);
       lines.push({ tile: f[0], surf: f[1], path: path, tip: tip, pulse: pulse, len: len });
     });
 
@@ -388,6 +394,8 @@
         if (b) add(watchPath(s, b), 'flow-wire--watch', b, false);
       });
     }
+
+    svg.appendChild(pending);            /* the single flush */
 
     /* A carrying edge draws itself, tip first at the end. The watcher's edges
        do not draw: they are dashed and they fade up, because what runs along
@@ -532,6 +540,10 @@
 
     var quiet = still() || !animate;
     var done = FLIGHT + MAX_DELAY;
+    if (!quiet && window.kahranBusy) {
+      window.kahranBusy.hold();                       /* solid tint while it flies */
+      later(function () { window.kahranBusy.release(); }, done + 80);
+    }
 
     if (on) {
       settle(flock);

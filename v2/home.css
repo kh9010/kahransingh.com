@@ -251,8 +251,9 @@ body {
   transform-origin: 0 42%;
   transform: scale(calc(.35 + var(--p) * .65));
   opacity: calc((var(--p) - .28) * 2.1);
-  filter: blur(calc((1 - var(--p)) * 2.4px));
-  will-change: transform, opacity, filter;
+  /* no animated filter: a blur recomposites the whole block every frame and
+     Safari pays for it dearly. Scale and opacity alone are compositor work. */
+  will-change: transform, opacity;
 }
 /* in the flow the moment it starts travelling, so a long poem lengthens the
    stage exactly as it did before */
@@ -330,6 +331,8 @@ body {
   top: 0; left: 0; right: 0;
   z-index: 3;
   pointer-events: none;
+  /* the diagram's reflows stay its own business */
+  contain: layout;
 }
 .tools-inner {
   max-width: 1080px;
@@ -433,6 +436,18 @@ body {
   .tile { --tile-a: .90; }
 }
 
+/* A live backdrop blur over a full-bleed photograph is the most expensive
+   thing on this page: every frame of any animation re-blurs the picture behind
+   five tiles. So it is a rest-state luxury only — while the poem travels or the
+   diagram flies, the tiles fall back to the solid tint they already use where
+   backdrop-filter is unsupported, and it comes back ~120ms after everything
+   settles. v2/home.js owns the switch; both animations share it. */
+.tools-layer.is-busy .tile {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  --tile-a: .90;
+}
+
 .tile-name {
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
@@ -493,7 +508,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
               0 0 0 1px hsl(var(--h) var(--s) calc(var(--l) + 40%) / .45);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .tile { transition: opacity .16s ease, filter .16s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .tile { transition: opacity .16s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 }
 
 /* The one-line note. A square tile has no room for it, so it appears as a small
@@ -524,6 +539,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   text-align: left;
   white-space: normal;
   hyphens: none;
+  will-change: transform, opacity;
 }
 @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .note { -webkit-backdrop-filter: blur(16px) saturate(115%); backdrop-filter: blur(16px) saturate(115%); }
@@ -628,7 +644,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 .is-flow .tile:not(.tile--live):focus-visible,
 .is-flow .tile:not(.tile--live).is-noted { opacity: .96; filter: saturate(1); }
 
-.is-flying .tile { pointer-events: none; }
+.is-flying .tile { pointer-events: none; will-change: transform, opacity; }
 
 /* Apparatus: small, spaced, lower case, and never louder than the thing it
    labels. Five boxes name themselves, so the stage headings and the colour
@@ -788,10 +804,9 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
    what keeps the whole diagram reachable on a 800px-tall window. The poem does
    not move. */
 @media (min-width: 901px) {
-  .is-flow .tools-inner {
-    padding-top: var(--pad-top);
-    transition: padding-top 320ms var(--ease);
-  }
+  /* padding is a layout property: transitioning it relaid the whole column
+     every frame of the flight. It now snaps, under cover of the tiles flying. */
+  .is-flow .tools-inner { padding-top: var(--pad-top); }
   /* and the three lines close up a little, to buy the diagram its last rows */
   .is-flow .doing-line { margin-bottom: .5rem; }
   .is-flow .doing-item { margin-bottom: .38rem; }
@@ -894,7 +909,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .tile--live:hover, .tile--live:focus-within { transform: none; }
   /* the poem still fades, it just does not travel */
   /* the poem still fades in, it just does not travel */
-  .poem { transform: none !important; filter: none !important; }
+  .poem { transform: none !important; }
   .poem-label { transform: translateY(-50%) !important; }
   /* The layouts simply swap; the connectors are already drawn. */
   .is-flow .flow-head { opacity: 1; }
