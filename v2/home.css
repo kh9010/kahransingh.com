@@ -327,20 +327,22 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 .tile:not(.tile--live).is-noted { opacity: .8; filter: saturate(.95); }
 
 .tile--live {
+  --lift: 1;
   --tile-a: .92;
   border-color: hsl(var(--h) var(--s) calc(var(--l) + 34%) / .7);
   box-shadow: 0 1px 0 hsl(var(--h) var(--s) calc(var(--l) + 30%) / .25) inset;
 }
 .tile--live:hover,
 .tile--live:focus-within {
-  transform: translateY(-3px) scale(1.035);
+  --lift: 1.035;
+  transform: translateY(-3px) scale(var(--lift));
   filter: saturate(1.35) brightness(1.18);
   border-color: hsl(var(--h) var(--s) calc(var(--l) + 44%) / .95);
   box-shadow: 0 10px 24px -8px hsl(var(--h) var(--s) 20% / .7),
               0 0 0 1px hsl(var(--h) var(--s) calc(var(--l) + 40%) / .45);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .tile { transition: opacity .25s ease, filter .25s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .tile { transition: opacity .16s ease, filter .16s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 }
 
 /* The one-line note. A square tile has no room for it, so it appears as a small
@@ -376,6 +378,19 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .note { -webkit-backdrop-filter: blur(16px) saturate(115%); backdrop-filter: blur(16px) saturate(115%); }
 }
 .tile.is-noted .note { display: block; }
+
+/* A note on a launched tile is a child of a box that is scaled while hovered,
+   so without this it renders 3.5% over its own max-width with its text on
+   fractional pixels. --lift is the one place that number lives; the card undoes
+   exactly it, and home.js divides the card's offsets by the same value so it
+   still lands where it was measured to. It has to be the separate `scale`
+   property rather than a transform: noteIn fills forwards, and a filled
+   animation's `transform: none` beats any transform declared here. */
+.tile--live:hover > .note,
+.tile--live:focus-within > .note {
+  scale: calc(1 / var(--lift));
+  transform-origin: top left;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .tile.is-noted .note { animation: noteIn .14s ease both; }
@@ -434,6 +449,17 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   grid-row: calc(var(--fr) + 1);
   z-index: 1;
 }
+/* Every tile is a stacking context here, so the one showing a note has to be
+   lifted above its neighbours or the card is painted under whichever tile comes
+   later in the markup — which is how the watcher row's notes went under the
+   weekly record. */
+.is-flow .tile.is-noted { z-index: 6; }
+
+/* A node in a drawing must not move. A launched tile lifting and scaling pulls
+   its edge away from the connectors that end at it, so in here it brightens and
+   its border glows and it stays exactly where its arrows point. */
+.is-flow .tile--live:hover,
+.is-flow .tile--live:focus-within { --lift: 1; transform: none; }
 
 /* On the wall a dim tile means "nothing to click yet". Here every tile is a
    node in a drawing and has to read as one, so the unlaunched ones come up —

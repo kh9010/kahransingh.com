@@ -68,10 +68,13 @@
     ['tile--public',      'in public']
   ];
 
-  /* source, target, weight. Mail triage READS the store — it keeps its own
-     buckets and asks the store who a correspondent is — so that arrow points
-     out of the store, not into it. The weekly record has no arrow: it is
-     published from a hand-kept log, not from the store. */
+  /* source, target, weight. Every arrow was traced to the line where the TARGET
+     reads what the source wrote; the table is in docs/2026-09-22-flow-edges.md,
+     and nothing goes in here that the table cannot support. Three things it
+     settled: mail triage reads the store rather than writing to it; the store
+     does not feed movement at all, so the arrow into movement comes from the
+     thing that does — what Kahran tells the assistant; and the weekly record
+     really is published off the store, one hop through the record extractor. */
   var EDGES = [
     ['Voice & WhatsApp capture', 'Raw store'],
     ['Raw store',                'Mail triage'],
@@ -80,15 +83,21 @@
     ['The judge',                'The Curator'],
     ['The judge',                'The sparks garden'],
     ['Raw store',                'Noticings'],
-    ['Raw store',                'Movement'],
+    ['Voice & WhatsApp capture', 'Movement'],
     ['Raw store',                'The now brain'],
     ['The Curator',              'The now brain'],
     ['Movement',                 'The now brain'],
     ['Movement',                 'The workout planner'],
-    ['Movement',                 'Travel days'],
+    ['The workout planner',      'Travel days', 'light'],
+    ['Raw store',                'The weekly record', 'light'],
     ['Samwise',                  'The repairer'],
     ['Samwise',                  'The health page']
   ];
+
+  /* Samwise has a registered lane for all of these but one: the Monday publish
+     behind the weekly record writes no envelope, so nothing watches it. No
+     thread is drawn there rather than one claiming a watch that isn't kept. */
+  var UNWATCHED = { 'The weekly record': 1 };
 
   var WATCHER = 'Samwise';
   var WATCHED_ROW = 7;
@@ -99,10 +108,12 @@
     'miners read the store, the judge reads the miners, the Curator tends what the ' +
     'judge keeps and the sparks garden catches what it files as an idea; noticings ' +
     'grows over the same store. On the right, what reads it: movement is worked out ' +
-    'from the store and feeds the now brain, the workout planner and travel days; ' +
-    'the now brain also reads the store and the Curator’s backlog. Beneath, ' +
-    'Samwise watches every lane, wakes the repairer when one goes red, and renders ' +
-    'the health page.';
+    'from what Kahran tells the assistant, and it feeds the now brain and the ' +
+    'workout planner, which hands the day’s shape on to travel days; the now ' +
+    'brain also reads the store and the Curator’s ' +
+    'backlog, and the weekly record is published off the store. Beneath, Samwise ' +
+    'watches every lane, wakes the repairer when one goes red, and renders the ' +
+    'health page.';
 
   /* --------------------------------------------------------------- setup -- */
 
@@ -284,7 +295,9 @@
     if (s) {
       flock.forEach(function (t) {
         if (rowOf(t) === WATCHED_ROW) return;
-        var b = boxOf(t.querySelector('.tile-name').textContent.trim());
+        var nm = t.querySelector('.tile-name').textContent.trim();
+        if (UNWATCHED[nm]) return;
+        var b = boxOf(nm);
         if (b) add(watchPath(s, b), 'flow-wire--watch', b, false);
       });
     }
@@ -313,6 +326,12 @@
       if (w.watch) {
         w.path.style.transition = 'opacity 900ms ease ' + w.delay + 'ms';
         w.path.style.opacity = '';
+        /* Hand the line back to the stylesheet once it has faded up. Leave this
+           slow transition in place and it also governs the hover, and Samwise
+           answers a second and a half late. */
+        later((function (path) {
+          return function () { path.style.transition = ''; };
+        })(w.path), w.delay + 960);
         return;
       }
       w.path.style.transition = 'stroke-dashoffset 520ms cubic-bezier(.3,.72,.28,1) ' + w.delay + 'ms';

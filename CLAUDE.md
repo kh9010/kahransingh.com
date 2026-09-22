@@ -20,6 +20,8 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
 - "how they fit together" on the wall flies the same sixteen tiles into a data-flow layout
   (`/v2/flow.js`, styles at the end of `/v2/home.css`; `#flow` opens it directly). Where each
   tool lands and **what feeds what** live in `PLACE` and `EDGES` at the top of `flow.js` and
-  nowhere else — they are read off day-flow's own docs and code, so check there before changing
-  an arrow, and keep the edge list honest rather than tidy.
+  nowhere else. Every arrow is justified by the line where the TARGET reads what the source
+  wrote — the table is `docs/2026-09-22-flow-edges.md`, which also records the arrows that
+  turned out to be false and why. Change an arrow, change that table; keep the list honest
+  rather than tidy, and leave a tile unconnected before inventing a lane for it.
 - A small fixed "v2 · v1" tab switches between them. Nothing gets migrated into v2 until Kahran decides where it goes; when a box on the wall gets a page, link it from `/v2/home.js`.
