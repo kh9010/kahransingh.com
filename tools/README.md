@@ -185,6 +185,13 @@ branch, commit, push, `gh pr create --fill`, `gh pr merge --merge
 rule at the top of this repo's CLAUDE.md) — "Update the place feed" is the
 whole message.
 
+**Envelope stamp (2026-09-22).** An `EXIT` trap stamps one day-flow envelope
+per run — `ok` on exit 0 (including "no change"), `failed` otherwise — via
+`~/Dev/day-flow/bin/envelope-stamp.py`, watched as `[site-place-feed]` in
+day-flow's `samwise/lanes.toml`. Guarded: if that path isn't there (day-flow
+not checked out on this box), the script logs it and publishes anyway — a
+missing watcher must never break the publish.
+
 ### Installing the launchd agent on the mini (attended, one-time)
 
 Not installed by default — this is a separate attended step:
@@ -266,6 +273,11 @@ pull, run the picker, diff-quiet exit-0 if unchanged, else a
 `kahran-<mmmdd>-pick` branch, commit "Pick the day" (no place name in the
 message — same privacy rule as the place feed), push, `gh pr create --fill`,
 `gh pr merge --merge --delete-branch`, back to main.
+
+**Envelope stamp (2026-09-22).** Same `EXIT`-trap pattern as `publish_place.sh`,
+watched as `[site-daily-pick]` in day-flow's `samwise/lanes.toml` — `ok` on
+exit 0, `failed` otherwise, via `~/Dev/day-flow/bin/envelope-stamp.py`, guarded
+so a missing day-flow checkout never breaks the publish.
 
 ### Installing the launchd agent on the mini (attended, one-time)
 
