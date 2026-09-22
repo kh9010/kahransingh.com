@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "days": {
+    "2026-09-21": {
+      "poem": "time-in-a-fig-grove",
+      "photo": "/photos/reed-corridor.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6553382649054754,
+        "warmth": 0.78,
+        "wet": 0.5,
+        "stillness": 0.5325,
+        "season": 0.4940868046540837,
+        "inside": 0.64,
+        "mood": 0.5,
+        "weather_code": 61,
+        "tmax": 22.3
+      }
+    }
+  }
+}
