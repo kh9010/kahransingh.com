@@ -16,6 +16,22 @@
         "weather_code": 61,
         "tmax": 22.3
       }
+    },
+    "2026-09-22": {
+      "poem": "today-i-write-about-red",
+      "photo": "/photos/cdmx-plaza.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.66,
+        "wet": 0.0,
+        "stillness": 0.5675,
+        "season": 0.48548749333901237,
+        "inside": 0.8300000000000001,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 18.1
+      }
     }
   }
 }
