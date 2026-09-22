@@ -308,21 +308,32 @@
       };
     }
 
+    /* How much the tile is scaled by while it is hovered. Read from --lift, the
+       custom property the stylesheet sets alongside the transform, and NOT from
+       the computed transform — that one is still easing when the card opens
+       140ms in, and a half-finished number here puts the card permanently
+       askew. The stylesheet undoes the same scale on the card itself. */
+    function liftOf(tile) {
+      var v = parseFloat(getComputedStyle(tile).getPropertyValue('--lift'));
+      return (v && v > 0) ? v : 1;
+    }
+
     function place(tile) {
       var card = tile.noteCard;
       card.style.left = '0px'; card.style.top = '0px'; card.style.maxWidth = '';
       var b = bounds();
       card.style.maxWidth = Math.min(248, b.hi - b.lo) + 'px';
+      var s = liftOf(tile);
       var t = tile.getBoundingClientRect();
       var c = card.getBoundingClientRect();
       var left = t.left;
       if (left + c.width > b.hi) left = b.hi - c.width;   /* flip to the right edge */
       if (left < b.lo) left = b.lo;
-      card.style.left = (left - t.left) + 'px';
+      card.style.left = ((left - t.left) / s) + 'px';
       /* above by preference, below when there is no room up there */
       card.style.top = (t.top - c.height - GAP >= EDGE)
-        ? (-(c.height + GAP)) + 'px'
-        : (t.height + GAP) + 'px';
+        ? (-(c.height + GAP) / s) + 'px'
+        : ((t.height + GAP) / s) + 'px';
     }
 
     function show(tile) {
