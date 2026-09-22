@@ -158,3 +158,51 @@ open http://127.0.0.1:8791/lately/record/
 
 `file://` will not do: the page's own assets are fine, but `/lately/` uses
 site-absolute paths and `fetch`, both of which need a server.
+
+## Place feed
+
+`place_feed.py` reads the mini's `~/Sync/pending-work/presence.json` and writes
+exactly one path, `v2/place.json` — `{"place", "lat", "lon", "tz", "updated"}` —
+which `v2/weather.js` fetches client-side to render "Kahran's in New York and
+it's raining." under the date. It is stdlib-only python3, same allowlist-write
+pattern as `weekly_record.py`.
+
+Only `confidence: "high"` or `"confirmed"` in presence.json ever publishes a
+place; anything lower writes `{"place": null, ...}`. Coordinates are rounded to
+2 decimals (~1km) deliberately — city-level only, never the exact point.
+
+```sh
+cd ~/dev/kahransingh.com
+python3 tools/place_feed.py --check          # print what would be written
+python3 tools/place_feed.py                  # write v2/place.json
+python3 -m unittest tools.test_place_feed -v # unit tests (phrase map, name stripping)
+```
+
+`publish_place.sh` mirrors `publish_weekly.sh`: fetch, checkout main, ff pull,
+run the generator, diff-quiet exit-0 if unchanged, else a `kahran-<mmmdd>-place`
+branch, commit, push, `gh pr create --fill`, `gh pr merge --merge
+--delete-branch`, back to main. Commit messages never name the place (privacy
+rule at the top of this repo's CLAUDE.md) — "Update the place feed" is the
+whole message.
+
+### Installing the launchd agent on the mini (attended, one-time)
+
+Not installed by default — this is a separate attended step:
+
+```sh
+cp ~/Dev/kahransingh.com/tools/com.kahran.place-feed-publish.plist \
+   ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) \
+   ~/Library/LaunchAgents/com.kahran.place-feed-publish.plist
+launchctl kickstart -k gui/$(id -u)/com.kahran.place-feed-publish   # test one run now
+tail -f ~/Library/Logs/place-feed-publish.log
+```
+
+Runs every 3 hours (`StartInterval 10800`), working directory
+`~/Dev/kahransingh.com` (the mini's clone). Requires `gh` to be authenticated
+with **file-based token storage** on the mini (keychain is walled off from
+SSH/daemons there — see the kMini gh auth note) and a Tailscale path to
+`100.69.200.2` for reading `presence.json`, though since it's the mini's own
+`~/Sync/pending-work/presence.json` that's just the local Syncthing copy.
+
+To uninstall: `launchctl bootout gui/$(id -u)/com.kahran.place-feed-publish`.
