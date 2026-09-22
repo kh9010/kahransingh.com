@@ -85,7 +85,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/animals-in-love.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/ariel.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/being-loved.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/bladder-bag.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -157,6 +169,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/poems/hey.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poems/hey-you-there-hey-you-here.html</loc>
     <priority>0.6</priority>
   </url>
@@ -170,6 +186,10 @@
   </url>
   <url>
     <loc>https://kahransingh.com/poems/how-can-you-just-be-gone.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/i-came-out.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -414,6 +434,10 @@
   </url>
   <url>
     <loc>https://kahransingh.com/poems/when-you-were-young.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kahransingh.com/poems/wrestle.html</loc>
     <priority>0.6</priority>
   </url>
   <url>
