@@ -1,0 +1,395 @@
+/* kahransingh.com — /context/
+   The page behind one of the five boxes on the wall. It inherits the home
+   page's two voices (Fraunces for anything spoken, Space Grotesk for apparatus
+   only) and the teal of the Context tile, hsl(192 …), so the page reads as a
+   continuation of its own square. Teal is the ONLY colour: the diagram carries
+   its distinctions by shape and weight, never by a second hue, because a low
+   answer here is honest rather than an error and a red mark would say the
+   opposite.
+   No build step; this file stands alone and does not extend /style.css. */
+
+/* ---------------------------------------------------------------- tokens -- */
+
+:root {
+  --paper:     #fafaf8;
+  --band:      #15140f;      /* the film frame, and the tools band on the home page */
+  --card:      #ffffff;
+  --ink:       #1a1a1a;
+  --ink-soft:  #585349;
+  --ink-faint: #7a7466;
+  --rule:      #e7e3da;
+  --teal:      #14616f;      /* 6.8:1 on paper */
+  --teal-line: rgba(20, 97, 111, .30);
+  --teal-wash: rgba(20, 97, 111, .055);
+  --on-band:      #f6f3ec;
+  --on-band-soft: #ded9cf;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap:   1080px;
+  --read:   34rem;           /* ~60 characters of Fraunces */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:     #171613;
+    --band:      #0e0d0a;    /* deeper than the paper, or the film frame dissolves into it */
+    --card:      #1e1d19;
+    --ink:       #ece7db;
+    --ink-soft:  #a9a294;
+    --ink-faint: #8f897c;
+    --rule:      #2e2b25;
+    --teal:      #6cc6d8;    /* 9.2:1 on the dark paper */
+    --teal-line: rgba(108, 198, 216, .34);
+    --teal-wash: rgba(108, 198, 216, .075);
+  }
+}
+
+/* ------------------------------------------------------------------ base -- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+.wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
+.read { max-width: var(--read); }
+
+a { color: inherit; }
+
+p { margin: 0 0 1.05em; }
+p:last-child { margin-bottom: 0; }
+
+h2 {
+  margin: 0 0 .7rem;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.24;
+  letter-spacing: -.008em;
+}
+
+h3 {
+  margin: 0 0 .45rem;
+  font-weight: 400;
+  font-size: 1.12rem;
+  line-height: 1.3;
+  letter-spacing: -.004em;
+}
+
+section { margin-top: clamp(3.5rem, 8vh, 6rem); }
+
+.lede { color: var(--ink-soft); }
+
+/* -------------------------------------------------------------- masthead -- */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem 2rem;
+  flex-wrap: wrap;
+  padding: clamp(1.5rem, 4vh, 2.5rem) 0 clamp(1.25rem, 3vh, 1.75rem);
+}
+
+.wordmark {
+  font-style: italic;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.1;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .24em;
+  text-decoration-color: var(--rule);
+}
+.wordmark:hover { text-decoration-color: var(--teal); }
+
+.masthead .where {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .74rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+/* ------------------------------------------------------------ the frame -- */
+
+/* A title card for a film that does not exist yet. Dark in both themes, like
+   the tools band the Context tile sits on. */
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--band);
+  border: 1px solid var(--teal-line);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.frame-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: .98;
+  letter-spacing: -.022em;
+  color: var(--on-band);
+}
+
+.frame-sub {
+  margin: .5rem 0 0;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: clamp(.8rem, 1.5vw, .95rem);
+  line-height: 1.5;
+  color: var(--on-band-soft);
+  max-width: 30rem;
+}
+
+.frame-note {
+  margin: .7rem 0 0;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .74rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+.opening { margin-top: clamp(2.5rem, 6vh, 4rem); }
+.opening p { font-size: 1.12rem; line-height: 1.6; }
+
+/* --------------------------------------------------------- the diagram --- */
+
+/* Three bands and two turns. Side by side on a wide screen with the turn
+   pointing right; stacked on a phone with the same mark pointing down. One
+   markup, so the two readings cannot say different things. */
+.dia {
+  margin: 1.9rem 0 2.6rem;
+  display: grid;
+  gap: .9rem;
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .dia {
+    grid-template-columns: minmax(0, 1.35fr) auto minmax(0, 1fr) auto minmax(0, .82fr);
+    gap: 0 1rem;
+    align-items: start;
+  }
+  .dia figcaption { grid-column: 1 / -1; }
+}
+
+.dia figcaption {
+  margin-top: 1.1rem;
+  max-width: var(--read);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+.band { min-width: 0; }
+
+.band-head {
+  margin: 0 0 .65rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .68rem;
+  line-height: 1.4;
+  letter-spacing: .085em;
+  color: var(--ink-faint);
+}
+
+/* The turn between bands. Down when the bands stack, right when they sit in a
+   row; drawn as a hairline with a head so it reads as a direction rather than
+   a bullet. */
+.turn {
+  margin: 0;
+  justify-self: center;
+  align-self: center;
+  width: 1px;
+  height: 22px;
+  background: var(--teal-line);
+  position: relative;
+}
+.turn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid var(--teal);
+  border-bottom: 1px solid var(--teal);
+  transform: translate(-50%, 0) rotate(45deg);
+}
+@media (min-width: 900px) {
+  /* Level with the first row of each band, not floating at the mid-point of the
+     tallest one — the bands are very different heights. */
+  .turn { width: 22px; height: 1px; align-self: start; margin-top: 2.7rem; }
+  .turn::after { left: auto; right: -1px; bottom: 50%; transform: translate(0, 50%) rotate(-45deg); }
+}
+
+/* The five clues, ranked strongest to weakest — a real order, which is the one
+   thing that earns a number in front of it. */
+.clues { list-style: none; counter-reset: clue; margin: 0; padding: 0; }
+
+.clues li {
+  counter-increment: clue;
+  position: relative;
+  padding: .6rem 0 .6rem 1.7rem;
+  border-top: 1px solid var(--rule);
+}
+.clues li:last-child { border-bottom: 1px solid var(--rule); }
+.clues li::before {
+  content: counter(clue);
+  position: absolute;
+  left: 0;
+  top: .72rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .7rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--teal);
+}
+
+.clues b { font-weight: 400; font-size: .97rem; line-height: 1.35; }
+
+/* What kind of vote it is. A filled dot names a place, an open one only says I
+   have gone, a dotted one can agree and nothing more. */
+.clue-mk {
+  display: inline-block;
+  margin-left: .5rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .66rem;
+  letter-spacing: .03em;
+  line-height: 1.4;
+  color: var(--teal);
+  white-space: nowrap;
+}
+.clue-mk::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  margin-right: .34rem;
+  border-radius: 50%;
+  border: 1.4px solid var(--teal);
+  vertical-align: .02em;
+}
+.clue-mk--place::before { background: var(--teal); }
+.clue-mk--corr::before  { border-style: dotted; }
+
+.clue-why {
+  display: block;
+  margin-top: .1rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .79rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.band--answer {
+  padding: 1.1rem 1.2rem;
+  background: var(--teal-wash);
+  border: 1px solid var(--teal-line);
+  border-radius: 12px;
+}
+.band--answer .band-head { margin-bottom: .5rem; }
+
+.answer { margin: 0 0 .7rem; font-size: 1.06rem; line-height: 1.45; }
+
+.answer-why {
+  margin: 0;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .81rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.reads { list-style: none; margin: 0; padding: 0; }
+.reads li {
+  padding: .6rem 0;
+  border-top: 1px solid var(--rule);
+  font-size: .95rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.reads li:last-child { border-bottom: 1px solid var(--rule); }
+.reads b { font-weight: 400; color: var(--ink); }
+
+/* ------------------------------------------------------------- tenets ---- */
+
+.tenets { list-style: none; margin: 1.5rem 0 2.4rem; padding: 0; display: grid; gap: 1.6rem 2.5rem; }
+@media (min-width: 860px) { .tenets { grid-template-columns: 1fr 1fr; } }
+
+.tenets li { padding-left: 1.2rem; border-left: 2px solid var(--teal-line); max-width: 32rem; }
+
+.t-no {
+  display: block;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: var(--teal);
+  margin-bottom: .3rem;
+}
+.t-quote { display: block; margin: 0 0 .45rem; font-style: italic; line-height: 1.45; }
+.t-quote .sub { display: block; margin-top: .3rem; font-size: .92rem; color: var(--ink-soft); }
+.t-gloss { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); }
+
+/* ----------------------------------------------------------- exclusions -- */
+
+.quoted {
+  margin: 1.4rem 0;
+  padding: .9rem 0 .9rem 1.1rem;
+  border-left: 2px solid var(--teal-line);
+  max-width: var(--read);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .85rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+.quoted cite {
+  display: block;
+  margin-top: .5rem;
+  font-style: normal;
+  font-size: .74rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+/* -------------------------------------------------------------- closing -- */
+
+.closing { margin-top: clamp(2.5rem, 6vh, 4rem); color: var(--ink-soft); }
+.closing a { color: var(--ink); }
+
+.pagefoot {
+  margin-top: clamp(3rem, 7vh, 4.5rem);
+  padding: 1.1rem 0 clamp(2.5rem, 7vh, 4rem);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem 2rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .76rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+.pagefoot a { color: var(--ink-soft); }
+.pagefoot a:hover { color: var(--teal); }
+
+/* ----------------------------------------------------------- responsive -- */
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .clue-mk { display: block; margin-left: 0; margin-top: .12rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}

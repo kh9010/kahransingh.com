@@ -1,10 +1,11 @@
 /* kahransingh.com — v2 home.
    One photograph of the day. Wide screens put the poem down the left and the
-   leaning block of tools on the right, both inside the first screen. Narrow
-   screens stack: a screen of photograph with the poem on it, then the tools on
-   a dark band below, then paper. Fraunces carries the voice (poem and tool
-   names alike, because the tools are named like characters); Space Grotesk
-   carries only apparatus. Colour alone groups the tools — there are no labels.
+   leaning block of five ideas on the right, both inside the first screen.
+   Narrow screens stack: a screen of photograph with the poem on it, then the
+   ideas on a dark band below, then paper. Fraunces carries the voice (the poem
+   and the name of each idea); Space Grotesk carries only apparatus, which now
+   includes the quiet line of parts under each name. One hue per idea, and the
+   hue is the only grouping — there are no labels on it.
    No build step; this file stands alone and does not extend /style.css. */
 
 /* ---------------------------------------------------------------- tokens -- */
@@ -15,7 +16,6 @@
 
   --on-photo:      #f6f3ec;   /* poem, tile names */
   --on-photo-soft: #ded9cf;   /* date, day controls, caption */
-  --soon:          #e6e1d6;   /* the corner mark, over a lighter right-hand scrim */
 
   --pad-top:   clamp(1.75rem, 5vh, 3.25rem);
   --pad-x:     clamp(16px, 4vw, 48px);
@@ -23,19 +23,26 @@
   --mast-gap:  clamp(2.5rem, 8vh, 5rem);
   --mast-block: calc(var(--mast-h) + var(--mast-gap));
 
-  /* 4 rows of 4, each stepping right by --tan of its distance from the top:
-     an exact rectangle sheared into an exact parallelogram. */
+  /* Five ideas: three across, then two, each row stepping right by --tan of
+     its distance from the top — the same shear the sixteen had, over half the
+     rows, so the block still leans. The short row is centred under the long
+     one as well as sheared, which keeps the block a block rather than a
+     staircase with a corner missing.
+     --tools-w is the widest row (the top one), and the poem's max-width is
+     computed off it, so the tile size decides how much room the poem keeps.
+     At its 140px ceiling the poem is still at its full 30rem. */
   --tan:    .17;
-  --tile:   clamp(74px, 7vw, 96px);
+  --tile:   clamp(112px, 11vw, 140px);
   --gap:    8px;
   --tile-a: .80;
-  --tools-w: calc(4 * var(--tile) + 3 * var(--gap) + var(--tan) * 3 * (var(--tile) + var(--gap)));
+  --tools-w: calc(3 * var(--tile) + 2 * var(--gap));
 
   /* the flow view: the space between its rows, and the side lanes a connector
-     that skips a row bows out into */
+     that skips a row bows out into. A tile is the SAME size in both views —
+     the flight only translates, so a box that also changed size would pop. */
   --fgap:  7px;
-  --frail: 22px;
-  --fsurf: clamp(76px, 8.6vw, 116px);   /* the fourth column: what he actually gets */
+  --frail: 14px;
+  --fsurf: clamp(72px, 7vw, 92px);      /* the third column: what he actually gets */
   --me-ink: 38 46% 74%;                 /* warm, and nothing else on the page uses it */
   --ease:   cubic-bezier(.2, .8, .2, 1);
 }
@@ -338,9 +345,18 @@ body {
   margin: 0 0 var(--gap);
   padding: 0;
   list-style: none;
-  margin-left: calc(var(--tan) * var(--r) * (var(--tile) + var(--gap)));
+  /* the shear, plus half a tile per missing tile so the short row sits centred */
+  margin-left: calc(var(--tan) * var(--r) * (var(--tile) + var(--gap))
+                    + var(--r) * (var(--tile) + var(--gap)) / 2);
 }
 .wall-row:last-child { margin-bottom: 0; }
+
+/* The five ideas that nothing has been built for yet still exist without
+   JavaScript, in the plainest possible form. */
+.wall-plain { margin: 0; padding: 0; list-style: none; max-width: 30rem; }
+.wall-plain li { margin: 0 0 .5rem; font-size: .8rem; line-height: 1.5; color: var(--on-photo-soft); }
+.wall-plain b { display: block; font-family: 'Fraunces', Georgia, serif; font-weight: 400; color: var(--on-photo); }
+.wall-plain a { color: var(--on-photo); }
 
 .tile {
   position: relative;
@@ -348,8 +364,11 @@ body {
   width: var(--tile);
   height: var(--tile);
   display: flex;
-  align-items: center;
-  padding: .55rem .55rem 1.2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: .34rem;
+  padding: .7rem .72rem;
   border-radius: 12px;
   background: hsl(var(--h) var(--s) var(--l) / var(--tile-a));
   border: 1px solid hsl(var(--h) var(--s) calc(var(--l) + 24%) / .34);
@@ -367,10 +386,25 @@ body {
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
   font-weight: 400;
-  font-size: .8rem;
-  line-height: 1.24;
-  letter-spacing: -.002em;
+  font-size: .92rem;
+  line-height: 1.22;
+  letter-spacing: -.004em;
   color: var(--on-photo);
+  hyphens: none;
+}
+
+/* The parts under an idea. Apparatus, so Space Grotesk, and a step quieter than
+   the name so the idea is what you read first and the sixteen are what you read
+   second. The step is size and family, NOT contrast: measured the same way the
+   scrim was, this is 4.7:1 on the worst of the five fills over the brightest
+   patch of the 26 photographs, against 6.0:1 for a name. Dropping the alpha
+   further reads better and fails — it was at .72 and 3.6:1 before this. */
+.tile-parts {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .6rem;
+  line-height: 1.42;
+  letter-spacing: .012em;
+  color: hsl(var(--h) 18% 88% / .92);
   hyphens: none;
 }
 a.tile-name {
@@ -445,6 +479,23 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 }
 .tile.is-noted .note { display: block; }
 
+/* v2/flow.js adds a second line to every card naming the surface that idea's
+   arrow points at, so the words and the arrow always agree. It only means
+   anything while the arrows are on screen, so it only shows there — and it has
+   to be a line of its own, or it runs on from the sentence above it. */
+.note-reach { display: none; }
+.is-flow .note-reach {
+  display: block;
+  margin-top: .42rem;
+  padding-top: .38rem;
+  border-top: 1px solid rgba(246, 243, 236, .16);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .66rem;
+  line-height: 1.45;
+  letter-spacing: .01em;
+  color: hsl(var(--me-ink) / .86);
+}
+
 /* A note on a launched tile is a child of a box that is scaled while hovered,
    so without this it renders 3.5% over its own max-width with its text on
    fractional pixels. --lift is the one place that number lives; the card undoes
@@ -465,12 +516,12 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 /* --------------------------------------------------------- the flow view --
 
-   The wall says what exists; this says how it runs. The same sixteen tiles are
-   flown out of the lean into three columns — what comes in, what gets made of
-   it, what reads it — with the watcher on its own row beneath and the
+   The wall says what the five ideas are; this says how they run. The same five
+   boxes are flown out of the lean into two columns — what the system knows,
+   and what it does with it — with the watcher on a row beneath and the
    connectors drawn behind the glass. The block keeps the wall's exact width,
    so the sentence above it does not move when the layout changes underneath.
-   v2/flow.js holds where each tool lands and what feeds what; this holds only
+   v2/flow.js holds where each idea lands and what feeds what; this holds only
    the geometry they land in. */
 
 .wall-toggle {
@@ -495,20 +546,24 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 /* Nothing of the flow view exists on the wall: it must not take a line of
    height there, and the wires must not find a containing block. */
-.flow-head, .flow-keys, .flow-wires { display: none; }
+.flow-head, .flow-wires { display: none; }
 
 /* Wide enough for a fourth column, and no wider: the poem's max-width already
    decides where the right-hand half of the page begins, so the same expression
    gives the room left over. The poem itself never moves. */
 .is-flow .wall { width: calc(100% - min(30rem, 100% - var(--tools-w) - 2.5rem) - 1.9rem); }
 
+/* Two columns of ideas and the surfaces. Rows: the head, three rows of the
+   spine, then the watcher on its own. The watcher's label sits in the empty
+   second column beside it rather than on a row of its own, which is the
+   difference between the drawing ending above the fold and below it. */
 .is-flow .wall-block {
   position: relative;
   display: grid;
   width: 100%;
   padding: 0 var(--frail);
-  grid-template-columns: repeat(3, var(--tile)) var(--fsurf);
-  grid-template-rows: auto repeat(5, var(--tile)) auto var(--tile);
+  grid-template-columns: repeat(2, var(--tile)) var(--fsurf);
+  grid-template-rows: auto repeat(4, var(--tile));
   grid-auto-rows: auto;
   justify-content: space-between;
   row-gap: var(--fgap);
@@ -543,11 +598,17 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 .is-flying .tile { pointer-events: none; }
 
-/* Apparatus, in the diagram voice the /movement/ page uses: small, spaced,
-   lower case, and never louder than the thing it labels. */
+/* Apparatus: small, spaced, lower case, and never louder than the thing it
+   labels. Five boxes name themselves, so the stage headings and the colour
+   legend the sixteen needed are both gone — the only labels left name the two
+   things that are NOT ideas: the column of surfaces, and the watching. */
 .is-flow .flow-head { display: block; grid-column: var(--fc); grid-row: 1; }
-.is-flow .flow-head--watch { grid-column: 1 / -1; grid-row: 7; margin-top: .28rem; }
-.is-flow .flow-keys { display: flex; grid-column: 1 / -1; grid-row: 9; }
+.is-flow .flow-head--watch {
+  grid-column: 2;
+  grid-row: 5;
+  align-self: center;
+  margin: 0;
+}
 .is-flow .flow-wires { display: block; }
 
 .flow-head {
@@ -560,37 +621,17 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   color: rgba(222, 217, 207, .74);
   opacity: 0;
 }
-/* Three of these name a stage of the machine; the fourth names a person, so it
-   takes the warm ink the surfaces are drawn in. */
-.flow-head[style*="--fc:4"] { color: hsl(var(--me-ink) / .8); letter-spacing: .05em; }
-
-/* Colour is the wall's only grouping and it carries no labels anywhere else.
-   This is the one view where naming the five pigments earns its line. */
-.flow-keys {
-  margin: .62rem 0 0;
-  padding: 0;
-  list-style: none;
-  flex-wrap: wrap;
-  gap: .18rem .9rem;
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-  font-size: .63rem;
-  line-height: 1.5;
-  letter-spacing: .012em;
-  color: rgba(222, 217, 207, .62);
-  opacity: 0;
-}
-.flow-keys li { display: flex; align-items: center; gap: .34rem; }
-.flow-keys i {
-  width: 7px;
-  height: 7px;
-  border-radius: 2px;
-  background: hsl(var(--h) var(--s) calc(var(--l) + 16%) / .95);
-  border: 1px solid hsl(var(--h) var(--s) calc(var(--l) + 32%) / .7);
+/* This one names a person, not a stage, so it takes the warm ink the surfaces
+   are drawn in, and it centres over the pills the way their own labels do. */
+.flow-head--surf {
+  color: hsl(var(--me-ink) / .8);
+  letter-spacing: .05em;
+  text-align: center;
 }
 
-.is-landed .flow-head, .is-landed .flow-keys { opacity: 1; }
+.is-landed .flow-head { opacity: 1; }
 @media (prefers-reduced-motion: no-preference) {
-  .flow-head, .flow-keys { transition: opacity .42s ease; }
+  .flow-head { transition: opacity .42s ease; }
 }
 
 /* Under the tiles, so a connector that has to cross a column passes behind the
@@ -603,15 +644,15 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   pointer-events: none;
 }
 .flow-wire { fill: none; stroke-linecap: round; }
-.flow-wire--main  { stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / .62); stroke-width: 1.4; }
+.flow-wire--main  { stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / .72); stroke-width: 1.7; }
 .flow-wire--light { stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / .3);  stroke-width: 1.1; }
 .flow-tip { fill: hsl(var(--h) var(--s) calc(var(--l) + 46%) / .8); }
 .flow-dot { fill: hsl(var(--h) var(--s) calc(var(--l) + 56%) / .95); }
 
-/* Samwise has an edge to every lane it watches. Thirteen of them at full
-   strength would be a cage, so they are dashed — attention, not data — kept
-   at the threshold of visible, and come up when you touch the tile they leave
-   from. */
+/* Self-healing has an edge to every idea it watches. At full strength they
+   would compete with the four that carry data, so they are dashed —
+   attention, not data — kept at the threshold of visible, and they come up
+   when you touch the tile they leave from. */
 .flow-wire--watch {
   stroke: hsl(var(--h) var(--s) calc(var(--l) + 42%) / 1);
   stroke-width: .9;
@@ -624,12 +665,12 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 /* ------------------------------------------------------- the surfaces ----
 
-   A fourth column, and a different kind of object from a tile: these are not
+   A third column, and a different kind of object from a tile: these are not
    parts of the system, they are the things Kahran actually gets. Warm ink,
    pill-shaped, no glass — so it is obvious at a glance where the machine stops
-   and a person starts. Six of them, and the six strands running into the 06:30
-   one are the truest thing on the page: almost everything the system has to
-   say, it says once a day, in one message.
+   and a person starts. Six of them, and the four strands running into the
+   06:30 one are the truest thing on the page: almost everything the system has
+   to say, it says once a day, in one message.
 
    The lines that reach them are warm too, and they draw in last, after the
    connectors, so the story assembles left to right in time. */
@@ -638,8 +679,8 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  grid-column: 4;
-  grid-row: 2 / 9;
+  grid-column: 3;
+  grid-row: 2 / 6;
   gap: .5rem;
   z-index: 2;
 }
@@ -778,32 +819,32 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 }
 
 @media (max-width: 600px) {
-  :root { --tan: .10; --tile: 78px; --gap: 5px; --tile-a: .82; }
+  /* Three across still fits a 320px phone at this size; the lean flattens
+     because a strong shear inside a narrow band costs a whole tile of width. */
+  :root { --tan: .10; --tile: clamp(86px, 27vw, 116px); --gap: 5px; --tile-a: .82; }
   body { font-size: 16px; }
   .poem-body { font-size: 1.06rem; }
-  .tile { border-radius: 11px; padding: .5rem .45rem 1.05rem; }
+  .tile { border-radius: 11px; padding: .55rem .5rem; gap: .26rem; }
   .note { max-width: min(248px, calc(100vw - 32px)); font-size: .75rem; }
-  .tile-name { font-size: .7rem; line-height: 1.22; }
+  .tile-name { font-size: .8rem; line-height: 1.2; }
+  .tile-parts { font-size: .54rem; line-height: 1.38; }
   .wall-line { font-size: .88rem; }
   .vswitch { right: 12px; bottom: 12px; }
 }
 
-/* The narrow band. Three columns hold here too — three tiles across fit inside
-   a 390px phone with room between them for the connectors — so the drawing
+/* The narrow band. Two columns and the surfaces hold here too — the drawing
    says the same thing on a phone as it does wide, only narrower. */
 @media (max-width: 900px) {
   /* Stacked: the poem is above the band, not beside it, so there is no
-     left-hand half to leave room for. The surfaces stay a fourth column —
-     three tiles and a pill still fit across a 390px phone. */
+     left-hand half to leave room for. */
   .is-flow .wall { width: 100%; }
   .is-flow .wall-block { width: min(100%, 30rem); margin-inline: 0 auto; }
-  :root { --fsurf: clamp(70px, 19vw, 104px); }
+  :root { --fsurf: clamp(68px, 17vw, 92px); }
 }
 
 @media (max-width: 600px) {
-  :root { --fgap: 6px; --frail: 14px; }
+  :root { --fgap: 6px; --frail: 10px; }
   .flow-head { font-size: .6rem; letter-spacing: .07em; }
-  .flow-keys { font-size: .6rem; gap: .16rem .7rem; }
 }
 
 
@@ -815,5 +856,5 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .poem, .poem-hold.is-open .poem { transform: none !important; filter: none !important; }
   .poem, .poem-label { transition-duration: 200ms !important; }
   /* The layouts simply swap; the connectors are already drawn. */
-  .is-flow .flow-head, .is-flow .flow-keys { opacity: 1; }
+  .is-flow .flow-head { opacity: 1; }
 }
