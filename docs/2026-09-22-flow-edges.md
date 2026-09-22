@@ -1,12 +1,21 @@
 # The flow view's arrows, and the code that justifies each one
 
-The "how they fit together" view on the home page draws the sixteen tiles as a
-data flow. An arrow **A → B** claims that data moves from A to B. This file is
-the evidence for every arrow, so the next person can check the picture without
-re-deriving it — and so a wrong arrow gets caught rather than inherited.
+The "how they fit together" view on the home page draws a data flow. An arrow
+**A → B** claims that data moves from A to B. This file is the evidence for
+every arrow, so the next person can check the picture without re-deriving it —
+and so a wrong arrow gets caught rather than inherited.
 
-The list the page actually draws lives in `EDGES` at the top of `/v2/flow.js`.
-**This file and that list have to agree.** If you change one, change the other.
+**Since 2026-09-22 the page draws five IDEAS, not sixteen tools.** Every arrow
+it draws is a collapse of the part-level arrows audited below; which tool sits
+under which idea, and which part-level arrows each idea-level arrow stands on,
+are in **The five ideas** at the foot of this file. The sixteen-edge table has
+not been retired and must not be — it is the evidence layer, and an idea-level
+arrow with nothing under it here is a lie.
+
+The list the page actually draws lives in `EDGES` at the top of `/v2/flow.js`,
+and the map from an idea to its parts lives in `IDEAS` at the top of
+`/v2/home.js`. **This file and those two lists have to agree.** If you change
+one, change the others.
 
 Audited 2026-09-22 against `~/dev/day-flow`, `~/dev/raw-store`,
 `~/dev/hermes-kmini` and this repo's own `tools/`. Line numbers are as of that
@@ -229,3 +238,94 @@ him through the **single scheduled outbound** in the system:
 IS THE \*ONLY\* SCHEDULED OUTBOUND."* The page draws one line per tile because
 the tile is what the reader is looking at, but they are six strands of one rope.
 Everything else is pull: he asks, and a skill or a page answers.
+
+
+---
+
+# The five ideas
+
+Added 2026-09-22. Kahran: *"we don't need every single box on this home page;
+movement is a part of how the system infers and stores context. So maybe there's
+a big idea of context that subsumes some of these sub boxes."* Sixteen tiles
+became five ideas. Nothing was dropped — every one of the sixteen tools has a
+home below, and the tile-level evidence above is unchanged.
+
+## Which tool sits under which idea
+
+| idea | hue | the tools under it |
+|---|---|---|
+| Context | teal | Raw store · Voice & WhatsApp capture · Movement |
+| Keeping track | moss | The miners · The judge · The Curator · The sparks garden |
+| Staying up to date | brass | Mail triage · The weekly record |
+| Topically suggesting | indigo | The now brain · The workout planner · Noticings · Travel days |
+| Self-healing | rose | Samwise · The repairer · The health page |
+
+Sixteen of sixteen. **Travel days sits under Topically suggesting** — it is the
+only tool whose idea was not obvious, and it lands there because what it
+actually does is propose the shape of a flight day (the doses, the evening ask),
+which is the same kind of act as the now brain's one next move and the workout
+planner's session.
+
+## The idea-level edges, and the audited arrows each one stands on
+
+An idea-level arrow is drawn **only** where at least one edge from the table
+above crosses between the two ideas. The `#` column is that table's row.
+
+| idea edge | weight | part-level arrows under it | # |
+|---|---|---|---|
+| Context → Keeping track | main | Raw store → The miners | 3 |
+| Context → Staying up to date | main | Raw store → Mail triage · Raw store → The weekly record | 2, 14 |
+| Context → Topically suggesting | main | Raw store → The now brain · Raw store → Noticings · Movement → The now brain · Movement → The workout planner | 9, 7, 11, 12 |
+| Keeping track → Topically suggesting | main | The Curator → The now brain | 10 |
+
+**Four arrows, from eight audited edges.** Context → Staying up to date is drawn
+at full weight because #2 is VERIFIED, even though #14 under it is light.
+
+## The eight edges that became internal, and draw nothing
+
+Collapsing tiles into ideas turns an arrow into plumbing when both ends land in
+the same box. These are still true; they are just no longer visible:
+
+| edge | # | now inside |
+|---|---|---|
+| Voice & WhatsApp capture → Raw store | 1 | Context |
+| Voice & WhatsApp capture → Movement | 8 | Context |
+| The miners → The judge | 4 | Keeping track |
+| The judge → The Curator | 5 | Keeping track |
+| The judge → The sparks garden | 6 | Keeping track |
+| The workout planner → Travel days | 13 | Topically suggesting |
+| Samwise → The repairer | 15 | Self-healing |
+| Samwise → The health page | 16 | Self-healing |
+
+8 drawn + 8 internal = the sixteen. Nothing was invented and nothing was lost.
+
+## The watcher
+
+Self-healing draws a dashed thread to each of the other four ideas. That is
+sound at this altitude: every idea has at least one lane with a registered
+envelope under it. The weekly record — the one tile with no watched lane — is
+under Staying up to date, which mail triage does have a lane for, so the idea
+is genuinely watched even though one of its parts is not. `UNWATCHED` in
+`flow.js` is now empty, and is kept as the seam for the day an idea has no
+watched lane at all.
+
+## The surfaces, re-fed from the ideas
+
+Same table as **Reaches Kahran** below, one altitude up. The parenthesis names
+which part of the idea actually sends.
+
+| surface | ideas that reach it | via |
+|---|---|---|
+| the 06:30 message | Keeping track · Staying up to date · Topically suggesting · Self-healing | the miners + the Curator · mail triage · noticings · Samwise + the repairer |
+| a page I open | Topically suggesting · Self-healing | the now brain · the health page |
+| a question on WhatsApp | Context | movement — still the only thing allowed to interrupt him |
+| the flight-day messages | Topically suggesting | travel days |
+| when I ask for it | Staying up to date · Keeping track · Topically suggesting | the mail commands · the Curator's list + the sparks garden · the workout card + unstick |
+| everyone | Staying up to date | the weekly record |
+
+Twelve lines, from the sixteen in the table below — four pairs collapse, because
+two tools under one idea reach the same surface (the miners and the Curator at
+06:30; Samwise and the repairer at 06:30; the Curator's list and the sparks
+garden on request; the workout card and unstick on request). **The judge and the
+raw store still have no arrow out**, and capture still has none; they are inside
+Context and Keeping track, which do.

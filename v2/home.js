@@ -1,9 +1,11 @@
 /* kahransingh.com — v2 home.
    One photograph and one poem per calendar day, chosen by hashing the date, so
-   a day that has happened never reshuffles. Everything else on the page (the
-   wall of tools) is static markup in index.html and works without this file.
+   a day that has happened never reshuffles.
 
-   To give a tool on the wall a page, add it to TOOL_LINKS below. */
+   The wall is five ideas, built from the IDEAS table below — the one place the
+   map from an idea to the tools under it lives. v2/flow.js reads the same five
+   names for the drawing. index.html carries a <noscript> copy of the same five
+   lines so the wall still says something with this file absent. */
 
 (function () {
   'use strict';
@@ -11,13 +13,66 @@
   var LAUNCH = '2026-09-21';          // day one; the walk back stops here
   var ZONE   = 'America/New_York';    // the day turns over where Kahran is
 
-  /* Add "Tool name": "/path/" here when a box on the wall gets a page. The box
-     loses its "soon" mark and becomes a link. (The weekly record is already a
-     link in index.html so that it works with JavaScript off.) */
-  var TOOL_LINKS = {
-    'Movement': '/movement/',
-    'The weekly record': '/lately/'
-  };
+  /* ------------------------------------------------------------ the map ---
+
+     Kahran, 2026-09-22: "we don't need every single box on this home page …
+     so maybe there's a big idea of context that subsumes some of these sub
+     boxes." Sixteen boxes became five ideas; every one of the sixteen tools
+     still has a home, as `parts`. Re-cut the system by editing this table and
+     nothing else.
+
+       name   the idea, and what the box is called
+       hue    its pigment class — one of the five, same five as before
+       parts  the tools under it, canonical names (flow.js quotes these too)
+       line   the quiet second line on the tile: the same parts, short
+       note   the one-line card on hover, in his voice
+       href   null until the idea has a page of its own */
+  var IDEAS = [
+    {
+      name:  'Context',
+      hue:   'tile--catching',
+      parts: ['Raw store', 'Voice & WhatsApp capture', 'Movement'],
+      line:  'raw store · capture · movement',
+      note:  'Works out what’s going on from what I already leave behind. Nothing to feed it.',
+      href:  '/context/'
+    },
+    {
+      name:  'Keeping track',
+      hue:   'tile--remembering',
+      parts: ['The miners', 'The judge', 'The Curator', 'The sparks garden'],
+      line:  'miners · judge · Curator · sparks garden',
+      note:  'Reads what I said and holds onto what I took on. Remembering is not my job.',
+      href:  null
+    },
+    {
+      name:  'Staying up to date',
+      hue:   'tile--knowing',
+      parts: ['Mail triage', 'The weekly record'],
+      line:  'mail triage · weekly record',
+      note:  'Tells a person from a newsletter, and writes down what the week actually was.',
+      href:  null
+    },
+    {
+      name:  'Topically suggesting',
+      hue:   'tile--public',
+      parts: ['The now brain', 'The workout planner', 'Noticings', 'Travel days'],
+      line:  'now brain · workout planner · noticings · travel days',
+      note:  'Offers one next move, today’s session, a thing from my own past. Never a list.',
+      href:  null
+    },
+    {
+      name:  'Self-healing',
+      hue:   'tile--alive',
+      parts: ['Samwise', 'The repairer', 'The health page'],
+      line:  'Samwise · repairer · health page',
+      note:  'Watches itself, works out why something broke, and lands a fix with a way back.',
+      href:  null
+    }
+  ];
+
+  /* The lean: three across, then two. Change these two numbers and the block
+     re-cuts itself; home.css shears row 1 and centres it under row 0. */
+  var WALL_ROWS = [3, 2];
 
   /* ------------------------------------------------------------- the day -- */
 
@@ -253,23 +308,48 @@
     goTo(iso, true, iso !== asked);
   });
 
-  /* ------------------------------------------------------------- the wall -- */
+  /* ------------------------------------------------------------- the wall --
 
-  Object.keys(TOOL_LINKS).forEach(function (name) {
-    var boxes = document.querySelectorAll('.tile-name');
-    Array.prototype.forEach.call(boxes, function (node) {
-      if (node.textContent.trim() !== name || node.tagName === 'A') return;
-      var a = document.createElement('a');
-      a.className = node.className;
-      a.href = TOOL_LINKS[name];
-      a.textContent = node.textContent;
-      node.parentNode.replaceChild(a, node);
-      var box = a.closest('.tile');
-      if (box) box.classList.add('tile--live');
-      var soon = a.parentNode.querySelector('.soon');
-      if (soon) soon.remove();
+     Five boxes, built from IDEAS. An idea with an href is launched: full
+     colour, a link, and it lifts on hover. The other four are dim until you
+     touch them, which is the whole state model — there is no third thing a
+     box can be. */
+
+  (function wall() {
+    var block = document.getElementById('wall-block');
+    if (!block) return;
+
+    var i = 0;
+    WALL_ROWS.forEach(function (n, r) {
+      var row = document.createElement('ul');
+      row.className = 'wall-row';
+      row.style.setProperty('--r', r);
+      for (var k = 0; k < n && i < IDEAS.length; k++, i++) {
+        row.appendChild(tileFor(IDEAS[i]));
+      }
+      block.appendChild(row);
     });
-  });
+
+    function tileFor(idea) {
+      var li = document.createElement('li');
+      li.className = 'tile ' + idea.hue + (idea.href ? ' tile--live' : '');
+      li.setAttribute('data-note', idea.note || '');
+
+      var name = document.createElement(idea.href ? 'a' : 'span');
+      name.className = 'tile-name';
+      if (idea.href) name.href = idea.href;
+      name.textContent = idea.name;
+      li.appendChild(name);
+
+      /* The parts, so the sixteen are still visible without sixteen tiles. */
+      var parts = document.createElement('span');
+      parts.className = 'tile-parts';
+      parts.textContent = idea.line;
+      li.appendChild(parts);
+
+      return li;
+    }
+  })();
 
   /* ------------------------------------------- this moment's poem ------- */
 
