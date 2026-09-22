@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.kahran.daily-pick-publish</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/kahransingh/Dev/kahransingh.com/tools/publish_daily_pick.sh</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/kahransingh/Dev/kahransingh.com</string>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>5</integer>
+        <key>Minute</key>
+        <integer>10</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/kahransingh/Library/Logs/daily-pick-publish.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/kahransingh/Library/Logs/daily-pick-publish.log</string>
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>

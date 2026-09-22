@@ -126,8 +126,27 @@
   };
 
   var data = null;
+  var days = null;              // v2/days.json — frozen daily picks, may be null/empty
   var today = todayISO();
   var current = null;
+
+  /* The frozen pick for iso, if the mini has picked one, else null. A pick
+     names a poem slug / photo src; either half being unrecognised (data.json
+     changed shape, a stale slug) falls back to the hash exactly as if there
+     were no pick at all — never a broken render. */
+  function pickFor(iso) {
+    var entry = days && days.days && days.days[iso];
+    if (!entry) return null;
+    var photo = null, poem = null;
+    if (entry.photo) {
+      photo = data.photos.filter(function (p) { return p.src === entry.photo; })[0] || null;
+    }
+    if (entry.poem) {
+      poem = data.poems.filter(function (p) { return p.slug === entry.poem; })[0] || null;
+    }
+    if (!photo || !poem) return null;
+    return { photo: photo, poem: poem };
+  }
 
   function draw(iso, animate) {
     el.date.textContent = longDate(iso);
@@ -136,8 +155,9 @@
 
     if (!data) return;
 
-    var photo = data.photos[photoFor(iso, data.photos.length)];
-    var poem  = data.poems[poemFor(iso, data.poems.length)];
+    var picked = pickFor(iso);
+    var photo = picked ? picked.photo : data.photos[photoFor(iso, data.photos.length)];
+    var poem  = picked ? picked.poem  : data.poems[poemFor(iso, data.poems.length)];
 
     el.photo.src = photo.src;
     el.photo.alt = photo.alt || '';
@@ -318,6 +338,18 @@
   var asked = location.hash.replace(/^#/, '');
   var start = clampDay(asked, today);
   goTo(start, false, asked !== '' && asked !== start);
+
+  /* v2/days.json holds the mini's frozen daily picks. It is optional and
+     fetched once, in parallel with data.json: if it's missing, empty, or
+     fails to load, `days` just stays null and every day falls back to the
+     hash exactly as before — no visible change. */
+  fetch('/v2/days.json', { cache: 'no-cache' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .catch(function () { return null; })
+    .then(function (json) {
+      days = json;
+      if (data) draw(current, false);   // data.json may have already rendered on the hash
+    });
 
   fetch('/v2/data.json', { cache: 'no-cache' })
     .then(function (r) {
