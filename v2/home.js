@@ -355,6 +355,34 @@
     }
   })();
 
+  /* ----------------------------------------------------------- the busy -- */
+
+  /* One switch shared by both animations. While anything is moving the frosted
+     tiles go solid (see .tools-layer.is-busy in home.css): re-blurring the
+     photograph behind five tiles every frame is the most expensive thing here,
+     and Safari feels it most. Counted, because the poem and the diagram can
+     move at the same time; the frost comes back a beat after the last one
+     stops so a quick second pass does not flicker it on and off. */
+  (function busy() {
+    var layer = document.querySelector('.tools-layer');
+    var held = 0, off = null;
+    window.kahranBusy = {
+      hold: function () {
+        if (!layer) return;
+        held++;
+        clearTimeout(off);
+        layer.classList.add('is-busy');
+      },
+      release: function () {
+        if (!layer) return;
+        held = Math.max(0, held - 1);
+        if (held) return;
+        clearTimeout(off);
+        off = setTimeout(function () { if (!held) layer.classList.remove('is-busy'); }, 120);
+      }
+    };
+  })();
+
   /* ------------------------------------------- this moment's poem ------- */
 
   /* At rest the column carries the label alone. Hover (after a short intent
@@ -386,8 +414,9 @@
       p = target > p ? Math.min(target, p + step) : Math.max(target, p - step);
       apply();
       if (p !== target) { raf = requestAnimationFrame(frame); return; }
-      raf = null; last = 0;
+      raf = null; last = 0;                       /* idle: nothing is requested */
       if (p === 0) hold.classList.remove('is-live');
+      if (window.kahranBusy) window.kahranBusy.release();
     }
 
     /* One target, one progress. Reversing mid-flight just changes the target;
@@ -396,7 +425,7 @@
       if (v === target) return;
       target = v;
       if (v > 0) hold.classList.add('is-live');
-      if (!raf) { last = 0; raf = requestAnimationFrame(frame); }
+      if (!raf) { last = 0; if (window.kahranBusy) window.kahranBusy.hold(); raf = requestAnimationFrame(frame); }
     }
 
     var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
