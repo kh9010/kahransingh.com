@@ -214,6 +214,105 @@
     });
   });
 
+  /* ---------------------------------------------------------- the notes -- */
+
+  /* One line per tool, on hover, on tap, and on keyboard focus. Built from each
+     tile's data-note so the markup stays plain, and positioned from here so the
+     card can flip above/below and left/right to stay inside the tools column
+     and inside the viewport. The tile never resizes, so the block never moves. */
+  (function notes() {
+    var tiles = [];
+    Array.prototype.forEach.call(document.querySelectorAll('.tile[data-note]'), function (tile) {
+      var text = (tile.getAttribute('data-note') || '').trim();
+      if (!text) return;                        /* the live tile carries no note */
+      var card = document.createElement('span');
+      card.className = 'note';
+      card.id = 'tool-note-' + (tiles.length + 1);
+      card.setAttribute('role', 'tooltip');
+      card.textContent = text;
+      tile.appendChild(card);
+      tile.setAttribute('tabindex', '0');
+      tile.setAttribute('aria-describedby', card.id);
+      tile.noteCard = card;
+      tiles.push(tile);
+    });
+    if (!tiles.length) return;
+
+    var open = null, timer = null;
+    var GAP = 10, EDGE = 16, DELAY = 140;
+
+    /* Keep the card inside the tools column as well as the window. */
+    function bounds() {
+      var wall = document.querySelector('.wall');
+      var r = wall ? wall.getBoundingClientRect() : null;
+      return {
+        lo: Math.max(EDGE, r ? r.left : EDGE),
+        hi: Math.min(window.innerWidth - EDGE, r ? r.right : window.innerWidth - EDGE)
+      };
+    }
+
+    function place(tile) {
+      var card = tile.noteCard;
+      card.style.left = '0px'; card.style.top = '0px'; card.style.maxWidth = '';
+      var b = bounds();
+      card.style.maxWidth = Math.min(248, b.hi - b.lo) + 'px';
+      var t = tile.getBoundingClientRect();
+      var c = card.getBoundingClientRect();
+      var left = t.left;
+      if (left + c.width > b.hi) left = b.hi - c.width;   /* flip to the right edge */
+      if (left < b.lo) left = b.lo;
+      card.style.left = (left - t.left) + 'px';
+      /* above by preference, below when there is no room up there */
+      card.style.top = (t.top - c.height - GAP >= EDGE)
+        ? (-(c.height + GAP)) + 'px'
+        : (t.height + GAP) + 'px';
+    }
+
+    function show(tile) {
+      if (open === tile) return;
+      hide();
+      tile.classList.add('is-noted');
+      place(tile);
+      open = tile;
+    }
+
+    function hide() {
+      if (!open) return;
+      open.classList.remove('is-noted');
+      open.noteCard.removeAttribute('style');
+      open = null;
+    }
+
+    tiles.forEach(function (tile) {
+      tile.addEventListener('mouseenter', function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () { show(tile); }, DELAY);  /* no flicker when sweeping */
+      });
+      tile.addEventListener('mouseleave', function () { clearTimeout(timer); hide(); });
+      /* only a keyboard focus opens it; a tap's focus is handled by the click */
+      tile.addEventListener('focus', function () {
+        if (!tile.matches || tile.matches(':focus-visible')) show(tile);
+      });
+      tile.addEventListener('blur', hide);
+      tile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        clearTimeout(timer);
+        if (open === tile) hide(); else show(tile);
+      });
+      tile.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (open === tile) hide(); else show(tile);
+        }
+      });
+    });
+
+    document.addEventListener('click', hide);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+    window.addEventListener('scroll', hide, { passive: true });
+    window.addEventListener('resize', hide);
+  })();
+
   /* ------------------------------------------------------------- go ------- */
 
   var asked = location.hash.replace(/^#/, '');

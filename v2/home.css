@@ -310,9 +310,44 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   color: var(--soon);
 }
 
-/* Every tile keeps a data-note hook for a one-line description later. A square
-   tile has no room to render it, so nothing is drawn yet — where it goes is a
-   design call (under the name, on hover, or a panel beside the block). */
+/* The one-line note. A square tile has no room for it, so it appears as a small
+   glass card on hover, tap or keyboard focus — the tile never changes size, so
+   the parallelogram never moves. home.js builds it from data-note and places
+   it, flipping above/below and left/right to stay inside the tools column and
+   the viewport. Card text measures 13.8:1 over the worst of the 26 photographs. */
+.tile.is-noted { z-index: 6; }
+
+.note {
+  display: none;
+  position: absolute;
+  z-index: 7;
+  width: max-content;
+  max-width: 248px;
+  padding: .6rem .72rem;
+  border-radius: 10px;
+  background: rgba(27, 26, 20, .90);
+  border: 1px solid rgba(246, 243, 236, .16);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .45);
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: .78rem;
+  line-height: 1.45;
+  letter-spacing: -.002em;
+  color: var(--on-photo);
+  text-align: left;
+  white-space: normal;
+  hyphens: none;
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .note { -webkit-backdrop-filter: blur(16px) saturate(115%); backdrop-filter: blur(16px) saturate(115%); }
+}
+.tile.is-noted .note { display: block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tile.is-noted .note { animation: noteIn .14s ease both; }
+}
+@keyframes noteIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
 
 /* ------------------------------------------------- version switch (v2·v1) --
    Self-contained component. Drop this block and the matching markup into any
@@ -379,6 +414,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   body { font-size: 16px; }
   .poem-body { font-size: 1.06rem; }
   .tile { border-radius: 11px; padding: .5rem .45rem 1.05rem; }
+  .note { max-width: min(248px, calc(100vw - 32px)); font-size: .75rem; }
   .tile-name { font-size: .7rem; line-height: 1.22; }
   .soon { right: .38rem; bottom: .34rem; font-size: .52rem; }
   .wall-line { font-size: .88rem; }
