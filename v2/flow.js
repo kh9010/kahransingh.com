@@ -22,8 +22,9 @@
   var layer = document.querySelector('.tools-layer');
   var wall  = document.querySelector('.wall');
   var block = document.getElementById('wall-block');
-  var btn   = document.getElementById('wall-toggle');
-  if (!layer || !wall || !block || !btn) return;
+  var bullet = document.getElementById('doing-tools');   /* the door, now */
+  var region = document.querySelector('.doing');         /* bullet + diagram */
+  if (!layer || !wall || !block) return;
 
   var SVGNS = 'http://www.w3.org/2000/svg';
 
@@ -496,63 +497,131 @@
   function clearLater() { timers.forEach(clearTimeout); timers = []; }
 
   function settle(movers) {
-    movers.forEach(function (m) { m.style.transition = ''; m.style.transform = ''; });
+    movers.forEach(function (m) {
+      m.style.transition = ''; m.style.transform = ''; m.style.opacity = '';
+    });
   }
 
-  var head = document.querySelector('.wall-head');
+  /* There is no wall to fly out of any more. The tiles arrive out of the
+     depth: converged on the middle of where the diagram will be and scaled
+     back, then out to their places with the same stagger as before - context
+     first, the watcher last - and they leave the same way. */
+  var FAR = 0.52;
+
+  function farFrom(rects, i, cx, cy) {
+    var r = rects[i];
+    var dx = (r.left + r.width / 2 - cx) * (FAR - 1);
+    var dy = (r.top + r.height / 2 - cy) * (FAR - 1);
+    return 'translate(' + r1(dx) + 'px,' + r1(dy) + 'px) scale(' + FAR + ')';
+  }
+
+  function measureFar() {
+    var rects = flock.map(function (m) { return m.getBoundingClientRect(); });
+    var br = block.getBoundingClientRect();
+    return { rects: rects, cx: br.left + br.width / 2, cy: br.top + br.height / 2 };
+  }
 
   function setFlow(on, animate) {
     if (on === open) return;
     if (window.kahranWall && window.kahranWall.hideNote) window.kahranWall.hideNote();
     clearLater();
     stopDots();
-
-    var movers = head ? flock.concat([head]) : flock.slice();
-    var quiet = still() || !animate;
-    var first = quiet ? null : movers.map(function (m) { return m.getBoundingClientRect(); });
-
-    settle(movers);
-    layer.classList.toggle('is-flow', on);
-    layer.classList.remove('is-landed');
     open = on;
-    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-    btn.textContent = on ? 'back to the wall' : 'how they fit together';
 
-    if (on) drawWires(); else unlitAll();
+    if (bullet) bullet.setAttribute('aria-expanded', on ? 'true' : 'false');
 
-    if (quiet) {
-      if (on) { layer.classList.add('is-landed'); runWires(); startDots(); }
+    var quiet = still() || !animate;
+    var done = FLIGHT + MAX_DELAY;
+
+    if (on) {
+      settle(flock);
+      layer.classList.add('is-flow');
+      layer.classList.remove('is-landed');
+      drawWires();
+
+      if (quiet) { layer.classList.add('is-landed'); runWires(); startDots(); return; }
+
+      var m0 = measureFar();
+      flock.forEach(function (m, i) {
+        m.style.transition = 'none';
+        m.style.transform = farFrom(m0.rects, i, m0.cx, m0.cy);
+        m.style.opacity = '0';
+      });
+      void block.offsetWidth;
+
+      layer.classList.add('is-flying');
+      flock.forEach(function (m) {
+        var d = delayOf(m);
+        m.style.transition = 'transform ' + FLIGHT + 'ms cubic-bezier(.2,.8,.2,1) ' + d + 'ms, ' +
+                             'opacity ' + Math.round(FLIGHT * 0.62) + 'ms ease ' + d + 'ms';
+        m.style.transform = '';
+        m.style.opacity = '';
+      });
+      later(function () { layer.classList.remove('is-flying'); settle(flock); }, done + 60);
+      later(function () { layer.classList.add('is-landed'); runWires(); }, done - 180);
+      later(startDots, done + 420);
       return;
     }
 
-    var last = movers.map(function (m) { return m.getBoundingClientRect(); });
-    movers.forEach(function (m, i) {
-      var dx = first[i].left - last[i].left;
-      var dy = first[i].top - last[i].top;
-      m.style.transition = 'none';
-      m.style.transform = 'translate(' + r1(dx) + 'px,' + r1(dy) + 'px)';
-    });
-    void block.offsetWidth;
-
-    layer.classList.add('is-flying');
-    movers.forEach(function (m, i) {
-      var d = (m === head) ? 0 : (on ? delayOf(m) : MAX_DELAY - delayOf(m));
-      m.style.transition = 'transform ' + FLIGHT + 'ms cubic-bezier(.2,.8,.2,1) ' + d + 'ms';
-      m.style.transform = '';
-    });
-
-    var done = FLIGHT + MAX_DELAY;
-    later(function () { layer.classList.remove('is-flying'); settle(movers); }, done + 60);
-    if (on) {
-      later(function () { layer.classList.add('is-landed'); runWires(); }, done - 180);
-      later(startDots, done + 420);
+    unlitAll();
+    /* the layout only drops once they have gone, or there would be nothing
+       left on screen to animate away */
+    if (quiet) {
+      layer.classList.remove('is-flow', 'is-landed', 'is-flying');
+      settle(flock);
+      return;
     }
+    var m1 = measureFar();
+    layer.classList.add('is-flying');
+    layer.classList.remove('is-landed');
+    flock.forEach(function (m, i) {
+      var d = MAX_DELAY - delayOf(m);
+      m.style.transition = 'transform ' + FLIGHT + 'ms cubic-bezier(.2,.8,.2,1) ' + d + 'ms, ' +
+                           'opacity ' + Math.round(FLIGHT * 0.62) + 'ms ease ' + d + 'ms';
+      m.style.transform = farFrom(m1.rects, i, m1.cx, m1.cy);
+      m.style.opacity = '0';
+    });
+    later(function () {
+      layer.classList.remove('is-flow', 'is-flying', 'is-landed');
+      settle(flock);
+    }, done + 60);
   }
 
   /* ------------------------------------------------------------- the door -- */
 
-  btn.hidden = false;
-  btn.addEventListener('click', function () { setFlow(!open, true); });
+  /* The first line of "Right now I am:" is the door. Hovering it brings the
+     diagram in; leaving the line AND the diagram takes it away, after a grace
+     so that crossing the gap between them does not close it. */
+  var GRACE = 250;
+  var graceTimer = null;
+  function holdOpen() { clearTimeout(graceTimer); }
+  function leaveSoon() {
+    clearTimeout(graceTimer);
+    graceTimer = setTimeout(function () { setFlow(false, true); }, GRACE);
+  }
+
+  if (bullet) {
+    var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
+    if (canHover) {
+      bullet.addEventListener('mouseenter', function () { holdOpen(); setFlow(true, true); });
+      if (region) {
+        region.addEventListener('mouseenter', holdOpen);
+        region.addEventListener('mouseleave', leaveSoon);
+      }
+    }
+    bullet.addEventListener('focus', function () {
+      if (!bullet.matches || bullet.matches(':focus-visible')) { holdOpen(); setFlow(true, true); }
+    });
+    /* touch: the line is a toggle, and a tap anywhere else puts it away */
+    bullet.addEventListener('click', function (e) {
+      e.preventDefault();
+      holdOpen();
+      setFlow(!open, true);
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (open && region && !region.contains(e.target)) { holdOpen(); setFlow(false, true); }
+    });
+  }
 
   function isFlowHash() { return location.hash.replace(/^#/, '') === 'flow'; }
 
@@ -566,7 +635,7 @@
     if (block.querySelector('.tile.is-noted')) return;   /* a note closes first */
     setFlow(false, true);
     if (isFlowHash()) history.replaceState(null, '', location.pathname + location.search);
-    btn.focus();
+    if (bullet) bullet.focus();
   });
 
   /* Touch a tile and the lines out of it light; touch a surface and everything

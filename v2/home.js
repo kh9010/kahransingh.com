@@ -176,6 +176,7 @@
     caption: document.getElementById('caption'),
     title:   document.getElementById('poem-link'),
     body:    document.getElementById('poem-body'),
+    labelTitle: document.getElementById('poem-label-title'),
     date:    document.getElementById('day-date'),
     back:    document.getElementById('day-back'),
     fwd:     document.getElementById('day-fwd')
@@ -256,6 +257,9 @@
 
     el.title.textContent = poem.title;
     el.title.href = '/poems/' + poem.slug + '.html';
+    /* the label IS the poem's title, set small — so growing it reads as the
+       same thing arriving, not as one thing replacing another */
+    if (el.labelTitle) el.labelTitle.textContent = poem.title;
 
     el.body.textContent = '';
     stanzasOf(poem).forEach(function (lines) {
@@ -363,49 +367,72 @@
     var label = document.getElementById('poem-label');
     if (!hold || !label) return;
 
-    var SHUT = 280, INTENT = 120;
-    var shown = false, intentTimer = null, flowTimer = null;
+    var IN = 700, OUT = 450, TAP = 180;
+    var p = 0, target = 0, raf = null, last = 0, latched = false, downAt = 0;
 
-    function show() {
-      clearTimeout(flowTimer);
-      if (shown) return;
-      shown = true;
-      hold.classList.add('is-live');   /* into the flow first, still invisible */
-      void hold.offsetWidth;           /* so the transition has a start state */
-      hold.classList.add('is-open');
-      label.setAttribute('aria-expanded', 'true');
+    /* smooth at both ends, so starting and arriving are both soft */
+    function ease(t) { return t * t * (3 - 2 * t); }
+
+    function apply() {
+      hold.style.setProperty('--p', ease(p).toFixed(4));
+      hold.classList.toggle('is-on', p > 0.92);
+      label.setAttribute('aria-expanded', p > 0.5 ? 'true' : 'false');
     }
 
-    function hide() {
-      clearTimeout(intentTimer);
-      if (!shown) return;
-      shown = false;
-      hold.classList.remove('is-open');
-      label.setAttribute('aria-expanded', 'false');
-      flowTimer = setTimeout(function () {
-        if (!shown) hold.classList.remove('is-live');   /* out of the flow again */
-      }, SHUT + 40);
+    function frame(now) {
+      var dt = last ? Math.min(now - last, 64) : 16;
+      last = now;
+      var step = dt / (target > p ? IN : OUT);
+      p = target > p ? Math.min(target, p + step) : Math.max(target, p - step);
+      apply();
+      if (p !== target) { raf = requestAnimationFrame(frame); return; }
+      raf = null; last = 0;
+      if (p === 0) hold.classList.remove('is-live');
     }
 
-    /* the whole column is the target, so scrolling a long poem never dismisses it */
-    hold.addEventListener('mouseenter', function () {
-      clearTimeout(intentTimer);
-      intentTimer = setTimeout(show, INTENT);
+    /* One target, one progress. Reversing mid-flight just changes the target;
+       the value carries on from where it is rather than snapping. */
+    function to(v) {
+      if (v === target) return;
+      target = v;
+      if (v > 0) hold.classList.add('is-live');
+      if (!raf) { last = 0; raf = requestAnimationFrame(frame); }
+    }
+
+    var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
+    if (canHover) {
+      hold.addEventListener('mouseenter', function () { if (!latched) to(1); });
+      hold.addEventListener('mouseleave', function () { if (!latched) to(0); });
+    }
+
+    /* Press and hold reads it. But holding a phone still long enough to read a
+       poem is a genuinely awkward ask, so a quick tap latches it open instead
+       and the next tap anywhere closes it. */
+    label.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') return;
+      downAt = Date.now();
+      to(1);
     });
-    hold.addEventListener('mouseleave', hide);
+    function release(e) {
+      if (e && e.pointerType === 'mouse') return;
+      if (Date.now() - downAt < TAP) { latched = !latched; to(latched ? 1 : 0); }
+      else { latched = false; to(0); }
+    }
+    label.addEventListener('pointerup', release);
+    label.addEventListener('pointercancel', release);
 
-    label.addEventListener('click', function () { if (shown) hide(); else show(); });
-    /* keyboard only: a tap's focus is already answered by the click above */
     label.addEventListener('focus', function () {
-      if (!label.matches || label.matches(':focus-visible')) show();
+      if (!label.matches || label.matches(':focus-visible')) to(1);
     });
 
-    document.addEventListener('click', function (e) {
-      if (shown && !hold.contains(e.target)) hide();
-    });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') hide();
+      if (e.key === 'Escape') { latched = false; to(0); }
     });
+    document.addEventListener('pointerdown', function (e) {
+      if (latched && !hold.contains(e.target)) { latched = false; to(0); }
+    });
+
+    apply();
   })();
 
   /* ---------------------------------------------------------- the notes -- */
