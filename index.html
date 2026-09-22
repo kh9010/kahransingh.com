@@ -65,103 +65,99 @@
 </head>
 <body>
 
-<div class="sheet">
+<!-- The photograph of the day fills the viewport and stays put; the poem scrolls
+     over it. position:fixed rather than background-attachment, which iOS Safari
+     ignores. No ancestor may carry a transform or the fixed element breaks. -->
+<div class="stage">
+  <div class="stage-photo">
+    <img id="photo" src="" alt="" loading="eager" decoding="async" fetchpriority="high">
+  </div>
+  <div class="stage-scrim" aria-hidden="true"></div>
 
-  <header class="masthead">
-    <h1 class="wordmark">Kahran Singh</h1>
-    <div class="day">
-      <p class="day-date" id="day-date">&nbsp;</p>
-      <nav class="day-walk" aria-label="Choose a day">
-        <button type="button" class="day-step" id="day-back" data-step="-1">&#8592; yesterday</button>
-        <button type="button" class="day-step" id="day-fwd" data-step="1">today &#8594;</button>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Today: one photograph, one poem. Chosen by a hash of the date, so a past
-       day never reshuffles. Both are filled in by /v2/home.js from /v2/data.json. -->
-  <main class="opening" id="opening" aria-live="polite">
-    <figure class="plate">
-      <div class="frame">
-        <img id="photo" src="" alt="" loading="eager" decoding="async" fetchpriority="high">
+  <div class="stage-copy">
+    <header class="masthead">
+      <h1 class="wordmark">Kahran Singh</h1>
+      <div class="day">
+        <p class="day-date" id="day-date">&nbsp;</p>
+        <nav class="day-walk" aria-label="Choose a day">
+          <button type="button" class="day-step" id="day-back" data-step="-1">&#8592; yesterday</button>
+          <button type="button" class="day-step" id="day-fwd" data-step="1">today &#8594;</button>
+        </nav>
       </div>
-      <figcaption class="plate-caption" id="caption"></figcaption>
-    </figure>
+    </header>
 
-    <article class="poem">
-      <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
-      <div class="poem-body" id="poem-body"></div>
-    </article>
-  </main>
+    <main class="opening" id="opening" aria-live="polite">
+      <article class="poem">
+        <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
+        <div class="poem-body" id="poem-body"></div>
+      </article>
+      <p class="plate-caption" id="caption"></p>
+    </main>
 
-  <noscript>
-    <p class="fallback">Today&rsquo;s photograph and poem need JavaScript. The
-    <a href="/poetry.html">poems</a> and the <a href="/photography.html">photographs</a>
-    are also on their own pages.</p>
-  </noscript>
+    <noscript>
+      <p class="fallback">Today&rsquo;s photograph and poem need JavaScript. The
+      <a href="/poetry.html">poems</a> and the <a href="/photography.html">photographs</a>
+      are also on their own pages.</p>
+    </noscript>
+  </div>
+</div>
 
-  <hr class="divide">
-
-  <!-- The wall. Static on purpose: it reads without JavaScript. To give a tool
-       a page, add its path to TOOL_LINKS in /v2/home.js (or just make the name
-       an <a> here). -->
-  <section class="wall" aria-labelledby="wall-line">
+<!-- The wall scrolls up over the photograph and covers it: opaque paper, dark ink. -->
+<section class="wall-section" aria-labelledby="wall-line">
+  <div class="sheet">
     <h2 class="wall-line" id="wall-line">Right now I&rsquo;m building tools to support myself.</h2>
 
     <div class="wall-object">
-      <div class="wall-stack">
-
+      <div class="wall-block">
         <section class="band band--catching">
-          <h3 class="band-name"><span class="band-in">Catching</span></h3>
-          <ul class="band-tools">
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Raw store</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Mail triage</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Voice &amp; WhatsApp capture</span><span class="soon">soon</span></span></li>
+          <div class="wall-row wall-row--label" style="--pt:0;--pl:0"><h3 class="band-name">Catching</h3></div>
+          <ul class="wall-row" style="--pt:0;--pl:1">
+            <li class="tile" data-note=""><span class="tile-name">Raw store</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">Mail triage</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">Voice &amp; WhatsApp capture</span><span class="soon">soon</span></li>
           </ul>
         </section>
-
         <section class="band band--remembering">
-          <h3 class="band-name"><span class="band-in">Not forgetting</span></h3>
-          <ul class="band-tools">
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The miners</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The judge</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The Curator</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The sparks garden</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Noticings</span><span class="soon">soon</span></span></li>
+          <div class="wall-row wall-row--label" style="--pt:1;--pl:1"><h3 class="band-name">Not forgetting</h3></div>
+          <ul class="wall-row" style="--pt:1;--pl:2">
+            <li class="tile" data-note=""><span class="tile-name">The miners</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">The judge</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">The Curator</span><span class="soon">soon</span></li>
+          </ul>
+          <ul class="wall-row" style="--pt:2;--pl:2">
+            <li class="tile" data-note=""><span class="tile-name">The sparks garden</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">Noticings</span><span class="soon">soon</span></li>
           </ul>
         </section>
-
         <section class="band band--knowing">
-          <h3 class="band-name"><span class="band-in">Knowing</span></h3>
-          <ul class="band-tools">
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Movement</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The now brain</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The workout planner</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Travel days</span><span class="soon">soon</span></span></li>
+          <div class="wall-row wall-row--label" style="--pt:3;--pl:2"><h3 class="band-name">Knowing</h3></div>
+          <ul class="wall-row" style="--pt:3;--pl:3">
+            <li class="tile" data-note=""><span class="tile-name">Movement</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">The now brain</span><span class="soon">soon</span></li>
+          </ul>
+          <ul class="wall-row" style="--pt:4;--pl:3">
+            <li class="tile" data-note=""><span class="tile-name">The workout planner</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">Travel days</span><span class="soon">soon</span></li>
           </ul>
         </section>
-
         <section class="band band--alive">
-          <h3 class="band-name"><span class="band-in">Staying alive</span></h3>
-          <ul class="band-tools">
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">Samwise</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The repairer</span><span class="soon">soon</span></span></li>
-            <li class="tool" data-note=""><span class="tool-in"><span class="tool-name">The health page</span><span class="soon">soon</span></span></li>
+          <div class="wall-row wall-row--label" style="--pt:5;--pl:3"><h3 class="band-name">Staying alive</h3></div>
+          <ul class="wall-row" style="--pt:5;--pl:4">
+            <li class="tile" data-note=""><span class="tile-name">Samwise</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">The repairer</span><span class="soon">soon</span></li>
+            <li class="tile" data-note=""><span class="tile-name">The health page</span><span class="soon">soon</span></li>
           </ul>
         </section>
-
         <section class="band band--public">
-          <h3 class="band-name"><span class="band-in">In public</span></h3>
-          <ul class="band-tools">
-            <li class="tool tool--live" data-note=""><span class="tool-in"><a class="tool-name" href="/lately/">The weekly record</a></span></li>
+          <div class="wall-row wall-row--label" style="--pt:6;--pl:4"><h3 class="band-name">In public</h3></div>
+          <ul class="wall-row" style="--pt:6;--pl:5">
+            <li class="tile tile--live" data-note=""><a class="tile-name" href="/lately/">The weekly record</a></li>
           </ul>
         </section>
-
       </div>
     </div>
-  </section>
-
-</div>
+  </div>
+</section>
 
 <!-- Version switch. Self-contained: the .vswitch block in home.css is the whole
      component, ready to drop into /v1/index.html with v2 and v1 swapped. -->

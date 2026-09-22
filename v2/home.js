@@ -199,7 +199,7 @@
   /* ------------------------------------------------------------- the wall -- */
 
   Object.keys(TOOL_LINKS).forEach(function (name) {
-    var boxes = document.querySelectorAll('.tool-name');
+    var boxes = document.querySelectorAll('.tile-name');
     Array.prototype.forEach.call(boxes, function (node) {
       if (node.textContent.trim() !== name || node.tagName === 'A') return;
       var a = document.createElement('a');
@@ -207,8 +207,8 @@
       a.href = TOOL_LINKS[name];
       a.textContent = node.textContent;
       node.parentNode.replaceChild(a, node);
-      var box = a.closest('.tool');
-      if (box) box.classList.add('tool--live');
+      var box = a.closest('.tile');
+      if (box) box.classList.add('tile--live');
       var soon = a.parentNode.querySelector('.soon');
       if (soon) soon.remove();
     });
