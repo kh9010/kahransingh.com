@@ -56,7 +56,7 @@
     'The health page':          [3, 7]
   };
 
-  var HEADS = [[1, 'ingest'], [2, 'transform'], [3, 'consume']];
+  var HEADS = [[1, 'ingest'], [2, 'transform'], [3, 'consume'], [4, 'how it reaches me']];
 
   /* The five pigments, named. Colour is the only grouping the wall has, and
      this is the one view where naming it pays for the line it costs. */
@@ -99,53 +99,75 @@
      thread is drawn there rather than one claiming a watch that isn't kept. */
   var UNWATCHED = { 'The weekly record': 1 };
 
+  var READ = 'How the tools fit together, and how they reach me. On the left, ' +
+    'what comes in: voice and WhatsApp capture lands in the raw store, and mail ' +
+    'triage reads the store to tell a person from a newsletter. In the middle, ' +
+    'what gets made of it: the miners read the store, the judge reads the miners, ' +
+    'the Curator tends what the judge keeps and the sparks garden catches what it ' +
+    'files as an idea. Then what reads it: movement is worked out from what I tell ' +
+    'the assistant and feeds the now brain and the workout planner. Samwise watches ' +
+    'every lane, wakes the repairer and renders the health page. The fourth column ' +
+    'is what I actually get: six of these come out as one 06:30 message, one asks a ' +
+    'question on WhatsApp only when it cannot tell where I am, several wait until I ' +
+    'ask, and the weekly record goes past me to everyone.';
+
   var WATCHER = 'Samwise';
   var WATCHED_ROW = 7;
 
-  /* ------------------------------------------------------- and then me ---- */
+  /* --------------------------------------------- and then it reaches him -- */
 
-  /* Which tools' output actually reaches Kahran, and what it reaches him by.
-     Verified the same way as EDGES — by the sending call, not by intent — and
-     written up in the "reaches Kahran" section of docs/2026-09-22-flow-edges.md.
-     A tool is in here only if a person hears from it: the miners, the judge and
-     the store never do, which is most of the point of them. */
-  var REACH = [
-    ['Mail triage',         'the mail card at 06:30, and when he asks'],
-    ['The miners',          'his own words, quoted back at 06:30'],
-    ['The Curator',         'three questions a morning, no more'],
-    ['The sparks garden',   'never pushed \u2014 only when he asks'],
-    ['Noticings',           'one line at 06:30, and the pages'],
-    ['Movement',            'one question, only when it cannot tell'],
-    ['The now brain',       'the now page, and asking it to unstick him'],
-    ['The workout planner', 'today\u2019s session, when he asks'],
-    ['Travel days',         'the flight-day messages'],
-    ['Samwise',             'a count at 06:30, not a push'],
-    ['The repairer',        'waiting on the health page, landed or rolled back'],
-    ['The health page',     'the page, when he opens it'],
-    ['The weekly record',   'published \u2014 the audience is everyone', 'everyone']
+  /* The fourth column: not parts of the system, but the things he actually
+     gets. Audited from the sending side — the call that puts something on a
+     surface a person looks at — in the "Reaches Kahran" section of
+     docs/2026-09-22-flow-edges.md. id, what it is called, what kind of thing. */
+  var SURFACES = [
+    ['ask',    'when I ask for it',     'on request'],
+    ['page',   'a page I open',         'page'],
+    ['question', 'a question on WhatsApp', 'question'],
+    ['morning', 'the 06:30 message',    'message'],
+    ['flight', 'the flight-day messages', 'message'],
+    ['public', 'everyone',              'public']
   ];
 
-  /* Two ways of drawing the same fact, both built, one shipped.
-       'edge' (default) — each line leaves its tile and ends on a lane at the
-                right, the caps lining up so the edge of the drawing is the
-                boundary of the system and the outside of it is him.
-       'node' — every line converges on one mark that he is.
-     Open /?me=node#flow to see the other one; it is here so the choice can be
-     looked at rather than argued about. */
-  var ME_STYLE = /[?&]me=node\b/.test(location.search) ? 'node' : 'edge';
+  /* Which tool comes out where. Six of these land in the one 06:30 message,
+     which is the only scheduled outbound in the whole system — everything else
+     waits to be asked. Movement is the single thing allowed to interrupt him
+     with a question, and the weekly record is the one that goes past him. */
+  var FEEDS = [
+    ['Mail triage',         'morning'],
+    ['The miners',          'morning'],
+    ['The Curator',         'morning'],
+    ['Noticings',           'morning'],
+    ['Samwise',             'morning'],
+    ['The repairer',        'morning'],
+    ['Movement',            'question'],
+    ['Travel days',         'flight'],
+    ['The now brain',       'page'],
+    ['The health page',     'page'],
+    ['Mail triage',         'ask'],
+    ['The Curator',         'ask'],
+    ['The sparks garden',   'ask'],
+    ['The workout planner', 'ask'],
+    ['The now brain',       'ask'],
+    ['The weekly record',   'public']
+  ];
 
-  var READ = 'How the tools fit together. On the left, what comes in: voice and ' +
-    'WhatsApp capture lands in the raw store, and mail triage reads the store to ' +
-    'tell a person from a newsletter. In the middle, what gets made of it: the ' +
-    'miners read the store, the judge reads the miners, the Curator tends what the ' +
-    'judge keeps and the sparks garden catches what it files as an idea; noticings ' +
-    'grows over the same store. On the right, what reads it: movement is worked out ' +
-    'from what Kahran tells the assistant, and it feeds the now brain and the ' +
-    'workout planner, which hands the day’s shape on to travel days; the now ' +
-    'brain also reads the store and the Curator’s ' +
-    'backlog, and the weekly record is published off the store. Beneath, Samwise ' +
-    'watches every lane, wakes the repairer when one goes red, and renders the ' +
-    'health page.';
+  /* The line on the tile's own card, so the words and the arrow agree. */
+  var CHANNEL = {
+    'Mail triage':         'the mail card at 06:30, and /inbox when he asks',
+    'The miners':          'his own words, quoted back at 06:30',
+    'The Curator':         'three questions at 06:30, and the pending list',
+    'The sparks garden':   'never pushed \u2014 only when he asks',
+    'Noticings':           'one line at 06:30, and the pages',
+    'Movement':            'one question, only when it cannot tell',
+    'The now brain':       'the page, and asking it to unstick him',
+    'The workout planner': 'today\u2019s session, when he asks',
+    'Travel days':         'the flight-day messages',
+    'Samwise':             'a count at 06:30, not a push',
+    'The repairer':        'a count at 06:30; the rest on the health page',
+    'The health page':     'the page, when he opens it',
+    'The weekly record':   'published \u2014 the audience is everyone'
+  };
 
   /* --------------------------------------------------------------- setup -- */
 
@@ -210,18 +232,33 @@
   });
   block.appendChild(keys);
 
-  /* The channel belongs on the card the tile already opens — the lane at the
-     right is 48 pixels wide and the wall cannot grow into the poem, so there is
-     nowhere out there to write it. The line to the lane lights at the same
-     moment, which is what ties the words to the arrow. */
-  REACH.forEach(function (r) {
-    var tile = tiles[r[0]];
+  /* The channel, as a second line on the tile's own card, naming the surface
+     its arrow points at so the words and the arrow always agree. */
+  Object.keys(CHANNEL).forEach(function (name) {
+    var tile = tiles[name];
     if (!tile) return;
     var card = tile.querySelector('.note');
     if (!card) return;
-    var line = make('span', 'note-reach', r[1]);
-    card.appendChild(line);
+    card.appendChild(make('span', 'note-reach', CHANNEL[name]));
   });
+
+  /* The fourth column. Ordered so each one sits near the tiles that feed it,
+     and spread down the whole height of the drawing by the flex column. */
+  var surfBox = make('div', 'flow-surfs');
+  var surfEl = {};
+  var busiest = SURFACES.map(function (sf) {
+    return FEEDS.filter(function (f) { return f[1] === sf[0]; }).length;
+  }).reduce(function (a, b) { return Math.max(a, b); }, 0);
+  SURFACES.forEach(function (sf) {
+    var n = make('div', 'flow-surf');
+    var count = FEEDS.filter(function (f) { return f[1] === sf[0]; }).length;
+    if (count === busiest) n.classList.add('flow-surf--busy');
+    n.appendChild(make('b', '', sf[1]));
+    n.appendChild(make('i', '', sf[2]));
+    surfBox.appendChild(n);
+    surfEl[sf[0]] = n;
+  });
+  block.appendChild(surfBox);
 
   var svg = document.createElementNS(SVGNS, 'svg');
   svg.setAttribute('class', 'flow-wires');
@@ -242,12 +279,17 @@
   function r1(n) { return Math.round(n * 10) / 10; }
 
   var wires = [];     // { path, tip, dot, len, delay }
-  var reachers = [];  // { name, label, path, cap, text }
-  var meHit = null;
+  var lines = [];     // { tile, surf, path, tip, pulse }
   var TIP = 6;        // how far short of the tile a connector stops
 
-  function litAll()   { svg.classList.add('is-me'); }
-  function unlitAll() { svg.classList.remove('is-me'); }
+  function unlitAll() {
+    svg.classList.remove('is-surf');
+    lines.forEach(function (l) {
+      l.path.classList.remove('is-lit', 'is-dim');
+      if (l.tip) l.tip.classList.remove('is-lit', 'is-dim');
+    });
+    Object.keys(surfEl).forEach(function (k) { surfEl[k].classList.remove('is-lit', 'is-dim'); });
+  }
 
   function drawWires() {
     while (svg.childNodes.length > 1) svg.removeChild(svg.lastChild);
@@ -341,105 +383,40 @@
       add(pathFor(a, b), e[2] === 'light' ? 'flow-wire--light' : 'flow-wire--main', b, true);
     });
 
-    /* ------------------------------------------------ the lines that leave -- */
+    /* --------------------------------------------- and out to the surfaces -- */
 
-    /* The lane reserved at the right of the block, where the system stops. */
-    var fme = parseFloat(getComputedStyle(block).paddingRight) -
-              parseFloat(getComputedStyle(block).paddingLeft);
-    if (!(fme > 8)) fme = 40;
-    var edgeX = br.width - fme * 0.44;          /* where every cap sits */
-
-    reachers = [];
-    REACH.forEach(function (r) {
-      var a = boxOf(r[0]);
-      if (!a) return;
-      reachers.push({ name: r[0], label: r[1], dest: r[2] || 'me', a: a, y: a.y + a.h / 2 });
-    });
-
-    /* Tiles on the same row would otherwise land on the same cap, and two
-       channels sharing one circle says something untrue. Walk them in order and
-       hold them apart, then recentre the run on where it wanted to be. */
-    var CAP_GAP = 14;
-    reachers.sort(function (p, q) { return p.y - q.y; });
-    var want = reachers.map(function (w) { return w.y; });
-    var run = 0;
-    reachers.forEach(function (w, i) {
-      run = (i === 0) ? w.y : Math.max(w.y, run + CAP_GAP);
-      w.capY = run;
-    });
-    if (reachers.length) {
-      var drift = ((reachers[0].capY + reachers[reachers.length - 1].capY) / 2) -
-                  ((want[0] + want[want.length - 1]) / 2);
-      reachers.forEach(function (w) { w.capY -= drift; });
-    }
-
-    var lows = reachers.map(function (w) { return w.capY; });
-    var midY = reachers.length
-      ? (lows[0] + lows[lows.length - 1]) / 2
-      : br.height / 2;
-
-    reachers.forEach(function (w) {
-      var a = w.a;
-      var ty = (ME_STYLE === 'node') ? midY : w.capY;
-      var x1 = a.x + a.w + 1, y1 = w.y;
-      var x2 = edgeX - 5;
-      var k = Math.max(30, (x2 - x1) * 0.42);
-      var d = 'M' + r1(x1) + ' ' + r1(y1) +
-              ' C' + r1(x1 + k) + ' ' + r1(y1) + ' ' + r1(x2 - k) + ' ' + r1(ty) +
-              ' ' + r1(x2) + ' ' + r1(ty);
-      var path = svgEl('path', 'flow-reach');
+    /* Warm ink, arrowheads, and drawn last \u2014 so the picture assembles in the
+       order the story happens: what comes in, what is made of it, what reads
+       it, and only then what he actually gets. */
+    lines = [];
+    FEEDS.forEach(function (f) {
+      var a = boxOf(f[0]);
+      var node = surfEl[f[1]];
+      if (!a || !node) return;
+      var nr = node.getBoundingClientRect();
+      var sx = a.x + a.w + 1, sy = a.y + a.h / 2;
+      var ex = nr.left - br.left - 6, ey = nr.top - br.top + nr.height / 2;
+      var k = Math.max(26, (ex - sx) * 0.44);
+      var d = 'M' + r1(sx) + ' ' + r1(sy) +
+              ' C' + r1(sx + k) + ' ' + r1(sy) + ' ' + r1(ex - k) + ' ' + r1(ey) +
+              ' ' + r1(ex) + ' ' + r1(ey);
+      var path = svgEl('path', 'flow-line');
       path.setAttribute('d', d);
       svg.appendChild(path);
-
-      var cap = svgEl('circle', 'flow-cap');
-      cap.setAttribute('cx', r1(edgeX));
-      cap.setAttribute('cy', r1(ty));
-      cap.setAttribute('r', '2.6');
-      svg.appendChild(cap);
-
-      w.path = path; w.cap = cap; w.ty = ty;
-    });
-
-    /* The word, once, outside everything the system drew. */
-    if (reachers.length) {
-      var me = svgEl('text', 'flow-me');
-      me.setAttribute('x', r1(edgeX));
-      me.setAttribute('text-anchor', 'middle');
-      if (ME_STYLE === 'node') {
-        me.setAttribute('y', r1(midY + 20));
-        var ring = svgEl('circle', 'flow-cap');
-        ring.setAttribute('cx', r1(edgeX));
-        ring.setAttribute('cy', r1(midY));
-        ring.setAttribute('r', '6');
-        svg.appendChild(ring);
-      } else {
-        var mine = reachers.filter(function (w) { return w.dest === 'me'; });
-        me.setAttribute('y', r1((mine.length ? mine[mine.length - 1].capY : lows[lows.length - 1]) + 26));
+      var len = 0;
+      try { len = path.getTotalLength(); } catch (e) { len = 0; }
+      var tip = svgEl('path', 'flow-line-tip');
+      tip.setAttribute('d', 'M0 0 L-5 -2.8 L-5 2.8 Z');
+      tip.setAttribute('transform', 'translate(' + r1(ex) + ',' + r1(ey) + ')');
+      svg.appendChild(tip);
+      var pulse = null;
+      if (f[1] === 'morning' && len > 8) {
+        pulse = svgEl('circle', 'flow-pulse');
+        pulse.setAttribute('r', '2.2');
+        svg.appendChild(pulse);
       }
-      me.textContent = 'me';
-      svg.appendChild(me);
-
-      /* One line does not end at him. The weekly record goes past him to the
-         public, and saying so is half of what this lane is for. */
-      reachers.forEach(function (w) {
-        if (w.dest === 'me') return;
-        var out = svgEl('text', 'flow-me flow-me--other');
-        out.setAttribute('x', r1(edgeX));
-        out.setAttribute('y', r1(w.ty + 15));
-        out.setAttribute('text-anchor', 'middle');
-        out.textContent = w.dest;
-        svg.appendChild(out);
-      });
-      meHit = svgEl('rect', 'flow-me-hit');
-      meHit.setAttribute('x', r1(edgeX - fme * 0.5));
-      meHit.setAttribute('y', r1(lows[0] - 14));
-      meHit.setAttribute('width', r1(fme));
-      meHit.setAttribute('height', r1(lows[lows.length - 1] - lows[0] + 46));
-      svg.appendChild(meHit);
-      meHit.style.pointerEvents = 'auto';
-      meHit.addEventListener('mouseenter', litAll);
-      meHit.addEventListener('mouseleave', unlitAll);
-    }
+      lines.push({ tile: f[0], surf: f[1], path: path, tip: tip, pulse: pulse, len: len });
+    });
 
     var s = boxOf(WATCHER);
     if (s) {
@@ -456,6 +433,12 @@
        do not draw: they are dashed and they fade up, because what runs along
        them is attention, not data. */
     var quiet = still(), n = 0;
+    lines.forEach(function (l, i) {
+      l.delay = quiet ? 0 : 420 + i * 22;
+      l.path.style.strokeDasharray = l.len ? l.len + 'px' : 'none';
+      l.path.style.strokeDashoffset = quiet ? '0' : (l.len ? l.len + 'px' : '0');
+      if (l.tip) l.tip.style.opacity = quiet ? '' : '0';
+    });
     wires.forEach(function (w) {
       if (w.watch) {
         w.delay = 300;
@@ -472,6 +455,14 @@
 
   function runWires() {
     if (still()) return;
+    lines.forEach(function (l) {
+      l.path.style.transition = 'stroke-dashoffset 500ms cubic-bezier(.3,.72,.28,1) ' + l.delay + 'ms';
+      l.path.style.strokeDashoffset = '0';
+      if (l.tip) {
+        l.tip.style.transition = 'opacity 240ms ease ' + (l.delay + 340) + 'ms';
+        l.tip.style.opacity = '';
+      }
+    });
     wires.forEach(function (w) {
       if (w.watch) {
         w.path.style.transition = 'opacity 900ms ease ' + w.delay + 'ms';
@@ -497,8 +488,22 @@
 
   var raf = null, t0 = 0, CYCLE = 3000, TRAVEL = 0.62;
 
+  var PULSE = 5200;
+
   function tick(now) {
     if (!open) { raf = null; return; }
+    /* One slow pulse down each strand of the rope into the 06:30 message \u2014
+       about as often as it deserves. */
+    for (var j = 0; j < lines.length; j++) {
+      var l = lines[j];
+      if (!l.pulse || !l.len) continue;
+      var pu = (((now - t0) / PULSE) + j * 0.06) % 1;
+      if (pu > 0.5) { l.pulse.setAttribute('opacity', '0'); continue; }
+      var pv = pu / 0.5;
+      var pp = l.path.getPointAtLength(pv * l.len);
+      l.pulse.setAttribute('transform', 'translate(' + r1(pp.x) + ',' + r1(pp.y) + ')');
+      l.pulse.setAttribute('opacity', (Math.min(1, Math.min(pv, 1 - pv) * 5) * 0.8).toFixed(2));
+    }
     for (var i = 0; i < wires.length; i++) {
       var w = wires[i];
       if (!w.dot || !w.len) continue;
@@ -521,6 +526,7 @@
     if (raf) cancelAnimationFrame(raf);
     raf = null;
     wires.forEach(function (w) { if (w.dot) w.dot.setAttribute('opacity', '0'); });
+    lines.forEach(function (l) { if (l.pulse) l.pulse.setAttribute('opacity', '0'); });
   }
 
   /* ------------------------------------------------------------- the flight -- */
@@ -604,28 +610,51 @@
     btn.focus();
   });
 
-  /* Touching a tile that reaches him lights its own line and names the channel;
-     touching the word "me" lights all of them at once and steps the data
-     connectors back, so the two layers are never read at the same time. */
-  (function reachHover() {
-    function find(name) {
-      for (var i = 0; i < reachers.length; i++) if (reachers[i].name === name) return reachers[i];
-      return null;
-    }
-    function set(name, on) {
-      var w = find(name);
-      if (!w) return;
-      [w.path, w.cap].forEach(function (n) {
-        if (n) n.classList[on ? 'add' : 'remove']('is-lit');
+  /* Touch a tile and the lines out of it light; touch a surface and everything
+     that lands there lights while the rest steps back \u2014 which is how you see,
+     in one gesture, that six separate jobs all come out as one message. */
+  (function surfaceHover() {
+    function mark(pick) {
+      if (!pick) { unlitAll(); return; }
+      svg.classList.add('is-surf');
+      lines.forEach(function (l) {
+        var on = pick(l);
+        l.path.classList.toggle('is-lit', on);
+        l.path.classList.toggle('is-dim', !on);
+        if (l.tip) { l.tip.classList.toggle('is-lit', on); l.tip.classList.toggle('is-dim', !on); }
       });
     }
-    REACH.forEach(function (r) {
-      var tile = tiles[r[0]];
-      if (!tile) return;
-      tile.addEventListener('mouseenter', function () { set(r[0], true); });
-      tile.addEventListener('mouseleave', function () { set(r[0], false); });
-      tile.addEventListener('focus', function () { set(r[0], true); });
-      tile.addEventListener('blur', function () { set(r[0], false); });
+    Object.keys(surfEl).forEach(function (id) {
+      var node = surfEl[id];
+      function on() {
+        mark(function (l) { return l.surf === id; });
+        Object.keys(surfEl).forEach(function (k) {
+          surfEl[k].classList.toggle('is-lit', k === id);
+          surfEl[k].classList.toggle('is-dim', k !== id);
+        });
+      }
+      node.addEventListener('mouseenter', on);
+      node.addEventListener('mouseleave', unlitAll);
+      node.setAttribute('tabindex', '0');
+      node.addEventListener('focus', on);
+      node.addEventListener('blur', unlitAll);
+    });
+    Object.keys(tiles).forEach(function (name) {
+      var tile = tiles[name];
+      function on() {
+        if (!lines.some(function (l) { return l.tile === name; })) return;
+        mark(function (l) { return l.tile === name; });
+        var hit = {};
+        lines.forEach(function (l) { if (l.tile === name) hit[l.surf] = 1; });
+        Object.keys(surfEl).forEach(function (k) {
+          surfEl[k].classList.toggle('is-lit', !!hit[k]);
+          surfEl[k].classList.toggle('is-dim', !hit[k]);
+        });
+      }
+      tile.addEventListener('mouseenter', on);
+      tile.addEventListener('mouseleave', unlitAll);
+      tile.addEventListener('focus', on);
+      tile.addEventListener('blur', unlitAll);
     });
   })();
 
@@ -648,11 +677,17 @@
     redraw = setTimeout(function () {
       var quiet = still();
       drawWires();
-      if (!quiet) wires.forEach(function (w) {
-        w.path.style.strokeDashoffset = '0';
-        w.path.style.opacity = '';
-        if (w.tip) w.tip.style.opacity = '';
-      });
+      if (!quiet) {
+        wires.forEach(function (w) {
+          w.path.style.strokeDashoffset = '0';
+          w.path.style.opacity = '';
+          if (w.tip) w.tip.style.opacity = '';
+        });
+        lines.forEach(function (l) {
+          l.path.style.strokeDashoffset = '0';
+          if (l.tip) l.tip.style.opacity = '';
+        });
+      }
       startDots();
     }, 140);
   }
