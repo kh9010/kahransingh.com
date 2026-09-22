@@ -19,7 +19,7 @@
 
   --pad-top:   clamp(1.75rem, 5vh, 3.25rem);
   --pad-x:     clamp(16px, 4vw, 48px);
-  --mast-h:    2.6rem;        /* binds over the content, so the tools align to the poem exactly */
+  --mast-h:    3.8rem;        /* binds over the content, so the tools align to the poem exactly */
   --mast-gap:  clamp(2.5rem, 8vh, 5rem);
   --mast-block: calc(var(--mast-h) + var(--mast-gap));
 
@@ -146,6 +146,15 @@ body {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum' 1;
 }
+
+.day-where {
+  margin: 0;
+  font-size: .72rem;
+  line-height: 1.5;
+  color: var(--on-photo-soft);
+  text-align: right;
+}
+.day-where:empty { display: none; }
 
 .day-walk { display: flex; gap: 1.1rem; }
 
