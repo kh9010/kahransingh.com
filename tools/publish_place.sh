@@ -4,6 +4,28 @@
 # Idempotent: an unchanged place exits 0 without touching git.
 set -euo pipefail
 export PATH="/opt/homebrew/bin:$PATH"   # mini launchd/ssh shells lack it; gh and python3 live there
+
+# Envelope stamp (day-flow contracts/ENVELOPE.md, samwise/lanes.toml [site-place-feed]):
+# one envelope per run, including a run that published nothing (unchanged is `ok`).
+# Guarded — a missing day-flow checkout must never break publishing, just go unwatched.
+STAMP="$HOME/Dev/day-flow/bin/envelope-stamp.py"
+stamp_exit() {
+  local rc=$?
+  if [ -x "$STAMP" ]; then
+    if [ "$rc" -eq 0 ]; then
+      "$STAMP" site-place-feed ok --producer tools/publish_place.sh \
+        --source kahransingh.com/v2/place.json || true
+    else
+      "$STAMP" site-place-feed failed --producer tools/publish_place.sh \
+        --source kahransingh.com/v2/place.json --note "exit $rc" || true
+    fi
+  else
+    echo "envelope-stamp.py not found at $STAMP — day-flow not checked out on this box, skipping envelope" >&2
+  fi
+  exit "$rc"
+}
+trap stamp_exit EXIT
+
 cd "$(dirname "$0")/.."
 git fetch origin && git checkout -q main && git pull -q --ff-only
 python3 tools/place_feed.py "$HOME/Sync/pending-work/presence.json"
