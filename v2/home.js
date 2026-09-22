@@ -15,6 +15,7 @@
      loses its "soon" mark and becomes a link. (The weekly record is already a
      link in index.html so that it works with JavaScript off.) */
   var TOOL_LINKS = {
+    'Movement': '/movement/',
     'The weekly record': '/lately/'
   };
 
@@ -349,12 +350,20 @@
         if (!tile.matches || tile.matches(':focus-visible')) show(tile);
       });
       tile.addEventListener('blur', hide);
+      /* A live tile is a link that also carries a note. Anything aimed at the
+         link itself must reach it — otherwise the toggle below swallows the
+         keyboard activation and the page becomes unreachable without a mouse. */
+      function onLink(e) {
+        return !!(e.target && e.target.closest && e.target.closest('a'));
+      }
       tile.addEventListener('click', function (e) {
+        if (onLink(e)) return;
         e.stopPropagation();
         clearTimeout(timer);
         if (open === tile) hide(); else show(tile);
       });
       tile.addEventListener('keydown', function (e) {
+        if (onLink(e)) return;
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           if (open === tile) hide(); else show(tile);

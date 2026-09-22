@@ -1,0 +1,432 @@
+/* kahransingh.com — /movement/
+   The explainer for one tool on the wall. It inherits the home page's two
+   voices (Fraunces for anything spoken, Space Grotesk for apparatus only) and
+   the brass of the "knowing" group of tiles, hsl(41 …), so the page reads as a
+   continuation of its own square. Brass is the ONLY colour: confidence is
+   carried by how far a bar fills, never by a second hue — a low answer here is
+   honest, not an error, and a red rung would say the opposite.
+   No build step; this file stands alone and does not extend /style.css. */
+
+/* ---------------------------------------------------------------- tokens -- */
+
+:root {
+  --paper:      #fafaf8;
+  --band:       #15140f;      /* the film frame, and the tools band on the home page */
+  --card:       #ffffff;
+  --ink:        #1a1a1a;
+  --ink-soft:   #585349;
+  --ink-faint:  #7a7466;
+  --rule:       #e7e3da;
+  --brass:      #8a6a1f;      /* hsl(41 63% 33%) — 4.9:1 on paper */
+  --brass-line: rgba(138, 106, 31, .30);
+  --brass-wash: rgba(138, 106, 31, .055);
+  --on-band:      #f6f3ec;
+  --on-band-soft: #ded9cf;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --wrap:   1080px;
+  --read:   34rem;            /* ~60 characters of Fraunces */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #171613;
+    --band:       #0e0d0a;    /* deeper than the paper, or the film frame dissolves into it */
+    --card:       #1e1d19;
+    --ink:        #ece7db;
+    --ink-soft:   #a9a294;
+    --ink-faint:  #8f897c;
+    --rule:       #2e2b25;
+    --brass:      #d3a94e;    /* 8.2:1 on the dark paper */
+    --brass-line: rgba(211, 169, 78, .34);
+    --brass-wash: rgba(211, 169, 78, .075);
+  }
+}
+
+/* ------------------------------------------------------------------ base -- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.68;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+.wrap { width: min(100% - 2 * var(--gutter), var(--wrap)); margin-inline: auto; }
+.read { max-width: var(--read); }
+
+a { color: inherit; }
+
+p { margin: 0 0 1.05em; }
+p:last-child { margin-bottom: 0; }
+
+h2 {
+  margin: 0 0 .5rem;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.24;
+  letter-spacing: -.008em;
+}
+
+h3 {
+  margin: 0 0 .35rem;
+  font-weight: 400;
+  font-size: 1.06rem;
+  line-height: 1.3;
+  letter-spacing: -.004em;
+}
+
+section { margin-top: clamp(3.5rem, 8vh, 6rem); }
+
+.lede { color: var(--ink-soft); }
+
+/* -------------------------------------------------------------- masthead -- */
+
+.masthead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem 2rem;
+  flex-wrap: wrap;
+  padding: clamp(1.5rem, 4vh, 2.5rem) 0 clamp(1.25rem, 3vh, 1.75rem);
+}
+
+.wordmark {
+  font-style: italic;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.1;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .24em;
+  text-decoration-color: var(--rule);
+}
+.wordmark:hover { text-decoration-color: var(--brass); }
+
+.masthead .where {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .74rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+/* ------------------------------------------------------------ the frame -- */
+
+/* A title card for a film that does not exist yet. Dark in both themes, like
+   the tools band the Movement tile sits on. */
+.frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--band);
+  border: 1px solid var(--brass-line);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.frame-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 8vw, 5rem);
+  line-height: .98;
+  letter-spacing: -.022em;
+  color: var(--on-band);
+}
+
+.frame-sub {
+  margin: .5rem 0 0;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: clamp(.8rem, 1.5vw, .95rem);
+  line-height: 1.5;
+  color: var(--on-band-soft);
+  max-width: 30rem;
+}
+
+.frame-note {
+  margin: .7rem 0 0;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .74rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+.opening { margin-top: clamp(2.5rem, 6vh, 4rem); }
+.opening p { font-size: 1.06rem; }
+
+/* --------------------------------------------------------- the diagram --- */
+
+.dia-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.figure { margin: 1.75rem 0 0; }
+.figure figcaption {
+  margin-top: 1rem;
+  max-width: var(--read);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .8rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+
+.dia { display: block; width: 100%; height: auto; }
+.dia--wide { display: none; max-width: 1080px; }
+.dia--tall { max-width: 420px; }
+
+@media (min-width: 1020px) {
+  .dia--wide { display: block; }
+  .dia--tall { display: none; }
+}
+
+/* Everything below sets type inside the SVGs. Both diagrams carry identical
+   content, so they share every class; edit them together. */
+.dia text { font-family: 'Space Grotesk', -apple-system, sans-serif; }
+.d-name, .d-panel-t { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; }
+
+.d-card  { fill: var(--card); stroke: var(--rule); stroke-width: 1; }
+.d-card--dash { fill: none; stroke: var(--brass-line); stroke-dasharray: 4 4; }
+.d-panel { fill: var(--brass-wash); stroke: var(--brass-line); stroke-width: 1; }
+
+.d-name    { font-size: 13.5px; fill: var(--ink); }
+.d-panel-t { font-size: 13.5px; fill: var(--ink); }
+.d-role    { font-size: 11px;   fill: var(--ink-soft); }
+.d-key     { font-size: 9.5px;  fill: var(--ink-faint); letter-spacing: .02em; }
+.d-rank    { font-size: 11px;   fill: var(--brass); font-weight: 500; }
+.d-head    { font-size: 10.5px; fill: var(--ink-faint); letter-spacing: .045em; }
+.d-legend  { font-size: 10px;   fill: var(--ink-faint); }
+.d-verdict { font-size: 11px;   fill: var(--brass); font-weight: 500; }
+.d-rung    { font-size: 12px;   fill: var(--ink); }
+.d-num     { font-size: 11.5px; fill: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.d-note    { font-size: 10px;   fill: var(--ink-faint); }
+.d-rung-s  { font-size: 10.5px; fill: var(--brass); }
+.d-gate    { font-size: 10.5px; fill: var(--brass); }
+.d-flow-l  { font-size: 9.5px;  fill: var(--ink-faint); }
+
+.d-bar-track { fill: var(--rule); }
+.d-bar       { fill: var(--brass); }
+.d-spine, .d-hair { stroke: var(--rule); stroke-width: 1; }
+
+.d-flow { fill: none; stroke: var(--brass); stroke-width: 1.2; opacity: .5; }
+.d-flow--dash   { stroke-dasharray: 3 3; }
+.d-flow--strong { stroke-width: 1.5; opacity: .85; }
+.d-drop { fill: none; stroke: var(--brass); stroke-width: 1.2; stroke-dasharray: 2 3; }
+.d-tip  { fill: var(--brass); }
+
+.d-mk--place { fill: var(--brass); }
+.d-mk--away  { fill: none; stroke: var(--brass); stroke-width: 1.4; }
+.d-mk--corr  { fill: none; stroke: var(--brass); stroke-width: 1.2; stroke-dasharray: 2 1.7; }
+
+/* ------------------------------------------------------- the three days -- */
+
+.day-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: 1.5rem 0 1.25rem;
+  padding: 0;
+}
+
+.day-tabs button {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .8rem;
+  line-height: 1.3;
+  color: var(--ink-soft);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: .42rem .85rem;
+  cursor: pointer;
+}
+.day-tabs button:hover { color: var(--ink); border-color: var(--brass-line); }
+.day-tabs button[aria-selected="true"] {
+  color: var(--brass);
+  border-color: var(--brass);
+  background: var(--brass-wash);
+}
+
+.day-panel { margin-top: 2.25rem; }
+.day-panel:first-child { margin-top: 1.5rem; }
+.day-tabs:not([hidden]) ~ .day-panels .day-panel { margin-top: 0; }
+.day-panel > h3 { color: var(--ink); }
+.day-panel > .dateline {
+  margin: 0 0 1rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .76rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+.votes { list-style: none; margin: 0; padding: 0; }
+
+.votes li {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) 8.5rem minmax(0, 1fr);
+  gap: .1rem 1.1rem;
+  align-items: baseline;
+  padding: .62rem 0;
+  border-top: 1px solid var(--rule);
+}
+.votes li:last-child { border-bottom: 1px solid var(--rule); }
+
+.v-src { font-size: .95rem; line-height: 1.35; }
+
+.v-state {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .04em;
+  color: var(--ink-faint);
+}
+.v-state::before {
+  content: '';
+  display: inline-block;
+  width: 7px; height: 7px;
+  margin-right: .45rem;
+  border-radius: 50%;
+  border: 1.4px solid var(--rule);
+  vertical-align: .04em;
+}
+.v--place .v-state { color: var(--brass); }
+.v--place .v-state::before { background: var(--brass); border-color: var(--brass); }
+.v--away  .v-state { color: var(--brass); }
+.v--away  .v-state::before { border-color: var(--brass); }
+.v--corr  .v-state { color: var(--brass); }
+.v--corr  .v-state::before { border-color: var(--brass); border-style: dotted; }
+
+.v-ev {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.v--silent .v-src, .v--silent .v-ev { color: var(--ink-faint); }
+
+.outcome {
+  margin-top: 1.5rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--brass-wash);
+  border: 1px solid var(--brass-line);
+  border-radius: 12px;
+}
+
+.oc-verdict { margin: 0 0 .9rem; font-size: 1.06rem; line-height: 1.45; }
+.oc-conf {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .76rem;
+  letter-spacing: .03em;
+  color: var(--brass);
+  white-space: nowrap;
+}
+
+.oc-reads { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: .45rem 1.1rem; margin: 0; }
+.oc-reads dt {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .76rem;
+  line-height: 1.6;
+  color: var(--ink-faint);
+}
+.oc-reads dd { margin: 0; font-size: .95rem; line-height: 1.55; }
+
+/* ----------------------------------------------------------- exclusions -- */
+
+.never { list-style: none; margin: 1.1rem 0 1.4rem; padding: 0; max-width: var(--read); }
+.never li {
+  padding: .5rem 0 .5rem 1.55rem;
+  border-top: 1px solid var(--rule);
+  position: relative;
+  font-size: .98rem;
+  line-height: 1.5;
+}
+.never li:last-child { border-bottom: 1px solid var(--rule); }
+/* A strike, not a cross: the thing is named and then ruled out. */
+.never li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 1.05em;
+  width: .95rem; height: 1px;
+  background: var(--brass);
+}
+
+.quoted {
+  margin: 1.4rem 0;
+  padding: .9rem 0 .9rem 1.1rem;
+  border-left: 2px solid var(--brass-line);
+  max-width: var(--read);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .85rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+}
+.quoted cite {
+  display: block;
+  margin-top: .5rem;
+  font-style: normal;
+  font-size: .74rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+
+/* ------------------------------------------------------------- tenets ---- */
+
+.tenets { list-style: none; margin: 1.6rem 0 0; padding: 0; display: grid; gap: 1.6rem 2.5rem; }
+@media (min-width: 860px) { .tenets { grid-template-columns: 1fr 1fr; } }
+
+.tenets li { padding-left: 1.2rem; border-left: 2px solid var(--brass-line); max-width: 32rem; }
+
+.t-no {
+  display: block;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: var(--brass);
+  margin-bottom: .3rem;
+}
+.t-quote { display: block; margin: 0 0 .45rem; font-style: italic; line-height: 1.45; }
+.t-quote .sub { display: block; margin-top: .3rem; font-size: .92rem; color: var(--ink-soft); }
+.t-gloss { margin: 0; font-size: .95rem; line-height: 1.6; color: var(--ink-soft); }
+
+/* -------------------------------------------------------------- closing -- */
+
+.shows { list-style: none; margin: 1.1rem 0 1.4rem; padding: 0; max-width: var(--read); }
+.shows li { padding: .62rem 0; border-top: 1px solid var(--rule); font-size: .98rem; line-height: 1.55; }
+.shows li:last-child { border-bottom: 1px solid var(--rule); }
+
+.pagefoot {
+  margin-top: clamp(3.5rem, 8vh, 5.5rem);
+  padding: 1.1rem 0 clamp(2.5rem, 7vh, 4rem);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem 2rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .76rem;
+  letter-spacing: .02em;
+  color: var(--ink-faint);
+}
+.pagefoot a { color: var(--ink-soft); }
+.pagefoot a:hover { color: var(--brass); }
+
+/* ----------------------------------------------------------- responsive -- */
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+  .votes li { grid-template-columns: minmax(0, 1fr) auto; }
+  .v-src { grid-column: 1; }
+  .v-state { grid-column: 2; text-align: right; }
+  .v-ev { grid-column: 1 / -1; }
+  .oc-reads { grid-template-columns: 1fr; gap: .1rem; }
+  .oc-reads dd { margin-bottom: .6rem; }
+  .oc-reads dd:last-child { margin-bottom: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Movement — Kahran Singh</title>
+<meta name="description" content="How Kahran Singh's system works out where he is: five sources each cast a vote, the answer carries how sure it is, and one question gets asked when they disagree. No GPS.">
+<link rel="canonical" href="https://kahransingh.com/movement/">
+<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171613" media="(prefers-color-scheme: dark)">
+
+<meta property="og:title" content="Movement — Kahran Singh">
+<meta property="og:description" content="Five sources each cast a vote, the answer carries how sure it is, and one question gets asked when they disagree. No GPS.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kahransingh.com/movement/">
+<meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Movement — Kahran Singh">
+<meta name="twitter:description" content="Five sources each cast a vote, the answer carries how sure it is, and one question gets asked when they disagree. No GPS.">
+<meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/movement/movement.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H63H3KD6WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H63H3KD6WQ');
+</script>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <a class="wordmark" href="/">Kahran Singh</a>
+    <span class="where">One of the tools on the wall</span>
+  </header>
+
+  <!-- A title card for a film that does not exist yet. -->
+  <div class="frame">
+    <div>
+      <h1 class="frame-title">Movement</h1>
+      <p class="frame-sub">How it works out where I am, and what it refuses to look at.</p>
+    </div>
+  </div>
+  <p class="frame-note">A short film about this is coming.</p>
+
+  <div class="opening read">
+    <p>For a week in Provincetown my planner kept prescribing a gym 250 miles away. Upper
+    B — push, downstairs, every morning, while I was on Cape Cod. It had two ways to know
+    I had left and both were blind: Provincetown sits inside my home timezone, and my
+    calendar entry for the trip is one word, <em>ptown</em>, which matches no keyword. A
+    line in my own notes had said where I was since August. Nothing read it. So I stopped
+    adding keywords. Five sources each cast a vote now. The answer carries how sure it is.
+    When they disagree, it asks me one question — and that is the only thing it is allowed
+    to ask.</p>
+  </div>
+
+  <!-- ============================================================ diagram -- -->
+  <section aria-labelledby="h-how">
+    <h2 id="h-how">Five sources, one answer</h2>
+    <p class="lede read">Nothing is trusted alone. Each source votes with its own evidence,
+    the votes are reconciled into one place, and the confidence that comes out of that
+    decides what anything downstream is permitted to do with it.</p>
+
+    <!-- Two drawings of the same thing: a wide one for a wide screen, a stacked one for a
+         phone, swapped by a media query in movement.css. They carry identical content on
+         purpose — edit them together, or they drift. -->
+    <figure class="figure">
+      <svg class="dia-defs" width="0" height="0" aria-hidden="true" focusable="false"
+           xmlns="http://www.w3.org/2000/svg"><defs>
+        <marker id="mv-tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6"
+                markerHeight="6" orient="auto-start-reverse">
+          <path class="d-tip" d="M0 0.8 L7.2 4 L0 7.2 Z"/></marker>
+      </defs></svg>
+
+      <svg class="dia dia--wide" viewBox="0 0 960 512" role="img" aria-labelledby="diaw-t diaw-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="diaw-t">How the five sources become one answer</title>
+      <desc id="diaw-d">Five ranked sources each cast a vote. What I told the assistant wins outright and lands at confirmed. The rest are reconciled into one place; a failed feed drops the answer one rung; and the confidence that comes out decides what the clock, the day’s plan and the one question are each allowed to do.</desc>
+      <text class="d-head" x="0" y="12">five sources, in order of trust</text>
+      <text class="d-head" x="288" y="12">reconciled</text>
+      <text class="d-head" x="524" y="12">how sure</text>
+      <text class="d-head" x="684" y="12">what reads it</text>
+      <rect class="d-card" x="0" y="42" width="252" height="70" rx="9"/><text class="d-rank" x="14" y="63">1</text><text class="d-name" x="32" y="63">What I told the assistant</text><circle class="d-mk d-mk--place" cx="235" cy="59" r="3.4"/><text class="d-role" x="32" y="81">Wins outright while it lasts,</text><text class="d-role" x="32" y="94">and only I can produce it.</text><text class="d-key" x="238" y="105" text-anchor="end">explicit</text>
+      <rect class="d-card" x="0" y="120" width="252" height="70" rx="9"/><text class="d-rank" x="14" y="141">2</text><text class="d-name" x="32" y="141">An all-day calendar event</text><circle class="d-mk d-mk--place" cx="235" cy="137" r="3.4"/><text class="d-role" x="32" y="159">Two days or longer, or an</text><text class="d-role" x="32" y="172">out-of-office word in the title.</text><text class="d-key" x="238" y="183" text-anchor="end">calendar_allday</text>
+      <rect class="d-card" x="0" y="198" width="252" height="70" rx="9"/><text class="d-rank" x="14" y="219">3</text><text class="d-name" x="32" y="219">A lodging or travel booking</text><circle class="d-mk d-mk--place" cx="223" cy="215" r="3.4"/><circle class="d-mk d-mk--away" cx="235" cy="215" r="3.4"/><text class="d-role" x="32" y="237">Mail adds it. Its location field</text><text class="d-role" x="32" y="250">names the place — a flight, none.</text><text class="d-key" x="238" y="261" text-anchor="end">lodging</text>
+      <rect class="d-card" x="0" y="276" width="252" height="70" rx="9"/><text class="d-rank" x="14" y="297">4</text><text class="d-name" x="32" y="297">The timezone my ring reports</text><circle class="d-mk d-mk--away" cx="235" cy="293" r="3.4"/><text class="d-role" x="32" y="315">Away when it isn’t New York.</text><text class="d-role" x="32" y="328">Never says where.</text><text class="d-key" x="238" y="339" text-anchor="end">tz</text>
+      <rect class="d-card" x="0" y="354" width="252" height="70" rx="9"/><text class="d-rank" x="14" y="375">5</text><text class="d-name" x="32" y="375">The note on what I’m up to</text><circle class="d-mk d-mk--corr" cx="235" cy="371" r="3.4"/><text class="d-role" x="32" y="393">Corroborates only. It can agree</text><text class="d-role" x="32" y="406">with a place, never name one.</text><text class="d-key" x="238" y="417" text-anchor="end">persona</text>
+      <circle class="d-mk d-mk--place" cx="6" cy="438" r="3.4"/>
+      <text class="d-legend" x="16" y="441.5">names a place</text>
+      <circle class="d-mk d-mk--away" cx="124" cy="438" r="3.4"/>
+      <text class="d-legend" x="134" y="441.5">votes away, no place</text>
+      <circle class="d-mk d-mk--corr" cx="6" cy="453" r="3.4"/>
+      <text class="d-legend" x="16" y="456.5">corroborates only</text>
+      <rect class="d-panel" x="288" y="42" width="200" height="382" rx="9"/>
+      <text class="d-panel-t" x="304" y="66">Reconcile</text>
+      <text class="d-role" x="304" y="96">Two sources agree on a place</text>
+      <text class="d-verdict" x="304" y="112">high</text>
+      <line class="d-hair" x1="304" y1="130" x2="472" y2="130"/>
+      <text class="d-role" x="304" y="158">Only one source names it</text>
+      <text class="d-verdict" x="304" y="174">medium</text>
+      <line class="d-hair" x1="304" y1="192" x2="472" y2="192"/>
+      <text class="d-role" x="304" y="220">Two different places named</text>
+      <text class="d-verdict" x="304" y="236">the majority — low,</text>
+      <text class="d-verdict" x="304" y="249">and a question</text>
+      <line class="d-hair" x1="304" y1="254" x2="472" y2="254"/>
+      <text class="d-role" x="304" y="282">Only “away”, no place named</text>
+      <text class="d-verdict" x="304" y="298">medium</text>
+      <line class="d-hair" x1="304" y1="316" x2="472" y2="316"/>
+      <text class="d-role" x="304" y="344">No away votes at all</text>
+      <text class="d-verdict" x="304" y="360">home, high</text>
+      <path class="d-flow" d="M258 155 H281" marker-end="url(#mv-tip)"/>
+      <path class="d-flow" d="M258 233 H281" marker-end="url(#mv-tip)"/>
+      <path class="d-flow" d="M258 311 H281" marker-end="url(#mv-tip)"/>
+      <path class="d-flow d-flow--dash" d="M258 389 H281" marker-end="url(#mv-tip)"/>
+      <path class="d-flow d-flow--strong" d="M258 77 C278 77 284 26 306 26 H496 C510 26 520 36 522 52" marker-end="url(#mv-tip)"/>
+      <text class="d-flow-l" x="400" y="21">wins outright</text>
+      <line class="d-spine" x1="512" y1="48" x2="512" y2="358"/>
+      <text class="d-rung" x="524" y="62">confirmed</text><text class="d-num" x="644" y="62" text-anchor="end">1.00</text><rect class="d-bar-track" x="524" y="69" width="120" height="5" rx="2.5"/><rect class="d-bar" x="524" y="69" width="120" height="5" rx="2.5"/><text class="d-note" x="524" y="88">only I can produce this</text>
+      <text class="d-rung" x="524" y="152">high</text><text class="d-num" x="644" y="152" text-anchor="end">0.85</text><rect class="d-bar-track" x="524" y="159" width="120" height="5" rx="2.5"/><rect class="d-bar" x="524" y="159" width="102" height="5" rx="2.5"/>
+      <text class="d-rung" x="524" y="242">medium</text><text class="d-num" x="644" y="242" text-anchor="end">0.60</text><rect class="d-bar-track" x="524" y="249" width="120" height="5" rx="2.5"/><rect class="d-bar" x="524" y="249" width="72" height="5" rx="2.5"/>
+      <text class="d-rung" x="524" y="332">low</text><text class="d-num" x="644" y="332" text-anchor="end">0.35</text><rect class="d-bar-track" x="524" y="339" width="120" height="5" rx="2.5"/><rect class="d-bar" x="524" y="339" width="42" height="5" rx="2.5"/>
+      <rect class="d-card d-card--dash" x="288" y="444" width="356" height="54" rx="9"/><path class="d-drop" d="M304 458 V482" marker-end="url(#mv-tip)"/><text class="d-name" x="324" y="466">A feed that failed</text><text class="d-role" x="324" y="482">Recorded as a source. The answer drops one rung.</text><text class="d-role" x="324" y="494">A dead feed never reads as “no trip”.</text>
+      <rect class="d-card" x="684" y="42" width="276" height="92" rx="9"/><text class="d-name" x="700" y="64">The clock the planner runs on</text><text class="d-gate" x="700" y="80">confirmed or high only</text><text class="d-role" x="700" y="98">It overrides the timezone my ring</text><text class="d-role" x="700" y="111">reports only when the two disagree.</text><text class="d-role" x="700" y="124">A clock is not a notification.</text>
+      <rect class="d-card" x="684" y="150" width="276" height="150" rx="9"/><text class="d-name" x="700" y="172">The day’s plan</text><text class="d-gate" x="700" y="188">every rung, differently</text><text class="d-rung-s" x="700" y="210">confirmed or high</text><text class="d-role" x="700" y="224">reshape the day, and say nothing</text><text class="d-rung-s" x="700" y="242">medium</text><text class="d-role" x="700" y="256">reshape it, and say so in the block</text><text class="d-rung-s" x="700" y="274">low</text><text class="d-role" x="700" y="288">plan a day at home, name the doubt</text>
+      <rect class="d-card" x="684" y="316" width="276" height="92" rx="9"/><text class="d-name" x="700" y="338">The one question</text><text class="d-gate" x="700" y="354">medium and low only</text><text class="d-role" x="700" y="372">Never “are you home?”</text><text class="d-role" x="700" y="385">Never more than a day ahead.</text><text class="d-role" x="700" y="398">At most one for any one trip.</text>
+      <path class="d-flow" d="M650 84 H677" marker-end="url(#mv-tip)"/>
+      <path class="d-flow" d="M650 222 H677" marker-end="url(#mv-tip)"/>
+      <path class="d-flow" d="M650 358 H677" marker-end="url(#mv-tip)"/>
+      </svg>
+
+      <svg class="dia dia--tall" viewBox="0 0 356 1500" role="img" aria-labelledby="diat-t diat-d" xmlns="http://www.w3.org/2000/svg">
+      <title id="diat-t">How the five sources become one answer</title>
+      <desc id="diat-d">Five ranked sources each cast a vote. What I told the assistant wins outright and lands at confirmed. The rest are reconciled into one place; a failed feed drops the answer one rung; and the confidence that comes out decides what the clock, the day’s plan and the one question are each allowed to do.</desc>
+      <text class="d-head" x="0" y="12">five sources, in order of trust</text>
+      <rect class="d-card" x="0" y="24" width="356" height="70" rx="9"/><text class="d-rank" x="14" y="45">1</text><text class="d-name" x="32" y="45">What I told the assistant</text><circle class="d-mk d-mk--place" cx="339" cy="41" r="3.4"/><text class="d-role" x="32" y="63">Wins outright while it lasts,</text><text class="d-role" x="32" y="76">and only I can produce it.</text><text class="d-key" x="342" y="87" text-anchor="end">explicit</text>
+      <rect class="d-card" x="0" y="102" width="356" height="70" rx="9"/><text class="d-rank" x="14" y="123">2</text><text class="d-name" x="32" y="123">An all-day calendar event</text><circle class="d-mk d-mk--place" cx="339" cy="119" r="3.4"/><text class="d-role" x="32" y="141">Two days or longer, or an</text><text class="d-role" x="32" y="154">out-of-office word in the title.</text><text class="d-key" x="342" y="165" text-anchor="end">calendar_allday</text>
+      <rect class="d-card" x="0" y="180" width="356" height="70" rx="9"/><text class="d-rank" x="14" y="201">3</text><text class="d-name" x="32" y="201">A lodging or travel booking</text><circle class="d-mk d-mk--place" cx="327" cy="197" r="3.4"/><circle class="d-mk d-mk--away" cx="339" cy="197" r="3.4"/><text class="d-role" x="32" y="219">Mail adds it. Its location field</text><text class="d-role" x="32" y="232">names the place — a flight, none.</text><text class="d-key" x="342" y="243" text-anchor="end">lodging</text>
+      <rect class="d-card" x="0" y="258" width="356" height="70" rx="9"/><text class="d-rank" x="14" y="279">4</text><text class="d-name" x="32" y="279">The timezone my ring reports</text><circle class="d-mk d-mk--away" cx="339" cy="275" r="3.4"/><text class="d-role" x="32" y="297">Away when it isn’t New York.</text><text class="d-role" x="32" y="310">Never says where.</text><text class="d-key" x="342" y="321" text-anchor="end">tz</text>
+      <rect class="d-card" x="0" y="336" width="356" height="70" rx="9"/><text class="d-rank" x="14" y="357">5</text><text class="d-name" x="32" y="357">The note on what I’m up to</text><circle class="d-mk d-mk--corr" cx="339" cy="353" r="3.4"/><text class="d-role" x="32" y="375">Corroborates only. It can agree</text><text class="d-role" x="32" y="388">with a place, never name one.</text><text class="d-key" x="342" y="399" text-anchor="end">persona</text>
+      <circle class="d-mk d-mk--place" cx="6" cy="418" r="3.4"/>
+      <text class="d-legend" x="16" y="421.5">names a place</text>
+      <circle class="d-mk d-mk--away" cx="140" cy="418" r="3.4"/>
+      <text class="d-legend" x="150" y="421.5">votes away, no place</text>
+      <circle class="d-mk d-mk--corr" cx="6" cy="434" r="3.4"/>
+      <text class="d-legend" x="16" y="437.5">corroborates only</text>
+      <path class="d-flow d-flow--strong" d="M178 452 V476" marker-end="url(#mv-tip)"/>
+      <text class="d-flow-l" x="188" y="468">1 wins outright</text>
+      <rect class="d-panel" x="0" y="488" width="356" height="290" rx="9"/>
+      <text class="d-panel-t" x="16" y="512">Reconcile</text>
+      <text class="d-role" x="16" y="540">Two sources agree on a place</text>
+      <text class="d-verdict" x="340" y="540" text-anchor="end">high</text>
+      <line class="d-hair" x1="16" y1="570" x2="340" y2="570"/>
+      <text class="d-role" x="16" y="592">Only one source names it</text>
+      <text class="d-verdict" x="340" y="592" text-anchor="end">medium</text>
+      <line class="d-hair" x1="16" y1="622" x2="340" y2="622"/>
+      <text class="d-role" x="16" y="644">Two different places named</text>
+      <text class="d-verdict" x="340" y="644" text-anchor="end">the majority — low,</text>
+      <text class="d-verdict" x="340" y="658" text-anchor="end">and a question</text>
+      <line class="d-hair" x1="16" y1="674" x2="340" y2="674"/>
+      <text class="d-role" x="16" y="696">Only “away”, no place named</text>
+      <text class="d-verdict" x="340" y="696" text-anchor="end">medium</text>
+      <line class="d-hair" x1="16" y1="726" x2="340" y2="726"/>
+      <text class="d-role" x="16" y="748">No away votes at all</text>
+      <text class="d-verdict" x="340" y="748" text-anchor="end">home, high</text>
+      <rect class="d-card d-card--dash" x="0" y="792" width="356" height="54" rx="9"/><path class="d-drop" d="M16 806 V830" marker-end="url(#mv-tip)"/><text class="d-name" x="36" y="814">A feed that failed</text><text class="d-role" x="36" y="830">Recorded as a source. The answer drops one rung.</text><text class="d-role" x="36" y="842">A dead feed never reads as “no trip”.</text>
+      <path class="d-flow d-flow--strong" d="M178 860 V884" marker-end="url(#mv-tip)"/>
+      <text class="d-head" x="0" y="898">how sure</text>
+      <text class="d-rung" x="0" y="914">confirmed</text><text class="d-num" x="356" y="914" text-anchor="end">1.00</text><rect class="d-bar-track" x="0" y="921" width="356" height="5" rx="2.5"/><rect class="d-bar" x="0" y="921" width="356" height="5" rx="2.5"/><text class="d-note" x="0" y="940">only I can produce this</text>
+      <text class="d-rung" x="0" y="968">high</text><text class="d-num" x="356" y="968" text-anchor="end">0.85</text><rect class="d-bar-track" x="0" y="975" width="356" height="5" rx="2.5"/><rect class="d-bar" x="0" y="975" width="302.6" height="5" rx="2.5"/>
+      <text class="d-rung" x="0" y="1008">medium</text><text class="d-num" x="356" y="1008" text-anchor="end">0.60</text><rect class="d-bar-track" x="0" y="1015" width="356" height="5" rx="2.5"/><rect class="d-bar" x="0" y="1015" width="213.6" height="5" rx="2.5"/>
+      <text class="d-rung" x="0" y="1048">low</text><text class="d-num" x="356" y="1048" text-anchor="end">0.35</text><rect class="d-bar-track" x="0" y="1055" width="356" height="5" rx="2.5"/><rect class="d-bar" x="0" y="1055" width="124.6" height="5" rx="2.5"/>
+      <path class="d-flow d-flow--strong" d="M178 1092 V1116" marker-end="url(#mv-tip)"/>
+      <text class="d-head" x="0" y="1130">what reads it</text>
+      <rect class="d-card" x="0" y="1142" width="356" height="92" rx="9"/><text class="d-name" x="16" y="1164">The clock the planner runs on</text><text class="d-gate" x="16" y="1180">confirmed or high only</text><text class="d-role" x="16" y="1198">It overrides the timezone my ring</text><text class="d-role" x="16" y="1211">reports only when the two disagree.</text><text class="d-role" x="16" y="1224">A clock is not a notification.</text>
+      <rect class="d-card" x="0" y="1244" width="356" height="150" rx="9"/><text class="d-name" x="16" y="1266">The day’s plan</text><text class="d-gate" x="16" y="1282">every rung, differently</text><text class="d-rung-s" x="16" y="1304">confirmed or high</text><text class="d-role" x="16" y="1318">reshape the day, and say nothing</text><text class="d-rung-s" x="16" y="1336">medium</text><text class="d-role" x="16" y="1350">reshape it, and say so in the block</text><text class="d-rung-s" x="16" y="1368">low</text><text class="d-role" x="16" y="1382">plan a day at home, name the doubt</text>
+      <rect class="d-card" x="0" y="1404" width="356" height="92" rx="9"/><text class="d-name" x="16" y="1426">The one question</text><text class="d-gate" x="16" y="1442">medium and low only</text><text class="d-role" x="16" y="1460">Never “are you home?”</text><text class="d-role" x="16" y="1473">Never more than a day ahead.</text><text class="d-role" x="16" y="1486">At most one for any one trip.</text>
+      </svg>
+      <figcaption>Ranked strongest to weakest. A vote can name a place, or say only that I
+      am away, or corroborate a place another source already named — the note about what I
+      am up to carries no dates, so it can agree and never establish.</figcaption>
+    </figure>
+  </section>
+
+  <!-- =========================================================== the days -- -->
+  <section aria-labelledby="h-days">
+    <h2 id="h-days">Three days</h2>
+    <p class="lede read">The same five sources, on three real shapes of day. Nothing here
+    is live — these are worked examples.</p>
+
+    <div class="day-tabs" hidden>
+      <button type="button" data-target="day-home">A Tuesday at home</button>
+      <button type="button" data-target="day-ptown">The Provincetown week</button>
+      <button type="button" data-target="day-flight">A flight day</button>
+    </div>
+
+    <div class="day-panels">
+
+      <section class="day-panel" id="day-home" aria-labelledby="day-home-h">
+        <h3 id="day-home-h">A Tuesday at home</h3>
+        <p class="dateline">Nothing on any calendar. The ring is on the home timezone.</p>
+        <ul class="votes">
+          <li class="v--silent"><span class="v-src">What I told the assistant</span><span class="v-state">silent</span><span class="v-ev">nothing on file</span></li>
+          <li class="v--silent"><span class="v-src">An all-day calendar event</span><span class="v-state">silent</span><span class="v-ev">no multi-day event, no out-of-office word</span></li>
+          <li class="v--silent"><span class="v-src">A lodging or travel booking</span><span class="v-state">silent</span><span class="v-ev">no booking covering today</span></li>
+          <li class="v--silent"><span class="v-src">The timezone my ring reports</span><span class="v-state">no signal</span><span class="v-ev">America/New_York — home tz, recorded anyway, so its silence is legible</span></li>
+          <li class="v--silent"><span class="v-src">The note on what I&rsquo;m up to</span><span class="v-state">silent</span><span class="v-ev">nothing about a trip</span></li>
+        </ul>
+        <div class="outcome">
+          <p class="oc-verdict">Home. <span class="oc-conf">high &middot; 0.85</span></p>
+          <dl class="oc-reads">
+            <dt>The clock</dt><dd>Nothing to override. The day runs on the timezone my ring reports.</dd>
+            <dt>The day&rsquo;s plan</dt><dd>An ordinary day. The basement is right there.</dd>
+            <dt>The question</dt><dd>None. It never asks whether I am home.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="day-panel" id="day-ptown" aria-labelledby="day-ptown-h">
+        <h3 id="day-ptown-h">The Provincetown week</h3>
+        <p class="dateline">Saturday 5 September 2026 &mdash; the verdict on the day this shipped.</p>
+        <ul class="votes">
+          <li class="v--silent"><span class="v-src">What I told the assistant</span><span class="v-state">silent</span><span class="v-ev">I had not told it anything</span></li>
+          <li class="v--place"><span class="v-src">An all-day calendar event</span><span class="v-state">names a place</span><span class="v-ev">an all-day event, six days long, titled <em>ptown</em> — read by its shape, not its words</span></li>
+          <li class="v--silent"><span class="v-src">A lodging or travel booking</span><span class="v-state">silent</span><span class="v-ev">the next booking starts on the 8th, so it is evidence about the 8th and lives under what&rsquo;s next</span></li>
+          <li class="v--silent"><span class="v-src">The timezone my ring reports</span><span class="v-state">no signal</span><span class="v-ev">America/New_York — Provincetown is Eastern, so a domestic trip is invisible here</span></li>
+          <li class="v--corr"><span class="v-src">The note on what I&rsquo;m up to</span><span class="v-state">corroborates</span><span class="v-ev">a line saying Ptown over the Labor Day weekend — it agrees, and could never have named this alone</span></li>
+        </ul>
+        <div class="outcome">
+          <p class="oc-verdict">Provincetown, until Tuesday 8 September. <span class="oc-conf">high &middot; 0.85</span></p>
+          <dl class="oc-reads">
+            <dt>The clock</dt><dd>High enough to decide, but both say Eastern. Nothing moves.</dd>
+            <dt>The day&rsquo;s plan</dt><dd>Reshaped around Provincetown, silently. No rack, no downstairs.</dd>
+            <dt>The question</dt><dd>None. Two sources agreed, so there is nothing an answer would change.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="day-panel" id="day-flight" aria-labelledby="day-flight-h">
+        <h3 id="day-flight-h">A flight day</h3>
+        <p class="dateline">Saturday 12 September 2026.</p>
+        <ul class="votes">
+          <li class="v--silent"><span class="v-src">What I told the assistant</span><span class="v-state">silent</span><span class="v-ev">nothing on file</span></li>
+          <li class="v--silent"><span class="v-src">An all-day calendar event</span><span class="v-state">silent</span><span class="v-ev">the trip window has closed</span></li>
+          <li class="v--away"><span class="v-src">A lodging or travel booking</span><span class="v-state">away, no place</span><span class="v-ev">Flight to New York (AA 4430) — its location field is the airport it leaves from, which is true of the runway and useless as an answer</span></li>
+          <li class="v--silent"><span class="v-src">The timezone my ring reports</span><span class="v-state">no signal</span><span class="v-ev">America/New_York — home tz</span></li>
+          <li class="v--silent"><span class="v-src">The note on what I&rsquo;m up to</span><span class="v-state">silent</span><span class="v-ev">nothing that fits today</span></li>
+        </ul>
+        <div class="outcome">
+          <p class="oc-verdict">Away, place unknown, until Saturday 12 September. <span class="oc-conf">medium &middot; 0.60</span></p>
+          <dl class="oc-reads">
+            <dt>The clock</dt><dd>Medium is under the bar. The clock does not move.</dd>
+            <dt>The day&rsquo;s plan</dt><dd>Reshaped, with a line in every block telling me how to correct it.</dd>
+            <dt>The question</dt><dd>&ldquo;Looks like you&rsquo;re away until Sat 12 Sep — where are you?&rdquo;</dd>
+          </dl>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <!-- ========================================================= exclusions -- -->
+  <section aria-labelledby="h-never">
+    <h2 id="h-never">What it will never use</h2>
+    <p class="lede read">These are not a policy I wrote down. They are in the module, at
+    the top, above the code that does the work.</p>
+
+    <ul class="never">
+      <li>GPS</li>
+      <li>Find My</li>
+      <li>Network beacons</li>
+      <li>The location buried in a photograph</li>
+      <li>Where my address appears to be on the internet</li>
+      <li>Somebody else&rsquo;s calendar, read as my location</li>
+    </ul>
+
+    <blockquote class="quoted">NEVER inferred: GPS, Find My, network beacons, photo EXIF,
+    IP geolocation, or another person&rsquo;s calendar read as his location.
+    <cite>the first lines of the module</cite></blockquote>
+
+    <div class="read">
+      <p>I share a calendar with my husband. An event on it that the owner check attributes
+      to him is his trip, and it is dropped rather than read as where I am. An event it
+      cannot settle is kept and flagged, never quietly discarded — dropping the ambiguous
+      ones once cost me my own dance class.</p>
+
+      <p>It does not geocode either. The place names come from a list I keep by hand, about
+      a dozen entries long, and adding one is a four-field edit. A geocoder that turns
+      &ldquo;Stay at a bed &amp; breakfast&rdquo; into a plausible wrong point is
+      exactly the confident wrong answer this thing exists to stop. A miss is honest: it
+      records that I am away, that it does not know where, and it asks.</p>
+
+      <p>Three things it will never ask. It never asks whether I am home — home is where I
+      already am, and being wrong about that costs one line of text. It never asks about a
+      trip more than a day out. And it asks once per trip: the question is stamped with the
+      place and the dates, and a window that has been asked about is never asked about
+      again.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================= tenets -- -->
+  <section aria-labelledby="h-principles">
+    <h2 id="h-principles">The principles it keeps</h2>
+    <p class="lede read">The system has a constitution — a short list of constraints, each
+    one recovered from something I actually said. A design that breaks one is wrong even if
+    it works. Six of them decided the shape of this.</p>
+
+    <ul class="tenets">
+      <li>
+        <span class="t-no">Tenet 1</span>
+        <em class="t-quote">&ldquo;Infer, but verify across multiple sources; confidence
+        travels WITH the data.&rdquo;<span class="sub">&ldquo;One signal changes TONE;
+        agreement changes ACTION.&rdquo;</span></em>
+        <p class="t-gloss">No source is trusted alone, and the confidence is written onto
+        the answer at the moment it is made — so nothing downstream has to work out for
+        itself how much to believe.</p>
+      </li>
+      <li>
+        <span class="t-no">Tenet 15</span>
+        <em class="t-quote">&ldquo;Judgment services may ASK, not guess.&rdquo;<span
+        class="sub">&ldquo;A cheap, well-timed question &hellip; beats confident wrongness;
+        a guess written as fact is the failure mode.&rdquo;</span></em>
+        <p class="t-gloss">When two sources name two different places it does not pick the
+        prettier one. It takes the majority, calls the answer low, and asks me.</p>
+      </li>
+      <li>
+        <span class="t-no">Tenet 21</span>
+        <em class="t-quote">&ldquo;Layered confirmation on inferred signals — inside a
+        budget, in both directions.&rdquo;<span class="sub">&ldquo;the unconfirmed fallback
+        is informational only, never behavioral — words, not behavior.&rdquo;</span></em>
+        <p class="t-gloss">A low answer changes what the day says about itself. It never
+        changes what the day asks me to do. A wrong away day costs me the session — go for
+        a swim, in a New York February. A wrong home day costs one sentence. The cost runs
+        one way, so the hedge does too.</p>
+      </li>
+      <li>
+        <span class="t-no">Tenet 12</span>
+        <em class="t-quote">&ldquo;Interruption budget is tiny and earned; detect
+        disengagement.&rdquo;</em>
+        <p class="t-gloss">One question for a whole trip, and only when an answer would
+        change what happens. Anything that is allowed to ask has to be stingy about it, or
+        I stop reading.</p>
+      </li>
+      <li>
+        <span class="t-no">Tenet 25</span>
+        <em class="t-quote">&ldquo;Data-handling boundaries — a separate question from
+        observation consent.&rdquo;<span class="sub">&ldquo;only coarse derived fields cross
+        the sync boundary&rdquo;</span></em>
+        <p class="t-gloss">What leaves the machine is a town and a pair of coordinates
+        rounded to about a kilometre, and only when the answer is high or confirmed. Below
+        that, the public feed says nothing at all.</p>
+      </li>
+      <li>
+        <span class="t-no">Tenet 26</span>
+        <em class="t-quote">&ldquo;Nothing ships without a detection story.&rdquo;<span
+        class="sub">&ldquo;a new inference with no way to watch it go wrong, is <em>not
+        finished</em>&rdquo;</span></em>
+        <p class="t-gloss">It runs every hour and files a receipt each time, carrying the
+        confidence and how many sources stood behind it. A failed feed is itself a source,
+        so a dead calendar shows up as a dead calendar instead of quietly reading as a week
+        at home.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ============================================================= where --- -->
+  <section aria-labelledby="h-where">
+    <h2 id="h-where">Where it shows up</h2>
+    <ul class="shows">
+      <li>The line under the date on my home page: where we are, and what the weather is
+      doing there. It stays blank unless the answer is high or confirmed.</li>
+      <li>The day&rsquo;s plan, which reshapes itself around the place instead of skipping
+      the day — one light block of deep work at most, and a session the place can actually
+      give me.</li>
+      <li>The week of training, where the away days lose the home-gym rule and keep
+      everything else.</li>
+    </ul>
+    <p class="read">This page does not say where I am. It is about how the answer gets made.
+    The rest of the tools are on the <a href="/">home page</a>.</p>
+  </section>
+
+  <footer class="pagefoot">
+    <span>Code: day-flow, private repo.</span>
+    <a href="/">kahransingh.com</a>
+  </footer>
+
+</div>
+
+<script src="/movement/movement.js"></script>
+</body>
+</html>
