@@ -209,18 +209,30 @@ To uninstall: `launchctl bootout gui/$(id -u)/com.kahran.place-feed-publish`.
 
 ## Daily pick
 
-`daily_pick.py` picks TODAY's poem and photograph and freezes them into
-`v2/days.json`, so the day never reshuffles once it has happened —
-`v2/home.js` reads a day's entry from `v2/days.json` when one exists, and
-falls back to its existing date-hash pick otherwise. Full formula reference
-and scoring math are documented in the module docstring; short version: it
-builds a "day vector" (light, warmth, wet, stillness, season, inside, mood)
-from the day's Open-Meteo weather at wherever `presence.json` says Kahran is,
-then picks whichever poem/photo has the closest vector in
-`v2/scores-poems.json` / `v2/scores-photos.json`, with a place bonus for
-photos and a novelty penalty against recently-shown items. If a scores file
-is missing, every item defaults to a neutral 0.5 on every axis — the picker
-degrades to novelty + a stable tiebreak rather than crashing a morning.
+Today's poem and photograph are chosen **live in the browser**, from the same
+weather reading `v2/weather.js` renders under the date ("We're in New York
+and it's raining.") — `v2/pick.js` ports this script's scoring (weights,
+place bonus, novelty, tiebreak) to JS and picks against it directly, so the
+pair changes if and only if that reading changes. See
+`docs/2026-09-21-daily-pick-design.md`.
+
+`daily_pick.py` runs once, near the end of the day, and writes that day's
+pick into `v2/days.json` as its permanent **archive** entry — so a day that
+has happened never reshuffles on a later visit. `v2/home.js` reads a past
+day's stored "why" vector to recompute its pick the same way `v2/pick.js`
+would; if that's unavailable it falls back to the literal stored poem/photo
+in `v2/days.json`, then to the date hash. Full formula reference and scoring
+math are documented in the module docstring; short version: it builds a "day
+vector" (light, warmth, wet, stillness, season, inside, mood) from the day's
+Open-Meteo weather at wherever `presence.json` says Kahran is, then picks
+whichever poem/photo has the closest vector in `v2/scores-poems.json` /
+`v2/scores-photos.json`, with a place bonus for photos and a novelty penalty
+against recently-shown items. If a scores file is missing, every item
+defaults to a neutral 0.5 on every axis — the picker degrades to novelty + a
+stable tiebreak rather than crashing a run. The frozen `why` also records the
+wind speed and cloud cover the run saw, alongside the seven axes, purely for
+the archive — older entries without those two keys stay valid, nothing reads
+them back into the scoring formula.
 
 Like `place_feed.py`, a place name is only ever written when presence
 confidence is `high`/`confirmed`; the commit message never names it.
@@ -268,9 +280,10 @@ launchctl kickstart -k gui/$(id -u)/com.kahran.daily-pick-publish   # test one r
 tail -f ~/Library/Logs/daily-pick-publish.log
 ```
 
-Runs at 05:10 local every day (`StartCalendarInterval` Hour 5 Minute 10),
-ahead of the day starting, working directory `~/Dev/kahransingh.com` (the
-mini's clone). Same `gh` file-based-token and Tailscale-to-`presence.json`
+Runs at 23:50 local every day (`StartCalendarInterval` Hour 23 Minute 50),
+near the day's end so the archive entry reflects the day that happened rather
+than a forecast of it, working directory `~/Dev/kahransingh.com` (the mini's
+clone). Same `gh` file-based-token and Tailscale-to-`presence.json`
 requirements as the place feed above.
 
 To uninstall: `launchctl bootout gui/$(id -u)/com.kahran.daily-pick-publish`.

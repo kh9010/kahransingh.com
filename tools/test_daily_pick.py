@@ -19,6 +19,7 @@ def weather(**over):
     base = {
         "weather_code": 0, "tmax": 15.0, "tmin": 5.0, "precip_mm": 0.0,
         "sunshine_s": 30000.0, "daylight_s": 43200.0, "wind_kmh": 5.0,
+        "cloud_pct": 20.0,
     }
     base.update(over)
     return base
@@ -162,7 +163,7 @@ class BuildPickAndIdempotenceTests(unittest.TestCase):
         self.tmp.cleanup()
 
     def test_build_pick_writes_expected_shape(self):
-        w = weather(weather_code=0, tmax=25.0)
+        w = weather(weather_code=0, tmax=25.0, wind_kmh=12.0, cloud_pct=30.0)
         days_doc = {"version": 1, "days": {}}
         entry = dp.build_pick(
             "2026-07-01", presence={"confidence": "high", "lat": 40.71, "lon": -74.01, "place": "New York, NY"},
@@ -175,6 +176,38 @@ class BuildPickAndIdempotenceTests(unittest.TestCase):
         self.assertEqual(entry["why"]["tmax"], 25.0)
         for axis in dp.AXES:
             self.assertIn(axis, entry["why"])
+
+    def test_why_records_wind_and_cloud_for_the_archive(self):
+        # These two fields are archive-only (the mini's 23:50 run) — not new
+        # inputs to any axis formula, just recorded alongside them.
+        w = weather(wind_kmh=18.5, cloud_pct=64.0)
+        entry = dp.build_pick(
+            "2026-07-01", presence=None, weather=w, data_doc=self.data_doc,
+            poem_scores=None, photo_scores=None, days_doc={"days": {}},
+        )
+        self.assertEqual(entry["why"]["wind_kmh"], 18.5)
+        self.assertEqual(entry["why"]["cloud_pct"], 64.0)
+
+    def test_why_cloud_pct_missing_from_api_stays_none(self):
+        w = weather(cloud_pct=None)
+        entry = dp.build_pick(
+            "2026-07-01", presence=None, weather=w, data_doc=self.data_doc,
+            poem_scores=None, photo_scores=None, days_doc={"days": {}},
+        )
+        self.assertIsNone(entry["why"]["cloud_pct"])
+
+    def test_old_days_json_entries_without_new_why_fields_still_load(self):
+        # An entry written before this change has no wind_kmh/cloud_pct in
+        # "why" — load_days/recently_shown must not choke on it.
+        with open(self.root / "v2" / "days.json", "w") as f:
+            json.dump({
+                "version": 1,
+                "days": {"2026-06-01": {"poem": "p1", "photo": "/photos/a.jpg",
+                                          "place": None, "why": {a: 0.5 for a in dp.AXES}}},
+            }, f)
+        days_doc = dp.load_days(self.root)
+        recent = dp.recently_shown(days_doc, "poem", "2026-06-15", 60)
+        self.assertIn("p1", recent)
 
     def test_low_confidence_withholds_place(self):
         w = weather()

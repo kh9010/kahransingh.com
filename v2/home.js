@@ -129,6 +129,9 @@
   var days = null;              // v2/days.json — frozen daily picks, may be null/empty
   var today = todayISO();
   var current = null;
+  var lastDrawnKey = null;      // iso+poem+photo of what's on screen, so a re-evaluation
+                                 // (live weather landing, scores loading) only touches the
+                                 // DOM when the chosen pair actually changes — never a flicker.
 
   /* The frozen pick for iso, if the mini has picked one, else null. A pick
      names a poem slug / photo src; either half being unrecognised (data.json
@@ -148,6 +151,34 @@
     return { photo: photo, poem: poem };
   }
 
+  /* The pick for iso, in order: window.kahranPick's live/vector pick (today:
+     from the current weather reading; past days: from days.json's stored
+     "why" vector), then the frozen days.json pick, then the date hash. Any
+     layer that can't answer (weather not landed yet, scores still loading,
+     no days.json entry) falls through to the next — the page is never blank
+     and never shows a broken pair. */
+  function resolvePick(iso) {
+    if (window.kahranPick && typeof window.kahranPick.pickFor === "function") {
+      var live = null;
+      try {
+        live = window.kahranPick.pickFor(iso, iso === today);
+      } catch (e) {
+        live = null;
+      }
+      if (live && live.photo && live.poem) {
+        var photo = data.photos.filter(function (p) { return p.src === live.photo; })[0];
+        var poem  = data.poems.filter(function (p) { return p.slug === live.poem; })[0];
+        if (photo && poem) return { photo: photo, poem: poem };
+      }
+    }
+    var stored = pickFor(iso);
+    if (stored) return stored;
+    return {
+      photo: data.photos[photoFor(iso, data.photos.length)],
+      poem: data.poems[poemFor(iso, data.poems.length)]
+    };
+  }
+
   function draw(iso, animate) {
     el.date.textContent = longDate(iso);
     el.back.disabled = iso <= LAUNCH;
@@ -155,9 +186,13 @@
 
     if (!data) return;
 
-    var picked = pickFor(iso);
-    var photo = picked ? picked.photo : data.photos[photoFor(iso, data.photos.length)];
-    var poem  = picked ? picked.poem  : data.poems[poemFor(iso, data.poems.length)];
+    var picked = resolvePick(iso);
+    var photo = picked.photo;
+    var poem  = picked.poem;
+
+    var key = iso + '|' + poem.slug + '|' + photo.src;
+    if (key === lastDrawnKey) return;   // same day, same pair already on screen
+    lastDrawnKey = key;
 
     el.photo.src = photo.src;
     el.photo.alt = photo.alt || '';
@@ -348,6 +383,7 @@
     .catch(function () { return null; })
     .then(function (json) {
       days = json;
+      if (window.kahranPick) window.kahranPick.setDays(days);
       if (data) draw(current, false);   // data.json may have already rendered on the hash
     });
 
@@ -358,6 +394,7 @@
     })
     .then(function (json) {
       data = json;
+      if (window.kahranPick) window.kahranPick.setData(data);
       draw(current, false);
     })
     .catch(function () {
@@ -366,4 +403,17 @@
         'Reload the page, or read the <a href="/poetry.html">poems</a> ' +
         'and see the <a href="/photography.html">photographs</a> on their own pages.</p>';
     });
+
+  /* Two things can make the live pick answer differently after the first
+     render: the weather line's reading landing (v2/weather.js fires this on
+     document once it has a reading) and v2/pick.js's own scores fetch
+     settling. Either one just asks draw() to re-evaluate the current day;
+     draw()'s own key check means the DOM only changes if the pair actually
+     changed — no flicker when the re-evaluation lands on the same pair. */
+  document.addEventListener('kahran:weather', function () {
+    if (data) draw(current, false);
+  });
+  document.addEventListener('kahran:pick-ready', function () {
+    if (data) draw(current, false);
+  });
 })();

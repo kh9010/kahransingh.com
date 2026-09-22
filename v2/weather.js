@@ -1,7 +1,7 @@
 /* weather.js — "Kahran's in New York and it's raining."
  *
  * Plain script, no modules/bundler (matches the rest of this no-build-step site).
- * Exposes window.kahranWeather = { load(el) }.
+ * Exposes window.kahranWeather = { load(el), current }.
  *
  * Reads /v2/place.json (committed by tools/place_feed.py — city-level only, see that
  * file for why coordinates are rounded). If place is null, leaves el empty: the place
@@ -13,6 +13,11 @@
  *
  * Fails silently everywhere: a broken feed or a network hiccup should never show the
  * visitor an error, it should just leave the line out.
+ *
+ * The SAME reading that renders the sentence is also handed to v2/pick.js (via
+ * window.kahranWeather.current and the 'kahran:weather' document event) so the poem
+ * and photograph follow whatever weather the line reports — never a second, separate
+ * read of the sky. See docs/2026-09-21-daily-pick-design.md.
  */
 (function () {
   "use strict";
@@ -55,23 +60,42 @@
     }
   }
 
-  function render(el, place, current) {
-    var code = current && current.weather_code;
-    var isDay = !current || current.is_day !== 0;
+  function render(el, reading) {
+    var code = reading && reading.weather_code;
+    var isDay = !reading || reading.is_day !== 0;
     var phrase = phraseFor(code, isDay);
     if (!phrase) return; // unmapped code — leave el empty rather than guess
-    var temp = current ? current.temperature_2m : null;
-    el.textContent = "We're in " + place + " and " + phrase + ".";
+    var temp = reading ? reading.temperature_2m : null;
+    el.textContent = "We're in " + reading.place + " and " + phrase + ".";
     if (temp !== null && temp !== undefined) {
       el.setAttribute("data-temperature-c", String(temp));
     }
   }
 
-  function fetchWeather(lat, lon, cacheKey, el, place) {
+  /* The one place a reading becomes "the current weather" for the rest of the page:
+     sets window.kahranWeather.current and tells anyone listening (v2/pick.js) that a
+     fresh reading landed, from cache or from the network — either way it's the same
+     reading the sentence is built from. */
+  function publish(el, reading) {
+    window.kahranWeather.current = reading;
+    render(el, reading);
+    try {
+      document.dispatchEvent(new CustomEvent("kahran:weather", { detail: reading }));
+    } catch (e) {
+      // CustomEvent unavailable (very old browser) — the line still rendered above.
+    }
+  }
+
+  function fetchWeather(place, cacheKey, el) {
+    var fields =
+      "cloud_cover,wind_speed_10m,precipitation,rain,showers,snowfall," +
+      "temperature_2m,is_day,weather_code";
     var url =
-      "https://api.open-meteo.com/v1/forecast?latitude=" + encodeURIComponent(lat) +
-      "&longitude=" + encodeURIComponent(lon) +
-      "&current=weather_code,is_day,temperature_2m,precipitation&timezone=auto";
+      "https://api.open-meteo.com/v1/forecast?latitude=" + encodeURIComponent(place.lat) +
+      "&longitude=" + encodeURIComponent(place.lon) +
+      "&current=" + fields +
+      "&daily=sunrise,sunset" +
+      "&timezone=auto";
 
     fetch(url)
       .then(function (res) {
@@ -81,11 +105,30 @@
       .then(function (data) {
         var current = data && data.current;
         if (!current) return;
-        writeCache(cacheKey, current);
-        render(el, place, current);
+        var daily = data.daily || {};
+        var reading = {
+          place: place.place,
+          lat: place.lat,
+          lon: place.lon,
+          tz: (data && data.timezone) || place.tz,
+          away: !!place.away,
+          weather_code: current.weather_code,
+          is_day: current.is_day,
+          temperature_2m: current.temperature_2m,
+          cloud_cover: current.cloud_cover,
+          wind_speed_10m: current.wind_speed_10m,
+          precipitation: current.precipitation,
+          rain: current.rain,
+          showers: current.showers,
+          snowfall: current.snowfall,
+          sunrise: daily.sunrise && daily.sunrise[0],
+          sunset: daily.sunset && daily.sunset[0]
+        };
+        writeCache(cacheKey, reading);
+        publish(el, reading);
       })
       .catch(function () {
-        /* network error — fail silently, el stays empty */
+        /* network error — fail silently, el stays empty, kahranWeather.current stays unset */
       });
   }
 
@@ -108,15 +151,15 @@
         var cacheKey = place.place + "|" + place.lat + "|" + place.lon;
         var cached = readCache(cacheKey);
         if (cached) {
-          render(el, place.place, cached);
+          publish(el, cached);
           return;
         }
-        fetchWeather(place.lat, place.lon, cacheKey, el, place.place);
+        fetchWeather(place, cacheKey, el);
       })
       .catch(function () {
         /* no place.json, bad JSON, or offline — fail silently, el stays empty */
       });
   }
 
-  window.kahranWeather = { load: load };
+  window.kahranWeather = { load: load, current: null };
 })();
