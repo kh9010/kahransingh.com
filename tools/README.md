@@ -206,3 +206,71 @@ SSH/daemons there — see the kMini gh auth note) and a Tailscale path to
 `~/Sync/pending-work/presence.json` that's just the local Syncthing copy.
 
 To uninstall: `launchctl bootout gui/$(id -u)/com.kahran.place-feed-publish`.
+
+## Daily pick
+
+`daily_pick.py` picks TODAY's poem and photograph and freezes them into
+`v2/days.json`, so the day never reshuffles once it has happened —
+`v2/home.js` reads a day's entry from `v2/days.json` when one exists, and
+falls back to its existing date-hash pick otherwise. Full formula reference
+and scoring math are documented in the module docstring; short version: it
+builds a "day vector" (light, warmth, wet, stillness, season, inside, mood)
+from the day's Open-Meteo weather at wherever `presence.json` says Kahran is,
+then picks whichever poem/photo has the closest vector in
+`v2/scores-poems.json` / `v2/scores-photos.json`, with a place bonus for
+photos and a novelty penalty against recently-shown items. If a scores file
+is missing, every item defaults to a neutral 0.5 on every axis — the picker
+degrades to novelty + a stable tiebreak rather than crashing a morning.
+
+Like `place_feed.py`, a place name is only ever written when presence
+confidence is `high`/`confirmed`; the commit message never names it.
+
+```sh
+cd ~/dev/kahransingh.com
+python3 tools/daily_pick.py --dry            # print what would be picked
+python3 tools/daily_pick.py                  # pick + write v2/days.json
+python3 -m unittest tools.test_daily_pick -v # unit tests
+```
+
+| flag | what it does |
+|---|---|
+| `--date YYYY-MM-DD` | pick for a specific date instead of today |
+| `--presence PATH` | presence.json to read (default `~/Sync/pending-work/presence.json`) |
+| `--scores-dir DIR` | dir holding `scores-poems.json` / `scores-photos.json` (default `v2`) |
+| `--data PATH` | the poem/photo catalog (default `v2/data.json`) |
+| `--offline WEATHER.json` | read weather from a fixture file instead of calling Open-Meteo (used by the tests) |
+| `--dry` | print what would happen, write nothing |
+
+**Idempotent.** A date already present in `v2/days.json` exits 0 immediately
+and prints "already picked" — it never overwrites a day once picked.
+
+**Reads America/New_York wall clock unless presence says otherwise** — the
+default `--date` is today in `presence.json`'s `tz`, falling back to
+`America/New_York` if presence is missing, low/medium confidence, or has no
+`tz`.
+
+`publish_daily_pick.sh` mirrors `publish_place.sh`: fetch, checkout main, ff
+pull, run the picker, diff-quiet exit-0 if unchanged, else a
+`kahran-<mmmdd>-pick` branch, commit "Pick the day" (no place name in the
+message — same privacy rule as the place feed), push, `gh pr create --fill`,
+`gh pr merge --merge --delete-branch`, back to main.
+
+### Installing the launchd agent on the mini (attended, one-time)
+
+Not installed by default:
+
+```sh
+cp ~/Dev/kahransingh.com/tools/com.kahran.daily-pick-publish.plist \
+   ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) \
+   ~/Library/LaunchAgents/com.kahran.daily-pick-publish.plist
+launchctl kickstart -k gui/$(id -u)/com.kahran.daily-pick-publish   # test one run now
+tail -f ~/Library/Logs/daily-pick-publish.log
+```
+
+Runs at 05:10 local every day (`StartCalendarInterval` Hour 5 Minute 10),
+ahead of the day starting, working directory `~/Dev/kahransingh.com` (the
+mini's clone). Same `gh` file-based-token and Tailscale-to-`presence.json`
+requirements as the place feed above.
+
+To uninstall: `launchctl bootout gui/$(id -u)/com.kahran.daily-pick-publish`.
