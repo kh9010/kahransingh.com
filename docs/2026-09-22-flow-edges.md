@@ -171,28 +171,39 @@ like they page him do not.
 
 ## The table
 
-| tile | channel | the sending call | |
-|---|---|---|---|
-| Mail triage | the mail card at 06:30, and when he asks | `hermes-kmini/bin/morning-deliver.py:629` `mail_card_lines()`; `~/.claude/commands/inbox.md` | INDIRECT |
-| The miners | his own words, quoted back at 06:30 | `transforms/conversation_miner.py:1038` `write_extras()` → `morning-deliver.py:1013` `clarify_lines()` | INDIRECT |
-| The Curator | three questions a morning, no more | `curator/checkins.py:204` `block()` → `morning-deliver.py:1200` `confirm_lines()` | INDIRECT |
-| The sparks garden | never pushed — only when he asks | `day-flow/commands/sparks.md`; `sparks-canvas/core.py:300` (`GET /garden`) | VERIFIED |
-| Noticings | one line at 06:30, and the pages | `morning-deliver.py:1372` `noticing_lines()`; `sparks-canvas/noticings.py:534` `route()` | INDIRECT + VERIFIED |
-| Movement | one question, only when it cannot tell | `transforms/presence_refresh.py:193` `settle_confirm()` — `briefing` class | **VERIFIED** |
-| The now brain | the now page, and asking it to unstick him | `now-web/server.py:1616` `route()` (`/`), `:1675` (`/api/now`) | INDIRECT |
-| The workout planner | today's session, when he asks | `planner/workout_card.py:278` `main()` → the hermes `workout` skill | INDIRECT |
-| Travel days | the flight-day messages | `planner/flight_routine.py:676` `_send_all()` — `protocol` class | **VERIFIED** |
-| Samwise | a count at 06:30, not a push | `samwise/samwise.py:457` `post_notify()` → `alert` → inbox | INDIRECT |
-| The repairer | waiting on the health page, landed or rolled back | `samwise/fixer/fix.py:232` (healed) and `:149` (rolled back) → inbox → `/health` | INDIRECT |
-| The health page | the page, when he opens it | `now-web/server.py:1640` `route()` | **VERIFIED** |
-| The weekly record | published — the audience is **everyone**, not him | nothing notifies him; `tools/publish_weekly.sh` just opens a PR | — |
+The **surface** column is the node each tile's arrow points at in the fourth
+column of the flow view. `SURFACES` and `FEEDS` in `/v2/flow.js` have to match
+this; if a channel changes, change both.
 
-**Four tiles are drawn with no line out, and that is the point of them:** the
-raw store, capture, and the judge never speak to him, and the store's silence is
-most of why it is trustworthy. (Capture and the store are *inbound* —
-`now-web/server.py:1669` `POST /api/voice` is him talking to it, not it to him.)
-The judge is the arguable one: its keeps do reach him, but through the Curator's
-list, which already has its own line. Drawing both would count it twice.
+| tile | surface | channel | the sending call | |
+|---|---|---|---|---|
+| Mail triage | the 06:30 message · when I ask for it | the mail card at 06:30, and /inbox | `hermes-kmini/bin/morning-deliver.py:629` `mail_card_lines()`; `~/.claude/commands/inbox.md` | INDIRECT |
+| The miners | the 06:30 message | his own words, quoted back | `transforms/conversation_miner.py:1038` `write_extras()` → `morning-deliver.py:1013` `clarify_lines()` | INDIRECT |
+| The Curator | the 06:30 message · when I ask for it | three questions, and the pending list | `curator/checkins.py:204` `block()` → `morning-deliver.py:1200` `confirm_lines()`; `bin/backlog.py:269` | INDIRECT |
+| The sparks garden | when I ask for it | never pushed | `day-flow/commands/sparks.md`; `sparks-canvas/core.py:300` | VERIFIED |
+| Noticings | the 06:30 message | one line, with a link to the pages | `morning-deliver.py:1372` `noticing_lines()`; pages at `sparks-canvas/noticings.py:534` | INDIRECT |
+| Movement | a question on WhatsApp | one question, only when it cannot tell | `transforms/presence_refresh.py:193` `settle_confirm()` — `briefing` class | **VERIFIED** |
+| The now brain | a page I open · when I ask for it | the page, and "unstick me" | `now-web/server.py:1616` `route()`; `bin/unstick.py` | INDIRECT |
+| The workout planner | when I ask for it | today's session | `planner/workout_card.py:278` `main()` → the hermes `workout` skill | INDIRECT |
+| Travel days | the flight-day messages | the doses and the evening ask | `planner/flight_routine.py:676` `_send_all()` — `protocol` class | **VERIFIED** |
+| Samwise | the 06:30 message | a count, not a push | `samwise/samwise.py:457` → `alert` → inbox → `morning-deliver.py:1415` | INDIRECT |
+| The repairer | the 06:30 message | a count; the rest on the health page | `samwise/fixer/fix.py:232`, `:149` → inbox | INDIRECT |
+| The health page | a page I open | the page, when he opens it | `now-web/server.py:1640` `route()` | **VERIFIED** |
+| The weekly record | everyone | published; nothing tells him | `tools/publish_weekly.sh` opens a PR and merges it | — |
+
+**Three tiles have no arrow out, and that is the point of them:** the raw store,
+capture, and the judge never speak to him. Capture and the store are *inbound*
+(`POST /api/voice` is him talking to it). The judge's keeps do reach him, but
+through the Curator's list, which already has its own arrows — drawing both
+would count it twice.
+
+**Two corrections from an earlier draft of this page.** The Curator does not
+raise its own WhatsApp question: `checkins.py` has no send at all, by design
+(*"A question never writes anything but a record of itself"*), and its three
+questions ride the 06:30 message. So exactly one thing in the system is allowed
+to interrupt him unasked — Movement, when it cannot tell where he is. And the
+workout planner's week lands in Notion **for his coach** (`plan_week.py:386`);
+the arrow drawn here is his own, thinner, pull-only one.
 
 ## Two that surprise
 

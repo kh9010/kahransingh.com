@@ -23,8 +23,8 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
   nowhere else. Every arrow is justified by the line where the TARGET reads what the source
   wrote — the table is `docs/2026-09-22-flow-edges.md`, which also records the arrows that
   turned out to be false and why. Change an arrow, change that table; keep the list honest
-  rather than tidy, and leave a tile unconnected before inventing a lane for it. `REACH` in the
-  same file is the other half: which tools reach Kahran and by what channel, audited from the
-  sending side in that doc's "Reaches Kahran" section. `/?me=node#flow` draws the variant where
-  those lines converge on one mark instead of leaving by the right edge.
+  rather than tidy, and leave a tile unconnected before inventing a lane for it. `SURFACES` and `FEEDS`
+  in the same file are the other half — a fourth column of the things he actually gets (the
+  06:30 message, a question on WhatsApp, a page, when he asks) and which tool comes out where,
+  audited from the sending side in that doc's "Reaches Kahran" section.
 - A small fixed "v2 · v1" tab switches between them. Nothing gets migrated into v2 until Kahran decides where it goes; when a box on the wall gets a page, link it from `/v2/home.js`.

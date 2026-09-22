@@ -35,8 +35,8 @@
      that skips a row bows out into */
   --fgap:  7px;
   --frail: 22px;
-  --fme:   48px;          /* the lane at the right where the system ends and he begins */
-  --me-ink: 38 46% 74%;   /* warm, and nothing else on the page uses it */
+  --fsurf: clamp(76px, 8.6vw, 116px);   /* the fourth column: what he actually gets */
+  --me-ink: 38 46% 74%;                 /* warm, and nothing else on the page uses it */
 }
 
 @media (prefers-color-scheme: dark) { :root { --paper: #171613; } }
@@ -433,12 +433,17 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
    height there, and the wires must not find a containing block. */
 .flow-head, .flow-keys, .flow-wires { display: none; }
 
+/* Wide enough for a fourth column, and no wider: the poem's max-width already
+   decides where the right-hand half of the page begins, so the same expression
+   gives the room left over. The poem itself never moves. */
+.is-flow .wall { width: calc(100% - min(30rem, 100% - var(--tools-w) - 2.5rem) - 1.9rem); }
+
 .is-flow .wall-block {
   position: relative;
   display: grid;
-  width: var(--tools-w);
-  padding: 0 calc(var(--frail) + var(--fme)) 0 var(--frail);
-  grid-template-columns: repeat(3, var(--tile));
+  width: 100%;
+  padding: 0 var(--frail);
+  grid-template-columns: repeat(3, var(--tile)) var(--fsurf);
   grid-template-rows: auto repeat(5, var(--tile)) auto var(--tile);
   grid-auto-rows: auto;
   justify-content: space-between;
@@ -483,14 +488,17 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 .flow-head {
   margin: 0 0 .08rem;
+  white-space: normal;
   font-family: 'Space Grotesk', -apple-system, sans-serif;
   font-size: .64rem;
   line-height: 1.35;
   letter-spacing: .085em;
   color: rgba(222, 217, 207, .74);
-  white-space: nowrap;
   opacity: 0;
 }
+/* Three of these name a stage of the machine; the fourth names a person, so it
+   takes the warm ink the surfaces are drawn in. */
+.flow-head[style*="--fc:4"] { color: hsl(var(--me-ink) / .8); letter-spacing: .05em; }
 
 /* Colour is the wall's only grouping and it carries no labels anywhere else.
    This is the one view where naming the five pigments earns its line. */
@@ -550,79 +558,91 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .flow-wire--watch { transition: opacity .3s ease; }
 }
 
-/* ---------------------------------------------------------------- me ----
+/* ------------------------------------------------------- the surfaces ----
 
-   Everything above is the system talking to itself. These are the only lines
-   that leave it: the tools whose output actually reaches Kahran, each one
-   labelled with the channel it reaches him by. They are a different kind of
-   thing from a data connector and are drawn like it — warm ink instead of the
-   target's hue, thinner, no arrowhead and no travelling dot, ending in an open
-   circle on the lane at the right. The circles line up, so the right-hand edge
-   of the drawing reads as the boundary of the system: outside it is him.
+   A fourth column, and a different kind of object from a tile: these are not
+   parts of the system, they are the things Kahran actually gets. Warm ink,
+   pill-shaped, no glass — so it is obvious at a glance where the machine stops
+   and a person starts. Six of them, and the six strands running into the 06:30
+   one are the truest thing on the page: almost everything the system has to
+   say, it says once a day, in one message.
 
-   Quiet at rest. The channel names appear when you touch the tile they leave
-   from, or all of them at once when you touch the word "me". */
+   The lines that reach them are warm too, and they draw in last, after the
+   connectors, so the story assembles left to right in time. */
 
-.flow-reach {
-  fill: none;
-  stroke: hsl(var(--me-ink) / 1);
-  stroke-width: 1;
-  stroke-linecap: round;
-  opacity: .2;
+.is-flow .flow-surfs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  grid-column: 4;
+  grid-row: 2 / 9;
+  gap: .5rem;
+  z-index: 2;
 }
-.flow-cap {
+.flow-surfs { display: none; }
+
+.flow-surf {
+  border: 1px solid hsl(var(--me-ink) / .34);
+  border-radius: 999px;
+  padding: .34rem .6rem .38rem;
+  background: hsl(34 22% 10% / .58);
+  text-align: center;
+  opacity: 0;
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .flow-surf { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+}
+.is-landed .flow-surf { opacity: 1; }
+
+.flow-surf b {
+  display: block;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-weight: 500;
+  font-size: .64rem;
+  line-height: 1.3;
+  letter-spacing: .005em;
+  color: hsl(var(--me-ink) / .96);
+}
+.flow-surf i {
+  display: block;
+  margin-top: .1rem;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-style: normal;
+  font-size: .54rem;
+  line-height: 1.3;
+  letter-spacing: .1em;
+  color: hsl(var(--me-ink) / .5);
+}
+
+/* The one that matters most is allowed to say so. */
+.flow-surf--busy { border-color: hsl(var(--me-ink) / .55); background: hsl(34 24% 11% / .7); }
+
+.flow-surf.is-dim { opacity: .3; }
+.flow-surf.is-lit { border-color: hsl(var(--me-ink) / .85); }
+
+.flow-line {
   fill: none;
   stroke: hsl(var(--me-ink) / 1);
   stroke-width: 1.1;
-  opacity: .3;
+  stroke-linecap: round;
+  opacity: .34;
 }
-.flow-me {
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-  font-size: 11px;
-  letter-spacing: .07em;
-  fill: hsl(var(--me-ink) / .62);
-}
-/* The channel, as a second line on the tile's own card. Only in the flow view:
-   on the wall the note says what the tool is, and that is all it should say. */
-.note-reach { display: none; }
-.is-flow .note-reach {
-  display: block;
-  margin-top: .42rem;
-  padding-top: .38rem;
-  border-top: 1px solid hsl(var(--me-ink) / .22);
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-  font-size: .68rem;
-  line-height: 1.4;
-  letter-spacing: .01em;
-  color: hsl(var(--me-ink) / .92);
-}
-.is-flow .note-reach::before {
-  content: 'reaches me by \2009\2014\2009';
-  color: hsl(var(--me-ink) / .55);
-}
+.flow-line-tip { fill: hsl(var(--me-ink) / .85); opacity: .34; }
+.flow-line.is-lit, .flow-line-tip.is-lit { opacity: .95; }
+.flow-line.is-dim, .flow-line-tip.is-dim { opacity: .1; }
+.flow-pulse { fill: hsl(var(--me-ink) / .95); opacity: 0; }
 
-/* Lit: either because its own tile is under the pointer, or because "me" is. */
-.flow-wires.is-me .flow-reach,
-.flow-reach.is-lit { opacity: .72; }
-.flow-wires.is-me .flow-cap,
-.flow-cap.is-lit { opacity: .9; }
-.flow-wires.is-me .flow-me { fill: hsl(var(--me-ink) / .95); }
-
-/* The data connectors step back while the channels are being read, so the two
+/* While the channels are being read the connectors step back, so the two
    layers are never competing for the same glance. */
-.flow-wires.is-me .flow-wire--main,
-.flow-wires.is-me .flow-wire--light { opacity: .22; }
-.flow-wires.is-me .flow-tip { opacity: .22; }
-.flow-wires.is-me .flow-dot { opacity: 0 !important; }
-
-.flow-me--other { font-size: 9.5px; letter-spacing: .05em; fill: hsl(var(--me-ink) / .5); }
-.flow-wires.is-me .flow-me--other { fill: hsl(var(--me-ink) / .8); }
-
-.flow-me-hit { fill: transparent; cursor: default; }
+.flow-wires.is-surf .flow-wire--main,
+.flow-wires.is-surf .flow-wire--light,
+.flow-wires.is-surf .flow-tip { opacity: .16; }
+.flow-wires.is-surf .flow-dot { opacity: 0 !important; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .flow-reach, .flow-cap, .flow-me,
-  .flow-wire--main, .flow-wire--light, .flow-tip { transition: opacity .28s ease, fill .28s ease; }
+  .flow-surf { transition: opacity .42s ease, border-color .28s ease; }
+  .flow-line, .flow-line-tip,
+  .flow-wire--main, .flow-wire--light, .flow-tip { transition: opacity .28s ease; }
 }
 
 /* Room to unfold. On the wall the block hangs level with the poem's first
@@ -708,11 +728,16 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
    a 390px phone with room between them for the connectors — so the drawing
    says the same thing on a phone as it does wide, only narrower. */
 @media (max-width: 900px) {
-  .is-flow .wall-block { width: min(100%, 26rem); margin-inline: 0 auto; }
+  /* Stacked: the poem is above the band, not beside it, so there is no
+     left-hand half to leave room for. The surfaces stay a fourth column —
+     three tiles and a pill still fit across a 390px phone. */
+  .is-flow .wall { width: 100%; }
+  .is-flow .wall-block { width: min(100%, 30rem); margin-inline: 0 auto; }
+  :root { --fsurf: clamp(70px, 19vw, 104px); }
 }
 
 @media (max-width: 600px) {
-  :root { --fgap: 6px; --frail: 16px; --fme: 36px; }
+  :root { --fgap: 6px; --frail: 14px; }
   .flow-head { font-size: .6rem; letter-spacing: .07em; }
   .flow-keys { font-size: .6rem; gap: .16rem .7rem; }
 }
