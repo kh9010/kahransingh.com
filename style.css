@@ -525,7 +525,7 @@ hr {
         align-items: baseline;
         justify-content: flex-start;
         gap: 0.4rem 1rem;
-        padding: 0.75rem 1.5rem;
+        padding: 0.75rem 6rem 0.75rem 1.5rem; /* right gutter keeps the links clear of the v2/v1 tab */
         background: #fafaf8;
         border-top: 1px solid #e0ddd8;
         z-index: 10;

@@ -308,15 +308,16 @@ a.tile-name {
 }
 a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
-/* Not a badge and not a disabled look — a mark in the corner. */
-.soon {
-  position: absolute;
-  right: .5rem;
-  bottom: .42rem;
-  font-size: .55rem;
-  line-height: 1;
-  letter-spacing: .04em;
-  color: var(--soon);
+/* Unlaunched tiles sit back: dimmer and quieter, so it reads that there is nothing to
+   click yet. Hover, tap or focus brings the colour up so the note can be read. Launched
+   tiles (.tile--live) stay at full strength. */
+.tile:not(.tile--live) { opacity: .62; filter: saturate(.7); }
+.tile:not(.tile--live):hover,
+.tile:not(.tile--live):focus-visible,
+.tile:not(.tile--live).is-noted { opacity: 1; filter: saturate(1.25) brightness(1.08); }
+.tile--live:hover { filter: saturate(1.2) brightness(1.06); }
+@media (prefers-reduced-motion: no-preference) {
+  .tile { transition: opacity .25s ease, filter .25s ease; }
 }
 
 /* The one-line note. A square tile has no room for it, so it appears as a small
@@ -425,7 +426,6 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .tile { border-radius: 11px; padding: .5rem .45rem 1.05rem; }
   .note { max-width: min(248px, calc(100vw - 32px)); font-size: .75rem; }
   .tile-name { font-size: .7rem; line-height: 1.22; }
-  .soon { right: .38rem; bottom: .34rem; font-size: .52rem; }
   .wall-line { font-size: .88rem; }
   .vswitch { right: 12px; bottom: 12px; }
 }
