@@ -308,16 +308,33 @@ a.tile-name {
 }
 a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
-/* Unlaunched tiles sit back: dimmer and quieter, so it reads that there is nothing to
-   click yet. Hover, tap or focus brings the colour up so the note can be read. Launched
-   tiles (.tile--live) stay at full strength. */
-.tile:not(.tile--live) { opacity: .62; filter: saturate(.7); }
+/* Three states, kept apart on purpose.
+   1. Not launched, at rest: dim and desaturated. Nothing to click.
+   2. Not launched, hovered or tapped: comes up part way, enough to read the note,
+      never as strong as a launched tile.
+   3. Launched (.tile--live): full colour and a firmer edge at rest; on hover it lifts,
+      brightens and the edge glows, so it is unmistakably a link. */
+.tile:not(.tile--live) { opacity: .5; filter: saturate(.55); }
 .tile:not(.tile--live):hover,
 .tile:not(.tile--live):focus-visible,
-.tile:not(.tile--live).is-noted { opacity: 1; filter: saturate(1.25) brightness(1.08); }
-.tile--live:hover { filter: saturate(1.2) brightness(1.06); }
+.tile:not(.tile--live).is-noted { opacity: .8; filter: saturate(.95); }
+
+.tile--live {
+  --tile-a: .92;
+  border-color: hsl(var(--h) var(--s) calc(var(--l) + 34%) / .7);
+  box-shadow: 0 1px 0 hsl(var(--h) var(--s) calc(var(--l) + 30%) / .25) inset;
+}
+.tile--live:hover,
+.tile--live:focus-within {
+  transform: translateY(-3px) scale(1.035);
+  filter: saturate(1.35) brightness(1.18);
+  border-color: hsl(var(--h) var(--s) calc(var(--l) + 44%) / .95);
+  box-shadow: 0 10px 24px -8px hsl(var(--h) var(--s) 20% / .7),
+              0 0 0 1px hsl(var(--h) var(--s) calc(var(--l) + 40%) / .45);
+}
 @media (prefers-reduced-motion: no-preference) {
-  .tile { transition: opacity .25s ease, filter .25s ease; }
+  .tile { transition: opacity .25s ease, filter .25s ease, transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+}
 }
 
 /* The one-line note. A square tile has no room for it, so it appears as a small
@@ -433,4 +450,5 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 @media (prefers-reduced-motion: reduce) {
   .turned { animation: none; }
   *, *::before, *::after { transition-duration: .001ms !important; }
+  .tile--live:hover, .tile--live:focus-within { transform: none; }
 }
