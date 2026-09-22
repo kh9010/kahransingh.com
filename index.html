@@ -89,12 +89,18 @@
         </div>
       </header>
 
-      <!-- At rest this column carries only the label. Hover, tap or keyboard
-           focus brings the poem forward; v2/home.js drives it. -->
+      <!-- One thing at two distances. The label is the poem's own title set
+           small under a tiny caption; hovering, holding or focusing starts it
+           travelling toward you, and as it arrives it IS the poem. A single
+           progress value in v2/home.js drives both, so letting go half way
+           turns it round from wherever it got to. -->
       <main class="opening" id="opening" aria-live="polite">
         <div class="poem-hold" id="poem-hold">
           <button type="button" class="poem-label" id="poem-label"
-                  aria-expanded="false" aria-controls="poem">this moment&rsquo;s poem</button>
+                  aria-expanded="false" aria-controls="poem">
+            <span class="poem-label-cap">this moment&rsquo;s poem</span>
+            <span class="poem-label-title" id="poem-label-title"></span>
+          </button>
           <article class="poem" id="poem">
             <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
             <div class="poem-body" id="poem-body"></div>
@@ -116,19 +122,37 @@
   <!-- Wide: lifted into the right of the first screen, level with the poem's
        opening, so poem and tools are in view together. Narrow: falls back into
        the flow, below the photograph, on its own dark band. -->
+  <!-- Wide: lifted into the right of the first screen, level with the poem.
+       Narrow: falls back into the flow, below the photograph. At rest this is
+       three lines; the first one brings the diagram in. -->
   <div class="tools-layer">
     <div class="tools-inner">
-      <section class="wall" aria-labelledby="wall-line">
-        <div class="wall-head">
-          <h2 class="wall-line" id="wall-line">Right now I&rsquo;m building tools to support myself.</h2>
-          <!-- The one control. v2/flow.js unhides it; with JavaScript off the
-               wall is all there is, which is what it was before. -->
-          <button type="button" class="wall-toggle" id="wall-toggle"
-                  aria-pressed="false" aria-controls="wall-block" hidden>how they fit together</button>
-        </div>
+      <section class="wall doing" aria-labelledby="doing-line">
+        <h2 class="doing-line" id="doing-line">Right now I&rsquo;m:</h2>
+
+        <ul class="doing-list">
+          <li class="doing-item">
+            <button type="button" class="doing-bullet" id="doing-tools"
+                    aria-expanded="false" aria-controls="wall-block">building tools to support myself</button>
+          </li>
+          <li class="doing-item">
+            <button type="button" class="doing-bullet" id="doing-climate"
+                    aria-expanded="false" aria-controls="reveal-climate"
+                    data-reveal="climate">going to events at Climate Week 2026</button>
+            <!-- empty on purpose: the hover-reveal slot, waiting to be filled -->
+            <div class="doing-panel" id="reveal-climate" data-reveal="climate" hidden></div>
+          </li>
+          <li class="doing-item">
+            <button type="button" class="doing-bullet" id="doing-thesis"
+                    aria-expanded="false" aria-controls="reveal-thesis"
+                    data-reveal="thesis">starting work on my poetic thesis</button>
+            <div class="doing-panel" id="reveal-thesis" data-reveal="thesis" hidden></div>
+          </li>
+        </ul>
+
         <!-- The five boxes are built by v2/home.js from the IDEAS table, which
              is the only place the map from an idea to the tools under it
-             lives. Without JavaScript the same five lines are below. -->
+             lives. They are out of sight until the first line is asked. -->
         <div class="wall-block" id="wall-block">
           <noscript>
             <ul class="wall-plain">
