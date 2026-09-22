@@ -21,6 +21,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/movement/</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/lately/record/</loc>
     <priority>0.7</priority>
   </url>
