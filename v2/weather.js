@@ -61,7 +61,7 @@
     var phrase = phraseFor(code, isDay);
     if (!phrase) return; // unmapped code — leave el empty rather than guess
     var temp = current ? current.temperature_2m : null;
-    el.textContent = "Kahran's in " + place + " and " + phrase + ".";
+    el.textContent = "We're in " + place + " and " + phrase + ".";
     if (temp !== null && temp !== undefined) {
       el.setAttribute("data-temperature-c", String(temp));
     }
