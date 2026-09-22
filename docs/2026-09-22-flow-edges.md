@@ -137,3 +137,84 @@ ever opens either file. `entries.json` is written solely by
 `coding-days.json`. `lately/README.md` describing `entries.json` as "a
 field-reduced export of canonical activity records" is stale intent, not live
 wiring. The real chain is edge #14.
+
+---
+
+# Reaches Kahran
+
+Added 2026-09-22, after Kahran: *"maybe that's the key element we are missing:
+an arrow going off so it's clear how they impact me."*
+
+The sixteen edges above are the system talking to itself. These are the only
+lines that leave it. Same test as before, from the other end: an arrow is only
+real if there is a **sending call** — the line that puts something on a surface
+a person looks at. The channel names on the page come straight out of this
+table, and `REACH` in `/v2/flow.js` has to agree with it.
+
+## The fact that decides most of the table
+
+`store_lib/notify.py` keeps a static class registry (`CALLER_CLASS`, `:148`)
+with four classes, least to most restrictive: `protocol` < `briefing` <
+`alert` < `receipt`. Only the first two reach his phone.
+
+- **`protocol`** delivers with no guards at all. One caller: `flight-routine`.
+- **`briefing`** delivers, but obeys quiet hours, once-a-day, never-canned and a
+  six-a-day budget. Callers: `morning-deliver`, `meeting-reconcile`,
+  `presence-confirm`.
+- **`alert`** pushes **nothing**. It appends to `~/Tome/health/alert-inbox.jsonl`
+  and returns `"inbox"` (`notify.py:883-892`). It is also the default for any
+  caller not in the registry (`DEFAULT_CLASS`, `:188`).
+- **`receipt`** writes a ledger line and nothing else.
+
+So *calling notify.py is not the same as reaching him*, and two tiles that look
+like they page him do not.
+
+## The table
+
+| tile | channel | the sending call | |
+|---|---|---|---|
+| Mail triage | the mail card at 06:30, and when he asks | `hermes-kmini/bin/morning-deliver.py:629` `mail_card_lines()`; `~/.claude/commands/inbox.md` | INDIRECT |
+| The miners | his own words, quoted back at 06:30 | `transforms/conversation_miner.py:1038` `write_extras()` → `morning-deliver.py:1013` `clarify_lines()` | INDIRECT |
+| The Curator | three questions a morning, no more | `curator/checkins.py:204` `block()` → `morning-deliver.py:1200` `confirm_lines()` | INDIRECT |
+| The sparks garden | never pushed — only when he asks | `day-flow/commands/sparks.md`; `sparks-canvas/core.py:300` (`GET /garden`) | VERIFIED |
+| Noticings | one line at 06:30, and the pages | `morning-deliver.py:1372` `noticing_lines()`; `sparks-canvas/noticings.py:534` `route()` | INDIRECT + VERIFIED |
+| Movement | one question, only when it cannot tell | `transforms/presence_refresh.py:193` `settle_confirm()` — `briefing` class | **VERIFIED** |
+| The now brain | the now page, and asking it to unstick him | `now-web/server.py:1616` `route()` (`/`), `:1675` (`/api/now`) | INDIRECT |
+| The workout planner | today's session, when he asks | `planner/workout_card.py:278` `main()` → the hermes `workout` skill | INDIRECT |
+| Travel days | the flight-day messages | `planner/flight_routine.py:676` `_send_all()` — `protocol` class | **VERIFIED** |
+| Samwise | a count at 06:30, not a push | `samwise/samwise.py:457` `post_notify()` → `alert` → inbox | INDIRECT |
+| The repairer | waiting on the health page, landed or rolled back | `samwise/fixer/fix.py:232` (healed) and `:149` (rolled back) → inbox → `/health` | INDIRECT |
+| The health page | the page, when he opens it | `now-web/server.py:1640` `route()` | **VERIFIED** |
+| The weekly record | published — the audience is **everyone**, not him | nothing notifies him; `tools/publish_weekly.sh` just opens a PR | — |
+
+**Four tiles are drawn with no line out, and that is the point of them:** the
+raw store, capture, and the judge never speak to him, and the store's silence is
+most of why it is trustworthy. (Capture and the store are *inbound* —
+`now-web/server.py:1669` `POST /api/voice` is him talking to it, not it to him.)
+The judge is the arguable one: its keeps do reach him, but through the Curator's
+list, which already has its own line. Drawing both would count it twice.
+
+## Two that surprise
+
+**Samwise does not page him.** Its caller is not in the registry, so
+`post_notify()` resolves to `alert` and only writes the inbox. The comment above
+it at `samwise.py:921` says "the first red of a streak reaches him same-day",
+which is stale — don't build anything off that line. Lane reds reach him as a
+count in the 06:30 message, on `/health`, or when he asks the `alerts` skill.
+The thing that *does* message his phone is the watcher of the watcher,
+`transforms/samwise_fresh.py:195`, and only when **Samwise itself** goes quiet.
+
+**The workout planner's Notion write goes to his coach, not to him.**
+`planner/plan_week.py:386` `upsert_row()` publishes the week for review — the
+reader is the coach. His own channel from that tool is the much thinner pull
+path through `workout_card.py`, and that is what the diagram draws.
+
+## Six arrows, one bus
+
+Mail triage, the miners, the Curator, Noticings, Samwise and the judge all reach
+him through the **single scheduled outbound** in the system:
+`hermes-kmini/bin/morning-deliver.py`, wired as the `morning-brief` cron at
+06:30 (`hermes-kmini/DEPLOY.md:211`), whose docstring says *"SINCE 2026-08-06 IT
+IS THE \*ONLY\* SCHEDULED OUTBOUND."* The page draws one line per tile because
+the tile is what the reader is looking at, but they are six strands of one rope.
+Everything else is pull: he asks, and a skill or a page answers.
