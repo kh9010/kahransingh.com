@@ -12,3 +12,9 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
 
 - Serve media at web-appropriate sizes: photos ≤ ~2400px long edge / ≤ ~1MB; loop videos re-encoded small (see `video-poems/` at 540px). GitHub Pages can't serve Git LFS, so keep assets in the repo but small — don't move served media to LFS.
 - Every top-level page carries `<title>`, meta description, canonical, and OG/Twitter card tags. New poem pages should mirror `og:description` into a `<meta name="description">` and include an `og:image`.
+
+## Two versions live side by side (since 2026-09-21)
+
+- `/` is **v2**: the daily photo + poem opening and the wall of tools (`/index.html`, `/v2/home.css`, `/v2/home.js`, data in `/v2/data.json`). Day choice is a deterministic hash of the date, so a past day never reshuffles.
+- `/v1/index.html` is the old home, untouched in content. Every other old page (about, poetry, photography, projects, speaking, cv, poem-films, the private event pages, `/poems/`, `/lately/`) stays at its original URL and is shared by both versions; their nav "kahran" link points at `/v1/`.
+- A small fixed "v2 · v1" tab switches between them. Nothing gets migrated into v2 until Kahran decides where it goes; when a box on the wall gets a page, link it from `/v2/home.js`.

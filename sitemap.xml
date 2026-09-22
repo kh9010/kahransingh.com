@@ -5,6 +5,10 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://kahransingh.com/v1/</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kahransingh.com/poetry.html</loc>
     <priority>0.8</priority>
   </url>

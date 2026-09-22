@@ -1,0 +1,427 @@
+/* kahransingh.com — v2 home.
+   One photograph of the day. Wide screens put the poem down the left and the
+   leaning block of tools on the right, both inside the first screen. Narrow
+   screens stack: a screen of photograph with the poem on it, then the tools on
+   a dark band below, then paper. Fraunces carries the voice (poem and tool
+   names alike, because the tools are named like characters); Space Grotesk
+   carries only apparatus. Colour alone groups the tools — there are no labels.
+   No build step; this file stands alone and does not extend /style.css. */
+
+/* ---------------------------------------------------------------- tokens -- */
+
+:root {
+  --paper: #fafaf8;
+  --band:  #15140f;           /* behind, and under the tools when they stack */
+
+  --on-photo:      #f6f3ec;   /* poem, tile names */
+  --on-photo-soft: #ded9cf;   /* date, day controls, caption */
+  --soon:          #e6e1d6;   /* the corner mark, over a lighter right-hand scrim */
+
+  --pad-top:   clamp(1.75rem, 5vh, 3.25rem);
+  --pad-x:     clamp(16px, 4vw, 48px);
+  --mast-h:    2.6rem;        /* binds over the content, so the tools align to the poem exactly */
+  --mast-gap:  clamp(2.5rem, 8vh, 5rem);
+  --mast-block: calc(var(--mast-h) + var(--mast-gap));
+
+  /* 4 rows of 4, each stepping right by --tan of its distance from the top:
+     an exact rectangle sheared into an exact parallelogram. */
+  --tan:    .17;
+  --tile:   clamp(74px, 7vw, 96px);
+  --gap:    8px;
+  --tile-a: .80;
+  --tools-w: calc(4 * var(--tile) + 3 * var(--gap) + var(--tan) * 3 * (var(--tile) + var(--gap)));
+}
+
+@media (prefers-color-scheme: dark) { :root { --paper: #171613; } }
+
+/* Five pigments, dark enough that near-white names clear 4.5:1 on every one of
+   the 26 photographs, and far enough apart to stay distinct as glass. */
+.tile--catching    { --h: 192; --s: 40%; --l: 26%; }
+.tile--remembering { --h:  96; --s: 32%; --l: 24%; }
+.tile--knowing     { --h:  41; --s: 45%; --l: 26%; }
+.tile--alive       { --h: 352; --s: 38%; --l: 30%; }
+.tile--public      { --h: 230; --s: 38%; --l: 32%; }
+
+/* ------------------------------------------------------------------ base -- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--on-photo);
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  padding-bottom: clamp(3.5rem, 12vh, 7rem);   /* the paper the page ends on */
+}
+
+:focus-visible { outline: 2px solid var(--on-photo); outline-offset: 3px; }
+
+/* ----------------------------------------------------------------- stage -- */
+
+.stage {
+  position: relative;
+  background: var(--band);
+  /* The photograph ends exactly at the fold when the poem is short, so the fade
+     to paper lives in this padding — below the fold, never washing the hero. */
+  padding-bottom: 9vh;
+}
+
+/* The photograph covers this block only — one viewport unless the poem runs on. */
+.screen { position: relative; min-height: 100svh; }
+
+.stage-photo { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.stage-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+/* Measured, not chosen. The brightest local patch across all 26 photographs is
+   at relative luminance .956; #f6f3ec type needs the backdrop at or under .157
+   to clear 4.5:1, so a black veil of at least .58 wherever bare type lands.
+   The ramp holds .68 across the poem's column (7.3:1 worst case) and eases to
+   .44 across the tools' column, where the tiles carry their own dark fill
+   (6.1:1 for a name, 5.2:1 for the corner mark) and the picture can breathe. */
+.stage-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(8,8,7,.30) 0%, rgba(8,8,7,0) 18%, rgba(8,8,7,0) 82%, rgba(8,8,7,.28) 100%),
+    linear-gradient(90deg,  rgba(8,8,7,.82) 0%, rgba(8,8,7,.74) 12%, rgba(8,8,7,.68) 52%,
+                            rgba(8,8,7,.50) 60%, rgba(8,8,7,.44) 94%, rgba(8,8,7,.40) 100%);
+}
+
+/* A soft landing where the stage meets the paper. */
+.stage::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 8vh;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(21,20,15,0), var(--paper));
+}
+
+.stage-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--pad-top) var(--pad-x) 12vh;
+}
+
+/* -------------------------------------------------------------- masthead -- */
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: .5rem 2rem;
+  min-height: var(--mast-h);
+  margin: 0 0 var(--mast-gap);
+}
+
+.wordmark {
+  margin: 0;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.1vw, 1.6rem);
+  line-height: 1.1;
+  letter-spacing: -.005em;
+  color: var(--on-photo);
+}
+
+.day { display: flex; flex-direction: column; align-items: flex-end; gap: .1rem; }
+
+.day-date {
+  margin: 0;
+  font-size: .72rem;
+  line-height: 1.5;
+  color: var(--on-photo-soft);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+.day-walk { display: flex; gap: 1.1rem; }
+
+.day-step {
+  margin: 0; padding: 0; border: 0; background: none;
+  font: inherit; font-size: .72rem; line-height: 1.5;
+  color: var(--on-photo-soft);
+  cursor: pointer;
+}
+.day-step:hover:not([disabled]) { color: var(--on-photo); }
+.day-step[disabled] { opacity: .5; cursor: default; }
+
+/* ------------------------------------------------------------- the poem -- */
+
+/* Held clear of the tools' column, and never wider than the dark part of the
+   scrim on a narrow desktop window. */
+.opening { margin: 0; max-width: min(30rem, calc(100% - var(--tools-w) - 2.5rem)); }
+
+.poem-title {
+  margin: 0 0 1.4rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  line-height: 1.26;
+  letter-spacing: -.006em;
+}
+.poem-title a {
+  color: var(--on-photo);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .24em;
+  text-decoration-color: rgba(246, 243, 236, .38);
+}
+.poem-title a:hover { text-decoration-color: var(--on-photo); }
+
+.poem-body {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: 1.1rem;
+  line-height: 1.78;
+  color: var(--on-photo);
+}
+
+.stanza { margin: 0 0 1.45rem; }
+.stanza:last-child { margin-bottom: 0; }
+
+/* A wrapped line is not a new line: hang the runover so verse stays readable. */
+.line { display: block; text-indent: -1.05em; padding-left: 1.05em; }
+
+.plate-caption {
+  margin: clamp(1.75rem, 4vh, 2.5rem) 0 0;
+  font-size: .7rem;
+  line-height: 1.55;
+  letter-spacing: .012em;
+  color: var(--on-photo-soft);
+}
+
+.fallback, .poem-body .trouble {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: .85rem;
+  color: var(--on-photo-soft);
+}
+.fallback a, .poem-body .trouble a { color: var(--on-photo); }
+
+/* The only motion on the page, and it answers a click: turning to another day. */
+@keyframes turn { from { opacity: 0; } to { opacity: 1; } }
+.turned { animation: turn .32s ease both; }
+
+/* ------------------------------------------------------------- the tools -- */
+
+/* Lifted out of the flow into the right of the first screen. Not sticky: it is
+   simply placed there, so a long poem runs past it rather than moving it. */
+.tools-layer {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.tools-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: calc(var(--pad-top) + var(--mast-block)) var(--pad-x) 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.wall { pointer-events: auto; width: max-content; }
+
+/* His voice, kept quiet — the tiles are the thing here. */
+.wall-line {
+  margin: 0 0 1.05rem;
+  max-width: 34ch;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: .92rem;
+  line-height: 1.5;
+  letter-spacing: -.002em;
+  color: var(--on-photo-soft);
+}
+
+.wall-block { width: max-content; }
+
+.wall-row {
+  display: flex;
+  gap: var(--gap);
+  margin: 0 0 var(--gap);
+  padding: 0;
+  list-style: none;
+  margin-left: calc(var(--tan) * var(--r) * (var(--tile) + var(--gap)));
+}
+.wall-row:last-child { margin-bottom: 0; }
+
+.tile {
+  position: relative;
+  flex: none;
+  width: var(--tile);
+  height: var(--tile);
+  display: flex;
+  align-items: center;
+  padding: .55rem .55rem 1.2rem;
+  border-radius: 12px;
+  background: hsl(var(--h) var(--s) var(--l) / var(--tile-a));
+  border: 1px solid hsl(var(--h) var(--s) calc(var(--l) + 24%) / .34);
+}
+
+/* Frosted where it is supported; a more solid tint where it is not. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tile { -webkit-backdrop-filter: blur(12px) saturate(115%); backdrop-filter: blur(12px) saturate(115%); }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .tile { --tile-a: .90; }
+}
+
+.tile-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: .8rem;
+  line-height: 1.24;
+  letter-spacing: -.002em;
+  color: var(--on-photo);
+  hyphens: none;
+}
+a.tile-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  text-decoration-color: rgba(246, 243, 236, .45);
+}
+a.tile-name:hover { text-decoration-color: var(--on-photo); }
+
+/* Not a badge and not a disabled look — a mark in the corner. */
+.soon {
+  position: absolute;
+  right: .5rem;
+  bottom: .42rem;
+  font-size: .55rem;
+  line-height: 1;
+  letter-spacing: .04em;
+  color: var(--soon);
+}
+
+/* The one-line note. A square tile has no room for it, so it appears as a small
+   glass card on hover, tap or keyboard focus — the tile never changes size, so
+   the parallelogram never moves. home.js builds it from data-note and places
+   it, flipping above/below and left/right to stay inside the tools column and
+   the viewport. Card text measures 13.8:1 over the worst of the 26 photographs. */
+.tile.is-noted { z-index: 6; }
+
+.note {
+  display: none;
+  position: absolute;
+  z-index: 7;
+  width: max-content;
+  max-width: 248px;
+  padding: .6rem .72rem;
+  border-radius: 10px;
+  background: rgba(27, 26, 20, .90);
+  border: 1px solid rgba(246, 243, 236, .16);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .45);
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: .78rem;
+  line-height: 1.45;
+  letter-spacing: -.002em;
+  color: var(--on-photo);
+  text-align: left;
+  white-space: normal;
+  hyphens: none;
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .note { -webkit-backdrop-filter: blur(16px) saturate(115%); backdrop-filter: blur(16px) saturate(115%); }
+}
+.tile.is-noted .note { display: block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .tile.is-noted .note { animation: noteIn .14s ease both; }
+}
+@keyframes noteIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+/* ------------------------------------------------- version switch (v2·v1) --
+   Self-contained component. Drop this block and the matching markup into any
+   page; it carries its own colours so it needs nothing else from this file. */
+
+.vswitch {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .34rem .68rem;
+  border: 1px solid #e3e0d9;
+  border-radius: 999px;
+  background: rgba(250, 250, 248, .92);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-size: .7rem;
+  line-height: 1;
+  letter-spacing: .02em;
+}
+.vswitch a { color: #787266; text-decoration: none; }
+.vswitch a:hover { color: #1a1a1a; }
+.vswitch .vswitch-here { color: #1a1a1a; font-weight: 500; }
+.vswitch > * + *::before { content: '\00b7'; margin-right: .45rem; color: #c9c4ba; }
+
+@media (prefers-color-scheme: dark) {
+  .vswitch { border-color: #2e2b25; background: rgba(23, 22, 19, .92); }
+  .vswitch a { color: #8f897c; }
+  .vswitch a:hover { color: #ece7db; }
+  .vswitch .vswitch-here { color: #ece7db; }
+  .vswitch > * + *::before { color: #413d35; }
+}
+
+/* ----------------------------------------------------------- responsive -- */
+
+/* Narrow: stack. The photograph stays one screen with the poem on it, and the
+   tools drop back into the flow on their own dark band underneath, so the crop
+   still shows a composition instead of a vertical slice. */
+@media (max-width: 900px) {
+  .stage-scrim {
+    background:
+      radial-gradient(140% 85% at 50% 6%, rgba(8,8,7,0) 0%, rgba(8,8,7,.18) 100%),
+      linear-gradient(180deg, rgba(8,8,7,.76) 0%, rgba(8,8,7,.66) 20%, rgba(8,8,7,.66) 80%, rgba(8,8,7,.78) 100%);
+  }
+  .masthead { align-items: flex-start; }
+  .day { align-items: flex-start; }
+  .opening { max-width: none; }
+  .stage-copy { padding-bottom: clamp(2.5rem, 7vh, 4rem); }
+
+  .tools-layer { position: static; pointer-events: auto; background: var(--band); }
+  .tools-inner {
+    display: block;
+    padding: clamp(2.5rem, 7vh, 4rem) var(--pad-x) clamp(3rem, 9vh, 5rem);
+  }
+  .wall, .wall-block { width: auto; }
+}
+
+@media (max-width: 600px) {
+  :root { --tan: .10; --tile: 78px; --gap: 5px; --tile-a: .82; }
+  body { font-size: 16px; }
+  .poem-body { font-size: 1.06rem; }
+  .tile { border-radius: 11px; padding: .5rem .45rem 1.05rem; }
+  .note { max-width: min(248px, calc(100vw - 32px)); font-size: .75rem; }
+  .tile-name { font-size: .7rem; line-height: 1.22; }
+  .soon { right: .38rem; bottom: .34rem; font-size: .52rem; }
+  .wall-line { font-size: .88rem; }
+  .vswitch { right: 12px; bottom: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turned { animation: none; }
+  *, *::before, *::after { transition-duration: .001ms !important; }
+}
