@@ -8,7 +8,8 @@ export PATH="/opt/homebrew/bin:$PATH"   # mini launchd/ssh shells lack it; gh an
 cd "$(dirname "$0")/.."
 git fetch origin && git checkout -q main && git pull -q --ff-only
 python3 tools/daily_pick.py --presence "$HOME/Sync/pending-work/presence.json"
-git diff --quiet -- v2/days.json && { echo "already picked — nothing to publish"; exit 0; }
+# status, not diff: the first ever run creates the file, and an untracked file has no diff
+[ -z "$(git status --porcelain -- v2/days.json)" ] && { echo "already picked — nothing to publish"; exit 0; }
 BR="kahran-$(date +%b%d | tr A-Z a-z)-pick"
 git checkout -q -B "$BR"
 git add v2/days.json
