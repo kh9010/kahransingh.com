@@ -32,6 +32,24 @@
         "weather_code": 3,
         "tmax": 18.1
       }
+    },
+    "2026-09-23": {
+      "poem": "guadalajara",
+      "photo": "/photos/hawaii-landscape.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.5281942360109375,
+        "warmth": 0.72,
+        "wet": 0.0,
+        "stillness": 0.2825,
+        "season": 0.4768924765081458,
+        "inside": 0.86,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 20.2,
+        "wind_kmh": 28.7,
+        "cloud_pct": 69
+      }
     }
   }
 }
