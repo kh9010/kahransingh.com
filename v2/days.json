@@ -50,6 +50,24 @@
         "wind_kmh": 28.7,
         "cloud_pct": 69
       }
+    },
+    "2026-09-24": {
+      "poem": "mama",
+      "photo": "/photos/buoys-wall.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.38746165254247034,
+        "warmth": 0.6914285714285714,
+        "wet": 0.0,
+        "stillness": 0.36,
+        "season": 0.46830429756524483,
+        "inside": 0.8457142857142856,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 19.2,
+        "wind_kmh": 25.6,
+        "cloud_pct": 79
+      }
     }
   }
 }
