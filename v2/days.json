@@ -68,6 +68,24 @@
         "wind_kmh": 25.6,
         "cloud_pct": 79
       }
+    },
+    "2026-09-25": {
+      "poem": "hey-you-tree-there",
+      "photo": "/photos/beach-boardwalk.jpg",
+      "place": null,
+      "why": {
+        "light": 0.6885724763421874,
+        "warmth": 0.7657142857142857,
+        "wet": 0.4,
+        "stillness": 0.45749999999999996,
+        "season": 0.45972549789062916,
+        "inside": 0.6828571428571428,
+        "mood": 0.5,
+        "weather_code": 55,
+        "tmax": 21.8,
+        "wind_kmh": 33.7,
+        "cloud_pct": 75
+      }
     }
   }
 }
