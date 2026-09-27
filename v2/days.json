@@ -86,6 +86,24 @@
         "wind_kmh": 33.7,
         "cloud_pct": 75
       }
+    },
+    "2026-09-26": {
+      "poem": "bladder-bag",
+      "photo": "/photos/fireworks-water.jpg",
+      "place": null,
+      "why": {
+        "light": 0.0,
+        "warmth": 0.5857142857142857,
+        "wet": 1.0,
+        "stillness": 0.54,
+        "season": 0.451158616089142,
+        "inside": 0.2928571428571429,
+        "mood": 0.5,
+        "weather_code": 65,
+        "tmax": 15.5,
+        "wind_kmh": 30.4,
+        "cloud_pct": 100
+      }
     }
   }
 }
