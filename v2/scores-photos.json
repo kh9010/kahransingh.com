@@ -1210,6 +1210,38 @@
     "lon": -105.44
    },
    "notes": "Dark beach, paddleboards, sun breaking through cloud over sea"
+  },
+  "/photos/mariposa-grove-yosemite-e6c620bb.jpg": {
+   "light": 0.55,
+   "warmth": 0.32,
+   "wet": 0.08,
+   "stillness": 0.12,
+   "season": 0.45,
+   "inside": 0.9,
+   "mood": 0.45,
+   "hour": "day",
+   "place": {
+    "name": "Mariposa Grove, Yosemite",
+    "lat": 37.5,
+    "lon": -119.61
+   },
+   "notes": "Massive fluted sequoia trunk, dark pines, dry understorey"
+  },
+  "/photos/mariposa-grove-yosemite-7455e25e.jpg": {
+   "light": 0.42,
+   "warmth": 0.3,
+   "wet": 0.1,
+   "stillness": 0.25,
+   "season": 0.45,
+   "inside": 0.92,
+   "mood": 0.4,
+   "hour": "dusk",
+   "place": {
+    "name": "Mariposa Grove, Yosemite",
+    "lat": 37.5,
+    "lon": -119.61
+   },
+   "notes": "Backlit giant conifer silhouettes, thin cloud, upward view"
   }
  }
 }
