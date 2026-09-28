@@ -1178,6 +1178,38 @@
     "lon": 139.73
    },
    "notes": "Wall of chartreuse flowering shrub, green leaves, no sky"
+  },
+  "/photos/sayulita-mexico-25fbaafd.jpg": {
+   "light": 0.35,
+   "warmth": 0.78,
+   "wet": 0.55,
+   "stillness": 0.2,
+   "season": 0.8,
+   "inside": 0.92,
+   "mood": 0.7,
+   "hour": "dusk",
+   "place": {
+    "name": "Sayulita, Mexico",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Golden low sun, sand, paddleboards, reclining figure in cap"
+  },
+  "/photos/sayulita-mexico-9d65e1b6.jpg": {
+   "light": 0.22,
+   "warmth": 0.62,
+   "wet": 0.6,
+   "stillness": 0.18,
+   "season": 0.75,
+   "inside": 0.95,
+   "mood": 0.55,
+   "hour": "dusk",
+   "place": {
+    "name": "Sayulita, Mexico",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Dark beach, paddleboards, sun breaking through cloud over sea"
   }
  }
 }
