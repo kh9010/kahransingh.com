@@ -104,6 +104,24 @@
         "wind_kmh": 30.4,
         "cloud_pct": 100
       }
+    },
+    "2026-09-27": {
+      "poem": "anuraag-oh-anuraag",
+      "photo": "/photos/restaurant-night.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.64,
+        "wet": 1.0,
+        "stillness": 0.1449999999999999,
+        "season": 0.4426061872389365,
+        "inside": 0.32000000000000006,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 17.4,
+        "wind_kmh": 34.2,
+        "cloud_pct": 100
+      }
     }
   }
 }
