@@ -42,13 +42,16 @@ const photoScores = loadJSON("v2/scores-photos.json");
 // (weather_clear.json: weather_code 0, tmax 30, precip 0, sunshine==daylight
 // 53000s, wind_speed_10m_max 10, cloud_cover_mean 0; presence: high-confidence
 // New York.) Against this repo's real v2/scores-*.json + v2/days.json, that
-// picks poem=and-now-that-we-walk photo=/photos/buoys-wall.jpg. Both builders
+// picks poem=and-now-that-we-walk photo=/photos/provincetown-massachusetts-4c281798.jpg
+// (re-pinned 2026-09-28 when the catalog grew from 26 to 73 photographs; on the
+// 26 it was /photos/buoys-wall.jpg — re-run the command above whenever the
+// catalog or the scores change, this pin follows the real data). Both builders
 // reduce to the SAME day vector for this fixture (sunshine ratio 1.0 <->
 // cloud_cover 0 on a clear day, tmax 30 <-> temperature_2m 30, wind 10 <->
 // wind_speed_10m 10, etc.), so with identical scores/novelty/tiebreak logic
 // they must agree.
 const PYTHON_FIXTURE_DATE = "2026-07-04";
-const PYTHON_FIXTURE_PICK = { poem: "and-now-that-we-walk", photo: "/photos/buoys-wall.jpg" };
+const PYTHON_FIXTURE_PICK = { poem: "and-now-that-we-walk", photo: "/photos/provincetown-massachusetts-4c281798.jpg" };
 
 const clearReading = {
   place: "New York, NY", lat: 40.71, lon: -74.01, tz: "America/New_York", away: false,

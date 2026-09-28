@@ -523,38 +523,6 @@
    },
    "notes": "Dark bamboo culms and leaves, bright haze, mist beyond"
   },
-  "/photos/west-hollywood-california-e6c620bb.jpg": {
-   "light": 0.55,
-   "warmth": 0.32,
-   "wet": 0.08,
-   "stillness": 0.12,
-   "season": 0.45,
-   "inside": 0.9,
-   "mood": 0.45,
-   "hour": "day",
-   "place": {
-    "name": "West Hollywood, California",
-    "lat": 34.08,
-    "lon": -118.38
-   },
-   "notes": "Massive fluted sequoia trunk, dark pines, dry understorey"
-  },
-  "/photos/west-hollywood-california-7455e25e.jpg": {
-   "light": 0.42,
-   "warmth": 0.3,
-   "wet": 0.1,
-   "stillness": 0.25,
-   "season": 0.45,
-   "inside": 0.92,
-   "mood": 0.4,
-   "hour": "dusk",
-   "place": {
-    "name": "West Hollywood, California",
-    "lat": 34.08,
-    "lon": -118.38
-   },
-   "notes": "Backlit giant conifer silhouettes, thin cloud, upward view"
-  },
   "/photos/crested-butte-colorado-8ada8f57.jpg": {
    "light": 0.78,
    "warmth": 0.12,
@@ -1194,38 +1162,6 @@
     "lon": 133.97
    },
    "notes": "Curving pale corridor, glinting wall artwork, blurred walkers"
-  },
-  "/photos/tokyo-japan-25fbaafd.jpg": {
-   "light": 0.35,
-   "warmth": 0.78,
-   "wet": 0.55,
-   "stillness": 0.2,
-   "season": 0.8,
-   "inside": 0.92,
-   "mood": 0.7,
-   "hour": "dusk",
-   "place": {
-    "name": "Tokyo, Japan",
-    "lat": 35.66,
-    "lon": 139.73
-   },
-   "notes": "Golden low sun, sand, paddleboards, reclining figure in cap"
-  },
-  "/photos/tokyo-japan-9d65e1b6.jpg": {
-   "light": 0.22,
-   "warmth": 0.62,
-   "wet": 0.6,
-   "stillness": 0.18,
-   "season": 0.75,
-   "inside": 0.95,
-   "mood": 0.55,
-   "hour": "dusk",
-   "place": {
-    "name": "Tokyo, Japan",
-    "lat": 35.66,
-    "lon": 139.73
-   },
-   "notes": "Dark beach, paddleboards, sun breaking through cloud over sea"
   },
   "/photos/roppongi-tokyo-a5f50e72.jpg": {
    "light": 0.68,
