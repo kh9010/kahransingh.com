@@ -426,6 +426,822 @@
     "lon": 13.4
    },
    "notes": "Old Porsche, traffic, passers-by, baby in a pram"
+  },
+  "/photos/singapore-225bdfc9.jpg": {
+   "light": 0.6,
+   "warmth": 0.68,
+   "wet": 0.96,
+   "stillness": 0.25,
+   "season": 0.85,
+   "inside": 0.95,
+   "mood": 0.55,
+   "hour": "dusk",
+   "place": {
+    "name": "Singapore",
+    "lat": 1.29,
+    "lon": 103.85
+   },
+   "notes": "Glassy open sea, lone bather from behind, distant sailboat"
+  },
+  "/photos/sagrada-familia-barcelona-e210fc03.jpg": {
+   "light": 0.6,
+   "warmth": 0.6,
+   "wet": 0.02,
+   "stillness": 0.1,
+   "season": 0.5,
+   "inside": 0.02,
+   "mood": 0.75,
+   "hour": "day",
+   "place": {
+    "name": "Sagrada Família, Barcelona",
+    "lat": 41.4,
+    "lon": 2.17
+   },
+   "notes": "Tree-like pillars, star vaults, stained glass, glowing ceiling lamps"
+  },
+  "/photos/kodagu-india-346cc700.jpg": {
+   "light": 0.45,
+   "warmth": 0.35,
+   "wet": 0.7,
+   "stillness": 0.1,
+   "season": 0.4,
+   "inside": 0.8,
+   "mood": 0.45,
+   "hour": "day",
+   "place": {
+    "name": "Kodagu, India",
+    "lat": 13.16,
+    "lon": 77.41
+   },
+   "notes": "Mud-splashed jeep beside shallow stony ford, dense forest"
+  },
+  "/photos/kodagu-india-033e7e3b.jpg": {
+   "light": 0.45,
+   "warmth": 0.3,
+   "wet": 0.88,
+   "stillness": 0.08,
+   "season": 0.3,
+   "inside": 0.85,
+   "mood": 0.45,
+   "hour": "dawn",
+   "place": {
+    "name": "Kodagu, India",
+    "lat": 12.23,
+    "lon": 75.62
+   },
+   "notes": "Sheet webs heavy with dew over grass, backlit sparkle"
+  },
+  "/photos/kodagu-india-124b384b.jpg": {
+   "light": 0.6,
+   "warmth": 0.35,
+   "wet": 0.92,
+   "stillness": 0.12,
+   "season": 0.4,
+   "inside": 0.95,
+   "mood": 0.6,
+   "hour": "dawn",
+   "place": {
+    "name": "Kodagu, India",
+    "lat": 12.51,
+    "lon": 75.92
+   },
+   "notes": "Backlit tree, mist on still river, reflections, reeds"
+  },
+  "/photos/kodagu-india-68c68cb1.jpg": {
+   "light": 0.62,
+   "warmth": 0.35,
+   "wet": 0.7,
+   "stillness": 0.15,
+   "season": 0.4,
+   "inside": 0.88,
+   "mood": 0.5,
+   "hour": "dawn",
+   "place": {
+    "name": "Kodagu, India",
+    "lat": 12.51,
+    "lon": 75.92
+   },
+   "notes": "Dark bamboo culms and leaves, bright haze, mist beyond"
+  },
+  "/photos/crested-butte-colorado-8ada8f57.jpg": {
+   "light": 0.78,
+   "warmth": 0.12,
+   "wet": 0.7,
+   "stillness": 0.55,
+   "season": 0.04,
+   "inside": 0.95,
+   "mood": 0.62,
+   "hour": "day",
+   "place": {
+    "name": "Crested Butte, Colorado",
+    "lat": 38.9,
+    "lon": -106.96
+   },
+   "notes": "Backlit bare aspens, striped shadows, three skiers on piste"
+  },
+  "/photos/crested-butte-colorado-e25ede7f.jpg": {
+   "light": 0.55,
+   "warmth": 0.1,
+   "wet": 0.68,
+   "stillness": 0.3,
+   "season": 0.03,
+   "inside": 0.95,
+   "mood": 0.5,
+   "hour": "day",
+   "place": {
+    "name": "Crested Butte, Colorado",
+    "lat": 38.9,
+    "lon": -106.96
+   },
+   "notes": "Low sun through bare aspens, long shadows, single rider"
+  },
+  "/photos/puako-hawaii-98409f6b.jpg": {
+   "light": 0.55,
+   "warmth": 0.55,
+   "wet": 0.62,
+   "stillness": 0.25,
+   "season": 0.6,
+   "inside": 0.95,
+   "mood": 0.42,
+   "hour": "day",
+   "place": {
+    "name": "Puako, Hawaiʻi",
+    "lat": 19.95,
+    "lon": -155.85
+   },
+   "notes": "Gnarled leafless tree, black lava rock, pale sea, overcast"
+  },
+  "/photos/laupahoehoe-hawaii-96a28c20.jpg": {
+   "light": 0.42,
+   "warmth": 0.45,
+   "wet": 0.88,
+   "stillness": 0.25,
+   "season": 0.6,
+   "inside": 0.92,
+   "mood": 0.42,
+   "hour": "day",
+   "place": {
+    "name": "Laupahoehoe, Hawaiʻi",
+    "lat": 19.94,
+    "lon": -155.18
+   },
+   "notes": "Fog-filled jungle gorge, flat-topped tree, thin waterfall, ferns"
+  },
+  "/photos/hilo-hawaii-3cb5d78d.jpg": {
+   "light": 0.3,
+   "warmth": 0.6,
+   "wet": 0.35,
+   "stillness": 0.1,
+   "season": 0.8,
+   "inside": 0.8,
+   "mood": 0.5,
+   "hour": "day",
+   "place": {
+    "name": "Hilo, Hawaiʻi",
+    "lat": 19.73,
+    "lon": -155.07
+   },
+   "notes": "Dark banyan canopy, aerial roots, bright grass, empty road"
+  },
+  "/photos/hilo-hawaii-a09cc2ce.jpg": {
+   "light": 0.78,
+   "warmth": 0.72,
+   "wet": 0.55,
+   "stillness": 0.18,
+   "season": 0.82,
+   "inside": 0.9,
+   "mood": 0.68,
+   "hour": "day",
+   "place": {
+    "name": "Hilo, Hawaiʻi",
+    "lat": 19.71,
+    "lon": -155.07
+   },
+   "notes": "Orange pagoda, palm, still pond, blue sky, lava rock"
+  },
+  "/photos/hilo-hawaii-fa94384a.jpg": {
+   "light": 0.55,
+   "warmth": 0.55,
+   "wet": 0.72,
+   "stillness": 0.22,
+   "season": 0.8,
+   "inside": 0.82,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Hilo, Hawaiʻi",
+    "lat": 19.73,
+    "lon": -155.09
+   },
+   "notes": "Mossy parapet, ferns and palms, small stream, fallen blossoms"
+  },
+  "/photos/hilo-hawaii-ea929e41.jpg": {
+   "light": 0.2,
+   "warmth": 0.38,
+   "wet": 0.95,
+   "stillness": 0.62,
+   "season": 0.68,
+   "inside": 0.95,
+   "mood": 0.38,
+   "hour": "dusk",
+   "place": {
+    "name": "Hilo, Hawaiʻi",
+    "lat": 19.4,
+    "lon": -154.93
+   },
+   "notes": "Dark shore, driftwood trunks, breaking waves, grey sky"
+  },
+  "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg": {
+   "light": 0.42,
+   "warmth": 0.4,
+   "wet": 0.8,
+   "stillness": 0.25,
+   "season": 0.7,
+   "inside": 0.85,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Hawaiʻi Volcanoes National Park",
+    "lat": 19.3,
+    "lon": -155.1
+   },
+   "notes": "Wet paved trail through tree ferns, lone yellow raincoat"
+  },
+  "/photos/kaanapali-maui-2be2cfcb.jpg": {
+   "light": 0.72,
+   "warmth": 0.6,
+   "wet": 0.88,
+   "stillness": 0.72,
+   "season": 0.82,
+   "inside": 0.95,
+   "mood": 0.68,
+   "hour": "day",
+   "place": {
+    "name": "Kāʻanapali, Maui",
+    "lat": 21.01,
+    "lon": -156.64
+   },
+   "notes": "Blowhole plume over black lava shelf, tidepools, blue ocean"
+  },
+  "/photos/mount-rainier-national-park-washington-ddab98b6.jpg": {
+   "light": 0.5,
+   "warmth": 0.5,
+   "wet": 0.18,
+   "stillness": 0.35,
+   "season": 0.75,
+   "inside": 0.82,
+   "mood": 0.62,
+   "hour": "day",
+   "place": {
+    "name": "Mount Rainier National Park, Washington",
+    "lat": 46.75,
+    "lon": -121.56
+   },
+   "notes": "Flaring low sun, giant downed trunk, hiker in wide hat"
+  },
+  "/photos/mount-rainier-national-park-washington-d72b8203.jpg": {
+   "light": 0.45,
+   "warmth": 0.4,
+   "wet": 0.2,
+   "stillness": 0.12,
+   "season": 0.72,
+   "inside": 0.8,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Mount Rainier National Park, Washington",
+    "lat": 46.75,
+    "lon": -121.56
+   },
+   "notes": "Dense trunks, hanging moss, bright patch of forest floor"
+  },
+  "/photos/mount-rainier-national-park-washington-5c7590f5.jpg": {
+   "light": 0.38,
+   "warmth": 0.42,
+   "wet": 0.25,
+   "stillness": 0.12,
+   "season": 0.72,
+   "inside": 0.8,
+   "mood": 0.58,
+   "hour": "day",
+   "place": {
+    "name": "Mount Rainier National Park, Washington",
+    "lat": 46.75,
+    "lon": -121.56
+   },
+   "notes": "Dark fir trunks, starburst sun, mossy branches, ferny floor"
+  },
+  "/photos/mount-rainier-national-park-washington-9ca71603.jpg": {
+   "light": 0.25,
+   "warmth": 0.35,
+   "wet": 0.2,
+   "stillness": 0.1,
+   "season": 0.7,
+   "inside": 0.78,
+   "mood": 0.45,
+   "hour": "dusk",
+   "place": {
+    "name": "Mount Rainier National Park, Washington",
+    "lat": 46.75,
+    "lon": -121.56
+   },
+   "notes": "Shafts of light, shattered snags, fallen log, deep shadow"
+  },
+  "/photos/mount-rainier-national-park-washington-3d887df3.jpg": {
+   "light": 0.55,
+   "warmth": 0.25,
+   "wet": 0.92,
+   "stillness": 0.22,
+   "season": 0.7,
+   "inside": 0.95,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Mount Rainier National Park, Washington",
+    "lat": 46.76,
+    "lon": -121.7
+   },
+   "notes": "Wading figure, mirror-calm lake, conifers, glaciated summit"
+  },
+  "/photos/mount-rainier-national-park-washington-bbda096c.jpg": {
+   "light": 0.6,
+   "warmth": 0.28,
+   "wet": 0.9,
+   "stillness": 0.18,
+   "season": 0.72,
+   "inside": 0.95,
+   "mood": 0.58,
+   "hour": "day",
+   "place": {
+    "name": "Mount Rainier National Park, Washington",
+    "lat": 46.76,
+    "lon": -121.7
+   },
+   "notes": "Glassy lake, full mountain reflection, lone figure at right"
+  },
+  "/photos/san-juan-islands-washington-657f1936.jpg": {
+   "light": 0.82,
+   "warmth": 0.55,
+   "wet": 0.88,
+   "stillness": 0.25,
+   "season": 0.82,
+   "inside": 0.95,
+   "mood": 0.75,
+   "hour": "day",
+   "place": {
+    "name": "San Juan Islands, Washington",
+    "lat": 48.68,
+    "lon": -123.0
+   },
+   "notes": "Calm blue bay, moored sailboats, pebble beach, forested shore"
+  },
+  "/photos/fire-island-new-york-72585dde.jpg": {
+   "light": 0.62,
+   "warmth": 0.48,
+   "wet": 0.2,
+   "stillness": 0.25,
+   "season": 0.68,
+   "inside": 0.8,
+   "mood": 0.5,
+   "hour": "day",
+   "place": {
+    "name": "Fire Island, New York",
+    "lat": 40.66,
+    "lon": -73.08
+   },
+   "notes": "Weathered boardwalk, dark pines, two small figures at crest"
+  },
+  "/photos/washington-dc-c631b9f2.jpg": {
+   "light": 0.35,
+   "warmth": 0.25,
+   "wet": 0.02,
+   "stillness": 0.12,
+   "season": 0.5,
+   "inside": 0.02,
+   "mood": 0.3,
+   "hour": "any",
+   "place": {
+    "name": "Washington, DC",
+    "lat": 38.91,
+    "lon": -77.05
+   },
+   "notes": "Shadowed columned gallery, large painted portrait, lone walker"
+  },
+  "/photos/washington-dc-afd19b1c.jpg": {
+   "light": 0.8,
+   "warmth": 0.35,
+   "wet": 0.02,
+   "stillness": 0.1,
+   "season": 0.5,
+   "inside": 0.02,
+   "mood": 0.42,
+   "hour": "any",
+   "place": {
+    "name": "Washington, DC",
+    "lat": 38.91,
+    "lon": -77.05
+   },
+   "notes": "Bright marble corridor, framed portraits, black bench, one visitor"
+  },
+  "/photos/acadia-national-park-maine-9678573e.jpg": {
+   "light": 0.72,
+   "warmth": 0.42,
+   "wet": 0.82,
+   "stillness": 0.12,
+   "season": 0.58,
+   "inside": 0.96,
+   "mood": 0.68,
+   "hour": "day",
+   "place": {
+    "name": "Acadia National Park, Maine",
+    "lat": 44.39,
+    "lon": -68.22
+   },
+   "notes": "Glassy pond, boulder shore, conifer ridge, blue sky"
+  },
+  "/photos/bar-harbor-maine-bb0a8fe5.jpg": {
+   "light": 0.6,
+   "warmth": 0.45,
+   "wet": 0.15,
+   "stillness": 0.08,
+   "season": 0.45,
+   "inside": 0.85,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Bar Harbor, Maine",
+    "lat": 44.39,
+    "lon": -68.2
+   },
+   "notes": "Single red-yellow maple leaf lying in green grass"
+  },
+  "/photos/casper-wyoming-02035a8d.jpg": {
+   "light": 0.22,
+   "warmth": 0.35,
+   "wet": 0.05,
+   "stillness": 0.12,
+   "season": 0.5,
+   "inside": 0.02,
+   "mood": 0.32,
+   "hour": "day",
+   "place": {
+    "name": "Casper, Wyoming",
+    "lat": 42.85,
+    "lon": -106.33
+   },
+   "notes": "Framed mirror, smoke curl, suitcase, blown-out window light"
+  },
+  "/photos/casper-wyoming-cce8cbde.jpg": {
+   "light": 0.68,
+   "warmth": 0.25,
+   "wet": 0.6,
+   "stillness": 0.45,
+   "season": 0.42,
+   "inside": 0.92,
+   "mood": 0.45,
+   "hour": "day",
+   "place": {
+    "name": "Casper, Wyoming",
+    "lat": 42.85,
+    "lon": -106.33
+   },
+   "notes": "Windblown figure on stone-lined path, lake, snowy far hills"
+  },
+  "/photos/mexico-city-mexico-6eb743ec.jpg": {
+   "light": 0.55,
+   "warmth": 0.72,
+   "wet": 0.25,
+   "stillness": 0.6,
+   "season": 0.45,
+   "inside": 0.98,
+   "mood": 0.88,
+   "hour": "dawn",
+   "place": {
+    "name": "Mexico City, Mexico",
+    "lat": 19.43,
+    "lon": -99.17
+   },
+   "notes": "Dozens of balloons above hazy plain, stepped pyramid, low sun"
+  },
+  "/photos/diamante-valley-costa-rica-3092189d.jpg": {
+   "light": 0.82,
+   "warmth": 0.62,
+   "wet": 0.88,
+   "stillness": 0.25,
+   "season": 0.8,
+   "inside": 0.9,
+   "mood": 0.72,
+   "hour": "day",
+   "place": {
+    "name": "Diamante Valley, Costa Rica",
+    "lat": 9.26,
+    "lon": -83.8
+   },
+   "notes": "Backlit green bamboo blades, water droplets, misty hills behind"
+  },
+  "/photos/diamante-valley-costa-rica-cbb914b4.jpg": {
+   "light": 0.55,
+   "warmth": 0.75,
+   "wet": 0.45,
+   "stillness": 0.1,
+   "season": 0.8,
+   "inside": 0.45,
+   "mood": 0.75,
+   "hour": "dawn",
+   "place": {
+    "name": "Diamante Valley, Costa Rica",
+    "lat": 9.26,
+    "lon": -83.8
+   },
+   "notes": "Bamboo pavilion, draped fabric, morning haze over forested valley"
+  },
+  "/photos/paro-bhutan-08988839.jpg": {
+   "light": 0.72,
+   "warmth": 0.6,
+   "wet": 0.12,
+   "stillness": 0.15,
+   "season": 0.62,
+   "inside": 0.92,
+   "mood": 0.75,
+   "hour": "day",
+   "place": {
+    "name": "Paro, Bhutan",
+    "lat": 27.49,
+    "lon": 89.36
+   },
+   "notes": "Gnarled trunk, scarlet blossoms, pine slopes, small plaque"
+  },
+  "/photos/paro-bhutan-6f8bbbbf.jpg": {
+   "light": 0.65,
+   "warmth": 0.45,
+   "wet": 0.2,
+   "stillness": 0.55,
+   "season": 0.6,
+   "inside": 0.85,
+   "mood": 0.72,
+   "hour": "day",
+   "place": {
+    "name": "Paro, Bhutan",
+    "lat": 27.48,
+    "lon": 89.36
+   },
+   "notes": "Bright flags in wind, tin roof, monastery on far cliff"
+  },
+  "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg": {
+   "light": 0.85,
+   "warmth": 0.18,
+   "wet": 0.3,
+   "stillness": 0.15,
+   "season": 0.3,
+   "inside": 0.98,
+   "mood": 0.58,
+   "hour": "day",
+   "place": {
+    "name": "Wangdue Phodrang, Bhutan",
+    "lat": 27.28,
+    "lon": 89.71
+   },
+   "notes": "Scree slopes, snow patches, brown alpine valley, tiny red hiker"
+  },
+  "/photos/provincetown-massachusetts-f214fa8d.jpg": {
+   "light": 0.42,
+   "warmth": 0.22,
+   "wet": 0.35,
+   "stillness": 0.08,
+   "season": 0.45,
+   "inside": 0.95,
+   "mood": 0.3,
+   "hour": "dusk",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.19
+   },
+   "notes": "Grey sky, dune gap, trampled sand, no one about"
+  },
+  "/photos/provincetown-massachusetts-a90962e6.jpg": {
+   "light": 0.78,
+   "warmth": 0.72,
+   "wet": 0.3,
+   "stillness": 0.12,
+   "season": 0.95,
+   "inside": 0.95,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.18
+   },
+   "notes": "Person lying on towel, open umbrella, wide empty sand"
+  },
+  "/photos/provincetown-massachusetts-ee073946.jpg": {
+   "light": 0.8,
+   "warmth": 0.7,
+   "wet": 0.3,
+   "stillness": 0.12,
+   "season": 0.95,
+   "inside": 0.95,
+   "mood": 0.58,
+   "hour": "day",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.18
+   },
+   "notes": "Hat-covered sunbather on towel, umbrella, glittering sea beyond"
+  },
+  "/photos/provincetown-massachusetts-4c281798.jpg": {
+   "light": 0.92,
+   "warmth": 0.7,
+   "wet": 0.32,
+   "stillness": 0.72,
+   "season": 0.95,
+   "inside": 0.95,
+   "mood": 0.85,
+   "hour": "dusk",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.18
+   },
+   "notes": "Backlit pair snapping a cloth, beach umbrella, long shadows"
+  },
+  "/photos/provincetown-massachusetts-eee28b60.jpg": {
+   "light": 0.88,
+   "warmth": 0.7,
+   "wet": 0.32,
+   "stillness": 0.7,
+   "season": 0.95,
+   "inside": 0.95,
+   "mood": 0.82,
+   "hour": "dusk",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.18
+   },
+   "notes": "Low sun behind pair with billowing sheet, big umbrella left"
+  },
+  "/photos/provincetown-massachusetts-08da554d.jpg": {
+   "light": 0.85,
+   "warmth": 0.78,
+   "wet": 0.6,
+   "stillness": 0.6,
+   "season": 0.95,
+   "inside": 0.98,
+   "mood": 0.82,
+   "hour": "dusk",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.18
+   },
+   "notes": "Low sun over flat sea, big umbrella, wind-caught cloth, sand"
+  },
+  "/photos/provincetown-massachusetts-09009fdd.jpg": {
+   "light": 0.72,
+   "warmth": 0.68,
+   "wet": 0.35,
+   "stillness": 0.62,
+   "season": 0.95,
+   "inside": 0.95,
+   "mood": 0.78,
+   "hour": "dusk",
+   "place": {
+    "name": "Provincetown, Massachusetts",
+    "lat": 42.05,
+    "lon": -70.18
+   },
+   "notes": "Bare sunbathers holding headstands, flat sea, scattered bags"
+  },
+  "/photos/honshu-japan-0d03d128.jpg": {
+   "light": 0.72,
+   "warmth": 0.52,
+   "wet": 0.12,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 0.88,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Honshu, Japan",
+    "lat": 35.0,
+    "lon": 135.77
+   },
+   "notes": "Clipped pines, tiled garden hall, maple leaves framing top"
+  },
+  "/photos/setonaikai-national-park-japan-64937bce.jpg": {
+   "light": 0.12,
+   "warmth": 0.25,
+   "wet": 0.03,
+   "stillness": 0.2,
+   "season": 0.5,
+   "inside": 0.02,
+   "mood": 0.3,
+   "hour": "any",
+   "place": {
+    "name": "Setonaikai National Park, Japan",
+    "lat": 34.45,
+    "lon": 133.98
+   },
+   "notes": "Dark concrete hall, lit word panels, two silhouetted viewers"
+  },
+  "/photos/setonaikai-national-park-japan-4d3f9e95.jpg": {
+   "light": 0.6,
+   "warmth": 0.35,
+   "wet": 0.05,
+   "stillness": 0.35,
+   "season": 0.5,
+   "inside": 0.05,
+   "mood": 0.45,
+   "hour": "any",
+   "place": {
+    "name": "Setonaikai National Park, Japan",
+    "lat": 34.46,
+    "lon": 133.97
+   },
+   "notes": "Curving pale corridor, glinting wall artwork, blurred walkers"
+  },
+  "/photos/roppongi-tokyo-a5f50e72.jpg": {
+   "light": 0.68,
+   "warmth": 0.72,
+   "wet": 0.1,
+   "stillness": 0.2,
+   "season": 0.62,
+   "inside": 0.85,
+   "mood": 0.82,
+   "hour": "day",
+   "place": {
+    "name": "Roppongi, Tokyo",
+    "lat": 35.67,
+    "lon": 139.73
+   },
+   "notes": "Wall of chartreuse flowering shrub, green leaves, no sky"
+  },
+  "/photos/sayulita-mexico-25fbaafd.jpg": {
+   "light": 0.35,
+   "warmth": 0.78,
+   "wet": 0.55,
+   "stillness": 0.2,
+   "season": 0.8,
+   "inside": 0.92,
+   "mood": 0.7,
+   "hour": "dusk",
+   "place": {
+    "name": "Sayulita, Mexico",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Golden low sun, sand, paddleboards, reclining figure in cap"
+  },
+  "/photos/sayulita-mexico-9d65e1b6.jpg": {
+   "light": 0.22,
+   "warmth": 0.62,
+   "wet": 0.6,
+   "stillness": 0.18,
+   "season": 0.75,
+   "inside": 0.95,
+   "mood": 0.55,
+   "hour": "dusk",
+   "place": {
+    "name": "Sayulita, Mexico",
+    "lat": 20.87,
+    "lon": -105.44
+   },
+   "notes": "Dark beach, paddleboards, sun breaking through cloud over sea"
+  },
+  "/photos/mariposa-grove-yosemite-e6c620bb.jpg": {
+   "light": 0.55,
+   "warmth": 0.32,
+   "wet": 0.08,
+   "stillness": 0.12,
+   "season": 0.45,
+   "inside": 0.9,
+   "mood": 0.45,
+   "hour": "day",
+   "place": {
+    "name": "Mariposa Grove, Yosemite",
+    "lat": 37.5,
+    "lon": -119.61
+   },
+   "notes": "Massive fluted sequoia trunk, dark pines, dry understorey"
+  },
+  "/photos/mariposa-grove-yosemite-7455e25e.jpg": {
+   "light": 0.42,
+   "warmth": 0.3,
+   "wet": 0.1,
+   "stillness": 0.25,
+   "season": 0.45,
+   "inside": 0.92,
+   "mood": 0.4,
+   "hour": "dusk",
+   "place": {
+    "name": "Mariposa Grove, Yosemite",
+    "lat": 37.5,
+    "lon": -119.61
+   },
+   "notes": "Backlit giant conifer silhouettes, thin cloud, upward view"
   }
  }
 }
