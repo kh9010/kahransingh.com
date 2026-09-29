@@ -122,6 +122,24 @@
         "wind_kmh": 34.2,
         "cloud_pct": 100
       }
+    },
+    "2026-09-28": {
+      "poem": "today-if-there-is-tomorrow",
+      "photo": "/photos/hilo-hawaii-ea929e41.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.6171428571428572,
+        "wet": 0.79,
+        "stillness": 0.4575,
+        "season": 0.4340707421413044,
+        "inside": 0.4135714285714286,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 16.6,
+        "wind_kmh": 21.7,
+        "cloud_pct": 100
+      }
     }
   }
 }
