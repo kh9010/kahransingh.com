@@ -140,6 +140,24 @@
         "wind_kmh": 21.7,
         "cloud_pct": 100
       }
+    },
+    "2026-09-29": {
+      "poem": "wedding-poem",
+      "photo": "/photos/night-market.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.2699680552377594,
+        "warmth": 0.74,
+        "wet": 0.0,
+        "stillness": 0.66,
+        "season": 0.4255548065717726,
+        "inside": 0.87,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 20.9,
+        "wind_kmh": 13.6,
+        "cloud_pct": 89
+      }
     }
   }
 }
