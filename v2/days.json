@@ -158,6 +158,24 @@
         "wind_kmh": 13.6,
         "cloud_pct": 89
       }
+    },
+    "2026-09-30": {
+      "poem": "today-i-saw-a-man-on-a-leash",
+      "photo": "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.4151269043417238,
+        "warmth": 0.8057142857142857,
+        "wet": 0.0,
+        "stillness": 0.7375,
+        "season": 0.4170609005326843,
+        "inside": 0.9028571428571428,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 23.2,
+        "wind_kmh": 10.5,
+        "cloud_pct": 58
+      }
     }
   }
 }
