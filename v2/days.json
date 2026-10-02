@@ -176,6 +176,24 @@
         "wind_kmh": 10.5,
         "cloud_pct": 58
       }
+    },
+    "2026-10-01": {
+      "poem": "its-funny",
+      "photo": "/photos/fire-island-new-york-72585dde.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.35718149780942854,
+        "warmth": 0.8514285714285714,
+        "wet": 0.0,
+        "stillness": 0.7075,
+        "season": 0.40859153750749005,
+        "inside": 0.9257142857142857,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 24.8,
+        "wind_kmh": 11.7,
+        "cloud_pct": 54
+      }
     }
   }
 }
