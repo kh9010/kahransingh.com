@@ -51,6 +51,11 @@
             letter-spacing: 0.03em;
         }
 
+        .camera-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.25rem; margin-top: 1rem; font-size: .8rem; }
+        .camera-filters[hidden] { display: none; }
+        .camera-filters a { color: #777; padding: .5rem 0; text-decoration: none; }
+        .camera-filters a:hover, .camera-filters a[aria-current] { color: #333; text-decoration: underline; text-underline-offset: .25em; }
+
         /* Single-column gallery */
         .gallery {
             display: flex;
@@ -106,8 +111,7 @@
 
         /* Fade-in animation */
         .photo-wrap, .photo-pair {
-            opacity: 0;
-            transition: opacity 1.5s ease;
+            opacity: 1;
         }
 
         .photo-wrap.visible, .photo-pair.visible {
@@ -302,9 +306,89 @@
         <div class="photo-page-header">
             <h1>photography</h1>
             <p>Leica Q2 & Q2 Monochrome</p>
+            <div class="camera-filters" id="camera-filters" role="navigation" aria-label="Camera" hidden>
+                <a href="/photography.html" data-camera="">all</a>
+                <a href="/photography.html?camera=q2mono" data-camera="q2mono">Q2 Monochrome</a>
+                <a href="/photography.html?camera=q2" data-camera="q2">Q2</a>
+                <a href="/photography.html?camera=fuji" data-camera="fuji">Fuji X100</a>
+                <a href="/photography.html?camera=canon" data-camera="canon">Canon</a>
+            </div>
         </div>
 
-        <div class="gallery" id="gallery"></div>
+        <!-- Keep this fallback in catalog order; tools/test_about_photos.py checks parity. -->
+        <div class="gallery" id="gallery">
+            <a class="photo-wrap" href="photos/alpine-lake.jpg"><img src="photos/alpine-lake.jpg" alt="Alpine lake with mountains" style="aspect-ratio: 1200/800" loading="eager"></a>
+            <a class="photo-wrap narrow" href="photos/beach-boardwalk.jpg"><img src="photos/beach-boardwalk.jpg" alt="Boardwalk vanishing point through pines" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/beach-solitude.jpg"><img src="photos/beach-solitude.jpg" alt="Gull on an empty beach" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/buoys-wall.jpg"><img src="photos/buoys-wall.jpg" alt="Beach towel on a dune, driftwood shelter beyond" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/cdmx-plaza.jpg"><img src="photos/cdmx-plaza.jpg" alt="Plaza at night in Roma Norte, Mexico City" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/concrete-museum.jpg"><img src="photos/concrete-museum.jpg" alt="Concrete museum interior with art installation" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/fireworks-water.jpg"><img src="photos/fireworks-water.jpg" alt="Fireworks over water" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/hawaii-landscape.jpg"><img src="photos/hawaii-landscape.jpg" alt="Volcanic landscape at dusk" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/kitchen-night.jpg"><img src="photos/kitchen-night.jpg" alt="Figure in kitchen at night" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/lanterns.jpg"><img src="photos/lanterns.jpg" alt="Lanterns and palm tree at night in Sayulita" style="aspect-ratio: 1448/2170" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/misty-hillside.jpg"><img src="photos/misty-hillside.jpg" alt="Misty hillside with figure walking" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/night-market.jpg"><img src="photos/night-market.jpg" alt="Night market vendors in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/night-street.jpg"><img src="photos/night-street.jpg" alt="Night street with palm trees in Roma Norte" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/papel-picado.jpg"><img src="photos/papel-picado.jpg" alt="Street with papel picado overhead in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/reed-corridor.jpg"><img src="photos/reed-corridor.jpg" alt="Path through tall reeds" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/restaurant-night.jpg"><img src="photos/restaurant-night.jpg" alt="Restaurant through foliage at night" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/roma-sidewalk.jpg"><img src="photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma Norte, Mexico City" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/sayulita-staircase.jpg"><img src="photos/sayulita-staircase.jpg" alt="Staircase at night in Sayulita" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/scooter-beach.jpg"><img src="photos/scooter-beach.jpg" alt="Scooter on a beach" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/staircase.jpg"><img src="photos/staircase.jpg" alt="Figure on a staircase in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/still-lake.jpg"><img src="photos/still-lake.jpg" alt="Still lake with cloud reflections" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/taco-cart.jpg"><img src="photos/taco-cart.jpg" alt="Taco cart at night in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/tree-tunnel.jpg"><img src="photos/tree-tunnel.jpg" alt="Tree tunnel" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/van-sleeping.jpg"><img src="photos/van-sleeping.jpg" alt="Person sleeping in a van" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/yosemite-trail.jpg"><img src="photos/yosemite-trail.jpg" alt="Yosemite canyon in evening light" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/yosemite-valley.jpg"><img src="photos/yosemite-valley.jpg" alt="Yosemite trail with a pine" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/tetrapods-C617472A.jpg"><img src="photos/tetrapods-C617472A.jpg" alt="Concrete tetrapods along a shoreline" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/lavender-field-44DFB472.jpg"><img src="photos/lavender-field-44DFB472.jpg" alt="Field of lavender" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/calla-lilies-1CB0954F.jpg"><img src="photos/calla-lilies-1CB0954F.jpg" alt="Calla lilies" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/pine-boardwalk-7FB4DA90.jpg"><img src="photos/pine-boardwalk-7FB4DA90.jpg" alt="Boardwalk through a pine forest" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/gnarled-tree-beach-9254A749.jpg"><img src="photos/gnarled-tree-beach-9254A749.jpg" alt="Gnarled tree on a beach" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/misty-walkway-48FA8D97.jpg"><img src="photos/misty-walkway-48FA8D97.jpg" alt="Misty walkway" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/museum-hallway-4BC2AB1E.jpg"><img src="photos/museum-hallway-4BC2AB1E.jpg" alt="Museum hallway" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/dune-grass-path-2EFABBF7.jpg"><img src="photos/dune-grass-path-2EFABBF7.jpg" alt="Path through dune grass" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/nyc-riverfront-DE8723B3.jpg"><img src="photos/nyc-riverfront-DE8723B3.jpg" alt="New York City riverfront" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/forest-sunrays-C5ED39F1.jpg"><img src="photos/forest-sunrays-C5ED39F1.jpg" alt="Sun rays through a forest" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/juniper-berries-07D3E4F0.jpg"><img src="photos/juniper-berries-07D3E4F0.jpg" alt="Juniper berries" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/geranium-bw-1A1B3229.jpg"><img src="photos/geranium-bw-1A1B3229.jpg" alt="Geranium in black and white" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/beach-umbrella-1EB3BFB6.jpg"><img src="photos/beach-umbrella-1EB3BFB6.jpg" alt="Beach umbrella" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/banyan-tree-6A29610A.jpg"><img src="photos/banyan-tree-6A29610A.jpg" alt="Banyan tree" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/berlin-street.jpg"><img src="photos/berlin-street.jpg" alt="Street with vintage Porsche" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/bhutan-summit-6D1ECE66.jpg"><img src="photos/bhutan-summit-6D1ECE66.jpg" alt="Mountain summit in Bhutan" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/boat-friends-A963213F.jpg"><img src="photos/boat-friends-A963213F.jpg" alt="Friends on a boat" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/cypress-kayak-F5BA8A7A.jpg"><img src="photos/cypress-kayak-F5BA8A7A.jpg" alt="Kayak among cypress trees" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/glass-sculpture-C9B56AB5.jpg"><img src="photos/glass-sculpture-C9B56AB5.jpg" alt="Glass sculpture" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/infinity-room-BD764E63.jpg"><img src="photos/infinity-room-BD764E63.jpg" alt="Infinity mirror room" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/japan-bridge-night-03BAB9C2.jpg"><img src="photos/japan-bridge-night-03BAB9C2.jpg" alt="Bridge at night in Japan" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/japan-gallery-quilt-27BBE65D.jpg"><img src="photos/japan-gallery-quilt-27BBE65D.jpg" alt="Quilt in a gallery in Japan" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/jungle-path-DAB66F7D.jpg"><img src="photos/jungle-path-DAB66F7D.jpg" alt="Path through the jungle" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/mexico-plaza-476B1258.jpg"><img src="photos/mexico-plaza-476B1258.jpg" alt="Plaza in Mexico" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/sea-cliff-8632EF29.jpg"><img src="photos/sea-cliff-8632EF29.jpg" alt="Sea cliff" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/snowy-pass-648E669E.jpg"><img src="photos/snowy-pass-648E669E.jpg" alt="Snowy mountain pass" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/surfers-walking-6CE80723.jpg"><img src="photos/surfers-walking-6CE80723.jpg" alt="Surfers walking" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/winnebago-4069A7FC.jpg"><img src="photos/winnebago-4069A7FC.jpg" alt="Winnebago camper" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/jeep-stream-A0C4CAF7.jpg"><img src="photos/jeep-stream-A0C4CAF7.jpg" alt="Jeep crossing a stream" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/forest-bridge-creek-194CECED.jpg"><img src="photos/forest-bridge-creek-194CECED.jpg" alt="Wooden bridge over a forest creek" style="aspect-ratio: 2400/1600" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/bougainvillea-street-887A6F65.jpg"><img src="photos/bougainvillea-street-887A6F65.jpg" alt="Street lined with bougainvillea" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/puget-sound-clouds-836485B6.jpg"><img src="photos/puget-sound-clouds-836485B6.jpg" alt="Clouds over Puget Sound" style="aspect-ratio: 4896/3264" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/diwali-gifts-7E597412.jpg"><img src="photos/diwali-gifts-7E597412.jpg" alt="Diwali gifts" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/wood-spiral-4DC35586.jpg"><img src="photos/wood-spiral-4DC35586.jpg" alt="Spiral wood carving" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/chive-flowers-043155D7.jpg"><img src="photos/chive-flowers-043155D7.jpg" alt="Chive flowers" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/red-leaves-10B89607.jpg"><img src="photos/red-leaves-10B89607.jpg" alt="Red autumn leaves" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/sheep-valley-18920780.jpg"><img src="photos/sheep-valley-18920780.jpg" alt="Sheep in a valley" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/glacial-lake-28B7AF30.jpg"><img src="photos/glacial-lake-28B7AF30.jpg" alt="Glacial lake" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/poppy-macro-2B2A81D7.jpg"><img src="photos/poppy-macro-2B2A81D7.jpg" alt="Close-up of a poppy" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/buddha-plant-333E9F81.jpg"><img src="photos/buddha-plant-333E9F81.jpg" alt="Buddha statue with a plant" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/firework-burst-5004742B.jpg"><img src="photos/firework-burst-5004742B.jpg" alt="Burst of fireworks" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/langur-sitting-6C239336.jpg"><img src="photos/langur-sitting-6C239336.jpg" alt="Langur monkey sitting" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/langur-climbing-9B6D6B84.jpg"><img src="photos/langur-climbing-9B6D6B84.jpg" alt="Langur monkey climbing" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/spotted-deer-D8AE667C.jpg"><img src="photos/spotted-deer-D8AE667C.jpg" alt="Spotted deer" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="photos/beach-reflection-DDAF92C4.jpg"><img src="photos/beach-reflection-DDAF92C4.jpg" alt="Reflection on a beach" style="aspect-ratio: 1400/933" loading="lazy"></a>
+        </div>
 
         <div class="photo-footer">
             <p>Shot on the Leica Q2 & Q2 Monochrome</p>
@@ -412,7 +496,8 @@
 
     // Filter by URL parameter: ?camera=mono, ?camera=q2, ?camera=fuji, ?camera=canon
     const params = new URLSearchParams(window.location.search);
-    const cameraFilter = params.get('camera');
+    const requestedCamera = params.get('camera');
+    const cameraFilter = requestedCamera === 'mono' ? 'q2mono' : requestedCamera;
     let photos = cameraFilter
         ? allPhotos.filter(p => p.c === cameraFilter)
         : allPhotos.slice();
@@ -424,6 +509,7 @@
     }
 
     const gallery = document.getElementById('gallery');
+    const enhancedGallery = document.createDocumentFragment();
     const counter = document.getElementById('photo-counter');
 
     let photoIndex = 0; // tracks position in the photos array
@@ -455,7 +541,7 @@
             }
 
             pair.appendChild(inner);
-            gallery.appendChild(pair);
+            enhancedGallery.appendChild(pair);
         } else {
             const photo = photos[photoIndex];
             const filename = photo.f;
@@ -481,16 +567,29 @@
             setupLightboxTrigger(img, 'photos/' + filename, photo.alt);
 
             wrap.appendChild(img);
-            gallery.appendChild(wrap);
+            enhancedGallery.appendChild(wrap);
             photoIndex++;
         }
     }
 
-    // IntersectionObserver for fade-in (skip first item)
+    // Swap only after the enhanced gallery is built; the static catalog is usable without JS.
+    gallery.replaceChildren(enhancedGallery);
+    const filters = document.getElementById('camera-filters');
+    filters.hidden = false;
+    filters.querySelectorAll('a').forEach(link => {
+        if (link.dataset.camera === (cameraFilter || '')) link.setAttribute('aria-current', 'page');
+    });
+
+    // Animate only intersecting items, never hide unread/unobserved photographs.
+    if ('IntersectionObserver' in window) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fadeObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                if (!reducedMotion && entry.target.animate) {
+                    entry.target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1500, easing: 'ease' });
+                }
                 fadeObserver.unobserve(entry.target);
             }
         });
@@ -521,6 +620,8 @@
     document.querySelectorAll('.photo-wrap, .photo-pair').forEach(el => {
         counterObserver.observe(el);
     });
+
+    }
 
     // Set initial counter
     counter.textContent = '1';
