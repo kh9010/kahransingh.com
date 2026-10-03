@@ -194,6 +194,24 @@
         "wind_kmh": 11.7,
         "cloud_pct": 54
       }
+    },
+    "2026-10-02": {
+      "poem": "falling-in-love",
+      "photo": "/photos/beach-solitude.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.868227675683469,
+        "warmth": 1.0,
+        "wet": 1.0,
+        "stillness": 0.48250000000000004,
+        "season": 0.4001492237169682,
+        "inside": 0.5,
+        "mood": 0.5,
+        "weather_code": 65,
+        "tmax": 30.0,
+        "wind_kmh": 20.7,
+        "cloud_pct": 23
+      }
     }
   }
 }
