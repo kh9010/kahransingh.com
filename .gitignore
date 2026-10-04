@@ -16,3 +16,6 @@ coding-days.json
 
 # Byte-compiled generator
 __pycache__/
+
+# Local browser review artifacts
+.review/
