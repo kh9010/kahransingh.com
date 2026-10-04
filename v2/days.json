@@ -212,6 +212,24 @@
         "wind_kmh": 20.7,
         "cloud_pct": 23
       }
+    },
+    "2026-10-03": {
+      "poem": "late-why-so-late",
+      "photo": "/photos/paro-bhutan-6f8bbbbf.jpg",
+      "place": null,
+      "why": {
+        "light": 0.6598529470575129,
+        "warmth": 0.7942857142857143,
+        "wet": 0.0,
+        "stillness": 0.7949999999999999,
+        "season": 0.39173645737759283,
+        "inside": 0.8971428571428571,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 22.8,
+        "wind_kmh": 20.2,
+        "cloud_pct": 15
+      }
     }
   }
 }
