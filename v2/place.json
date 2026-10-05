@@ -1,7 +1,7 @@
 {
-  "place": null,
-  "lat": null,
-  "lon": null,
-  "tz": null,
-  "updated": "2026-10-04"
+  "place": "New York",
+  "lat": 40.71,
+  "lon": -74.01,
+  "tz": "America/New_York",
+  "updated": "2026-10-05"
 }
