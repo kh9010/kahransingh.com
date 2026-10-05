@@ -230,6 +230,24 @@
         "wind_kmh": 20.2,
         "cloud_pct": 15
       }
+    },
+    "2026-10-04": {
+      "poem": "ariel",
+      "photo": "/photos/papel-picado.jpg",
+      "place": null,
+      "why": {
+        "light": 0.1135142419994117,
+        "warmth": 0.6,
+        "wet": 0.35,
+        "stillness": 0.8900000000000001,
+        "season": 0.3833557279622724,
+        "inside": 0.625,
+        "mood": 0.5,
+        "weather_code": 53,
+        "tmax": 16.0,
+        "wind_kmh": 16.4,
+        "cloud_pct": 64
+      }
     }
   }
 }
