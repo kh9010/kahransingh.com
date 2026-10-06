@@ -248,6 +248,24 @@
         "wind_kmh": 16.4,
         "cloud_pct": 64
       }
+    },
+    "2026-10-05": {
+      "poem": "sit-let-us-listen",
+      "photo": "/photos/roppongi-tokyo-a5f50e72.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.5737916867356593,
+        "warmth": 0.76,
+        "wet": 0.0,
+        "stillness": 0.21500000000000008,
+        "season": 0.37500951546367395,
+        "inside": 0.88,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 21.6,
+        "wind_kmh": 31.4,
+        "cloud_pct": 55
+      }
     }
   }
 }
