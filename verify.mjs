@@ -18,7 +18,7 @@ const check = (name, fn) => checks.push([name, fn])
 const NOINDEX = /<meta name="robots" content="noindex, nofollow">/
 
 check('studies are noindexed', () => {
-  const pages = ['index.html', '01/index.html']
+  const pages = ['index.html', '01/index.html', '01/live.html']
   for (const p of pages) assert.match(read(S(p)), NOINDEX, `studies/${p} must carry the noindex meta`)
   assert.doesNotMatch(read(path.join(ROOT, 'robots.txt')), /Disallow:\s*\/studies/, 'no robots Disallow for studies: it hides the noindex')
   return `${pages.length} pages carry noindex, nofollow; robots.txt leaves them crawlable so the tag is read`
@@ -98,7 +98,7 @@ check('cards render blind', async () => {
   picksFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'verify-picks-')), 'picks.json')
   fs.writeFileSync(picksFile, '{}')
   srv = await startServer(picksFile); chrome = await startChrome()
-  await chrome.go(srv.base + '/studies/01/')
+  await chrome.go(srv.base + '/studies/01/index.html')
   const dom = await chrome.ev(`(() => { const parts = []; for (const el of document.querySelectorAll('body *')) { if (el.tagName === 'SCRIPT') continue; for (const a of el.attributes) parts.push(a.value); if (!el.children.length) parts.push(el.textContent) } return parts.join(' \\n ').toLowerCase() })()`)
   const shown = (await chrome.ev(`document.querySelector('#clip').getAttribute('src')`)).slice(6, 14)
   const leaks = []
@@ -123,7 +123,7 @@ check('a pick round-trips to storage', async () => {
   assert.deepEqual(stored[first].tags, ['mechanical'], 'a tag on the kept card is written')
   const name = pile.items.find(p => p.id === first).name
   assert(await chrome.ev(`document.querySelector('#reveal').textContent.includes(${JSON.stringify(name)})`), 'the name is revealed after the verdict')
-  await chrome.go(srv.base + '/studies/01/')
+  await chrome.go(srv.base + '/studies/01/index.html')
   const count = await chrome.ev(`document.querySelector('#count').textContent`)
   assert.equal(count, `1 / ${pile.items.length}`, 'a reload resumes from storage')
   const now = await chrome.ev(`document.querySelector('#clip').getAttribute('src').slice(6, 14)`)
@@ -141,12 +141,41 @@ check('the server keeps the picks file clean', async () => {
     await post({ id: 'deadbeef', rec: { v: 'keep', tags: [] } }),
     await post({ id, rec: { v: 'love', tags: [] } }),
     await post({ id, rec: { v: 'keep', tags: ['vibes'] } }),
-    await post({ id, rec: { v: 'keep', tags: [], note: 'x'.repeat(141) } }),
+    await post({ id, rec: { v: 'keep', tags: [], note: 'x'.repeat(501) } }),
     await post({ id, rec: { v: 'keep', tags: [] } }, { origin: 'https://evil.example' }),
   ]
   assert.deepEqual(codes, [400, 400, 400, 400, 403], 'unknown card, bad verdict, bad tag, long note refused; foreign origin 403')
   assert.equal(read(picksFile).trim(), '{}', 'refused writes leave the file untouched')
   return '4 malformed writes 400, foreign origin 403, file untouched'
+})
+
+check('live: notes do not fire shortcuts, a keep with a note round-trips, blocked sites get no iframe', async () => {
+  fs.writeFileSync(picksFile, '{}')
+  const L = srv.base + '/studies/01/'
+  assert.match(await (await fetch(L)).text(), /id="site"/, '/studies/01/ serves live.html')
+  await chrome.go(L)
+  const cnt = () => chrome.ev(`document.querySelector('#count').textContent`)
+  const id = () => chrome.ev(`document.body.dataset.id`)
+  assert(await chrome.ev(`document.activeElement.id === 'note'`), 'the note field has focus on load')
+  for (const c of 'jkxz1') await chrome.key(c)
+  await sleep(300)
+  assert.equal(await cnt(), `0 / ${pile.items.length}`, 'typing j k x z in the note triggers nothing')
+  assert.equal(await chrome.ev(`document.querySelector('#note').value`), 'jkxz1', 'the letters land in the note')
+  await chrome.ev(`document.querySelector('#note').value = 'a dictated sentence'`)
+  const first = await id()
+  await chrome.key('Enter'); await sleep(500)
+  const rec = JSON.parse(read(picksFile))[first]
+  assert.equal(rec?.v, 'keep', 'Enter in the note keeps'); assert.equal(rec.note, 'a dictated sentence', 'the note is saved with it')
+  await chrome.go(L); assert.equal(await cnt(), `1 / ${pile.items.length}`, 'a reload resumes')
+  let sawBlocked = false, sawFramed = false
+  for (let i = 0; i < 30 && !(sawBlocked && sawFramed); i++) {
+    const cid = await id(), c = pile.items.find(p => p.id === cid), has = await chrome.ev(`!document.querySelector('#site').hidden && !!document.querySelector('#site').getAttribute('src')`)
+    assert.equal(has, c.frames !== false, 'iframe present exactly when the site allows frames')
+    c.frames === false ? sawBlocked = true : sawFramed = true
+    await chrome.ev(`document.querySelector('#skip').click()`); await sleep(150)
+  }
+  assert(sawBlocked && sawFramed, 'saw one blocked and one framed card')
+  return 'note typing inert, Enter keeps with its note, resume works, blocked cards get no iframe'
 })
 
 let failed = false

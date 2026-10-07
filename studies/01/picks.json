@@ -1,1 +1,58 @@
-{}
+{
+ "36c15e47": {
+  "v": "keep",
+  "tags": [],
+  "note": "the blue ball",
+  "at": "2026-10-07T00:00:04Z",
+  "name": "muda.co",
+  "url": "https://muda.co/"
+ },
+ "7e9fefc4": {
+  "v": "skip",
+  "tags": [],
+  "note": "",
+  "at": "2026-10-07T00:00:05Z"
+ },
+ "a50c1845": {
+  "v": "keep",
+  "tags": [],
+  "note": "soft movement, a feeling to it",
+  "at": "2026-10-07T00:00:03Z",
+  "name": "windy.com",
+  "url": "https://www.windy.com/"
+ },
+ "b94591db": {
+  "v": "keep",
+  "tags": [],
+  "note": "the clarity, the ease with which the information is presented",
+  "at": "2026-10-07T00:00:06Z",
+  "name": "The Thread: A Personal Story",
+  "url": "https://tej.as/story"
+ },
+ "dc7f335f": {
+  "v": "keep",
+  "tags": [],
+  "note": "the simplicity and clarity",
+  "at": "2026-10-07T00:00:00Z",
+  "name": "maggieappleton.com",
+  "url": "https://maggieappleton.com/"
+ },
+ "e87d9236": {
+  "v": "skip",
+  "tags": [],
+  "note": "",
+  "at": "2026-10-07T00:00:01Z"
+ },
+ "f1d9fca6": {
+  "v": "skip",
+  "tags": [],
+  "note": "",
+  "at": "2026-10-07T15:27:33.989Z"
+ },
+ "fdf68058": {
+  "v": "skip",
+  "tags": [],
+  "note": "",
+  "at": "2026-10-07T00:00:02Z"
+ }
+}

@@ -15,8 +15,8 @@ function valid(id, rec, ids) {
   if (!rec || typeof rec !== 'object' || Array.isArray(rec)) return false
   if (!['keep', 'skip', 'trim'].includes(rec.v)) return false
   if (!Array.isArray(rec.tags) || rec.tags.some(t => !TAGS.includes(t))) return false
-  if (rec.note !== undefined && (typeof rec.note !== 'string' || rec.note.length > 140)) return false
-  return Object.keys(rec).every(k => ['v', 'tags', 'note', 'at'].includes(k))
+  if (rec.note !== undefined && (typeof rec.note !== 'string' || rec.note.length > 500)) return false
+  return Object.keys(rec).every(k => ['v', 'tags', 'note', 'at', 'name', 'url'].includes(k))
 }
 
 const server = http.createServer((req, res) => {
@@ -43,6 +43,7 @@ const server = http.createServer((req, res) => {
     return
   }
   let p = decodeURIComponent(url.pathname)
+  if (p === '/studies/01/') p = '/studies/01/live.html' // live is the default; index.html is the clip version
   if (p.endsWith('/')) p += 'index.html'
   const file = path.join(ROOT, p)
   if (!file.startsWith(ROOT + path.sep)) { res.writeHead(404); return res.end() }

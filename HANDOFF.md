@@ -88,6 +88,11 @@ Each browser check was seen red once: noindex removed (FAIL noindexed); the card
 - Rachna studies 01–31 (`~/dev/rachna-website/HANDOFF.md`): lessons used here are don't overbuild, one thing at a time, no instruction text, research goes broad and does not pre-decide.
 - Awwwards listings read 7 Oct 2026 (SOTD pages 1–3, SOTM, honorable, nominees, and the personal, poetry, writer, editorial, photography, typography, storytelling, experimental, art-illustration, blog, culture, minimal categories); Hoverstates, minimal.gallery and One Page Love (personal, photography, experimental) home and genre pages the same day.
 
+- Study 01 live (7 Oct): `studies/01/live.html` is the default at `/studies/01/` when served by `studies/server.cjs`; the clip picker stays at `01/index.html`. Real site in an iframe under a 48px bar; the note field has focus on load, Enter keeps, Esc leaves the field so keys work.
+- 45 sites send frame-blocking headers (`frames: false` in pile.json, an upper bound): no iframe, the site opens in the named window `study01-site`. "pop out" is the fallback for a frame that loads blank.
+- `studies/01/picks.json` is committed on purpose: his durable inspiration record (kept ones carry name and url). The first 7 picks were seeded from the artifact db.
+- The artifact build has no live view (needs the server); the live page only works locally.
+
 ## Open questions
 
 - Does the trimmed set of about 30 become study 02 (a board of his picks, side by side with Divya's direction), or go straight into a home version?

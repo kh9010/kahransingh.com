@@ -60,7 +60,8 @@
     "phones-01.jpg",
     4,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "5cc24390",
@@ -72,7 +73,8 @@
     "phones-01.jpg",
     5,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "eac5a66b",
@@ -132,7 +134,8 @@
     "phones-01.jpg",
     10,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "e4fe2d59",
@@ -144,7 +147,8 @@
     "phones-01.jpg",
     11,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "d3465ae8",
@@ -156,7 +160,8 @@
     "phones-01.jpg",
     12,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "0cd10ff4",
@@ -228,7 +233,8 @@
     "phones-01.jpg",
     18,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "d6c1e8b9",
@@ -240,7 +246,8 @@
     "phones-01.jpg",
     19,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "25bd696d",
@@ -348,7 +355,8 @@
     "phones-02.jpg",
     8,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "acef23aa",
@@ -444,7 +452,8 @@
     "phones-02.jpg",
     16,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "6b549c52",
@@ -492,7 +501,8 @@
     "phones-03.jpg",
     0,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "4e4c960d",
@@ -540,7 +550,8 @@
     "phones-03.jpg",
     4,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "68e436c9",
@@ -552,7 +563,8 @@
     "phones-03.jpg",
     5,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "4a191ca8",
@@ -564,7 +576,8 @@
     "phones-03.jpg",
     6,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "f1d9fca6",
@@ -588,7 +601,8 @@
     "phones-03.jpg",
     8,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "66329468",
@@ -624,7 +638,8 @@
     "phones-03.jpg",
     11,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "fdf2483e",
@@ -660,7 +675,8 @@
     "phones-03.jpg",
     14,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "a29baf80",
@@ -684,7 +700,8 @@
     "phones-03.jpg",
     16,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "d63e96d6",
@@ -696,7 +713,8 @@
     "phones-03.jpg",
     17,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "7f2df1d6",
@@ -744,7 +762,8 @@
     "phones-04.jpg",
     1,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "88e1fe4b",
@@ -792,7 +811,8 @@
     "phones-04.jpg",
     5,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "fc1c8ff4",
@@ -816,7 +836,8 @@
     "phones-04.jpg",
     7,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "3ba0fb5f",
@@ -1092,7 +1113,8 @@
     "phones-05.jpg",
     10,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "7ab331c8",
@@ -1140,7 +1162,8 @@
     "phones-05.jpg",
     14,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "d1b9f7c2",
@@ -1200,7 +1223,8 @@
     "phones-05.jpg",
     19,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "3bb87b92",
@@ -1212,7 +1236,8 @@
     "phones-06.jpg",
     0,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "75b5ffe2",
@@ -1248,7 +1273,8 @@
     "phones-06.jpg",
     3,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "dc9056dc",
@@ -1368,7 +1394,8 @@
     "phones-06.jpg",
     13,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "0ed23d8d",
@@ -1392,7 +1419,8 @@
     "phones-06.jpg",
     15,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "991d619e",
@@ -1452,7 +1480,8 @@
     "phones-07.jpg",
     0,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "aa69cd33",
@@ -1464,7 +1493,8 @@
     "phones-07.jpg",
     1,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "e9278ad0",
@@ -1500,7 +1530,8 @@
     "phones-07.jpg",
     4,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "53a1eb1b",
@@ -1620,7 +1651,8 @@
     "phones-07.jpg",
     14,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "2a5a23d3",
@@ -1680,7 +1712,8 @@
     "phones-07.jpg",
     19,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "489d4866",
@@ -1740,7 +1773,8 @@
     "phones-08.jpg",
     4,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "fc53a19b",
@@ -1764,7 +1798,8 @@
     "phones-08.jpg",
     6,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "e7ef5226",
@@ -1776,7 +1811,8 @@
     "phones-08.jpg",
     7,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "edcefc4d",
@@ -1788,7 +1824,8 @@
     "phones-08.jpg",
     8,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "442a4016",
@@ -1812,7 +1849,8 @@
     "phones-08.jpg",
     10,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "d7183ebb",
@@ -1836,7 +1874,8 @@
     "phones-08.jpg",
     12,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "641bfaf3",
@@ -1872,7 +1911,8 @@
     "phones-08.jpg",
     15,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "3c7eff43",
@@ -1884,7 +1924,8 @@
     "phones-08.jpg",
     16,
     20
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "41b86850",
@@ -1992,7 +2033,8 @@
     "phones-09.jpg",
     5,
     11
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "14c95cfe",
@@ -2028,7 +2070,8 @@
     "phones-09.jpg",
     8,
     11
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "76ad93ab",
@@ -2040,7 +2083,8 @@
     "phones-09.jpg",
     9,
     11
-   ]
+   ],
+   "frames": false
   },
   {
    "id": "7f4c0236",
@@ -2052,7 +2096,8 @@
     "phones-09.jpg",
     10,
     11
-   ]
+   ],
+   "frames": false
   }
  ],
  "dropped": [
