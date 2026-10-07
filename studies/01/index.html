@@ -80,11 +80,11 @@ small, .lbl { font-size: var(--hs-fs-label); font-weight: 500; letter-spacing: v
 #card.out-keep { transform: translateX(14%) rotate(1.5deg); opacity: 0; }
 #card.out-skip { transform: translateX(-14%) rotate(-1.5deg); opacity: 0; }
 #clip { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 10; max-width: 100%; background: transparent; object-fit: contain; border-radius: var(--hs-radius); }
-#phone { flex: 1 1 auto; min-height: 0; width: 100%; object-fit: contain; object-position: center top; }
+#phone { flex: 1 1 0; min-height: 0; align-self: center; aspect-ratio: 360 / 780; max-width: 100%; background-repeat: no-repeat; background-color: var(--hs-surface); border-radius: var(--hs-radius); }
 @media (min-width: 900px) {
   #card { padding: calc(var(--hs-unit) * 4); }
   #clip { flex: 1 1 auto; height: 100%; min-height: 0; aspect-ratio: auto; }
-  #phone { position: absolute; right: calc(var(--hs-unit) * 7); bottom: calc(var(--hs-unit) * 7); height: 46%; width: auto; border-radius: calc(var(--hs-radius) * 2); box-shadow: var(--hs-shadow-2); background: var(--hs-surface); }
+  #phone { position: absolute; right: calc(var(--hs-unit) * 7); bottom: calc(var(--hs-unit) * 7); height: 46%; border-radius: calc(var(--hs-radius) * 2); box-shadow: var(--hs-shadow-2); }
 }
 #done { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; gap: var(--hs-gap); }
 
@@ -139,7 +139,7 @@ details summary { cursor: pointer; }
   <div id="stage">
     <div id="card">
       <video id="clip" muted autoplay loop playsinline preload="auto"></video>
-      <img id="phone" alt="">
+      <div id="phone" role="img" aria-label="phone"></div>
     </div>
     <div id="done" hidden><small>pile done</small><a href="#kept" class="lbl">kept board</a></div>
   </div>
@@ -222,7 +222,8 @@ details summary { cursor: pointer; }
       const id = order[cursor], c = byId(id)
       const clip = $('#clip')
       clip.poster = media(id, '.jpg'); clip.src = media(id, '.mp4'); clip.play().catch(() => {})
-      const ph = $('#phone'); ph.hidden = !c.mobile; if (c.mobile) ph.src = media(id, '-m.jpg')
+      const ph = $('#phone'); ph.hidden = !c.phone
+      if (c.phone) { const [sheet, i, n] = c.phone; ph.style.backgroundImage = 'url(media/' + sheet + ')'; ph.style.backgroundSize = n * 100 + '% 100%'; ph.style.backgroundPosition = (n > 1 ? i / (n - 1) * 100 : 0) + '% 0' }
       const n = nextOpen(cursor + 1); if (n < order.length) { $('#next').src = media(order[n], '.mp4'); new Image().src = media(order[n], '.jpg') }
     }
     renderReveal()

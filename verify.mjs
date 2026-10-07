@@ -51,13 +51,16 @@ check('the pile is whole', () => {
     assert(p.id && p.url && p.name && p.source, 'every card has id, url, name, source')
     assert(/^[0-9a-f]{8}$/.test(p.id), 'ids are opaque hashes, never a name')
     assert(!ids.has(p.id), 'ids are unique'); ids.add(p.id)
-    for (const k of ['.jpg', '.mp4', ...(p.mobile ? ['-m.jpg'] : [])]) assert(fs.existsSync(S('01/media/' + p.id + k)), 'media for ' + p.id + k)
+    for (const k of ['.jpg', '.mp4']) assert(fs.existsSync(S('01/media/' + p.id + k)), 'media for ' + p.id + k)
+    if (p.phone) { assert(/^phones-\d\d\.jpg$/.test(p.phone[0]) && fs.existsSync(S('01/media/' + p.phone[0])), 'phone sheet for ' + p.id); assert(p.phone[1] < p.phone[2], 'phone slot inside its sheet') }
   }
   assert(pile.items.length >= 80, 'at least 80 candidates survive')
   assert(Number.isInteger(pile.seed), 'the shuffle has a fixed seed')
   const bytes = fs.readdirSync(S('01/media')).reduce((a, f) => a + fs.statSync(S('01/media/' + f)).size, 0)
   const src = {}; pile.items.forEach(p => { src[p.source] = (src[p.source] || 0) + 1 })
-  return `${pile.items.length} cards from ${Object.entries(src).map(([k, v]) => k + ' ' + v).join(', ')}; ${pile.items.filter(p => p.mobile).length} with a phone still; media ${(bytes / 1e6).toFixed(1)} MB`
+  const files = fs.readdirSync(S('01/media')).length
+  assert(files + 2 <= 511, 'media, page and pile fit the artifact file cap of 511')
+  return `${pile.items.length} cards from ${Object.entries(src).map(([k, v]) => k + ' ' + v).join(', ')}; ${pile.items.filter(p => p.phone).length} with a phone still; media ${files} files, ${(bytes / 1e6).toFixed(1)} MB`
 })
 
 // ── browser checks ──
