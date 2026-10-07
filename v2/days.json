@@ -266,6 +266,24 @@
         "wind_kmh": 31.4,
         "cloud_pct": 55
       }
+    },
+    "2026-10-06": {
+      "poem": "the-sun-kissed-the-mountains",
+      "photo": "/photos/honshu-japan-0d03d128.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.9503803210636951,
+        "warmth": 0.6542857142857142,
+        "wet": 0.0,
+        "stillness": 0.45499999999999996,
+        "season": 0.36670028966035323,
+        "inside": 0.8271428571428572,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 17.9,
+        "wind_kmh": 21.8,
+        "cloud_pct": 0
+      }
     }
   }
 }
