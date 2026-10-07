@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Studies</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root { --hs-paper: #fafaf8; --hs-surface: #fff; --hs-ink: #1a1a1a; --hs-ink-2: #6e6e6e; --hs-line: #e0ddd8; --hs-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; --hs-fs-label: .72rem; --hs-fs-meta: .78rem; --hs-track-label: .12em; --hs-unit: 4px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --hs-paper: #141210; --hs-surface: #1c1a15; --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-line: #332e26; color-scheme: dark; } }
+:root[data-theme="dark"] { --hs-paper: #141210; --hs-surface: #1c1a15; --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-line: #332e26; color-scheme: dark; }
+html, body { height: 100%; margin: 0; }
+body { display: grid; grid-template-columns: 230px 1fr; background: var(--hs-paper); color: var(--hs-ink); font: 400 var(--hs-fs-meta)/1.4 var(--hs-font); }
+aside { padding: calc(var(--hs-unit) * 4); display: flex; flex-direction: column; gap: calc(var(--hs-unit) * 2); overflow: auto; }
+aside a { display: block; text-decoration: none; color: inherit; background: var(--hs-surface); border: 1px solid var(--hs-line); border-left: 3px solid transparent; border-radius: 6px; padding: calc(var(--hs-unit) * 3); }
+aside a[aria-current] { border-left-color: var(--hs-ink); }
+aside b { display: block; font-weight: 500; }
+aside small { color: var(--hs-ink-2); }
+iframe { border: 0; width: 100%; height: 100%; display: block; }
+@media (max-width: 700px) { body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } aside { flex-direction: row; overflow-x: auto; } }
+</style>
+</head>
+<body>
+<aside id="rail">
+  <a href="01/" target="view" aria-current="page" data-n="01"><b>01 / Inspiration pile</b><small>7 Oct 2026</small><br><small>blind cards; keep or skip; tags; kept board</small></a>
+</aside>
+<iframe name="view" src="01/" title="study"></iframe>
+<script>
+document.querySelectorAll('#rail a').forEach(a => a.onclick = () => { document.querySelectorAll('#rail a').forEach(x => x.removeAttribute('aria-current')); a.setAttribute('aria-current', 'page') })
+</script>
+</body>
+</html>
