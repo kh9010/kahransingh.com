@@ -18,7 +18,7 @@ const check = (name, fn) => checks.push([name, fn])
 const NOINDEX = /<meta name="robots" content="noindex, nofollow">/
 
 check('studies are noindexed', () => {
-  const pages = ['index.html', '01/index.html', '01/live.html']
+  const pages = ['index.html', '01/index.html', '01/live.html', '02/live.html', '02/index.html']
   for (const p of pages) assert.match(read(S(p)), NOINDEX, `studies/${p} must carry the noindex meta`)
   assert.doesNotMatch(read(path.join(ROOT, 'robots.txt')), /Disallow:\s*\/studies/, 'no robots Disallow for studies: it hides the noindex')
   return `${pages.length} pages carry noindex, nofollow; robots.txt leaves them crawlable so the tag is read`
