@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 03 · D</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #1a1a1a; --ink2: #6e6e6e; --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #111; }
+body { font: 400 .78rem/1.4 var(--sans); color: var(--ink); }
+.cap { position: relative; z-index: 9999; padding: 6px 16px; background: #fafaf8; color: var(--ink2); font-size: .72rem; } .cap a { color: inherit; }
+#stage { position: absolute; inset: 26px 0 0 0; overflow: hidden; }
+.L { position: absolute; inset: 0; transform-origin: 75% 70%; will-change: transform; overflow: hidden; }
+.L .win { position: absolute; left: 56.25%; top: 52.5%; width: 25%; height: 25%; outline: 1px solid rgba(255,255,255,.7); box-shadow: 0 0 0 1px rgba(0,0,0,.3); cursor: zoom-in; }
+.L .tint { position: absolute; inset: 0; mix-blend-mode: multiply; pointer-events: none; }
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ph .pc { position: absolute; left: 24px; bottom: 64px; color: #fff; font: italic 400 1.1rem var(--serif); text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.po { background: #f3efe4; }
+.po article { position: absolute; left: 7%; top: 9%; width: 44%; max-height: 84%; overflow: hidden; font: 400 1.05rem/1.55 var(--serif); white-space: pre-line; }
+.po article b { font-weight: 400; font-style: italic; font-size: 1.5rem; display: block; margin-bottom: 10px; }
+.pl { background: #e4e1d7; }
+.pl svg { position: absolute; left: 5%; top: 10%; width: 48%; height: auto; }
+.pl .where { position: absolute; left: 5%; bottom: 10%; font: 400 1.6rem var(--serif); max-width: 48%; }
+.pl .where small { display: block; font: 400 .85rem var(--sans); color: var(--ink2); margin-top: 6px; }
+.to { background: #fafaf8; }
+.to h3 { position: absolute; left: 6%; top: 8%; margin: 0; font: 500 1.2rem var(--sans); }
+.to .ideas { position: absolute; left: 6%; top: 18%; width: 46%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.to .ideas > * { background: #fff; border: 1px solid #e0ddd8; border-left: 4px solid var(--h); border-radius: 6px; padding: 10px; color: inherit; text-decoration: none; }
+.to b { font-weight: 500; display: block; font-size: .95rem; } .to small { color: var(--ink2); display: block; }
+#hud { position: absolute; z-index: 9000; left: 16px; top: 12px; background: rgba(250,250,248,.92); padding: 8px 12px; border-radius: 6px; }
+#hud h1 { margin: 0; font: 500 1.2rem var(--sans); } #hud p { margin: 2px 0; } #hud a { color: inherit; margin-right: 8px; }
+#rail { position: absolute; z-index: 9000; right: 16px; top: 12px; display: flex; flex-direction: column; gap: 2px; background: rgba(250,250,248,.92); padding: 6px; border-radius: 6px; max-height: 80%; overflow: auto; }
+#rail button { all: unset; cursor: pointer; padding: 2px 6px; border-radius: 4px; color: var(--ink2); font-size: .72rem; }
+#rail button.on { background: #1a1a1a; color: #fafaf8; }
+#keys { position: absolute; z-index: 9000; left: 16px; bottom: 14px; display: flex; gap: 6px; }
+#keys button { font: 500 .78rem var(--sans); border: 1px solid #e0ddd8; background: #fafaf8; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="cap">draws on: Zoomquilt · teenage engineering · his words: “the seasons change as you zoom” · <a href="./">board</a></div>
+<div id="stage">
+  <div id="hud"><h1>kahran singh</h1><p id="line"></p><p>Right now I’m: building tools to support myself</p><nav><a href="/about.html">about</a><a href="/poetry.html">poems</a><a href="/photography.html">photos</a></nav></div>
+  <div id="rail"></div>
+  <div id="keys"><button id="up">↑ back</button><button id="down">↓ deeper</button></div>
+</div>
+<script src="shared.js"></script>
+<script>
+const $ = s => document.querySelector(s), stage = $('#stage'), Z = 4
+let layers = [], pos = 0, target = 0
+// season axis 0..1 → winter blue, spring green, summer gold, autumn rust (a tint, multiplied)
+function season(v) { const s = [[0, [150, 175, 215]], [.33, [175, 215, 170]], [.66, [245, 215, 150]], [1, [225, 160, 120]]]; let i = s.findIndex(x => x[0] >= v); if (i <= 0) i = 1; const [a, b] = [s[i - 1], s[i]], t = (v - a[0]) / (b[0] - a[0]); return `rgba(${a[1].map((c, k) => Math.round(c + (b[1][k] - c) * t)).join(',')},.45)` }
+S03.load().then(c => {
+  $('#line').textContent = c.line
+  const HUE = { 'tile--catching': '#4f7a8a', 'tile--remembering': '#8a6a3f', 'tile--knowing': '#5a6b48', 'tile--public': '#a2563a', 'tile--alive': '#6b4f7a' }
+  const placed = Object.values(c.ps).filter(v => v.place)
+  // the chain: photo → poem in the same weather → where it was taken → the tools → the next photo nearest that poem
+  let photo = c.photo, poem = c.poem; const seen = new Set()
+  for (let k = 0; k < 5; k++) {
+    seen.add(photo.src); seen.add(poem.slug)
+    const pv = c.ps[photo.src] || {}, tint = season(pv.season ?? .5)
+    layers.push({ name: 'photo · ' + S03.placeOf(photo), html: `<div class="L ph"><img src="${photo.src}" alt="${photo.alt}"><div class="tint" style="background:${tint}"></div><div class="pc">${photo.caption}</div></div>` })
+    layers.push({ name: 'poem · ' + poem.title, html: `<div class="L po"><div class="tint" style="background:${tint};opacity:.5"></div><article><b><a href="/poems/${poem.slug}.html" style="color:inherit;text-decoration:none">${poem.title}</a></b>${poem.stanzas.join('\n\n').replace(/</g, '&lt;')}</article></div>` })
+    const P = pv.place, X = l => (l + 180) / 360 * 600, Y = l => (90 - l) / 180 * 300
+    layers.push({ name: 'place · ' + S03.placeOf(photo), html: `<div class="L pl"><div class="tint" style="background:${tint};opacity:.6"></div><svg viewBox="0 0 600 300"><rect width="600" height="300" fill="none" stroke="#9a958c"/>${placed.map(v => `<circle cx="${X(v.place.lon)}" cy="${Y(v.place.lat)}" r="3" fill="#9a958c"/>`).join('')}${P ? `<circle cx="${X(P.lon)}" cy="${Y(P.lat)}" r="7" fill="#b4572e"/>` : ''}</svg><div class="where">${S03.placeOf(photo)}<small>${k === 0 && c.line ? c.line : (pv.hour ? pv.hour + ' · ' : '') + (pv.notes || '')}</small></div></div>` })
+    layers.push({ name: 'tools', html: `<div class="L to"><div class="tint" style="background:${tint};opacity:.35"></div><h3>building tools to support myself</h3><div class="ideas">${c.ideas.map(d => `<${d.href ? `a href="${d.href}"` : 'div'} style="--h:${HUE[d.hue]}"><b>${d.name}</b><small>${d.line}</small></${d.href ? 'a' : 'div'}>`).join('')}</div></div>` })
+    const qv = c.qs[poem.slug]; const nextSrc = qv && S03.near(qv, c.ps, 40).find(s => !seen.has(s))
+    photo = c.data.photos.find(p => p.src === nextSrc) || c.data.photos[(k * 7 + 3) % c.data.photos.length]
+    const nv = c.ps[photo.src]; const nextSlug = nv && S03.near(nv, c.qs, 40).find(s => !seen.has(s))
+    poem = c.data.poems.find(p => p.slug === nextSlug) || c.data.poems[(k * 11 + 5) % c.data.poems.length]
+  }
+  layers = layers.map((l, i) => { const t = document.createElement('template'); t.innerHTML = l.html; const el = t.content.firstChild; el.insertAdjacentHTML('beforeend', '<div class="win"></div>'); el.style.zIndex = i + 1; el.style.display = 'none'; stage.appendChild(el); return { ...l, el } })
+  $('#rail').innerHTML = layers.map((l, i) => `<button data-i="${i}">${l.name}</button>`).join('')
+  $('#rail').onclick = e => { const b = e.target.closest('button'); if (b) target = +b.dataset.i }
+  render(); loop()
+})
+const N = () => layers.length
+function render() {
+  layers.forEach((l, i) => {
+    const d = i - pos, s = Math.pow(Z, -d)
+    if (d < -1 || d > 3) { l.el.style.display = 'none'; return }
+    l.el.style.display = ''; l.el.style.transform = `scale(${s})`; l.el.style.opacity = d < 0 ? 1 + d : 1
+    l.el.style.pointerEvents = Math.round(pos) === i ? '' : 'none'
+  })
+  document.querySelectorAll('#rail button').forEach((b, i) => b.classList.toggle('on', i === Math.round(pos)))
+}
+function loop() { const d = target - pos; if (Math.abs(d) > .001) { pos += d * .08; render() } else if (pos !== target) { pos = target; render() } requestAnimationFrame(loop) }
+const go = n => { target = Math.max(0, Math.min(N() - 1, Math.round(target) + n)) }
+$('#down').onclick = () => go(1); $('#up').onclick = () => go(-1)
+stage.addEventListener('click', e => { if (e.target.classList.contains('win')) go(1) })
+addEventListener('keydown', e => { if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') { go(1); e.preventDefault() } if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') go(-1) })
+</script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 03 · B</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #1a1a1a; --ink2: #6e6e6e; --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font: 400 .78rem/1.4 var(--sans); color: var(--ink); background: #d9d2c3; overflow: hidden; }
+.cap { position: relative; z-index: 999; padding: 6px 16px; background: rgba(250,250,248,.85); color: var(--ink2); font-size: .72rem; }
+.cap a { color: inherit; }
+#desk { position: absolute; inset: 26px 0 0 0; transition: background 2s; }
+#rain { position: absolute; inset: 0; pointer-events: none; }
+.it { position: absolute; cursor: pointer; transition: transform .28s cubic-bezier(.4,0,.2,1), box-shadow .28s; box-shadow: 0 2px 6px rgba(0,0,0,.18); }
+.it.up { box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+.pol { background: #fbfaf6; padding: 10px 10px 34px; width: 230px; }
+.pol img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; filter: contrast(1.05); }
+.pol span { position: absolute; left: 12px; bottom: 10px; font: italic 400 .8rem var(--serif); color: #555; }
+.pol.big { width: 340px; }
+.scrap { background: #fffdf4; padding: 14px 16px; width: 260px; font: 400 .88rem/1.45 var(--serif); white-space: pre-line; max-height: 380px; overflow: hidden; }
+.scrap b { font-weight: 400; font-style: italic; display: block; margin-bottom: 6px; font-size: 1rem; }
+.scrap::before, .card::before { content: ''; position: absolute; top: -6px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #b4572e; box-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.card { background: #f4f1e8; padding: 10px 12px; width: 170px; border-top: 3px solid var(--h); }
+.card b { font-weight: 500; display: block; } .card small { color: #6e6e6e; display: block; }
+.name { position: absolute; left: 24px; top: 18px; z-index: 50; }
+.name h1 { margin: 0; font: 500 1.6rem var(--sans); } .name p { margin: 2px 0; font-size: .9rem; }
+.name nav a { color: inherit; margin-right: 10px; }
+#clock, #thermo { position: absolute; z-index: 40; }
+#ball { position: absolute; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #6fa4ff, #1f4fd8 60%, #12318a); cursor: grab; z-index: 60; box-shadow: 0 6px 12px rgba(0,0,0,.25); touch-action: none; }
+</style>
+</head>
+<body>
+<div class="cap">draws on: Divya’s sketch · windy.com · muda.co · Cat Bounce · his words: “soft movement, a feeling to it” · <a href="./">board</a></div>
+<div id="desk">
+  <canvas id="rain"></canvas>
+  <div class="name"><h1>kahran singh</h1><p id="line"></p><p>Right now I’m: building tools to support myself</p><nav><a href="/about.html">about</a><a href="/poetry.html">poems</a><a href="/photography.html">photos</a></nav></div>
+  <svg id="clock" width="110" height="110" viewBox="-55 -55 110 110"></svg>
+  <svg id="thermo" width="44" height="150" viewBox="0 0 44 150"></svg>
+  <div id="ball"></div>
+</div>
+<script src="shared.js"></script>
+<script>
+const desk = document.getElementById('desk'), $ = s => document.querySelector(s)
+let zTop = 10, W, H
+function size() { W = desk.clientWidth; H = desk.clientHeight; const c = $('#rain'); c.width = W; c.height = H }
+size(); addEventListener('resize', size)
+function hourIn(tz) { const p = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date()); const g = t => +p.find(x => x.type === t).value; return (g('hour') % 24) + g('minute') / 60 }
+// the background follows his real hour: night ink → dawn rose → day linen → dusk amber
+const STOPS = [[0, '#1d2230', '#2b3145'], [5.5, '#3a3550', '#8a6f7a'], [7, '#c9a99a', '#e8d8c4'], [10, '#e7e1d3', '#d9d2c3'], [16, '#e3dccb', '#d6ccb6'], [18.5, '#d9a77c', '#8a6a7a'], [20.5, '#2f3047', '#1d2230'], [24, '#1d2230', '#2b3145']]
+function sky(h, wet) {
+  let i = STOPS.findIndex(s => s[0] > h) - 1; const a = STOPS[i], b = STOPS[i + 1], t = (h - a[0]) / (b[0] - a[0])
+  const mix = (x, y) => '#' + [1, 3, 5].map(k => Math.round(parseInt(x.substr(k, 2), 16) * (1 - t) + parseInt(y.substr(k, 2), 16) * t)).map(v => v.toString(16).padStart(2, '0')).join('')
+  desk.style.background = `linear-gradient(170deg, ${mix(a[1], b[1])}, ${mix(a[2], b[2])})` + (wet ? ', #777' : '')
+  desk.style.backgroundBlendMode = wet ? 'luminosity' : ''
+  const dark = h < 6 || h > 20; $('.name').style.color = dark ? '#ede7d9' : '#1a1a1a'
+}
+function place(el, x, y, rot) { el.style.left = x + 'px'; el.style.top = y + 'px'; el.dataset.r = rot; el.style.transform = `rotate(${rot}deg)`; el.style.zIndex = ++zTop }
+desk.addEventListener('click', e => {
+  const it = e.target.closest('.it'); document.querySelectorAll('.it.up').forEach(x => { if (x !== it) { x.classList.remove('up'); x.style.transform = `rotate(${x.dataset.r}deg)` } })
+  if (!it || e.target.closest('a')) return
+  const up = it.classList.toggle('up'); it.style.zIndex = ++zTop
+  it.style.transform = up ? 'rotate(0deg) scale(1.35)' : `rotate(${it.dataset.r}deg)`
+})
+const R = (a, b) => a + Math.random() * (b - a)
+S03.load().then(c => {
+  const r = c.reading, tz = (r && r.tz) || 'America/New_York', wet = r && (r.rain > 0 || r.showers > 0 || (r.weather_code >= 51 && r.weather_code <= 82))
+  $('#line').textContent = c.line
+  const tick = () => { const h = hourIn(tz); sky(h, wet); clock(h) }; tick(); setInterval(tick, 30000)
+  thermo(r ? r.temperature_2m : null)
+  // photos: today's big, three in the same weather around it
+  const pv = c.ps[c.photo.src], qv = c.qs[c.poem.slug]
+  const add = (html, cls, x, y, rot) => { const d = document.createElement('div'); d.className = 'it ' + cls; d.innerHTML = html; desk.appendChild(d); place(d, x, y, rot); return d }
+  add(`<img src="${c.photo.src}" alt="${c.photo.alt}"><span>${c.photo.caption.split(' — ')[0]}</span>`, 'pol big', W * .30, H * .10, R(-4, 3))
+  const np = (qv ? S03.near(qv, c.ps, 5) : []).filter(s => s !== c.photo.src).slice(0, 3)
+  np.forEach((src, i) => { const p = c.data.photos.find(x => x.src === src); add(`<img src="${src}" alt="${p.alt}"><span>${S03.placeOf(p)}</span>`, 'pol', [W * .05, W * .22, W * .72][i], [H * .42, H * .55, H * .06][i], R(-9, 9)) })
+  add(`<b>${c.poem.title}</b>` + c.poem.stanzas.join('\n\n').replace(/</g, '&lt;'), 'scrap', W * .56, H * .14, R(-3, 4))
+  const nq = (pv ? S03.near(pv, c.qs, 4) : []).filter(s => s !== c.poem.slug).slice(0, 2)
+  nq.forEach((s, i) => { const q = c.data.poems.find(x => x.slug === s); add(`<b>${q.title}</b>` + q.stanzas[0].split('\n').slice(0, 4).join('\n').replace(/</g, '&lt;'), 'scrap', [W * .78, W * .48][i], [H * .45, H * .62][i], R(-8, 8)).style.width = '210px' })
+  const HUE = { 'tile--catching': '#4f7a8a', 'tile--remembering': '#8a6a3f', 'tile--knowing': '#5a6b48', 'tile--public': '#a2563a', 'tile--alive': '#6b4f7a' }
+  c.ideas.forEach((d, i) => { const el = add(`<b>${d.href ? `<a href="${d.href}" style="color:inherit">${d.name}</a>` : d.name}</b><small>${d.line}</small>`, 'card', W * .04 + i * 186, H - 120 + (i % 2) * 14, R(-4, 4)); el.style.setProperty('--h', HUE[d.hue] || '#999') })
+  ball(r ? r.wind_speed_10m : 5); rain(wet)
+})
+function clock(h) {
+  const el = $('#clock'); el.style.left = (W - 140) + 'px'; el.style.top = '16px'
+  const hr = (h % 12) / 12 * 360, mn = (h % 1) * 360, dark = h < 6 || h > 20
+  el.innerHTML = `<circle r="50" fill="${dark ? '#2a2a33' : '#fbfaf6'}" stroke="#555" stroke-width="2"/>` + [...Array(12)].map((_, i) => `<line y1="-44" y2="-40" stroke="#888" transform="rotate(${i * 30})"/>`).join('') +
+    `<line y2="-26" stroke="${dark ? '#eee' : '#222'}" stroke-width="3" stroke-linecap="round" transform="rotate(${hr})"/><line y2="-40" stroke="${dark ? '#eee' : '#222'}" stroke-width="1.5" stroke-linecap="round" transform="rotate(${mn})"/><circle r="2.5" fill="#b4572e"/>`
+}
+function thermo(t) {
+  const el = $('#thermo'); el.style.left = (W - 190) + 'px'; el.style.top = '20px'
+  if (t == null) { el.innerHTML = ''; return }
+  const f = Math.max(0, Math.min(1, (t + 10) / 45)), hgt = 100 * f
+  el.innerHTML = `<rect x="16" y="8" width="12" height="112" rx="6" fill="#fbfaf6" stroke="#555"/><rect x="19" y="${118 - hgt}" width="6" height="${hgt}" fill="#b4572e"/><circle cx="22" cy="130" r="11" fill="#b4572e" stroke="#555"/><text x="22" y="148" text-anchor="middle" font-size="10" font-family="Space Grotesk">${Math.round(t)}°</text>`
+}
+// muda's blue ball with Cat Bounce physics; the live wind leans on it
+function ball(wind) {
+  const b = $('#ball'); let x = W * .2, y = 120, vx = 2, vy = 0, drag = null
+  const g = .5, push = (wind || 0) / 600
+  b.onpointerdown = e => { drag = { x: e.clientX, y: e.clientY, t: performance.now() }; b.setPointerCapture(e.pointerId) }
+  b.onpointermove = e => { if (!drag) return; const r = desk.getBoundingClientRect(); vx = e.clientX - drag.x; vy = e.clientY - drag.y; x = e.clientX - r.left - 23; y = e.clientY - r.top - 23; drag.x = e.clientX; drag.y = e.clientY }
+  b.onpointerup = () => drag = null
+  ;(function step() {
+    if (!drag) { vy += g; vx += push; vx *= .995; x += vx; y += vy
+      if (y > H - 46) { y = H - 46; vy *= -.72; vx *= .96 } if (y < 0) { y = 0; vy *= -.7 }
+      if (x > W - 46) { x = W - 46; vx *= -.8 } if (x < 0) { x = 0; vx *= -.8 } }
+    b.style.transform = `translate(${x}px,${y}px)`; requestAnimationFrame(step)
+  })()
+}
+function rain(on) {
+  if (!on) return; const c = $('#rain').getContext('2d'), d = [...Array(120)].map(() => [Math.random() * W, Math.random() * H])
+  ;(function f() { c.clearRect(0, 0, W, H); c.strokeStyle = 'rgba(255,255,255,.35)'; c.beginPath(); d.forEach(p => { c.moveTo(p[0], p[1]); c.lineTo(p[0] - 2, p[1] + 10); p[1] += 7; p[0] -= 1; if (p[1] > H) { p[1] = -10; p[0] = Math.random() * W } }); c.stroke(); requestAnimationFrame(f) })()
+}
+</script>
+</body>
+</html>

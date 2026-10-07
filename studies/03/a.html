@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 03 · A</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --paper: #fafaf8; --card: #fff; --ink: #1a1a1a; --ink2: #6e6e6e; --ink3: #9a958c; --line: #e0ddd8; --hot: #b4572e; --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper: #141210; --card: #1c1a15; --ink: #ede7d9; --ink2: #9a9385; --ink3: #6f685c; --line: #332e26; --hot: #e08a5c; color-scheme: dark; } }
+:root[data-theme="dark"] { --paper: #141210; --card: #1c1a15; --ink: #ede7d9; --ink2: #9a9385; --ink3: #6f685c; --line: #332e26; --hot: #e08a5c; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 .78rem/1.4 var(--sans); }
+.cap { padding: 6px 16px; border-bottom: 1px solid var(--line); color: var(--ink2); font-size: .72rem; }
+.cap a { color: inherit; }
+main { position: relative; display: grid; grid-template-columns: 1fr 1.3fr 1.2fr 1fr; gap: 28px; padding: 16px; max-width: 1400px; margin: 0 auto; }
+header { grid-column: 1 / -1; display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+header h1 { font: 500 1.4rem var(--sans); margin: 0; } header nav a { color: var(--ink2); margin-right: 10px; }
+h2 { font: 500 .72rem var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin: 0 0 6px; }
+.n { position: relative; z-index: 1; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 8px; transition: border-color .2s, opacity .2s; }
+.n.on { border-color: var(--hot); } main.hov .n:not(.on) { opacity: .35; }
+.col { display: flex; flex-direction: column; gap: 10px; }
+#photo img { width: 100%; display: block; border-radius: 3px; }
+.thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.thumbs .n { padding: 3px; } .thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; }
+.thumbs small, .n small { color: var(--ink3); display: block; }
+#poem { font: 400 .95rem/1.5 var(--serif); white-space: pre-line; max-height: 46vh; overflow: auto; }
+#poem b { font-weight: 400; font-style: italic; font-size: 1.1rem; display: block; margin-bottom: 6px; }
+.near .n { font: italic 400 .9rem var(--serif); }
+.idea b { font-weight: 500; display: block; } .idea small { margin-top: 2px; }
+#sky b { font: 400 1.05rem var(--serif); display: block; }
+svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+path { fill: none; stroke: var(--ink3); stroke-width: 1; opacity: .55; transition: stroke .2s, opacity .2s; }
+path.on { stroke: var(--hot); opacity: 1; stroke-width: 1.5; } main.hov path:not(.on) { opacity: .12; }
+text { font: 400 10px var(--sans); fill: var(--hot); opacity: 0; } text.on { opacity: 1; }
+@media (max-width: 900px) { main { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { main { grid-template-columns: 1fr; } svg { display: none; } }
+</style>
+</head>
+<body>
+<div class="cap">draws on: Maggie Appleton · tej.as · Mental Nodes · his words: “so much of my work is connecting ideas” · <a href="./">board</a></div>
+<main id="m">
+  <svg id="web"></svg>
+  <header><h1>kahran singh</h1><nav><a href="/about.html">about</a><a href="/poetry.html">poems</a><a href="/photography.html">photos</a></nav><span style="color:var(--ink2)">Right now I’m: building tools to support myself</span></header>
+  <div class="col">
+    <h2>where + sky</h2>
+    <div class="n" id="sky"><b id="line">…</b><small id="sky-meta"></small></div>
+    <div class="n" id="place"><b id="place-name"></b><small>photographed here</small></div>
+    <h2>other places</h2>
+    <div class="col" id="places"></div>
+  </div>
+  <div class="col">
+    <h2>this moment’s photograph</h2>
+    <div class="n" id="photo"><img alt=""><small id="photo-cap"></small></div>
+    <h2>photographs in the same weather</h2>
+    <div class="thumbs" id="thumbs"></div>
+  </div>
+  <div class="col">
+    <h2>this moment’s poem</h2>
+    <div class="n" id="poem"></div>
+    <h2>poems in the same weather</h2>
+    <div class="col near" id="nearpoems"></div>
+  </div>
+  <div class="col" id="ideas"><h2>the tools</h2></div>
+</main>
+<script src="shared.js"></script>
+<script>
+const $ = s => document.querySelector(s), E = []
+const edge = (a, b, label) => E.push([a, b, label])
+S03.load().then(c => {
+  const r = c.reading
+  $('#line').textContent = c.line || 'Kahran’s place: [no reading]'
+  $('#sky-meta').textContent = r ? `${Math.round(r.temperature_2m)}°C · wind ${Math.round(r.wind_speed_10m)} km/h · cloud ${r.cloud_cover}%` : ''
+  $('#photo img').src = c.photo.src; $('#photo-cap').textContent = c.photo.caption
+  $('#place-name').textContent = S03.placeOf(c.photo)
+  const pv = c.ps[c.photo.src], qv = c.qs[c.poem.slug]
+  $('#poem').innerHTML = `<b>${c.poem.title}</b>` + c.poem.stanzas.join('\n\n').replace(/</g, '&lt;')
+  edge('#sky', '#photo', 'chosen by this sky'); edge('#sky', '#poem', 'chosen by this sky')
+  edge('#photo', '#place', 'taken in')
+  // photos near the poem, poems near the photo: the seven score axes
+  const np = qv ? S03.near(qv, c.ps, 4).filter(s => s !== c.photo.src).slice(0, 3) : []
+  np.forEach((src, i) => { const p = c.data.photos.find(x => x.src === src); if (!p) return
+    $('#thumbs').insertAdjacentHTML('beforeend', `<div class="n" id="t${i}"><img src="${src}" alt=""><small>${S03.placeOf(p)}</small></div>`)
+    edge('#poem', '#t' + i, 'same light + mood') })
+  const nq = pv ? S03.near(pv, c.qs, 4).filter(s => s !== c.poem.slug).slice(0, 3) : []
+  nq.forEach((slug, i) => { const q = c.data.poems.find(x => x.slug === slug); if (!q) return
+    $('#nearpoems').insertAdjacentHTML('beforeend', `<a class="n" id="q${i}" href="/poems/${slug}.html" style="color:inherit;text-decoration:none">${q.title}</a>`)
+    edge('#photo', '#q' + i, 'same light + mood') })
+  // places: the nearby photos' places, linked to their photos
+  np.forEach((src, i) => { const p = c.data.photos.find(x => x.src === src); if (!p) return
+    $('#places').insertAdjacentHTML('beforeend', `<div class="n" id="pl${i}">${S03.placeOf(p)}</div>`); edge('#t' + i, '#pl' + i, 'taken in') })
+  c.ideas.forEach((d, i) => {
+    $('#ideas').insertAdjacentHTML('beforeend', `<div class="n idea" id="i${i}"><b>${d.name}</b><small>${d.line}</small><small style="color:var(--ink2)">${d.note}</small></div>`)
+  })
+  // the honest wires between the site and the tools: Context knows where he is (the place line);
+  // the weather + place picks the day's photo and poem (Topically suggesting is the nearest idea).
+  const ix = n => '#i' + c.ideas.findIndex(d => d.name === n)
+  if (c.ideas.length) { edge(ix('Context'), '#sky', 'knows where I am'); edge(ix('Topically suggesting'), '#poem', 'picks') }
+  draw()
+})
+function draw() {
+  const svg = $('#web'), m = $('#m').getBoundingClientRect()
+  svg.innerHTML = E.map(([a, b, l], k) => {
+    const A = $(a)?.getBoundingClientRect(), B = $(b)?.getBoundingClientRect(); if (!A || !B) return ''
+    const lr = A.left < B.left, x1 = (lr ? A.right : A.left) - m.left, y1 = A.top + A.height / 2 - m.top, x2 = (lr ? B.left : B.right) - m.left, y2 = B.top + B.height / 2 - m.top
+    const dx = Math.max(30, Math.abs(x2 - x1) / 2) * (lr ? 1 : -1)
+    return `<path data-k="${k}" d="M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}"/><text data-k="${k}" x="${(x1 + x2) / 2}" y="${(y1 + y2) / 2 - 4}" text-anchor="middle">${l}</text>`
+  }).join('')
+}
+addEventListener('resize', draw)
+document.addEventListener('mouseover', e => {
+  const n = e.target.closest('.n'); const m = $('#m')
+  document.querySelectorAll('.on').forEach(x => x.classList.remove('on'))
+  if (!n) return m.classList.remove('hov')
+  m.classList.add('hov'); n.classList.add('on')
+  E.forEach(([a, b], k) => { if (n.matches(a) || n.matches(b)) { document.querySelectorAll(`[data-k="${k}"]`).forEach(x => x.classList.add('on')); $(n.matches(a) ? b : a)?.classList.add('on') } })
+})
+document.addEventListener('load', e => { if (e.target.tagName === 'IMG') draw() }, true)
+</script>
+</body>
+</html>

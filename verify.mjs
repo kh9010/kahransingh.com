@@ -34,6 +34,21 @@ check('the rail matches the studies', () => {
   return `${dirs.length} study listed, opens on ${dirs.at(-1)}`
 })
 
+check('study 03: the board holds every keep in his words, four directions, all noindexed and on the rail', () => {
+  const pages = ['index.html', 'a.html', 'b.html', 'c.html', 'd.html']
+  for (const p of pages) assert.match(read(S('03/' + p)), NOINDEX, `studies/03/${p} must carry the noindex meta`)
+  assert.match(read(S('index.html')), /<a href="03\/"[^>]*data-n="03"/, '03 is on the rail')
+  const board = read(S('03/index.html')), esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  let n = 0
+  for (const s of ['01', '02']) for (const [id, p] of Object.entries(JSON.parse(read(S(s + '/picks.json'))))) {
+    if (p.v !== 'keep') continue; n++
+    assert.match(board, new RegExp(`data-id="${id}"`), `kept ${id} (study ${s}) is on the board`)
+    if (p.note) assert(board.includes(esc(p.note)), `kept ${id}: his note, verbatim, is on the board`)
+  }
+  for (const d of 'abcd') assert.match(board, new RegExp(`href="${d}.html"`), `the board links direction ${d}`)
+  return `${n} keeps on the board with their notes verbatim; 4 directions linked; ${pages.length} pages noindexed`
+})
+
 check('no instruction text', () => {
   const html = read(S('01/index.html'))
   assert.doesNotMatch(html, /<p[\s>]/, 'no <p> in the study')
