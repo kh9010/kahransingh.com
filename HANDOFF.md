@@ -101,3 +101,9 @@ Each browser check was seen red once: noindex removed (FAIL noindexed); the card
 ## Working preferences to preserve
 
 In global `~/.claude/CLAUDE.md`, memory, and `~/dev/house`; read them there.
+
+## What landed, first pass (7 Oct, 15 of 171 seen, his words in `studies/01/picks.json`)
+Kept: Maggie Appleton (simplicity, clarity), windy.com (soft movement, a feeling), muda.co (the blue ball), tej.as/story (clarity, ease of the information), Union Boulangerie (a point of view, deliberately not over-polished).
+Pushed away: slow loads, scroll-jacking ("don't make me scroll at your speed"), low information density, sites that make the brain work to learn what they are (Austensor), clean-but-nothing (Sinedogma).
+Read: clarity and density first, with one soft, alive element and a point of view. That echoes Divya's 23 Sep note: solve information and aesthetics separately, then compose.
+Friction: pop-out windows are easy to close by mistake and lose the place, so frame-only piles next time.
