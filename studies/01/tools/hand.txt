@@ -1,0 +1,69 @@
+# writers, poets, essayists
+https://www.robinsloan.com/ writer
+https://craigmod.com/ writer, photographer
+https://austinkleon.com/ writer, daily
+https://www.themarginalian.org/ essays
+https://kottke.org/ daily links
+https://gwern.net/ dense essays
+https://maggieappleton.com/ garden
+https://frankchimero.com/ writer, designer
+https://www.jennyodell.com/ writer, artist
+https://everest-pipkin.com/ poet, artist
+https://laurelschwulst.com/ artist
+https://www.poetryfoundation.org/ poems
+https://poets.org/poem-a-day daily poem
+https://www.pattismith.net/ poet
+https://interconnected.org/home/ daily notes
+https://sive.rs/ plain
+https://www.paulgraham.com/ plain
+https://patrickcollison.com/ dense personal
+https://jsomers.net/ writer
+https://tomcritchlow.com/ writer
+https://notes.andymatuschak.org/ notes
+https://thesephist.com/ writer, tools
+https://simonwillison.net/ daily notes
+https://www.robinrendle.com/ writer
+https://tonsky.me/ writer
+https://brr.fyi/ field notes
+# photographers, artists
+https://www.alecsoth.com/ photographer
+https://www.rinkokawauchi.com/ photographer
+https://www.sugimotohiroshi.com/ photographer
+https://tillmans.co.uk/ photographer
+https://olafureliasson.net/ artist
+https://jamesturrell.com/ artist
+https://esdevlin.com/ artist
+https://www.mattdesl.com/ artist, code
+# living, daily, time, weather
+https://solar.lowtechmagazine.com/ solar, weather
+https://www.nts.live/ live radio
+https://radio.garden/ live radio, globe
+https://www.windy.com/ weather
+https://clockclock.com/ clock
+https://neal.fun/ toys
+https://100r.tv/ log
+https://wiki.xxiivv.com/ wiki, tools
+# editorial, typographic
+https://publicdomainreview.org/ editorial
+https://pudding.cool/ editorial
+https://www.cabinetmagazine.org/ editorial
+https://worksinprogress.co/ editorial
+https://www.kinfolk.com/ editorial
+https://thecreativeindependent.com/ editorial
+https://letterformarchive.org/ typographic
+https://mubi.com/en/notebook editorial
+https://www.are.na/ index
+https://www.cosmos.so/ index
+https://ciechanow.ski/ explainers
+# objects, desks, diegetic
+https://bruno-simon.com/ diegetic
+https://henryheffernan.com/ diegetic
+https://poolsuite.net/ diegetic
+https://windows93.net/ diegetic
+https://lynnandtonic.com/ personal
+https://rauno.me/ personal
+https://paco.me/ personal
+https://www.joshwcomeau.com/ personal
+https://www.presentandcorrect.com/ shop, dense
+https://www.mcmaster.com/ dense index
+https://www.berkshirehathaway.com/ plain
