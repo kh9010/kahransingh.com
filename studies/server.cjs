@@ -3,12 +3,12 @@
 // PORT=0 picks a free port and prints it; PICKS=<path> writes picks elsewhere (verify uses a temp file).
 const http = require('http'), fs = require('fs'), path = require('path')
 const ROOT = path.resolve(__dirname, '..')
-const PICKS = path.resolve(process.env.PICKS || path.join(__dirname, '01', 'picks.json'))
-const PILE = path.join(__dirname, '01', 'pile.json')
+const picksFile = n => path.resolve(process.env.PICKS || path.join(__dirname, n, 'picks.json'))
+const pileFile = n => path.join(__dirname, n, 'pile.json')
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.jpg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml', '.mp4': 'video/mp4', '.webm': 'video/webm', '.md': 'text/plain; charset=utf-8' }
 const TAGS = ['mechanical', 'linguistic', 'composition']
 
-const readPicks = () => { try { return JSON.parse(fs.readFileSync(PICKS, 'utf8')) } catch { return {} } }
+const readPicks = n => { try { return JSON.parse(fs.readFileSync(picksFile(n), 'utf8')) } catch { return {} } }
 function valid(id, rec, ids) {
   if (typeof id !== 'string' || !ids.has(id)) return false
   if (rec === null) return true
@@ -23,26 +23,28 @@ const server = http.createServer((req, res) => {
   const url = new URL(req.url, 'http://x')
   const origin = req.headers.origin
   if (origin && !/^http:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/.test(origin)) { res.writeHead(403); return res.end() }
-  if (url.pathname === '/api/study-01/picks' && req.method === 'GET') {
+  const api = /^\/api\/study-(01|02)\/(picks|pick)$/.exec(url.pathname), N = api && api[1]
+  if (api && api[2] === 'picks' && req.method === 'GET') {
     res.writeHead(200, { 'content-type': 'application/json', 'cache-control': 'no-store' })
-    return res.end(JSON.stringify(readPicks()))
+    return res.end(JSON.stringify(readPicks(N)))
   }
-  if (url.pathname === '/api/study-01/pick' && req.method === 'POST') {
+  if (api && api[2] === 'pick' && req.method === 'POST') {
     let body = ''
     req.on('data', d => { body += d; if (body.length > 4096) req.destroy() })
     req.on('end', () => {
       let msg; try { msg = JSON.parse(body) } catch { res.writeHead(400); return res.end() }
-      const ids = new Set(JSON.parse(fs.readFileSync(PILE, 'utf8')).items.map(p => p.id))
+      const ids = new Set(JSON.parse(fs.readFileSync(pileFile(N), 'utf8')).items.map(p => p.id))
       if (!msg || !valid(msg.id, msg.rec, ids)) { res.writeHead(400); return res.end() }
-      const picks = readPicks()
+      const picks = readPicks(N)
       if (msg.rec === null) delete picks[msg.id]; else picks[msg.id] = msg.rec
       const sorted = Object.fromEntries(Object.keys(picks).sort().map(k => [k, picks[k]]))
-      fs.writeFileSync(PICKS + '.tmp', JSON.stringify(sorted, null, 1) + '\n'); fs.renameSync(PICKS + '.tmp', PICKS)
+      const PICKS = picksFile(N); fs.writeFileSync(PICKS + '.tmp', JSON.stringify(sorted, null, 1) + '\n'); fs.renameSync(PICKS + '.tmp', PICKS)
       res.writeHead(204); res.end()
     })
     return
   }
   let p = decodeURIComponent(url.pathname)
+  if (p === '/studies/02/') p = '/studies/02/live.html'
   if (p === '/studies/01/') p = '/studies/01/live.html' // live is the default; index.html is the clip version
   if (p.endsWith('/')) p += 'index.html'
   const file = path.join(ROOT, p)

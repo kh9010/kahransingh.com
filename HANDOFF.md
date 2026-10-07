@@ -107,3 +107,7 @@ Kept: Maggie Appleton (simplicity, clarity), windy.com (soft movement, a feeling
 Pushed away: slow loads, scroll-jacking ("don't make me scroll at your speed"), low information density, sites that make the brain work to learn what they are (Austensor), clean-but-nothing (Sinedogma).
 Read: clarity and density first, with one soft, alive element and a point of view. That echoes Divya's 23 Sep note: solve information and aesthetics separately, then compose.
 Friction: pop-out windows are easy to close by mistake and lose the place, so frame-only piles next time.
+
+## Study 02, targeted pile (7 Oct)
+`studies/02/live.html` at `/studies/02/`: 50 live sites, frame-only (no pop-out), blind; picks to `studies/02/picks.json`. Gathered for his pass-1 signal across five families (`why` in `pile.json`, not shown on the card); server now takes `/api/study-01|02/`.
+Filters (curl, ~730 tried): frame-blocking, over ~1.5s first byte or 3s total or 1.5MB, lenis/locomotive/three/webgl markers all dropped. Thin spots: brands and photo+poem families (few unpolished small brands and photo+poem sites survived).
