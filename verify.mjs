@@ -93,19 +93,25 @@ async function startServer(picksFile) {
 async function startChrome() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'verify-chrome-'))
   // the two flags keep macOS from raising a keychain prompt at Kahran
-  const p = spawn(chromePath(), ['--headless', '--use-mock-keychain', '--password-store=basic', '--remote-debugging-port=0', '--user-data-dir=' + dir, '--autoplay-policy=no-user-gesture-required', '--window-size=1280,800', 'about:blank'])
+  const p = spawn(chromePath(), ['--headless', '--use-mock-keychain', '--password-store=basic', '--enable-unsafe-swiftshader', '--use-angle=swiftshader', '--remote-debugging-port=0', '--user-data-dir=' + dir, '--autoplay-policy=no-user-gesture-required', '--window-size=1280,800', 'about:blank'])
   const ws = await new Promise((res, rej) => { let buf = ''; p.stderr.on('data', d => { buf += d; const m = /ws:\/\/[^\s]+/.exec(buf); if (m) res(m[0]) }); p.on('exit', () => rej(new Error('chrome exited'))) })
   const port = new URL(ws).port
   const targets = await (await fetch(`http://127.0.0.1:${port}/json/list`)).json()
   const sock = new WebSocket(targets.find(t => t.type === 'page').webSocketDebuggerUrl)
   await new Promise(r => sock.addEventListener('open', r))
   let n = 0; const pending = new Map()
-  sock.addEventListener('message', e => { const m = JSON.parse(e.data); if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id) } })
+  const errors = []
+  sock.addEventListener('message', e => { const m = JSON.parse(e.data); if (m.id && pending.has(m.id)) { pending.get(m.id)(m); pending.delete(m.id) }
+    if (m.method === 'Runtime.exceptionThrown') errors.push(m.params.exceptionDetails.exception?.description || m.params.exceptionDetails.text)
+    if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') errors.push(m.params.args.map(a => a.value ?? a.description).join(' '))
+    if (m.method === 'Log.entryAdded' && m.params.entry.level === 'error') errors.push(m.params.entry.text + ' ' + (m.params.entry.url || '')) })
   const send = (method, params = {}) => new Promise(r => { const id = ++n; pending.set(id, r); sock.send(JSON.stringify({ id, method, params })) })
   const ev = async expr => { const r = await send('Runtime.evaluate', { expression: expr, awaitPromise: true, returnByValue: true }); if (r.result?.exceptionDetails) throw new Error(r.result.exceptionDetails.text); return r.result?.result?.value }
   const key = async k => { const code = { ArrowRight: 39, ArrowLeft: 37 }[k] || k.toUpperCase().charCodeAt(0); for (const type of ['keyDown', 'keyUp']) await send('Input.dispatchKeyEvent', { type, key: k, windowsVirtualKeyCode: code, text: type === 'keyDown' && k.length === 1 ? k : undefined }) }
   const go = async url => { await send('Page.enable'); await send('Page.navigate', { url }); for (let i = 0; i < 100; i++) { await sleep(100); if (await ev(`document.readyState === 'complete' && /\\d+ \\/ [1-9]/.test(document.querySelector('#count')?.textContent || '')`).catch(() => false)) return } throw new Error('page did not load ' + url) }
-  return { ev, key, go, close: () => { sock.close(); p.kill(); fs.rmSync(dir, { recursive: true, force: true }) } }
+  // open a page fresh and collect what it throws or logs as an error
+  const open = async url => { await send('Runtime.enable'); await send('Log.enable'); await send('Page.enable'); await send('Page.navigate', { url: 'about:blank' }); await sleep(200); errors.length = 0; await send('Page.navigate', { url }); for (let i = 0; i < 100; i++) { await sleep(100); if (await ev(`document.readyState === 'complete'`).catch(() => false)) break } }
+  return { ev, key, go, open, errors, close: () => { sock.close(); p.kill(); try { fs.rmSync(dir, { recursive: true, force: true }) } catch {} } }
 }
 
 let srv, chrome, picksFile
@@ -191,6 +197,27 @@ check('live: notes do not fire shortcuts, a keep with a note round-trips, blocke
   }
   assert(sawBlocked && sawFramed, 'saw one blocked and one framed card')
   return 'note typing inert, Enter keeps with its note, resume works, blocked cards get no iframe'
+})
+
+check('study 04: three gems, noindexed, on the rail, each loads clean with his content on its faces', async () => {
+  const pages = ['index.html', 'a.html', 'b.html', 'c.html']
+  for (const p of pages) assert.match(read(S('04/' + p)), NOINDEX, `studies/04/${p} must carry the noindex meta`)
+  assert.match(read(S('index.html')), /<a href="04\/"[^>]*data-n="04"/, '04 is on the rail')
+  // each take: no exception or console error, the floor is there, and the faces carry real content
+  const filled = { 'a.html': `typeof items !== 'undefined' && items.length >= 17 && !!document.querySelector('canvas')`,
+    'b.html': `typeof dealt !== 'undefined' && dealt >= 80 && face.some(f => f.kind === 'photo') && face.some(f => f.kind === 'poem')`,
+    'c.html': `document.querySelectorAll('.cube .f').length === 6 && document.querySelectorAll('.cube video').length === 2 && !!document.querySelector('.cube img')` }
+  const out = []
+  for (const p of ['a.html', 'b.html', 'c.html']) {
+    await chrome.open(srv.base + '/studies/04/' + p)
+    let ok = false; for (let i = 0; i < 80 && !ok; i++) { await sleep(100); ok = await chrome.ev(filled[p]).catch(() => false) }
+    await sleep(800)
+    assert(ok, `04/${p}: the faces are filled from his real content`)
+    assert.deepEqual(chrome.errors.filter(e => !/favicon|api\.open-meteo\.com/.test(e)) /* the live sky is allowed to be down: shared.js falls back */, [], `04/${p} loads without console errors`)
+    assert(await chrome.ev(`/kahran singh/.test(document.querySelector('h1')?.textContent) && ['/poetry.html', '/photography.html', '/context/'].every(h => document.querySelector('header a[href="' + h + '"]')) && /^draws on: .+ · his words: “/.test(document.querySelector('.cap').textContent)`), `04/${p}: name, the way in to poems, photographs and tools, and the draws-on caption`)
+    out.push(p[0])
+  }
+  return `${pages.length} pages noindexed; on the rail; ${out.join(', ')} load with 0 console errors, faces filled, floor and caption present`
 })
 
 let failed = false
