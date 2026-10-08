@@ -284,6 +284,24 @@
         "wind_kmh": 21.8,
         "cloud_pct": 0
       }
+    },
+    "2026-10-07": {
+      "poem": "hark-my-love",
+      "photo": "/photos/paro-bhutan-08988839.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.9274640741705772,
+        "warmth": 0.7,
+        "wet": 0.0,
+        "stillness": 0.5125,
+        "season": 0.35843050938590826,
+        "inside": 0.85,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 19.5,
+        "wind_kmh": 19.5,
+        "cloud_pct": 1
+      }
     }
   }
 }
