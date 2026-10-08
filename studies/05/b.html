@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 05 · B</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+/* The mosaic stone: a Voronoi cut of his photographs and poem lines, seen from above.
+   Seams are the stone showing through; light follows the cursor; a shard opens on rest. */
+:root {
+  --seam: #0d0c0b;          /* the stone under the cut */
+  --t1: #161513; --t2: #24221f; --t3: #34312c;   /* blank facets: the greys of his monochrome frames */
+  --bone: #e7e2d7; --ink: #1d1b18;               /* poem facets: paper, ink */
+  --char: #22201d; --charink: #e4ddd0;          /* the dark poem facet, same in both modes */
+  --floor: #ede7d9; --floor2: #9a9385;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --rimhi: 255,244,222; --rimlo: 0,0,0;          /* the bevel: lit edge, shadowed edge */
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --seam: #faf9f6; --t1: #ecE8df; --t2: #dcd7cc; --t3: #c9c3b6;
+  --bone: #fbfaf7; --ink: #1a1a1a; --floor: #1a1a1a; --floor2: #6e6e6e; } }
+:root[data-theme="light"] { --seam: #faf9f6; --t1: #ece8df; --t2: #dcd7cc; --t3: #c9c3b6; --bone: #fbfaf7; --ink: #1a1a1a; --floor: #1a1a1a; --floor2: #6e6e6e; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--seam); }
+#stone { position: fixed; inset: 0; }
+.s { position: absolute; inset: 0; transition: clip-path var(--cut, 2.6s) var(--ease), filter .9s var(--ease); will-change: clip-path;
+     transform-origin: var(--ox) var(--oy); transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.s .rim { position: absolute; background: linear-gradient(var(--ang, 135deg), rgba(var(--rimhi), var(--rim, .3)) 0%, rgba(var(--rimhi), 0) 50%, rgba(var(--rimlo), 0) 55%, rgba(var(--rimlo), var(--rimd, .3)) 100%); transition: left var(--cut, 2.6s) var(--ease), top var(--cut, 2.6s) var(--ease), width var(--cut, 2.6s) var(--ease), height var(--cut, 2.6s) var(--ease); }
+.s .in { position: absolute; inset: 0; transition: clip-path var(--cut, 2.6s) var(--ease); }
+.s .in > * { position: absolute; transition: left var(--cut, 2.6s) var(--ease), top var(--cut, 2.6s) var(--ease), width var(--cut, 2.6s) var(--ease), height var(--cut, 2.6s) var(--ease), opacity .9s var(--ease); }
+.s .ground { inset: 0; }
+.s img { object-fit: cover; display: block; }
+.s.mono img { filter: grayscale(1) contrast(1.06) brightness(.94); }
+.s .sheen { pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(var(--ang, 135deg), rgba(255,250,240,var(--lit, .2)) 0%, rgba(255,250,240,0) 46%, rgba(0,0,0,var(--shade, .2)) 100%); transition: none; }
+.s .glint { inset: 0; pointer-events: none; mix-blend-mode: screen; transition: none;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgba(255,246,228,var(--g, 0)) 0, rgba(255,246,228,0) 22vmax); }
+.s.dim { filter: brightness(.42) saturate(.6); }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .s.dim { filter: brightness(1.12) contrast(.7) opacity(.55); } }
+.s.open { z-index: 5; filter: none; transform: none; }
+.s.open .sheen, .s.open .glint { opacity: 0; }
+.line { font: italic 300 clamp(.95rem, 1.25vw, 1.2rem)/1.35 var(--serif); color: var(--ink); text-align: center; transform: translate(-50%, -50%); width: var(--w); text-wrap: balance; }
+.s.dark .line { color: var(--charink); }
+.full { opacity: 0; font: 300 1rem/1.55 var(--serif); color: var(--ink); white-space: pre-line; padding: 34px 38px; overflow: hidden; }
+.full b { display: block; font: italic 300 1.25rem/1.3 var(--serif); margin-bottom: 14px; }
+.full a { color: inherit; text-decoration: none; }
+.s.dark .full { color: var(--charink); }
+.s.open .full { opacity: 1; transition-delay: .5s; } .s.open .line { opacity: 0; }
+.cap { left: 0; top: 0; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #ede7d9; opacity: 0; text-shadow: 0 1px 8px rgba(0,0,0,.6); white-space: nowrap; }
+.s.open .cap { opacity: .85; transition-delay: .7s; }
+.s.sky .ground { background: linear-gradient(170deg, var(--sky1), var(--sky2)); }
+header { position: fixed; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); z-index: 9; color: var(--floor); pointer-events: none; max-width: 34ch; }
+header h1 { margin: 0; font: 500 1.15rem/1 var(--sans); letter-spacing: .01em; }
+header p { margin: 10px 0 14px; font: italic 300 1.0625rem/1.4 var(--serif); color: var(--floor); opacity: .82; }
+header nav { pointer-events: auto; display: flex; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+header nav a { color: var(--floor2); text-decoration: none; transition: color .2s var(--ease); }
+header nav a:hover { color: var(--floor); }
+header small { display: block; margin-top: 14px; font: 400 .72rem/1.3 var(--sans); color: var(--floor2); letter-spacing: .02em; }
+@media (max-width: 640px) { header { max-width: calc(100vw - 32px); left: 16px; } }
+</style>
+</head>
+<body>
+<div id="stone" aria-hidden="true"></div>
+<header>
+  <h1>kahran singh</h1>
+  <p>Poet, investor, and builder.</p>
+  <nav aria-label="Ways in"><a href="/poetry.html">poems</a><a href="/photography.html">photographs</a><a href="/context/">tools</a></nav>
+  <small id="where"></small>
+</header>
+<script src="../03/shared.js"></script>
+<script type="module">
+import { Delaunay } from 'https://cdn.jsdelivr.net/npm/d3-delaunay@6/+esm'
+
+const stone = document.getElementById('stone')
+const th = new URLSearchParams(location.search).get('theme'); if (th) document.documentElement.dataset.theme = th
+let opened = null, lastTouched = null
+const W = () => stone.clientWidth || innerWidth, H = () => stone.clientHeight || innerHeight
+const phone = () => innerWidth < 640
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+function hash(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0 }
+
+const ctx = await S03.load()
+let R = ctx.reading || {}
+let cloud = R.cloud_cover ?? 40, wind = R.wind_speed_10m ?? 8, wet = (R.precipitation || 0) > 0
+const where = document.getElementById('where'); where.textContent = (ctx.line || '').trim()
+
+/* ---- the cut: sites by density (quiet where the hero and the name sit), relaxed into a crystal ---- */
+let seed = hash(ctx.iso + '|' + (R.weather_code ?? 'x'))
+let COUNT = Math.round((phone() ? 14 : 26) + cloud / 100 * (phone() ? 4 : 8)) // overcast cuts finer
+let STRETCH = 1 + Math.min(wind, 40) / 45                                      // wind draws the facets out
+const HERO = () => phone() ? [W() * .5, H() * .34] : [W() * .6, H() * .44]
+const FLOOR = () => phone() ? [W() * .3, H() * .86] : [W() * .1, H() * .88]
+let sites, vel
+function plant() { // a brilliant cut seen from above: the table, a crown of facets round it, the girdle beyond
+  const r = rng(seed), [hx, hy] = HERO(), [fx, fy] = FLOOR()
+  const n1 = phone() ? 6 : Math.round(7 + cloud / 100 * 3), rot = r() * Math.PI * 2
+  const ax = phone() ? W() * .66 : W() * .34, ay = phone() ? H() * .3 : H() * .46
+  home = [[hx, hy], [fx, fy]]
+  const add = (x, y) => { if (x < -40 || y < -40 || x > W() + 40 || y > H() + 40) return
+    if (home.some(([a, b], i) => Math.hypot(a - x, b - y) < (i === 1 ? Math.min(W(), H()) * .34 : Math.min(W(), H()) * .11))) return
+    home.push([Math.max(1, Math.min(W() - 1, x)), Math.max(1, Math.min(H() - 1, y))]) }
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16, m = 1 + (r() - .5) * .1; add(hx + Math.cos(t) * ax * m, hy + Math.sin(t) * ay * m) }
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3, m = 1.36 + (r() - .5) * .14; add(hx + Math.cos(t) * ax * m, hy + Math.sin(t) * ay * m) }
+  for (let k = 0; k < 400 && home.length < COUNT; k++) { const x = r() * W(), y = r() * H(); if (((x - hx) / ax) ** 2 + ((y - hy) / ay) ** 2 > 2.1) add(x, y) }
+  sites = home.map(p => [...p])
+  vel = sites.map((_, i) => i < 2 ? [0, 0] : [(r() - .5) * 2, (r() - .5) * 2])
+}
+let home
+function cells() {
+  const pts = sites.map(([x, y]) => [x / STRETCH, y])
+  const v = Delaunay.from(pts).voronoi([0, 0, W() / STRETCH, H()])
+  return sites.map((_, i) => (v.cellPolygon(i) || []).slice(0, -1).map(([x, y]) => [x * STRETCH, y]))
+}
+function centroid(p) { let a = 0, x = 0, y = 0; for (let i = 0; i < p.length; i++) { const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length], c = x0 * y1 - x1 * y0; a += c; x += (x0 + x1) * c; y += (y0 + y1) * c } a *= .5; return a ? [x / (6 * a), y / (6 * a)] : p[0] }
+const N = 20
+function shape(p, inset = .6) { // seam inset + a fixed vertex count, starting from the top, so cuts morph instead of jump
+  const c = centroid(p)
+  let q = p.map(([x, y]) => { const dx = c[0] - x, dy = c[1] - y, d = Math.hypot(dx, dy) || 1, k = inset / d; return [x + dx * k, y + dy * k] })
+  let s = 0; q.forEach(([x, y], i) => { if (y < q[s][1]) s = i }); q = q.slice(s).concat(q.slice(0, s))
+  while (q.length < N) q.push(q[q.length - 1])
+  return q.slice(0, N)
+}
+const poly = q => `polygon(${q.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`
+const rectPoly = (x, y, w, h) => { const q = [[x, y], [x + w, y], [x + w, y + h], [x, y + h]]; while (q.length < N) q.push([x, y + h]); return q }
+const bbox = p => { const xs = p.map(a => a[0]), ys = p.map(a => a[1]), x = Math.min(...xs), y = Math.min(...ys); return [x, y, Math.max(...xs) - x, Math.max(...ys) - y] }
+
+/* ---- what each facet holds: the day's photo at the hero, the name on quiet stone, his frames and lines around ---- */
+let shards = [], geo = [], r
+function build() { // the whole stone, cut and filled; again on resize so the name always sits on quiet stone
+stone.textContent = ''; opened = null; lastTouched = null
+plant()
+r = rng(seed ^ 0x5bd1e995)
+const near = S03.near && ctx.ps[ctx.photo?.src] ? S03.near(ctx.ps[ctx.photo.src], ctx.ps, 40) : []
+const pool = [...near.slice(0, 12).flatMap((s, i) => [s, ctx.data.photos[Math.floor(r() * ctx.data.photos.length)].src]).map(s => ctx.data.photos.find(p => p.src === s)).filter(Boolean), ...ctx.data.photos].filter((p, i, a) => a.findIndex(o => S03.placeOf(o) === S03.placeOf(p)) === i && S03.placeOf(p) !== S03.placeOf(ctx.photo || {}) && /Monochrome/.test(p.caption)) // one frame per place
+const nearQ = S03.near && ctx.qs[ctx.poem?.slug] ? S03.near(ctx.qs[ctx.poem.slug], ctx.qs, 30) : []
+const poems = [ctx.poem, ...nearQ.map(s => ctx.data.poems.find(p => p.slug === s)), ...ctx.data.poems].filter((p, i, a) => p && a.indexOf(p) === i)
+const lineOf = p => { const ls = p.stanzas.join('\n').split(/\n| \/ /).map(s => s.trim()).filter(s => s.length > 14 && s.length < 64 && s.toLowerCase() !== p.title.toLowerCase()); return ls[Math.floor(r() * ls.length)] || p.title }
+const skyTone = (() => { const day = R.is_day ?? 1, c = cloud / 100
+  if (!day) return ['#1b2230', '#0f1219']
+  return wet ? ['#6f767a', '#3e4447'] : c > .6 ? ['#a7aaa8', '#6f7372'] : ['#9fb6c8', '#d9d4c6'] })()
+
+const cs0 = cells()
+const kinds = []
+let pi = 0, qi = 0
+const area = p => Math.abs(p.reduce((a, [x0, y0], i) => { const [x1, y1] = p[(i + 1) % p.length]; return a + x0 * y1 - x1 * y0 }, 0) / 2)
+const order = cs0.map((p, i) => i)
+// floor cells: anything the name, the line and the links sit on stays blank stone
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+const F0 = phone() ? [[24, H() - 130], [W() - 40, H() - 130], [24, H() - 30]] : [[W() * .03 + 10, H() * .85], [W() * .03 + 260, H() * .86], [W() * .03 + 10, H() * .95]]
+const touchesFloor = p => F0.some(pt => inPoly(pt, p))
+let skyGiven = false, qCount = 0, bCount = 0
+order.forEach(i => {
+  const p = cs0[i]
+  if (i === 0) return kinds[i] = { k: 'photo', photo: ctx.photo, hero: true }
+  if (i === 1 || touchesFloor(p)) return kinds[i] = { k: 'blank', t: i === 1 ? 't1' : 't2' }
+  const [cx, cy] = centroid(p), roll = r()
+  if (!skyGiven && cy < H() * .3 && roll < .5) { skyGiven = true; return kinds[i] = { k: 'sky' } }
+  if (area(p) > W() * H() / COUNT * .8 && roll < .3 && qCount < 3) { qCount++; return kinds[i] = { k: 'poem', poem: poems[qi++], dark: qCount === 3 } }
+  kinds[i] = { k: 'photo', photo: pool[pi++ % pool.length] }
+})
+
+/* ---- build the shards; each owns content and is handed a cell (cells can move under it) ---- */
+shards = kinds.map((kd, i) => {
+  const el = document.createElement('div'); el.className = 's'
+  const n = [(r() - .5) * .9, (r() - .5) * .9]; // the facet's cut angle: its normal, tipped off true
+  const sh = { el, kd, cell: i, n, lx: 0, ly: 0 }
+  const ground = document.createElement('div'); ground.className = 'ground'
+  if (kd.k === 'blank') ground.style.background = `var(--${kd.t})`
+  if (kd.k === 'poem') ground.style.background = kd.dark ? 'var(--char)' : 'var(--bone)'
+  if (kd.k === 'sky') { el.classList.add('sky'); el.style.setProperty('--sky1', skyTone[0]); el.style.setProperty('--sky2', skyTone[1]) }
+  const inn = document.createElement('div'); inn.className = 'in'; sh.inn = inn
+  inn.append(ground)
+  if (kd.k === 'photo') {
+    ground.style.background = 'var(--t2)'
+    const img = new Image(); img.decoding = 'async'; img.alt = kd.photo.alt; img.src = kd.photo.src
+    img.onload = () => { sh.aspect = img.naturalWidth / img.naturalHeight }
+    sh.img = img; inn.append(img); if (!kd.hero || /Monochrome/.test(kd.photo.caption)) el.classList.add('mono')
+    const cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = S03.placeOf(kd.photo); sh.cap = cap; inn.append(cap)
+  }
+  if (kd.k === 'poem') {
+    if (kd.dark) el.classList.add('dark')
+    const ln = document.createElement('div'); ln.className = 'line'; ln.textContent = lineOf(kd.poem); sh.line = ln
+    const full = document.createElement('div'); full.className = 'full'; full.style.background = kd.dark ? 'var(--char)' : 'var(--bone)'
+    full.innerHTML = `<b><a href="/poems/${kd.poem.slug}.html"></a></b>`; full.querySelector('a').textContent = kd.poem.title
+    const body = kd.poem.stanzas.join('\n\n').replace(/ \/ /g, '\n').split('\n'); if ((body[0] || '').trim().toLowerCase() === kd.poem.title.toLowerCase()) body.shift()
+    sh.lines = Math.min(body.length, 14); full.append(body.slice(0, 14).join('\n'))
+    sh.full = full; inn.append(ln, full)
+  }
+  const sheen = document.createElement('div'); sheen.className = 'sheen'
+  const glint = document.createElement('div'); glint.className = 'glint'
+  inn.append(sheen, glint); const rim = document.createElement('div'); rim.className = 'rim'; sh.rim = rim; sh.sheen = sheen
+  el.append(rim, inn); stone.append(el)
+  if (kd.k === 'photo' || kd.k === 'poem') {
+    el.addEventListener('pointerenter', () => { clearTimeout(sh.t); sh.t = setTimeout(() => open(sh), phone() ? 0 : 380) })
+    el.addEventListener('pointerleave', () => { clearTimeout(sh.t); if (opened === sh) close() })
+  }
+  return sh
+})
+geo = cs0
+}
+
+/* ---- lay out: every shard takes its cell's polygon; contents sit in the cell's bounds ---- */
+function layout() {
+  shards.forEach(sh => {
+    if (sh === opened) return
+    const p = geo[sh.cell]; if (!p || !p.length) return
+    const q = shape(p), [x, y, w, h] = bbox(p), [cx, cy] = centroid(p)
+    sh.c = [cx, cy]; sh.box = [x, y, w, h]
+    sh.el.style.clipPath = poly(q); sh.inn.style.clipPath = poly(shape(p, 2.1))
+    sh.el.style.setProperty('--ox', cx + 'px'); sh.el.style.setProperty('--oy', cy + 'px')
+    if (sh.img) Object.assign(sh.img.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' })
+    for (const e of [sh.rim, sh.sheen]) Object.assign(e.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' })
+    if (sh.line) { const lw = Math.min(w * .7, 300), lx = Math.max(lw / 2 + 16, Math.min(W() - lw / 2 - 16, cx)), ly = Math.max(40, Math.min(H() - 40, cy))
+      Object.assign(sh.line.style, { left: lx + 'px', top: ly + 'px' }); sh.line.style.setProperty('--w', lw + 'px') }
+    if (sh.full) Object.assign(sh.full.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' })
+  })
+}
+
+/* ---- opening: the shard unfolds to its whole photograph, or its poem ---- */
+function open(sh) {
+  if (opened && opened !== sh) close()
+  opened = sh; sh.lastOpened = performance.now(); lastTouched = sh
+  const M = 28, [cx, cy] = sh.c
+  let w, h
+  if (sh.img) { const a = sh.aspect || 1.5; h = Math.min(H() * .66, (W() * .62) / a); w = h * a; if (phone()) { w = W() - 32; h = w / a } }
+  else { w = Math.min(380, W() - 32); h = Math.min(H() - 2 * M, 130 + sh.lines * 25) }
+  const x = Math.max(M, Math.min(W() - M - w, cx - w / 2)), y = Math.max(M, Math.min(H() - M - h, cy - h / 2))
+  sh.el.style.setProperty('--cut', '1.1s')
+  sh.el.classList.add('open'); sh.el.style.clipPath = sh.inn.style.clipPath = poly(rectPoly(x, y, w, h))
+  if (sh.img) Object.assign(sh.img.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' })
+  if (sh.cap) Object.assign(sh.cap.style, { left: (x + 18) + 'px', top: (y + h - 28) + 'px' })
+  if (sh.full) Object.assign(sh.full.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' })
+  shards.forEach(o => o !== sh && o.el.classList.add('dim'))
+}
+function close() {
+  const sh = opened; if (!sh) return
+  opened = null; sh.el.classList.remove('open')
+  shards.forEach(o => o.el.classList.remove('dim'))
+  layout(); setTimeout(() => sh.el.style.removeProperty('--cut'), 1200)
+}
+addEventListener('keydown', e => e.key === 'Escape' && close())
+
+/* ---- light: the cursor is a low lamp over cut stone; each facet answers by its own angle ---- */
+let L = [W() * .7, H() * .2], T = [...L], lastMove = 0
+addEventListener('pointermove', e => { T = [e.clientX, e.clientY]; lastMove = performance.now() })
+function frame(t) {
+  if (performance.now() - lastMove > 4000) { const a = t / 26000; T = [W() * (.5 + .38 * Math.cos(a)), H() * (.42 + .3 * Math.sin(a * 1.3))] } // unattended: the sun walks
+  L[0] += (T[0] - L[0]) * .05; L[1] += (T[1] - L[1]) * .05
+  const Z = Math.max(W(), H()) * .55
+  for (const sh of shards) {
+    if (!sh.c || sh === opened) continue
+    let dx = L[0] - sh.c[0], dy = L[1] - sh.c[1]; const d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
+    const nz = Math.sqrt(Math.max(0, 1 - sh.n[0] ** 2 - sh.n[1] ** 2)), dot = sh.n[0] * dx + sh.n[1] * dy + nz * (Z / d)
+    const s = sh.el.style, k = Math.max(0, Math.min(1, (dot - .55) / .45))
+    s.setProperty('--lit', (.04 + k * .62).toFixed(3)); s.setProperty('--shade', (.5 - k * .46).toFixed(3))
+    s.setProperty('--rim', (.12 + k * .8).toFixed(3)); s.setProperty('--rimd', (.5 - k * .4).toFixed(3))
+    s.setProperty('--ang', (Math.atan2(-dy - sh.n[1] * .6, -dx - sh.n[0] * .6) * 180 / Math.PI + 90).toFixed(1) + 'deg')
+    // a specular glint where the facet's mirror angle meets the lamp
+    const g = Math.max(0, 1 - Math.hypot(dx * .9 - sh.n[0], dy * .9 - sh.n[1]) * 2.2)
+    s.setProperty('--g', (g * g * .34).toFixed(3)); s.setProperty('--gx', (L[0] + sh.n[0] * 120) + 'px'); s.setProperty('--gy', (L[1] + sh.n[1] * 120) + 'px')
+    s.setProperty('--rx', (-dy * 1.4).toFixed(2) + 'deg'); s.setProperty('--ry', (dx * 1.4).toFixed(2) + 'deg')
+  }
+  requestAnimationFrame(frame)
+}
+build()
+const peek = new URLSearchParams(location.search).get('peek') // ?peek=photo|poem opens one, for looking at
+if (peek) setTimeout(() => open(shards.find(s => s.kd.k === peek && !s.kd.hero) || shards[0]), 4000)
+layout()
+requestAnimationFrame(() => requestAnimationFrame(() => { layout(); requestAnimationFrame(frame) }))
+
+/* ---- the slow re-cut: sites drift a few pixels a minute; the stone breathes, never jumps ---- */
+setInterval(() => {
+  if (opened) return
+  // each site wanders within a small leash of where today's cut put it
+  vel = vel.map(([a, b], i) => i < 2 ? [0, 0] : [a + (Math.random() - .5) * .8, b + (Math.random() - .5) * .8])
+  sites = sites.map(([x, y], i) => { let nx = x + vel[i][0] * 4, ny = y + vel[i][1] * 4; const [h0, h1] = home[i], d = Math.hypot(nx - h0, ny - h1), lim = Math.min(W(), H()) * .035
+    if (d > lim) { nx = h0 + (nx - h0) * lim / d; ny = h1 + (ny - h1) * lim / d; vel[i] = [-vel[i][0] * .5, -vel[i][1] * .5] }
+    return [Math.max(1, Math.min(W() - 1, nx)), Math.max(1, Math.min(H() - 1, ny))] })
+  geo = cells()
+  shards.forEach(sh => sh.el.style.setProperty('--cut', '18s')); layout()
+}, 18000)
+
+/* ---- mischief: now and then, a shard you looked at is not where you left it ---- */
+function trick() {
+  const movable = shards.filter(s => (s.kd.k === 'photo' || s.kd.k === 'poem') && !s.kd.hero && s !== opened)
+  const a = lastTouched && !lastTouched.kd.hero && lastTouched !== opened ? lastTouched : movable[Math.floor(Math.random() * movable.length)]
+  const far = movable.filter(s => s !== a && Math.hypot(s.c[0] - a.c[0], s.c[1] - a.c[1]) > Math.min(W(), H()) * .35)
+  const b = far[Math.floor(Math.random() * far.length)]
+  if (!a || !b || opened) return
+  ;[a.cell, b.cell] = [b.cell, a.cell]
+  a.el.style.setProperty('--cut', '3.4s'); b.el.style.setProperty('--cut', '3.4s'); layout()
+  lastTouched = null
+}
+setInterval(() => { if (performance.now() - lastMove > 2500) trick() }, 47000)
+document.addEventListener('visibilitychange', () => { if (!document.hidden && Math.random() < .5) setTimeout(trick, 900) })
+
+/* ---- the sky can change its mind while you are here: re-cut with it ---- */
+document.addEventListener('kahran:weather', e => {
+  const n = e.detail || {}; if (n.weather_code === R.weather_code && Math.abs((n.cloud_cover ?? 0) - cloud) < 25) return
+  R = n; cloud = R.cloud_cover ?? 40; wind = R.wind_speed_10m ?? 8; wet = (R.precipitation || 0) > 0
+  seed = hash(ctx.iso + '|' + (R.weather_code ?? 'x')); COUNT = Math.round((phone() ? 14 : 26) + cloud / 100 * (phone() ? 4 : 8)); STRETCH = 1 + Math.min(wind, 40) / 45
+  stone.style.transition = 'opacity 2.4s cubic-bezier(.4,0,.2,1)'; stone.style.opacity = 0
+  setTimeout(() => { build(); layout(); stone.style.opacity = 1 }, 2500)
+})
+window.S05b = { trick } // for looking: S05b.trick() moves one now
+new ResizeObserver(() => dispatchEvent(new Event('resize'))).observe(stone)
+let rz, lastWH = ''; addEventListener('resize', () => { const wh = W() + 'x' + H(); if (wh === lastWH) return; lastWH = wh; clearTimeout(rz); rz = setTimeout(() => { build(); shards.forEach(sh => sh.el.style.setProperty('--cut', '0s')); layout(); setTimeout(() => shards.forEach(sh => sh.el.style.removeProperty('--cut')), 50) }, 250) })
+</script>
+</body>
+</html>

@@ -220,6 +220,17 @@ check('study 04: three gems, noindexed, on the rail, each loads clean with his c
   return `${pages.length} pages noindexed; on the rail; ${out.join(', ')} load with 0 console errors, faces filled, floor and caption present`
 })
 
+check('study 05: four beautiful gems, noindexed, on the rail, each loads clean', async () => {
+  const pages = ['index.html', 'a.html', 'b.html', 'c.html', 'd.html']
+  for (const p of pages) assert.match(read(S('05/' + p)), NOINDEX, `studies/05/${p} must carry the noindex meta`)
+  assert.match(read(S('index.html')), /<a href="05\/"[^>]*data-n="05"/, '05 is on the rail')
+  for (const p of pages.slice(1)) {
+    await chrome.open(srv.base + '/studies/05/' + p); await sleep(3000)
+    assert.deepEqual(chrome.errors.filter(e => !/favicon|api\.open-meteo\.com/.test(e)), [], `05/${p} loads without console errors`)
+  }
+  return `${pages.length} pages noindexed; on the rail; a–d load with 0 console errors`
+})
+
 let failed = false
 for (const [name, fn] of checks) {
   try { console.log(`PASS ${name}: ${await fn()}`) }
