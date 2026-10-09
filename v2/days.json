@@ -302,6 +302,24 @@
         "wind_kmh": 19.5,
         "cloud_pct": 1
       }
+    },
+    "2026-10-08": {
+      "poem": "sometimes-curious-feel",
+      "photo": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6551787471588537,
+        "warmth": 0.8485714285714285,
+        "wet": 0.0,
+        "stillness": 0.30499999999999994,
+        "season": 0.3502026218013699,
+        "inside": 0.9242857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 24.7,
+        "wind_kmh": 27.8,
+        "cloud_pct": 8
+      }
     }
   }
 }
