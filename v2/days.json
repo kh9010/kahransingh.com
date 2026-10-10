@@ -320,6 +320,24 @@
         "wind_kmh": 27.8,
         "cloud_pct": 8
       }
+    },
+    "2026-10-09": {
+      "poem": "a-house-before-house",
+      "photo": "/photos/yosemite-valley.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6346593199282309,
+        "warmth": 0.8085714285714286,
+        "wet": 0.0,
+        "stillness": 0.33499999999999996,
+        "season": 0.34201906167104856,
+        "inside": 0.9042857142857144,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 23.3,
+        "wind_kmh": 26.6,
+        "cloud_pct": 22
+      }
     }
   }
 }
