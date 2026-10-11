@@ -338,6 +338,24 @@
         "wind_kmh": 26.6,
         "cloud_pct": 22
       }
+    },
+    "2026-10-10": {
+      "poem": "delicate-pieces-before-the-end",
+      "photo": "/photos/provincetown-massachusetts-09009fdd.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.547952304499373,
+        "warmth": 0.7771428571428571,
+        "wet": 0.0,
+        "stillness": 0.6875,
+        "season": 0.3338822506420478,
+        "inside": 0.8885714285714286,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 22.2,
+        "wind_kmh": 12.5,
+        "cloud_pct": 62
+      }
     }
   }
 }
