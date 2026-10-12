@@ -356,6 +356,24 @@
         "wind_kmh": 12.5,
         "cloud_pct": 62
       }
+    },
+    "2026-10-11": {
+      "poem": "purple-dragon",
+      "photo": "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.5857142857142857,
+        "wet": 1.0,
+        "stillness": 0.4325,
+        "season": 0.32579459652765963,
+        "inside": 0.2928571428571429,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 15.5,
+        "wind_kmh": 22.7,
+        "cloud_pct": 92
+      }
     }
   }
 }
