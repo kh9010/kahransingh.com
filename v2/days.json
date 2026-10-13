@@ -374,6 +374,24 @@
         "wind_kmh": 22.7,
         "cloud_pct": 92
       }
+    },
+    "2026-10-12": {
+      "poem": "i-will-always-be-a-poet",
+      "photo": "/photos/puako-hawaii-98409f6b.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.31822571791518556,
+        "warmth": 0.7542857142857142,
+        "wet": 0.6,
+        "stillness": 0.485,
+        "season": 0.3177584925948544,
+        "inside": 0.5771428571428572,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 21.4,
+        "wind_kmh": 20.6,
+        "cloud_pct": 64
+      }
     }
   }
 }
