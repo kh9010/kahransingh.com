@@ -3,10 +3,11 @@
 This public repository must never read or contain `activity-log.md` or
 `activity-records.jsonl`. Those are private.
 
-`entries.json` is the only accepted input. It is a mechanical, field-reduced export of
-canonical activity records whose visibility is explicitly `public`; the exporter removes the
-private source pointer. Do not hand-copy raw log lines here. A public record has already passed
-the heartbeat summarizer's fail-closed privacy rules and must carry a reviewed public URL.
+`entries.json` is the only accepted input. Every entry in it meets the contract in
+`tools/lately_feed.py` (`validate_entry`), and producers write it only through that module's
+`load`/`merge`. Do not hand-copy raw log lines here. `feed.xml` is the second consumer: a
+public Atom feed (newest 20 entries) rendered from `entries.json` by the same module, linked
+from `index.html` by one autodiscovery `<link>` and not from the site nav.
 
 ## What lives in this directory
 
