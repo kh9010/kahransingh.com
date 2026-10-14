@@ -2,11 +2,12 @@
 """Build the public weekly coding record for kahransingh.com.
 
 Reads the private coding-days.json extract, aggregates the most recent COMPLETE
-Monday-Sunday week, and writes exactly three paths inside the site:
+Monday-Sunday week, and writes exactly four paths inside the site:
 
     lately/<iso-week>/index.html   the permanent dated issue
     lately/record/index.html       a copy of the newest issue, canonical -> dated
     lately/entries.json            one entry per issue, merged in place
+    lately/feed.xml                Atom feed of entries.json (tools/lately_feed.py)
 
 It writes nothing else, and an allowlist in Writer.write enforces that rather
 than leaving it to habit. It cannot reach lately/index.html, the site's
@@ -42,6 +43,9 @@ import re
 import sys
 from collections import Counter, OrderedDict
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import lately_feed  # noqa: E402  the entry contract and the Atom consumer
 
 # --------------------------------------------------------------------------
 # Publication policy — the only place naming decisions live.
@@ -840,7 +844,7 @@ def render_page(w: dict, arc: list, issues: set, canonical: str) -> str:
 # note (`lately/README.md`), so the blast radius is asserted here rather than
 # left to the calling code being careful.
 WRITABLE = re.compile(
-    rf"^{SECTION}/(entries\.json|record/index\.html|\d{{4}}-w\d{{2}}/index\.html)$"
+    rf"^{SECTION}/(entries\.json|feed\.xml|record/index\.html|\d{{4}}-w\d{{2}}/index\.html)$"
 )
 
 
@@ -865,7 +869,7 @@ class Writer:
 
     def write(self, rel: str, content: str) -> str:
         if not WRITABLE.fullmatch(rel):
-            raise SystemExit(f"REFUSING to write {rel}: not one of this script's three paths")
+            raise SystemExit(f"REFUSING to write {rel}: not one of this script's four paths")
         target = self.root / rel
         verdict = "created"
         if target.exists():
@@ -916,17 +920,17 @@ carry it, and both are strand-agnostic on purpose:
 
 Both are optional. An entry without them still renders — summary and date only —
 so a v1 file and a strand that has no shape to publish both stay valid."""
-ENTRIES_SCHEMA = 2
+ENTRIES_SCHEMA = lately_feed.SCHEMA_VERSION
 
 
 def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
-    """Merge one entry into lately/entries.json, leaving every other entry alone."""
-    doc = {"schema_version": ENTRIES_SCHEMA, "generated_at": None, "entries": []}
-    if path.exists():
-        try:
-            doc = json.loads(path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError as exc:
-            raise SystemExit(f"lately/entries.json is not valid JSON ({exc}); refusing to touch it")
+    """Merge this week's entry into lately/entries.json, leaving every other entry alone.
+
+    The entry contract, the merge and the validation live in lately_feed.py so a
+    second strand writes the same shape; this function only says what a code
+    week looks like as an entry.
+    """
+    doc = lately_feed.load(path)
     t = w["totals"]
     entry = {
         "id": f"record-{week_slug(w['week_id'])}",
@@ -948,17 +952,8 @@ def update_entries(path: Path, w: dict, dry_run: bool) -> dict:
         },
         "link": f"/{SECTION}/{week_slug(w['week_id'])}/",
     }
-    entries = [e for e in doc.get("entries", []) if e.get("id") != entry["id"]]
-    before = json.dumps(doc.get("entries", []), sort_keys=True)
-    entries.append(entry)
-    entries.sort(key=lambda e: (e.get("date", ""), e.get("id", "")), reverse=True)
-    after = json.dumps(entries, sort_keys=True)
-    doc["entries"] = entries
-    doc["schema_version"] = max(int(doc.get("schema_version", 1) or 1), ENTRIES_SCHEMA)
-    if before != after or not doc.get("generated_at"):
-        doc["generated_at"] = dt.datetime.now().astimezone().replace(
-            microsecond=0).isoformat()
-    return doc
+    now = dt.datetime.now().astimezone().replace(microsecond=0).isoformat()
+    return lately_feed.merge(doc, entry, now)
 
 
 def existing_issues(section_dir: Path) -> set:
@@ -1020,6 +1015,7 @@ def main(argv=None) -> int:
     entries_path = root / SECTION / "entries.json"
     doc = update_entries(entries_path, w, args.dry_run)
     writer.write(f"{SECTION}/entries.json", json.dumps(doc, indent=2) + "\n")
+    writer.write(lately_feed.FEED_PATH, lately_feed.render_atom(doc))
     writer.close()
 
     t = w["totals"]

@@ -3,13 +3,19 @@
 `weekly_record.py` builds the public weekly coding record. It is stdlib-only
 python3, no dependencies, no build step.
 
-## What it writes — exactly three paths, and nothing else
+## What it writes — exactly four paths, and nothing else
 
 ```
 lately/<iso-week>/index.html   the permanent dated issue
 lately/record/index.html       a copy of the newest issue
 lately/entries.json            one merged entry per issue
+lately/feed.xml                Atom feed rendered from entries.json
 ```
+
+`entries.json` and `feed.xml` both go through `tools/lately_feed.py`, the shared
+feed layer: the entry contract (`validate_entry`), `load`, `merge`, and
+`render_atom` (newest 20). `python3 tools/lately_feed.py` re-renders the feed;
+`--check` fails if the committed feed is stale.
 
 Everything the record publishes lives under `/lately/`, and `/lately/` itself
 stays what `lately/README.md` says it is: an index rendered from
