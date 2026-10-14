@@ -392,6 +392,24 @@
         "wind_kmh": 20.6,
         "cloud_pct": 64
       }
+    },
+    "2026-10-13": {
+      "poem": "when-you-were-young",
+      "photo": "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6133377144773644,
+        "warmth": 0.7628571428571428,
+        "wet": 0.0,
+        "stillness": 0.5075000000000001,
+        "season": 0.3097763168560742,
+        "inside": 0.8814285714285715,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 21.7,
+        "wind_kmh": 19.7,
+        "cloud_pct": 13
+      }
     }
   }
 }
