@@ -410,6 +410,24 @@
         "wind_kmh": 19.7,
         "cloud_pct": 13
       }
+    },
+    "2026-10-14": {
+      "poem": "california",
+      "photo": "/photos/taco-cart.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.36431590092284555,
+        "warmth": 0.9085714285714286,
+        "wet": 0.0,
+        "stillness": 0.53,
+        "season": 0.3018504313655409,
+        "inside": 0.9542857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 26.8,
+        "wind_kmh": 18.8,
+        "cloud_pct": 22
+      }
     }
   }
 }
