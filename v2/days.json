@@ -428,6 +428,24 @@
         "wind_kmh": 18.8,
         "cloud_pct": 22
       }
+    },
+    "2026-10-15": {
+      "poem": "one-in-community",
+      "photo": "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.615876478471304,
+        "warmth": 0.7228571428571429,
+        "wet": 0.0,
+        "stillness": 0.5349999999999999,
+        "season": 0.2939831815202868,
+        "inside": 0.8614285714285714,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 20.3,
+        "wind_kmh": 18.6,
+        "cloud_pct": 13
+      }
     }
   }
 }
