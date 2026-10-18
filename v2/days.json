@@ -464,6 +464,24 @@
         "wind_kmh": 17.4,
         "cloud_pct": 81
       }
+    },
+    "2026-10-17": {
+      "poem": "song-of-tomorrow",
+      "photo": "/photos/night-street.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.17114803606401274,
+        "warmth": 0.64,
+        "wet": 0.3,
+        "stillness": 0.36749999999999994,
+        "season": 0.27843388290868276,
+        "inside": 0.67,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 17.4,
+        "wind_kmh": 25.3,
+        "cloud_pct": 73
+      }
     }
   }
 }
