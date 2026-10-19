@@ -482,6 +482,24 @@
         "wind_kmh": 25.3,
         "cloud_pct": 73
       }
+    },
+    "2026-10-18": {
+      "poem": "sometimes-quaver",
+      "photo": "/photos/berlin-street.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8855559643175971,
+        "warmth": 0.5971428571428571,
+        "wet": 0.0,
+        "stillness": 0.97,
+        "season": 0.2707564354299562,
+        "inside": 0.7985714285714285,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 15.9,
+        "wind_kmh": 13.2,
+        "cloud_pct": 0
+      }
     }
   }
 }
