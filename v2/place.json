@@ -1,7 +1,7 @@
 {
-  "place": null,
+  "place": "Costa Rica",
   "lat": null,
   "lon": null,
-  "tz": null,
+  "tz": "Etc/GMT+6",
   "updated": "2026-10-19"
 }
