@@ -500,6 +500,24 @@
         "wind_kmh": 13.2,
         "cloud_pct": 0
       }
+    },
+    "2026-10-19": {
+      "poem": "park",
+      "photo": "/photos/provincetown-massachusetts-eee28b60.jpg",
+      "place": null,
+      "why": {
+        "light": 0.859224742184472,
+        "warmth": 0.6685714285714285,
+        "wet": 0.0,
+        "stillness": 0.9850000000000001,
+        "season": 0.26314682481016,
+        "inside": 0.8342857142857143,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 18.4,
+        "wind_kmh": 12.6,
+        "cloud_pct": 2
+      }
     }
   }
 }
