@@ -518,6 +518,24 @@
         "wind_kmh": 12.6,
         "cloud_pct": 2
       }
+    },
+    "2026-10-20": {
+      "poem": "i-saw-something-beautiful-today",
+      "photo": "/photos/provincetown-massachusetts-4c281798.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8891574501330598,
+        "warmth": 0.7571428571428571,
+        "wet": 0.0,
+        "stillness": 0.74,
+        "season": 0.2556073028555037,
+        "inside": 0.8785714285714286,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 21.5,
+        "wind_kmh": 22.4,
+        "cloud_pct": 0
+      }
     }
   }
 }
