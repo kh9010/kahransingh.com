@@ -536,6 +536,24 @@
         "wind_kmh": 22.4,
         "cloud_pct": 0
       }
+    },
+    "2026-10-21": {
+      "poem": "freedom-yet-unabridged",
+      "photo": "/photos/mariposa-grove-yosemite-7455e25e.jpg",
+      "place": null,
+      "why": {
+        "light": 0.5593183408142736,
+        "warmth": 0.6457142857142858,
+        "wet": 0.0,
+        "stillness": 0.7650000000000001,
+        "season": 0.248140100631833,
+        "inside": 0.822857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 17.6,
+        "wind_kmh": 21.4,
+        "cloud_pct": 38
+      }
     }
   }
 }
