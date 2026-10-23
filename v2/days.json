@@ -554,6 +554,24 @@
         "wind_kmh": 21.4,
         "cloud_pct": 38
       }
+    },
+    "2026-10-22": {
+      "poem": "to-know-me",
+      "photo": "/photos/reed-corridor.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8927119429991184,
+        "warmth": 0.7314285714285714,
+        "wet": 0.0,
+        "stillness": 0.6924999999999999,
+        "season": 0.2407474278044215,
+        "inside": 0.8657142857142857,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 20.6,
+        "wind_kmh": 24.3,
+        "cloud_pct": 0
+      }
     }
   }
 }
