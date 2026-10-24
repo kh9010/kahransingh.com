@@ -572,6 +572,24 @@
         "wind_kmh": 24.3,
         "cloud_pct": 0
       }
+    },
+    "2026-10-23": {
+      "poem": "out-of-many-one",
+      "photo": "/photos/washington-dc-afd19b1c.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8944646392697542,
+        "warmth": 0.6114285714285714,
+        "wet": 0.0,
+        "stillness": 0.8,
+        "season": 0.23343147198409547,
+        "inside": 0.8057142857142857,
+        "mood": 0.5,
+        "weather_code": 2,
+        "tmax": 16.4,
+        "wind_kmh": 20.0,
+        "cloud_pct": 7
+      }
     }
   }
 }
