@@ -590,6 +590,24 @@
         "wind_kmh": 20.0,
         "cloud_pct": 7
       }
+    },
+    "2026-10-24": {
+      "poem": "teental",
+      "photo": "/photos/kitchen-night.jpg",
+      "place": null,
+      "why": {
+        "light": 0.39060501927449764,
+        "warmth": 0.6485714285714286,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.2261943980798844,
+        "inside": 0.8242857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 17.7,
+        "wind_kmh": 9.5,
+        "cloud_pct": 51
+      }
     }
   }
 }
