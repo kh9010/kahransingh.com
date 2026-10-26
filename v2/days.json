@@ -608,6 +608,24 @@
         "wind_kmh": 9.5,
         "cloud_pct": 51
       }
+    },
+    "2026-10-25": {
+      "poem": "and-now-that-we-walk",
+      "photo": "/photos/buoys-wall.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8775825752385024,
+        "warmth": 0.6971428571428571,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.21903834765839025,
+        "inside": 0.8485714285714285,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 19.4,
+        "wind_kmh": 10.2,
+        "cloud_pct": 2
+      }
     }
   }
 }
