@@ -297,6 +297,94 @@ check('study 05: four beautiful gems, noindexed, on the rail, each loads clean',
 })
 
 let failed = false
+// ── Studies 09–12 (2026-10-27): the About desk, Keeping track, a nav for the home, the walk with dials ──
+const IDEAS_SRC = read(path.join(ROOT, 'v2/home.js'))
+const ideaParts = name => JSON.parse(new RegExp(`name:\\s*'${name}'[\\s\\S]*?parts:\\s*(\\[[^\\]]*\\])`).exec(IDEAS_SRC)[1].replace(/'/g, '"'))
+const plain = h => h.replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;|&#\d+;/g, ' ').replace(/\s+/g, ' ').trim()
+
+check('study 09: every line on the desk is a verbatim draft from 06, 07 or 08, the preview is the picks, and a rebuild changes nothing', () => {
+  const lines = JSON.parse(read(S('09/lines.json')))
+  const src = Object.fromEntries(['06', '07', '08'].map(n => [n, plain(/<main>([\s\S]*?)<\/main>/.exec(read(S(n + '/index.html')))[1])]))
+  let options = 0
+  for (const l of lines) for (const o of l.options) {
+    for (const piece of plain(o.html).split(/(?<=\.)\s+(?=[A-Z0-9])/)) assert(src[o.from].includes(piece), `line ${l.id}: "${piece.slice(0, 50)}…" is not in study ${o.from}`)
+    options++
+  }
+  const picks = JSON.parse(read(S('09/picks.json')))
+  const html = read(S('09/index.html')), preview = plain(/<aside class="preview">([\s\S]*?)<\/aside>/.exec(html)[1])
+  let picked = 0
+  for (const l of lines) {
+    const p = picks[l.id]; if (!p) continue
+    const t = typeof p.edit === 'string' ? p.edit : plain(l.options[p.i].html)
+    assert(preview.includes(t.replace(/\s+/g, ' ').trim()), `line ${l.id}: the picked text is not in the preview`); picked++
+  }
+  const before = read(S('09/index.html')) + read(S('09/about-draft.html')) + read(S('09/lines.json'))
+  const r = spawnSync(process.execPath, [S('09/build.mjs'), '--about'], { encoding: 'utf8' }); assert.equal(r.status, 0, r.stderr)
+  assert.equal(read(S('09/index.html')) + read(S('09/about-draft.html')) + read(S('09/lines.json')), before, 'the committed desk is the build of the committed picks')
+  return `${lines.length} lines, ${options} options all verbatim; ${picked} picked and present in the preview and about-draft; rebuild is a no-op`
+})
+
+check('study 09: the desk server takes a pick, refuses a malformed one and a foreign origin, and the file stays clean', async () => {
+  const tmp = path.join(os.tmpdir(), 'ks-desk-' + process.pid + '.json'); fs.writeFileSync(tmp, '{}\n')
+  const srv = spawn(process.execPath, [S('server.cjs')], { env: { ...process.env, PORT: '0', PICKS: tmp }, stdio: ['ignore', 'pipe', 'ignore'] })
+  try {
+    const port = await new Promise(res => srv.stdout.on('data', d => { const m = /:(\d+)\//.exec(String(d)); if (m) res(+m[1]) }))
+    const post = (body, origin) => fetch(`http://127.0.0.1:${port}/api/study-09/pick`, { method: 'POST', headers: { 'content-type': 'application/json', ...(origin ? { origin } : {}) }, body })
+    assert.equal((await post(JSON.stringify({ line: 'opening', pick: { from: '06', i: 1 } }))).status, 204)
+    assert.equal((await post(JSON.stringify({ line: 'close', pick: { edit: 'Write to me.' } }))).status, 204)
+    assert.deepEqual(JSON.parse(read(tmp)), { opening: { from: '06', i: 1 }, close: { edit: 'Write to me.' } })
+    const bad = ['{nope', JSON.stringify({ line: 'nope', pick: null }), JSON.stringify({ line: 'opening', pick: { from: '06', i: 9 } }), JSON.stringify({ line: 'opening', pick: { from: '08', i: 1 } }), JSON.stringify({ line: 'years', pick: { edit: 'x' } }), JSON.stringify({ line: 'close', pick: { edit: 'x'.repeat(2001) } })]
+    for (const b of bad) assert.equal((await post(b)).status, 400, 'refused: ' + b.slice(0, 40))
+    assert.equal((await post(JSON.stringify({ line: 'opening', pick: null }), 'http://evil.example')).status, 403)
+    assert.deepEqual(JSON.parse(read(tmp)), { opening: { from: '06', i: 1 }, close: { edit: 'Write to me.' } }, 'nothing refused reached the file')
+    assert.equal((await post(JSON.stringify({ line: 'opening', pick: null }))).status, 204)
+    assert.deepEqual(JSON.parse(read(tmp)), { close: { edit: 'Write to me.' } })
+    assert.equal(read(S('09/index.html')).length > 0 && fs.statSync(S('09/index.html')).mtimeMs < Date.now(), true)
+    return `2 picks and a clear written, ${bad.length} malformed writes 400, foreign origin 403, file untouched by them`
+  } finally { srv.kill(); fs.rmSync(tmp, { force: true }) }
+})
+
+check('study 10: Keeping track is a mechanism page like /context/: same meta set, no script, the four tools by their names, no place and no person', () => {
+  const ctx = read(path.join(ROOT, 'context/index.html')), s10 = read(S('10/index.html'))
+  for (const re of [/<title>[^<]+ — Kahran Singh<\/title>/, /<meta name="description" content="[^"]{40,}">/, /<link rel="canonical" href="https:\/\/kahransingh\.com\/[a-z-]+\/">/, /<meta name="theme-color" content="#fafaf8"/, /<meta name="theme-color" content="#171613"/, /<meta property="og:title"/, /<meta property="og:description"/, /<meta property="og:type" content="article">/, /<meta property="og:url"/, /<meta property="og:image"/, /<meta name="twitter:card" content="summary_large_image">/, /<meta name="twitter:title"/, /<meta name="twitter:description"/, /<meta name="twitter:image"/])
+    assert(re.test(ctx) && re.test(s10), 'both pages carry ' + re.source.slice(0, 40))
+  assert.match(s10, NOINDEX, 'a study is noindexed')
+  assert.doesNotMatch(s10, /<script/, 'no JS on a mechanism page')
+  const parts = ideaParts('Keeping track'), h2s = [...s10.matchAll(/<h2 id="h-[a-z]+">([^<]+)<\/h2>/g)].map(m => m[1])
+  assert.deepEqual(h2s, parts, 'the sections are the IDEAS parts, by name and order')
+  const text = plain(/<body>([\s\S]*)<\/body>/.exec(s10)[1])
+  for (const place of ['New York', 'Bangalore', 'Seattle', 'Manhattan', 'Provincetown', 'Jaisalmer', 'Telluride', 'Boulder']) assert(!text.includes(place), 'never a location: ' + place)
+  const PUBLIC = ['index.html', 'context/index.html', 'about.html', 'cv.html', 'v2/home.js'].map(f => read(path.join(ROOT, f))).join(' ').replace(/<[^>]+>/g, ' ').toLowerCase()
+  const dict = new Set(read('/usr/share/dict/words').split('\n').map(w => w.toLowerCase()))
+  let names = 0
+  for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) { const w = m[1].toLowerCase(); if (dict.has(w) || dict.has(w.replace(/s$/, ''))) continue; assert(PUBLIC.includes(m[1].toLowerCase()), `names "${m[1]}", which no public page does`); names++ }
+  return `14 meta rules shared with /context/, 0 scripts, sections ${parts.join(' · ')}, ${names} proper names all already public, 0 places`
+})
+
+check('study 11: the home with the eight-word nav, in about.html\'s order, and the photograph still never re-crops', () => {
+  const nav = h => [...(/<nav[^>]*class="rail-nav"[\s\S]*?<\/nav>|<nav>[\s\S]*?<\/nav>/.exec(h) || [''])[0].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map(m => m[1] + ' ' + m[2]).filter(x => !/nav-name|v1\//.test(x) && !x.endsWith(' kahran'))
+  const want = nav(read(path.join(ROOT, 'about.html'))).filter(x => !x.startsWith('/v1/')), got = nav(read(S('11/index.html')))
+  assert.deepEqual(got, want, 'the study nav is about.html\'s nav')
+  assert.equal(got.length, 8)
+  const r = spawnSync(process.execPath, ['tools/test_photo_stays.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGE: '/studies/11/' } })
+  const oks = (r.stdout.match(/^ok /gm) || []).length
+  assert.equal(r.status, 0, (r.stdout + r.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
+  return `8 links in about.html's order; photograph ruling ${oks} checks at 1200x800 on the study`
+})
+
+check('study 12: the walk reads its numbers from the dials and pictures take their room before they load', () => {
+  const h = read(S('12/index.html')), d = JSON.parse(read(S('12/defaults.json')))
+  for (const k of ['start-ms', 'hold-ms', 'pace-ms-per-px', 'pace-cap-ms', 'manual-pause-ms', 'hover-still-ms']) assert(k in d, 'dial ' + k)
+  const script = h.slice(h.lastIndexOf('const allPhotos'))
+  assert.doesNotMatch(script, /\}, \d{4,5}\);/, 'no timer literal left in the walk')
+  assert.doesNotMatch(script, /HOVER_STILL_MS = \d/, 'the hover let-go is a dial')
+  assert.doesNotMatch(script, /\* 8, 8000\)/, 'the pace is a dial')
+  const r = spawnSync(process.execPath, ['tools/test_photo_autoscroll.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGE: '/studies/12/', STABLE_HEIGHT: '1' } })
+  const oks = (r.stdout.match(/^ok /gm) || []).length
+  assert.equal(r.status, 0, (r.stdout + r.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
+  return `${Object.keys(d).length} dials, 0 timing literals in the script; walk + height ruling ${oks} checks at 1200x800`
+})
+
 for (const [name, fn, skip] of checks) {
   if (skip) { console.log(`SKIP ${name}: ${skip}`); continue }
   try { await boot(); console.log(`PASS ${name}: ${await fn()}`) }
@@ -309,7 +397,9 @@ if (failed) process.exit(1)
 import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 
 const STUDIES = readdirSync(path.join(ROOT, "studies")).filter((d) => /^\d\d$/.test(d)).sort();
-const ABOUT = STUDIES.filter((n) => n >= "06"); // 01–05 are the inspiration and gem studies, checked above
+const SINCE06 = STUDIES.filter((n) => n >= "06"); // 01–05 are the inspiration and gem studies, checked above
+const ABOUT = ["06", "07", "08"];                      // the About pages proper; 09 is their desk
+const TUNED = SINCE06.filter((n) => n !== "10");       // 10 is a mechanism page like /context/: no JS, so no ?tune (its dials arrive with its promotion)
 const studyHtml = (n) => readFileSync(path.join(ROOT, "studies", n, "index.html"), "utf8");
 
 checkNow("the rail matches the studies and opens on the newest", () => {
@@ -339,13 +429,13 @@ checkNow("a study is a site page: noindex, title, description, the site nav with
 
 checkNow("no instruction text and nothing a mock would not carry", () => {
   const banned = /\b(click|tap|hover|scroll|swipe|proposed|study|placeholder|lorem|todo|tbd)\b/i;
-  for (const n of ABOUT) {
+  for (const n of SINCE06) {
     const main = /<main>([\s\S]*?)<\/main>/.exec(studyHtml(n))?.[1] || "";
     const text = main.replace(/<[^>]+>/g, " ");
     const m = banned.exec(text);
     if (m) throw new Error(`study ${n} says "${m[0]}"`);
   }
-  return `${ABOUT.length} pages, 0 hits`;
+  return `${SINCE06.length} pages, 0 hits`;
 });
 
 checkNow("every name and year on a study is already on the site", () => {
@@ -354,7 +444,7 @@ checkNow("every name and year on a study is already on the site", () => {
   const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
   const dict = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
   let names = 0, years = 0;
-  for (const n of ABOUT) {
+  for (const n of SINCE06) {
     const main = /<main>([\s\S]*?)<\/main>/.exec(studyHtml(n))?.[1] || "";
     const text = main.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/g, " ");
     for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) {
@@ -373,7 +463,7 @@ checkNow("every name and year on a study is already on the site", () => {
 
 checkNow("tune: every dial lives in defaults.json and the CSS fallback equals it", () => {
   let dials = 0;
-  for (const n of ABOUT) {
+  for (const n of TUNED) {
     const f = path.join(ROOT, "studies", n, "defaults.json");
     if (!existsSync(f)) throw new Error(`study ${n} has no defaults.json`);
     const d = JSON.parse(readFileSync(f, "utf8"));
@@ -387,12 +477,12 @@ checkNow("tune: every dial lives in defaults.json and the CSS fallback equals it
     for (const k of used.keys()) if (!(k in d)) throw new Error(`study ${n}: CSS reads --${k}, not in defaults.json`);
     if (!/<script src="tune\.js"><\/script>/.test(h)) throw new Error(`study ${n} does not load tune.js`);
   }
-  return `${dials} dials across ${ABOUT.length} studies, fallbacks match`;
+  return `${dials} dials across ${TUNED.length} studies, fallbacks match`;
 });
 
 checkNow("every link out of a study resolves", () => {
   let n_int = 0, n_ext = 0;
-  for (const n of ABOUT) {
+  for (const n of SINCE06) {
     for (const m of studyHtml(n).matchAll(/(?:href|src)="([^"#?]+)/g)) {
       const u = m[1];
       if (/^(https?:|mailto:)/.test(u)) { n_ext++; continue; }

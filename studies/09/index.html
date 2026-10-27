@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>About desk — Kahran Singh</title>
+    <meta name="description" content="The lines an About page needs, every variant drafted so far, and the page they make as they are picked.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+    <style>
+:root { --hs-paper: #fafaf8; --hs-surface: #fff; --hs-ink: #1a1a1a; --hs-ink-2: #6e6e6e; --hs-ink-3: #9a958c; --hs-line: #e0ddd8; --hs-line-2: #f0ede8; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--hs-paper); color: var(--hs-ink); font: 400 .78rem/1.45 'Space Grotesk', -apple-system, sans-serif; }
+.desk { display: grid; grid-template-columns: minmax(0, var(--desk-w, 520px)) minmax(0, 1fr); gap: 0 var(--gutter, 48px); max-width: var(--measure, 1180px); margin: 0 auto; padding: var(--pad, 32px) 16px 6rem; }
+.desk-head { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-bottom: 1rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--hs-line); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--hs-ink-2); }
+.desk-head b { font-weight: 500; color: var(--hs-ink); }
+.lines { min-width: 0; }
+.line { padding: 1rem 0 1.25rem; border-top: 1px solid var(--hs-line-2); }
+.line h2 { margin: 0 0 .6rem; font: 500 .72rem/1.4 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--hs-ink-2); display: flex; gap: .6rem; align-items: baseline; }
+.line h2 .n { color: var(--hs-ink-3); font-variant-numeric: tabular-nums; }
+.line h2 .state { margin-left: auto; color: var(--hs-ink-3); }
+.line.done h2 .state { color: var(--hs-ink); }
+.opts { display: grid; gap: .4rem; }
+.opt, .none, .edit button { text-align: left; font: inherit; color: var(--hs-ink); background: var(--hs-surface); border: 1px solid var(--hs-line); border-left: 3px solid transparent; border-radius: 6px; padding: .6rem .75rem; cursor: pointer; }
+.opt[aria-current], .none[aria-current], .edit button[aria-current] { border-left-color: var(--hs-ink); }
+.opt { display: grid; grid-template-columns: 1.6rem 1fr; gap: .5rem; }
+.opt .from { font-size: .66rem; color: var(--hs-ink-3); font-variant-numeric: tabular-nums; padding-top: .15em; }
+.opt .body { font-family: 'Fraunces', Georgia, serif; font-size: var(--opt-size, 0.92rem); line-height: 1.55; }
+.opt .body a { color: inherit; text-decoration: none; pointer-events: none; }
+.opt .body .y { font-family: 'Space Grotesk', sans-serif; font-size: .62rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--hs-ink-2); margin-right: .55rem; vertical-align: .15em; }
+.opt .years.mini { list-style: none; margin: 0; padding: 0; font-family: 'Space Grotesk', sans-serif; font-size: .74rem; line-height: 1.45; max-height: var(--mini-h, 9.5rem); overflow: auto; }
+.opt .years.mini li { display: grid; grid-template-columns: 56px 1fr; gap: 0 .6rem; padding: .15rem 0; border-top: 1px solid var(--hs-line-2); }
+.opt .years.mini .y, .opt .years.mini b { font-weight: 500; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--hs-ink-2); }
+.none { color: var(--hs-ink-2); }
+.edit { display: grid; grid-template-columns: 1fr auto; gap: .4rem; margin-top: .4rem; align-items: start; }
+.edit textarea { width: 100%; font: inherit; font-family: 'Fraunces', Georgia, serif; font-size: var(--opt-size, 0.92rem); line-height: 1.55; border: 1px solid var(--hs-line); border-radius: 6px; padding: .55rem .7rem; background: var(--hs-surface); color: var(--hs-ink); resize: vertical; }
+.edit button { align-self: stretch; }
+.preview { position: sticky; top: 0; align-self: start; max-height: 100vh; overflow: auto; padding: var(--pad, 32px) 0 2rem 0; }
+.preview-inner { max-width: var(--about-measure, 560px); }
+.preview .page-header h1 { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-weight: 400; font-size: 2rem; margin: 0 0 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--hs-line); }
+@media (max-width: 900px) { .desk { grid-template-columns: 1fr; } .preview { position: static; max-height: none; order: -1; border-bottom: 1px solid var(--hs-line); margin-bottom: 1rem; } }
+@media (prefers-color-scheme: dark) { :root { --hs-paper: #141210; --hs-surface: #1c1a15; --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-ink-3: #6e6a5e; --hs-line: #332e26; --hs-line-2: #26221c; } .about a, .about .years .t a, .about .foot .cv, .about .years .t, .about .years li { color: var(--hs-ink); } .about .lede, .about .para, .about .close { color: var(--hs-ink); } }
+.about { font-family: 'Fraunces', Georgia, serif; }
+.about .lede { font-size: var(--lede-size, 1.3rem); line-height: 1.5; margin: 0 0 var(--para-gap, 1.4rem); }
+.about .para, .about .close { font-size: var(--letter-size, 1.05rem); line-height: var(--letter-lh, 1.75); margin: 0 0 var(--para-gap, 1.4rem); }
+.about .close .sign { display: block; font-style: italic; margin-top: .6em; }
+.about a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #ccc; }
+.about a:hover { text-decoration-color: #1a1a1a; }
+.about .years { list-style: none; margin: var(--years-gap, 2.2rem) 0 0; padding: 0; font-family: 'Space Grotesk', sans-serif; }
+.about .years li { display: grid; grid-template-columns: var(--year-w, 70px) 1fr; gap: 0 1rem; padding: var(--row-gap, 0.45rem) 0; border-top: 1px solid var(--rule, #f0ede8); font-size: var(--line-size, 0.9rem); line-height: 1.5; }
+.about .years li:last-child { border-bottom: 1px solid var(--rule, #f0ede8); }
+.about .years .y { font-weight: 500; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6e6e6e; padding-top: 0.2em; white-space: nowrap; }
+.about .years .t a { color: #1a1a1a; text-decoration: none; }
+.about .years .t em { font-style: normal; color: #6e6e6e; }
+.about .foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e0ddd8; }
+.about .foot .cv { font-size: 1.15rem; color: #1a1a1a; text-decoration: none; }
+.about .foot .contact-row { margin-top: 1.25rem; padding-top: 0; border-top: 0; font-family: 'Space Grotesk', sans-serif; }
+@media (max-width: 480px) { .about .years li { grid-template-columns: 1fr; gap: 0; } }</style>
+</head>
+<body>
+<div class="desk">
+  <div class="desk-head"><span><b>about</b> desk</span><span>8 of 8 picked</span></div>
+  <div class="lines">
+<section class="line done" id="line-opening">
+  <h2><span class="n">01</span> opening <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="opening" data-from="08" data-i="0" aria-current="true"><span class="from">08</span><span class="body">Hello. I’m Kahran.</span></button>
+<button type="button" class="opt" data-line="opening" data-from="06" data-i="1"><span class="from">06</span><span class="body">Poet, investor, counsel to founders. Bangalore and New York.</span></button>
+<button type="button" class="opt" data-line="opening" data-from="07" data-i="2"><span class="from">07</span><span class="body">I make poems, photographs, tools and companies, and I am learning Kathak. One of each.</span></button>
+<button type="button" class="none" data-line="opening">none</button>
+  </div>
+<form class="edit" data-line="opening"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-tools">
+  <h2><span class="n">02</span> the tools <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="tools" data-from="08" data-i="0" aria-current="true"><span class="from">08</span><span class="body">I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and <a href="/lately/">a public record</a> of what got built. The <a href="/">photograph and poem on the home page</a> come out of the same machine, one of each a day.</span></button>
+<button type="button" class="opt" data-line="tools" data-from="07" data-i="1"><span class="from">07</span><span class="body">Most days I build software with Claude: tools to support myself, worked out from what I already leave behind, so they almost never have to ask. One place everything lands, a day planned from it, and a public record of what got built each week.</span></button>
+<button type="button" class="opt" data-line="tools" data-from="06" data-i="2"><span class="from">06</span><span class="body"><span class="y">now</span><span class="t">Building software with Claude most days: tools to support myself, worked out from what I already leave behind. <a href="/lately/">The record is public.</a></span></span></button>
+<button type="button" class="none" data-line="tools">none</button>
+  </div>
+<form class="edit" data-line="tools"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-companies">
+  <h2><span class="n">03</span> the companies <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="companies" data-from="08" data-i="0" aria-current="true"><span class="from">08</span><span class="body">I run a storytelling studio, <a href="https://joyus.studio">Joyus</a>, with Divya Tak. I invest early with Sweta and Sahil at Tres Monos Capital, sit on the board of TomboyX, and keep <a href="/working-with-me.html">a few standing slots</a> for founders in the middle of something that matters. Before that I ran Vidyanext in Bangalore. When it could not be saved, I placed all 65+ people in two months.</span></button>
+<button type="button" class="opt" data-line="companies" data-from="07" data-i="1"><span class="from">07</span><span class="body">Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months.</span></button>
+<button type="button" class="none" data-line="companies">none</button>
+  </div>
+<form class="edit" data-line="companies"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-poems">
+  <h2><span class="n">04</span> the poems <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="poems" data-from="07" data-i="0" aria-current="true"><span class="from">07</span><span class="body">How the World Works, a first book, 2022. 97 poems on this site since, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</span></button>
+<button type="button" class="opt" data-line="poems" data-from="06" data-i="1"><span class="from">06</span><span class="body"><span class="y">2022</span><span class="t">How the World Works, a first book of poems. <a href="/poetry.html">97 poems</a> on this site since.</span></span></button>
+<button type="button" class="none" data-line="poems">none</button>
+  </div>
+<form class="edit" data-line="poems"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-photographs">
+  <h2><span class="n">05</span> the photographs <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="photographs" data-from="07" data-i="0" aria-current="true"><span class="from">07</span><span class="body">A Leica Q2 Monochrome, and a Q2 for colour. The pictures keep company with the poems: the home page pairs one of each every morning.</span></button>
+<button type="button" class="opt" data-line="photographs" data-from="06" data-i="1"><span class="from">06</span><span class="body"><span class="y">now</span><span class="t">Photographs on a Leica Q2 Monochrome. <a href="/photography.html">One a day on the home page</a>, with a poem.</span></span></button>
+<button type="button" class="none" data-line="photographs">none</button>
+  </div>
+<form class="edit" data-line="photographs"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-making">
+  <h2><span class="n">06</span> the camera, the dance, the marriage <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="making" data-from="08" data-i="0" aria-current="true"><span class="from">08</span><span class="body">I shoot on a Leica Q2 Monochrome. I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we <a href="/elopement/">eloped in Telluride</a>, in the snow, and did it again <a href="/wedding-celebration.html">in Jaisalmer</a> with 150 people a year later.</span></button>
+<button type="button" class="opt" data-line="making" data-from="06" data-i="1"><span class="from">06</span><span class="body"><span class="y">now</span><span class="t">Learning Kathak from <a href="https://www.rachnanivas.com/kathaklegacyproject">Rachna Nivas</a> at the Kathak Legacy Project, New York.</span></span></button>
+<button type="button" class="opt" data-line="making" data-from="06" data-i="2"><span class="from">06</span><span class="body"><span class="y">2022</span><span class="t">Married Gourav in Jaisalmer: <a href="/wedding-celebration.html">four days at Suryagarh, 150 guests</a>.</span></span></button>
+<button type="button" class="opt" data-line="making" data-from="06" data-i="3"><span class="from">06</span><span class="body"><span class="y">2021</span><span class="t"><a href="/elopement/">Eloped with Gourav in Telluride</a>, in the snow, in Indian dress.</span></span></button>
+<button type="button" class="none" data-line="making">none</button>
+  </div>
+<form class="edit" data-line="making"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-close">
+  <h2><span class="n">07</span> the close <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="close" data-from="08" data-i="0" aria-current="true"><span class="from">08</span><span class="body">Write to me. Tell me what’s going on. <span class="sign">K</span></span></button>
+<button type="button" class="none" data-line="close">none</button>
+  </div>
+<form class="edit" data-line="close"><textarea name="edit" rows="3" placeholder=" "></textarea><button type="submit">edit</button></form>
+</section>
+<section class="line done" id="line-years">
+  <h2><span class="n">08</span> the years <span class="state">picked</span></h2>
+  <div class="opts">
+<button type="button" class="opt" data-line="years" data-from="08" data-i="0" aria-current="true"><span class="from">08</span><span class="body"><ol class="years mini"><li><span class="y">now</span><span class="t">Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</span></li>
+<li><span class="y">2025</span><span class="t">Board of TomboyX. <a href="/speaking.html">A panel in Kauai, seven StartOut talks.</a></span></li>
+<li><span class="y">2024</span><span class="t"><a href="/poem-films.html">Poem Films</a>, with Divya Tak. SEEN V, Boulder.</span></li>
+<li><span class="y">2022</span><span class="t">Joyus Studio. How the World Works, a first book. Jaisalmer.</span></li>
+<li><span class="y">2021</span><span class="t">Telluride.</span></li>
+<li><span class="y">2017</span><span class="t">Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</span></li>
+<li><span class="y">2015</span><span class="t">Vidyanext, Bangalore, until 2019.</span></li>
+<li><span class="y">2012</span><span class="t">Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</span></li>
+<li><span class="y">2009</span><span class="t">Microsoft, after an internship in the House of Commons.</span></li>
+<li><span class="y">2006</span><span class="t">Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</span></li></ol></span></button>
+<button type="button" class="opt" data-line="years" data-from="06" data-i="1"><span class="from">06</span><span class="body"><ol class="years mini"><li><span class="y">now</span><span class="t">Building software with Claude most days: tools to support myself, worked out from what I already leave behind. <a href="/lately/">The record is public.</a></span></li>
+<li><span class="y">now</span><span class="t">MFA candidate in Writing and Poetics at the Jack Kerouac School, Naropa University.</span></li>
+<li><span class="y">now</span><span class="t">Learning Kathak from <a href="https://www.rachnanivas.com/kathaklegacyproject">Rachna Nivas</a> at the Kathak Legacy Project, New York.</span></li>
+<li><span class="y">now</span><span class="t">Photographs on a Leica Q2 Monochrome. <a href="/photography.html">One a day on the home page</a>, with a poem.</span></li>
+<li><span class="y">2025–</span><span class="t">Board of TomboyX. Led the board through a recapitalization designed so employees’ equity was made right.</span></li>
+<li><span class="y">2025–26</span><span class="t">Chief Revenue Officer at Klydo, a fashion platform built for India. Wound down in 2026.</span></li>
+<li><span class="y">2025</span><span class="t">A panel at the Common Ground Summit, Kauai, and seven StartOut talks on fundraising and generative AI. <a href="/speaking.html">Speaking.</a></span></li>
+<li><span class="y">2024–</span><span class="t">Mentor at StartOut. The Line Before, an interactive installation with Divya Tak, submitted to Science Gallery Bengaluru.</span></li>
+<li><span class="y">2024</span><span class="t"><a href="/poem-films.html">Poem Films</a> with Divya Tak. Selected for SEEN V by Creativity Alive Boulder; shown at Boulder Public Library.</span></li>
+<li><span class="y">2022–</span><span class="t">Co-founded <a href="https://joyus.studio">Joyus Studio</a> with Divya Tak: storytelling and experience design. A podcast, Thinking on Thinking. Comics about Mr Curl.</span></li>
+<li><span class="y">2022</span><span class="t">How the World Works, a first book of poems. <a href="/poetry.html">97 poems</a> on this site since.</span></li>
+<li><span class="y">2022</span><span class="t">Married Gourav in Jaisalmer: <a href="/wedding-celebration.html">four days at Suryagarh, 150 guests</a>.</span></li>
+<li><span class="y">2021</span><span class="t"><a href="/elopement/">Eloped with Gourav in Telluride</a>, in the snow, in Indian dress.</span></li>
+<li><span class="y">2019–</span><span class="t">Advisor to Armoire.</span></li>
+<li><span class="y">2017–</span><span class="t">General Partner at <a href="https://tresmonos.capital">Tres Monos Capital</a> with Sweta Jagirdar and Sahil Sagar: early-stage, underrepresented founders.</span></li>
+<li><span class="y">2015–19</span><span class="t">Vidyanext, Bangalore. CEO, then CMO and Head of Product. Took over after a leadership crisis; when it could not be saved, placed all 65+ people within two months.</span></li>
+<li><span class="y">2012–15</span><span class="t">Aditi Technologies, then Symphony Teleca: product, presales and programme management across the US, India and Russia.</span></li>
+<li><span class="y">2011–12</span><span class="t">DataSphere Technologies, mobile product lead.</span></li>
+<li><span class="y">2010–11</span><span class="t">TravelPost, first intern. Led the mobile product, later spun off as Trover.</span></li>
+<li><span class="y">2009–10</span><span class="t">Microsoft, program manager, student audience marketing. <em>Before it, an internship in the House of Commons.</em></span></li>
+<li><span class="y">2006–11</span><span class="t">Tufts University, computer science and economics; publisher of the Tufts Daily. A year abroad at University College London. Later, the French Culinary Institute, New York.</span></li></ol></span></button>
+<button type="button" class="none" data-line="years">none</button>
+  </div>
+
+</section>
+  </div>
+  <aside class="preview">
+    <div class="preview-inner about">
+      <div class="page-header"><h1>about</h1></div>
+<p class="lede">Hello. I’m Kahran.</p>
+<p class="para">I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and <a href="/lately/">a public record</a> of what got built. The <a href="/">photograph and poem on the home page</a> come out of the same machine, one of each a day.</p>
+<p class="para">I run a storytelling studio, <a href="https://joyus.studio">Joyus</a>, with Divya Tak. I invest early with Sweta and Sahil at Tres Monos Capital, sit on the board of TomboyX, and keep <a href="/working-with-me.html">a few standing slots</a> for founders in the middle of something that matters. Before that I ran Vidyanext in Bangalore. When it could not be saved, I placed all 65+ people in two months.</p>
+<p class="para">How the World Works, a first book, 2022. 97 poems on this site since, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</p>
+<p class="para">A Leica Q2 Monochrome, and a Q2 for colour. The pictures keep company with the poems: the home page pairs one of each every morning.</p>
+<p class="para">I shoot on a Leica Q2 Monochrome. I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we <a href="/elopement/">eloped in Telluride</a>, in the snow, and did it again <a href="/wedding-celebration.html">in Jaisalmer</a> with 150 people a year later.</p>
+<p class="close">Write to me. Tell me what’s going on. <span class="sign">K</span></p>
+<ol class="years">
+<li><span class="y">now</span><span class="t">Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</span></li>
+<li><span class="y">2025</span><span class="t">Board of TomboyX. <a href="/speaking.html">A panel in Kauai, seven StartOut talks.</a></span></li>
+<li><span class="y">2024</span><span class="t"><a href="/poem-films.html">Poem Films</a>, with Divya Tak. SEEN V, Boulder.</span></li>
+<li><span class="y">2022</span><span class="t">Joyus Studio. How the World Works, a first book. Jaisalmer.</span></li>
+<li><span class="y">2021</span><span class="t">Telluride.</span></li>
+<li><span class="y">2017</span><span class="t">Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</span></li>
+<li><span class="y">2015</span><span class="t">Vidyanext, Bangalore, until 2019.</span></li>
+<li><span class="y">2012</span><span class="t">Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</span></li>
+<li><span class="y">2009</span><span class="t">Microsoft, after an internship in the House of Commons.</span></li>
+<li><span class="y">2006</span><span class="t">Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</span></li>
+</ol>
+<div class="foot">
+  <a class="cv" href="/cv.html">Full CV &rarr;</a>
+  <div class="contact-row">
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+    <a href="https://instagram.com/kahran">Instagram</a>
+    <a href="https://medium.com/@kahrans">Medium</a>
+  </div>
+</div>
+    </div>
+  </aside>
+</div>
+<script src="desk.js"></script>
+<script src="tune.js"></script>
+</body>
+</html>

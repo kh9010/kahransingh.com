@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Kahran Singh</title>
+<meta name="description" content="Kahran Singh is a poet, investor, and builder. A different photograph and a different poem every day, and the wall of tools he is building to support himself.">
+<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171613" media="(prefers-color-scheme: dark)">
+
+<meta property="og:title" content="Kahran Singh">
+<meta property="og:description" content="Poet, investor, and builder. A different photograph and a different poem every day, and the tools he is building to support himself.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kahransingh.com/">
+<meta property="og:image" content="https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kahran Singh">
+<meta name="twitter:description" content="Poet, investor, and builder. A different photograph and a different poem every day, and the tools he is building to support himself.">
+<meta name="twitter:image" content="https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v2/home.css">
+<style>
+/* Study 11: a way to the rest of the site that does not fight the photograph.
+   Eight words along the bottom edge of the first screen, in the caption's
+   register; the two words in the masthead stand down. Every number is a dial. */
+.site-links { display: none; }
+.rail-nav {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: var(--nav-bottom, 3.1rem);
+  z-index: 3;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: var(--nav-align, flex-start);
+  gap: .2rem var(--nav-gap, 1.5rem);
+  font-size: var(--nav-size, 0.72rem);
+  line-height: 1.6;
+  letter-spacing: var(--nav-track, 0.06em);
+  opacity: var(--nav-rest-opacity, 0.85);
+  transition: opacity var(--nav-fade, 0.6s) ease;
+  pointer-events: auto;
+}
+.screen:has(.poem-hold.is-live) .rail-nav { opacity: var(--nav-live-opacity, 0.35); }
+.rail-nav a { color: var(--on-photo-soft); text-decoration: none; padding-block: .35rem; margin-block: -.35rem; }
+.rail-nav a:hover, .rail-nav a:focus-visible { color: var(--on-photo); text-decoration: underline; text-underline-offset: .22em; }
+@media (max-width: 760px) { .rail-nav { bottom: var(--nav-bottom-phone, 3.4rem); gap: .1rem var(--nav-gap-phone, 1rem); } }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Kahran Singh",
+  "url": "https://kahransingh.com",
+  "image": "https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg",
+  "description": "Kahran Singh is a poet, investor, and counsel to founders based between Bangalore and New York City. He is a published poet, General Partner at Tres Monos Capital, and co-founder of Joyus Studio.",
+  "jobTitle": "Poet, Investor, and Counsel to Founders",
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Tufts University", "description": "Computer Science" },
+    { "@type": "CollegeOrUniversity", "name": "French Culinary Institute, New York" },
+    { "@type": "CollegeOrUniversity", "name": "Naropa University", "description": "MFA, Low-Residency, started 2024" }
+  ],
+  "knowsAbout": ["Poetry", "Storytelling", "Experience Design", "Venture Capital", "Generative AI", "Fashion", "Fundraising", "Turnarounds", "Board Governance"],
+  "sameAs": [
+    "https://instagram.com/kahran",
+    "https://medium.com/@kahrans"
+  ],
+  "worksFor": [
+    { "@type": "Organization", "name": "Tres Monos Capital", "url": "https://tresmonos.capital", "description": "Early-stage venture capital fund focused on underrepresented entrepreneurs" },
+    { "@type": "Organization", "name": "Joyus Studio", "url": "https://joyus.studio", "description": "Storytelling and experience design consultancy" }
+  ],
+  "hasCredential": [
+    { "@type": "EducationalOccupationalCredential", "name": "How the World Works (poetry collection)", "url": "https://www.amazon.com/How-World-Works-Kahran-Singh/dp/9395621354" }
+  ]
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H63H3KD6WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H63H3KD6WQ');
+</script>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- The photograph covers exactly this block, so it is one viewport for a
+       short poem and grows with a long one. On a phone the tools sit below it
+       rather than inside it, which keeps the crop a composition, not a slice. -->
+  <div class="screen">
+    <div class="stage-photo">
+      <img id="photo" src="" alt="" loading="eager" decoding="async" fetchpriority="high">
+    </div>
+    <div class="stage-scrim" aria-hidden="true"></div>
+
+    <div class="stage-copy">
+      <header class="masthead">
+        <h1 class="wordmark"><a href="/">kahran singh</a></h1>
+        <nav class="site-links" aria-label="Explore">
+          <a href="/about.html">about</a>
+          <a href="/photography.html">photos</a>
+        </nav>
+        <div class="day" hidden>
+          <p class="day-date" id="day-date">&nbsp;</p>
+          <p class="day-where" id="day-where"></p>
+          <nav class="day-walk" aria-label="Choose a day">
+            <button type="button" class="day-step" id="day-back" data-step="-1">&#8592; yesterday</button>
+            <button type="button" class="day-step" id="day-fwd" data-step="1">today &#8594;</button>
+          </nav>
+        </div>
+      </header>
+
+      <!-- One thing at two distances. The label is the poem's own title set
+           small under a tiny caption; hovering, holding or focusing starts it
+           travelling toward you, and as it arrives it IS the poem. A single
+           progress value in v2/home.js drives both, so letting go half way
+           turns it round from wherever it got to. -->
+      <main class="opening" id="opening" aria-live="polite">
+        <div class="poem-hold" id="poem-hold">
+          <button type="button" class="poem-label" id="poem-label"
+                  aria-expanded="false" aria-controls="poem">
+            <span class="poem-label-cap">this moment&rsquo;s poem</span>
+            <span class="poem-label-title" id="poem-label-title"></span>
+          </button>
+          <article class="poem" id="poem">
+            <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
+            <div class="poem-body" id="poem-body"></div>
+          </article>
+        </div>
+      </main>
+
+      <noscript>
+        <p class="fallback">Today&rsquo;s photograph and poem need JavaScript. The
+        <a href="/poetry.html">poems</a> and the <a href="/photography.html">photographs</a>
+        are also on their own pages.</p>
+      </noscript>
+    </div>
+
+    <nav class="rail-nav" aria-label="Site">
+      <a href="/poetry.html">poetry</a>
+      <a href="/photography.html">photography</a>
+      <a href="/projects.html">projects</a>
+      <a href="/lately/">lately</a>
+      <a href="/working-with-me.html">work with me</a>
+      <a href="/speaking.html">speaking</a>
+      <a href="/archive.html">archive</a>
+      <a href="/about.html">about</a>
+    </nav>
+    <!-- bottom-left of the photograph, the way a caption sits on a print -->
+    <p class="plate-caption" id="caption"></p>
+  </div>
+
+  <!-- Wide: lifted into the right of the first screen, level with the poem's
+       opening, so poem and tools are in view together. Narrow: falls back into
+       the flow, below the photograph, on its own dark band. -->
+  <!-- Wide: lifted into the right of the first screen, level with the poem.
+       Narrow: falls back into the flow, below the photograph. At rest this is
+       one line, and it brings the diagram in. -->
+  <div class="tools-layer">
+    <div class="tools-inner">
+      <section class="wall doing" aria-labelledby="doing-line">
+        <h2 class="doing-line" id="doing-line">Right now I&rsquo;m:</h2>
+
+        <ul class="doing-list">
+          <li class="doing-item">
+            <button type="button" class="doing-bullet" id="doing-tools"
+                    aria-expanded="false" aria-controls="wall-block">building tools to support myself</button>
+          </li>
+        </ul>
+
+        <!-- The five boxes are built by v2/home.js from the IDEAS table, which
+             is the only place the map from an idea to the tools under it
+             lives. They are out of sight until the first line is asked. -->
+        <div class="wall-block" id="wall-block">
+          <noscript>
+            <ul class="wall-plain">
+              <li><b>Context</b> raw store &middot; capture &middot; <a href="/context/">movement</a></li>
+              <li><b>Keeping track</b> miners &middot; judge &middot; Curator &middot; sparks garden</li>
+              <li><b>Staying up to date</b> mail triage &middot; <a href="/lately/">weekly record</a></li>
+              <li><b>Topically suggesting</b> now brain &middot; workout planner &middot; noticings &middot; travel days</li>
+              <li><b>Self-healing</b> Samwise &middot; repairer &middot; health page</li>
+            </ul>
+          </noscript>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</div>
+
+<!-- Version switch. Self-contained: the .vswitch block in home.css is the whole
+     component, ready to drop into /v1/index.html with v2 and v1 swapped. -->
+<div class="vswitch" role="navigation" aria-label="Site version">
+  <span class="vswitch-here" aria-current="page">v2</span>
+  <a href="/v1/">v1</a>
+</div>
+
+<script src="/v2/pick.js"></script>
+<script src="/v2/home.js"></script>
+<script src="/v2/flow.js"></script>
+<script src="/v2/weather.js"></script>
+<script>if (window.kahranWeather) window.kahranWeather.load(document.getElementById('day-where'));</script>
+<script src="tune.js"></script>
+</body>
+</html>

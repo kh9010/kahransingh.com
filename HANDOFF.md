@@ -6,6 +6,7 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - **Studies** (`studies/`, branch `kahran-oct07-study-01-inspiration`): Kahran picks his own website inspiration. Divya, 23 Sep (Granola, raw.db id 3622667): "Go look on Awwwards … 30-something websites … don't get Claude to do it … find mechanical influences and find linguistic influences." Kahran, 7 Oct: "I don't want you to find the inspiration for me. I want you to go find a bunch of things that I might find inspiring … so I can choose them … very fast and easy." Claude gathers; he chooses. Nothing in the study ranks, labels or recommends. Scope of the studies bullets below: `studies/` only; the live site is untouched by them.
 
 ## Where things stand
+- **27 Oct, four new studies** on kMini, for the morning: 09 the About desk, 10 Keeping track, 11 a way out of the home, 12 the walk with dials. Open from the MacBook at `http://100.69.200.2:8123/studies/` (static) and the desk at `http://100.69.200.2:8791/studies/09/` (its server; picks save). Nothing live changed: `about.html`, `/`, `/photography.html` are as they were.
 - Live on GitHub Pages from `main`; no build step.
 - The repo map (v1/v2 split, pick formula, the five ideas, the flow diagram) is in `CLAUDE.md`; this file does not repeat it.
 - `?tune` arrived with the About studies (06–08, below). The live pages still have no dials. The versions rail is the studies rail below.
@@ -16,6 +17,10 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - Local copy: `node studies/server.cjs`, then `http://127.0.0.1:8791/studies/`. Writes `studies/01/picks.json`. Used by verify; not a second place to pick.
 
 ## Open with Kahran right now
+- **Study 09, the About desk.** Eight lines; every draft from 06/07/08 is an option; pick, or type your own. The page beside is the About as picked. The seed picks are the agent's (08's letter with 07's poems and photographs); change any. When it reads right, say so: `node studies/09/build.mjs --about` writes `studies/09/about-draft.html` and that becomes `about.html` in one commit. Question: is a desk the way to settle the About, or do you want to pick one of 06/07/08 whole?
+- **Study 10, Keeping track.** The second tile page, Context's sibling in moss. Question: does the mechanism read true, and is it ready to be `/keeping-track/` (copy the folder, give the IDEAS entry an href, add it to the sitemap)?
+- **Study 11, a way out of the home.** Eight words along the foot of the first screen; they dim when the poem comes forward. Dials for where, how big, how faint, at `?tune` on the tune server. Question: this, the masthead's two words, or no nav at all?
+- **Study 12, the walk with dials.** The photography page with every timing a dial and pictures sized before they load. Question: do the defaults feel right (2 s start, 4 s hold, 8 ms a pixel), and should the sizing go live on `/photography.html` on its own?
 - **Pick an About study:** 06 life in facts / 07 the things I make / 08 a letter and the years, or a blend; `about.html` unchanged until then. `/studies/` opens on 08. The chosen one replaces `about.html` as the next version.
 - The lenticular wedding photograph and the GSAP word pile from the current About are in none of the three. Kept out on purpose (two gimmicks, no story); say if one should come back.
 - The sticky photograph is live; look at it on a long poem day.
@@ -23,6 +28,9 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - After his pass: read the picks back (Workspace state) and write his selection into this file, with his tags and notes, as the input to the next home version.
 
 ## Rules that came out of this work
+- **A picture takes its room before it loads** (the agent's call, 2026-10-27, pending Kahran). Study 12: each single picture gets the width and height it will have once loaded, from the column, the caps and its own proportions, so the page is as tall at first paint as when every picture has arrived (within 2%). The live page grows 23%. Pinned on the study by `tools/test_photo_autoscroll.mjs` with `STABLE_HEIGHT=1`.
+- **The desk offers only drafted lines.** Study 09: an option is a verbatim string of Study 06, 07 or 08, read from those pages at build time; the desk invents no copy. His own words go in the edit field. `verify` pins it.
+- **A mechanism page names no place and no person** (Context's rule, 2026-09-22, carried to Keeping track). Study 10's sections are the IDEAS parts by name; the page has no script. `verify` pins both against `v2/home.js`.
 - **A resting pointer never stops the photography walk.** Kahran, 2026-10-26 ("the auto-scroll on the photos isn't working anymore"). The walk holds only while the pointer is moving over a picture, or a finger is on one, and lets go 1.5 s after the hand stops. Pinned by `tools/test_photo_autoscroll.mjs`.
 - **The photograph never re-crops.** Kahran, 2026-10-15. The picture is exactly one screen, sticks to the top of the window, and a long poem scrolls over it. Pinned by `tools/test_photo_stays.mjs`.
 - **A study may only say what the public pages already say.** Claude, 2026-10-26, from the privacy rules in `CLAUDE.md`. Every capitalised name and every year on an About study is checked against the public pages by `verify`; the sources were cv, projects, work with me, speaking, archive, the v1 home, the wedding and elopement pages, context and the home data. Nothing from the private context repo that is not already on the site.
@@ -36,6 +44,12 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - **Media out of git** (this session's call, 7 Oct): 62 MB of third-party screenshots and clips, over the ~50 MB line for a public repo, and permanent in history once committed. `studies/01/media/` is ignored; the files live on the MacBook and in the artifact. `pile.json` (names, urls, sources) is committed; the gather tools rebuild the media.
 
 ## Version 2 in detail
+- **2026-10-27, Studies 09–12.**
+  - **09, the About desk** (`studies/09/`): `build.mjs` reads 06/07/08 and writes `lines.json` (8 lines, 19 options), `index.html` (the desk: lines left, the About right, readable without JS) and with `--about` the `about-draft.html` in about.html's own frame. `picks.json` is the state; `studies/server.cjs` takes `POST /api/study-09/pick` (`{line, pick}`; pick = `{from, i}`, `{edit}` or `null`), validates against `lines.json`, writes, rebuilds. Dials: the desk's measure and type, the About's measure, sizes and rules. Modelled on the Rachna site's writing desk.
+  - **10, Keeping track** (`studies/10/`): `/context/context.css` plus one file that re-tints the hue to the tile's moss; no JS, no dials (they come with its promotion). Sourced from day-flow's miner, judge, Curator and backlog modules and CONSTITUTION tenets 11 and 14; nothing from his data. The diagram is the Curator's writes → its one rule → what stays his.
+  - **11, a way out of the home** (`studies/11/`): `index.html` copied, `/v2/*` by absolute path, one inline style block: `.rail-nav` along the foot of `.screen`, above the plate caption; the masthead's two links stand down. Dials: bottom, align, gap, size, tracking, rest and live opacity, fade, the phone pair. `tools/test_photo_stays.mjs` takes `PAGE=` and passes on the study.
+  - **12, the walk, with dials** (`studies/12/`): `photography.html` copied; the six timings are custom properties the script reads back (`--walk-*` ← `--start-ms` etc.), the four size caps and two paddings are dials too; `sizePictures()` sets each single's width and height before load and on resize. `tools/test_photo_autoscroll.mjs` takes `PAGE=` and, with `STABLE_HEIGHT=1`, the height ruling.
+  - Each new check was broken once and seen red (an invented word on the desk, a preview without its pick, a server that accepts any index, a script tag and a renamed section and a place on 10, two links swapped on 11, a timer literal and un-sized pictures on 12), then restored.
 - **2026-10-26, the photography walk unfrozen.** The pause listeners sat on the wraps, which are full-width blocks a screen tall, so a still pointer anywhere below the header was "inside" one, and the page scrolling under it counted as entering. They now sit on the pictures, fire on `mousemove` with non-zero movement (a scroll-induced hover update has none), and let go after 1.5 s of rest. Reproduced in headless Chrome: pointer parked at the window centre, scrollY stays 0 for 15 s; no pointer, it walks. The page code had not changed since March, so what changed is most likely when the browser updates hover state under a programmatic scroll.
 - **2026-10-15, photo stays put.** `.stage-photo img` is `position: sticky; height: 100svh` inside the absolute wrapper that spans the block; the wrapper is what stops it at the block's end. Cut: a sticky *wrapper* with a negative bottom margin, which let the picture slide 100svh past the block and show unveiled under the fade to paper.
 - **2026-10-04, infographic details (`kahran-oct04-infographic-details`, PR #128).** Readable detail cards for the five ideas and sixteen tools. Tiles are now buttons that pin a panel; Context's page link lives inside its panel. Hover or focus previews, a tap opens a sheet on touch, Escape closes the detail before the diagram. The copy lives inside the `IDEAS` entries in `v2/home.js`; the `CHANNEL` table in `flow.js` was removed. Provenance: `docs/idea-details-coverage.json`; arrows stay as audited in `docs/2026-09-22-flow-edges.md`.
@@ -61,6 +75,10 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - **Study 05, four beauty-first takes (`studies/05/`).** Each built by its own agent from a shared brief (folded in here; the brief file is gone) and render-checked on the GPU. A prism, B mosaic stone, C jewel in the weather, D kaleidoscope. Known rough: the corner line on all four says "We're in New York" (should be Kahran's); C's sapphire runs electric; D shows a seam at ~85% open. Debug params (`?t=`, `?peek=`, `?sliver`, `?stone=`) are left in.
 
 ## Wrong turns worth knowing
+- **The first height ruling passed on the live page.** It compared the page's height at first paint with its height after 10 s of walking; in 10 s the walk reaches two pictures and the lazy ones below never load, so the live page grew under 2% and the check proved nothing. It now forces every picture to load and compares: live 63,988 → 78,792 (red), the study flat (green).
+- **The About checks would have swept the new studies in.** `ABOUT = studies ≥ 06` was written when 06–08 were the only ones; 09–12 would have failed "title is About" and "nav with about current". Split into `ABOUT` (the three pages), `SINCE06` (every study, the generic rulings) and `TUNED` (every study with dials).
+- **A mutation that was not one.** Making the desk server fall back to option 0 on a bad index still failed the `from` match, so the check stayed green and said nothing about the guard. The real break (return true) went red. Lesson: a mutation has to remove the rule, not dent it.
+- **The staging worktree was cut from the About branch**, which predates the auto-scroll fix, so the first Study 12 build was of the old page. Moved onto main and rebuilt.
 - **Two headless runs with no pointer walked fine and nearly sent the search into the v2-launch diff** (which only touched the nav). The reproduction needed a parked pointer. A tab opened through the Chrome extension sits hidden, so `requestAnimationFrame` never runs there and it proves nothing either way.
 - **The first public-safe check for the About studies was a privacy deny-list: it listed the excluded topics, so committing it would have published them.** Caught before commit and replaced with a provenance check (every name and year must already be on a public page), which says nothing about what is excluded. Lesson: a deny-list of secrets is itself a leak; check for provenance instead.
 - The first draft of 07's tools list carried Claude's glosses of the five ideas; the home page has its own one-liners, and the rule is that a mock carries only what the site would. Swapped.
@@ -74,6 +92,8 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - The first capture pass treated any full-screen fixed element mentioning cookies as a wall; it is a heuristic, so a site or two may have been dropped that a click would have opened (see `dropped`).
 
 ## Workspace state
+- Studies 09–12: `node studies/server.cjs` (`HOST=0.0.0.0` to reach it over Tailscale; same-origin writes allowed, foreign origins 403) serves the desk with its picks; `node studies/tune-server.cjs` then `…/studies/NN/?tune` for 09, 11, 12. `PAGE=/studies/11/ node tools/test_photo_stays.mjs`; `PAGE=/studies/12/ STABLE_HEIGHT=1 node tools/test_photo_autoscroll.mjs`.
+- Morning server on kMini (27 Oct): `python3 -m http.server 8123 --bind 0.0.0.0` from the main checkout and `HOST=0.0.0.0 node studies/server.cjs`, both under nohup with logs in `/tmp/ks-site-8123.log` and `/tmp/ks-desk-8791.log`. Throwaway: kill them when done.
 - Run locally: `python3 -m http.server 8123` at the root. For the About studies' dials: `node studies/tune-server.cjs` (:8792) and add `?tune`.
 - Checks: `node verify.mjs` (python3 + Chrome for Testing's headless shell under `~/.cache/puppeteer`; launches must carry `--use-mock-keychain --password-store=basic` or macOS prompts for the keychain).
 - Idea-detail checks: `node tools/test_idea_details.mjs` (wired into verify). `tools/check_idea_details.py` and `tools/check_idea_details_edges.py` are browser acceptance scripts that need Playwright, which is not installed; they are not wired into verify. Reports land in ignored `.review/idea-details/`.
@@ -97,7 +117,7 @@ PASS pick.js agrees with daily_pick.py: all checks passed
 PASS the photography walk goes on under a resting pointer and holds under a moving one: 4 checks at 1200x800
 PASS the photograph never re-crops when the poem comes forward: 5 checks at 1200x800
 PASS studies are noindexed: 5 pages carry noindex, nofollow; robots.txt leaves them crawlable so the tag is read
-PASS the rail matches the studies: 8 study listed, opens on 08
+PASS the rail matches the studies: 12 study listed, opens on 12
 PASS study 03: the board holds every keep in his words, four directions, all noindexed and on the rail: 13 keeps on the board with their notes verbatim; 4 directions linked; 5 pages noindexed
 PASS no instruction text: 0 <p>; 18 words of chrome, all labels
 SKIP the pile is whole: studies/01/media is not on this machine (it lives in the MacBook worktree)
@@ -107,16 +127,19 @@ PASS the server keeps the picks file clean: 4 malformed writes 400, foreign orig
 PASS live: notes do not fire shortcuts, a keep with a note round-trips, blocked sites get no iframe: note typing inert, Enter keeps with its note, resume works, blocked cards get no iframe
 PASS study 04: three gems, noindexed, on the rail, each loads clean with his content on its faces: 4 pages noindexed; on the rail; a, b, c load with 0 console errors, faces filled, floor and caption present
 PASS study 05: four beautiful gems, noindexed, on the rail, each loads clean: 5 pages noindexed; on the rail; a–d load with 0 console errors
-PASS the rail matches the studies and opens on the newest: 8 studies (01, 02, 03, 04, 05, 06, 07, 08), opens on 08
+PASS study 09: every line on the desk is a verbatim draft from 06, 07 or 08, the preview is the picks, and a rebuild changes nothing: 8 lines, 19 options all verbatim; 8 picked and present in the preview and about-draft; rebuild is a no-op
+PASS study 09: the desk server takes a pick, refuses a malformed one and a foreign origin, and the file stays clean: 2 picks and a clear written, 6 malformed writes 400, foreign origin 403, file untouched by them
+PASS study 10: Keeping track is a mechanism page like /context/: same meta set, no script, the four tools by their names, no place and no person: 14 meta rules shared with /context/, 0 scripts, sections The miners · The judge · The Curator · The sparks garden, 3 proper names all already public, 0 places
+PASS study 11: the home with the eight-word nav, in about.html's order, and the photograph still never re-crops: 8 links in about.html's order; photograph ruling 5 checks at 1200x800 on the study
+PASS study 12: the walk reads its numbers from the dials and pictures take their room before they load: 12 dials, 0 timing literals in the script; walk + height ruling 5 checks at 1200x800
+PASS the rail matches the studies and opens on the newest: 12 studies (01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12), opens on 12
 PASS a study is a site page: noindex, title, description, the site nav with about current, and it reads without JS: 3 pages, 1042 words of static copy
-PASS no instruction text and nothing a mock would not carry: 3 pages, 0 hits
-PASS every name and year on a study is already on the site: 137 names and 34 years checked against 14 public pages
-PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 24 dials across 3 studies, fallbacks match
-PASS every link out of a study resolves: 69 internal targets exist on disk, 26 external left to the link audit
+PASS no instruction text and nothing a mock would not carry: 7 pages, 0 hits
+PASS every name and year on a study is already on the site: 139 names and 34 years checked against 14 public pages
+PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 62 dials across 6 studies, fallbacks match
+PASS every link out of a study resolves: 286 internal targets exist on disk, 50 external left to the link audit
 PASS idea details: coverage, audited graph, public provenance: idea coverage: 5 ideas, 16 explained tools; audited graph: 4 data arrows, 12 surface feeds; public provenance: 16 tools with repository sources
 ```
-
-Each studies browser check was seen red once when it was written (noindex removed, card name put in a `title`, save made a no-op, undo not saved, tag validation removed, an unlisted study); restored, green. Each About study check was seen red once on 2026-10-26: a name no public page carries; "click" in the copy; a CSS fallback drifted from `defaults.json`; a rail entry renumbered; the nav without `about` current; a dead poem link. Restored, green. The About page-shape checks run over 06 onwards; the rail check covers all eight. Study 05's page-load check went red with the signed-shift bug in `05/a.html` `paint` (Wrong turns) and green with the fix. This run is on kMini, where `studies/01/media` is absent, so three checks print SKIP; with an empty `media/` folder present the pile check goes red ("media for <id>.jpg"), so the skip only fires when the folder is missing. Where the media is present all 19 lines are expected PASS (not run tonight; the media was out of reach).
 
 ## Research already captured
 - `docs/2026-09-21-daily-pick-design.md`, `docs/2026-09-22-flow-edges.md`.
