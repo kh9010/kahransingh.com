@@ -43,6 +43,13 @@ check("pick.js agrees with daily_pick.py", () => {
   return r.out.trim().split("\n").pop();
 });
 
+check("the photography walk goes on under a resting pointer and holds under a moving one", () => {
+  const r = run("node", ["tools/test_photo_autoscroll.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} checks at 1200x800`;
+});
+
 check("the photograph never re-crops when the poem comes forward", () => {
   const r = run("node", ["tools/test_photo_stays.mjs"], ROOT);
   const oks = (r.out.match(/^ok /gm) || []).length;
