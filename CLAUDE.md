@@ -46,3 +46,7 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
   no JS). It replaced `/movement/`, which is now a meta-refresh stub pointing at
   `/context/#movement`. A box gets a page by giving its `IDEAS` entry an `href`.
 - A small fixed "v2 · v1" tab switches between them. Nothing gets migrated into v2 until Kahran decides where it goes.
+
+## Deploy versus live (since 2026-10-27)
+
+- **Live** is `main`, served by this repo's GitHub Pages at kahransingh.com. **Deploy** is the `preview` branch, served at https://kh9010.github.io/ by the mirror repo `kh9010/kh9010.github.io` (a copy, `robots.txt` disallow-all, no `CNAME`). Put any branch on deploy with `tools/preview.sh [branch]`; `tools/preview-publish.sh` does the copy and runs every 15 minutes on kMini (`tools/launchd/com.kahran.site-preview-publish.plist`, installed as a copy in `~/Library/LaunchAgents`). Never edit the mirror repo by hand.
