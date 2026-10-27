@@ -284,6 +284,366 @@
         "wind_kmh": 21.8,
         "cloud_pct": 0
       }
+    },
+    "2026-10-07": {
+      "poem": "hark-my-love",
+      "photo": "/photos/paro-bhutan-08988839.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.9274640741705772,
+        "warmth": 0.7,
+        "wet": 0.0,
+        "stillness": 0.5125,
+        "season": 0.35843050938590826,
+        "inside": 0.85,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 19.5,
+        "wind_kmh": 19.5,
+        "cloud_pct": 1
+      }
+    },
+    "2026-10-08": {
+      "poem": "sometimes-curious-feel",
+      "photo": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6551787471588537,
+        "warmth": 0.8485714285714285,
+        "wet": 0.0,
+        "stillness": 0.30499999999999994,
+        "season": 0.3502026218013699,
+        "inside": 0.9242857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 24.7,
+        "wind_kmh": 27.8,
+        "cloud_pct": 8
+      }
+    },
+    "2026-10-09": {
+      "poem": "a-house-before-house",
+      "photo": "/photos/yosemite-valley.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6346593199282309,
+        "warmth": 0.8085714285714286,
+        "wet": 0.0,
+        "stillness": 0.33499999999999996,
+        "season": 0.34201906167104856,
+        "inside": 0.9042857142857144,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 23.3,
+        "wind_kmh": 26.6,
+        "cloud_pct": 22
+      }
+    },
+    "2026-10-10": {
+      "poem": "delicate-pieces-before-the-end",
+      "photo": "/photos/provincetown-massachusetts-09009fdd.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.547952304499373,
+        "warmth": 0.7771428571428571,
+        "wet": 0.0,
+        "stillness": 0.6875,
+        "season": 0.3338822506420478,
+        "inside": 0.8885714285714286,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 22.2,
+        "wind_kmh": 12.5,
+        "cloud_pct": 62
+      }
+    },
+    "2026-10-11": {
+      "poem": "purple-dragon",
+      "photo": "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.5857142857142857,
+        "wet": 1.0,
+        "stillness": 0.4325,
+        "season": 0.32579459652765963,
+        "inside": 0.2928571428571429,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 15.5,
+        "wind_kmh": 22.7,
+        "cloud_pct": 92
+      }
+    },
+    "2026-10-12": {
+      "poem": "i-will-always-be-a-poet",
+      "photo": "/photos/puako-hawaii-98409f6b.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.31822571791518556,
+        "warmth": 0.7542857142857142,
+        "wet": 0.6,
+        "stillness": 0.485,
+        "season": 0.3177584925948544,
+        "inside": 0.5771428571428572,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 21.4,
+        "wind_kmh": 20.6,
+        "cloud_pct": 64
+      }
+    },
+    "2026-10-13": {
+      "poem": "when-you-were-young",
+      "photo": "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6133377144773644,
+        "warmth": 0.7628571428571428,
+        "wet": 0.0,
+        "stillness": 0.5075000000000001,
+        "season": 0.3097763168560742,
+        "inside": 0.8814285714285715,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 21.7,
+        "wind_kmh": 19.7,
+        "cloud_pct": 13
+      }
+    },
+    "2026-10-14": {
+      "poem": "california",
+      "photo": "/photos/taco-cart.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.36431590092284555,
+        "warmth": 0.9085714285714286,
+        "wet": 0.0,
+        "stillness": 0.53,
+        "season": 0.3018504313655409,
+        "inside": 0.9542857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 26.8,
+        "wind_kmh": 18.8,
+        "cloud_pct": 22
+      }
+    },
+    "2026-10-15": {
+      "poem": "one-in-community",
+      "photo": "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.615876478471304,
+        "warmth": 0.7228571428571429,
+        "wet": 0.0,
+        "stillness": 0.5349999999999999,
+        "season": 0.2939831815202868,
+        "inside": 0.8614285714285714,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 20.3,
+        "wind_kmh": 18.6,
+        "cloud_pct": 13
+      }
+    },
+    "2026-10-16": {
+      "poem": "it-used-to-be-me",
+      "photo": "/photos/roma-sidewalk.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.7857142857142857,
+        "wet": 0.3,
+        "stillness": 0.5650000000000001,
+        "season": 0.2861768953661127,
+        "inside": 0.7428571428571429,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 22.5,
+        "wind_kmh": 17.4,
+        "cloud_pct": 81
+      }
+    },
+    "2026-10-17": {
+      "poem": "song-of-tomorrow",
+      "photo": "/photos/night-street.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.17114803606401274,
+        "warmth": 0.64,
+        "wet": 0.3,
+        "stillness": 0.36749999999999994,
+        "season": 0.27843388290868276,
+        "inside": 0.67,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 17.4,
+        "wind_kmh": 25.3,
+        "cloud_pct": 73
+      }
+    },
+    "2026-10-18": {
+      "poem": "sometimes-quaver",
+      "photo": "/photos/berlin-street.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8855559643175971,
+        "warmth": 0.5971428571428571,
+        "wet": 0.0,
+        "stillness": 0.97,
+        "season": 0.2707564354299562,
+        "inside": 0.7985714285714285,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 15.9,
+        "wind_kmh": 13.2,
+        "cloud_pct": 0
+      }
+    },
+    "2026-10-19": {
+      "poem": "park",
+      "photo": "/photos/provincetown-massachusetts-eee28b60.jpg",
+      "place": null,
+      "why": {
+        "light": 0.859224742184472,
+        "warmth": 0.6685714285714285,
+        "wet": 0.0,
+        "stillness": 0.9850000000000001,
+        "season": 0.26314682481016,
+        "inside": 0.8342857142857143,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 18.4,
+        "wind_kmh": 12.6,
+        "cloud_pct": 2
+      }
+    },
+    "2026-10-20": {
+      "poem": "i-saw-something-beautiful-today",
+      "photo": "/photos/provincetown-massachusetts-4c281798.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8891574501330598,
+        "warmth": 0.7571428571428571,
+        "wet": 0.0,
+        "stillness": 0.74,
+        "season": 0.2556073028555037,
+        "inside": 0.8785714285714286,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 21.5,
+        "wind_kmh": 22.4,
+        "cloud_pct": 0
+      }
+    },
+    "2026-10-21": {
+      "poem": "freedom-yet-unabridged",
+      "photo": "/photos/mariposa-grove-yosemite-7455e25e.jpg",
+      "place": null,
+      "why": {
+        "light": 0.5593183408142736,
+        "warmth": 0.6457142857142858,
+        "wet": 0.0,
+        "stillness": 0.7650000000000001,
+        "season": 0.248140100631833,
+        "inside": 0.822857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 17.6,
+        "wind_kmh": 21.4,
+        "cloud_pct": 38
+      }
+    },
+    "2026-10-22": {
+      "poem": "to-know-me",
+      "photo": "/photos/reed-corridor.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8927119429991184,
+        "warmth": 0.7314285714285714,
+        "wet": 0.0,
+        "stillness": 0.6924999999999999,
+        "season": 0.2407474278044215,
+        "inside": 0.8657142857142857,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 20.6,
+        "wind_kmh": 24.3,
+        "cloud_pct": 0
+      }
+    },
+    "2026-10-23": {
+      "poem": "out-of-many-one",
+      "photo": "/photos/washington-dc-afd19b1c.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8944646392697542,
+        "warmth": 0.6114285714285714,
+        "wet": 0.0,
+        "stillness": 0.8,
+        "season": 0.23343147198409547,
+        "inside": 0.8057142857142857,
+        "mood": 0.5,
+        "weather_code": 2,
+        "tmax": 16.4,
+        "wind_kmh": 20.0,
+        "cloud_pct": 7
+      }
+    },
+    "2026-10-24": {
+      "poem": "teental",
+      "photo": "/photos/kitchen-night.jpg",
+      "place": null,
+      "why": {
+        "light": 0.39060501927449764,
+        "warmth": 0.6485714285714286,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.2261943980798844,
+        "inside": 0.8242857142857143,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 17.7,
+        "wind_kmh": 9.5,
+        "cloud_pct": 51
+      }
+    },
+    "2026-10-25": {
+      "poem": "and-now-that-we-walk",
+      "photo": "/photos/buoys-wall.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8775825752385024,
+        "warmth": 0.6971428571428571,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.21903834765839025,
+        "inside": 0.8485714285714285,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 19.4,
+        "wind_kmh": 10.2,
+        "cloud_pct": 2
+      }
+    },
+    "2026-10-26": {
+      "poem": "i-watched-a-butterfly-today",
+      "photo": "/photos/beach-boardwalk.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8986441155405901,
+        "warmth": 0.7942857142857143,
+        "wet": 0.0,
+        "stillness": 0.9524999999999999,
+        "season": 0.2119654383100621,
+        "inside": 0.8971428571428571,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 22.8,
+        "wind_kmh": 13.9,
+        "cloud_pct": 0
+      }
     }
   }
 }

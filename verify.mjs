@@ -1,14 +1,62 @@
-// verify.mjs — node verify.mjs
-// Pins the rulings for studies/ (house way: ~/dev/house/HANDOFF.md). Starts its own study server
-// on a free port with a throwaway picks file, drives headless Chrome over the DevTools protocol
-// (no dependencies), prints one PASS line per ruling, exits 1 on the first FAIL.
+#!/usr/bin/env node
+// verify.mjs — the checks that pin this site's rulings, one PASS line each.
+// The expected block lives in HANDOFF.md under Verification.
+//
+// Run: node verify.mjs            (exits 1 on the first FAIL, naming it)
+// Needs python3 and, for the home-page ruling, Chrome for Testing's headless
+// shell under ~/.cache/puppeteer (tools/test_photo_stays.mjs says how).
+
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const TOOLS = path.join(ROOT, "tools");
+
+function run(cmd, args, cwd) {
+  const r = spawnSync(cmd, args, { cwd, encoding: "utf8" });
+  return { ok: r.status === 0, out: (r.stdout || "") + (r.stderr || "") };
+}
+
+function checkNow(name, fn) {
+  let msg;
+  try { msg = fn(); } catch (e) { console.log(`FAIL ${name}: ${e.message}`); process.exit(1); }
+  console.log(`PASS ${name}: ${msg}`);
+}
+
+function unittest(mod) {
+  const r = run("python3", ["-m", "unittest", mod], TOOLS);
+  const ran = /Ran (\d+) tests?/.exec(r.out);
+  if (!r.ok || !ran) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
+  return `${ran[1]} tests`;
+}
+
+checkNow("daily pick follows the weather, then the archive, then the date hash", () => unittest("test_daily_pick"));
+checkNow("place feed", () => unittest("test_place_feed"));
+checkNow("adding photographs", () => unittest("test_add_photos"));
+checkNow("About and Photos entry points", () => unittest("test_about_photos"));
+checkNow("Lately feed layer", () => unittest("test_lately_feed"));
+
+checkNow("pick.js agrees with daily_pick.py", () => {
+  const r = run("node", ["tools/test_pick_js.mjs"], ROOT);
+  if (!r.ok) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
+  return r.out.trim().split("\n").pop();
+});
+
+checkNow("the photograph never re-crops when the poem comes forward", () => {
+  const r = run("node", ["tools/test_photo_stays.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} checks at 1200x800`;
+});
+
+// ── studies rail checks (this branch): run after the site checks above, in one async pass ──
+// Starts its own study server on a free port with a throwaway picks file, drives headless Chrome over the DevTools protocol.
 import fs from 'node:fs'
-import path from 'node:path'
 import os from 'node:os'
 import assert from 'node:assert/strict'
 import { spawn } from 'node:child_process'
 
-const ROOT = path.dirname(new URL(import.meta.url).pathname)
 const S = p => path.join(ROOT, 'studies', p)
 const read = p => fs.readFileSync(p, 'utf8')
 const sleep = ms => new Promise(r => setTimeout(r, ms))
