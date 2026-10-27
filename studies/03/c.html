@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 03 · C</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --paper: #fafaf8; --card: #fff; --ink: #1a1a1a; --ink2: #6e6e6e; --ink3: #9a958c; --line: #e0ddd8; --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper: #141210; --card: #1c1a15; --ink: #ede7d9; --ink2: #9a9385; --ink3: #6f685c; --line: #332e26; color-scheme: dark; } }
+:root[data-theme="dark"] { --paper: #141210; --card: #1c1a15; --ink: #ede7d9; --ink2: #9a9385; --ink3: #6f685c; --line: #332e26; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 .78rem/1.4 var(--sans); overflow-x: hidden; }
+.cap { padding: 6px 16px; border-bottom: 1px solid var(--line); color: var(--ink2); font-size: .72rem; } .cap a { color: inherit; }
+#strip { position: fixed; left: 0; top: 0; bottom: 0; width: 28px; overflow: hidden; background: var(--ink); color: var(--paper); z-index: 5; }
+#strip div { writing-mode: vertical-rl; white-space: nowrap; font: 500 .72rem var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 6px; animation: crawl 60s linear infinite; }
+#strip div.g { animation: crawl 60s steps(40) infinite; }
+@keyframes crawl { to { transform: translateY(-50%) } }
+main { margin-left: 28px; padding: 16px 24px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px; max-width: 1300px; }
+header { grid-column: 1 / -1; display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap; }
+header h1 { margin: 0; font: 500 1.6rem var(--sans); } header a { color: var(--ink2); margin-right: 10px; }
+#line { color: var(--ink2); font-size: .9rem; }
+#photo { width: 100%; max-height: 64vh; object-fit: cover; display: block; border-radius: 6px; }
+#capn { color: var(--ink3); margin-top: 4px; }
+.poem { font: 400 1rem/1.55 var(--serif); white-space: pre-line; }
+.poem b { font-weight: 400; font-style: italic; font-size: 1.25rem; display: block; margin-bottom: 8px; }
+h2 { font: 500 .72rem var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink3); margin: 0 0 6px; }
+.ideas { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.ideas a, .ideas div { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+.ideas b { font-weight: 500; display: block; } .ideas small { color: var(--ink2); display: block; }
+#walker { position: fixed; z-index: 20; width: 64px; height: 64px; cursor: pointer; left: -80px; bottom: 30px; }
+#walker svg { width: 100%; height: 100%; overflow: visible; }
+#say { position: fixed; z-index: 21; background: var(--ink); color: var(--paper); padding: 6px 10px; border-radius: 6px; font: italic 400 .9rem var(--serif); max-width: 260px; pointer-events: none; opacity: 0; transition: opacity .2s; }
+@media (max-width: 760px) { main { grid-template-columns: 1fr; } .ideas { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<div class="cap">draws on: MSCHF · Cheeseboard · Pug in a Rug · his words: “being made to ask ‘what is happening here?’” · <a href="./">board</a></div>
+<div id="strip"><div id="strip-t"></div></div>
+<main>
+  <header><h1>kahran singh</h1><span id="line"></span><nav><a href="/about.html">about</a><a href="/poetry.html">poems</a><a href="/photography.html">photos</a></nav></header>
+  <figure style="margin:0"><img id="photo" alt=""><div id="capn"></div></figure>
+  <section><h2>this moment’s poem</h2><div class="poem" id="poem"></div></section>
+  <section style="grid-column:1/-1"><h2>Right now I’m: building tools to support myself</h2><div class="ideas" id="ideas"></div></section>
+</main>
+<div id="walker"></div><div id="say"></div>
+<script src="shared.js"></script>
+<script>
+const $ = s => document.querySelector(s)
+S03.load().then(c => {
+  const r = c.reading
+  $('#line').textContent = c.line
+  $('#photo').src = c.photo.src; $('#photo').alt = c.photo.alt; $('#capn').textContent = c.photo.caption
+  $('#poem').innerHTML = `<b>${c.poem.title}</b>` + c.poem.stanzas.join('\n\n').replace(/</g, '&lt;')
+  c.ideas.forEach(d => $('#ideas').insertAdjacentHTML('beforeend', `<${d.href ? `a href="${d.href}"` : 'div'}><b>${d.name}</b><small>${d.line}</small></${d.href ? 'a' : 'div'}>`))
+  // the glitch on the left: every place the photographs were taken, crawling, now and then stuttering
+  const places = [...new Set(c.data.photos.map(S03.placeOf))]
+  $('#strip-t').textContent = (places.join(' · ') + ' · ').repeat(2)
+  setInterval(() => $('#strip-t').classList.toggle('g'), 2600 + Math.random() * 4000)
+  walker(c, r)
+})
+// the interruption: today's actual weather, walking across the page on legs.
+// raining → a cloud that rains on whatever it passes; clear day → a sun; clear night → a moon; snow, fog, storm likewise.
+function kind(r) {
+  if (!r) return 'cloud'; const w = r.weather_code
+  if (w >= 95) return 'storm'; if ((w >= 51 && w <= 67) || (w >= 80 && w <= 82)) return 'rain'; if ((w >= 71 && w <= 77) || w === 85 || w === 86) return 'snow'
+  if (w === 45 || w === 48) return 'fog'; if (w <= 1) return r.is_day ? 'sun' : 'moon'; return 'cloud'
+}
+function body(k) {
+  const legs = `<g class="legs" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="24" y1="48" x2="20" y2="62"/><line x1="40" y1="48" x2="44" y2="62"/></g>`
+  const face = `<circle cx="26" cy="30" r="2.5" fill="#1a1a1a"/><circle cx="38" cy="30" r="2.5" fill="#1a1a1a"/>`
+  const shape = { sun: `<circle cx="32" cy="30" r="18" fill="#f2b33d"/>`, moon: `<path d="M44 14a18 18 0 1 0 0 34a14 14 0 1 1 0-34z" fill="#e8e2c8"/>`,
+    fog: `<rect x="8" y="18" width="48" height="26" rx="13" fill="#c9c6bf" opacity=".8"/>`, snow: `<path d="M14 40a10 10 0 0 1 4-19a14 14 0 0 1 27-2a10 10 0 0 1 5 21z" fill="#eef2f6" stroke="#9ab"/>` }[k]
+    || `<path d="M14 44a10 10 0 0 1 4-19a14 14 0 0 1 27-2a10 10 0 0 1 5 21z" fill="${k === 'storm' ? '#5d6470' : '#aab3bd'}"/>`
+  return `<svg viewBox="0 0 64 64" style="color:#555">${legs}${shape}${face}</svg>`
+}
+function walker(c, r) {
+  const w = $('#walker'), say = $('#say'), k = kind(r); w.innerHTML = body(k)
+  let x = -80, dir = 1, t = 0, pause = 0
+  const drops = []
+  w.onclick = () => { // it hands you a line from today's poem
+    const lines = c.poem.stanzas.join('\n').split('\n').filter(Boolean), l = lines[Math.floor(Math.random() * lines.length)]
+    const b = w.getBoundingClientRect(); say.textContent = l; say.style.left = Math.min(innerWidth - 270, b.left) + 'px'; say.style.top = (b.top - 50) + 'px'; say.style.opacity = 1
+    pause = 120; setTimeout(() => say.style.opacity = 0, 2400)
+  }
+  ;(function step() {
+    t++; if (pause > 0) pause--; else { x += dir * 1.1; if (x > innerWidth + 80) { dir = -1; } if (x < -100 && dir < 0) { dir = 1 } }
+    w.style.left = x + 'px'; w.style.transform = `scaleX(${dir}) translateY(${pause ? 0 : Math.abs(Math.sin(t / 6)) * -4}px)`
+    w.querySelector('.legs').style.transform = pause ? '' : `skewX(${Math.sin(t / 6) * 14}deg)`
+    if ((k === 'rain' || k === 'storm' || k === 'snow') && t % 4 === 0) { const d = document.createElement('i'); d.style.cssText = `position:fixed;z-index:19;left:${x + 20 + Math.random() * 24}px;bottom:50px;width:${k === 'snow' ? 4 : 2}px;height:${k === 'snow' ? 4 : 8}px;border-radius:2px;background:${k === 'snow' ? '#fff' : '#7aa0c8'};transition:transform 1s linear,opacity 1s`; document.body.appendChild(d); requestAnimationFrame(() => { d.style.transform = 'translateY(40px)'; d.style.opacity = 0 }); setTimeout(() => d.remove(), 1000) }
+    requestAnimationFrame(step)
+  })()
+}
+</script>
+</body>
+</html>

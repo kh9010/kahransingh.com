@@ -19,3 +19,6 @@ __pycache__/
 
 # Local browser review artifacts
 .review/
+
+# Study 01 media: third-party screenshots and clips, too heavy for a public repo (HANDOFF.md)
+studies/01/media/

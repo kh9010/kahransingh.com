@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 04 · A</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #f6f3ec; --ink2: rgba(246,243,236,.72); --line: rgba(246,243,236,.22); --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; --top: #1c2140; --bottom: #3a3a5c; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body { background: linear-gradient(var(--top), var(--bottom)); color: var(--ink); font: 400 .78rem/1.4 var(--sans); }
+.top { position: fixed; top: 0; left: 0; right: 0; z-index: 3; }
+.cap { padding: 6px 16px; color: var(--ink2); font-size: .72rem; z-index: 3; border-bottom: 1px solid var(--line); }
+.cap a { color: inherit; }
+header { padding: 8px 16px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+h1 { font: 500 1.4rem var(--sans); margin: 0; } header span { color: var(--ink2); }
+header nav a { color: var(--ink); margin-right: 10px; }
+canvas { position: fixed; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+canvas:active { cursor: grabbing; }
+#face { position: fixed; z-index: 3; right: 16px; bottom: 16px; width: min(320px, calc(100% - 32px)); background: rgba(12,12,20,.42); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 6px; padding: 10px; opacity: 0; transform: translateY(8px); transition: opacity .28s cubic-bezier(.4,0,.2,1), transform .28s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+#face.on { opacity: 1; transform: none; pointer-events: auto; }
+#face small { color: var(--ink2); display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+#face img { width: 100%; max-height: 40vh; object-fit: cover; border-radius: 3px; display: block; }
+#face q { font: italic 400 1.15rem/1.35 var(--serif); quotes: none; display: block; }
+#face b { font: 400 1.2rem var(--serif); display: block; }
+#face a { color: var(--ink); } #face p { margin: 4px 0 0; color: var(--ink2); }
+</style>
+</head>
+<body>
+<div class="top"><div class="cap">draws on: Divya, 8 Oct (“facets make me think of gemstones”) · windy.com · muda.co · his words: “I really like that notion of something beautiful” · <a href="./">04</a></div>
+<header><h1>kahran singh</h1><span>Poet, investor, and builder.</span><nav><a href="/poetry.html">poems</a><a href="/photography.html">photographs</a><a href="/context/">tools</a></nav></header></div>
+<div id="face"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../03/shared.js"></script>
+<script src="sky.js"></script>
+<script>
+const $ = s => document.querySelector(s)
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); document.body.prepend(renderer.domElement)
+const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(32, 1, .1, 100); cam.position.set(0, 0, 6.2)
+function size() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); cam.position.z = Math.max(6.2, 3.8 / (.573 * cam.aspect)); gem.position.x = w > 800 ? -.5 : 0; gem.position.y = w > 800 ? 0 : .35 }
+
+// ── the world the stone refracts: his sky as a gradient, a few lamps, today's photograph behind it
+const env = new THREE.Scene()
+const skyGeo = new THREE.SphereGeometry(30, 32, 16), skyCol = []
+const skyMat = new THREE.MeshBasicMaterial({ side: THREE.BackSide, vertexColors: true }); env.add(new THREE.Mesh(skyGeo, skyMat))
+function paintSky(s) {
+  const pos = skyGeo.attributes.position, c = []
+  for (let i = 0; i < pos.count; i++) { const t = (pos.getY(i) / 30 + 1) / 2; for (let k = 0; k < 3; k++) c.push(Math.min(1, .25 + 1.15 * (s.bottomRGB[k] + (s.topRGB[k] - s.bottomRGB[k]) * t) / 255)) }
+  skyGeo.setAttribute('color', new THREE.Float32BufferAttribute(c, 3))
+}
+for (let k = 0; k < 22; k++) { const a = k * 2.399, y = 12 - (k % 7) * 3.6, rr = 13, x = Math.cos(a) * rr, z = Math.sin(a) * rr, r = .35 + (k % 4) * .25
+  const m = new THREE.Mesh(new THREE.SphereGeometry(r, 12, 8), new THREE.MeshBasicMaterial({ color: 0xffffff })); m.position.set(x, y, z); env.add(m)
+}
+const photoPlane = new THREE.Mesh(new THREE.PlaneGeometry(16, 11), new THREE.MeshBasicMaterial({ color: 0xffffff }))
+photoPlane.position.set(0, 0, -6); env.add(photoPlane)
+const photoBack = photoPlane.clone(); photoBack.position.set(0, 0, 6); photoBack.rotation.y = Math.PI; env.add(photoBack)
+const cubeRT = new THREE.WebGLCubeRenderTarget(512), cubeCam = new THREE.CubeCamera(.1, 60, cubeRT); env.add(cubeCam)
+const reflEnv = cubeRT.texture, refrEnv = cubeRT.texture.clone(); refrEnv.mapping = THREE.CubeRefractionMapping
+
+// ── the stone: a round brilliant, 8-fold lathe, flat facets
+const profile = [[0, -1.05], [1, .02], [1, .1], [.6, .52], [0, .52]].map(([x, y]) => new THREE.Vector2(x, y))
+const geo = new THREE.LatheGeometry(profile, 12).toNonIndexed(); geo.computeVertexNormals()
+const gem = new THREE.Group(); scene.add(gem)
+// dispersion: three refracting passes, one per channel, slightly different ratios
+;[[0xff0000, .66], [0x00ff00, .69], [0x0000ff, .72]].forEach(([c, r], k) => gem.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: c, envMap: refrEnv, refractionRatio: r, blending: k ? THREE.AdditiveBlending : THREE.NormalBlending, transparent: !!k, depthWrite: false }))))
+gem.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ envMap: reflEnv, color: 0xffffff, transparent: true, opacity: .45, blending: THREE.AdditiveBlending, depthWrite: false })))
+gem.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 10), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: .28 })))
+gem.scale.setScalar(1.25)
+// glints: three sets of star points on the facet corners, twinkling out of phase
+const star = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32)
+  g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.15, 'rgba(255,255,255,.6)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64)
+  x.fillStyle = 'rgba(255,255,255,.8)'; x.fillRect(31, 0, 2, 64); x.fillRect(0, 31, 64, 2); return new THREE.CanvasTexture(c) })()
+const glints = [0, 1, 2].map(k => { const pts = []; for (let i = k; i < geo.attributes.position.count; i += 7) pts.push(new THREE.Vector3().fromBufferAttribute(geo.attributes.position, i))
+  const p = new THREE.Points(new THREE.BufferGeometry().setFromPoints(pts), new THREE.PointsMaterial({ map: star, size: .32, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0 })); gem.add(p); return p })
+
+// ── facets: group triangles by normal; each group is one facet with one thing on it
+const nrm = geo.attributes.normal, pos = geo.attributes.position, groups = []
+for (let t = 0; t < pos.count / 3; t++) {
+  const a = new THREE.Vector3().fromBufferAttribute(pos, t * 3), b = new THREE.Vector3().fromBufferAttribute(pos, t * 3 + 1), c = new THREE.Vector3().fromBufferAttribute(pos, t * 3 + 2)
+  const n = new THREE.Vector3().subVectors(c, b).cross(new THREE.Vector3().subVectors(a, b)).normalize(); if (n.lengthSq() < .5) continue
+  let g = groups.find(g => g.n.dot(n) > .995); if (!g) groups.push(g = { n, tris: [] }); g.tris.push(a, b, c)
+}
+groups.sort((a, b) => b.n.y - a.n.y)
+const glowMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide })
+groups.forEach(g => { const gg = new THREE.BufferGeometry().setFromPoints(g.tris.map(v => v.clone().multiplyScalar(1.002))); g.glow = new THREE.Mesh(gg, glowMat.clone()); gem.add(g.glow) })
+
+// ── drag to turn; let go and the nearest facet swings to face you
+const q = gem.quaternion; q.setFromEuler(new THREE.Euler(.3, .3, 0))
+let drag = null, vel = new THREE.Vector2(), target = null, idle = 0
+renderer.domElement.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; target = null; renderer.domElement.setPointerCapture(e.pointerId) })
+addEventListener('pointermove', e => {
+  if (!drag) return; const dx = e.clientX - drag[0], dy = e.clientY - drag[1]; drag = [e.clientX, e.clientY]
+  vel.set(dx, dy); turn(dx, dy)
+})
+addEventListener('pointerup', () => { if (!drag) return; drag = null; idle = 0; snapSoon = 26 })
+function turn(dx, dy) { const ax = new THREE.Vector3(dy, dx, 0); const a = ax.length() * .008; if (a) q.premultiply(new THREE.Quaternion().setFromAxisAngle(ax.normalize(), a)) }
+let snapSoon = 50
+const Z = new THREE.Vector3(0, 0, 1)
+function facing() { let best = null, bd = -2; groups.forEach((g, i) => { const d = g.n.clone().applyQuaternion(q).dot(Z); if (d > bd) { bd = d; best = i } }); return [best, bd] }
+
+let items = [], open = -1
+function show(i) {
+  if (i === open) return; open = i; const f = $('#face'), it = items[i]
+  if (!it) return f.classList.remove('on')
+  f.classList.remove('on')
+  setTimeout(() => {
+    f.innerHTML = it.kind === 'photo' ? `<small>photograph</small><a href="${it.href}"><img src="${it.src}" alt=""></a><p>${it.cap}</p>`
+      : it.kind === 'poem' ? `<small>${it.title}</small><a href="${it.href}" style="text-decoration:none"><q>${it.line}</q></a>`
+      : it.kind === 'place' ? `<small>where I am</small><b>${it.line}</b><p>${[it.temp, it.cloud].filter(Boolean).join(' · ')}</p>`
+      : `<small>tool</small><b><a href="${it.href}">${it.name}</a></b><p>${it.note}</p>`
+    f.classList.add('on')
+  }, 120)
+}
+
+S03.load().then(c => {
+  const s = S04.sky(c.reading), F = S04.facets(c)
+  document.documentElement.style.setProperty('--top', s.top); document.documentElement.style.setProperty('--bottom', s.bottom)
+  paintSky(s)
+  const g = document.createElement('canvas'); g.width = 2; g.height = 256; const gx = g.getContext('2d'), gr = gx.createLinearGradient(0, 0, 0, 256)
+  gr.addColorStop(0, s.top); gr.addColorStop(1, s.bottom); gx.fillStyle = gr; gx.fillRect(0, 0, 2, 256); scene.background = new THREE.CanvasTexture(g)
+  new THREE.TextureLoader().load(c.photo.src, t => { photoPlane.material.map = t; photoBack.material.map = t; photoPlane.material.needsUpdate = photoBack.material.needsUpdate = true; bake() })
+  // table = today's photograph; the crown carries the day; the pavilion carries the rest
+  const P = F.photos, L = F.lines, T = F.tools
+  items = [P[0], L[0], F.place, T[0], P[1], L[1], T[1], P[2], L[2], T[2], L[3], P[3], T[3], L[4], P[4], T[4], L[5], P[5], L[6], P[6], L[7], P[7], L[8], P[8], L[9]].filter(Boolean)
+  bake()
+})
+function bake() { gem.visible = false; cubeCam.update(renderer, env); gem.visible = true }
+
+let t0 = performance.now()
+function frame(now) {
+  const dt = Math.min(50, now - t0); t0 = now
+  if (!drag) {
+    vel.multiplyScalar(.92); if (vel.lengthSq() > .02) turn(vel.x, vel.y)
+    else if (snapSoon > 0 && --snapSoon === 0) { const [i] = facing(); target = new THREE.Quaternion().setFromUnitVectors(groups[i].n.clone().applyQuaternion(q), Z).multiply(q) }
+    if (target) { q.slerp(target, .08); if (q.angleTo(target) < .002) target = null }
+    else if (snapSoon <= 0 && (idle += dt) > 9000) turn(.25, .06) // left alone long enough, it drifts
+  }
+  glints.forEach((g, k) => g.material.opacity = Math.max(0, Math.sin(now / 900 + k * 2.1)) ** 3 * .9)
+  const [i, d] = facing()
+  groups.forEach((g, k) => g.glow.material.opacity += ((k === i && d > .9 ? .1 : 0) - g.glow.material.opacity) * .1)
+  show(d > .97 && !drag ? i : -1)
+  renderer.render(scene, cam); requestAnimationFrame(frame)
+}
+size(); addEventListener('resize', size); bake(); requestAnimationFrame(frame)
+</script>
+</body>
+</html>
