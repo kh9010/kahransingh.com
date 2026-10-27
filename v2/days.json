@@ -626,6 +626,24 @@
         "wind_kmh": 10.2,
         "cloud_pct": 2
       }
+    },
+    "2026-10-26": {
+      "poem": "i-watched-a-butterfly-today",
+      "photo": "/photos/beach-boardwalk.jpg",
+      "place": null,
+      "why": {
+        "light": 0.8986441155405901,
+        "warmth": 0.7942857142857143,
+        "wet": 0.0,
+        "stillness": 0.9524999999999999,
+        "season": 0.2119654383100621,
+        "inside": 0.8971428571428571,
+        "mood": 0.5,
+        "weather_code": 0,
+        "tmax": 22.8,
+        "wind_kmh": 13.9,
+        "cloud_pct": 0
+      }
     }
   }
 }
