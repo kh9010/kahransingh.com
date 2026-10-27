@@ -1,0 +1,306 @@
+{
+ "seed": 20261008,
+ "gathered": "2026-10-07",
+ "items": [
+  {
+   "id": "bb64a78b",
+   "url": "https://jvns.ca/",
+   "name": "Julia Evans",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "357e534d",
+   "url": "https://brianlovin.com/",
+   "name": "Brian Lovin",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "c0ee3ca9",
+   "url": "https://danluu.com/",
+   "name": "danluu.com",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "bcdb1b56",
+   "url": "https://stephango.com/",
+   "name": "Steph Ango",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "01d89ddf",
+   "url": "https://www.swiss-miss.com/",
+   "name": "swissmiss",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "088bd5cb",
+   "url": "https://cassidoo.co/",
+   "name": "Cassidy Williams",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "b7c8159d",
+   "url": "https://sarasoueidan.com/",
+   "name": "Home",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "ed2db321",
+   "url": "https://zachleat.com/",
+   "name": "Zach Leatherman—zachleat.com",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "54628094",
+   "url": "https://blog.jim-nielsen.com/",
+   "name": "Jim Nielsen’s Blog",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "c7a8a708",
+   "url": "https://www.gleech.org/",
+   "name": "argmin gravitas",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "3d59c87a",
+   "url": "https://linus.zone/",
+   "name": "linus.zone",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "5c6d54d4",
+   "url": "https://derekkedziora.com/",
+   "name": "Derek Kedziora",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "dc0ce420",
+   "url": "https://ia.net/",
+   "name": "Home - iA",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "2c472c5e",
+   "url": "https://worrydream.com/",
+   "name": "Bret Victor, human being",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "803f21b6",
+   "url": "https://idlewords.com/",
+   "name": "Idle Words",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "e07f07eb",
+   "url": "https://lowtechmagazine.com/",
+   "name": "LOW←TECH MAGAZINE",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "28506816",
+   "url": "https://explorabl.es/",
+   "name": "Explorable Explanations",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "bd55c723",
+   "url": "https://tracydurnell.com",
+   "name": "Tracy Durnell's Mind Garden – Thinking and Learning In Public",
+   "why": "personal sites of writers/designers/makers, clear and dense (Appleton / tej.as family)"
+  },
+  {
+   "id": "6b095e2e",
+   "url": "https://notes.azlen.me/",
+   "name": "About these notes",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "5e93f093",
+   "url": "https://www.christopherbiscardi.com/garden",
+   "name": "Chris Biscardi",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "e16e186b",
+   "url": "https://joelhooks.com/digital-garden",
+   "name": "🌱 My blog is a digital garden, not a blog",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "5dd995f5",
+   "url": "https://www.mentalnodes.com/",
+   "name": "Index • Mental Nodes",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "8bb2f679",
+   "url": "https://commonplace.doubleloop.net",
+   "name": "Neil's Digital Garden",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "7ee9cac6",
+   "url": "https://notes.salman.io/",
+   "name": "Digital Garden",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "ddf0ed57",
+   "url": "https://aengusmcmillin.com/brain",
+   "name": "My Brain - Aengus McMillin",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "65f99989",
+   "url": "https://bonkerfield.org/",
+   "name": "opus.stedden | opus.stedden",
+   "why": "digital garden / personal index (Appleton family)"
+  },
+  {
+   "id": "cc66523d",
+   "url": "https://asoftmurmur.com/",
+   "name": "A Soft Murmur",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "d500ead6",
+   "url": "https://clouds.matteason.co.uk/",
+   "name": "Live Cloud Maps - Free, near-realtime cloud maps of the whole Earth",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "0ddc8bc5",
+   "url": "https://zoomquilt.org/",
+   "name": "Zoomquilt - The infinitely zooming image",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "8adf6d7e",
+   "url": "https://www.window-swap.com/",
+   "name": "WindowSwap - the calmest place on the internet",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "e341da21",
+   "url": "https://lofi.cafe/",
+   "name": "lofi.cafe - lofi music 🎧",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "637443f2",
+   "url": "https://www.moongiant.com/",
+   "name": "Moongiant > Next Full Moon",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "49e8c233",
+   "url": "https://www.suncalc.org/",
+   "name": "SunCalc - sunrise, sunset, shadow length, solar eclipse, sun position, sun phase, sun height, sun calculator, sun movement, map, sunlight phases, elevation, Photovoltaic system, Photovoltaic",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "e2bd8fed",
+   "url": "https://www.cat-bounce.com/",
+   "name": "CAT BOUNCE!",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "5ce11a07",
+   "url": "https://pointerpointer.com/",
+   "name": "Pointer Pointer",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "e364a293",
+   "url": "https://www.puginarug.com/",
+   "name": "The Pug In A Rug",
+   "why": "one soft living element: ambient motion, weather, time, a playful object (windy / muda family)"
+  },
+  {
+   "id": "1c56dd30",
+   "url": "https://mschf.xyz/",
+   "name": "Home | MSCHF",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "44bfc8df",
+   "url": "https://ghostly.com/",
+   "name": "Ghostly International",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "aedbe6ad",
+   "url": "https://www.cheeseboardcollective.coop/",
+   "name": "Cheeseboard Collective - NEW",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "c60e35e6",
+   "url": "https://www.grainedit.com/",
+   "name": "grain edit · modern graphic design inspiration blog + vintage graphics resource",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "700047f7",
+   "url": "https://papercutstudio.com/",
+   "name": "Papercut Studio – Website – Mobility Design – Branding & Identity – Print Design",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "64c67d75",
+   "url": "https://www.apartamentomagazine.com/",
+   "name": "Apartamento – Everyday Interiors Magazine & Publisher",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "874f5726",
+   "url": "https://teenageengineering.com/",
+   "name": "teenage engineering",
+   "why": "small brand or studio with a point of view and an unpolished voice (Union family)"
+  },
+  {
+   "id": "1296a4f3",
+   "url": "https://www.tracyksmith.com/",
+   "name": "Tracy K. Smith - Pulitzer Prize winning poet laureate",
+   "why": "personal site pairing photographs and poems or writing"
+  },
+  {
+   "id": "b3b066a1",
+   "url": "https://www.chrisjordan.com/",
+   "name": "Chris Jordan Photographic Arts",
+   "why": "personal site pairing photographs and poems or writing"
+  },
+  {
+   "id": "40d8c509",
+   "url": "https://www.nickbrandt.com/",
+   "name": "Nick Brandt | HOME",
+   "why": "personal site pairing photographs and poems or writing"
+  },
+  {
+   "id": "bd6d49b2",
+   "url": "https://www.joannalatka.com/",
+   "name": "joanna latka",
+   "why": "personal site pairing photographs and poems or writing"
+  },
+  {
+   "id": "94e8dba9",
+   "url": "https://www.rebeccasolnit.net/",
+   "name": "REBECCA SOLNIT - ABOUT",
+   "why": "personal site pairing photographs and poems or writing"
+  },
+  {
+   "id": "83fa7bd7",
+   "url": "https://www.dailyhaiku.org/",
+   "name": "DailyHaiku - The Edited Journal of Contemporary Haiku",
+   "why": "personal site pairing photographs and poems or writing"
+  },
+  {
+   "id": "c695d56b",
+   "url": "https://www.haikuguy.com/",
+   "name": "Haikuguy.com (David G. Lanoue)",
+   "why": "personal site pairing photographs and poems or writing"
+  }
+ ]
+}

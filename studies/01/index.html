@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Inspiration Pile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* layout: one card at a time, the site fills the stage; a thin bar above, the verdict bar and the last card's reveal below.
+   tokens: house.css (~/dev/house/skills/house-style), copied, not forked */
+:root {
+  --hs-paper: #fafaf8; --hs-surface: #fff; --hs-surface-2: #f2f0e8;
+  --hs-ink: #1a1a1a; --hs-ink-2: #6e6e6e; --hs-ink-3: #9a958c;
+  --hs-line: #e0ddd8; --hs-line-faint: #f0ede8;
+  --hs-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --hs-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --hs-fs-label: .72rem; --hs-fs-meta: .78rem; --hs-fs-body: 1.0625rem; --hs-fs-title: 1.15rem;
+  --hs-track-label: .12em;
+  --hs-unit: 4px; --hs-gap: calc(var(--hs-unit) * 2); --hs-gutter: calc(var(--hs-unit) * 4); --hs-radius: 6px;
+  --hs-shadow-2: 0 12px 28px rgba(0, 0, 0, .45);
+  --hs-ease: cubic-bezier(.4, 0, .2, 1); --hs-on: .2s; --hs-off: .28s;
+  --hs-ok: #8fae94; --hs-danger: #d98a7a;
+  --hs-ok-ink: color-mix(in srgb, var(--hs-ok) 60%, var(--hs-ink));
+  --hs-danger-ink: color-mix(in srgb, var(--hs-danger) 60%, var(--hs-ink));
+  --hs-ok-bg: color-mix(in srgb, var(--hs-ok) 14%, var(--hs-paper));
+  --hs-danger-bg: color-mix(in srgb, var(--hs-danger) 14%, var(--hs-paper));
+  --hs-hand: #8a5f19;
+  --hs-select: color-mix(in srgb, var(--hs-hand) 22%, var(--hs-paper));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --hs-paper: #141210; --hs-surface: #1c1a15; --hs-surface-2: #171613;
+    --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-ink-3: #6f6a62;
+    --hs-line: #332e26; --hs-line-faint: #26221c;
+    --hs-ok-ink: var(--hs-ok); --hs-danger-ink: var(--hs-danger);
+    --hs-hand: #e2a34a; --hs-select: color-mix(in srgb, var(--hs-hand) 20%, var(--hs-paper));
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --hs-paper: #141210; --hs-surface: #1c1a15; --hs-surface-2: #171613;
+  --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-ink-3: #6f6a62;
+  --hs-line: #332e26; --hs-line-faint: #26221c;
+  --hs-ok-ink: var(--hs-ok); --hs-danger-ink: var(--hs-danger);
+  --hs-hand: #e2a34a; --hs-select: color-mix(in srgb, var(--hs-hand) 20%, var(--hs-paper));
+  color-scheme: dark;
+}
+@media (prefers-reduced-motion: reduce) { :root { --hs-on: 0s; --hs-off: 0s; } }
+::selection { background: var(--hs-select); color: var(--hs-ink); }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--hs-paper); color: var(--hs-ink);
+  font: 400 var(--hs-fs-meta)/1.4 var(--hs-font); -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 1px solid var(--hs-line); border-radius: var(--hs-radius); padding: var(--hs-gap) calc(var(--hs-unit) * 3); }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--hs-hand); outline-offset: 2px; }
+a { color: inherit; }
+small, .lbl { font-size: var(--hs-fs-label); font-weight: 500; letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-2); }
+.num { font-family: var(--hs-mono); font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+
+/* ── the pass ── */
+#pass { height: 100%; display: grid; grid-template-rows: auto 1fr auto auto; }
+.bar { display: flex; align-items: center; gap: calc(var(--hs-unit) * 3); padding: var(--hs-gap) var(--hs-gutter); padding-top: calc(var(--hs-gap) + env(safe-area-inset-top, 0px)); }
+.bar .grow { flex: 1; }
+.meter { height: 2px; background: var(--hs-line-faint); flex: 1; max-width: 16rem; }
+.meter i { display: block; height: 100%; background: var(--hs-ink); width: 0; transition: width var(--hs-on) var(--hs-ease); }
+#status.bad { color: var(--hs-danger-ink); background: var(--hs-danger-bg); padding: 2px 6px; border-radius: var(--hs-radius); }
+.bar a { text-decoration: none; }
+
+#stage { position: relative; min-height: 0; background: var(--hs-surface-2); overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+#card { position: absolute; inset: 0; display: flex; flex-direction: column; gap: var(--hs-gap); padding: var(--hs-gap); transition: transform var(--hs-off) var(--hs-ease), opacity var(--hs-off) var(--hs-ease); }
+#card.out-keep { transform: translateX(14%) rotate(1.5deg); opacity: 0; }
+#card.out-skip { transform: translateX(-14%) rotate(-1.5deg); opacity: 0; }
+#clip { width: 100%; flex: 0 0 auto; aspect-ratio: 16 / 10; max-width: 100%; background: transparent; object-fit: contain; border-radius: var(--hs-radius); }
+#phone { flex: 1 1 0; min-height: 0; align-self: center; aspect-ratio: 360 / 780; max-width: 100%; background-repeat: no-repeat; background-color: var(--hs-surface); border-radius: var(--hs-radius); }
+@media (min-width: 900px) {
+  #card { padding: calc(var(--hs-unit) * 4); }
+  #clip { flex: 1 1 auto; height: 100%; min-height: 0; aspect-ratio: auto; }
+  #phone { position: absolute; right: calc(var(--hs-unit) * 7); bottom: calc(var(--hs-unit) * 7); height: 46%; border-radius: calc(var(--hs-radius) * 2); box-shadow: var(--hs-shadow-2); }
+}
+#done { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; gap: var(--hs-gap); }
+
+.verdicts { display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--hs-gap); padding: var(--hs-gap) var(--hs-gutter); }
+.verdicts button { padding-block: calc(var(--hs-unit) * 3); font-size: var(--hs-fs-body); }
+#keep { background: var(--hs-ink); color: var(--hs-paper); border-color: var(--hs-ink); }
+kbd { font-family: var(--hs-mono); font-size: var(--hs-fs-label); color: var(--hs-ink-3); margin-inline: 4px; }
+#keep kbd { color: var(--hs-ink-3); }
+@media (hover: none) { kbd { display: none; } }
+
+#reveal { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hs-gap) calc(var(--hs-unit) * 3); padding: var(--hs-gap) var(--hs-gutter); padding-bottom: calc(var(--hs-gap) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--hs-line-faint); min-height: 3.2rem; }
+#reveal .who { display: flex; flex-direction: column; min-width: 0; flex: 1 1 14rem; }
+#reveal .who a { font-size: var(--hs-fs-body); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#reveal .who a:hover { text-decoration: underline; text-underline-offset: 3px; }
+#reveal .who span { color: var(--hs-ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.v { font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; padding: 2px 6px; border-radius: var(--hs-radius); }
+.v.keep { color: var(--hs-ok-ink); background: var(--hs-ok-bg); }
+.v.skip, .v.trim { color: var(--hs-ink-3); border: 1px solid var(--hs-line); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.chip { padding: 4px 10px; border-radius: 999px; font-size: var(--hs-fs-meta); }
+.chip[aria-pressed="true"] { background: var(--hs-select); border-color: var(--hs-hand); }
+.note { border: 0; border-bottom: 1px solid var(--hs-line); background: transparent; padding: 4px 2px; min-width: 0; width: 14rem; max-width: 100%; }
+.note::placeholder { color: var(--hs-ink-3); }
+
+/* ── the kept board ── */
+#board { height: 100%; overflow: auto; padding: 0 var(--hs-gutter) calc(var(--hs-unit) * 12); }
+#board .bar { position: sticky; top: 0; background: var(--hs-paper); z-index: 1; margin-inline: calc(var(--hs-gutter) * -1); border-bottom: 1px solid var(--hs-line-faint); }
+#board section { margin-top: calc(var(--hs-unit) * 6); }
+#board h2 { font: 500 var(--hs-fs-label)/1 var(--hs-font); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-2); margin: 0 0 var(--hs-gutter); display: flex; gap: var(--hs-gap); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: var(--hs-gutter); }
+.item { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.item img, .item video { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: var(--hs-radius); background: var(--hs-surface-2); display: block; }
+.item.trimmed { opacity: .38; }
+.item .who { display: flex; justify-content: space-between; gap: var(--hs-gap); align-items: baseline; min-width: 0; }
+.item .who a { font-size: var(--hs-fs-title); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.item .who a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.item .meta { color: var(--hs-ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.item .note { width: 100%; }
+details summary { cursor: pointer; }
+</style>
+</head>
+<body>
+<main id="pass">
+  <div class="bar">
+    <span class="num" id="count">0 / 0</span>
+    <div class="meter"><i id="meterbar"></i></div>
+    <span class="grow"></span>
+    <small id="status">…</small>
+    <a href="#kept" class="lbl" id="tokept">kept <span class="num" id="keptn">0</span></a>
+  </div>
+  <div id="stage">
+    <div id="card">
+      <video id="clip" muted autoplay loop playsinline preload="auto"></video>
+      <div id="phone" role="img" aria-label="phone"></div>
+    </div>
+    <div id="done" hidden><small>pile done</small><a href="#kept" class="lbl">kept board</a></div>
+  </div>
+  <div class="verdicts">
+    <button id="skip" type="button"><kbd>←</kbd>skip</button>
+    <button id="undo" type="button">undo<kbd>z</kbd></button>
+    <button id="keep" type="button">keep<kbd>→</kbd></button>
+  </div>
+  <div id="reveal"></div>
+</main>
+
+<main id="board" hidden>
+  <div class="bar">
+    <a href="#" class="lbl">← pile</a>
+    <span class="grow"></span>
+    <span class="num" id="boardn"></span>
+  </div>
+  <div id="groups"></div>
+</main>
+
+<video id="next" muted preload="auto" hidden></video>
+
+<script>
+(() => {
+  const TAGS = ['mechanical', 'linguistic', 'composition']
+  const $ = s => document.querySelector(s)
+  let pile = [], order = [], picks = {}, cursor = 0, history = [], store
+
+  // ── storage: the artifact's db when it is there, else the local study server ──
+  const local = {
+    name: 'local',
+    async load() { const r = await fetch('/api/study-01/picks', { cache: 'no-store' }); if (!r.ok) throw new Error(r.status); return r.json() },
+    async put(id, rec) { const r = await fetch('/api/study-01/pick', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id, rec }) }); if (!r.ok) throw new Error(r.status) },
+  }
+  function dbStore(db) {
+    const col = db.collection('picks')
+    return {
+      name: 'db',
+      async load() { const s = await col.get(); const o = {}; s.docs.forEach(d => { o[d.id] = d.data() }); return o },
+      async put(id, rec) { rec ? await col.doc(id).set(rec) : await col.doc(id).delete() },
+    }
+  }
+  const queue = new Map(); let flushing = false
+  function save(id) { queue.set(id, picks[id] || null); flush() }
+  async function flush() {
+    if (flushing || !store) return
+    flushing = true
+    while (queue.size) {
+      const [id, rec] = queue.entries().next().value
+      queue.delete(id)
+      try { status('…'); await store.put(id, rec); status('saved') }
+      catch (e) { queue.set(id, rec); status('not saved', true); flushing = false; setTimeout(flush, 4000); return }
+    }
+    flushing = false
+  }
+  function status(t, bad) { const s = $('#status'); s.textContent = t; s.classList.toggle('bad', !!bad) }
+
+  // ── order: shuffled once per pile, the same on every device ──
+  function shuffle(ids, seed) {
+    let a = seed >>> 0
+    const rnd = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296 }
+    const o = ids.slice(); for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [o[i], o[j]] = [o[j], o[i]] } return o
+  }
+  const byId = id => pile.find(p => p.id === id)
+  const host = u => u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+  const media = (id, k) => 'media/' + id + k
+
+  // ── the pass ──
+  function nextOpen(from) { for (let i = from; i < order.length; i++) if (!picks[order[i]]) return i; return order.length }
+  function show() {
+    cursor = nextOpen(0)
+    const judged = order.filter(id => picks[id]).length
+    $('#count').textContent = judged + ' / ' + order.length
+    $('#meterbar').style.width = (order.length ? judged / order.length * 100 : 0) + '%'
+    $('#keptn').textContent = Object.values(picks).filter(p => p.v === 'keep').length
+    const card = $('#card'); card.className = ''
+    const done = cursor >= order.length
+    $('#done').hidden = !done; card.hidden = done
+    if (!done) {
+      const id = order[cursor], c = byId(id)
+      const clip = $('#clip')
+      clip.poster = media(id, '.jpg'); clip.src = media(id, '.mp4'); clip.play().catch(() => {})
+      const ph = $('#phone'); ph.hidden = !c.phone
+      if (c.phone) { const [sheet, i, n] = c.phone; ph.style.backgroundImage = 'url(media/' + sheet + ')'; ph.style.backgroundSize = n * 100 + '% 100%'; ph.style.backgroundPosition = (n > 1 ? i / (n - 1) * 100 : 0) + '% 0' }
+      const n = nextOpen(cursor + 1); if (n < order.length) { $('#next').src = media(order[n], '.mp4'); new Image().src = media(order[n], '.jpg') }
+    }
+    renderReveal()
+  }
+  function judge(v) {
+    if (cursor >= order.length) return
+    const id = order[cursor]
+    picks[id] = { v, tags: [], note: '', at: new Date().toISOString() }
+    history.push(id); save(id)
+    const card = $('#card'); card.className = v === 'keep' ? 'out-keep' : 'out-skip'
+    setTimeout(show, matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 160)
+  }
+  function undo() {
+    let id = history.pop()
+    if (!id) { const last = Object.entries(picks).sort((a, b) => (a[1].at < b[1].at ? 1 : -1))[0]; id = last && last[0] }
+    if (!id) return
+    delete picks[id]; save(id); show()
+  }
+  function lastJudged() { return history[history.length - 1] }
+  function chipRow(id, onChange) {
+    const p = picks[id], row = document.createElement('div'); row.className = 'tags'
+    TAGS.forEach((t, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'
+      b.innerHTML = '<kbd>' + (i + 1) + '</kbd>' + t; b.setAttribute('aria-pressed', p.tags.includes(t))
+      b.onclick = () => { toggleTag(id, t); onChange() }
+      row.appendChild(b)
+    })
+    const n = document.createElement('input'); n.className = 'note'; n.id = 'note-' + id; n.placeholder = 'this thing ↓'; n.value = p.note || ''; n.maxLength = 140
+    n.onkeydown = e => { e.stopPropagation(); if (e.key === 'Enter' || e.key === 'Escape') n.blur() }
+    n.onchange = () => { picks[id] = { ...picks[id], note: n.value.trim() }; save(id) }
+    row.appendChild(n)
+    return row
+  }
+  function toggleTag(id, t) {
+    const p = picks[id]; if (!p) return
+    const tags = p.tags.includes(t) ? p.tags.filter(x => x !== t) : [...p.tags, t]
+    picks[id] = { ...p, tags }; save(id)
+  }
+  function whoBlock(c) {
+    const w = document.createElement('div'); w.className = 'who'
+    const a = document.createElement('a'); a.href = c.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = c.name
+    const s = document.createElement('span'); s.textContent = [host(c.url), c.source, c.meta].filter(Boolean).join(' · ')
+    w.append(a, s); return w
+  }
+  function renderReveal() {
+    const r = $('#reveal'); r.replaceChildren()
+    const id = lastJudged(); if (!id || !picks[id]) return
+    const c = byId(id), p = picks[id]
+    const v = document.createElement('span'); v.className = 'v ' + p.v; v.textContent = p.v
+    r.append(v, whoBlock(c))
+    if (p.v === 'keep') r.append(chipRow(id, renderReveal))
+  }
+
+  // ── the kept board ──
+  function renderBoard() {
+    const g = $('#groups'); g.replaceChildren()
+    const kept = order.filter(id => picks[id] && (picks[id].v === 'keep' || picks[id].v === 'trim'))
+    const inN = kept.filter(id => picks[id].v === 'keep').length
+    $('#boardn').textContent = inN + ' in · ' + (kept.length - inN) + ' trimmed · ' + order.filter(id => picks[id]?.v === 'skip').length + ' skipped'
+    const groups = TAGS.map(t => [t, kept.filter(id => picks[id].tags.includes(t))])
+    groups.push(['untagged', kept.filter(id => !picks[id].tags.length)])
+    for (const [name, ids] of groups) {
+      if (!ids.length) continue
+      const s = document.createElement('section')
+      s.innerHTML = '<h2><span></span><span class="num"></span></h2><div class="grid"></div>'
+      s.querySelector('h2 span').textContent = name; s.querySelector('h2 .num').textContent = ids.filter(id => picks[id].v === 'keep').length
+      ids.forEach(id => s.querySelector('.grid').appendChild(boardItem(id)))
+      g.appendChild(s)
+    }
+    const skipped = order.filter(id => picks[id]?.v === 'skip')
+    if (skipped.length) {
+      const d = document.createElement('details'); d.innerHTML = '<summary class="lbl">skipped <span class="num">' + skipped.length + '</span></summary><div class="grid"></div>'
+      d.style.marginTop = 'calc(var(--hs-unit) * 10)'
+      skipped.forEach(id => d.querySelector('.grid').appendChild(boardItem(id)))
+      g.appendChild(d)
+    }
+  }
+  function boardItem(id) {
+    const c = byId(id), p = picks[id]
+    const el = document.createElement('div'); el.className = 'item' + (p.v === 'trim' ? ' trimmed' : '')
+    const img = document.createElement('img'); img.loading = 'lazy'; img.src = media(id, '.jpg'); img.alt = ''
+    img.onmouseenter = () => { const v = document.createElement('video'); v.muted = true; v.autoplay = true; v.loop = true; v.playsInline = true; v.src = media(id, '.mp4'); v.poster = img.src; v.onmouseleave = () => v.replaceWith(img); img.replaceWith(v) }
+    const who = whoBlock(c); who.className = 'who'
+    const meta = who.querySelector('span'); meta.className = 'meta'
+    const top = document.createElement('div'); top.className = 'who'; top.append(who.querySelector('a'))
+    const tb = document.createElement('button'); tb.type = 'button'; tb.className = 'chip'
+    tb.textContent = p.v === 'keep' ? 'trim' : p.v === 'trim' ? 'back in' : 'keep'
+    tb.onclick = () => { picks[id] = { ...p, v: p.v === 'keep' ? 'trim' : 'keep' }; save(id); renderBoard() }
+    top.append(tb)
+    el.append(img, top, meta)
+    if (p.v !== 'skip') el.append(chipRow(id, renderBoard))
+    return el
+  }
+
+  // ── routing, keys, swipe ──
+  function route() {
+    const board = location.hash === '#kept'
+    $('#pass').hidden = board; $('#board').hidden = !board
+    if (board) { $('#clip').pause(); renderBoard() } else show()
+  }
+  addEventListener('hashchange', route)
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey || e.target.tagName === 'INPUT') return
+    if (location.hash === '#kept') { if (e.key === 'Escape') location.hash = ''; return }
+    const k = e.key.toLowerCase()
+    if (k === 'arrowright' || k === 'k') judge('keep')
+    else if (k === 'arrowleft' || k === 'j' || k === 'x') judge('skip')
+    else if (k === 'z' || k === 'backspace' || k === 'arrowdown') undo()
+    else if ('123'.includes(k) && k.length === 1) { const id = lastJudged(); if (id && picks[id]?.v === 'keep') { toggleTag(id, TAGS[+k - 1]); renderReveal() } }
+    else if (k === 'n') { const n = $('#reveal .note'); if (n) { e.preventDefault(); n.focus() } }
+    else if (k === 'b') location.hash = 'kept'
+    else return
+    e.preventDefault()
+  })
+  $('#keep').onclick = () => judge('keep')
+  $('#skip').onclick = () => judge('skip')
+  $('#undo').onclick = undo
+  let sx = null, sy = 0
+  const stage = $('#stage')
+  stage.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY })
+  stage.addEventListener('pointermove', e => { if (sx === null) return; const dx = e.clientX - sx; if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(e.clientY - sy)) $('#card').style.transform = 'translateX(' + dx * .6 + 'px) rotate(' + dx / 90 + 'deg)' })
+  const end = e => { if (sx === null) return; const dx = e.clientX - sx, dy = e.clientY - sy; sx = null; $('#card').style.transform = ''; if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.4) judge(dx > 0 ? 'keep' : 'skip') }
+  stage.addEventListener('pointerup', end); stage.addEventListener('pointercancel', () => { sx = null; $('#card').style.transform = '' })
+
+  // ── boot ──
+  async function boot() {
+    pile = await (await fetch('pile.json', { cache: 'no-store' })).json()
+    order = shuffle(pile.items.map(p => p.id), pile.seed)
+    pile = pile.items
+    // the db when this page runs as the artifact; the local server otherwise
+    let db = null
+    for (let i = 0; i < 20 && !window.claude?.use; i++) await new Promise(r => setTimeout(r, 100))
+    try { db = window.claude?.use ? await window.claude.use('db') : null } catch { db = null }
+    store = db ? dbStore(db) : local
+    try { picks = await store.load() || {}; status('saved') }
+    catch { store = null; status('not saving', true) }
+    for (const id of Object.keys(picks)) if (!byId(id)) delete picks[id]
+    route()
+  }
+  boot()
+})()
+</script>
+</body>
+</html>
