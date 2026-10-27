@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 04 · C</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --paper: #f2ede3; --ink: #1f1b16; --ink2: #6e665a; --line: #ddd5c6; --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; --mono: ui-monospace, 'SF Mono', Menlo, monospace; --s: min(280px, 62vw); --glow: #f4c27a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper: #16130f; --ink: #ede7d9; --ink2: #9a9385; --line: #332e26; color-scheme: dark; } }
+:root[data-theme="dark"] { --paper: #16130f; --ink: #ede7d9; --ink2: #9a9385; --line: #332e26; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--glow) 22%, var(--paper)), var(--paper) 60%); color: var(--ink); font: 400 .78rem/1.4 var(--sans); min-height: 100vh; display: grid; grid-template-rows: auto auto 1fr; overflow-x: hidden; }
+.cap { padding: 6px 16px; color: var(--ink2); font-size: .72rem; border-bottom: 1px solid var(--line); }
+.cap a { color: inherit; }
+header { padding: 8px 16px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+h1 { font: 500 1.4rem var(--sans); margin: 0; } header span { color: var(--ink2); } header nav a { color: var(--ink); margin-right: 10px; }
+.stage { display: grid; place-items: center; perspective: 1100px; touch-action: none; user-select: none; -webkit-user-select: none; min-height: 420px; }
+.cube { width: var(--s); height: var(--s); position: relative; transform-style: preserve-3d; cursor: grab; }
+.f { position: absolute; inset: 0; background: #fbf8f2; border-radius: 10px; padding: 12px 12px 30px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); backface-visibility: hidden; overflow: hidden; transition: box-shadow .28s cubic-bezier(.4,0,.2,1), filter .28s; color: #1f1b16; -webkit-touch-callout: none; }
+.f > img, .f > video { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; display: block; pointer-events: none; background: #ddd5c6; }
+.f .t { position: absolute; left: 12px; right: 12px; bottom: 7px; display: flex; justify-content: space-between; gap: 8px; font-size: .72rem; color: #6e665a; white-space: nowrap; overflow: hidden; }
+.f .t a { color: inherit; overflow: hidden; text-overflow: ellipsis; }
+.f .t i { font: normal 400 .68rem var(--mono); letter-spacing: .04em; flex: none; }
+.f .t i.rec::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #c8452f; margin-right: 5px; vertical-align: 1px; }
+.f.words { display: flex; flex-direction: column; justify-content: center; font: 400 1rem/1.45 var(--serif); padding: 18px 18px 34px; white-space: pre-line; }
+.f.words b { font: italic 400 1.15rem var(--serif); margin-bottom: 8px; }
+.f.big { display: flex; flex-direction: column; justify-content: center; padding: 18px 18px 34px; }
+.f.big b { font: 400 1.35rem/1.25 var(--serif); } .f.big em { font: 500 2.4rem var(--sans); font-style: normal; } .f.big p { margin: 6px 0 0; color: #6e665a; }
+.f.held { box-shadow: inset 0 0 0 1px rgba(0,0,0,.08), 0 0 60px 6px var(--glow); }
+.f.gap .t i { color: #c8452f; }
+.f .stamp { position: absolute; inset: 0; display: grid; place-items: center; font: 500 .72rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #c8452f; background: rgba(251,248,242,.86); opacity: 0; transition: opacity .2s; }
+.f.gap.held .stamp { opacity: 1; }
+.shadow { width: calc(var(--s) * 1.1); height: 26px; margin-top: calc(var(--s) * .55 + 30px); position: absolute; border-radius: 50%; background: radial-gradient(rgba(0,0,0,.22), transparent 70%); filter: blur(4px); transform: translateZ(-200px); pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="cap">draws on: his childhood photo cube, a recording under each face · Divya, 8 Oct (“when you come on the facet it shows what’s on it”) · his words: “so much of what I make is beautiful in that way” · <a href="./">04</a></div>
+<header><h1>kahran singh</h1><span>Poet, investor, and builder.</span><nav><a href="/poetry.html">poems</a><a href="/photography.html">photographs</a><a href="/context/">tools</a></nav></header>
+<div class="stage" id="stage">
+  <div class="shadow"></div>
+  <div class="cube" id="cube"></div>
+</div>
+<script src="../03/shared.js"></script>
+<script src="../04/sky.js"></script>
+<script>
+const $ = s => document.querySelector(s), esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+// the films that exist (/poem-films.html); each has a sound track. His recorded voice outside them: none found in the repo.
+const FILMS = [
+  { slug: 'when-i-dance-with-you', title: 'When I Dance with You' },
+  { slug: 'i-saw-something-beautiful-today', title: 'I Saw Something Beautiful Today' },
+  { slug: 'in-my-heart-something-called-to-the-rain', title: 'In My Heart Something Called to the Rain' },
+  { slug: 'everytime-you-wink-at-me', title: 'Every Time You Wink at Me' },
+]
+const SIDES = ['rotateY(0deg)', 'rotateY(90deg)', 'rotateY(180deg)', 'rotateY(-90deg)', 'rotateX(90deg)', 'rotateX(-90deg)']
+const film = (f, n) => `<video src="/video-poems/${f.slug}-${n}.mp4" poster="/video-poems/posters/${f.slug}-${n}.jpg" preload="none" playsinline loop></video><div class="t"><a href="/poems/${f.slug}.html">${f.title}</a><i class="rec">film</i></div>`
+const gap = '<div class="stamp">unrecorded</div>'
+
+S03.load().then(c => {
+  const r = c.reading, day = S03.hash(c.iso)
+  const f1 = FILMS[day % FILMS.length], f2 = FILMS[(day + 1) % FILMS.length], tool = c.ideas[day % (c.ideas.length || 1)]
+  const faces = [
+    ['', `<img src="${c.photo.src}" alt=""><div class="t"><a href="/photography.html">${esc(S03.placeOf(c.photo))}</a><i>today</i></div>${gap}`],
+    ['', film(f1, 1)],
+    ['words', `<b>${esc(c.poem.title)}</b>${esc(c.poem.stanzas[0])}<div class="t"><a href="/poems/${c.poem.slug}.html">the poem</a><i>today</i></div>${gap}`],
+    ['big', `<b>${esc(c.line || 'New York')}</b><p>${r ? Math.round(r.temperature_2m) + '°C · ' + r.cloud_cover + '% cloud · wind ' + Math.round(r.wind_speed_10m) + ' km/h' : ''}</p><div class="t"><span>where I am</span><i>now</i></div>${gap}`],
+    ['', film(f2, 2)],
+    ['big', tool ? `<b>${esc(tool.name)}</b><p>${esc(tool.note)}</p><div class="t"><a href="${tool.href || '/'}">${esc(tool.line)}</a><i>tool</i></div>${gap}` : gap],
+  ]
+  $('#cube').innerHTML = faces.map(([k, h], i) => `<div class="f ${k} ${/<video/.test(h) ? '' : 'gap'}" style="transform:${SIDES[i]} translateZ(calc(var(--s) / 2))">${h}</div>`).join('')
+})
+
+// ── turn by dragging; press and hold a face to play what's on it
+let rx = -18, ry = 28, vx = 0, vy = .08, drag = null, hold = null, held = null
+const cube = $('#cube'), paint = () => cube.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`
+$('#stage').addEventListener('pointerdown', e => {
+  drag = { x: e.clientX, y: e.clientY, moved: 0 }; $('#stage').setPointerCapture(e.pointerId)
+  const face = document.elementsFromPoint(e.clientX, e.clientY).find(el => el.classList?.contains('f'))
+  clearTimeout(hold); hold = face && setTimeout(() => press(face), 320)
+})
+addEventListener('pointermove', e => {
+  if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; drag.moved += Math.abs(dx) + Math.abs(dy)
+  if (drag.moved > 6 && !held) { clearTimeout(hold); ry += dx * .45; rx -= dy * .45; vx = -dy * .45; vy = dx * .45; paint() }
+})
+addEventListener('pointerup', e => {
+  clearTimeout(hold); if (held) release()
+  else if (drag && drag.moved <= 6) { const a = document.elementsFromPoint(e.clientX, e.clientY).find(el => el.tagName === 'A'); if (a) location.href = a.href }
+  drag = null
+})
+addEventListener('contextmenu', e => { if (held || hold) e.preventDefault() })
+function press(face) {
+  held = face; face.classList.add('held'); vx = vy = 0
+  const v = face.querySelector('video'); if (v) { v.muted = false; v.currentTime = 0; v.play().catch(() => {}) }
+}
+function release() { const v = held.querySelector('video'); if (v) v.pause(); held.classList.remove('held'); held = null; vy = .08 }
+function frame() {
+  if (!drag && !held) { vx *= .94; vy = vy * .94 + .08 * .06; rx += vx; ry += vy; rx += (-18 - rx) * .01 }
+  paint(); requestAnimationFrame(frame)
+}
+frame()
+</script>
+</body>
+</html>
