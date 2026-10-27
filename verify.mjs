@@ -43,6 +43,13 @@ checkNow("pick.js agrees with daily_pick.py", () => {
   return r.out.trim().split("\n").pop();
 });
 
+checkNow("the photography walk goes on under a resting pointer and holds under a moving one", () => {
+  const r = run("node", ["tools/test_photo_autoscroll.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} checks at 1200x800`;
+});
+
 checkNow("the photograph never re-crops when the poem comes forward", () => {
   const r = run("node", ["tools/test_photo_stays.mjs"], ROOT);
   const oks = (r.out.match(/^ok /gm) || []).length;
@@ -62,6 +69,9 @@ const read = p => fs.readFileSync(p, 'utf8')
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const checks = []
 const check = (name, fn) => checks.push([name, fn])
+// the study 01 clips are gitignored third-party media that live on one machine; where they are absent, say so and go on
+const NO_MEDIA = !fs.existsSync(S('01/media')) && 'studies/01/media is not on this machine (it lives in the MacBook worktree)'
+const skipIf = (why, name, fn) => checks.push([name, fn, why])
 
 const NOINDEX = /<meta name="robots" content="noindex, nofollow">/
 
@@ -106,9 +116,8 @@ check('no instruction text', () => {
   return `0 <p>; ${words.length} words of chrome, all labels`
 })
 
-let pile
-check('the pile is whole', () => {
-  pile = JSON.parse(read(S('01/pile.json')))
+const pile = JSON.parse(read(S('01/pile.json')))
+skipIf(NO_MEDIA, 'the pile is whole', () => {
   const ids = new Set()
   for (const p of pile.items) {
     assert(p.id && p.url && p.name && p.source, 'every card has id, url, name, source')
@@ -130,6 +139,10 @@ check('the pile is whole', () => {
 function chromePath() {
   if (process.env.CHROME) return process.env.CHROME
   const base = path.join(os.homedir(), 'Library/Caches/ms-playwright')
+  if (!fs.existsSync(base)) { // Chrome for Testing's headless shell, as tools/test_photo_stays.mjs finds it
+    const cft = path.join(os.homedir(), '.cache/puppeteer/chrome-headless-shell')
+    return path.join(cft, fs.readdirSync(cft).sort().at(-1), 'chrome-headless-shell-mac-arm64/chrome-headless-shell')
+  }
   const d = fs.readdirSync(base).filter(x => x.startsWith('chromium_headless_shell-')).sort().at(-1)
   return path.join(base, d, 'chrome-headless-shell-mac-arm64/chrome-headless-shell')
 }
@@ -163,10 +176,14 @@ async function startChrome() {
 }
 
 let srv, chrome, picksFile
-check('cards render blind', async () => {
+async function boot() { // one server and one browser for every check below, started by whichever runs first
+  if (srv) return
   picksFile = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'verify-picks-')), 'picks.json')
   fs.writeFileSync(picksFile, '{}')
   srv = await startServer(picksFile); chrome = await startChrome()
+}
+skipIf(NO_MEDIA, 'cards render blind', async () => {
+  await boot()
   await chrome.go(srv.base + '/studies/01/index.html')
   const dom = await chrome.ev(`(() => { const parts = []; for (const el of document.querySelectorAll('body *')) { if (el.tagName === 'SCRIPT') continue; for (const a of el.attributes) parts.push(a.value); if (!el.children.length) parts.push(el.textContent) } return parts.join(' \\n ').toLowerCase() })()`)
   const shown = (await chrome.ev(`document.querySelector('#clip').getAttribute('src')`)).slice(6, 14)
@@ -183,7 +200,7 @@ check('cards render blind', async () => {
   return `${pile.items.length} names and addresses checked against the DOM, 0 present; the clip plays from ${src.replace(/[0-9a-f]{8}/, '<id>')}`
 })
 
-check('a pick round-trips to storage', async () => {
+skipIf(NO_MEDIA, 'a pick round-trips to storage', async () => {
   const first = await chrome.ev(`document.querySelector('#clip').getAttribute('src').slice(6, 14)`)
   await chrome.key('ArrowRight'); await sleep(400)
   await chrome.key('1'); await sleep(400)
@@ -273,15 +290,16 @@ check('study 05: four beautiful gems, noindexed, on the rail, each loads clean',
   for (const p of pages) assert.match(read(S('05/' + p)), NOINDEX, `studies/05/${p} must carry the noindex meta`)
   assert.match(read(S('index.html')), /<a href="05\/"[^>]*data-n="05"/, '05 is on the rail')
   for (const p of pages.slice(1)) {
-    await chrome.open(srv.base + '/studies/05/' + p); await sleep(3000)
+    await chrome.open(srv.base + "/studies/05/" + p); await sleep(5000) // past S03.load: up to 3 s for the sky, then paint
     assert.deepEqual(chrome.errors.filter(e => !/favicon|api\.open-meteo\.com/.test(e)), [], `05/${p} loads without console errors`)
   }
   return `${pages.length} pages noindexed; on the rail; a–d load with 0 console errors`
 })
 
 let failed = false
-for (const [name, fn] of checks) {
-  try { console.log(`PASS ${name}: ${await fn()}`) }
+for (const [name, fn, skip] of checks) {
+  if (skip) { console.log(`SKIP ${name}: ${skip}`); continue }
+  try { await boot(); console.log(`PASS ${name}: ${await fn()}`) }
   catch (e) { console.log(`FAIL ${name}: ${e.message}`); failed = true; break }
 }
 chrome?.close(); srv?.proc.kill()

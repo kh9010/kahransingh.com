@@ -297,7 +297,7 @@ async function paint(ctx, sk) {
   const photos = [ctx.photo]
   const rest = ctx.data.photos.filter(p => p !== ctx.photo)
   const h = S03.hash(ctx.iso)
-  photos.push(rest[h % rest.length], rest[(h >> 8) % rest.length === h % rest.length ? (h + 1) % rest.length : (h >> 8) % rest.length])
+  photos.push(rest[h % rest.length], rest[(h >>> 8) % rest.length === h % rest.length ? (h + 1) % rest.length : (h >>> 8) % rest.length])
   const ims = await Promise.all(photos.map(p => img(p.src)))
   const deep = mix(sk.bottom, [16, 18, 30], .42), deep2 = mix(sk.top, [12, 14, 26], .38)
   const ground = (x, y) => { const gr = g.createLinearGradient(x, y, x, y + CELL); gr.addColorStop(0, css(deep2)); gr.addColorStop(1, css(deep)); g.fillStyle = gr; g.fillRect(x, y, CELL, CELL) }
