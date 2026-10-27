@@ -8,20 +8,26 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 ## Where things stand
 - Live on GitHub Pages from `main`; no build step.
 - The repo map (v1/v2 split, pick formula, the five ideas, the flow diagram) is in `CLAUDE.md`; this file does not repeat it.
-- No `?tune` yet; it arrives on the next change that is more than a tweak. The versions rail is the studies rail below.
+- `?tune` arrived with the About studies (06–08, below). The live pages still have no dials. The versions rail is the studies rail below.
 - Uncommitted: nothing after this session's PRs land.
-- The studies rail at `/studies/` (noindex, opens on the newest study) holds Studies 01 to 05; it came in with PR #136.
+- The studies rail at `/studies/` (noindex, opens on the newest study) holds Studies 01 to 08 and opens on 08; it came in with PR #136 (01–05) and PR #185 (06–08).
+- **About studies 06, 07, 08:** three candidate About pages to pick from, each a real site page at `/studies/NN/`. `about.html` is untouched until he picks.
 - **Study 01, the inspiration pile:** 171 sites, blind, one at a time, keep or skip. Artifact https://claude.ai/artifact/MGk5XPBUduxc8XtNZvjods (private to him; phone and desktop), picks live in its `db`.
 - Local copy: `node studies/server.cjs`, then `http://127.0.0.1:8791/studies/`. Writes `studies/01/picks.json`. Used by verify; not a second place to pick.
 
 ## Open with Kahran right now
-- Nothing blocking. The sticky photograph is live once the PR merges; look at it on a long poem day.
+- **Pick an About study:** 06 life in facts / 07 the things I make / 08 a letter and the years, or a blend; `about.html` unchanged until then. `/studies/` opens on 08. The chosen one replaces `about.html` as the next version.
+- The lenticular wedding photograph and the GSAP word pile from the current About are in none of the three. Kept out on purpose (two gimmicks, no story); say if one should come back.
+- The sticky photograph is live; look at it on a long poem day.
 - The studies pass: open the artifact, go through the pile, then the kept board (`kept` top right, or `b`), trim to about 30.
 - After his pass: read the picks back (Workspace state) and write his selection into this file, with his tags and notes, as the input to the next home version.
 
 ## Rules that came out of this work
 - **A resting pointer never stops the photography walk.** Kahran, 2026-10-26 ("the auto-scroll on the photos isn't working anymore"). The walk holds only while the pointer is moving over a picture, or a finger is on one, and lets go 1.5 s after the hand stops. Pinned by `tools/test_photo_autoscroll.mjs`.
 - **The photograph never re-crops.** Kahran, 2026-10-15. The picture is exactly one screen, sticks to the top of the window, and a long poem scrolls over it. Pinned by `tools/test_photo_stays.mjs`.
+- **A study may only say what the public pages already say.** Claude, 2026-10-26, from the privacy rules in `CLAUDE.md`. Every capitalised name and every year on an About study is checked against the public pages by `verify`; the sources were cv, projects, work with me, speaking, archive, the v1 home, the wedding and elopement pages, context and the home data. Nothing from the private context repo that is not already on the site.
+- **A study of a page is the page.** Same stylesheet, same nav with `about` current, the same foot (Full CV, the three contacts), noindex. No captions, numbering or "proposed" inside it; the rail carries the number.
+- **Dials, not sentences.** Each About study's numbers live in its `defaults.json`; the CSS fallbacks must equal them (`verify` pins the coupling), so the page reads the same with JS off.
 - A long poem still lengthens the first block (Kahran's 2026-09-22 design, kept): the poem joins the flow the moment it starts travelling, so the page is one screen at rest whatever the poem's length.
 - **Blind until judged** (Divya, 23 Sep): no name, address, gallery or award on a card before the verdict; the reveal comes after, on the strip under the buttons. Media files are named by an opaque 8-hex id. `verify` pins it.
 - **Claude finds, Kahran chooses** (Kahran, 7 Oct): no Claude descriptions, taste labels, ranking or pre-filtering for taste on cards. Quotas per gallery category are the only selection; breadth on purpose.
@@ -32,6 +38,12 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 ## Version 2 in detail
 - **2026-10-26, the photography walk unfrozen.** The pause listeners sat on the wraps, which are full-width blocks a screen tall, so a still pointer anywhere below the header was "inside" one, and the page scrolling under it counted as entering. They now sit on the pictures, fire on `mousemove` with non-zero movement (a scroll-induced hover update has none), and let go after 1.5 s of rest. Reproduced in headless Chrome: pointer parked at the window centre, scrollY stays 0 for 15 s; no pointer, it walks. The page code had not changed since March, so what changed is most likely when the browser updates hover state under a programmatic scroll.
 - **2026-10-15, photo stays put.** `.stage-photo img` is `position: sticky; height: 100svh` inside the absolute wrapper that spans the block; the wrapper is what stops it at the block's end. Cut: a sticky *wrapper* with a negative bottom margin, which let the picture slide 100svh past the block and show unveiled under the fade to paper.
+- **2026-10-26, About studies 06, 07, 08 (`studies/06–08/`).**
+  - **06 / A life in facts.** One Fraunces line ("Poet, investor, counsel to founders. Bangalore and New York.", from the v1 title), then a 21-line ledger, newest first, year in a narrow column. Every line is from the CV or the archive. Dials: measure, lede size and gap, line size and leading, year column, row gap, rule colour.
+  - **07 / The things I make.** "I make poems, photographs, tools and companies, and I am learning Kathak. One of each." Six sections, artefact left and text right (820px measure; stacks under 700px): the poem *Oh that again* in full; the Mt Rainier photograph; the five ideas with the home page's own one-liners (from `IDEAS` in `v2/home.js`); four companies with role and years; Poem Films and The Line Before; the Kathak Legacy Project. Dials: measure, artefact column, gaps, lede and body sizes, photo height, rule.
+  - **08 / A letter and the years.** Five short first-person paragraphs, signed K, then ten years in a line. Voice: `~/dev/joyus/voice-spec/STYLE_SPEC.md` governed (claim first, connective tissue cut, one hard thing named plainly: Vidyanext). The message-shaped editor (`voice-gepa/candidates/36f5d5ddc1c6aadc.txt`) was run as a structural pass only: its moves that survive are the uneven sentence lengths and the one-line close; its spoken hedge and "like" budgets were not applied, because a page is written, not spoken (house-style routes an About to STYLE_SPEC). Dials: measure, letter size and leading, gap to the years, line size, year column, row gap, rule.
+  - Cut from all three: the lenticular photograph, the word pile, GSAP, any JS the page needs to read.
+  - Tune: `node studies/tune-server.cjs` → `http://127.0.0.1:8792/studies/08/?tune`; the panel writes `studies/NN/defaults.json` on every change. `tune.js` is copied into each study (versions share no files).
 - Earlier: see `git log` and `CLAUDE.md`.
 - **2026-10-27, Study 05 A paints its third photograph on every day.** `paint` took the third photo at `(h >> 8) % n`; the date hash is unsigned, so on any day it is over 2^31 (13 of the 60 days from 1 Oct, every day 20 to 29 Oct) the signed shift went negative, the index fell off the list and `p.src` threw. Now `>>>`; days under 2^31 pick exactly as before.
 - **Study 01, the inspiration pile (7 Oct).** Card: the desktop clip (about 7 s, muted, looping) fills the stage; the phone still sits in the corner on desktop and under the clip on a phone. Verdict bar: skip, undo, keep. Below it the last card revealed: verdict, name (links out), address, gallery, award; on a kept card the three tags (mechanical, linguistic, composition) and a one-line "this thing ↓" note, both optional.
@@ -49,6 +61,8 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 
 ## Wrong turns worth knowing
 - **Two headless runs with no pointer walked fine and nearly sent the search into the v2-launch diff** (which only touched the nav). The reproduction needed a parked pointer. A tab opened through the Chrome extension sits hidden, so `requestAnimationFrame` never runs there and it proves nothing either way.
+- **The first public-safe check for the About studies was a privacy deny-list: it listed the excluded topics, so committing it would have published them.** Caught before commit and replaced with a provenance check (every name and year must already be on a public page), which says nothing about what is excluded. Lesson: a deny-list of secrets is itself a leak; check for provenance instead.
+- The first draft of 07's tools list carried Claude's glosses of the five ideas; the home page has its own one-liners, and the rule is that a mock carries only what the site would. Swapped.
 - **The first fix (sticky wrapper + `margin-bottom: -100svh`) passed the checker and failed the eye.** Sticky constrains the margin box, not the border box, so a negative margin lets the element overrun its parent. Cost: one screenshot pass. Lesson: the checker measures the photograph's box, not where the page ends; look at the foot of the page too.
 - The Claude-in-Chrome extension cannot open the local server (error page on both `127.0.0.1` and `localhost`); screenshots come from Chrome for Testing's headless shell via CDP instead.
 - **The first blind check passed with the name on the card.** It skipped names under five characters to avoid matching labels, and the first card was "twks". Now the card on screen is checked at any length.
@@ -57,7 +71,7 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - The first capture pass treated any full-screen fixed element mentioning cookies as a wall; it is a heuristic, so a site or two may have been dropped that a click would have opened (see `dropped`).
 
 ## Workspace state
-- Run locally: `python3 -m http.server 8123` at the root.
+- Run locally: `python3 -m http.server 8123` at the root. For the About studies' dials: `node studies/tune-server.cjs` (:8792) and add `?tune`.
 - Checks: `node verify.mjs` (python3 + Chrome for Testing's headless shell under `~/.cache/puppeteer`; launches must carry `--use-mock-keychain --password-store=basic` or macOS prompts for the keychain).
 - Unit tests live in `tools/`; the python ones import siblings, so run them from inside `tools/` (verify does).
 - Branches `kahran-<mmmDD>-<task>`, merged on the remote by PR into `main`.
@@ -79,7 +93,7 @@ PASS pick.js agrees with daily_pick.py: all checks passed
 PASS the photography walk goes on under a resting pointer and holds under a moving one: 4 checks at 1200x800
 PASS the photograph never re-crops when the poem comes forward: 5 checks at 1200x800
 PASS studies are noindexed: 5 pages carry noindex, nofollow; robots.txt leaves them crawlable so the tag is read
-PASS the rail matches the studies: 5 study listed, opens on 05
+PASS the rail matches the studies: 8 study listed, opens on 08
 PASS study 03: the board holds every keep in his words, four directions, all noindexed and on the rail: 13 keeps on the board with their notes verbatim; 4 directions linked; 5 pages noindexed
 PASS no instruction text: 0 <p>; 18 words of chrome, all labels
 SKIP the pile is whole: studies/01/media is not on this machine (it lives in the MacBook worktree)
@@ -89,9 +103,15 @@ PASS the server keeps the picks file clean: 4 malformed writes 400, foreign orig
 PASS live: notes do not fire shortcuts, a keep with a note round-trips, blocked sites get no iframe: note typing inert, Enter keeps with its note, resume works, blocked cards get no iframe
 PASS study 04: three gems, noindexed, on the rail, each loads clean with his content on its faces: 4 pages noindexed; on the rail; a, b, c load with 0 console errors, faces filled, floor and caption present
 PASS study 05: four beautiful gems, noindexed, on the rail, each loads clean: 5 pages noindexed; on the rail; a–d load with 0 console errors
+PASS the rail matches the studies and opens on the newest: 8 studies (01, 02, 03, 04, 05, 06, 07, 08), opens on 08
+PASS a study is a site page: noindex, title, description, the site nav with about current, and it reads without JS: 3 pages, 1070 words of static copy
+PASS no instruction text and nothing a mock would not carry: 3 pages, 0 hits
+PASS every name and year on a study is already on the site: 140 names and 34 years checked against 14 public pages
+PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 24 dials across 3 studies, fallbacks match
+PASS every link out of a study resolves: 69 internal targets exist on disk, 26 external left to the link audit
 ```
 
-Each studies browser check was seen red once when it was written (noindex removed, card name put in a `title`, save made a no-op, undo not saved, tag validation removed, an unlisted study); restored, green. Study 05's page-load check went red with the signed-shift bug in `05/a.html` `paint` (Wrong turns) and green with the fix. This run is on kMini, where `studies/01/media` is absent, so three checks print SKIP; with an empty `media/` folder present the pile check goes red ("media for <id>.jpg"), so the skip only fires when the folder is missing. Where the media is present all 19 lines are expected PASS (not run tonight; the media was out of reach).
+Each studies browser check was seen red once when it was written (noindex removed, card name put in a `title`, save made a no-op, undo not saved, tag validation removed, an unlisted study); restored, green. Each About study check was seen red once on 2026-10-26: a name no public page carries; "click" in the copy; a CSS fallback drifted from `defaults.json`; a rail entry renumbered; the nav without `about` current; a dead poem link. Restored, green. The About page-shape checks run over 06 onwards; the rail check covers all eight. Study 05's page-load check went red with the signed-shift bug in `05/a.html` `paint` (Wrong turns) and green with the fix. This run is on kMini, where `studies/01/media` is absent, so three checks print SKIP; with an empty `media/` folder present the pile check goes red ("media for <id>.jpg"), so the skip only fires when the folder is missing. Where the media is present all 19 lines are expected PASS (not run tonight; the media was out of reach).
 
 ## Research already captured
 - `docs/2026-09-21-daily-pick-design.md`, `docs/2026-09-22-flow-edges.md`.
@@ -103,6 +123,8 @@ Each studies browser check was seen red once when it was written (noindex remove
 
 ## Open questions
 - Does the trimmed set of about 30 become a board of his picks next to Divya's direction (Study 03 does this for the first two passes), or go straight into a home version?
+- Which About, or which blend. Then: does the chosen one keep the "Full CV" foot, or fold the CV in (06 nearly is the CV)?
+- Whether the five ideas' one-liners should be read from `v2/home.js` at build time rather than copied; today 07 copies them, and `verify` does not pin the copy.
 - Divya may want to see his picks; the artifact can be shared with her as a viewer or a contributor (then picks need a `by`).
 
 ## Working preferences to preserve

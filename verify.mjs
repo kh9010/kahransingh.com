@@ -303,4 +303,106 @@ for (const [name, fn, skip] of checks) {
   catch (e) { console.log(`FAIL ${name}: ${e.message}`); failed = true; break }
 }
 chrome?.close(); srv?.proc.kill()
-process.exit(failed ? 1 : 0)
+if (failed) process.exit(1)
+
+// ── About studies (studies/06–08): the rulings of 2026-10-26; run after the studies pass above ──
+import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
+
+const STUDIES = readdirSync(path.join(ROOT, "studies")).filter((d) => /^\d\d$/.test(d)).sort();
+const ABOUT = STUDIES.filter((n) => n >= "06"); // 01–05 are the inspiration and gem studies, checked above
+const studyHtml = (n) => readFileSync(path.join(ROOT, "studies", n, "index.html"), "utf8");
+
+checkNow("the rail matches the studies and opens on the newest", () => {
+  const rail = readFileSync(path.join(ROOT, "studies", "index.html"), "utf8");
+  const listed = [...rail.matchAll(/data-n="(\d\d)"/g)].map((m) => m[1]);
+  if (listed.join() !== [...STUDIES].reverse().join()) throw new Error(`rail lists ${listed.join(",")}, studies on disk ${STUDIES.join(",")}`);
+  const opens = /<iframe[^>]+src="(\d\d)\/"/.exec(rail)?.[1];
+  if (opens !== STUDIES.at(-1)) throw new Error(`opens on ${opens}, newest is ${STUDIES.at(-1)}`);
+  if (!/aria-current="page" data-n="(\d\d)"/.test(rail) || /aria-current="page" data-n="(\d\d)"/.exec(rail)[1] !== opens) throw new Error("current entry is not the one that opens");
+  for (const n of STUDIES) if (!existsSync(path.join(ROOT, "studies", n, "index.html"))) throw new Error(`studies/${n}/index.html missing`);
+  return `${STUDIES.length} studies (${STUDIES.join(", ")}), opens on ${opens}`;
+});
+
+checkNow("a study is a site page: noindex, title, description, the site nav with about current, and it reads without JS", () => {
+  let words = 0;
+  for (const n of ABOUT) {
+    const h = studyHtml(n);
+    for (const [label, re] of [["noindex", /<meta name="robots" content="noindex, nofollow">/], ["title", /<title>About — Kahran Singh<\/title>/], ["description", /<meta name="description" content="[^"]{20,}">/], ["site stylesheet", /href="\/style\.css"/], ["nav with about current", /<a href="\/about\.html" class="active" aria-current="page">about<\/a>/], ["mobile header", /class="mobile-header"/]])
+      if (!re.test(h)) throw new Error(`study ${n} lacks ${label}`);
+    const main = /<main>([\s\S]*?)<\/main>/.exec(h)?.[1] || "";
+    const text = main.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    if (text.split(" ").length < 120) throw new Error(`study ${n}: main holds ${text.split(" ").length} words of static text; the page must read without JS`);
+    words += text.split(" ").length;
+  }
+  return `${ABOUT.length} pages, ${words} words of static copy`;
+});
+
+checkNow("no instruction text and nothing a mock would not carry", () => {
+  const banned = /\b(click|tap|hover|scroll|swipe|proposed|study|placeholder|lorem|todo|tbd)\b/i;
+  for (const n of ABOUT) {
+    const main = /<main>([\s\S]*?)<\/main>/.exec(studyHtml(n))?.[1] || "";
+    const text = main.replace(/<[^>]+>/g, " ");
+    const m = banned.exec(text);
+    if (m) throw new Error(`study ${n} says "${m[0]}"`);
+  }
+  return `${ABOUT.length} pages, 0 hits`;
+});
+
+checkNow("every name and year on a study is already on the site", () => {
+  // Public-safe by construction: a study may only say what the public pages already say.
+  const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v1/index.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
+  const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
+  const dict = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
+  let names = 0, years = 0;
+  for (const n of ABOUT) {
+    const main = /<main>([\s\S]*?)<\/main>/.exec(studyHtml(n))?.[1] || "";
+    const text = main.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/g, " ");
+    for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) {
+      const w = m[1];
+      if (dict.has(w.toLowerCase())) continue; // plain English, capitalised by position
+      if (!corpus.includes(w.toLowerCase())) throw new Error(`study ${n} names "${w}", which no public page does`);
+      names++;
+    }
+    for (const m of text.matchAll(/\b(19|20)\d\d\b/g)) {
+      if (!corpus.includes(m[0])) throw new Error(`study ${n} says ${m[0]}, a year no public page carries`);
+      years++;
+    }
+  }
+  return `${names} names and ${years} years checked against ${PUBLIC.length} public pages`;
+});
+
+checkNow("tune: every dial lives in defaults.json and the CSS fallback equals it", () => {
+  let dials = 0;
+  for (const n of ABOUT) {
+    const f = path.join(ROOT, "studies", n, "defaults.json");
+    if (!existsSync(f)) throw new Error(`study ${n} has no defaults.json`);
+    const d = JSON.parse(readFileSync(f, "utf8"));
+    const h = studyHtml(n);
+    const used = new Map([...h.matchAll(/var\(--([a-z0-9-]+),\s*([^)]+)\)/g)].map((m) => [m[1], m[2].trim()]));
+    for (const [k, v] of Object.entries(d)) {
+      if (!used.has(k)) throw new Error(`study ${n}: "${k}" is in defaults.json but the CSS never reads it`);
+      if (used.get(k) !== String(v)) throw new Error(`study ${n}: "${k}" falls back to ${used.get(k)} in CSS, defaults.json says ${v}`);
+      dials++;
+    }
+    for (const k of used.keys()) if (!(k in d)) throw new Error(`study ${n}: CSS reads --${k}, not in defaults.json`);
+    if (!/<script src="tune\.js"><\/script>/.test(h)) throw new Error(`study ${n} does not load tune.js`);
+  }
+  return `${dials} dials across ${ABOUT.length} studies, fallbacks match`;
+});
+
+checkNow("every link out of a study resolves", () => {
+  let n_int = 0, n_ext = 0;
+  for (const n of ABOUT) {
+    for (const m of studyHtml(n).matchAll(/(?:href|src)="([^"#?]+)/g)) {
+      const u = m[1];
+      if (/^(https?:|mailto:)/.test(u)) { n_ext++; continue; }
+      let p = u.startsWith("/") ? path.join(ROOT, u) : path.join(ROOT, "studies", n, u);
+      if (p.endsWith("/")) p = path.join(p, "index.html");
+      if (!existsSync(p)) throw new Error(`study ${n}: ${u} does not resolve`);
+      n_int++;
+    }
+  }
+  return `${n_int} internal targets exist on disk, ${n_ext} external left to the link audit`;
+});
+
+process.exit(0)
