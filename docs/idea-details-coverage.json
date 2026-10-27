@@ -1,0 +1,123 @@
+[
+  {
+    "idea": "Context",
+    "tools": [
+      {
+        "name": "Raw store",
+        "sources": [
+          "context/index.html#store"
+        ]
+      },
+      {
+        "name": "Voice & WhatsApp capture",
+        "sources": [
+          "context/index.html#capture"
+        ]
+      },
+      {
+        "name": "Movement",
+        "sources": [
+          "context/index.html#movement"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Keeping track",
+    "tools": [
+      {
+        "name": "The miners",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The judge",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#the-sixteen-edges"
+        ]
+      },
+      {
+        "name": "The Curator",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The sparks garden",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Staying up to date",
+    "tools": [
+      {
+        "name": "Mail triage",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The weekly record",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Topically suggesting",
+    "tools": [
+      {
+        "name": "The now brain",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The workout planner",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "Noticings",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "Travel days",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Self-healing",
+    "tools": [
+      {
+        "name": "Samwise",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The repairer",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The health page",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  }
+]

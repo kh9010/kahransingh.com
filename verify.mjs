@@ -405,4 +405,10 @@ checkNow("every link out of a study resolves", () => {
   return `${n_int} internal targets exist on disk, ${n_ext} external left to the link audit`;
 });
 
+checkNow("idea details: coverage, audited graph, public provenance", () => {
+  const r = run("node", ["tools/test_idea_details.mjs"], ROOT);
+  if (!r.ok) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
+  return r.out.trim().split("\n").filter((l) => l.startsWith("PASS")).map((l) => l.replace(/^PASS /, "")).join("; ");
+});
+
 process.exit(0)
