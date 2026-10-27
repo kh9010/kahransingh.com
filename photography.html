@@ -706,10 +706,24 @@
         document.body.appendChild(indicator);
         indicator.addEventListener('animationend', () => indicator.remove());
 
-        // Pause on photo hover (desktop) and tap (mobile)
+        // Pause while the pointer is moving over a picture (desktop) or a finger
+        // is on one (mobile). A pointer merely resting on the page is not a
+        // pause: each wrap is a full-width block a screen tall, so a still
+        // pointer anywhere below the header sits inside one, and the page
+        // scrolling under it counts as entering. Only real movement over the
+        // picture itself holds the walk, and it lets go after a moment of rest.
+        const HOVER_STILL_MS = 1500;
+        let hoverTimer = null;
         allWraps.forEach(wrap => {
-            wrap.addEventListener('mouseenter', () => { paused = true; });
-            wrap.addEventListener('mouseleave', () => { paused = false; });
+            wrap.querySelectorAll('img').forEach(img => {
+                img.addEventListener('mousemove', (e) => {
+                    if (e.movementX === 0 && e.movementY === 0) return; // scroll-induced, not a hand
+                    paused = true;
+                    clearTimeout(hoverTimer);
+                    hoverTimer = setTimeout(() => { paused = false; }, HOVER_STILL_MS);
+                });
+                img.addEventListener('mouseleave', () => { clearTimeout(hoverTimer); paused = false; });
+            });
             wrap.addEventListener('touchstart', () => { paused = true; }, { passive: true });
             wrap.addEventListener('touchend', () => { paused = false; }, { passive: true });
         });
