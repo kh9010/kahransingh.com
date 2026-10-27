@@ -1,23 +1,57 @@
-// Run with the static server up; BASE_URL defaults to the local review server.
-import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
-import {fileURLToPath} from 'node:url';
-import {readFileSync} from 'node:fs';
+#!/usr/bin/env node
+// verify.mjs — the checks that pin this site's rulings, one PASS line each.
+// The expected block lives in HANDOFF.md under Verification.
+//
+// Run: node verify.mjs            (exits 1 on the first FAIL, naming it)
+// Needs python3 and, for the home-page ruling, Chrome for Testing's headless
+// shell under ~/.cache/puppeteer (tools/test_photo_stays.mjs says how).
 
-const root = fileURLToPath(new URL('.', import.meta.url));
-const checks = spawnSync(process.execPath, ['tools/test_idea_details.mjs'], {cwd: root, encoding: 'utf8'});
-process.stdout.write(checks.stdout);
-assert.equal(checks.status, 0, checks.stderr);
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
-const base = process.env.BASE_URL || 'http://127.0.0.1:8798';
-const paths = ['/', '/v1/', '/context/', '/v2/home.js', '/v2/home.css', '/v2/flow.js'];
-for (const path of paths) {
-  const response = await fetch(base + path);
-  assert.equal(response.status, 200, `${path}: HTTP ${response.status}`);
-  const body = await response.text();
-  assert.ok(body.length > 0, `${path}: empty response`);
-  if (path.startsWith('/v2/')) {
-    assert.equal(body, readFileSync(new URL('.' + path, import.meta.url), 'utf8'), `${path}: stale preview`);
-  }
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const TOOLS = path.join(ROOT, "tools");
+
+function run(cmd, args, cwd) {
+  const r = spawnSync(cmd, args, { cwd, encoding: "utf8" });
+  return { ok: r.status === 0, out: (r.stdout || "") + (r.stderr || "") };
 }
-console.log('PASS HTTP: home, v1, Context and 3 exact-source assets');
+
+function check(name, fn) {
+  let msg;
+  try { msg = fn(); } catch (e) { console.log(`FAIL ${name}: ${e.message}`); process.exit(1); }
+  console.log(`PASS ${name}: ${msg}`);
+}
+
+function unittest(mod) {
+  const r = run("python3", ["-m", "unittest", mod], TOOLS);
+  const ran = /Ran (\d+) tests?/.exec(r.out);
+  if (!r.ok || !ran) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
+  return `${ran[1]} tests`;
+}
+
+check("daily pick follows the weather, then the archive, then the date hash", () => unittest("test_daily_pick"));
+check("place feed", () => unittest("test_place_feed"));
+check("adding photographs", () => unittest("test_add_photos"));
+check("About and Photos entry points", () => unittest("test_about_photos"));
+check("Lately feed layer", () => unittest("test_lately_feed"));
+
+check("pick.js agrees with daily_pick.py", () => {
+  const r = run("node", ["tools/test_pick_js.mjs"], ROOT);
+  if (!r.ok) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
+  return r.out.trim().split("\n").pop();
+});
+
+check("the photograph never re-crops when the poem comes forward", () => {
+  const r = run("node", ["tools/test_photo_stays.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} checks at 1200x800`;
+});
+
+check("idea details: coverage, audited graph, public provenance", () => {
+  const r = run("node", ["tools/test_idea_details.mjs"], ROOT);
+  if (!r.ok) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
+  return r.out.trim().split("\n").filter((l) => l.startsWith("PASS")).map((l) => l.replace(/^PASS /, "")).join("; ");
+});

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>5–11 October 2026 — Kahran Singh</title>
+<meta name="description" content="A week of building software with Claude, in numbers: 13h 07m at the keyboard, 205 commits, 22 sessions.">
+<link rel="canonical" href="https://kahransingh.com/lately/2026-w41/">
+<meta property="og:title" content="5–11 October 2026 — Kahran Singh">
+<meta property="og:description" content="A week of building software with Claude, in numbers: 13h 07m at the keyboard, 205 commits, 22 sessions.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://kahransingh.com/lately/2026-w41/">
+<meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="5–11 October 2026 — Kahran Singh">
+<meta name="twitter:description" content="A week of building software with Claude, in numbers: 13h 07m at the keyboard, 205 commits, 22 sessions.">
+<meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+<link rel="stylesheet" href="/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+/* The record inherits /style.css: the site's paper, inks, fonts and spacing.
+   What follows is only the marks this page adds — the day strata, the hour
+   ridge, the project bars and the long arc — drawn in those same inks. */
+.strata,.dateline,.legend,.pmin,.n,.ridge-axis,.arc-axis,.dom,.dow{
+  font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1}
+/* Each section owns one h2, so style.css's `.section-label:first-of-type`
+   would zero every top margin. Space the sections here instead. */
+main{padding-top:9vh}
+main section{margin-bottom:2rem}
+main section .section-label{margin-top:0; margin-bottom:.9rem}
+.page-header p .issue{color:#9a958c; letter-spacing:.1em; text-transform:uppercase;
+  font-size:.72rem}
+
+/* the week, day by day */
+.strata{width:100%; border-collapse:collapse; table-layout:fixed}
+.strata thead th{font-size:.62rem; letter-spacing:.1em; text-transform:uppercase;
+  color:#9a958c; font-weight:500; text-align:left; padding-bottom:.5rem}
+.strata thead th:nth-child(3),.strata thead th:nth-child(4){text-align:right;
+  padding-left:.6rem}
+.strata th:first-child{width:4.2rem}
+.strata td.n,.strata th:nth-child(3){width:4.8rem}
+.strata td:last-child,.strata th:last-child{width:3.6rem}
+.strata tbody tr{border-top:1px solid #f0ede8}
+.strata tbody tr:last-child{border-bottom:1px solid #f0ede8}
+.strata th[scope=row]{text-align:left; font-weight:400; vertical-align:middle;
+  padding:.6rem .5rem .6rem 0; white-space:nowrap}
+.dow{font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:#9a958c}
+.dom{font-family:'Fraunces',Georgia,serif; font-size:1rem; margin-left:.3rem; color:#3d3a35}
+tr.off .dom{color:#9a958c}
+.track{padding:.6rem 0; vertical-align:middle}
+.band{display:flex; height:14px; min-width:2px}
+.band span{box-shadow:inset -1px 0 0 #fafaf8; min-width:1px}
+.band span:last-child{box-shadow:none}
+.clock{height:2px; margin-top:4px; background:#1a1a1a; min-width:2px}
+.rest{font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; color:#9a958c;
+  border-top:1px dashed #e0ddd8; padding-top:.35rem}
+.strata td.n{text-align:right; font-size:.76rem; color:#3d3a35;
+  padding:.6rem 0 .6rem .6rem; white-space:nowrap}
+.strata td.n:last-child{color:#6e6e6e}
+.legend{list-style:none; display:flex; flex-wrap:wrap; gap:.3rem 1rem; margin-top:1rem;
+  font-size:.7rem; color:#6e6e6e}
+.sw{display:inline-block; width:9px; height:9px; margin-right:.4rem; vertical-align:baseline}
+.sw.rule{height:2px; margin-bottom:3px}
+
+/* the week in a line */
+.dateline{display:flex; flex-wrap:wrap; gap:.2rem 1.3rem; border-top:1px solid #1a1a1a;
+  border-bottom:1px solid #e0ddd8; padding:.6rem 0; font-size:.7rem; letter-spacing:.06em;
+  text-transform:uppercase; color:#6e6e6e}
+.dateline b{color:#1a1a1a; font-weight:500}
+.reading{font-family:'Fraunces',Georgia,serif; font-size:.98rem; line-height:1.5;
+  color:#3d3a35; margin:.7rem 0 0}
+
+/* hours of the day */
+.ridge{display:flex; align-items:flex-end; gap:2px; height:72px;
+  border-bottom:1px solid #e0ddd8}
+.hr{flex:1; min-height:1px}
+.ridge-axis{display:flex; gap:2px; margin-top:.3rem}
+.ridge-axis span{flex:1; font-size:.6rem; color:#9a958c; letter-spacing:.05em}
+
+/* projects */
+.projects{list-style:none}
+.projects li{display:flex; align-items:center; gap:.8rem; padding:.22rem 0;
+  border-bottom:1px solid #f0ede8}
+.pname{width:9.5rem; flex:none; font-size:.85rem; color:#3d3a35; overflow:hidden;
+  text-overflow:ellipsis; white-space:nowrap}
+.pbar{flex:1; min-width:0}
+.pbar b{display:block; height:9px}
+.pmin{width:4.4rem; flex:none; text-align:right; font-size:.74rem; color:#6e6e6e}
+
+/* every week so far */
+.arc{display:flex; align-items:flex-end; gap:2px; height:54px;
+  border-bottom:1px solid #e0ddd8}
+.tick{flex:0 0 auto; width:min(22px,var(--tw)); display:flex; align-items:flex-end;
+  height:100%; text-decoration:none}
+.wk{width:100%; background:#e0ddd8; min-height:2px}
+.wk.on{background:#c3bdb1}
+.wk.now{background:#1a1a1a}
+a.tick:hover .wk{background:#1a1a1a}
+.arc-axis{margin-top:.3rem; font-size:.6rem; color:#9a958c; letter-spacing:.08em;
+  text-transform:uppercase}
+
+.fignote{font-size:.7rem; line-height:1.5; color:#9a958c; letter-spacing:.04em;
+  margin-top:.45rem}
+.fignote b{color:#3d3a35; font-weight:500}
+
+/* colophon */
+.colophon{border-top:1px solid #e0ddd8; margin-top:1.6rem; padding-top:.9rem;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem 1.3rem}
+.colophon p{font-size:.7rem; line-height:1.6; color:#9a958c; letter-spacing:.03em;
+  flex:1 1 20rem}
+.ways{display:flex; flex-wrap:wrap; gap:1.2rem}
+.ways a{font-size:.75rem; color:#6e6e6e; text-decoration:none}
+.ways a:hover{color:#1a1a1a}
+
+@media (max-width:768px){
+  main{padding-top:2rem}
+  .strata th:first-child{width:3.1rem}
+  .strata td.n,.strata th:nth-child(3){width:3.7rem}
+  .strata td:last-child,.strata th:last-child{width:2.8rem}
+  .strata td.n{font-size:.7rem}
+  .dom{font-size:.94rem}
+  .band{height:13px}
+  .reading{font-size:.94rem}
+  .legend{gap:.3rem .8rem; font-size:.66rem}
+  .pname{width:7rem; font-size:.78rem}
+  .pmin{width:3.8rem; font-size:.7rem}
+  .ridge{height:68px; gap:1px}
+  .ridge-axis{gap:1px}
+  .arc{gap:1px}
+  .dateline{gap:.15rem .9rem; font-size:.63rem}
+}
+</style>
+</head>
+<body>
+    <main>
+        <a href="/" class="mobile-header">kahran</a>
+        <div class="page-header">
+            <h1>5–11 October 2026</h1>
+            <p><span class="issue">2026-w41</span> &middot; building software
+            with Claude</p>
+        </div>
+
+  <section>
+    <h2 class="section-label">Day by day</h2>
+      <table class="strata">
+        <thead><tr><th scope="col">day</th><th scope="col">the work</th>
+        <th scope="col">clock</th><th scope="col">commits</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="dow">mon</span><span class="dom">5</span></th><td class="track"><div class="band" style="width:57.8544%"><span style="width:89.404%;background:#1a1a1a" title="rachna-website · 4h 30m"></span><span style="width:7.947%;background:#cfc9be" title="unfiled work · 24m"></span><span style="width:2.649%;background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)" title="13 smaller projects · 8m"></span></div><div class="clock" style="width:54.5977%" title="on the clock · 4h 45m"></div></td><td class="n">4h 45m</td><td class="n">94</td></tr>
+          <tr><th scope="row"><span class="dow">tue</span><span class="dom">6</span></th><td class="track"><div class="band" style="width:11.6858%"><span style="width:91.8033%;background:#1a1a1a" title="rachna-website · 56m"></span><span style="width:8.1967%;background:#cfc9be" title="unfiled work · 5m"></span></div><div class="clock" style="width:11.6858%" title="on the clock · 1h 01m"></div></td><td class="n">1h 01m</td><td class="n">19</td></tr>
+          <tr><th scope="row"><span class="dow">wed</span><span class="dom">7</span></th><td class="track"><div class="band" style="width:100%"><span style="width:16.2835%;background:#1a1a1a" title="rachna-website · 1h 25m"></span><span style="width:1.9157%;background:#4f4a43" title="_cleanup-2026-10-07-pixel-dedupe · 10m"></span><span style="width:5.9387%;background:#867f74" title="_wt · 31m"></span><span style="width:10.728%;background:#b3ada2" title="your-poetic-face · 56m"></span><span style="width:50.7663%;background:#cfc9be" title="unfiled work · 4h 25m"></span><span style="width:14.3678%;background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)" title="13 smaller projects · 1h 15m"></span></div><div class="clock" style="width:59.0038%" title="on the clock · 5h 08m"></div></td><td class="n">5h 08m</td><td class="n">64</td></tr>
+          <tr><th scope="row"><span class="dow">thu</span><span class="dom">8</span></th><td class="track"><div class="band" style="width:34.4828%"><span style="width:3.3333%;background:#1a1a1a" title="rachna-website · 6m"></span><span style="width:40%;background:#4f4a43" title="_cleanup-2026-10-07-pixel-dedupe · 1h 12m"></span><span style="width:16.6667%;background:#867f74" title="_wt · 30m"></span><span style="width:1.1111%;background:#b3ada2" title="your-poetic-face · 2m"></span><span style="width:27.7778%;background:#cfc9be" title="unfiled work · 50m"></span><span style="width:11.1111%;background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)" title="13 smaller projects · 20m"></span></div><div class="clock" style="width:24.7126%" title="on the clock · 2h 09m"></div></td><td class="n">2h 09m</td><td class="n">9</td></tr>
+          <tr><th scope="row"><span class="dow">fri</span><span class="dom">9</span></th><td class="track"><div class="band" style="width:0.7663%"><span style="width:75%;background:#cfc9be" title="unfiled work · 3m"></span><span style="width:25%;background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)" title="13 smaller projects · 1m"></span></div><div class="clock" style="width:0.7663%" title="on the clock · 4m"></div></td><td class="n">4m</td><td class="n">7</td></tr>
+          <tr class=off><th scope="row"><span class="dow">sat</span><span class="dom">10</span></th><td class="track"><div class="rest">rest · 3 commits still landed</div></td><td class="n">none</td><td class="n">3</td></tr>
+          <tr class=off><th scope="row"><span class="dow">sun</span><span class="dom">11</span></th><td class="track"><div class="rest">rest · 9 commits still landed</div></td><td class="n">none</td><td class="n">9</td></tr>
+        </tbody>
+      </table>
+      <ul class="legend"><li><span class="sw" style="background:#1a1a1a"></span>rachna-website</li><li><span class="sw" style="background:#4f4a43"></span>_cleanup-2026-10-07-pixel-dedupe</li><li><span class="sw" style="background:#867f74"></span>_wt</li><li><span class="sw" style="background:#b3ada2"></span>your-poetic-face</li><li><span class="sw" style="background:#cfc9be"></span>unfiled work</li><li><span class="sw" style="background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)"></span>13 smaller projects</li><li class="sep"><span class="sw rule" style="background:#1a1a1a"></span>time on the clock</li></ul>
+    <div class="dateline"><span><b>13h 07m</b> on the clock</span><span><b>205</b> commits</span><span><b>22</b> sessions</span><span><b>10</b> repositories</span><span><b>2.9M</b> tokens of model output</span></div>
+    <p class="reading">longest stretch 2h 26m, wednesday · sat, sun off — 12 commits and 114 mini messages anyway</p>
+  </section>
+
+  <section>
+    <h2 class="section-label">By hour</h2>
+      <div class="ridge"><span class="hr" style="height:1.9835%;background:#d5d1ca" title="00:00 · 24 events"></span><span class="hr" style="height:1.2%;background:#e7e3db" title="01:00 · 0 events"></span><span class="hr" style="height:1.2%;background:#e7e3db" title="02:00 · 0 events"></span><span class="hr" style="height:1.2%;background:#e7e3db" title="03:00 · 0 events"></span><span class="hr" style="height:1.2%;background:#e7e3db" title="04:00 · 0 events"></span><span class="hr" style="height:1.2%;background:#e2ded6" title="05:00 · 3 events"></span><span class="hr" style="height:1.2%;background:#e7e3db" title="06:00 · 0 events"></span><span class="hr" style="height:1.2%;background:#e7e3db" title="07:00 · 0 events"></span><span class="hr" style="height:7.5207%;background:#bebbb4" title="08:00 · 91 events"></span><span class="hr" style="height:15.124%;background:#a7a59f" title="09:00 · 183 events"></span><span class="hr" style="height:18.595%;background:#9f9c97" title="10:00 · 225 events"></span><span class="hr" style="height:42.8099%;background:#6e6c69" title="11:00 · 518 events"></span><span class="hr" style="height:13.8017%;background:#aba8a2" title="12:00 · 167 events"></span><span class="hr" style="height:31.9835%;background:#82807c" title="13:00 · 387 events"></span><span class="hr" style="height:20.1653%;background:#9b9993" title="14:00 · 244 events"></span><span class="hr" style="height:22.7273%;background:#95938e" title="15:00 · 275 events"></span><span class="hr" style="height:76.0331%;background:#3a3938" title="16:00 · 920 events"></span><span class="hr" style="height:100%;background:#1a1a1a" title="17:00 · 1,210 events"></span><span class="hr" style="height:9.5868%;background:#b7b4ae" title="18:00 · 116 events"></span><span class="hr" style="height:2.1488%;background:#d4d0c9" title="19:00 · 26 events"></span><span class="hr" style="height:2.4793%;background:#d2cfc7" title="20:00 · 30 events"></span><span class="hr" style="height:3.1405%;background:#cfcbc4" title="21:00 · 38 events"></span><span class="hr" style="height:7.7686%;background:#bdbab3" title="22:00 · 94 events"></span><span class="hr" style="height:9.4215%;background:#b8b5ae" title="23:00 · 114 events"></span></div>
+      <div class="ridge-axis"><span>00</span><span></span><span></span><span></span><span></span><span></span><span>06</span><span></span><span></span><span></span><span></span><span></span><span>12</span><span></span><span></span><span></span><span></span><span></span><span>18</span><span></span><span></span><span></span><span></span><span></span></div>
+      <p class="fignote">every logged event by hour &middot; peak
+      <b>17:00</b>, 1,210</p>
+  </section>
+
+  <section>
+    <h2 class="section-label">By project</h2>
+      <ul class="projects"><li><span class="pname">rachna-website</span><span class="pbar"><b style="width:100%;background:#1a1a1a"></b></span><span class="pmin">6h 57m</span></li><li><span class="pname">unfiled work</span><span class="pbar"><b style="width:83.2134%;background:#cfc9be"></b></span><span class="pmin">5h 47m</span></li><li><span class="pname">_cleanup-2026-10-07-pixel-dedupe</span><span class="pbar"><b style="width:19.6643%;background:#4f4a43"></b></span><span class="pmin">1h 22m</span></li><li><span class="pname">_wt</span><span class="pbar"><b style="width:14.6283%;background:#867f74"></b></span><span class="pmin">1h 01m</span></li><li><span class="pname">your-poetic-face</span><span class="pbar"><b style="width:13.9089%;background:#b3ada2"></b></span><span class="pmin">58m</span></li><li><span class="pname">13 smaller projects</span><span class="pbar"><b style="width:24.94%;background:repeating-linear-gradient(45deg,#dcd7ce 0 2px,#f0ede7 2px 4px)"></b></span><span class="pmin">1h 44m</span></li></ul>
+      <p class="fignote">17h 49m of project time inside
+      13h 07m on the clock &middot; parallel sessions overlap</p>
+  </section>
+
+
+  <section>
+    <h2 class="section-label">By week</h2>
+      <div class="arc" style="--tw:calc((100% - 12px) / 7)"><a href="/lately/2026-w35/" class="tick"><span class="wk on" style="height:9.5522%" title="2026-W35 · 2h 08m · 138 commits"></span></a><a href="/lately/2026-w36/" class="tick"><span class="wk on" style="height:100%" title="2026-W36 · 22h 20m · 206 commits"></span></a><a href="/lately/2026-w37/" class="tick"><span class="wk on" style="height:34.2537%" title="2026-W37 · 7h 39m · 57 commits"></span></a><a href="/lately/2026-w38/" class="tick"><span class="wk on" style="height:9.5522%" title="2026-W38 · 2h 08m · 34 commits"></span></a><a href="/lately/2026-w39/" class="tick"><span class="wk on" style="height:62.8358%" title="2026-W39 · 14h 02m · 182 commits"></span></a><a href="/lately/2026-w40/" class="tick"><span class="wk on" style="height:24.0299%" title="2026-W40 · 5h 22m · 91 commits"></span></a><span class="tick"><span class="wk on now" style="height:58.7313%" title="2026-W41 · 13h 07m · 205 commits"></span></span></div>
+      <div class="arc-axis"><span>2026 · w35 &rarr; 2026 · w41</span></div>
+      <p class="fignote">7 weeks on the clock · 913 commits · 66h 46m · 2,047 more since January, before the clock</p>
+  </section>
+
+  <footer class="colophon">
+    <p>+160,657 / −4,241 lines &middot; opus-5-5 1.5M, fable-5-1 1.4M &middot; merge commits set
+    aside &middot; Built weekly from my own session logs and commits. Counts, durations and project names, nothing else.</p>
+    <div class="ways">
+      <a href="/lately/">every issue</a>
+      <a href="/">kahransingh.com</a>
+    </div>
+  </footer>
+    </main>
+
+    <nav>
+        <a href="/" class="nav-name">kahran</a>
+        <a href="/poetry.html">poetry</a>
+        <a href="/photography.html">photography</a>
+        <a href="/projects.html">projects</a>
+        <a href="/lately/" class="active">lately</a>
+        <a href="/working-with-me.html">work with me</a>
+        <a href="/speaking.html">speaking</a>
+        <a href="/archive.html">archive</a>
+        <a href="/about.html">about</a>
+    </nav>
+</body>
+</html>

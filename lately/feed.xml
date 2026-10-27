@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Lately — Kahran Singh</title>
+  <subtitle>Every public issue of Kahran Singh's record, newest first.</subtitle>
+  <link rel="self" type="application/atom+xml" href="https://kahransingh.com/lately/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/"/>
+  <id>https://kahransingh.com/lately/</id>
+  <updated>2026-10-18T00:00:00Z</updated>
+  <author><name>Kahran Singh</name></author>
+  <entry>
+    <title>12–18 October</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w42/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w42</id>
+    <updated>2026-10-18T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>13h 34m at the keyboard, 167 commits across 8 repositories, 16 sessions.
+13h 34m · 167 commits · 16 sessions</summary>
+  </entry>
+  <entry>
+    <title>5–11 October</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w41/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w41</id>
+    <updated>2026-10-11T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>13h 07m at the keyboard, 205 commits across 10 repositories, 22 sessions.
+13h 07m · 205 commits · 22 sessions</summary>
+  </entry>
+  <entry>
+    <title>28 September – 4 October</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w40/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w40</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>5h 22m at the keyboard, 88 commits across 8 repositories, 19 sessions.
+5h 22m · 88 commits · 19 sessions</summary>
+  </entry>
+  <entry>
+    <title>21–27 September</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w39/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w39</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>14h 02m at the keyboard, 170 commits across 9 repositories, 23 sessions.
+14h 02m · 170 commits · 23 sessions</summary>
+  </entry>
+  <entry>
+    <title>14–20 September</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w38/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w38</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>2h 08m at the keyboard, 26 commits across 4 repositories, 17 sessions.
+2h 08m · 26 commits · 17 sessions</summary>
+  </entry>
+  <entry>
+    <title>7–13 September</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w37/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w37</id>
+    <updated>2026-09-13T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>7h 39m at the keyboard, 45 commits across 6 repositories, 19 sessions.
+7h 39m · 45 commits · 19 sessions</summary>
+  </entry>
+  <entry>
+    <title>31 August – 6 September</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w36/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w36</id>
+    <updated>2026-09-06T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>34h 00m at the keyboard, 201 commits across 11 repositories, 44 sessions.
+34h 00m · 201 commits · 44 sessions</summary>
+  </entry>
+  <entry>
+    <title>24–30 August</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w35/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w35</id>
+    <updated>2026-08-30T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>34h 05m at the keyboard, 130 commits across 6 repositories, 28 sessions.
+34h 05m · 130 commits · 28 sessions</summary>
+  </entry>
+  <entry>
+    <title>17–23 August</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w34/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w34</id>
+    <updated>2026-08-23T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>12h 56m at the keyboard, 108 commits across 9 repositories, 28 sessions.
+12h 56m · 108 commits · 28 sessions</summary>
+  </entry>
+  <entry>
+    <title>10–16 August</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w33/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w33</id>
+    <updated>2026-08-16T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>21h 50m at the keyboard, 164 commits across 11 repositories, 43 sessions.
+21h 50m · 164 commits · 43 sessions</summary>
+  </entry>
+  <entry>
+    <title>3–9 August</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w32/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w32</id>
+    <updated>2026-08-09T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>28h 57m at the keyboard, 435 commits across 21 repositories, 92 sessions.
+28h 57m · 435 commits · 92 sessions</summary>
+  </entry>
+  <entry>
+    <title>27 July – 2 August</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w31/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w31</id>
+    <updated>2026-08-02T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>5h 10m at the keyboard, 90 commits across 6 repositories, 12 sessions.
+5h 10m · 90 commits · 12 sessions</summary>
+  </entry>
+  <entry>
+    <title>20–26 July</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w30/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w30</id>
+    <updated>2026-07-26T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>26h 16m at the keyboard, 201 commits across 9 repositories, 151 sessions.
+26h 16m · 201 commits · 151 sessions</summary>
+  </entry>
+  <entry>
+    <title>13–19 July</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w29/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w29</id>
+    <updated>2026-07-19T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>7h 00m at the keyboard, 45 commits across 12 repositories, 9 sessions.
+7h 00m · 45 commits · 9 sessions</summary>
+  </entry>
+  <entry>
+    <title>6–12 July</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w28/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w28</id>
+    <updated>2026-07-12T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>5h 19m at the keyboard, 253 commits across 13 repositories, 5 sessions.
+5h 19m · 253 commits · 5 sessions</summary>
+  </entry>
+</feed>
