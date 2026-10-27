@@ -1,0 +1,18 @@
+{
+  "desk-w": "520px",
+  "gutter": "48px",
+  "measure": "1180px",
+  "pad": "32px",
+  "opt-size": "0.92rem",
+  "mini-h": "9.5rem",
+  "about-measure": "560px",
+  "lede-size": "1.3rem",
+  "para-gap": "1.4rem",
+  "letter-size": "1.05rem",
+  "letter-lh": "1.75",
+  "years-gap": "2.2rem",
+  "year-w": "70px",
+  "row-gap": "0.45rem",
+  "rule": "#f0ede8",
+  "line-size": "0.9rem"
+}

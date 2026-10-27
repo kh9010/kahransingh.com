@@ -1,0 +1,14 @@
+{
+  "photo-max-w": "900px",
+  "photo-max-vh": "75vh",
+  "narrow-max-w": "650px",
+  "narrow-max-vh": "65vh",
+  "wrap-pad": "50vh",
+  "gallery-top": "25vh",
+  "start-ms": "2000",
+  "hold-ms": "4000",
+  "pace-ms-per-px": "8",
+  "pace-cap-ms": "8000",
+  "manual-pause-ms": "10000",
+  "hover-still-ms": "1500"
+}

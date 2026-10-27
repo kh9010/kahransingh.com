@@ -22,6 +22,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = path.resolve(HERE, "..");
 const HTTP_PORT = 8124, CDP_PORT = 9334;
 const W = 1200, H = 800;
+const PAGE = process.env.PAGE || "/photography.html";   // a study copy can be measured with the same checks
 
 function findShell() {
   const base = path.join(os.homedir(), ".cache/puppeteer/chrome-headless-shell");
@@ -74,15 +75,16 @@ function check(cond, label, detail) {
 const scrollY = (cdp) => cdp.evaluate("Math.round(window.scrollY)");
 
 try {
-  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/photography.html`).then((r) => r.ok), "static server");
+  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}${PAGE}`).then((r) => r.ok), "static server");
   const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDP_PORT}/json`).then((r) => r.json()), "devtools");
   const page = targets.find((t) => t.type === "page");
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
   const cdp = new CDP(ws);
   await cdp.send("Page.enable");
-  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/photography.html` });
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}${PAGE}` });
   await waitFor(() => cdp.evaluate("document.querySelectorAll('.photo-wrap img').length > 10"), "gallery");
+  const docH0 = await cdp.evaluate("document.documentElement.scrollHeight");
 
   // A pointer parked in the middle of the window, over no picture, and never moved.
   await cdp.mouse(W / 2, H / 2);
@@ -116,6 +118,21 @@ try {
   await sleep(7000);
   const resumed = await scrollY(cdp);
   check(Math.abs(resumed - held1) > 50, "once the pointer is still again the walk resumes within 7s", `scrollY ${held1} -> ${resumed}`);
+
+  // Study 12's ruling: the page is as tall at first paint as once every picture
+  // has arrived. Forced by loading them all, so it does not depend on how far
+  // the walk got.
+  if (process.env.STABLE_HEIGHT) {
+    await cdp.evaluate(`(async () => {
+      const imgs = [...document.querySelectorAll('.gallery img')];
+      imgs.forEach(i => { i.loading = 'eager'; });
+      await Promise.all(imgs.map(i => i.complete ? null : new Promise(r => { i.onload = i.onerror = r; })));
+      return true;
+    })()`);
+    await sleep(300);
+    const docH1 = await cdp.evaluate("document.documentElement.scrollHeight");
+    check(Math.abs(docH1 - docH0) <= docH0 * 0.02, "the page is as tall at first paint as once every picture has arrived (within 2%)", `docH ${docH0} -> ${docH1}`);
+  }
 } catch (e) {
   failures++;
   console.log("FAIL " + (e && e.message ? e.message : e));
