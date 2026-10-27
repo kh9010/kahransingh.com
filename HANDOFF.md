@@ -92,6 +92,7 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - The first capture pass treated any full-screen fixed element mentioning cookies as a wall; it is a heuristic, so a site or two may have been dropped that a click would have opened (see `dropped`).
 
 ## Workspace state
+- **Deploy versus live (2026-10-27).** `main` is live; the `preview` branch is the deploy, mirrored to https://kh9010.github.io/ by `tools/preview-publish.sh` (every 15 min on kMini via `tools/launchd/`, or at once through `tools/preview.sh <branch>`). Mechanism in `CLAUDE.md`; never hand-edit the mirror repo.
 - Studies 09–12: `node studies/server.cjs` (`HOST=0.0.0.0` to reach it over Tailscale; same-origin writes allowed, foreign origins 403) serves the desk with its picks; `node studies/tune-server.cjs` then `…/studies/NN/?tune` for 09, 11, 12. `PAGE=/studies/11/ node tools/test_photo_stays.mjs`; `PAGE=/studies/12/ STABLE_HEIGHT=1 node tools/test_photo_autoscroll.mjs`.
 - Morning server on kMini (27 Oct): `python3 -m http.server 8123 --bind 0.0.0.0` from the main checkout and `HOST=0.0.0.0 node studies/server.cjs`, both under nohup with logs in `/tmp/ks-site-8123.log` and `/tmp/ks-desk-8791.log`. Throwaway: kill them when done.
 - Run locally: `python3 -m http.server 8123` at the root. For the About studies' dials: `node studies/tune-server.cjs` (:8792) and add `?tune`.
