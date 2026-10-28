@@ -34,9 +34,9 @@ with sync_playwright() as p:
         page.on('requestfailed', lambda r: report['external_failures'].append(r.url) if not r.url.startswith(BASE) else None)
         page.goto(BASE + '/#flow', wait_until='networkidle')
         expect(page.locator('.tools-layer')).to_have_class(__import__('re').compile('is-landed'))
-        expect(page.locator('.tile .idea-trigger')).to_have_count(5)
-        assert page.locator('.flow-wire--main').count() == 4
-        assert page.locator('.flow-line').count() == 12
+        expect(page.locator('.tile .idea-trigger')).to_have_count(6)
+        assert page.locator('.flow-wire--main').count() == 5
+        assert page.locator('.flow-line').count() == 20
         for i, idea in enumerate(coverage):
             print('CHECK', mode, idea['idea'], flush=True)
             trigger = page.locator('.idea-trigger').nth(i)
@@ -74,7 +74,7 @@ with sync_playwright() as p:
             expect(panel).to_be_hidden()
             expect(trigger).to_be_focused()
             expect(trigger).to_have_attribute('aria-expanded', 'false')
-        passed(f'{mode}: 5 panels, 16 tools, viewport fit, scrolling, pin and close')
+        passed(f'{mode}: 6 panels, 26 tools, viewport fit, scrolling, pin and close')
         trigger = page.locator('.idea-trigger').first
         if not mobile:
             page.locator('#doing-tools').hover()
@@ -109,8 +109,8 @@ with sync_playwright() as p:
     ctx = browser.new_context(java_script_enabled=False)
     page = ctx.new_page()
     page.goto(BASE + '/', wait_until='networkidle')
-    assert page.locator('.wall-plain li').count() == 5
+    assert page.locator('.wall-plain li').count() == 6
     assert page.locator('.wall-plain a[href="/context/"]').count() == 1
-    passed('no JavaScript: five-idea overview and Context link retained')
+    passed('no JavaScript: six-idea overview and Context link retained')
     browser.close()
 (OUT / 'report.json').write_text(json.dumps(report, indent=2))

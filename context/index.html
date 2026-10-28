@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <title>Context — Kahran Singh</title>
-<meta name="description" content="How Kahran Singh's system works out what is going on from what he already leaves behind: one store everything lands in, his voice kept as text, and where he is read from small clues that are never his phone.">
+<meta name="description" content="How Kahran Singh's system works out what is going on from what he already leaves behind: one store everything lands in, an assistant on WhatsApp, where he is read from small clues that are never his phone, and a short page of what is true right now.">
 <link rel="canonical" href="https://kahransingh.com/context/">
 <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#171613" media="(prefers-color-scheme: dark)">
@@ -40,7 +40,7 @@
 
   <header class="masthead">
     <a class="wordmark" href="/">Kahran Singh</a>
-    <span class="where">One of the five ideas on the wall</span>
+    <span class="where">One of the six ideas on the wall</span>
   </header>
 
   <!-- A title card for a film that does not exist yet. -->
@@ -55,14 +55,15 @@
   <div class="opening read">
     <p>It builds a picture of what is going on from things I already leave behind. So it
     almost never has to ask me anything.</p>
-    <p>Three parts, and not one of them is my phone.</p>
+    <p>Four parts, and none of them tracks my phone.</p>
   </div>
 
   <!-- ========================================================= raw store -- -->
   <section id="store" aria-labelledby="h-store">
     <h2 id="h-store">Raw store</h2>
     <div class="read">
-      <p>One place everything lands: mail, chats, meetings, sleep, commits, what I read.</p>
+      <p>One place everything lands: mail, chats, meetings, sleep, commits, what I read,
+      coaching notes, and my Facebook and Instagram back to 2005.</p>
       <p>One writer, so it is the record and not a copy. Nothing is ever edited: a change lands
       as a new row beside the old one, and the history stays. Nothing downstream goes back to
       the original &mdash; it reads what already landed.</p>
@@ -71,18 +72,21 @@
 
   <!-- =========================================================== capture -- -->
   <section id="capture" aria-labelledby="h-capture">
-    <h2 id="h-capture">Voice &amp; WhatsApp capture</h2>
+    <h2 id="h-capture">The WhatsApp assistant</h2>
     <div class="read">
       <p>I talk more than I type. Most of what I take on goes out as a voice note.</p>
       <p>Those notes are transcribed and kept as text beside the message. Chats too. Before
-      that, a spark said out loud on Tuesday evaporated on Tuesday.</p>
-      <p>That text is what the miners read.</p>
+      that, a spark said out loud on Tuesday evaporated on Tuesday. That text is what the
+      miners read.</p>
+      <p>The same chat answers back. Ask what is on today, or when I last saw someone, and it
+      reads the answer from what the store already holds. Ask it to build something and it
+      builds it.</p>
     </div>
   </section>
 
   <!-- ========================================================== movement -- -->
   <section id="movement" aria-labelledby="h-movement">
-    <h2 id="h-movement">Movement</h2>
+    <h2 id="h-movement">Where I am</h2>
     <div class="read">
       <p class="lede">I wanted to know where I am without changing how I live. So it reads
       small clues instead of tracking me. Each clue is a vote, and each vote carries how sure
@@ -112,9 +116,9 @@
             <span class="clue-why">Read by its shape, not its words.</span>
           </li>
           <li>
-            <b>A lodging or travel booking</b>
+            <b>A booking in my mail</b>
             <span class="clue-mk clue-mk--place">names a place</span>
-            <span class="clue-why">Mail adds it. A flight names no place.</span>
+            <span class="clue-why">A stay or a ticket in my name settles it.</span>
           </li>
           <li>
             <b>The timezone my ring reports</b>
@@ -134,8 +138,8 @@
       <div class="band band--answer">
         <p class="band-head">one answer</p>
         <p class="answer">A place, how long it holds, and how sure it is.</p>
-        <p class="answer-why">Two clues that agree carry it. One alone hedges. Two that
-        disagree take the majority, and ask. A failed feed counts as a clue, so a dead calendar
+        <p class="answer-why">Two clues that agree carry it, and so does a booking in my
+        name. One alone hedges. Two that disagree take the majority, and ask. A failed feed counts as a clue, so a dead calendar
         never reads as a week at home.</p>
       </div>
 
@@ -185,20 +189,34 @@
 
       <p>It does not geocode either: a geocoder that turns &ldquo;Stay at a bed &amp;
       breakfast&rdquo; into a plausible wrong point is the confident wrong answer this exists
-      to stop. The place names come from a short list inside the system.</p>
+      to stop. A place name has to match my own short list, or an offline atlas of cities and
+      airports that answers only to an exact name. Anything else stays unknown, and it
+      asks.</p>
 
       <p>It never asks whether I am home, never about a trip more than a day out, never twice
       about the same trip.</p>
     </div>
   </section>
 
+  <!-- ========================================================= right now -- -->
+  <section id="now" aria-labelledby="h-now">
+    <h2 id="h-now">Right now</h2>
+    <div class="read">
+      <p>One short page of what is true today: the meetings, the open slots, how rested I am,
+      what I have already done. Rebuilt every five minutes, with no model in it.</p>
+      <p>Everything that plans or answers reads this page first, instead of each one finding
+      its own way into the store. So the assistant knows what is on today at the moment I
+      ask, not at six in the morning when a planner happened to run.</p>
+    </div>
+  </section>
+
   <div class="read closing">
-    <p>This page is not where I am. It is how the answer gets made. The other four ideas are
+    <p>This page is not where I am. It is how the answer gets made. The other five ideas are
     on the <a href="/">home page</a>.</p>
   </div>
 
   <footer class="pagefoot">
-    <span>Code: day-flow and raw-store, private repos.</span>
+    <span>Code: private repos.</span>
     <a href="/">kahransingh.com</a>
   </footer>
 

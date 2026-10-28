@@ -26,7 +26,7 @@ with sync_playwright() as p:
         page.on('pageerror', lambda e: errors.append(str(e)))
         page.goto(BASE + '/#flow', wait_until='networkidle')
         expect(page.locator('.tools-layer')).to_have_class(__import__('re').compile('is-landed'))
-        for i in range(5):
+        for i in range(6):
             trigger = page.locator('.idea-trigger').nth(i)
             if touch:
                 trigger.tap()
@@ -79,7 +79,7 @@ with sync_playwright() as p:
                 expect(page.locator('#doing-tools')).to_have_attribute('aria-expanded', 'true')
         assert not errors, errors
         assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
-        passed(f'{width}x{height}: five cards fit; scrolling preserves details; Close reachable')
+        passed(f'{width}x{height}: six cards fit; scrolling preserves details; Close reachable')
         ctx.close()
 
     page = browser.new_page(viewport={'width': 1440, 'height': 1000})

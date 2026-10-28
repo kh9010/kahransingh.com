@@ -2,9 +2,9 @@
    One photograph and one poem per calendar day, chosen by hashing the date, so
    a day that has happened never reshuffles.
 
-   The wall is five ideas, built from the IDEAS table below — the one place the
-   map from an idea to the tools under it lives. v2/flow.js reads the same five
-   names for the drawing. index.html carries a <noscript> copy of the same five
+   The wall is six ideas, built from the IDEAS table below — the one place the
+   map from an idea to the tools under it lives. v2/flow.js reads the same six
+   names for the drawing. index.html carries a <noscript> copy of the same six
    lines so the wall still says something with this file absent. */
 
 (function () {
@@ -18,11 +18,12 @@
      Kahran, 2026-09-22: "we don't need every single box on this home page …
      so maybe there's a big idea of context that subsumes some of these sub
      boxes." Sixteen boxes became five ideas; every one of the sixteen tools
-     still has a home, as `parts`. Re-cut the system by editing this table and
-     nothing else.
+     still has a home, as `parts`. Re-cut on 2026-10-27 against what runs now:
+     a sixth idea, Home, and the parts brought up to date. Re-cut the system by
+     editing this table and nothing else.
 
        name   the idea, and what the box is called
-       hue    its pigment class — one of the five, same five as before
+       hue    its pigment class — one per idea, defined at the top of home.css
        parts  the tools under it, canonical names (flow.js quotes these too)
        line   the quiet second line on the tile: the same parts, short
        detail the reading panel: overview, one explanation per part, distinction
@@ -31,66 +32,72 @@
     {
       name:  'Context',
       hue:   'tile--catching',
-      parts: ['Raw store', 'Voice & WhatsApp capture', 'Movement'],
+      parts: ['Raw store', 'The WhatsApp assistant', 'Where I am', 'Right now'],
       detail: {
         "intro": "A conversation, a meeting, or a change of city can change what is useful next. Context gives the other tools something to work from without asking for the day to be explained again.",
         "tools": [
-          "Keeps mail, chats, meetings, sleep, coding activity and reading in a shared record. Earlier entries remain available, so a tool can look back rather than work from the latest summary alone.",
-          "Turns a spoken thought into text and keeps it alongside messages. The miners can return to those words later to look for a commitment or an idea worth keeping.",
-          "Weighs explicit updates, calendar events, bookings and timezone clues to estimate where the day is happening. Home or away can change what a useful day plan or workout looks like."
+          "Keeps mail, chats, meetings, sleep, coding activity, reading, coaching notes and the Facebook and Instagram archives in one shared record. Earlier entries remain available, so a tool can look back rather than work from the latest summary alone.",
+          "Turns a spoken thought into text and keeps it alongside messages, where the miners can return to it later. The same chat answers questions from what the record already holds, and builds small things when asked.",
+          "Weighs explicit updates, calendar events, bookings in the mail and timezone clues to estimate where the day is happening, and asks one question only when they disagree. Home or away can change what a useful day plan, workout or photograph looks like.",
+          "Assembles one short account of today (meetings, open slots, readiness, what is already done) every few minutes, without a model. Planners and the assistant read it first, instead of each finding its own way into the record."
         ],
         "boundary": "Records and inferences are different things. A captured message is evidence; a place inferred from several clues still carries uncertainty."
       },
-      line:  'raw store · capture · movement',
+      line:  'raw store · assistant · where I am · right now',
       href:  '/context/'
     },
     {
       name:  'Keeping track',
       hue:   'tile--remembering',
-      parts: ['The miners', 'The judge', 'The Curator', 'The sparks garden'],
+      parts: ['The miners', 'The judge', 'The Curator', 'The groomer', 'Meeting follow-ups', 'The sparks garden'],
       detail: {
         "intro": "Mentioning something is not the same as committing to it. These tools look for things worth keeping, check them, and give obligations and unfinished ideas different homes.",
         "tools": [
           "Read voice notes, conversations and meetings for possible commitments and ideas. They propose things to keep rather than treating every passing thought as a new task.",
           "Reviews the miners’ proposals before they reach the pending list or sparks garden. Finding a candidate and accepting it are separate steps.",
-          "Works with the pending list and prepares check-in questions. Open commitments also feed the now brain, so a suggested next move can come from work already taken on.",
+          "Works with the pending list and prepares check-in questions. Open commitments also feed the day planner and the midday door, so a suggested next move can come from work already taken on.",
+          "Sorts the pending list and splits an item too big to start into first steps, keeping a copy of the original so a split can be undone. The commitment stays what was agreed.",
+          "Drafts a follow-up email after a recorded meeting: a short recap, and the next steps with who owns each. It only drafts; nothing is sent until it is read and sent by hand.",
           "Keeps ideas apart from obligations. A thought can be saved and revisited without needing a deadline or pretending to be the next thing to do."
         ],
         "boundary": "Keeping an idea does not make it a task. Keeping a task does not make it urgent. The distinction is what keeps remembering from becoming another source of work."
       },
-      line:  'miners · judge · Curator · sparks garden',
+      line:  'miners · judge · Curator · groomer · follow-ups · sparks garden',
       href:  null
     },
     {
       name:  'Staying up to date',
       hue:   'tile--knowing',
-      parts: ['Mail triage', 'The weekly record'],
+      parts: ['Mail triage', 'The newsletter reader', 'Lost touch', 'The weekly record'],
       detail: {
-        "intro": "Mail asks what needs attention now; a weekly record asks what actually happened. These tools do different kinds of reading, without making every incoming message another obligation.",
+        "intro": "Mail asks what needs attention now; a weekly record asks what actually happened; a friendship gone quiet asks nothing at all. These tools do different kinds of reading, without making every incoming message another obligation.",
         "tools": [
-          "Distinguishes personal correspondence from newsletters, using the record of correspondents as context. The mail card and inbox view make that sorting available to read.",
+          "Distinguishes personal correspondence from newsletters, using the record of correspondents as context. The mail card and inbox view make that sorting available to read, and a booking found in the mail arrives as a message of its own.",
+          "Gathers newsletters into a private reader with their full text, away from the inbox. Reading them becomes a choice made when there is time, not something mixed in with correspondence.",
+          "Ranks the people once written to often who have gone quiet, across every chat channel the record holds. Each week it proposes where some of them live; a city is kept only once it is confirmed.",
           "Turns an extract of coding activity into the public /lately page. It is a look back at the work, not a transcript of private conversations or a copy of the inbox."
         ],
-        "boundary": "The two outputs serve different moments: sorting what arrived, and looking back at what was made. Neither is meant to be another stream of reminders."
+        "boundary": "The outputs serve different moments: sorting what arrived, reading at leisure, noticing who has gone quiet, and looking back at what was made. None is meant to be another stream of reminders."
       },
-      line:  'mail triage · weekly record',
+      line:  'mail triage · newsletters · lost touch · weekly record',
       href:  null
     },
     {
       name:  'Topically suggesting',
       hue:   'tile--public',
-      parts: ['The now brain', 'The workout planner', 'Noticings', 'Travel days'],
+      parts: ['The day planner', 'The midday door', 'The workout planner', 'Noticings', 'Travel days'],
       detail: {
-        "intro": "The useful suggestion depends on the day. A next step, a workout, an old thought and a flight-day plan need different inputs; putting them together does not make them interchangeable.",
+        "intro": "The useful suggestion depends on the day. A plan for the morning, a start after lunch, a workout, an old thought and a flight-day plan need different inputs; putting them together does not make them interchangeable.",
         "tools": [
-          "Brings context, calendar information and pending work together to offer a next move. It is there on the page or when asked for help getting unstuck.",
+          "Reads last night’s recovery, the calendar and pending work to shape the day, and sends it in the morning brief. The same plan is on the page, and help getting unstuck is there when asked.",
+          "Waits for the first free stretch after the midday meetings and offers one first fifteen minutes on something already taken on. At most one a day, and only when there is room for it.",
           "Uses the home-or-away reading to help plan a session that fits the day. Today’s workout is available on request; the weekly plan has a separate review path for the coach.",
-          "Brings selected material from the past back into view. The brief can carry a short line, with a longer page when the thought is worth staying with.",
+          "Brings selected material from the past back into view. The brief carries a short line, or a message of its own when the thought was grown after the brief went out, with a longer page when it is worth staying with.",
           "Uses the flight and bedtime information from daily planning to prepare flight-day messages. The point is a plan for that particular day, not a generic travel checklist."
         ],
         "boundary": "A suggestion is an offer, not another commitment. These tools help choose a next move; they do not turn every available possibility into a list."
       },
-      line:  'now brain · workout planner · noticings · travel days',
+      line:  'day planner · midday door · workouts · noticings · travel days',
       href:  null
     },
     {
@@ -108,12 +115,30 @@
       },
       line:  'Samwise · repairer · health page',
       href:  null
+    },
+    {
+      name:  'Home',
+      hue:   'tile--home',
+      parts: ['The lights', 'The bedroom frame', 'The family archive', 'This page'],
+      detail: {
+        "intro": "Some of the system faces the rooms and the people rather than the work: the light in the apartment, the photographs on a wall, a family group, and this page. These tools look after those surfaces quietly.",
+        "tools": [
+          "Keeps the apartment lights following the sun, holds a mood set by hand, and offers a page to change them. A bulb that drops off the network, and a weekly summary of how the lights were used, arrive as messages.",
+          "Rotates a curated set of photographs on the bedroom frame through the day. The pictures were judged once and the judgements kept, so changing the rotation never means judging them again.",
+          "Keeps the family’s photographs in one private library and, twice a day, sends the family group an old picture with a question about it. The replies teach the question to get better.",
+          "Chooses today’s photograph and poem for this page, following the weather where the day is, and shows the city only when it is confidently known. A day that has passed keeps the pick it had."
+        ],
+        "boundary": "These are quiet by design: a light, a frame or a photograph should be noticed for what it shows, not for the system behind it. A place shown on this page is a city, never a point."
+      },
+      line:  'lights · bedroom frame · family archive · this page',
+      href:  null
     }
   ];
 
-  /* The lean: three across, then two. Change these two numbers and the block
-     re-cuts itself; home.css shears row 1 and centres it under row 0. */
-  var WALL_ROWS = [3, 2];
+  /* The lean: three across, then three. Change these numbers and the block
+     re-cuts itself; home.css shears each row and centres a short one under
+     row 0. Kahran, 2026-10-27: a sixth idea, Home, so 3+2 became 3+3. */
+  var WALL_ROWS = [3, 3];
 
   /* ------------------------------------------------------------- the day -- */
 
@@ -355,8 +380,8 @@
 
   /* ------------------------------------------------------------- the wall --
 
-     Five boxes, built from IDEAS. An idea with an href is launched: full
-     colour, a link, and it lifts on hover. The other four are dim until you
+     Six boxes, built from IDEAS. An idea with an href is launched: full
+     colour, a link, and it lifts on hover. The others are dim until you
      touch them, which is the whole state model — there is no third thing a
      box can be. */
 
@@ -369,6 +394,7 @@
       var row = document.createElement('ul');
       row.className = 'wall-row';
       row.style.setProperty('--r', r);
+      row.style.setProperty('--miss', Math.max(0, WALL_ROWS[0] - n));
       for (var k = 0; k < n && i < IDEAS.length; k++, i++) {
         row.appendChild(tileFor(IDEAS[i]));
       }
@@ -403,7 +429,7 @@
 
   /* One switch shared by both animations. While anything is moving the frosted
      tiles go solid (see .tools-layer.is-busy in home.css): re-blurring the
-     photograph behind five tiles every frame is the most expensive thing here,
+     photograph behind six tiles every frame is the most expensive thing here,
      and Safari feels it most. Counted, because the poem and the diagram can
      move at the same time; the frost comes back a beat after the last one
      stops so a quick second pass does not flicker it on and off. */
