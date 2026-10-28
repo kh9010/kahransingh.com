@@ -1,10 +1,34 @@
 {
- "opening": {"from": "08", "i": 0},
- "tools": {"from": "08", "i": 0},
- "companies": {"from": "08", "i": 0},
- "poems": {"from": "07", "i": 0},
- "photographs": {"from": "07", "i": 0},
- "making": {"from": "08", "i": 0},
- "close": {"from": "08", "i": 0},
- "years": {"from": "08", "i": 0}
+ "opening": {
+  "from": "08",
+  "i": 0
+ },
+ "tools": {
+  "from": "08",
+  "i": 0
+ },
+ "companies": {
+  "from": "07",
+  "i": 1
+ },
+ "poems": {
+  "from": "07",
+  "i": 0
+ },
+ "photographs": {
+  "from": "07",
+  "i": 0
+ },
+ "making": {
+  "from": "08",
+  "i": 0
+ },
+ "close": {
+  "from": "08",
+  "i": 0
+ },
+ "years": {
+  "from": "08",
+  "i": 0
+ }
 }
