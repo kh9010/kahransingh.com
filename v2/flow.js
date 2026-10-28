@@ -133,7 +133,7 @@
     ['Topically suggesting', 'morning'],     // the day planner, noticings
     ['Self-healing',         'morning'],     // Samwise, the repairer
     ['Context',              'question'],    // where I am
-    ['Topically suggesting', 'own'],         // travel days, the midday door, a late noticing
+    ['Topically suggesting', 'own'],         // travel days, the midday door, a late noticing, the meal plan
     ['Staying up to date',   'own'],         // mail triage: a booking in the mail
     ['Self-healing',         'own'],         // only when Samwise itself goes quiet
     ['Home',                 'own'],         // the lights: Monday note, a bulb to flip

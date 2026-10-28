@@ -53,12 +53,6 @@
         ]
       },
       {
-        "name": "The groomer",
-        "sources": [
-          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
-        ]
-      },
-      {
         "name": "Meeting follow-ups",
         "sources": [
           "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
@@ -123,6 +117,12 @@
         "name": "The workout planner",
         "sources": [
           "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The meal plan",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#wall-drift-2026-10-28"
         ]
       },
       {

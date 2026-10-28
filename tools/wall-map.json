@@ -14,7 +14,6 @@
     "The miners": ["conversation-miner", "voice-note-miner", "granola-mine", "hint-mining", "morning-extras", "coach-call-miner"],
     "The judge": ["judge-proposals"],
     "The Curator": ["curator", "backlog-pull"],
-    "The groomer": ["pending-groom", "pending-decompose"],
     "Meeting follow-ups": ["com.kahran.granola-followup"],
     "The sparks garden": ["com.kahran.sparks-watch", "sparks-fold", "com.kahran.sparks-canvas"],
 
@@ -26,6 +25,7 @@
     "The day planner": ["day-planner", "planner-daily", "recovery", "oura", "adherence", "hermes:morning-brief"],
     "The midday door": ["midday-door"],
     "The workout planner": ["planner-daily", "log-workout-live"],
+    "The meal plan": ["hermes:daily-meal-plan"],
     "Noticings": ["noticings-grower"],
     "Travel days": ["flight-routine"],
 
