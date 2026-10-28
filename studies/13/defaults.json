@@ -1,0 +1,14 @@
+{
+  "w-colour": "1",
+  "w-tone": "1",
+  "w-lines": "1",
+  "w-horizon": "1",
+  "w-layout": "1",
+  "w-subject": "1.5",
+  "w-place": "0.5",
+  "lead": "3",
+  "link-min": "0.4",
+  "pair-every": "5",
+  "strip-h": "44px",
+  "link-size": ".7rem"
+}

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>Photography — Kahran Singh</title>
+    <meta name="description" content="Photography by Kahran Singh. Shot on the Leica Q2 & Q2 Monochrome.">
+    <meta property="og:title" content="Photography — Kahran Singh">
+    <meta property="og:description" content="Photography by Kahran Singh. Shot on the Leica Q2 & Q2 Monochrome.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kahransingh.com/photography.html">
+    <meta property="og:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Photography — Kahran Singh">
+    <meta name="twitter:description" content="Photography by Kahran Singh. Shot on the Leica Q2 & Q2 Monochrome.">
+    <meta name="twitter:image" content="https://kahransingh.com/photos/roma-sidewalk.jpg">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+    <style>
+        main {
+            max-width: 100%;
+            margin-left: 240px;
+            margin-right: 0;
+            padding: 2rem 1.5rem 0;
+        }
+
+        .photo-page-header {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 1rem;
+            text-align: center;
+        }
+
+        .photo-page-header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        .photo-page-header p {
+            color: #bbb;
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            letter-spacing: 0.03em;
+        }
+
+        .camera-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 1.25rem; margin-top: 1rem; font-size: .8rem; }
+        .camera-filters[hidden] { display: none; }
+        .camera-filters a { color: #777; padding: .5rem 0; text-decoration: none; }
+        .camera-filters a:hover, .camera-filters a[aria-current] { color: #333; text-decoration: underline; text-underline-offset: .25em; }
+
+        /* Single-column gallery */
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 25vh;
+        }
+
+        .photo-wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 50vh 0;
+        }
+
+        .photo-wrap img {
+            max-width: min(900px, 100%);
+            max-height: 75vh;
+            width: auto;
+            display: block;
+            cursor: pointer;
+            filter: contrast(1.05);
+        }
+
+        /* Alternate narrower widths for breathing rhythm */
+        .photo-wrap.narrow img {
+            max-width: min(650px, 100%);
+            max-height: 65vh;
+        }
+
+        /* Diptych pairs */
+        .photo-pair {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 50vh 0;
+        }
+
+        .photo-pair .pair-inner {
+            display: flex;
+            gap: 0.5rem;
+            max-width: min(1100px, 100%);
+            width: 100%;
+        }
+
+        /* Each picture's flex-grow is its own width-to-height ratio (set by the
+           script), so the two share one height and neither is cropped. */
+        .photo-pair .pair-inner { align-items: flex-start; }
+        .photo-pair .pair-inner img {
+            flex: 1 1 0;
+            min-width: 0;
+            display: block;
+            cursor: pointer;
+            filter: contrast(1.05);
+        }
+
+        /* Fade-in animation */
+        .photo-wrap, .photo-pair {
+            opacity: 1;
+        }
+
+        .photo-wrap.visible, .photo-pair.visible {
+            opacity: 1;
+        }
+
+        .photo-wrap.no-fade, .photo-pair.no-fade {
+            opacity: 1;
+            transition: none;
+        }
+
+
+        /* Study 13's numbers. The chain's weights and the strip's size are dials in
+           defaults.json; the script reads the --chain-* values back. */
+        :root {
+            --chain-w-colour: var(--w-colour, 1);
+            --chain-w-tone: var(--w-tone, 1);
+            --chain-w-lines: var(--w-lines, 1);
+            --chain-w-horizon: var(--w-horizon, 1);
+            --chain-w-layout: var(--w-layout, 1);
+            --chain-w-subject: var(--w-subject, 1.5);
+            --chain-w-place: var(--w-place, 0.5);
+            --chain-lead: var(--lead, 3);
+            --chain-link-min: var(--link-min, 0.4);
+            --chain-pair-every: var(--pair-every, 5);
+        }
+
+        /* The step between two pictures: both, small, and the word that ties them. */
+        .link { display: flex; align-items: center; justify-content: center; gap: .75rem; font-family: 'Space Grotesk', sans-serif; font-size: var(--link-size, .7rem); letter-spacing: .04em; color: #999; }
+        .link img { height: var(--strip-h, 44px); width: auto; display: block; filter: contrast(1.05); }
+        .link span { width: 8em; flex: none; text-align: center; }
+        .link.quiet span { color: #ccc; }
+        .pair-link { text-align: center; margin-top: .6rem; font-family: 'Space Grotesk', sans-serif; font-size: var(--link-size, .7rem); letter-spacing: .04em; color: #999; }
+        .camera-filters + .camera-filters { margin-top: .25rem; }
+        .thread-sum { font-family: 'Space Grotesk', sans-serif; font-size: .75rem; color: #999; margin-top: .75rem; font-variant-numeric: tabular-nums; }
+        .thread { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem 2rem; max-width: 1200px; margin: 3rem auto 6rem; }
+        .thread .link { justify-content: flex-start; margin: 0; }
+        .thread .link b { font-weight: 400; color: #ccc; width: 1.6em; text-align: right; font-variant-numeric: tabular-nums; }
+
+        /* Photo counter */
+        .photo-counter {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            color: #e8e6e1;
+            z-index: 100;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        /* Footer */
+        .photo-footer {
+            text-align: center;
+            padding: 10vh 0 6rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .photo-footer p {
+            font-family: 'Fraunces', Georgia, serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #bbb;
+            margin: 0 0 1.5rem;
+        }
+
+        .photo-footer a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: #999;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 2px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .photo-footer a:hover {
+            color: #333;
+            border-color: #999;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 100vw;
+            max-height: 100vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 1001;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:focus {
+            color: #fff;
+        }
+
+        /* Auto-scroll indicator */
+        .auto-scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.25);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            pointer-events: none;
+            z-index: 99;
+            opacity: 0;
+            animation: scrollIndicatorFade 4s ease forwards;
+        }
+
+        .auto-scroll-indicator::after {
+            content: ' \u25BE';
+            font-size: 0.8em;
+        }
+
+        @keyframes scrollIndicatorFade {
+            0% { opacity: 0; }
+            15% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin-left: 0;
+                padding: 1.5rem 1rem 0;
+            }
+
+            .photo-page-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .gallery {
+                padding-top: 10vh;
+            }
+
+            /* The gutter sits on the wrap, not the picture: padding on an img with
+               an aspect-ratio squeezes the picture inside it. */
+            .photo-wrap {
+                padding: 10vh 0.5rem;
+                box-sizing: border-box;
+            }
+
+            .photo-wrap img {
+                max-width: 100%;
+            }
+
+            .photo-wrap.narrow img {
+                max-width: 100%;
+            }
+
+            .photo-pair {
+                padding: 10vh 0;
+            }
+
+            .photo-pair .pair-inner {
+                max-width: 100%;
+                padding: 0 0.5rem;
+                box-sizing: border-box;
+            }
+
+            .photo-counter {
+                bottom: 1.2rem;
+                right: 1.2rem;
+                font-size: 0.65rem;
+                color: #e8e6e1;
+            }
+
+            .photo-footer {
+                padding: 6vh 1rem 5rem;
+            }
+        }
+    </style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H63H3KD6WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H63H3KD6WQ');
+</script>
+</head>
+<body>
+    <main>
+        <a href="/v1/" class="mobile-header">kahran</a>
+
+        <div class="photo-page-header">
+            <h1>photography</h1>
+            <p>Leica Q2 & Q2 Monochrome</p>
+            <div class="camera-filters" id="orders" role="navigation" aria-label="Order" hidden>
+                <a href="./" data-order="today">today</a>
+                <a href="?order=colour" data-order="colour">colour</a>
+                <a href="?order=line" data-order="line">line</a>
+                <a href="?order=blend" data-order="blend">blend</a>
+            </div>
+            <div class="camera-filters" id="views" role="navigation" aria-label="View" hidden>
+                <a href="" data-view="walk">walk</a>
+                <a href="" data-view="thread">thread</a>
+            </div>
+            <p class="thread-sum" id="thread-sum" hidden></p>
+        </div>
+
+        <!-- Keep this fallback in catalog order; tools/test_about_photos.py checks parity. -->
+        <div class="gallery" id="gallery">
+            <a class="photo-wrap" href="/photos/alpine-lake.jpg"><img src="/photos/alpine-lake.jpg" alt="Alpine lake with mountains" style="aspect-ratio: 1200/800" loading="eager"></a>
+            <a class="photo-wrap narrow" href="/photos/beach-boardwalk.jpg"><img src="/photos/beach-boardwalk.jpg" alt="Boardwalk vanishing point through pines" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/beach-solitude.jpg"><img src="/photos/beach-solitude.jpg" alt="Gull on an empty beach" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/buoys-wall.jpg"><img src="/photos/buoys-wall.jpg" alt="Beach towel on a dune, driftwood shelter beyond" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/cdmx-plaza.jpg"><img src="/photos/cdmx-plaza.jpg" alt="Plaza at night in Roma Norte, Mexico City" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/concrete-museum.jpg"><img src="/photos/concrete-museum.jpg" alt="Concrete museum interior with art installation" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/fireworks-water.jpg"><img src="/photos/fireworks-water.jpg" alt="Fireworks over water" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/hawaii-landscape.jpg"><img src="/photos/hawaii-landscape.jpg" alt="Volcanic landscape at dusk" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/kitchen-night.jpg"><img src="/photos/kitchen-night.jpg" alt="Figure in kitchen at night" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/lanterns.jpg"><img src="/photos/lanterns.jpg" alt="Lanterns and palm tree at night in Sayulita" style="aspect-ratio: 1448/2170" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/misty-hillside.jpg"><img src="/photos/misty-hillside.jpg" alt="Misty hillside with figure walking" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/night-market.jpg"><img src="/photos/night-market.jpg" alt="Night market vendors in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/night-street.jpg"><img src="/photos/night-street.jpg" alt="Night street with palm trees in Roma Norte" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/papel-picado.jpg"><img src="/photos/papel-picado.jpg" alt="Street with papel picado overhead in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/reed-corridor.jpg"><img src="/photos/reed-corridor.jpg" alt="Path through tall reeds" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/restaurant-night.jpg"><img src="/photos/restaurant-night.jpg" alt="Restaurant through foliage at night" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/roma-sidewalk.jpg"><img src="/photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma Norte, Mexico City" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/sayulita-staircase.jpg"><img src="/photos/sayulita-staircase.jpg" alt="Staircase at night in Sayulita" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/scooter-beach.jpg"><img src="/photos/scooter-beach.jpg" alt="Scooter on a beach" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/staircase.jpg"><img src="/photos/staircase.jpg" alt="Figure on a staircase in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/still-lake.jpg"><img src="/photos/still-lake.jpg" alt="Still lake with cloud reflections" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/taco-cart.jpg"><img src="/photos/taco-cart.jpg" alt="Taco cart at night in Sayulita" style="aspect-ratio: 2170/1448" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/tree-tunnel.jpg"><img src="/photos/tree-tunnel.jpg" alt="Tree tunnel" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/van-sleeping.jpg"><img src="/photos/van-sleeping.jpg" alt="Person sleeping in a van" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/yosemite-trail.jpg"><img src="/photos/yosemite-trail.jpg" alt="Yosemite canyon in evening light" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/yosemite-valley.jpg"><img src="/photos/yosemite-valley.jpg" alt="Yosemite trail with a pine" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/tetrapods-C617472A.jpg"><img src="/photos/tetrapods-C617472A.jpg" alt="Concrete tetrapods along a shoreline" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/lavender-field-44DFB472.jpg"><img src="/photos/lavender-field-44DFB472.jpg" alt="Field of lavender" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/calla-lilies-1CB0954F.jpg"><img src="/photos/calla-lilies-1CB0954F.jpg" alt="Calla lilies" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/pine-boardwalk-7FB4DA90.jpg"><img src="/photos/pine-boardwalk-7FB4DA90.jpg" alt="Boardwalk through a pine forest" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/gnarled-tree-beach-9254A749.jpg"><img src="/photos/gnarled-tree-beach-9254A749.jpg" alt="Gnarled tree on a beach" style="aspect-ratio: 934/1400" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/misty-walkway-48FA8D97.jpg"><img src="/photos/misty-walkway-48FA8D97.jpg" alt="Misty walkway" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/museum-hallway-4BC2AB1E.jpg"><img src="/photos/museum-hallway-4BC2AB1E.jpg" alt="Museum hallway" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/dune-grass-path-2EFABBF7.jpg"><img src="/photos/dune-grass-path-2EFABBF7.jpg" alt="Path through dune grass" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/nyc-riverfront-DE8723B3.jpg"><img src="/photos/nyc-riverfront-DE8723B3.jpg" alt="New York City riverfront" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/forest-sunrays-C5ED39F1.jpg"><img src="/photos/forest-sunrays-C5ED39F1.jpg" alt="Sun rays through a forest" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/juniper-berries-07D3E4F0.jpg"><img src="/photos/juniper-berries-07D3E4F0.jpg" alt="Juniper berries" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/geranium-bw-1A1B3229.jpg"><img src="/photos/geranium-bw-1A1B3229.jpg" alt="Geranium in black and white" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/beach-umbrella-1EB3BFB6.jpg"><img src="/photos/beach-umbrella-1EB3BFB6.jpg" alt="Beach umbrella" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/banyan-tree-6A29610A.jpg"><img src="/photos/banyan-tree-6A29610A.jpg" alt="Banyan tree" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/berlin-street.jpg"><img src="/photos/berlin-street.jpg" alt="Street with vintage Porsche" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/bhutan-summit-6D1ECE66.jpg"><img src="/photos/bhutan-summit-6D1ECE66.jpg" alt="Mountain summit in Bhutan" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/boat-friends-A963213F.jpg"><img src="/photos/boat-friends-A963213F.jpg" alt="Friends on a boat" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/cypress-kayak-F5BA8A7A.jpg"><img src="/photos/cypress-kayak-F5BA8A7A.jpg" alt="Kayak among cypress trees" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/glass-sculpture-C9B56AB5.jpg"><img src="/photos/glass-sculpture-C9B56AB5.jpg" alt="Glass sculpture" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/infinity-room-BD764E63.jpg"><img src="/photos/infinity-room-BD764E63.jpg" alt="Infinity mirror room" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/japan-bridge-night-03BAB9C2.jpg"><img src="/photos/japan-bridge-night-03BAB9C2.jpg" alt="Bridge at night in Japan" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/japan-gallery-quilt-27BBE65D.jpg"><img src="/photos/japan-gallery-quilt-27BBE65D.jpg" alt="Quilt in a gallery in Japan" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/jungle-path-DAB66F7D.jpg"><img src="/photos/jungle-path-DAB66F7D.jpg" alt="Path through the jungle" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/mexico-plaza-476B1258.jpg"><img src="/photos/mexico-plaza-476B1258.jpg" alt="Plaza in Mexico" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/sea-cliff-8632EF29.jpg"><img src="/photos/sea-cliff-8632EF29.jpg" alt="Sea cliff" style="aspect-ratio: 934/1400" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/snowy-pass-648E669E.jpg"><img src="/photos/snowy-pass-648E669E.jpg" alt="Snowy mountain pass" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/surfers-walking-6CE80723.jpg"><img src="/photos/surfers-walking-6CE80723.jpg" alt="Surfers walking" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/winnebago-4069A7FC.jpg"><img src="/photos/winnebago-4069A7FC.jpg" alt="Winnebago camper" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/jeep-stream-A0C4CAF7.jpg"><img src="/photos/jeep-stream-A0C4CAF7.jpg" alt="Jeep crossing a stream" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/forest-bridge-creek-194CECED.jpg"><img src="/photos/forest-bridge-creek-194CECED.jpg" alt="Wooden bridge over a forest creek" style="aspect-ratio: 2400/1600" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/bougainvillea-street-887A6F65.jpg"><img src="/photos/bougainvillea-street-887A6F65.jpg" alt="Street lined with bougainvillea" style="aspect-ratio: 1200/800" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/puget-sound-clouds-836485B6.jpg"><img src="/photos/puget-sound-clouds-836485B6.jpg" alt="Clouds over Puget Sound" style="aspect-ratio: 4896/3264" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/diwali-gifts-7E597412.jpg"><img src="/photos/diwali-gifts-7E597412.jpg" alt="Diwali gifts" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/wood-spiral-4DC35586.jpg"><img src="/photos/wood-spiral-4DC35586.jpg" alt="Spiral wood carving" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/chive-flowers-043155D7.jpg"><img src="/photos/chive-flowers-043155D7.jpg" alt="Chive flowers" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/red-leaves-10B89607.jpg"><img src="/photos/red-leaves-10B89607.jpg" alt="Red autumn leaves" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/sheep-valley-18920780.jpg"><img src="/photos/sheep-valley-18920780.jpg" alt="Sheep in a valley" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/glacial-lake-28B7AF30.jpg"><img src="/photos/glacial-lake-28B7AF30.jpg" alt="Glacial lake" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/poppy-macro-2B2A81D7.jpg"><img src="/photos/poppy-macro-2B2A81D7.jpg" alt="Close-up of a poppy" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/buddha-plant-333E9F81.jpg"><img src="/photos/buddha-plant-333E9F81.jpg" alt="Buddha statue with a plant" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/firework-burst-5004742B.jpg"><img src="/photos/firework-burst-5004742B.jpg" alt="Burst of fireworks" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/langur-sitting-6C239336.jpg"><img src="/photos/langur-sitting-6C239336.jpg" alt="Langur monkey sitting" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/langur-climbing-9B6D6B84.jpg"><img src="/photos/langur-climbing-9B6D6B84.jpg" alt="Langur monkey climbing" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="/photos/spotted-deer-D8AE667C.jpg"><img src="/photos/spotted-deer-D8AE667C.jpg" alt="Spotted deer" style="aspect-ratio: 933/1400" loading="lazy"></a>
+            <a class="photo-wrap narrow" href="/photos/beach-reflection-DDAF92C4.jpg"><img src="/photos/beach-reflection-DDAF92C4.jpg" alt="Reflection on a beach" style="aspect-ratio: 1400/933" loading="lazy"></a>
+        </div>
+
+        <div class="photo-footer">
+            <p>Shot on the Leica Q2 & Q2 Monochrome</p>
+            <a href="/">back to home</a>
+        </div>
+    </main>
+
+    <nav>
+        <a href="/v1/" class="nav-name">kahran</a>
+        <a href="/poetry.html">poetry</a>
+        <a href="/photography.html" class="active">photography</a>
+        <a href="/projects.html">projects</a>
+        <a href="/lately/">lately</a>
+        <a href="/working-with-me.html">work with me</a>
+        <a href="/speaking.html">speaking</a>
+        <a href="/archive.html">archive</a>
+        <a href="/about.html">about</a>
+    </nav>
+
+    <div class="photo-counter" id="photo-counter"></div>
+
+    <div class="lightbox" id="lightbox">
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script src="chain.js"></script>
+    <script src="tune.js"></script>
+    <script>
+    async function main() {
+    const feats = (await (await fetch('features.json')).json()).photos;
+    const css = getComputedStyle(document.documentElement);
+    const dial = (k) => parseFloat(css.getPropertyValue('--chain-' + k));
+    const W = {};
+    for (const k of Chain.KEYS) W[k] = dial('w-' + k);
+    const lead = dial('lead'), linkMin = dial('link-min'), pairEvery = Math.round(dial('pair-every'));
+    const WEIGHTS = {
+        colour: { ...W, colour: W.colour * lead, tone: W.tone * lead },
+        line: { ...W, lines: W.lines * lead, horizon: W.horizon * lead, layout: W.layout * lead },
+        blend: W,
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const order = WEIGHTS[params.get('order')] ? params.get('order') : 'today';
+    const view = params.get('view') === 'thread' ? 'thread' : 'walk';
+    const M = Chain.model(feats);
+    let seq;
+    if (order === 'today') {
+        // Today's walk: a fresh shuffle on every visit, as on /photography.html.
+        seq = feats.map((_, i) => i);
+        for (let i = seq.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [seq[i], seq[j]] = [seq[j], seq[i]]; }
+    } else seq = Chain.path(M, WEIGHTS[order]);
+    const wLinks = WEIGHTS[order] || WEIGHTS.blend;
+    const links = seq.slice(1).map((j, k) => Chain.link(M, wLinks, seq[k], j, linkMin));
+    const photos = seq.map((i) => feats[i]);
+
+    // In ?tune, a moved dial is saved to defaults.json; read it back by reloading.
+    if (/[?&]tune\b/.test(location.search)) {
+        const sig = JSON.stringify([W, lead, linkMin, pairEvery]);
+        new MutationObserver(() => {
+            const c = getComputedStyle(document.documentElement), d = (k) => parseFloat(c.getPropertyValue('--chain-' + k));
+            const w2 = {}; for (const k of Chain.KEYS) w2[k] = d('w-' + k);
+            if (JSON.stringify([w2, d('lead'), d('link-min'), Math.round(d('pair-every'))]) !== sig) setTimeout(() => location.reload(), 700);
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    }
+
+    const qs = (o, v) => { const p = new URLSearchParams(location.search); o === 'today' ? p.delete('order') : p.set('order', o); v === 'walk' ? p.delete('view') : p.set('view', v); const s = p.toString(); return s ? '?' + s : './'; };
+    const orders = document.getElementById('orders'), views = document.getElementById('views');
+    orders.querySelectorAll('a').forEach(a => { a.href = qs(a.dataset.order, view); if (a.dataset.order === order) a.setAttribute('aria-current', 'page'); });
+    views.querySelectorAll('a').forEach(a => { a.href = qs(order, a.dataset.view); if (a.dataset.view === view) a.setAttribute('aria-current', 'page'); });
+    orders.hidden = views.hidden = false;
+
+    const gallery = document.getElementById('gallery');
+    const counter = document.getElementById('photo-counter');
+    const strip = (a, b, l, n) => {
+        const el = document.createElement('div');
+        el.className = 'link' + (l.word ? '' : ' quiet');
+        if (n) { const i = document.createElement('b'); i.textContent = n; el.appendChild(i); }
+        for (const [p, w] of [[a, null], [null, l.word || '·'], [b, null]]) {
+            if (p) { const im = document.createElement('img'); im.src = '/photos/' + p.f; im.alt = ''; im.loading = 'lazy'; if (p.w && p.h) im.style.aspectRatio = p.w + '/' + p.h; el.appendChild(im); }
+            else { const s = document.createElement('span'); s.textContent = w; el.appendChild(s); }
+        }
+        return el;
+    };
+
+    if (view === 'thread') {
+        const named = links.filter(l => l.word).length;
+        const mean = Chain.cost(M, WEIGHTS.blend, seq) / links.length;
+        const sum = document.getElementById('thread-sum');
+        sum.textContent = `${photos.length} pictures · ${named} of ${links.length} steps named · ${mean.toFixed(2)} apart`;
+        sum.hidden = false;
+        const t = document.createElement('div'); t.className = 'thread';
+        links.forEach((l, k) => t.appendChild(strip(photos[k], photos[k + 1], l, k + 1)));
+        gallery.replaceWith(t);
+        counter.remove();
+        return;
+    }
+
+    const enhancedGallery = document.createDocumentFragment();
+    let photoIndex = 0; // tracks position in the photos array
+    let displayIndex = 0; // tracks the visual position for layout logic
+
+    while (photoIndex < photos.length) {
+        displayIndex++;
+        if (photoIndex > 0) enhancedGallery.appendChild(strip(photos[photoIndex - 1], photos[photoIndex], links[photoIndex - 1]));
+
+        // Every Nth position, a diptych of the next two in the chain
+        if (pairEvery > 0 && displayIndex % pairEvery === 0 && photoIndex + 1 < photos.length) {
+            const pair = document.createElement('div');
+            pair.classList.add('photo-pair');
+            pair.dataset.index = displayIndex;
+
+            const inner = document.createElement('div');
+            inner.classList.add('pair-inner');
+
+            for (let p = 0; p < 2; p++) {
+                const photo = photos[photoIndex];
+                const filename = photo.f;
+                const img = document.createElement('img');
+                img.src = '/photos/' + filename;
+                img.alt = photo.alt;
+                if (photo.w && photo.h) { img.style.aspectRatio = photo.w + '/' + photo.h; img.style.flexGrow = photo.w / photo.h; }
+                img.loading = photoIndex < 2 ? 'eager' : 'lazy';
+                setupLightboxTrigger(img, '/photos/' + filename, photo.alt);
+                inner.appendChild(img);
+                photoIndex++;
+            }
+
+            pair.appendChild(inner);
+            const pl = document.createElement('div');
+            pl.className = 'pair-link';
+            pl.textContent = links[photoIndex - 2].word || '·';
+            const col = document.createElement('div');
+            col.style.cssText = 'width:100%;max-width:min(1100px,100%)';
+            pair.replaceChildren(col); col.append(inner, pl);
+            enhancedGallery.appendChild(pair);
+        } else {
+            const photo = photos[photoIndex];
+            const filename = photo.f;
+            const wrap = document.createElement('div');
+            wrap.classList.add('photo-wrap');
+            wrap.dataset.index = displayIndex;
+
+            // Vary widths: every 3rd single photo is narrow
+            if (displayIndex % 3 === 2) {
+                wrap.classList.add('narrow');
+            }
+
+            // First item visible immediately
+            if (displayIndex === 1) {
+                wrap.classList.add('no-fade');
+            }
+
+            const img = document.createElement('img');
+            img.src = '/photos/' + filename;
+            img.alt = photo.alt;
+            if (photo.w && photo.h) img.style.aspectRatio = photo.w + '/' + photo.h;
+            img.loading = photoIndex < 2 ? 'eager' : 'lazy';
+            setupLightboxTrigger(img, '/photos/' + filename, photo.alt);
+
+            wrap.appendChild(img);
+            enhancedGallery.appendChild(wrap);
+            photoIndex++;
+        }
+    }
+
+    gallery.replaceChildren(enhancedGallery);
+
+    // Animate only intersecting items, never hide unread/unobserved photographs.
+    if ('IntersectionObserver' in window) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                if (!reducedMotion && entry.target.animate) {
+                    entry.target.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1500, easing: 'ease' });
+                }
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.05
+    });
+
+    document.querySelectorAll('.photo-wrap:not(.no-fade), .photo-pair').forEach(el => {
+        fadeObserver.observe(el);
+    });
+
+    // Photo counter — update on scroll
+    const counterObserver = new IntersectionObserver((entries) => {
+        // Find the most visible photo
+        let bestEntry = null;
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                bestEntry = entry;
+            }
+        });
+        if (bestEntry) {
+            counter.textContent = bestEntry.target.dataset.index;
+        }
+    }, {
+        threshold: 0.5
+    });
+
+    document.querySelectorAll('.photo-wrap, .photo-pair').forEach(el => {
+        counterObserver.observe(el);
+    });
+
+    }
+
+    // Set initial counter
+    counter.textContent = '1';
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    let lightboxOpener = null;
+
+    function openLightbox(src, alt) {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Move focus to the close control for keyboard users
+        lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        // Restore focus to the image that opened the lightbox
+        if (lightboxOpener && typeof lightboxOpener.focus === 'function') {
+            lightboxOpener.focus();
+        }
+        lightboxOpener = null;
+    }
+
+    // Make a gallery image open the lightbox by click or keyboard (Enter/Space)
+    function setupLightboxTrigger(img, src, alt) {
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        const open = () => {
+            lightboxOpener = img;
+            openLightbox(src, alt);
+        };
+        img.addEventListener('click', open);
+        img.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                open();
+            }
+        });
+    }
+
+    lightbox.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    // --- Auto-scroll: scroll each photo to center, hold, then continue ---
+    (function() {
+        // Respect users who prefer reduced motion — don't self-scroll the page
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
+        // Auto-scroll on all devices — touch users can still scroll manually
+
+        const allWraps = document.querySelectorAll('.photo-wrap, .photo-pair');
+        let currentPhotoIndex = 0;
+        let paused = false;
+        let manualPaused = false;
+        let manualPauseTimer = null;
+        let holdTimer = null;
+        let stopped = false;
+        // Generation token: incremented whenever the scroll chain must be
+        // invalidated (manual scroll, resume) so stale loops/timers bail out
+        // instead of fighting each other and double-incrementing the index.
+        let scrollGen = 0;
+
+        // Visual indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'auto-scroll-indicator';
+        indicator.textContent = 'scrolling';
+        document.body.appendChild(indicator);
+        indicator.addEventListener('animationend', () => indicator.remove());
+
+        // Pause while the pointer is moving over a picture (desktop) or a finger
+        // is on one (mobile). A pointer merely resting on the page is not a
+        // pause: each wrap is a full-width block a screen tall, so a still
+        // pointer anywhere below the header sits inside one, and the page
+        // scrolling under it counts as entering. Only real movement over the
+        // picture itself holds the walk, and it lets go after a moment of rest.
+        const HOVER_STILL_MS = 1500;
+        let hoverTimer = null;
+        allWraps.forEach(wrap => {
+            wrap.querySelectorAll('img').forEach(img => {
+                img.addEventListener('mousemove', (e) => {
+                    if (e.movementX === 0 && e.movementY === 0) return; // scroll-induced, not a hand
+                    paused = true;
+                    clearTimeout(hoverTimer);
+                    hoverTimer = setTimeout(() => { paused = false; }, HOVER_STILL_MS);
+                });
+                img.addEventListener('mouseleave', () => { clearTimeout(hoverTimer); paused = false; });
+            });
+            wrap.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+            wrap.addEventListener('touchend', () => { paused = false; }, { passive: true });
+        });
+
+        // Pause on manual scroll — stop auto completely, resume after 10s idle
+        function onManualScroll() {
+            manualPaused = true;
+            // Invalidate any in-flight scroll chain so old loops/timers bail
+            scrollGen++;
+            clearTimeout(manualPauseTimer);
+            clearTimeout(holdTimer);
+            manualPauseTimer = setTimeout(() => {
+                manualPaused = false;
+                // Find which photo is currently centered and resume from there
+                let closest = 0;
+                let closestDist = Infinity;
+                allWraps.forEach((wrap, i) => {
+                    const el = wrap.querySelector('.pair-inner') || wrap.querySelector('img') || wrap;
+                    const rect = el.getBoundingClientRect();
+                    const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+                    if (Math.abs(center) < closestDist) {
+                        closestDist = Math.abs(center);
+                        closest = i;
+                    }
+                });
+                currentPhotoIndex = closest + 1;
+                // Fresh generation for the resumed chain
+                scrollGen++;
+                scrollToPhoto(currentPhotoIndex);
+            }, 10000);
+        }
+        window.addEventListener('wheel', onManualScroll, { passive: true });
+        window.addEventListener('touchmove', onManualScroll, { passive: true });
+
+        function scrollToPhoto(index) {
+            // Capture the generation for this chain; bail if superseded
+            const myGen = scrollGen;
+            if (myGen !== scrollGen) return;
+            if (index >= allWraps.length || stopped) { stopped = true; return; }
+            const wrap = allWraps[index];
+            const img = wrap.querySelector('img');
+            if (!img) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); return; }
+
+            // For pairs, center on the .pair-inner; for singles, center on the img
+            const centerEl = wrap.querySelector('.pair-inner') || img;
+
+            function doScroll() {
+                if (myGen !== scrollGen) return;
+                const imgRect = centerEl.getBoundingClientRect();
+                // If image hasn't loaded yet (height 0), wait
+                if (imgRect.height < 50 && img.naturalHeight === 0) {
+                    img.addEventListener('load', doScroll, { once: true });
+                    return;
+                }
+
+                const targetY = window.scrollY + imgRect.top - (window.innerHeight - imgRect.height) / 2;
+                const startY = window.scrollY;
+                const distance = targetY - startY;
+
+                // Skip if already very close
+                if (Math.abs(distance) < 10) {
+                    holdTimer = setTimeout(() => {
+                        if (myGen !== scrollGen) return;
+                        if (!stopped) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); }
+                    }, 4000);
+                    return;
+                }
+
+                const duration = Math.min(Math.abs(distance) * 8, 8000);
+                let elapsed = 0;
+                let lastTime = performance.now();
+
+                function animate(now) {
+                    if (myGen !== scrollGen) return;
+                    if (paused || manualPaused) {
+                        lastTime = now; // don't count paused time
+                        requestAnimationFrame(animate);
+                        return;
+                    }
+                    elapsed += now - lastTime;
+                    lastTime = now;
+
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = -(Math.cos(Math.PI * progress) - 1) / 2;
+                    window.scrollTo(0, startY + distance * ease);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        holdTimer = setTimeout(() => {
+                            if (myGen !== scrollGen) return;
+                            if (!stopped) { currentPhotoIndex++; scrollToPhoto(currentPhotoIndex); }
+                        }, 4000);
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            doScroll();
+        }
+
+        // Start after page settles
+        setTimeout(() => {
+            scrollToPhoto(0);
+        }, 2000);
+    })();
+    }
+    main();
+    </script>
+</body>
+</html>

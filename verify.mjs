@@ -70,6 +70,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import assert from 'node:assert/strict'
 import { spawn } from 'node:child_process'
+import { createRequire } from 'node:module'
 
 const S = p => path.join(ROOT, 'studies', p)
 const read = p => fs.readFileSync(p, 'utf8')
@@ -394,6 +395,41 @@ check('study 12: the walk reads its numbers from the dials and pictures take the
   const oks = (r.stdout.match(/^ok /gm) || []).length
   assert.equal(r.status, 0, (r.stdout + r.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
   return `${Object.keys(d).length} dials, 0 timing literals in the script; walk + height ruling ${oks} checks at 1200x800`
+})
+
+check('study 13: the walk as a chain, each picture answering the one before, every step named or honestly left blank', () => {
+  const h = read(S('13/index.html')), d = JSON.parse(read(S('13/defaults.json')))
+  assert.match(h, NOINDEX, 'study 13 is noindexed')
+  const f = spawnSync('python3', [S('13/features.py'), '--check'], { encoding: 'utf8' })
+  assert.equal(f.status, 0, 'features.json matches the live catalogue and the files: ' + (f.stdout + f.stderr).trim())
+  const Chain = createRequire(import.meta.url)(S('13/chain.js'))
+  const P = JSON.parse(read(S('13/features.json'))).photos
+  const live = [...read(path.join(ROOT, 'photography.html')).matchAll(/\{ f: '([^']+)'/g)].map(m => m[1])
+  assert.deepEqual(P.map(p => p.f), live, 'the study walks exactly the live catalogue, nothing added or dropped')
+  const M = Chain.model(P), W = {}
+  for (const k of Chain.KEYS) W[k] = +d['w-' + k]
+  const lead = +d.lead, linkMin = +d['link-min']
+  const sets = { colour: { ...W, colour: W.colour * lead, tone: W.tone * lead }, line: { ...W, lines: W.lines * lead, horizon: W.horizon * lead, layout: W.layout * lead }, blend: W }
+  let rnd = 1; const rand = () => (rnd = (rnd * 1664525 + 1013904223) >>> 0) / 4294967296
+  const out = []
+  for (const [name, w] of Object.entries(sets)) {
+    const o = Chain.path(M, w)
+    assert.deepEqual(o.slice().sort((a, b) => a - b), P.map((_, i) => i), name + ' visits every picture once')
+    assert.deepEqual(Chain.path(M, w), o, name + ' is the same every time')
+    let shuf = 0
+    for (let t = 0; t < 40; t++) { const s = P.map((_, i) => i); for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [s[i], s[j]] = [s[j], s[i]] } shuf += Chain.cost(M, w, s) / 40 }
+    const c = Chain.cost(M, w, o), named = o.slice(1).filter((j, k) => Chain.link(M, w, o[k], j, linkMin).word).length
+    assert(c < shuf * 0.75, `${name}: neighbours ${(c / 70).toFixed(2)} apart, a shuffle ${(shuf / 70).toFixed(2)}; a chain must be clearly closer than chance`)
+    assert(named >= 56, `${name}: only ${named} of 70 steps have a reason to show`)
+    out.push(`${name} ${(c / 70).toFixed(2)} vs shuffle ${(shuf / 70).toFixed(2)}, ${named}/70 named`)
+  }
+  for (const [pg, extra] of [['/studies/13/?order=blend', {}]]) {
+    const r = spawnSync(process.execPath, ['tools/test_photo_autoscroll.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGE: pg, ...extra } })
+    assert.equal(r.status, 0, 'walk on the study: ' + (r.stdout + r.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
+  }
+  const a = spawnSync(process.execPath, ['tools/test_photo_aspect.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGES: '/studies/13/?order=colour,/studies/13/?order=line&view=thread' } })
+  assert.equal(a.status, 0, 'no stretched picture on the study: ' + (a.stdout + a.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
+  return out.join('; ') + '; walk rules hold; no picture stretched at six screens'
 })
 
 for (const [name, fn, skip] of checks) {
