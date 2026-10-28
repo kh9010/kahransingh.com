@@ -1,0 +1,20 @@
+{
+  "_about": "Where each 'Right now' line on the home page links. Empty href = no link (the note says coming soon) until that piece has been submitted to an open call. current = how the weekly drift check decides a filled link is the newest version.",
+  "lines": [
+    {
+      "id": "mirror",
+      "href": "",
+      "current": {
+        "kind": "ypf-latest-version",
+        "source": "https://kh9010.github.io/your-poetic-face/"
+      }
+    },
+    {
+      "id": "metro",
+      "href": "",
+      "current": {
+        "kind": "head-200"
+      }
+    }
+  ]
+}
