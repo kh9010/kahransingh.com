@@ -146,7 +146,7 @@ PASS no instruction text and nothing a mock would not carry: 7 pages, 0 hits
 PASS every name and year on a study is already on the site: 139 names and 34 years checked against 14 public pages
 PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 62 dials across 6 studies, fallbacks match
 PASS every link out of a study resolves: 286 internal targets exist on disk, 50 external left to the link audit
-PASS the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows: 30 checks, rendered at 1200x800 and 390x844
+PASS the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows: 31 checks, rendered at 1200x800 and 390x844
 PASS idea details: coverage, audited graph, public provenance: idea coverage: 6 ideas, 26 explained tools; audited graph: 5 data arrows, 20 surface feeds; public provenance: 26 tools with repository sources
 ```
 

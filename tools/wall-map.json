@@ -1,0 +1,52 @@
+{
+  "_about": [
+    "What runs behind each part on the wall. The parts themselves live in IDEAS at the top of v2/home.js and nowhere else; this file only says which scheduled things embody each one, keyed by the part's name.",
+    "Read weekly by transforms/wall_drift.py in the system repo on the always-on machine, which reports a part whose things have stopped and a running thing that no part (and no plumbing line) accounts for. node verify.mjs fails if this file and IDEAS name different parts.",
+    "A ref is one of: a scheduler job or Samwise lane name (bare, e.g. curator); a launchd label (has a dot, e.g. com.kahran.frame-us); or hermes:<cron job name>. Globs (*) allowed. A glob ref is dead only when nothing it matches is alive; an exact ref is dead when anything it names has stopped.",
+    "plumbing: running things that are deliberately not a part of any idea. Adding a line here is how a new job is accepted as not belonging on the wall."
+  ],
+  "parts": {
+    "Raw store": ["raw-*", "com.kahran.raw-store"],
+    "The WhatsApp assistant": ["ai.hermes.gateway", "hermes-fold", "hermes-drop-fold", "hermes-task", "com.kahran.voice-watch", "voice-digest", "voice-relay", "view-calendar-days", "view-people-meetings", "view-status-today"],
+    "Where I am": ["presence", "trip-legs"],
+    "Right now": ["context-open"],
+
+    "The miners": ["conversation-miner", "voice-note-miner", "granola-mine", "hint-mining", "morning-extras", "coach-call-miner"],
+    "The judge": ["judge-proposals"],
+    "The Curator": ["curator", "backlog-pull"],
+    "The groomer": ["pending-groom", "pending-decompose"],
+    "Meeting follow-ups": ["com.kahran.granola-followup"],
+    "The sparks garden": ["com.kahran.sparks-watch", "sparks-fold", "com.kahran.sparks-canvas"],
+
+    "Mail triage": ["mail-triage-refresh", "mail-triage", "mail-bridge", "com.kahran.mail-triage-watcher", "view-mail-recent", "view-mail-pending", "meeting-reconcile", "hermes:mail-sweep"],
+    "The newsletter reader": ["com.kahran.feed-reader"],
+    "Lost touch": ["view-dormant-ties", "city-proposals"],
+    "The weekly record": ["com.kahran.weekly-record-publish", "record-build"],
+
+    "The day planner": ["day-planner", "planner-daily", "recovery", "oura", "adherence", "hermes:morning-brief"],
+    "The midday door": ["midday-door"],
+    "The workout planner": ["planner-daily", "log-workout-live"],
+    "Noticings": ["noticings-grower"],
+    "Travel days": ["flight-routine"],
+
+    "Samwise": ["com.kahran.samwise", "samwise-fresh"],
+    "The repairer": ["samwise-fix", "samwise-repair"],
+    "The health page": ["com.kahran.now-web"],
+
+    "The lights": ["com.kahran.home-net", "com.kahran.home-net-homekit", "com.kahran.home-net-ui", "com.kahran.home-net-usage"],
+    "The bedroom frame": ["com.kahran.frame-us"],
+    "The family archive": ["com.kahran.immich-family", "com.kahran.immich-family-outcomes", "com.kahran.immich-family-gepa", "immich-family-*"],
+    "This page": ["com.kahran.daily-pick-publish", "com.kahran.place-feed-publish", "site-daily-pick", "site-place-feed"]
+  },
+  "plumbing": [
+    "oura-pull", "oura-pull-pm", "fts-index", "granola-rollup", "granola", "granola-plugin", "mining-health",
+    "feedback", "feedback-pipe", "now-chat", "now-chat-door", "notify-door", "scheduler", "place-affinity",
+    "claude-sessions-digest", "classify-owners", "repo-hygiene", "skills-roster", "activity-log-freshness",
+    "activity-records", "sync-conflict-janitor", "wa-sweep", "wall-drift",
+    "armoire-weekly", "armoire-notebook",
+    "com.kahran.scheduler", "com.kahran.whatsapp-keepalive", "com.kahran.obsidian-keepalive",
+    "com.kahran.granola-watch", "com.kahran.system-inbox-lane", "com.kahran.capture-health",
+    "com.kahran.sync-health", "com.kahran.ollama", "com.kahran.contacts-sync-detector",
+    "com.kahran.site-preview-publish", "com.kahran.raw-store-audit", "com.kahran.raw-store-backup"
+  ]
+}
