@@ -644,6 +644,24 @@
         "wind_kmh": 13.9,
         "cloud_pct": 0
       }
+    },
+    "2026-10-27": {
+      "poem": "have-you-watched-creepers-creep",
+      "photo": "/photos/scooter-beach.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.9607688479920539,
+        "warmth": 0.7742857142857144,
+        "wet": 0.35,
+        "stillness": 0.9824999999999999,
+        "season": 0.20497776302256865,
+        "inside": 0.7121428571428572,
+        "mood": 0.5,
+        "weather_code": 53,
+        "tmax": 22.1,
+        "wind_kmh": 12.7,
+        "cloud_pct": 77
+      }
     }
   }
 }
