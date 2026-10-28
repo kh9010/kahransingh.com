@@ -725,6 +725,69 @@
     };
   })();
 
+  /* ------------------------------------------ right now: the notes ------ */
+
+  /* The lines under the tools line each open a short note: hover on a mouse,
+     a tap or Enter pins it, a second tap, Escape or a tap elsewhere puts it
+     away. Where each line links is v2/right-now.json and nowhere else (the
+     weekly drift check reads the same file); an empty href shows "coming soon"
+     in place of the link, so filling the href is the whole edit. */
+  (function () {
+    var items = Array.prototype.slice.call(document.querySelectorAll('.doing-item[data-line]'));
+    if (!items.length) return;
+    var hover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var open = null, pinned = false;
+    function set(item, on) {
+      item.classList.toggle('is-open', on);
+      item.querySelector('.doing-bullet').setAttribute('aria-expanded', on ? 'true' : 'false');
+    }
+    function show(item, pin) {
+      if (open && open !== item) set(open, false);
+      open = item; pinned = pin; set(item, true);
+    }
+    function hide() { if (open) set(open, false); open = null; pinned = false; }
+    items.forEach(function (item) {
+      var bullet = item.querySelector('.doing-bullet');
+      bullet.addEventListener('click', function () {
+        if (open === item && pinned) hide(); else show(item, true);
+      });
+      item.addEventListener('pointerenter', function (e) {
+        if (e.pointerType === 'mouse' && hover.matches && !(pinned && open !== item)) show(item, false);
+      });
+      item.addEventListener('pointerleave', function (e) {
+        if (e.pointerType === 'mouse' && open === item && !pinned) hide();
+      });
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (open && !open.contains(e.target)) hide();
+    });
+    document.addEventListener('focusin', function (e) {
+      if (open && !open.contains(e.target)) hide();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && open) {
+        var b = open.querySelector('.doing-bullet');
+        hide(); b.focus({ preventScroll: true });
+      }
+    });
+
+    fetch('/v2/right-now.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (d) {
+        var lines = (d && Array.isArray(d.lines)) ? d.lines : [];
+        items.forEach(function (item) {
+          var line = lines.filter(function (l) { return l && l.id === item.getAttribute('data-line'); })[0];
+          if (!line) return;
+          var href = typeof line.href === 'string' ? line.href.trim() : '';
+          var play = item.querySelector('.doing-play'), soon = item.querySelector('.doing-soon');
+          if (href) { play.setAttribute('href', href); play.hidden = false; soon.hidden = true; }
+          else { play.removeAttribute('href'); play.hidden = true; soon.hidden = false; }
+        });
+        document.documentElement.setAttribute('data-right-now', d ? 'ready' : 'missing');
+      });
+  })();
+
   /* ------------------------------------------------------------- go ------- */
 
   var asked = location.hash.replace(/^#/, '');
