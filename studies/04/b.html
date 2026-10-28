@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 04 · B</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #1a1a1a; --ink2: #4a4a4a; --line: rgba(26,26,26,.18); --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; --top: #cfe0f0; --bottom: #f6e6d4; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body { background: linear-gradient(var(--top), var(--bottom)); color: var(--ink); font: 400 .78rem/1.4 var(--sans); }
+body.night { --ink: #f3efe6; --ink2: rgba(243,239,230,.75); --line: rgba(243,239,230,.22); }
+.top { position: fixed; top: 0; left: 0; right: 0; z-index: 3; }
+.cap { padding: 6px 16px; color: var(--ink2); font-size: .72rem; z-index: 3; border-bottom: 1px solid var(--line); }
+.cap a { color: inherit; }
+header { padding: 8px 16px; display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+h1 { font: 500 1.4rem var(--sans); margin: 0; } header span { color: var(--ink2); }
+header nav a { color: var(--ink); margin-right: 10px; }
+#n { position: fixed; z-index: 3; left: 16px; bottom: 16px; color: var(--ink2); font: 400 .72rem var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+canvas { position: fixed; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#face { position: fixed; z-index: 3; right: 16px; bottom: 16px; width: min(300px, calc(100% - 32px)); background: rgba(255,255,255,.82); color: #1a1a1a; backdrop-filter: blur(8px); border-radius: 6px; padding: 10px; opacity: 0; transform: translateY(8px); transition: opacity .2s cubic-bezier(.4,0,.2,1), transform .2s cubic-bezier(.4,0,.2,1); pointer-events: none; }
+#face.on { opacity: 1; transform: none; pointer-events: auto; }
+#face small { color: #6e6e6e; display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+#face img { width: 100%; max-height: 36vh; object-fit: cover; border-radius: 3px; display: block; }
+#face q { font: italic 400 1.1rem/1.35 var(--serif); quotes: none; display: block; } #face b { font: 400 1.15rem var(--serif); display: block; }
+#face a { color: inherit; } #face p { margin: 4px 0 0; color: #6e6e6e; }
+#say { position: fixed; z-index: 4; pointer-events: none; font: italic 400 1rem var(--serif); background: #fff; color: #1a1a1a; padding: 4px 9px; border-radius: 12px; opacity: 0; transition: opacity .2s; white-space: nowrap; }
+#say.on { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="top"><div class="cap">draws on: Zoomquilt (“it doesn’t feel like it repeats”) · Cheeseboard · Pug in a Rug · MSCHF · his words: “I want it to have that mischievous, playful side” · <a href="./">04</a></div>
+<header><h1>kahran singh</h1><span>Poet, investor, and builder.</span><nav><a href="/poetry.html">poems</a><a href="/photography.html">photographs</a><a href="/context/">tools</a></nav></header></div>
+<div id="n"></div>
+<div id="face"></div>
+<div id="say"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../03/shared.js"></script>
+<script src="sky.js"></script>
+<script>
+const $ = s => document.querySelector(s)
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); document.body.prepend(renderer.domElement)
+const scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(34, 1, .1, 100); cam.position.set(0, 0, 7)
+const hemi = new THREE.HemisphereLight(0xffffff, 0x888888, .9), sun = new THREE.DirectionalLight(0xffffff, .7); sun.position.set(3, 4, 5); scene.add(hemi, sun)
+
+// ── 80 facets; each triangle maps onto its own cell of one atlas canvas
+const geo = new THREE.IcosahedronGeometry(1.6, 1), N = geo.attributes.position.count / 3
+const COLS = 10, ROWS = 8, AW = 2040, AH = 2048, CW = AW / COLS, CH = AH / ROWS
+const atlas = document.createElement('canvas'); atlas.width = AW; atlas.height = AH
+const ax = atlas.getContext('2d'), tex = new THREE.CanvasTexture(atlas); tex.anisotropy = 4
+const uv = []
+for (let f = 0; f < N; f++) { const c = f % COLS, r = Math.floor(f / COLS), u0 = c / COLS, u1 = (c + 1) / COLS, v1 = 1 - r / ROWS, v0 = 1 - (r + 1) / ROWS; uv.push(u0, v0, u1, v0, (u0 + u1) / 2, v1) }
+geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2))
+const gem = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ map: tex, flatShading: true, roughness: .45, metalness: .05 }))
+gem.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: .55 })))
+scene.add(gem)
+const centre = [], normal = []
+for (let f = 0; f < N; f++) { const p = i => new THREE.Vector3().fromBufferAttribute(geo.attributes.position, f * 3 + i), a = p(0), b = p(1), c = p(2)
+  centre.push(a.clone().add(b).add(c).divideScalar(3)); normal.push(new THREE.Vector3().subVectors(b, a).cross(new THREE.Vector3().subVectors(c, a)).normalize()) }
+
+// ── what lives on a facet; the pool deals a new thing whenever a facet turns away after being seen
+const imgs = {}, face = new Array(N), seen = new Array(N).fill(false)
+let pool = [], deal = 0, dealt = 0
+const INKS = ['#f4efe4', '#1f2a44', '#e8d6c0', '#2e3a2f', '#f1e2e6', '#3b2f2a']
+function wrap(ctx, text, w) { const out = []; let line = ''; for (const word of text.split(' ')) { const t = line ? line + ' ' + word : word; if (ctx.measureText(t).width > w && line) { out.push(line); line = word } else line = t } out.push(line); return out }
+function paint(f) {
+  const it = face[f], x = (f % COLS) * CW, y = Math.floor(f / COLS) * CH
+  ax.save(); ax.beginPath(); ax.rect(x, y, CW, CH); ax.clip()
+  const bg = INKS[f % INKS.length], dark = /^#[0-3]/.test(bg); ax.fillStyle = bg; ax.fillRect(x, y, CW, CH)
+  const txt = dark ? '#f4efe4' : '#1a1a1a'; ax.fillStyle = txt; ax.textAlign = 'center'
+  if (it.kind === 'photo') { const im = imgs[it.src]; if (im && im.complete && im.naturalWidth) { const s = Math.max(CW / im.naturalWidth, CH / im.naturalHeight); ax.drawImage(im, x + (CW - im.naturalWidth * s) / 2, y + (CH - im.naturalHeight * s) / 2, im.naturalWidth * s, im.naturalHeight * s) } }
+  else if (it.kind === 'poem') { ax.font = 'italic 19px Fraunces, Georgia, serif'; wrap(ax, it.line, CW * .62).slice(0, 4).forEach((l, i) => ax.fillText(l, x + CW / 2, y + CH * .58 + i * 22)) }
+  else if (it.kind === 'place') { ax.font = '500 30px "Space Grotesk", sans-serif'; ax.fillText(it.temp || '·', x + CW / 2, y + CH * .66); ax.font = '15px "Space Grotesk", sans-serif'; ax.fillText(it.cloud, x + CW / 2, y + CH * .8) }
+  else if (it.kind === 'tool') { ax.font = '500 17px "Space Grotesk", sans-serif'; wrap(ax, it.name, CW * .6).forEach((l, i) => ax.fillText(l, x + CW / 2, y + CH * .66 + i * 20)) }
+  ax.restore(); tex.needsUpdate = true
+}
+function give(f) {
+  const it = pool[deal++ % pool.length]; face[f] = it; dealt++
+  if (it.kind === 'photo' && !imgs[it.src]) { const im = imgs[it.src] = new Image(); im.onload = () => face.forEach((x, k) => x && x.src === it.src && paint(k)); im.src = it.src }
+  paint(f)
+}
+
+// ── the one who lives on a facet: two eyes, watches the pointer, hops away when poked, wanders
+const imp = new THREE.Mesh(new THREE.PlaneGeometry(.62, .62), new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false }))
+const ic = document.createElement('canvas'); ic.width = ic.height = 128; const ix = ic.getContext('2d'); imp.material.map = new THREE.CanvasTexture(ic); gem.add(imp)
+let home = 0, blink = 0
+const SAYS = ['hey', 'rude', 'not that one', 'still here', 'boo', 'try the other side', 'that tickles', 'ok fine']
+function settle(f) { home = f; imp.position.copy(centre[f]).addScaledVector(normal[f], .012); imp.lookAt(imp.position.clone().add(normal[f])) }
+function drawImp(px, py) {
+  ix.clearRect(0, 0, 128, 128); ix.fillStyle = '#3a6ff7'; ix.beginPath(); ix.arc(64, 70, 44, 0, 7); ix.fill()
+  for (const ex of [46, 82]) { ix.fillStyle = '#fff'; ix.beginPath(); ix.ellipse(ex, 62, 12, blink > 0 ? 1.5 : 14, 0, 0, 7); ix.fill()
+    if (blink <= 0) { ix.fillStyle = '#111'; ix.beginPath(); ix.arc(ex + px * 5, 62 + py * 6, 5.5, 0, 7); ix.fill() } }
+  imp.material.map.needsUpdate = true
+}
+
+// ── turning
+const q = gem.quaternion; let drag = null, moved = 0, vel = new THREE.Vector2(.6, .15), mouse = new THREE.Vector2(), last = 0
+renderer.domElement.addEventListener('pointerdown', e => { drag = [e.clientX, e.clientY]; moved = 0; renderer.domElement.setPointerCapture(e.pointerId) })
+addEventListener('pointermove', e => {
+  mouse.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1)
+  if (!drag) return; const dx = e.clientX - drag[0], dy = e.clientY - drag[1]; drag = [e.clientX, e.clientY]; moved += Math.abs(dx) + Math.abs(dy); vel.set(dx, dy); turn(dx, dy)
+})
+addEventListener('pointerup', e => { if (drag && moved < 6) tap(e); drag = null })
+function turn(dx, dy) { const a = Math.hypot(dx, dy) * .007; if (a) q.premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(dy, dx, 0).normalize(), a)) }
+const ray = new THREE.Raycaster()
+function tap(e) {
+  ray.setFromCamera(new THREE.Vector2(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1), cam)
+  if (ray.intersectObject(imp).length) return poke()
+  const hit = ray.intersectObject(gem, false)[0]; if (!hit) return $('#face').classList.remove('on')
+  const it = face[Math.floor(hit.faceIndex)], f = $('#face')
+  f.innerHTML = it.kind === 'photo' ? `<small>photograph</small><a href="${it.href}"><img src="${it.src}" alt=""></a><p>${it.cap}</p>`
+    : it.kind === 'poem' ? `<small>${it.title}</small><a href="${it.href}" style="text-decoration:none"><q>${it.line}</q></a>`
+    : it.kind === 'place' ? `<small>where I am</small><b>${it.line}</b><p>${[it.temp, it.cloud].filter(Boolean).join(' · ')}</p>`
+    : `<small>tool</small><b><a href="${it.href}">${it.name}</a></b><p>${it.note}</p>`
+  f.classList.add('on')
+}
+function poke() {
+  const s = $('#say'), p = imp.getWorldPosition(new THREE.Vector3()).project(cam)
+  s.textContent = SAYS[Math.floor(Math.random() * SAYS.length)]; s.style.left = ((p.x + 1) / 2 * innerWidth + 20) + 'px'; s.style.top = ((1 - p.y) / 2 * innerHeight - 40) + 'px'; s.classList.add('on')
+  setTimeout(() => s.classList.remove('on'), 1400)
+  // hop to a facet on the far side
+  const far = []; for (let f = 0; f < N; f++) if (normal[f].clone().applyQuaternion(q).z < -.4) far.push(f)
+  setTimeout(() => settle(far[Math.floor(Math.random() * far.length)] ?? 0), 500); vel.set(9, 2)
+}
+function wander() { // step to a neighbouring facet now and then
+  const near = centre.map((c, f) => [f, c.distanceTo(centre[home])]).filter(([f, d]) => f !== home && d < .75).map(([f]) => f)
+  if (near.length) settle(near[Math.floor(Math.random() * near.length)])
+}
+
+function size() { renderer.setSize(innerWidth, innerHeight, false); cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); cam.position.z = Math.max(7, 4 / (.61 * cam.aspect)); gem.position.y = innerWidth > 800 ? -.1 : .2 }
+S03.load().then(c => {
+  const s = S04.sky(c.reading), F = S04.facets(c)
+  document.documentElement.style.setProperty('--top', s.top); document.documentElement.style.setProperty('--bottom', s.bottom)
+  document.body.classList.toggle('night', s.topRGB[0] * .3 + s.topRGB[1] * .59 + s.topRGB[2] * .11 < 120)
+  hemi.color.set(s.top); hemi.groundColor.set(s.bottom)
+  // today's order: seeded by the date and the hour, so the stone is dealt differently every visit
+  let seed = S03.hash(c.iso + Math.floor(s.hour) + Math.random()); const rnd = () => (seed = Math.imul(seed ^ seed >>> 15, 2246822507) + 1 >>> 0) / 4294967296
+  const rest = [...F.photos.slice(1), ...F.lines.slice(1), ...F.tools, ...F.tools].sort(() => rnd() - .5)
+  pool = [F.photos[0], F.lines[0], F.place, ...rest]
+  // the first three land on facets that face you
+  const front = [...Array(N).keys()].sort((a, b) => normal[b].z - normal[a].z)
+  front.forEach((f, i) => give(f))
+  settle(front[5]); size()
+  document.fonts.ready.then(() => face.forEach((x, k) => x && paint(k)))
+})
+let t0 = 0, wanderAt = 6000
+function frame(now) {
+  const dt = Math.min(50, now - t0); t0 = now
+  if (!drag) { vel.multiplyScalar(.97); if (vel.length() < .35) vel.setLength(.35); turn(vel.x, vel.y) }
+  if (pool.length) for (let f = 0; f < N; f++) { const z = normal[f].clone().applyQuaternion(q).z; if (z > .3) seen[f] = true; else if (seen[f] && z < -.3) { seen[f] = false; give(f) } }
+  $('#n').textContent = dealt ? dealt + ' faces' : ''
+  // eyes follow the pointer, in the imp's own frame
+  const ip = imp.getWorldPosition(new THREE.Vector3()).project(cam); blink -= dt; if (Math.random() < .004) blink = 140
+  drawImp(Math.max(-1, Math.min(1, (mouse.x - ip.x) * 2)), Math.max(-1, Math.min(1, -(mouse.y - ip.y) * 2)))
+  if ((wanderAt -= dt) < 0) { wander(); wanderAt = 4000 + Math.random() * 5000 }
+  renderer.render(scene, cam); requestAnimationFrame(frame)
+}
+size(); addEventListener('resize', size); requestAnimationFrame(frame)
+</script>
+</body>
+</html>

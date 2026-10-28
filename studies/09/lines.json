@@ -1,0 +1,134 @@
+[
+ {
+  "id": "opening",
+  "label": "opening",
+  "kind": "p",
+  "options": [
+   {
+    "from": "08",
+    "html": "Hello. I’m Kahran."
+   },
+   {
+    "from": "06",
+    "html": "Poet, investor, counsel to founders. Bangalore and New York."
+   },
+   {
+    "from": "07",
+    "html": "I make poems, photographs, tools and companies, and I am learning Kathak. One of each."
+   }
+  ]
+ },
+ {
+  "id": "tools",
+  "label": "the tools",
+  "kind": "p",
+  "options": [
+   {
+    "from": "08",
+    "html": "I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and <a href=\"/lately/\">a public record</a> of what got built. The <a href=\"/\">photograph and poem on the home page</a> come out of the same machine, one of each a day."
+   },
+   {
+    "from": "07",
+    "html": "Most days I build software with Claude: tools to support myself, worked out from what I already leave behind, so they almost never have to ask. One place everything lands, a day planned from it, and a public record of what got built each week."
+   },
+   {
+    "from": "06",
+    "html": "<span class=\"y\">now</span><span class=\"t\">Building software with Claude most days: tools to support myself, worked out from what I already leave behind. <a href=\"/lately/\">The record is public.</a></span>"
+   }
+  ]
+ },
+ {
+  "id": "companies",
+  "label": "the companies",
+  "kind": "p",
+  "options": [
+   {
+    "from": "08",
+    "html": "I run a storytelling studio, <a href=\"https://joyus.studio\">Joyus</a>, with Divya Tak. I invest early with Sweta and Sahil at Tres Monos Capital, sit on the board of TomboyX, and keep <a href=\"/working-with-me.html\">a few standing slots</a> for founders in the middle of something that matters. Before that I ran Vidyanext in Bangalore. When it could not be saved, I placed all 65+ people in two months."
+   },
+   {
+    "from": "07",
+    "html": "Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months."
+   }
+  ]
+ },
+ {
+  "id": "poems",
+  "label": "the poems",
+  "kind": "p",
+  "options": [
+   {
+    "from": "07",
+    "html": "How the World Works, a first book, 2022. 97 poems on this site since, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa."
+   },
+   {
+    "from": "06",
+    "html": "<span class=\"y\">2022</span><span class=\"t\">How the World Works, a first book of poems. <a href=\"/poetry.html\">97 poems</a> on this site since.</span>"
+   }
+  ]
+ },
+ {
+  "id": "photographs",
+  "label": "the photographs",
+  "kind": "p",
+  "options": [
+   {
+    "from": "07",
+    "html": "A Leica Q2 Monochrome, and a Q2 for colour. The pictures keep company with the poems: the home page pairs one of each every morning."
+   },
+   {
+    "from": "06",
+    "html": "<span class=\"y\">now</span><span class=\"t\">Photographs on a Leica Q2 Monochrome. <a href=\"/photography.html\">One a day on the home page</a>, with a poem.</span>"
+   }
+  ]
+ },
+ {
+  "id": "making",
+  "label": "the camera, the dance, the marriage",
+  "kind": "p",
+  "options": [
+   {
+    "from": "08",
+    "html": "I shoot on a Leica Q2 Monochrome. I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we <a href=\"/elopement/\">eloped in Telluride</a>, in the snow, and did it again <a href=\"/wedding-celebration.html\">in Jaisalmer</a> with 150 people a year later."
+   },
+   {
+    "from": "06",
+    "html": "<span class=\"y\">now</span><span class=\"t\">Learning Kathak from <a href=\"https://www.rachnanivas.com/kathaklegacyproject\">Rachna Nivas</a> at the Kathak Legacy Project, New York.</span>"
+   },
+   {
+    "from": "06",
+    "html": "<span class=\"y\">2022</span><span class=\"t\">Married Gourav in Jaisalmer: <a href=\"/wedding-celebration.html\">four days at Suryagarh, 150 guests</a>.</span>"
+   },
+   {
+    "from": "06",
+    "html": "<span class=\"y\">2021</span><span class=\"t\"><a href=\"/elopement/\">Eloped with Gourav in Telluride</a>, in the snow, in Indian dress.</span>"
+   }
+  ]
+ },
+ {
+  "id": "close",
+  "label": "the close",
+  "kind": "p",
+  "options": [
+   {
+    "from": "08",
+    "html": "Write to me. Tell me what’s going on. <span class=\"sign\">K</span>"
+   }
+  ]
+ },
+ {
+  "id": "years",
+  "label": "the years",
+  "kind": "ledger",
+  "options": [
+   {
+    "from": "08",
+    "html": "<li><span class=\"y\">now</span><span class=\"t\">Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</span></li>\n<li><span class=\"y\">2025</span><span class=\"t\">Board of TomboyX. <a href=\"/speaking.html\">A panel in Kauai, seven StartOut talks.</a></span></li>\n<li><span class=\"y\">2024</span><span class=\"t\"><a href=\"/poem-films.html\">Poem Films</a>, with Divya Tak. SEEN V, Boulder.</span></li>\n<li><span class=\"y\">2022</span><span class=\"t\">Joyus Studio. How the World Works, a first book. Jaisalmer.</span></li>\n<li><span class=\"y\">2021</span><span class=\"t\">Telluride.</span></li>\n<li><span class=\"y\">2017</span><span class=\"t\">Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</span></li>\n<li><span class=\"y\">2015</span><span class=\"t\">Vidyanext, Bangalore, until 2019.</span></li>\n<li><span class=\"y\">2012</span><span class=\"t\">Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</span></li>\n<li><span class=\"y\">2009</span><span class=\"t\">Microsoft, after an internship in the House of Commons.</span></li>\n<li><span class=\"y\">2006</span><span class=\"t\">Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</span></li>"
+   },
+   {
+    "from": "06",
+    "html": "<li><span class=\"y\">now</span><span class=\"t\">Building software with Claude most days: tools to support myself, worked out from what I already leave behind. <a href=\"/lately/\">The record is public.</a></span></li>\n<li><span class=\"y\">now</span><span class=\"t\">MFA candidate in Writing and Poetics at the Jack Kerouac School, Naropa University.</span></li>\n<li><span class=\"y\">now</span><span class=\"t\">Learning Kathak from <a href=\"https://www.rachnanivas.com/kathaklegacyproject\">Rachna Nivas</a> at the Kathak Legacy Project, New York.</span></li>\n<li><span class=\"y\">now</span><span class=\"t\">Photographs on a Leica Q2 Monochrome. <a href=\"/photography.html\">One a day on the home page</a>, with a poem.</span></li>\n<li><span class=\"y\">2025–</span><span class=\"t\">Board of TomboyX. Led the board through a recapitalization designed so employees’ equity was made right.</span></li>\n<li><span class=\"y\">2025–26</span><span class=\"t\">Chief Revenue Officer at Klydo, a fashion platform built for India. Wound down in 2026.</span></li>\n<li><span class=\"y\">2025</span><span class=\"t\">A panel at the Common Ground Summit, Kauai, and seven StartOut talks on fundraising and generative AI. <a href=\"/speaking.html\">Speaking.</a></span></li>\n<li><span class=\"y\">2024–</span><span class=\"t\">Mentor at StartOut. The Line Before, an interactive installation with Divya Tak, submitted to Science Gallery Bengaluru.</span></li>\n<li><span class=\"y\">2024</span><span class=\"t\"><a href=\"/poem-films.html\">Poem Films</a> with Divya Tak. Selected for SEEN V by Creativity Alive Boulder; shown at Boulder Public Library.</span></li>\n<li><span class=\"y\">2022–</span><span class=\"t\">Co-founded <a href=\"https://joyus.studio\">Joyus Studio</a> with Divya Tak: storytelling and experience design. A podcast, Thinking on Thinking. Comics about Mr Curl.</span></li>\n<li><span class=\"y\">2022</span><span class=\"t\">How the World Works, a first book of poems. <a href=\"/poetry.html\">97 poems</a> on this site since.</span></li>\n<li><span class=\"y\">2022</span><span class=\"t\">Married Gourav in Jaisalmer: <a href=\"/wedding-celebration.html\">four days at Suryagarh, 150 guests</a>.</span></li>\n<li><span class=\"y\">2021</span><span class=\"t\"><a href=\"/elopement/\">Eloped with Gourav in Telluride</a>, in the snow, in Indian dress.</span></li>\n<li><span class=\"y\">2019–</span><span class=\"t\">Advisor to Armoire.</span></li>\n<li><span class=\"y\">2017–</span><span class=\"t\">General Partner at <a href=\"https://tresmonos.capital\">Tres Monos Capital</a> with Sweta Jagirdar and Sahil Sagar: early-stage, underrepresented founders.</span></li>\n<li><span class=\"y\">2015–19</span><span class=\"t\">Vidyanext, Bangalore. CEO, then CMO and Head of Product. Took over after a leadership crisis; when it could not be saved, placed all 65+ people within two months.</span></li>\n<li><span class=\"y\">2012–15</span><span class=\"t\">Aditi Technologies, then Symphony Teleca: product, presales and programme management across the US, India and Russia.</span></li>\n<li><span class=\"y\">2011–12</span><span class=\"t\">DataSphere Technologies, mobile product lead.</span></li>\n<li><span class=\"y\">2010–11</span><span class=\"t\">TravelPost, first intern. Led the mobile product, later spun off as Trover.</span></li>\n<li><span class=\"y\">2009–10</span><span class=\"t\">Microsoft, program manager, student audience marketing. <em>Before it, an internship in the House of Commons.</em></span></li>\n<li><span class=\"y\">2006–11</span><span class=\"t\">Tufts University, computer science and economics; publisher of the Tufts Daily. A year abroad at University College London. Later, the French Culinary Institute, New York.</span></li>"
+   }
+  ]
+ }
+]

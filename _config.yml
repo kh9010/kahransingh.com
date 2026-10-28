@@ -1,0 +1,7 @@
+# GitHub Pages builds this repo with Jekyll. The site is hand-written HTML;
+# the working notes below are for whoever works on it, not for visitors.
+exclude:
+  - CLAUDE.md
+  - HANDOFF.md
+  - docs/
+  - tools/

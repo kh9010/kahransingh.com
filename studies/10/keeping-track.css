@@ -1,0 +1,23 @@
+/* kahransingh.com — /keeping-track/ (study 10)
+   The second idea with a page of its own. It inherits everything from
+   /context/context.css and re-tints the one colour: Context is the teal of its
+   tile, Keeping track is the moss of its own, hsl(96 32% 24%) on the wall.
+   One hue, by the same rule: the diagram carries its distinctions by shape and
+   weight, never by a second colour. */
+
+:root {
+  --teal:      #39512a;      /* moss, 8.6:1 on paper */
+  --teal-line: rgba(57, 81, 42, .30);
+  --teal-wash: rgba(57, 81, 42, .055);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --teal:      #a9cf8f;    /* 9.6:1 on the dark paper */
+    --teal-line: rgba(169, 207, 143, .34);
+    --teal-wash: rgba(169, 207, 143, .075);
+  }
+}
+
+/* the rules close the page the way a section would */
+.bridge { margin-top: clamp(3.5rem, 8vh, 6rem); }

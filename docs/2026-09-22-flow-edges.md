@@ -12,6 +12,10 @@ are in **The five ideas** at the foot of this file. The sixteen-edge table has
 not been retired and must not be — it is the evidence layer, and an idea-level
 arrow with nothing under it here is a lie.
 
+**Since 2026-10-27 it draws six.** Home was added and the parts were brought up
+to date; **Six ideas (2026-10-27)** at the very end of this file is the current
+map, edges and surfaces, and says which findings above it reverses.
+
 The list the page actually draws lives in `EDGES` at the top of `/v2/flow.js`,
 and the map from an idea to its parts lives in `IDEAS` at the top of
 `/v2/home.js`. **This file and those two lists have to agree.** If you change
@@ -329,3 +333,114 @@ two tools under one idea reach the same surface (the miners and the Curator at
 garden on request; the workout card and unstick on request). **The judge and the
 raw store still have no arrow out**, and capture still has none; they are inside
 Context and Keeping track, which do.
+
+
+---
+
+# Six ideas (2026-10-27)
+
+Kahran, looking at the wall a month on: *"are those really the tools?"* The wall
+was cut on 2026-09-22 and the system had moved on. Two rulings of his: **add a
+sixth idea, Home** (3+2 became 3+3), and **never name the system on the site**,
+plain words only. Same tiles, same visual language; the only layout change is
+the sixth tile.
+
+Re-audited 2026-10-27 against the kMini checkouts of the system repo
+(production at `1adac59`, PR #483), `home-net`, `hermes-kmini`, `raw-store`, the
+assistant's skills in `~/.hermes/skills`, the launchd jobs in
+`~/Library/LaunchAgents`, and the outbound ledger `~/Tome/health/notify.jsonl`.
+Same tests as above: an arrow stands on the target's read, a surface on the
+sending call. Line numbers are as of that date. Everything in the sections
+above stays as the record of 2026-09-22; where this section disagrees, this
+section is current.
+
+## Which tool sits under which idea, now
+
+| idea | hue | the tools under it | what changed |
+|---|---|---|---|
+| Context | teal | Raw store · The WhatsApp assistant · Where I am · Right now | capture is now the assistant (it answers and builds, not only captures); Movement is *Where I am*; *Right now* is `transforms/context_open.py`, the shared page of what is true today |
+| Keeping track | moss | The miners · The judge · The Curator · The groomer · Meeting follow-ups · The sparks garden | the groomer (`pending-groom`, `pending-decompose` lanes) splits items into first steps; `granola-followup/followup.py` drafts a follow-up after each meeting |
+| Staying up to date | brass | Mail triage · The newsletter reader · Lost touch · The weekly record | the reader is `mail-triage/feed_reader_server.py` (`com.kahran.feed-reader`); *Lost touch* is `transforms/view_dormant_ties.py` plus the weekly `infer_cities.py` proposals he confirms |
+| Topically suggesting | indigo | The day planner · The midday door · The workout planner · Noticings · Travel days | "now brain" was really the day planner (`[day-planner]` → `views/day-plan-*.json` → the 06:30 brief); the midday door is `transforms/midday_door.py`, armed since 2026-10-14 |
+| Self-healing | rose | Samwise · The repairer · The health page | unchanged; `transforms/samwise_fresh.py` watches Samwise and sits under it |
+| **Home** | plum | The lights · The bedroom frame · The family archive · This page | new: `home-net` (Lantern, the circadian daemon, the bulb watch, the Monday usage digest), `home-net/frame-us`, `home-net/immich-family`, and this repo's `tools/daily_pick.py` + `tools/place_feed.py` |
+
+**Where this page's own pick sits was a judgement.** The daily photograph and
+poem and the place line are a public thing, which argued for Staying up to date
+beside the weekly record. They went under Home because what they do is the
+same act as the bedroom frame and the family archive: choose a photograph for a
+wall someone looks at. The weekly record stays where it was; it writes down a
+week, it does not pick anything.
+
+**Left out on purpose:** `/with`, the pre-meeting brief. It is a command run on
+the laptop that reads the store, not a running tool, and it reaches him only
+when he asks, which "when I ask for it" already draws. People aliases are
+plumbing inside Keeping track and did not earn a word on the tile.
+
+## The idea-level edges, now
+
+| idea edge | part-level arrows under it | the target's read | status |
+|---|---|---|---|
+| Context → Keeping track | store → miners (#3); store → meeting follow-ups | as #3; `granola-followup/followup.py:1350` (one raw.db read for every new meeting) | VERIFIED |
+| Context → Staying up to date | store → mail triage (#2); store → weekly record (#14); store → lost touch | as #2, #14; `transforms/view_dormant_ties.py:366` `rawdb.connect()` | VERIFIED |
+| Context → Topically suggesting | store → day planner (#9), → noticings (#7); where I am → day planner (#11), → workout planner (#12) | as before | VERIFIED / INDIRECT as before |
+| Keeping track → Topically suggesting | Curator → day planner (#10); Curator → midday door | as #10; `transforms/midday_door.py:219` `backlog_read.open_items()` — Notion → `backlog.json` via `pull_backlog.py`, same intermediate as #10 | INDIRECT |
+| **Context → Home** (new) | where I am → this page; store → family archive | `tools/daily_pick.py:165` `load_presence` and `tools/place_feed.py:102` `load_presence`, both `open()` on `~/Sync/pending-work/presence.json`, which `store_lib/presence.py:929` `write` lays down from `transforms/presence_refresh.py:255`; and `home-net/immich-family/outcomes.py:44` `load_group_rows` — `sqlite3.connect(... mode=ro)` on raw.db at `:46`, reading the family group's replies | VERIFIED |
+
+**Five arrows.** Nothing reads Home back: no idea consumes what the lights,
+the frame, the family archive or this page produce, so Home has one arrow in
+and none out to another idea. That is drawn as it is rather than tidied.
+
+**A finding above is now reversed.** "Raw store → Movement: there is no such
+path" was true on 2026-09-22. Since PR #483 (2026-10-27) `presence_refresh.py:172`
+`load_mail` reads booking mail out of raw.db, and `transforms/trip_legs.py`
+builds trips from the same mail into `views/trip-legs.json`. Both ends are
+inside Context, so the arrow is internal and draws nothing, but the paragraph
+above should not be trusted on this point.
+
+**The watcher.** Home is watched: `samwise/lanes.toml` registers
+`immich-family-post`, `immich-family-outcomes`, `immich-family-gepa`,
+`site-place-feed` and `site-daily-pick`. The lights and the frame have no
+Samwise lane. Self-healing therefore draws a thread to all five; Home's is a
+short level one, because it sits on the watcher's own row.
+
+## Reaches Kahran, re-audited
+
+**The claim that the 06:30 message is the only scheduled outbound is dead.**
+`hermes-kmini/bin/morning-deliver.py:9` still says so in its docstring; the
+ledger says otherwise. Delivered to his phone between 2026-10-01 and
+2026-10-27 (`channel` whatsapp, or released from the quiet-hours queue), by
+caller: `morning-deliver` 27, `late-noticing` 8, `presence-confirm` 7,
+`midday-door` 5, `home-net-bulb` 3, `home-net-usage` 2, `flight-routine` 1.
+`meeting-reconcile` last sent 2026-09-24 and is still registered. Every one goes
+through `store_lib/notify.py`'s `CALLER_CLASS` (`:150`) as `briefing` (quiet
+hours, once a day per caller) except `flight-routine`, which is `protocol`.
+`samwise`, `samwise-fix`, `sync-health` and `granola-followup` resolve to
+`alert`, which only writes the inbox, so they reach him as a count or on a page.
+
+So the flow view's `flight` surface became **a message of its own**, and two
+surfaces were added: **the family group** and the existing **everyone** gained
+a second idea.
+
+| idea | surface | channel | the sending call |
+|---|---|---|---|
+| Context | a question on WhatsApp | where I am, only when it cannot tell | `transforms/presence_refresh.py:224` `notify.send(..., caller="presence-confirm")` |
+| Context | when I ask for it | the assistant answers from the store's views | `~/.hermes/skills/calendar/SKILL.md:8` (`views/calendar-days.md`), `people/SKILL.md:8` (`views/people-meetings.md`), `status/SKILL.md:8` (`views/status-today.md`) |
+| Keeping track | the 06:30 message · when I ask for it | as before; the follow-up drafts are files in `~/Sync/pending-work/followup-drafts/`, and their ping is `alert` class, so they are read, not pushed | as before; `granola-followup/followup.py:2` |
+| Staying up to date | the 06:30 message · when I ask for it | as before | as before |
+| Staying up to date | a message of its own | a booking found in the mail | `transforms/meeting_reconcile.py:534` `notify.send(..., caller=PRODUCER)` |
+| Staying up to date | a page I open | the newsletter reader | `mail-triage/feed_reader_server.py:17-18`, served on the tailnet at :8770 |
+| Staying up to date | everyone | the weekly record | as before |
+| Topically suggesting | the 06:30 message | the day's plan, and noticings | `morning-deliver.py:37` (today's `day-plan` view), `noticing_lines()` as before |
+| Topically suggesting | a message of its own | the flight-day doses; one start after lunch; a noticing grown after the brief | `planner/flight_routine.py:680` `_send_all`; `transforms/midday_door.py:242`; `sparks-canvas/grower/late_noticing.py:99` (PR #478) |
+| Topically suggesting | a page I open · when I ask for it | as before | as before |
+| Self-healing | the 06:30 message · a page I open | as before | as before |
+| Self-healing | a message of its own | only when Samwise itself stops | `transforms/samwise_fresh.py:178` `post_notify` (WhatsApp, Discord fallback), called at `:247`/`:258` |
+| Home | a message of its own | the Monday usage digest; a bulb to flip | `home-net/usage_report.py:138` `notify()` (`com.kahran.home-net-usage`, Mondays 08:10); `home-net/stray_watch.py:136` |
+| Home | a page I open | the lights | `home-net/server.py:1506`, Lantern on :8899 |
+| Home | the family group | an old photograph and a question, twice a day | `home-net/immich-family/immich_family.py:1896` `send_media` to the family group |
+| Home | everyone | today's photograph, poem and city | `tools/publish_daily_pick.sh`, `tools/publish_place.sh` (PR, merge) |
+
+Twenty lines from six ideas into seven surfaces. **Context is still the only
+idea that asks a question.** The flight routine's "if this one's yours, reply"
+is a line inside a flight-day message, not a question of its own.

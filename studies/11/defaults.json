@@ -1,0 +1,12 @@
+{
+  "nav-bottom": "3.1rem",
+  "nav-align": "flex-start",
+  "nav-gap": "1.5rem",
+  "nav-size": "0.72rem",
+  "nav-track": "0.06em",
+  "nav-rest-opacity": "0.85",
+  "nav-live-opacity": "0.35",
+  "nav-fade": "0.6s",
+  "nav-bottom-phone": "3.4rem",
+  "nav-gap-phone": "1rem"
+}
