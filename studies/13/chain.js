@@ -3,7 +3,7 @@
 // Kahran, 2026-10-28: "flow logically somehow from one to another, like have some sort of
 // visual ref that makes sense why that one is following the previous one."
 //
-// A distance between two pictures is a weighted mean of seven per-feature distances
+// A distance between two pictures is a weighted mean of eight per-feature distances
 // (features.json, measured by features.py), each divided by its median over all pairs, so
 // 1 means "as alike as two pictures usually are" and 0 means "the same":
 //   colour   Lab a/b and the chroma-weighted hue histogram   (two monochromes: 0.8)
@@ -11,14 +11,15 @@
 //   lines    edge direction mix and edge density
 //   horizon  height of the strongest horizontal band, when both have one (else 1)
 //   layout   8x8 lightness grid: where the mass sits
-//   subject  0 if the alt-text word groups share one, else 1 (no words: 1)
-//   place    0 if both have the same caption place, else 1
+//   subject  0 if the word groups of the scoring's notes share one, else 1 (no words: 1)
+//   place    0 if both have the same place in the scoring, else 1
+//   hour     0 if both are dawn, dusk or night in the scoring, else 1
 // The order is the open path through all pictures that keeps that distance small from one
 // to the next: nearest-neighbour from every start, the best kept, then 2-opt.
 // Each step is named by the feature that carries it most (weight x closeness), if any
 // feature is closer than `linkMin`; otherwise the step is left unnamed.
 (function (root) {
-  const KEYS = ['colour', 'tone', 'lines', 'horizon', 'layout', 'subject', 'place'];
+  const KEYS = ['colour', 'tone', 'lines', 'horizon', 'layout', 'subject', 'place', 'hour'];
   const HUE = ['red', 'orange', 'amber', 'yellow', 'olive', 'green', 'green', 'teal', 'blue', 'blue', 'violet', 'pink'];
   const H_STRONG = 2.2;
 
@@ -34,8 +35,9 @@
     layout: (p, q) => l2(p.layout, q.layout),
     subject: (p, q) => (!p.subject.length || !q.subject.length) ? null : (p.subject.some((s) => q.subject.includes(s)) ? 0 : 1),
     place: (p, q) => (p.place && q.place && p.place === q.place) ? 0 : null,
+    hour: (p, q) => (p.hour && p.hour !== 'day' && p.hour === q.hour) ? 0 : null,
   };
-  const BINARY = { subject: true, place: true };
+  const BINARY = { subject: true, place: true, hour: true };
 
   function median(xs) { const s = xs.slice().sort((a, b) => a - b); return s.length ? s[Math.floor(s.length / 2)] : 1; }
 
@@ -162,6 +164,7 @@
     }
     if (k === 'subject') return p.subject.find((s) => q.subject.includes(s));
     if (k === 'place') return p.place;
+    if (k === 'hour') return p.hour;
     return '';
   }
 

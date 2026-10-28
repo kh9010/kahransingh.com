@@ -6,6 +6,7 @@
   "w-layout": "1",
   "w-subject": "1.5",
   "w-place": "0.5",
+  "w-hour": "0.5",
   "lead": "3",
   "link-min": "0.4",
   "pair-every": "5",

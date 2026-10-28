@@ -410,6 +410,11 @@ check('study 13: the walk as a chain, each picture answering the one before, eve
   const P = JSON.parse(read(S('13/features.json'))).photos
   const live = [...read(path.join(ROOT, 'photography.html')).matchAll(/\{ f: '([^']+)'/g)].map(m => m[1])
   assert.deepEqual(P.map(p => p.f), live, 'the study walks exactly the live catalogue, nothing added or dropped')
+  // what is in the frame comes from the site's photo scoring (v2/scores-photos.json); the study's own file only fills its gaps
+  const base = new Set(Object.keys(JSON.parse(read(path.join(ROOT, 'v2/scores-photos.json'))).photos).map(k => k.split('/').pop()))
+  const extra = Object.keys(JSON.parse(read(S('13/scores-study.json'))).photos).map(k => k.split('/').pop())
+  assert.deepEqual(extra.filter(f => base.has(f)), [], 'the study scores only pictures the site scoring lacks')
+  assert.deepEqual(P.filter(p => !p.scored).map(p => p.f), [], 'every picture in the walk is scored')
   const M = Chain.model(P), linkMin = +d['link-min']
   const sets = Chain.sets(k => d[k])
   let rnd = 1; const rand = () => (rnd = (rnd * 1664525 + 1013904223) >>> 0) / 4294967296
@@ -426,7 +431,7 @@ check('study 13: the walk as a chain, each picture answering the one before, eve
     out.push(`${name} ${(c / 70).toFixed(2)} vs shuffle ${(shuf / 70).toFixed(2)}, ${named}/70 named`)
   }
   assert.match(h, /: 'colour';/, 'colour is the study\'s default order')
-  return out.join('; ')
+  return `${P.filter(p => base.has(p.f)).length} of ${P.length} scored by the site, ${extra.length} by the study; ` + out.join('; ')
 })
 
 // Kahran, 2026-10-28: "I want it by color. I love the mid tone transitions."

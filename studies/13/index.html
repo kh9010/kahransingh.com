@@ -138,6 +138,7 @@
             --chain-w-layout: var(--w-layout, 1);
             --chain-w-subject: var(--w-subject, 1.5);
             --chain-w-place: var(--w-place, 0.5);
+            --chain-w-hour: var(--w-hour, 0.5);
             --chain-lead: var(--lead, 3);
             --chain-link-min: var(--link-min, 0.4);
             --chain-pair-every: var(--pair-every, 5);
@@ -532,6 +533,7 @@
     };
 
     if (view === 'graph') {
+        await new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js'; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc); });
         // Every picture placed by its colour: lightness across (dark to pale), warm above and
         // cool below (Lab b, with a), monochromes on the middle line. Edges join pairs under
         // `edge-max` on the colour order's distance; the chosen walk runs through them.
@@ -568,23 +570,19 @@
             const across = (v, len, p) => len / 2 - Math.sign(v) * Math.sqrt(Math.abs(v) / wMax) * (len / 2 - p);
             const place = (L, v) => phone ? [W - across(v, W, pad), along(L, H, padL)] : [along(L, W, pad), across(v, H, padL)];
             const target = feats.map((p, i) => place(p.L, warm[i]));
-            const xy = target.map((t) => t.slice());
-            // Settle: each node pulled to its colour place, pushed off any node it would cover;
-            // the last rounds only push, so nothing is left covered.
+            // Settle with d3-force: each node held to its colour place, none covering another.
             const r = s * 0.6;
-            for (let it = 0; it < 320; it++) {
-                const pull = it < 240 ? 0.04 : 0;
-                for (let i = 0; i < n; i++) { xy[i][0] += (target[i][0] - xy[i][0]) * pull; xy[i][1] += (target[i][1] - xy[i][1]) * pull; }
-                for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
-                    let dx = xy[j][0] - xy[i][0], dy = xy[j][1] - xy[i][1];
-                    const d = Math.hypot(dx, dy);
-                    if (d >= 2 * r) continue;
-                    if (d < 1e-6) { dx = (j - i) % 2 ? 1 : -1; dy = 0.5; }
-                    const m = (2 * r - d) / 2 / (d || 1);
-                    xy[i][0] -= dx * m; xy[i][1] -= dy * m; xy[j][0] += dx * m; xy[j][1] += dy * m;
-                }
-                for (const q of xy) { q[0] = Math.max(pad, Math.min(W - pad, q[0])); q[1] = Math.max(padL, Math.min(H - padL, q[1])); }
+            const nodes = target.map(([x, y]) => ({ x, y, tx: x, ty: y }));
+            const sim = d3.forceSimulation(nodes)
+                .force('x', d3.forceX((d) => d.tx).strength(0.12))
+                .force('y', d3.forceY((d) => d.ty).strength(0.12))
+                .force('collide', d3.forceCollide(r).iterations(2))
+                .stop();
+            for (let it = 0; it < 300; it++) {
+                sim.tick();
+                for (const d of nodes) { d.x = Math.max(pad, Math.min(W - pad, d.x)); d.y = Math.max(padL, Math.min(H - padL, d.y)); }
             }
+            const xy = nodes.map((d) => [d.x, d.y]);
             const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': `${n} photographs placed by colour, the walk drawn through them` });
             const ax = el('g', { class: 'axis' }, svg);
             const lab = (x, y, t, anchor) => { const e = el('text', { x, y, 'text-anchor': anchor }, ax); e.textContent = t; };
@@ -602,7 +600,7 @@
             const eg = el('g', {}, svg), lines = [];
             for (const [i, j] of edges) lines.push([i, j, el('line', { class: 'edge', x1: xy[i][0], y1: xy[i][1], x2: xy[j][0], y2: xy[j][1] }, eg)]);
             el('path', { class: 'walk', d: 'M' + seq.map((i) => xy[i][0].toFixed(1) + ' ' + xy[i][1].toFixed(1)).join('L') }, svg);
-            const hl = el('g', {}, svg), ng = el('g', {}, svg), nodes = [];
+            const hl = el('g', {}, svg), ng = el('g', {}, svg), groups = [];
             feats.forEach((p, i) => {
                 const k = s / Math.max(p.w, p.h), w = p.w * k, h = p.h * k;
                 const g = el('g', { class: 'node', transform: `translate(${xy[i][0].toFixed(1)} ${xy[i][1].toFixed(1)})`, tabindex: 0, role: 'button', 'aria-label': p.alt }, ng);
@@ -611,7 +609,7 @@
                 g.addEventListener('mouseenter', () => { if (!phone) set(i); });
                 g.addEventListener('focus', () => set(i));
                 g.addEventListener('click', (e) => { e.stopPropagation(); set(focus === i && phone ? null : i); });
-                nodes.push(g);
+                groups.push(g);
             });
             svg.addEventListener('mouseleave', () => { if (!phone) set(null); });
             svg.addEventListener('click', () => set(null));
@@ -619,10 +617,10 @@
                 focus = i;
                 box.classList.toggle('focus', i !== null);
                 hl.replaceChildren();
-                nodes.forEach((g, j) => { g.classList.toggle('on', i !== null && (j === i || nb[i].has(j))); g.classList.toggle('here', j === i); });
+                groups.forEach((g, j) => { g.classList.toggle('on', i !== null && (j === i || nb[i].has(j))); g.classList.toggle('here', j === i); });
                 lines.forEach(([a, b, e]) => e.classList.toggle('on', a === i || b === i));
                 if (i === null) { read.textContent = ''; return; }
-                ng.appendChild(nodes[i]);
+                ng.appendChild(groups[i]);
                 const k = pos[i], prev = seq[k - 1], next = seq[k + 1];
                 for (const j of [prev, next]) {
                     if (j === undefined) continue;
@@ -633,7 +631,7 @@
                 read.replaceChildren();
                 const add = (t, b) => { const e = document.createElement(b ? 'b' : 'span'); e.textContent = t; read.appendChild(e); };
                 add(`${k + 1} · `); add(prev === undefined ? '' : (word.get(prev + '>' + i) || '·') + ' → ');
-                add(feats[i].alt, true); add(next === undefined ? '' : ' → ' + (word.get(i + '>' + next) || '·'));
+                add(feats[i].notes || feats[i].alt, true); add(next === undefined ? '' : ' → ' + (word.get(i + '>' + next) || '·'));
                 add(` · L ${Math.round(feats[i].L)}${feats[i].mono ? '' : ' · C ' + Math.round(feats[i].chroma)}`);
             }
             box.replaceChildren(read, svg);

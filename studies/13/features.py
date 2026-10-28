@@ -9,8 +9,8 @@ file the way a browser shows it (EXIF turn applied), and measures a 128px copy:
   lines    edge energy by direction (horizontal, vertical, two diagonals) and edge density
   horizon  height (0 top .. 1 bottom) of the strongest band of horizontal edges, and how strong
   layout   an 8x8 grid of lightness, mean removed (where the mass sits)
-  subject  word groups from the alt text (trees, water, a path, night ...)
-  place    from the home page's caption when the picture is also on the home (26 of 71)
+  subject  word groups from the scoring's notes (trees, water, a path, night ...)
+  place    the scoring's place name; hour (dawn, day, dusk, night) likewise
 
 Writes studies/13/features.json. Deterministic, no model, no network.
 Run: python3 studies/13/features.py          (--check: exit 1 if features.json would change)
@@ -27,32 +27,25 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).with_name("features.json")
 THUMBS = Path(__file__).with_name("thumbs")   # 96px copies for the graph view
 
-# The alt text is the public description; eight files' alt texts describe other pictures
-# (seen 2026-10-28 on a contact sheet). The subject words below use what is in the frame.
-SUBJECT_FIX = {
-    "spotted-deer-D8AE667C.jpg": "light reflected on a wet beach at dusk",
-    "sea-cliff-8632EF29.jpg": "stone stair and railing up a cliff to a temple",
-    "poppy-macro-2B2A81D7.jpg": "sunset over the sea, a figure on the beach at dusk",
-    "langur-climbing-9B6D6B84.jpg": "sunset over the sea, a figure on the beach at dusk",
-    "firework-burst-5004742B.jpg": "a person in silhouette against the sea at dusk",
-    "langur-sitting-6C239336.jpg": "a person in a hood drinking from a cup in a room",
-    "beach-reflection-DDAF92C4.jpg": "a person beside a painted temple spire",
-    "diwali-gifts-7E597412.jpg": "two people in a living room",
-}
+# What is in the frame comes from the site's own photo scoring, not from alt text:
+# v2/scores-photos.json (the daily pick's file: seven axes, hour, place, notes) covers 26 of the
+# walk's 71; the other 45 were scored in the same shape for this study only
+# (studies/13/scores-study.json, not in the daily rotation). Alt text is the fallback.
+SCORE_FILES = (ROOT / "v2/scores-photos.json", Path(__file__).with_name("scores-study.json"))
 
 GROUPS = {
     "trees": "tree trees pine pines cypress banyan forest jungle juniper palm foliage reeds",
-    "water": "lake sea water river sound beach reflection reflected kayak creek stream shoreline riverfront surfers waves wet",
-    "a path": "path boardwalk walkway trail staircase stair stairs bridge corridor tunnel sidewalk hallway",
+    "water": "lake sea water river sound beach reflection reflected kayak kayaks creek stream shoreline riverfront riverside surfers waves wet pool tetrapods",
+    "a path": "path boardwalk walkway walk trail staircase stair stairs bridge footbridge corridor tunnel sidewalk hallway",
     "night": "night fireworks firework lanterns",
     "dusk": "dusk sunset silhouette",
-    "flowers": "lilies geranium poppy chive flowers lavender bougainvillea leaves berries plant",
+    "flowers": "lilies geranium poppy chive flowers lavender bougainvillea leaves berries plant coleus",
     "animals": "gull langur deer sheep monkey",
     "mountains": "mountain mountains summit pass valley canyon cliff hillside volcanic glacial alpine snowy",
     "street": "street plaza market sidewalk cart scooter van jeep porsche winnebago",
-    "people": "figure person people surfers friends vendors",
-    "indoors": "museum gallery kitchen restaurant room hallway sculpture quilt interior",
-    "temples": "temple spire buddha",
+    "people": "figure figures person people someone man hiker walkers visitors visitor couple surfers friends vendors",
+    "indoors": "museum gallery kitchen restaurant room hallway sculpture quilt interior inside",
+    "temples": "temple spire buddha monastery",
 }
 WORD2GROUP = {w: g for g, ws in GROUPS.items() for w in ws.split()}
 
@@ -63,14 +56,17 @@ def catalogue():
     return [dict(f=f, c=c, alt=alt, w=int(w), h=int(h)) for f, c, alt, w, h in rows]
 
 
-def places():
-    data = json.loads((ROOT / "v2/data.json").read_text())
+def scores():
     out = {}
-    for p in data["photos"]:
-        cap = p.get("caption") or ""
-        if " — " in cap:
-            out[p["src"].rsplit("/", 1)[-1]] = cap.split(" — ")[0].strip()
+    for f in SCORE_FILES:
+        for k, v in json.loads(f.read_text())["photos"].items():
+            out.setdefault(k.rsplit("/", 1)[-1], v)
     return out
+
+
+def place_name(score):
+    name = ((score or {}).get("place") or {}).get("name")
+    return name.split(",")[-1].strip() if name else None   # "Roma Norte, Mexico City" -> "Mexico City"
 
 
 def lab(rgb):
@@ -142,12 +138,14 @@ def subjects(text):
 
 
 def main():
-    pl = places()
+    sc = scores()
     out = []
     for p in catalogue():
         f = measure(ROOT / "photos" / p["f"])
+        s = sc.get(p["f"])
         out.append(dict(f=p["f"], c=p["c"], alt=p["alt"], w=p["w"], h=p["h"],
-                        place=pl.get(p["f"]), subject=subjects(SUBJECT_FIX.get(p["f"], p["alt"])), **f))
+                        place=place_name(s), hour=(s or {}).get("hour"), notes=(s or {}).get("notes"),
+                        scored=s is not None, subject=subjects(s["notes"] if s else p["alt"]), **f))
     text = json.dumps({"made_by": "studies/13/features.py", "photos": out}, separators=(",", ":")) + "\n"
     if "--check" in sys.argv:
         if OUT.read_text() != text:
