@@ -18,7 +18,11 @@ function run(cmd, args, cwd) {
   return { ok: r.status === 0, out: (r.stdout || "") + (r.stderr || "") };
 }
 
+// ONLY=<words> runs just the checks whose name contains them (for watching one check go red);
+// a full pass is always `node verify.mjs` with no ONLY.
+const ONLY = process.env.ONLY || "";
 function checkNow(name, fn) {
+  if (ONLY && !name.includes(ONLY)) return;
   let msg;
   try { msg = fn(); } catch (e) { console.log(`FAIL ${name}: ${e.message}`); process.exit(1); }
   console.log(`PASS ${name}: ${msg}`);
@@ -57,12 +61,20 @@ checkNow("the photograph never re-crops when the poem comes forward", () => {
   return `${oks} checks at 1200x800`;
 });
 
+checkNow("no picture is ever stretched, on any of six screens", () => {
+  const r = run("node", ["tools/test_photo_aspect.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} page-and-screen checks; ` + r.out.trim().split("\n").pop();
+});
+
 // ── studies rail checks (this branch): run after the site checks above, in one async pass ──
 // Starts its own study server on a free port with a throwaway picks file, drives headless Chrome over the DevTools protocol.
 import fs from 'node:fs'
 import os from 'node:os'
 import assert from 'node:assert/strict'
 import { spawn } from 'node:child_process'
+import { createRequire } from 'node:module'
 
 const S = p => path.join(ROOT, 'studies', p)
 const read = p => fs.readFileSync(p, 'utf8')
@@ -172,7 +184,7 @@ async function startChrome() {
   const go = async url => { await send('Page.enable'); await send('Page.navigate', { url }); for (let i = 0; i < 100; i++) { await sleep(100); if (await ev(`document.readyState === 'complete' && /\\d+ \\/ [1-9]/.test(document.querySelector('#count')?.textContent || '')`).catch(() => false)) return } throw new Error('page did not load ' + url) }
   // open a page fresh and collect what it throws or logs as an error
   const open = async url => { await send('Runtime.enable'); await send('Log.enable'); await send('Page.enable'); await send('Page.navigate', { url: 'about:blank' }); await sleep(200); errors.length = 0; await send('Page.navigate', { url }); for (let i = 0; i < 100; i++) { await sleep(100); if (await ev(`document.readyState === 'complete'`).catch(() => false)) break } }
-  return { ev, key, go, open, errors, close: () => { sock.close(); p.kill(); try { fs.rmSync(dir, { recursive: true, force: true }) } catch {} } }
+  return { ev, send, key, go, open, errors, close: () => { sock.close(); p.kill(); try { fs.rmSync(dir, { recursive: true, force: true }) } catch {} } }
 }
 
 let srv, chrome, picksFile
@@ -389,7 +401,86 @@ check('study 12: the walk reads its numbers from the dials and pictures take the
   return `${Object.keys(d).length} dials, 0 timing literals in the script; walk + height ruling ${oks} checks at 1200x800`
 })
 
+check('study 13: the walk as a chain, each picture answering the one before, every step named or honestly left blank', () => {
+  const h = read(S('13/index.html')), d = JSON.parse(read(S('13/defaults.json')))
+  assert.match(h, NOINDEX, 'study 13 is noindexed')
+  const f = spawnSync('python3', [S('13/features.py'), '--check'], { encoding: 'utf8' })
+  assert.equal(f.status, 0, 'features.json and the thumbs match the live catalogue and the files: ' + (f.stdout + f.stderr).trim())
+  const Chain = createRequire(import.meta.url)(S('13/chain.js'))
+  const P = JSON.parse(read(S('13/features.json'))).photos
+  const live = [...read(path.join(ROOT, 'photography.html')).matchAll(/\{ f: '([^']+)'/g)].map(m => m[1])
+  assert.deepEqual(P.map(p => p.f), live, 'the study walks exactly the live catalogue, nothing added or dropped')
+  // what is in the frame comes from the site's photo scoring (v2/scores-photos.json); the study's own file only fills its gaps
+  const base = new Set(Object.keys(JSON.parse(read(path.join(ROOT, 'v2/scores-photos.json'))).photos).map(k => k.split('/').pop()))
+  const extra = Object.keys(JSON.parse(read(S('13/scores-study.json'))).photos).map(k => k.split('/').pop())
+  assert.deepEqual(extra.filter(f => base.has(f)), [], 'the study scores only pictures the site scoring lacks')
+  assert.deepEqual(P.filter(p => !p.scored).map(p => p.f), [], 'every picture in the walk is scored')
+  const M = Chain.model(P), linkMin = +d['link-min']
+  const sets = Chain.sets(k => d[k])
+  let rnd = 1; const rand = () => (rnd = (rnd * 1664525 + 1013904223) >>> 0) / 4294967296
+  const out = []
+  for (const [name, w] of Object.entries(sets)) {
+    const o = Chain.path(M, w)
+    assert.deepEqual(o.slice().sort((a, b) => a - b), P.map((_, i) => i), name + ' visits every picture once')
+    assert.deepEqual(Chain.path(M, w), o, name + ' is the same every time')
+    let shuf = 0
+    for (let t = 0; t < 40; t++) { const s = P.map((_, i) => i); for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [s[i], s[j]] = [s[j], s[i]] } shuf += Chain.cost(M, w, s) / 40 }
+    const c = Chain.cost(M, w, o), named = o.slice(1).filter((j, k) => Chain.link(M, w, o[k], j, linkMin).word).length
+    assert(c < shuf * 0.75, `${name}: neighbours ${(c / 70).toFixed(2)} apart, a shuffle ${(shuf / 70).toFixed(2)}; a chain must be clearly closer than chance`)
+    assert(named >= 56, `${name}: only ${named} of 70 steps have a reason to show`)
+    out.push(`${name} ${(c / 70).toFixed(2)} vs shuffle ${(shuf / 70).toFixed(2)}, ${named}/70 named`)
+  }
+  assert.match(h, /: 'colour';/, 'colour is the study\'s default order')
+  return `${P.filter(p => base.has(p.f)).length} of ${P.length} scored by the site, ${extra.length} by the study; ` + out.join('; ')
+})
+
+// Kahran, 2026-10-28: "I want it by color. I love the mid tone transitions."
+check('study 13: the colour order favours mid-tone transitions and keeps the pale pictures together, against the weights it had before', () => {
+  const d = JSON.parse(read(S('13/defaults.json')))
+  for (const k of ['mid-weight', 'l-step', 'c-step', 'mid-lo', 'mid-hi', 'edge-max']) assert(k in d, 'dial ' + k)
+  const Chain = createRequire(import.meta.url)(S('13/chain.js'))
+  const M = Chain.model(JSON.parse(read(S('13/features.json'))).photos)
+  const lo = +d['mid-lo'], hi = +d['mid-hi']
+  const now = Chain.colourStats(M, Chain.path(M, Chain.sets(k => d[k]).colour), lo, hi)
+  const old = Chain.colourStats(M, Chain.path(M, Chain.sets(k => ({ 'mid-weight': 0, 'l-step': 0, 'c-step': 0 })[k] ?? d[k]).colour), lo, hi)
+  const s = (x) => `${x.midSteps} mid-tone steps, ${x.paleRuns} pale runs, ${x.jumps} jumps, mean step L ${x.dL.toFixed(1)} C ${x.dC.toFixed(1)}`
+  assert(now.midSteps >= old.midSteps + 8, `mid-tone steps ${now.midSteps}, before ${old.midSteps}`)
+  assert(now.paleRuns < old.paleRuns, `the ${now.pale} pale pictures fall in ${now.paleRuns} runs, before ${old.paleRuns}`)
+  assert(now.jumps <= old.jumps && now.dL < old.dL, `lightness steps ${now.dL.toFixed(1)} (${now.jumps} jumps), before ${old.dL.toFixed(1)} (${old.jumps})`)
+  return `now ${s(now)}; before ${s(old)}`
+})
+
+check('study 13: the graph shows every picture once, placed by colour, with the walk through them, at 1280 and 390', async () => {
+  await boot()
+  const P = JSON.parse(read(S('13/features.json'))).photos
+  const out = []
+  for (const w of [1280, 390]) {
+    await chrome.send('Emulation.setDeviceMetricsOverride', { width: w, height: 900, deviceScaleFactor: 1, mobile: w < 600 })
+    await chrome.open(srv.base + '/studies/13/?view=graph')
+    let ok = false; for (let i = 0; i < 80 && !ok; i++) { await sleep(100); ok = await chrome.ev(`document.querySelectorAll('.graph .node').length > 0`).catch(() => false) }
+    const g = await chrome.ev(`(() => { const ns = [...document.querySelectorAll('.graph .node')], files = ns.map(n => n.querySelector('image').getAttribute('href').replace('thumbs/', ''));
+      const svg = document.querySelector('.graph svg').getBoundingClientRect();
+      const walk = (document.querySelector('.graph .walk').getAttribute('d').match(/[ML]/g) || []).length;
+      ns[3].dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      const lit = document.querySelectorAll('.graph .node.on').length, word = document.querySelectorAll('.graph text.word').length, read = document.querySelector('.graph-read').textContent;
+      return { files, walk, lit, word, read, edges: document.querySelectorAll('.graph .edge').length, right: svg.right, sw: document.documentElement.scrollWidth } })()`)
+    assert.deepEqual(g.files.slice().sort(), P.map(p => p.f).sort(), `${w}: one node per picture in the catalogue (${g.files.length} of ${P.length})`)
+    assert.equal(g.walk, P.length, `${w}: the walk passes through every node`)
+    assert(g.lit >= 2 && g.word >= 1 && g.read.includes('→'), `${w}: a tap lights the neighbours and shows the joining word (${g.lit} lit, ${g.word} words, "${g.read}")`)
+    assert(g.sw <= w && g.right <= w, `${w}: no horizontal scroll (page ${g.sw}, graph to ${Math.round(g.right)})`)
+    assert.deepEqual(chrome.errors.filter(e => !/favicon|googletagmanager/.test(e)), [], `${w}: no console errors`)
+    out.push(`${w}: ${g.files.length} nodes, ${g.edges} edges, ${g.lit} lit on a tap`)
+  }
+  await chrome.send('Emulation.clearDeviceMetricsOverride')
+  const r1 = spawnSync(process.execPath, ['tools/test_photo_autoscroll.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGE: '/studies/13/?order=blend' } })
+  assert.equal(r1.status, 0, 'walk on the study: ' + (r1.stdout + r1.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
+  const a = spawnSync(process.execPath, ['tools/test_photo_aspect.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGES: '/studies/13/,/studies/13/?order=line&view=thread' } })
+  assert.equal(a.status, 0, 'no stretched picture on the study: ' + (a.stdout + a.stderr).split('\n').filter(l => l.startsWith('FAIL')).join(' | '))
+  return out.join('; ') + '; walk rules hold; no picture stretched at six screens'
+})
+
 for (const [name, fn, skip] of checks) {
+  if (ONLY && !name.includes(ONLY)) continue
   if (skip) { console.log(`SKIP ${name}: ${skip}`); continue }
   try { await boot(); console.log(`PASS ${name}: ${await fn()}`) }
   catch (e) { console.log(`FAIL ${name}: ${e.message}`); failed = true; break }

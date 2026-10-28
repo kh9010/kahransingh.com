@@ -101,12 +101,15 @@
             width: 100%;
         }
 
+        /* Each picture's flex-grow is its own width-to-height ratio (set by the
+           script), so the two share one height and neither is cropped. */
+        .photo-pair .pair-inner { align-items: flex-start; }
         .photo-pair .pair-inner img {
-            width: 50%;
+            flex: 1 1 0;
+            min-width: 0;
             display: block;
             cursor: pointer;
             filter: contrast(1.05);
-            object-fit: cover;
         }
 
         /* Fade-in animation */
@@ -254,14 +257,15 @@
                 padding-top: 10vh;
             }
 
+            /* The gutter sits on the wrap, not the picture: padding on an img with
+               an aspect-ratio squeezes the picture inside it. */
             .photo-wrap {
-                padding: 10vh 0;
+                padding: 10vh 0.5rem;
+                box-sizing: border-box;
             }
 
             .photo-wrap img {
                 max-width: 100%;
-                padding: 0 0.5rem;
-                box-sizing: border-box;
             }
 
             .photo-wrap.narrow img {
@@ -347,7 +351,7 @@
             <a class="photo-wrap" href="photos/lavender-field-44DFB472.jpg"><img src="photos/lavender-field-44DFB472.jpg" alt="Field of lavender" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap narrow" href="photos/calla-lilies-1CB0954F.jpg"><img src="photos/calla-lilies-1CB0954F.jpg" alt="Calla lilies" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap" href="photos/pine-boardwalk-7FB4DA90.jpg"><img src="photos/pine-boardwalk-7FB4DA90.jpg" alt="Boardwalk through a pine forest" style="aspect-ratio: 1400/934" loading="lazy"></a>
-            <a class="photo-wrap" href="photos/gnarled-tree-beach-9254A749.jpg"><img src="photos/gnarled-tree-beach-9254A749.jpg" alt="Gnarled tree on a beach" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/gnarled-tree-beach-9254A749.jpg"><img src="photos/gnarled-tree-beach-9254A749.jpg" alt="Gnarled tree on a beach" style="aspect-ratio: 934/1400" loading="lazy"></a>
             <a class="photo-wrap narrow" href="photos/misty-walkway-48FA8D97.jpg"><img src="photos/misty-walkway-48FA8D97.jpg" alt="Misty walkway" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap" href="photos/museum-hallway-4BC2AB1E.jpg"><img src="photos/museum-hallway-4BC2AB1E.jpg" alt="Museum hallway" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap" href="photos/dune-grass-path-2EFABBF7.jpg"><img src="photos/dune-grass-path-2EFABBF7.jpg" alt="Path through dune grass" style="aspect-ratio: 1400/934" loading="lazy"></a>
@@ -367,7 +371,7 @@
             <a class="photo-wrap" href="photos/japan-gallery-quilt-27BBE65D.jpg"><img src="photos/japan-gallery-quilt-27BBE65D.jpg" alt="Quilt in a gallery in Japan" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap" href="photos/jungle-path-DAB66F7D.jpg"><img src="photos/jungle-path-DAB66F7D.jpg" alt="Path through the jungle" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap narrow" href="photos/mexico-plaza-476B1258.jpg"><img src="photos/mexico-plaza-476B1258.jpg" alt="Plaza in Mexico" style="aspect-ratio: 1400/934" loading="lazy"></a>
-            <a class="photo-wrap" href="photos/sea-cliff-8632EF29.jpg"><img src="photos/sea-cliff-8632EF29.jpg" alt="Sea cliff" style="aspect-ratio: 1400/934" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/sea-cliff-8632EF29.jpg"><img src="photos/sea-cliff-8632EF29.jpg" alt="Sea cliff" style="aspect-ratio: 934/1400" loading="lazy"></a>
             <a class="photo-wrap" href="photos/snowy-pass-648E669E.jpg"><img src="photos/snowy-pass-648E669E.jpg" alt="Snowy mountain pass" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap narrow" href="photos/surfers-walking-6CE80723.jpg"><img src="photos/surfers-walking-6CE80723.jpg" alt="Surfers walking" style="aspect-ratio: 1400/934" loading="lazy"></a>
             <a class="photo-wrap" href="photos/winnebago-4069A7FC.jpg"><img src="photos/winnebago-4069A7FC.jpg" alt="Winnebago camper" style="aspect-ratio: 1400/934" loading="lazy"></a>
@@ -386,7 +390,7 @@
             <a class="photo-wrap" href="photos/firework-burst-5004742B.jpg"><img src="photos/firework-burst-5004742B.jpg" alt="Burst of fireworks" style="aspect-ratio: 1400/933" loading="lazy"></a>
             <a class="photo-wrap narrow" href="photos/langur-sitting-6C239336.jpg"><img src="photos/langur-sitting-6C239336.jpg" alt="Langur monkey sitting" style="aspect-ratio: 1400/933" loading="lazy"></a>
             <a class="photo-wrap" href="photos/langur-climbing-9B6D6B84.jpg"><img src="photos/langur-climbing-9B6D6B84.jpg" alt="Langur monkey climbing" style="aspect-ratio: 1400/933" loading="lazy"></a>
-            <a class="photo-wrap" href="photos/spotted-deer-D8AE667C.jpg"><img src="photos/spotted-deer-D8AE667C.jpg" alt="Spotted deer" style="aspect-ratio: 1400/933" loading="lazy"></a>
+            <a class="photo-wrap" href="photos/spotted-deer-D8AE667C.jpg"><img src="photos/spotted-deer-D8AE667C.jpg" alt="Spotted deer" style="aspect-ratio: 933/1400" loading="lazy"></a>
             <a class="photo-wrap narrow" href="photos/beach-reflection-DDAF92C4.jpg"><img src="photos/beach-reflection-DDAF92C4.jpg" alt="Reflection on a beach" style="aspect-ratio: 1400/933" loading="lazy"></a>
         </div>
 
@@ -448,7 +452,7 @@
         { f: 'lavender-field-44DFB472.jpg', c: 'q2mono', alt: 'Field of lavender', w: 1400, h: 934 },
         { f: 'calla-lilies-1CB0954F.jpg', c: 'q2mono', alt: 'Calla lilies', w: 1400, h: 934 },
         { f: 'pine-boardwalk-7FB4DA90.jpg', c: 'q2mono', alt: 'Boardwalk through a pine forest', w: 1400, h: 934 },
-        { f: 'gnarled-tree-beach-9254A749.jpg', c: 'q2mono', alt: 'Gnarled tree on a beach', w: 1400, h: 934 },
+        { f: 'gnarled-tree-beach-9254A749.jpg', c: 'q2mono', alt: 'Gnarled tree on a beach', w: 934, h: 1400 },
         { f: 'misty-walkway-48FA8D97.jpg', c: 'q2mono', alt: 'Misty walkway', w: 1400, h: 934 },
         { f: 'museum-hallway-4BC2AB1E.jpg', c: 'q2mono', alt: 'Museum hallway', w: 1400, h: 934 },
         { f: 'dune-grass-path-2EFABBF7.jpg', c: 'q2mono', alt: 'Path through dune grass', w: 1400, h: 934 },
@@ -469,7 +473,7 @@
         { f: 'japan-gallery-quilt-27BBE65D.jpg', c: 'q2', alt: 'Quilt in a gallery in Japan', w: 1400, h: 934 },
         { f: 'jungle-path-DAB66F7D.jpg', c: 'q2', alt: 'Path through the jungle', w: 1400, h: 934 },
         { f: 'mexico-plaza-476B1258.jpg', c: 'q2', alt: 'Plaza in Mexico', w: 1400, h: 934 },
-        { f: 'sea-cliff-8632EF29.jpg', c: 'q2', alt: 'Sea cliff', w: 1400, h: 934 },
+        { f: 'sea-cliff-8632EF29.jpg', c: 'q2', alt: 'Sea cliff', w: 934, h: 1400 },
         { f: 'snowy-pass-648E669E.jpg', c: 'q2', alt: 'Snowy mountain pass', w: 1400, h: 934 },
         { f: 'surfers-walking-6CE80723.jpg', c: 'q2', alt: 'Surfers walking', w: 1400, h: 934 },
         { f: 'winnebago-4069A7FC.jpg', c: 'q2', alt: 'Winnebago camper', w: 1400, h: 934 },
@@ -490,7 +494,7 @@
         { f: 'firework-burst-5004742B.jpg', c: 'canon', alt: 'Burst of fireworks', w: 1400, h: 933 },
         { f: 'langur-sitting-6C239336.jpg', c: 'canon', alt: 'Langur monkey sitting', w: 1400, h: 933 },
         { f: 'langur-climbing-9B6D6B84.jpg', c: 'canon', alt: 'Langur monkey climbing', w: 1400, h: 933 },
-        { f: 'spotted-deer-D8AE667C.jpg', c: 'canon', alt: 'Spotted deer', w: 1400, h: 933 },
+        { f: 'spotted-deer-D8AE667C.jpg', c: 'canon', alt: 'Spotted deer', w: 933, h: 1400 },
         { f: 'beach-reflection-DDAF92C4.jpg', c: 'canon', alt: 'Reflection on a beach', w: 1400, h: 933 },
     ];
 
@@ -533,7 +537,7 @@
                 const img = document.createElement('img');
                 img.src = 'photos/' + filename;
                 img.alt = photo.alt;
-                if (photo.w && photo.h) img.style.aspectRatio = photo.w + '/' + photo.h;
+                if (photo.w && photo.h) { img.style.aspectRatio = photo.w + '/' + photo.h; img.style.flexGrow = photo.w / photo.h; }
                 img.loading = photoIndex < 2 ? 'eager' : 'lazy';
                 setupLightboxTrigger(img, 'photos/' + filename, photo.alt);
                 inner.appendChild(img);
