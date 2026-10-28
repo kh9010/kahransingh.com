@@ -25,6 +25,7 @@ from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = Path(__file__).with_name("features.json")
+THUMBS = Path(__file__).with_name("thumbs")   # 96px copies for the graph view
 
 # The alt text is the public description; eight files' alt texts describe other pictures
 # (seen 2026-10-28 on a contact sheet). The subject words below use what is in the frame.
@@ -82,6 +83,13 @@ def lab(rgb):
     a = 500 * (f[..., 0] - f[..., 1])
     b = 200 * (f[..., 1] - f[..., 2])
     return L, a, b
+
+
+def thumb(path):
+    im = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
+    im.thumbnail((96, 96), Image.LANCZOS)
+    THUMBS.mkdir(exist_ok=True)
+    im.save(THUMBS / path.name, quality=82)
 
 
 def measure(path):
@@ -144,8 +152,13 @@ def main():
     if "--check" in sys.argv:
         if OUT.read_text() != text:
             sys.exit("features.json is stale: run python3 studies/13/features.py")
-        print(f"{len(out)} photographs, features.json current")
+        missing = [p["f"] for p in out if not (THUMBS / p["f"]).exists()]
+        if missing:
+            sys.exit(f"{len(missing)} thumbs missing: run python3 studies/13/features.py")
+        print(f"{len(out)} photographs, features.json and thumbs current")
         return
+    for p in out:
+        thumb(ROOT / "photos" / p["f"])
     OUT.write_text(text)
     print(f"{len(out)} photographs -> {OUT.relative_to(ROOT)}")
 

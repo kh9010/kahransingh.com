@@ -10,5 +10,11 @@
   "link-min": "0.4",
   "pair-every": "5",
   "strip-h": "44px",
-  "link-size": ".7rem"
+  "link-size": ".7rem",
+  "mid-weight": "0.5",
+  "l-step": "0.5",
+  "c-step": "0.3",
+  "mid-lo": "28",
+  "mid-hi": "56",
+  "edge-max": "0.45"
 }

@@ -127,8 +127,9 @@
         }
 
 
-        /* Study 13's numbers. The chain's weights and the strip's size are dials in
-           defaults.json; the script reads the --chain-* values back. */
+        /* Study 13's numbers (the chain's weights, the colour order's mid-tone terms, the graph's
+           edge threshold) are dials in defaults.json. The script reads that file itself; these
+           mirror it so the ?tune panel and verify's fallback rule see every dial. */
         :root {
             --chain-w-colour: var(--w-colour, 1);
             --chain-w-tone: var(--w-tone, 1);
@@ -140,6 +141,12 @@
             --chain-lead: var(--lead, 3);
             --chain-link-min: var(--link-min, 0.4);
             --chain-pair-every: var(--pair-every, 5);
+            --chain-mid-weight: var(--mid-weight, 0.5);
+            --chain-l-step: var(--l-step, 0.5);
+            --chain-c-step: var(--c-step, 0.3);
+            --chain-mid-lo: var(--mid-lo, 28);
+            --chain-mid-hi: var(--mid-hi, 56);
+            --chain-edge-max: var(--edge-max, 0.45);
         }
 
         /* The step between two pictures: both, small, and the word that ties them. */
@@ -152,6 +159,24 @@
         .thread-sum { font-family: 'Space Grotesk', sans-serif; font-size: .75rem; color: #999; margin-top: .75rem; font-variant-numeric: tabular-nums; }
         .thread { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem 2rem; max-width: 1200px; margin: 3rem auto 6rem; }
         .thread .link { justify-content: flex-start; margin: 0; }
+        .graph { max-width: 1200px; margin: 2rem auto 4rem; font-family: 'Space Grotesk', sans-serif; }
+        .graph svg { display: block; width: 100%; height: auto; overflow: visible; -webkit-tap-highlight-color: transparent; }
+        .graph .band { fill: #e8e6e1; opacity: .4; }
+        .graph .axis { font-size: 10px; letter-spacing: .08em; fill: #bbb; }
+        .graph .edge { stroke: #ddd; stroke-width: .75; }
+        .graph .walk { stroke: #999; stroke-width: 1.25; fill: none; stroke-linejoin: round; }
+        .graph .node { cursor: pointer; }
+        .graph .node rect { fill: none; stroke: transparent; stroke-width: 1.5; }
+        .graph .word { font-size: 10px; letter-spacing: .04em; fill: #333; paint-order: stroke; stroke: #fff; stroke-width: 3px; text-anchor: middle; }
+        .graph .edge, .graph .walk, .graph .node { transition: opacity .2s cubic-bezier(.4,0,.2,1); }
+        .graph.focus .edge, .graph.focus .node { opacity: .18; }
+        .graph.focus .walk { opacity: .35; }
+        .graph.focus .edge.on { opacity: 1; stroke: #999; }
+        .graph.focus .node.on { opacity: 1; }
+        .graph .node.here rect { stroke: #333; }
+        .graph .step { stroke: #333; stroke-width: 1.5; }
+        .graph-read { min-height: 2.6em; margin: 0 16px .75rem; text-align: center; font-size: .75rem; line-height: 1.3; color: #999; font-variant-numeric: tabular-nums; }
+        .graph-read b { font-weight: 400; color: #333; }
         .thread .link b { font-weight: 400; color: #ccc; width: 1.6em; text-align: right; font-variant-numeric: tabular-nums; }
 
         /* Photo counter */
@@ -339,14 +364,15 @@
             <h1>photography</h1>
             <p>Leica Q2 & Q2 Monochrome</p>
             <div class="camera-filters" id="orders" role="navigation" aria-label="Order" hidden>
-                <a href="./" data-order="today">today</a>
-                <a href="?order=colour" data-order="colour">colour</a>
+                <a href="?order=today" data-order="today">today</a>
+                <a href="./" data-order="colour">colour</a>
                 <a href="?order=line" data-order="line">line</a>
                 <a href="?order=blend" data-order="blend">blend</a>
             </div>
             <div class="camera-filters" id="views" role="navigation" aria-label="View" hidden>
                 <a href="" data-view="walk">walk</a>
                 <a href="" data-view="thread">thread</a>
+                <a href="" data-view="graph">graph</a>
             </div>
             <p class="thread-sum" id="thread-sum" hidden></p>
         </div>
@@ -456,20 +482,15 @@
     <script>
     async function main() {
     const feats = (await (await fetch('features.json')).json()).photos;
-    const css = getComputedStyle(document.documentElement);
-    const dial = (k) => parseFloat(css.getPropertyValue('--chain-' + k));
-    const W = {};
-    for (const k of Chain.KEYS) W[k] = dial('w-' + k);
-    const lead = dial('lead'), linkMin = dial('link-min'), pairEvery = Math.round(dial('pair-every'));
-    const WEIGHTS = {
-        colour: { ...W, colour: W.colour * lead, tone: W.tone * lead },
-        line: { ...W, lines: W.lines * lead, horizon: W.horizon * lead, layout: W.layout * lead },
-        blend: W,
-    };
+    const dflt = await (await fetch('defaults.json', { cache: 'no-store' })).json();
+    const dial = (k) => parseFloat(dflt[k]);
+    const linkMin = dial('link-min'), pairEvery = Math.round(dial('pair-every'));
+    const WEIGHTS = Chain.sets(dial);
 
     const params = new URLSearchParams(window.location.search);
-    const order = WEIGHTS[params.get('order')] ? params.get('order') : 'today';
-    const view = params.get('view') === 'thread' ? 'thread' : 'walk';
+    // Colour is the study's default order (Kahran, 2026-10-28: "I want it by color").
+    const order = WEIGHTS[params.get('order')] || params.get('order') === 'today' ? params.get('order') : 'colour';
+    const view = ['thread', 'graph'].includes(params.get('view')) ? params.get('view') : 'walk';
     const M = Chain.model(feats);
     let seq;
     if (order === 'today') {
@@ -483,15 +504,15 @@
 
     // In ?tune, a moved dial is saved to defaults.json; read it back by reloading.
     if (/[?&]tune\b/.test(location.search)) {
-        const sig = JSON.stringify([W, lead, linkMin, pairEvery]);
+        const sig = Object.keys(dflt).map((k) => String(dflt[k])).join('|');
+        const st = document.documentElement.style;
         new MutationObserver(() => {
-            const c = getComputedStyle(document.documentElement), d = (k) => parseFloat(c.getPropertyValue('--chain-' + k));
-            const w2 = {}; for (const k of Chain.KEYS) w2[k] = d('w-' + k);
-            if (JSON.stringify([w2, d('lead'), d('link-min'), Math.round(d('pair-every'))]) !== sig) setTimeout(() => location.reload(), 700);
+            const now = Object.keys(dflt).map((k) => st.getPropertyValue('--' + k).trim()).join('|');
+            if (now !== sig) setTimeout(() => location.reload(), 700);
         }).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
     }
 
-    const qs = (o, v) => { const p = new URLSearchParams(location.search); o === 'today' ? p.delete('order') : p.set('order', o); v === 'walk' ? p.delete('view') : p.set('view', v); const s = p.toString(); return s ? '?' + s : './'; };
+    const qs = (o, v) => { const p = new URLSearchParams(location.search); o === 'colour' ? p.delete('order') : p.set('order', o); v === 'walk' ? p.delete('view') : p.set('view', v); const s = p.toString(); return s ? '?' + s : './'; };
     const orders = document.getElementById('orders'), views = document.getElementById('views');
     orders.querySelectorAll('a').forEach(a => { a.href = qs(a.dataset.order, view); if (a.dataset.order === order) a.setAttribute('aria-current', 'page'); });
     views.querySelectorAll('a').forEach(a => { a.href = qs(order, a.dataset.view); if (a.dataset.view === view) a.setAttribute('aria-current', 'page'); });
@@ -510,11 +531,126 @@
         return el;
     };
 
+    if (view === 'graph') {
+        // Every picture placed by its colour: lightness across (dark to pale), warm above and
+        // cool below (Lab b, with a), monochromes on the middle line. Edges join pairs under
+        // `edge-max` on the colour order's distance; the chosen walk runs through them.
+        const n = feats.length, wc = WEIGHTS.colour, edgeMax = dial('edge-max'), lo = dial('mid-lo'), hi = dial('mid-hi');
+        const pos = seq.map(() => 0); seq.forEach((i, k) => { pos[i] = k; });
+        const word = new Map(); links.forEach((l, k) => { word.set(seq[k] + '>' + seq[k + 1], l.word); word.set(seq[k + 1] + '>' + seq[k], l.word); });
+        const edges = [];
+        for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) if (Chain.dist(M, wc, i, j) < edgeMax) edges.push([i, j]);
+        const nb = feats.map(() => new Set());
+        for (const [i, j] of edges) { nb[i].add(j); nb[j].add(i); }
+        for (let k = 1; k < seq.length; k++) { nb[seq[k - 1]].add(seq[k]); nb[seq[k]].add(seq[k - 1]); }
+        const warm = feats.map((p) => p.mono ? 0 : 0.35 * p.a + 0.9 * p.b);
+        const wMax = Math.max(...warm.map(Math.abs)) || 1;
+        const Ls = feats.map((p) => p.L), Lmin = Math.min(...Ls) - 2, Lmax = Math.max(...Ls) + 2;
+
+        const box = document.createElement('div'); box.className = 'graph';
+        const read = document.createElement('p'); read.className = 'graph-read'; read.setAttribute('aria-live', 'polite');
+        gallery.replaceWith(box);
+        counter.remove();
+        const sum = document.getElementById('thread-sum');
+        const cs = Chain.colourStats(M, seq, lo, hi);
+        sum.textContent = `${n} pictures · ${edges.length} edges · ${cs.midSteps} mid-tone steps`;
+        sum.hidden = false;
+        const NS = 'http://www.w3.org/2000/svg';
+        const el = (t, a, parent) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (parent) parent.appendChild(e); return e; };
+
+        let focus = null;
+        function draw() {
+            const W = Math.max(300, box.clientWidth), phone = W < 600;
+            // On a phone the long side carries lightness (the crowded axis): dark at the top.
+            const H = Math.round(phone ? W * 1.6 : W * 0.56);
+            const s = phone ? 26 : Math.min(48, Math.round(W / 26)), pad = s * 0.7 + 4, padL = s * 0.7 + 16;
+            const along = (L, len, p) => p + (L - Lmin) / (Lmax - Lmin) * (len - 2 * p);
+            const across = (v, len, p) => len / 2 - Math.sign(v) * Math.sqrt(Math.abs(v) / wMax) * (len / 2 - p);
+            const place = (L, v) => phone ? [W - across(v, W, pad), along(L, H, padL)] : [along(L, W, pad), across(v, H, padL)];
+            const target = feats.map((p, i) => place(p.L, warm[i]));
+            const xy = target.map((t) => t.slice());
+            // Settle: each node pulled to its colour place, pushed off any node it would cover;
+            // the last rounds only push, so nothing is left covered.
+            const r = s * 0.6;
+            for (let it = 0; it < 320; it++) {
+                const pull = it < 240 ? 0.04 : 0;
+                for (let i = 0; i < n; i++) { xy[i][0] += (target[i][0] - xy[i][0]) * pull; xy[i][1] += (target[i][1] - xy[i][1]) * pull; }
+                for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+                    let dx = xy[j][0] - xy[i][0], dy = xy[j][1] - xy[i][1];
+                    const d = Math.hypot(dx, dy);
+                    if (d >= 2 * r) continue;
+                    if (d < 1e-6) { dx = (j - i) % 2 ? 1 : -1; dy = 0.5; }
+                    const m = (2 * r - d) / 2 / (d || 1);
+                    xy[i][0] -= dx * m; xy[i][1] -= dy * m; xy[j][0] += dx * m; xy[j][1] += dy * m;
+                }
+                for (const q of xy) { q[0] = Math.max(pad, Math.min(W - pad, q[0])); q[1] = Math.max(padL, Math.min(H - padL, q[1])); }
+            }
+            const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': `${n} photographs placed by colour, the walk drawn through them` });
+            const ax = el('g', { class: 'axis' }, svg);
+            const lab = (x, y, t, anchor) => { const e = el('text', { x, y, 'text-anchor': anchor }, ax); e.textContent = t; };
+            if (phone) {
+                const y0 = along(lo, H, padL), y1 = along(hi, H, padL);
+                el('rect', { class: 'band', x: 0, y: y0, width: W, height: y1 - y0 }, svg);
+                lab(0, 24, 'dark', 'start'); lab(0, H - 2, 'pale', 'start'); lab(0, y0 + 12, 'mid-tone', 'start');
+                lab(W, 10, 'warm', 'end'); lab(W / 2, 10, 'grey', 'middle'); lab(0, 10, 'cool', 'start');
+            } else {
+                const x0 = along(lo, W, pad), x1 = along(hi, W, pad);
+                el('rect', { class: 'band', x: x0, y: 0, width: x1 - x0, height: H }, svg);
+                lab(0, H - 2, 'dark', 'start'); lab(W, H - 2, 'pale', 'end'); lab((x0 + x1) / 2, H - 2, 'mid-tone', 'middle');
+                lab(0, 10, 'warm', 'start'); lab(0, H / 2 + 3, 'grey', 'start'); lab(0, H - 16, 'cool', 'start');
+            }
+            const eg = el('g', {}, svg), lines = [];
+            for (const [i, j] of edges) lines.push([i, j, el('line', { class: 'edge', x1: xy[i][0], y1: xy[i][1], x2: xy[j][0], y2: xy[j][1] }, eg)]);
+            el('path', { class: 'walk', d: 'M' + seq.map((i) => xy[i][0].toFixed(1) + ' ' + xy[i][1].toFixed(1)).join('L') }, svg);
+            const hl = el('g', {}, svg), ng = el('g', {}, svg), nodes = [];
+            feats.forEach((p, i) => {
+                const k = s / Math.max(p.w, p.h), w = p.w * k, h = p.h * k;
+                const g = el('g', { class: 'node', transform: `translate(${xy[i][0].toFixed(1)} ${xy[i][1].toFixed(1)})`, tabindex: 0, role: 'button', 'aria-label': p.alt }, ng);
+                el('image', { href: 'thumbs/' + p.f, x: -w / 2, y: -h / 2, width: w, height: h }, g);
+                el('rect', { x: -w / 2 - 1.5, y: -h / 2 - 1.5, width: w + 3, height: h + 3 }, g);
+                g.addEventListener('mouseenter', () => { if (!phone) set(i); });
+                g.addEventListener('focus', () => set(i));
+                g.addEventListener('click', (e) => { e.stopPropagation(); set(focus === i && phone ? null : i); });
+                nodes.push(g);
+            });
+            svg.addEventListener('mouseleave', () => { if (!phone) set(null); });
+            svg.addEventListener('click', () => set(null));
+            function set(i) {
+                focus = i;
+                box.classList.toggle('focus', i !== null);
+                hl.replaceChildren();
+                nodes.forEach((g, j) => { g.classList.toggle('on', i !== null && (j === i || nb[i].has(j))); g.classList.toggle('here', j === i); });
+                lines.forEach(([a, b, e]) => e.classList.toggle('on', a === i || b === i));
+                if (i === null) { read.textContent = ''; return; }
+                ng.appendChild(nodes[i]);
+                const k = pos[i], prev = seq[k - 1], next = seq[k + 1];
+                for (const j of [prev, next]) {
+                    if (j === undefined) continue;
+                    el('line', { class: 'step', x1: xy[i][0], y1: xy[i][1], x2: xy[j][0], y2: xy[j][1] }, hl);
+                    const t = el('text', { class: 'word', x: (xy[i][0] + xy[j][0]) / 2, y: (xy[i][1] + xy[j][1]) / 2 + 3 }, hl);
+                    t.textContent = word.get(i + '>' + j) || '·';
+                }
+                read.replaceChildren();
+                const add = (t, b) => { const e = document.createElement(b ? 'b' : 'span'); e.textContent = t; read.appendChild(e); };
+                add(`${k + 1} · `); add(prev === undefined ? '' : (word.get(prev + '>' + i) || '·') + ' → ');
+                add(feats[i].alt, true); add(next === undefined ? '' : ' → ' + (word.get(i + '>' + next) || '·'));
+                add(` · L ${Math.round(feats[i].L)}${feats[i].mono ? '' : ' · C ' + Math.round(feats[i].chroma)}`);
+            }
+            box.replaceChildren(read, svg);
+            if (focus !== null) set(focus);
+        }
+        draw();
+        let rt, lastW = box.clientWidth;
+        window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (box.clientWidth !== lastW) { lastW = box.clientWidth; draw(); } }, 150); });
+        return;
+    }
+
     if (view === 'thread') {
         const named = links.filter(l => l.word).length;
         const mean = Chain.cost(M, WEIGHTS.blend, seq) / links.length;
         const sum = document.getElementById('thread-sum');
-        sum.textContent = `${photos.length} pictures · ${named} of ${links.length} steps named · ${mean.toFixed(2)} apart`;
+        const cs = Chain.colourStats(M, seq, dial('mid-lo'), dial('mid-hi'));
+        sum.textContent = `${photos.length} pictures · ${named} of ${links.length} steps named · ${mean.toFixed(2)} apart · ${cs.midSteps} mid-tone steps`;
         sum.hidden = false;
         const t = document.createElement('div'); t.className = 'thread';
         links.forEach((l, k) => t.appendChild(strip(photos[k], photos[k + 1], l, k + 1)));

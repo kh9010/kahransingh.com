@@ -57,10 +57,57 @@
     return { photos, n, d, meanOrient };
   }
 
+  // How mid a lightness is: 1 inside [lo, hi], falling to 0 over 10 L outside it.
+  const midness = (L, lo, hi) => Math.max(0, Math.min(1, 1 - Math.max(lo - L, L - hi, 0) / 10));
+
+  // The colour order's own terms (Kahran, 2026-10-28: "I love the mid tone transitions").
+  // On top of the weighted mean, a step pays lstep x (dL/15)^2 and cstep x (dC/10)^2: squared,
+  // so a gradual shift is nearly free and a dark-to-pale jump is dear. A step between two
+  // mid-tone pictures is then discounted by up to `mid`, more the gentler its lightness step.
   function dist(M, w, i, j) {
     let s = 0, t = 0;
     for (const k of KEYS) { const wk = +w[k] || 0; s += wk * M.d[k][i][j]; t += wk; }
-    return t ? s / t : 0;
+    let d = t ? s / t : 0;
+    if (w.lstep || w.cstep || w.mid) {
+      const p = M.photos[i], q = M.photos[j];
+      const dL = Math.abs(p.L - q.L) / 15, dC = Math.abs(p.chroma - q.chroma) / 10;
+      d += (+w.lstep || 0) * dL * dL + (+w.cstep || 0) * dC * dC;
+      const m = midness(p.L, w.midLo, w.midHi) * midness(q.L, w.midLo, w.midHi) * Math.exp(-dL);
+      d *= 1 - Math.min(0.9, +w.mid || 0) * m;
+    }
+    return d;
+  }
+
+  // The four orders' weights from the dials (defaults.json keys), one place for the page and verify.
+  function sets(dial) {
+    const W = {};
+    for (const k of KEYS) W[k] = +dial('w-' + k);
+    const lead = +dial('lead');
+    return {
+      colour: { ...W, colour: W.colour * lead, tone: W.tone * lead,
+        mid: +dial('mid-weight'), lstep: +dial('l-step'), cstep: +dial('c-step'), midLo: +dial('mid-lo'), midHi: +dial('mid-hi') },
+      line: { ...W, lines: W.lines * lead, horizon: W.horizon * lead, layout: W.layout * lead },
+      blend: W,
+    };
+  }
+
+  // What a colour reading of an order looks like, in plain counts.
+  //   yard: mean neighbour distance on colour + tone alone (one yardstick for every order)
+  //   dL, dC: mean lightness and chroma step; jumps: steps of more than 30 L
+  //   midSteps: steps between two mid-tone pictures (both L in [lo, hi]) with dL <= 8 and dC <= 6
+  //   paleRuns: how many separate runs the pale pictures (L >= hi) fall into; fewer = together
+  function colourStats(M, order, lo, hi) {
+    const P = M.photos, yard = { colour: 1, tone: 1 };
+    let y = 0, dL = 0, dC = 0, jumps = 0, mid = 0, runs = 0;
+    for (let k = 1; k < order.length; k++) {
+      const p = P[order[k - 1]], q = P[order[k]], l = Math.abs(p.L - q.L), c = Math.abs(p.chroma - q.chroma);
+      y += dist(M, yard, order[k - 1], order[k]); dL += l; dC += c;
+      if (l > 30) jumps++;
+      if (p.L >= lo && p.L <= hi && q.L >= lo && q.L <= hi && l <= 8 && c <= 6) mid++;
+    }
+    for (let k = 0; k < order.length; k++) if (P[order[k]].L >= hi && (k === 0 || P[order[k - 1]].L < hi)) runs++;
+    const n = order.length - 1;
+    return { yard: y / n, dL: dL / n, dC: dC / n, jumps, midSteps: mid, paleRuns: runs, pale: P.filter((p) => p.L >= hi).length };
   }
 
   function cost(M, w, order) { let c = 0; for (let i = 1; i < order.length; i++) c += dist(M, w, order[i - 1], order[i]); return c; }
@@ -131,7 +178,7 @@
     return bk ? { key: bk, word: word(M, bk, i, j) } : { key: null, word: '' };
   }
 
-  const api = { KEYS, model, dist, cost, path, link };
+  const api = { KEYS, model, dist, cost, path, link, sets, colourStats, midness };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Chain = api;
 })(typeof window !== 'undefined' ? window : globalThis);
