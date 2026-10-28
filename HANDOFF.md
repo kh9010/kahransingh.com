@@ -156,7 +156,7 @@ PASS about.html is his desk picks as a site page: full meta set, the nav, no pag
 PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 62 dials across 6 studies, fallbacks match
 PASS every link out of a study resolves: 285 internal targets exist on disk, 49 external left to the link audit
 PASS the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows: 31 checks, rendered at 1200x800 and 390x844
-PASS Right now: the tools line still opens the wall; each line after it opens a short note whose link lives in v2/right-now.json: 49 checks, rendered at 1200x800 and 390x844
+PASS Right now: the tools line still opens the wall; each line after it opens a short note whose link lives in v2/right-now.json: 47 checks, rendered at 1200x800 and 390x844
 PASS idea details: coverage, audited graph, public provenance: idea coverage: 6 ideas, 26 explained tools; audited graph: 5 data arrows, 20 surface feeds; public provenance: 26 tools with repository sources
 ```
 
