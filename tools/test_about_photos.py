@@ -48,7 +48,9 @@ class AboutPhotosTests(unittest.TestCase):
         text = ''.join(page.text)
         self.assertIn('Hello. I’m Kahran.', text)
         self.assertIn('Write to me. Tell me what’s going on.', text)
-        self.assertNotIn('gsap', (ROOT / 'about.html').read_text())
+        # 28 Oct: the word pile came back; without JS it shows one of its six quotes.
+        self.assertIn('Sometimes I smile at myself (in the mirror)', text)
+        self.assertNotIn('lenticular', (ROOT / 'about.html').read_text())
 
     def test_about_returns_to_current_home_and_keeps_v1_accessible(self):
         tags = Page('about.html').tags

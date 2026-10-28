@@ -465,7 +465,7 @@ checkNow("every name and year on a study is already on the site", () => {
   return `${names} names and ${years} years checked against ${PUBLIC.length} public pages`;
 });
 
-checkNow("about.html is his desk picks as a site page: full meta set, the nav, no page JS, every name and year already public, links resolve", () => {
+checkNow("about.html is his desk picks as a site page: full meta set, the nav, only the pile, whispers and count as page JS, every name and year already public, links resolve", () => {
   // Picked 2026-10-28 from Study 09; the old About lives on at /v1/about.html.
   const h = readFileSync(path.join(ROOT, "about.html"), "utf8");
   const meta = [["title", /<title>About — Kahran Singh<\/title>/], ["description", /<meta name="description" content="[^"]{40,}">/], ["canonical", /<link rel="canonical" href="https:\/\/kahransingh\.com\/about\.html">/], ["og:title", /<meta property="og:title" content="[^"]+">/], ["og:description", /<meta property="og:description" content="[^"]{40,}">/], ["og:type", /<meta property="og:type" content="website">/], ["og:url", /<meta property="og:url" content="https:\/\/kahransingh\.com\/about\.html">/], ["og:image", /<meta property="og:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["twitter:card", /<meta name="twitter:card" content="summary_large_image">/], ["twitter:title", /<meta name="twitter:title" content="[^"]+">/], ["twitter:description", /<meta name="twitter:description" content="[^"]{40,}">/], ["twitter:image", /<meta name="twitter:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["site stylesheet", /href="\/style\.css"/], ["nav with about current", /<a href="\/about\.html" class="active" aria-current="page">about<\/a>/], ["nav name to the current home", /<a href="\/" class="nav-name">kahran<\/a>/], ["v1 in the nav", /<a href="\/v1\/">v1<\/a>/], ["mobile header", /class="mobile-header"/], ["16px phone gutters", /@media \(max-width: 768px\) \{ main\.about \{ padding-left: 16px; padding-right: 16px; \} \}/]];
@@ -474,10 +474,18 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, n
     const u = new RegExp(`(?:property|name)="${k}" content="https://kahransingh\\.com(/[^"]+)"`).exec(h)[1];
     if (!existsSync(path.join(ROOT, u))) throw new Error(`about.html ${k} ${u} is not on disk`);
   }
+  // Scripts: the analytics, and since 28 Oct (Kahran: "I do kind of miss the word pile … the poem whispers should stay")
+  // the GSAP word pile, the shared poem whispers and the live poem count. Nothing else; the lenticular stays out.
   const scripts = [...h.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)];
-  for (const [, attrs, body] of scripts) if (!/googletagmanager\.com/.test(attrs) && !/gtag\('config'/.test(body)) throw new Error("about.html carries a script beyond the site's analytics");
+  const allowed = (attrs, body) => /googletagmanager\.com/.test(attrs) || /gtag\('config'/.test(body) || attrs.includes('src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"') || attrs.includes('src="/poem-whisper.js"') || /^\s*\/\/ Word pile/.test(body) || /^\s*\/\/ The poem count/.test(body);
+  for (const [, attrs, body] of scripts) if (!allowed(attrs, body)) throw new Error(`about.html carries a script beyond analytics, the word pile, the whispers and the poem count: <script${attrs}>`);
+  for (const [label, re] of [["the word pile", /<div class="word-pile" id="word-pile">\s*<p class="quote-fallback">Sometimes I smile at myself \(in the mirror\)/], ["the poem whispers", /<script src="\/poem-whisper\.js"><\/script>/], ["the GSAP the old About used", /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/gsap@3\/dist\/gsap\.min\.js"><\/script>/]]) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
+  if (/lenticular|NVP_KAHRANXGOURAV_WEDDING-1377/.test(h)) throw new Error("the lenticular wedding photograph is back on about.html; Kahran let it go on 28 Oct");
+  const quotes = (/var quotes = \[([\s\S]*?)\];/.exec(h) || [, ""])[1].match(/'[^']+'/g) || [];
+  if (quotes.length !== 6) throw new Error(`the word pile has ${quotes.length} quotes, not the old About's six`);
   const main = /<main[^>]*>([\s\S]*?)<\/main>/.exec(h)?.[1] || "";
-  const plain = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  // A link closing before punctuation leaves "Telluride , in": close that gap so an edited (link-free) pick still matches.
+  const plain = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").replace(/ ([,.;:])/g, "$1").trim();
   // The page is the desk's picks: every paragraph and year line of about-draft.html, verbatim.
   const draft = readFileSync(path.join(ROOT, "studies", "09", "about-draft.html"), "utf8");
   const pieces = [...draft.matchAll(/<p class="(?:lede|para|close)">([\s\S]*?)<\/p>|<span class="t">([\s\S]*?)<\/span><\/li>/g)].map((m) => plain(m[1] || m[2]));
@@ -508,6 +516,18 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, n
   }
   if (!existsSync(path.join(ROOT, "v1", "about.html"))) throw new Error("the old About is gone from /v1/about.html");
   return `${meta.length} page rules, ${pieces.length} picked lines verbatim, ${names} names and ${years} years against ${PUBLIC.length} public pages, ${links} internal links on disk, old About at /v1/about.html`;
+});
+
+checkNow("the poem count on about.html is the number of poems in v2/data.json (the no-JS fallback cannot rot)", () => {
+  // Kahran, 28 Oct: the count must not rot. The page sets [data-count="poems"] from /v2/data.json at load;
+  // the static text is what a reader without JS sees, so it must equal poems.length. A weekly check on kMini reads the same contract.
+  const h = readFileSync(path.join(ROOT, "about.html"), "utf8");
+  const spans = [...h.matchAll(/<span data-count="poems">([^<]*)<\/span>/g)];
+  if (spans.length !== 1) throw new Error(`about.html has ${spans.length} [data-count="poems"] spans, want 1`);
+  const n = JSON.parse(readFileSync(path.join(ROOT, "v2", "data.json"), "utf8")).poems.length;
+  if (spans[0][1].trim() !== String(n)) throw new Error(`about.html says ${spans[0][1]} poems, v2/data.json has ${n}`);
+  if (!/fetch\('\/v2\/data\.json'\)[\s\S]*?\[data-count="poems"\][\s\S]*?d\.poems\.length/.test(h)) throw new Error("about.html no longer sets the count from /v2/data.json");
+  return `${n} poems, static and live agree`;
 });
 
 checkNow("tune: every dial lives in defaults.json and the CSS fallback equals it", () => {
