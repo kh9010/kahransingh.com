@@ -49,20 +49,19 @@
     {
       name:  'Keeping track',
       hue:   'tile--remembering',
-      parts: ['The miners', 'The judge', 'The Curator', 'The groomer', 'Meeting follow-ups', 'The sparks garden'],
+      parts: ['The miners', 'The judge', 'The Curator', 'Meeting follow-ups', 'The sparks garden'],
       detail: {
         "intro": "Mentioning something is not the same as committing to it. These tools look for things worth keeping, check them, and give obligations and unfinished ideas different homes.",
         "tools": [
           "Read voice notes, conversations and meetings for possible commitments and ideas. They propose things to keep rather than treating every passing thought as a new task.",
           "Reviews the miners’ proposals before they reach the pending list or sparks garden. Finding a candidate and accepting it are separate steps.",
-          "Works with the pending list and prepares check-in questions. Open commitments also feed the day planner and the midday door, so a suggested next move can come from work already taken on.",
-          "Sorts the pending list and splits an item too big to start into first steps, keeping a copy of the original so a split can be undone. The commitment stays what was agreed.",
+          "Works with the pending list, prepares check-in questions, and splits an item too big to start into first steps, keeping the original so a split can be undone. Open commitments also feed the day planner and the midday door, so a suggested next move can come from work already taken on.",
           "Drafts a follow-up email after a recorded meeting: a short recap, and the next steps with who owns each. It only drafts; nothing is sent until it is read and sent by hand.",
           "Keeps ideas apart from obligations. A thought can be saved and revisited without needing a deadline or pretending to be the next thing to do."
         ],
         "boundary": "Keeping an idea does not make it a task. Keeping a task does not make it urgent. The distinction is what keeps remembering from becoming another source of work."
       },
-      line:  'miners · judge · Curator · groomer · follow-ups · sparks garden',
+      line:  'miners · judge · Curator · follow-ups · sparks garden',
       href:  null
     },
     {
@@ -85,19 +84,20 @@
     {
       name:  'Topically suggesting',
       hue:   'tile--public',
-      parts: ['The day planner', 'The midday door', 'The workout planner', 'Noticings', 'Travel days'],
+      parts: ['The day planner', 'The midday door', 'The workout planner', 'The meal plan', 'Noticings', 'Travel days'],
       detail: {
         "intro": "The useful suggestion depends on the day. A plan for the morning, a start after lunch, a workout, an old thought and a flight-day plan need different inputs; putting them together does not make them interchangeable.",
         "tools": [
           "Reads last night’s recovery, the calendar and pending work to shape the day, and sends it in the morning brief. The same plan is on the page, and help getting unstuck is there when asked.",
           "Waits for the first free stretch after the midday meetings and offers one first fifteen minutes on something already taken on. At most one a day, and only when there is room for it.",
           "Uses the home-or-away reading to help plan a session that fits the day. Today’s workout is available on request; the weekly plan has a separate review path for the coach.",
+          "Fits the day’s meals to its shape just after the morning brief: the meal windows, training and any reservation already made. Away from home it plans from what is actually nearby and open, never from a kitchen that isn’t there.",
           "Brings selected material from the past back into view. The brief carries a short line, or a message of its own when the thought was grown after the brief went out, with a longer page when it is worth staying with.",
           "Uses the flight and bedtime information from daily planning to prepare flight-day messages. The point is a plan for that particular day, not a generic travel checklist."
         ],
         "boundary": "A suggestion is an offer, not another commitment. These tools help choose a next move; they do not turn every available possibility into a list."
       },
-      line:  'day planner · midday door · workouts · noticings · travel days',
+      line:  'day planner · midday · workouts · meals · noticings · travel',
       href:  null
     },
     {
