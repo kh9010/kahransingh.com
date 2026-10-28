@@ -17,6 +17,7 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - Local copy: `node studies/server.cjs`, then `http://127.0.0.1:8791/studies/`. Writes `studies/01/picks.json`. Used by verify; not a second place to pick.
 
 ## Open with Kahran right now
+- **Right now, three lines** (PR on `kahran-oct28-right-now`, not merged). His ask, 28 Oct: "end in some hints of what we are working on now … like the poetry stuff and metro game". Under the tools line: "making a mirror that reads you a poem" (Your Poetic Face) and "making a game out of things lost on the Delhi Metro". Plain lines, no links, no names. Questions: the wording; whether the mirror line should link to the live piece; whether the thesis comes back (left out: no thesis work since August, and he cut "starting work on my poetic thesis" on 28 Sep).
 - **The six-idea wall** (PR #192, merged 2026-10-27 on his approval). Open `/#flow` and read the six tiles and their reading panels. Two judgement calls to confirm: this page's own photograph-and-poem pick sits under Home, not Staying up to date; `/with` is left off the wall.
 - **"day-flow" still shows on the site outside the wall.** GitHub Pages renders `docs/*.md` (`kahransingh.com/docs/2026-09-22-flow-edges.html` answers 200) and the weekly record's pages carry the repo name in their bar titles and legends (`lately/2026-w3x/`, written by `tools/weekly_record.py`). Neither was touched: excluding `docs/` from Pages and renaming the project in the weekly record are his calls.
 - **Study 09, the About desk.** Eight lines; every draft from 06/07/08 is an option; pick, or type your own. The page beside is the About as picked. The seed picks are the agent's (08's letter with 07's poems and photographs); change any. When it reads right, say so: `node studies/09/build.mjs --about` writes `studies/09/about-draft.html` and that becomes `about.html` in one commit. Question: is a desk the way to settle the About, or do you want to pick one of 06/07/08 whole?
@@ -30,6 +31,7 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 - After his pass: read the picks back (Workspace state) and write his selection into this file, with his tags and notes, as the input to the next home version.
 
 ## Rules that came out of this work
+- **Right now is the tools line, then two or three plain lines of what else is being made** (Kahran, 2026-10-28). Only the tools line opens anything; the others name no person and no client. Pinned by `tools/test_right_now.mjs`.
 - **The wall is six ideas; Home is the sixth.** Kahran, 2026-10-27 ("are those really the tools?"). 3+3, same tiles, same visual language; no other layout change. Pinned by `tools/test_wall.mjs`.
 - **Never name the system on the site.** Kahran, 2026-10-27: plain words only, no "day-flow". Pinned for the wall, the flow view and `/context/` by `tools/test_wall.mjs`.
 - **A picture takes its room before it loads** (the agent's call, 2026-10-27, pending Kahran). Study 12: each single picture gets the width and height it will have once loaded, from the column, the caps and its own proportions, so the page is as tall at first paint as when every picture has arrived (within 2%). The live page grows 23%. Pinned on the study by `tools/test_photo_autoscroll.mjs` with `STABLE_HEIGHT=1`.
@@ -147,6 +149,7 @@ PASS every name and year on a study is already on the site: 139 names and 34 yea
 PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 62 dials across 6 studies, fallbacks match
 PASS every link out of a study resolves: 286 internal targets exist on disk, 50 external left to the link audit
 PASS the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows: 30 checks, rendered at 1200x800 and 390x844
+PASS Right now: the tools line still opens the wall, and the lines after it are what else he is making: 18 checks, rendered at 1200x800 and 390x844
 PASS idea details: coverage, audited graph, public provenance: idea coverage: 6 ideas, 26 explained tools; audited graph: 5 data arrows, 20 surface feeds; public provenance: 26 tools with repository sources
 ```
 

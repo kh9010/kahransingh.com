@@ -506,6 +506,13 @@ checkNow("the wall is six ideas with Home the sixth, the noscript copy agrees, a
   return `${oks} checks, rendered at 1200x800 and 390x844`;
 });
 
+checkNow("Right now: the tools line still opens the wall, and the lines after it are what else he is making", () => {
+  const r = run("node", ["tools/test_right_now.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} checks, rendered at 1200x800 and 390x844`;
+});
+
 checkNow("idea details: coverage, audited graph, public provenance", () => {
   const r = run("node", ["tools/test_idea_details.mjs"], ROOT);
   if (!r.ok) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));

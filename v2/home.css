@@ -401,6 +401,9 @@ body {
 }
 .doing-bullet:hover,
 .doing-bullet:focus-visible { text-decoration-color: rgba(246, 243, 236, .5); }
+/* the other lines under Right now: same type, nothing to open */
+.doing-bullet--still { display: inline-block; cursor: default; }
+.doing-bullet--still:hover { text-decoration-color: transparent; }
 
 /* empty until there is something to say; the slot exists so filling it later
    is content, not plumbing */
