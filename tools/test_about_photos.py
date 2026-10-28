@@ -47,7 +47,9 @@ class AboutPhotosTests(unittest.TestCase):
         page = Page('about.html')
         text = ''.join(page.text)
         self.assertIn('Hello. I’m Kahran.', text)
-        self.assertIn('Write to me. Tell me what’s going on.', text)
+        self.assertIn('Write to me. Especially if you are drawing up your own contract with the world', text)
+        self.assertIn('Tell me what’s going on.', text)
+        self.assertNotIn('data-count', (ROOT / 'about.html').read_text())
         # 28 Oct: the word pile came back; without JS it shows one of its six quotes.
         self.assertIn('Sometimes I smile at myself (in the mirror)', text)
         self.assertNotIn('lenticular', (ROOT / 'about.html').read_text())

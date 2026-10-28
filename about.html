@@ -65,10 +65,9 @@
             <p class="lede">Hello. I’m Kahran.</p>
             <p>I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and <a href="/lately/">a public record</a> of what got built. The <a href="/">photograph and poem on the home page</a> come out of the same machine, one of each a day.</p>
             <p>Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months.</p>
-            <p>How the World Works, a first book, 2022. <span data-count="poems">97</span> poems on this site since, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</p>
-            <p>A Leica Q2 Monochrome, and a Q2 for colour. The pictures keep company with the poems.</p>
+            <p>How the World Works, a first book, 2022, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</p>
             <p>I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we <a href="/elopement/">eloped in Telluride</a>, in the snow, and did it again <a href="/wedding-celebration.html">in Jaisalmer</a> with 150 people a year later.</p>
-            <p>Write to me. Tell me what’s going on. <span class="sign">K</span></p>
+            <p>Write to me. Especially if you are drawing up your own contract with the world instead of signing the one you were handed: what it gives you, what you give back, and which of the settled questions you are asking again. Tell me what’s going on. <span class="sign">K</span></p>
         </div>
         <div class="word-pile" id="word-pile">
             <p class="quote-fallback">Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.</p>
@@ -106,13 +105,6 @@
         <a href="/about.html" class="active" aria-current="page">about</a>
         <a href="/v1/">v1</a>
     </nav>
-    <script>
-    // The poem count follows the poems: v2/data.json is the list the home page reads.
-    fetch('/v2/data.json').then(function(r) { return r.ok ? r.json() : null; }).then(function(d) {
-        var el = document.querySelector('[data-count="poems"]');
-        if (el && d && Array.isArray(d.poems) && d.poems.length) el.textContent = d.poems.length;
-    }).catch(function() {});
-    </script>
     <script>
     // Word pile — letters scatter and reassemble into quotes
     (function() {
