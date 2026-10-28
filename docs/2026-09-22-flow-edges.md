@@ -444,3 +444,22 @@ a second idea.
 Twenty lines from six ideas into seven surfaces. **Context is still the only
 idea that asks a question.** The flight routine's "if this one's yours, reply"
 is a line inside a flight-day message, not a question of its own.
+
+## Wall drift, 2026-10-28
+
+The first run of the weekly drift check (`transforms/wall_drift.py` in the system
+repo, reading `tools/wall-map.json`) found two things the 2026-10-27 re-audit missed.
+Kahran ruled on both the same morning.
+
+- **The groomer is off Keeping track.** Its producers, `planner/groom_pending.py` and
+  `planner/decompose_pending.py`, were retired on 2026-09-01 (`samwise/lanes.toml`,
+  lanes `pending-groom` and `pending-decompose`, both quarantined). Splitting an item
+  into first steps moved to the Curator (`curator/split.py`: the plan is stored on the
+  parent before any child is created, and the Split box clears only after every child
+  reads back), so the Curator's line now carries it.
+- **The meal plan is under Topically suggesting.** A cron on the WhatsApp assistant,
+  `daily-meal-plan` (`~/.hermes/cron/jobs.json`), 06:35 daily, 55 runs by this date. It
+  reads `presence.json` and `~/Tome/views/open.json` (Context's where-I-am and right-now),
+  which the existing Context → Topically suggesting arrow already covers, and its final
+  response is delivered to his WhatsApp as a message of its own, which the existing
+  Topically suggesting → own-message feed already covers. No arrow or feed is added.

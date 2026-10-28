@@ -5,12 +5,12 @@ const home = readFileSync(new URL('../v2/home.js', import.meta.url), 'utf8');
 const flow = readFileSync(new URL('../v2/flow.js', import.meta.url), 'utf8');
 const extract = (text, name) => vm.runInNewContext(text.match(new RegExp('var ' + name + ' = ([\\s\\S]*?\\n  \\]);'))[1]);
 const ideas = JSON.parse(JSON.stringify(extract(home, 'IDEAS')));
-// The six-idea cut (Kahran, 2026-10-27). Evidence: docs/2026-09-22-flow-edges.md, last section.
+// The six-idea cut (Kahran, 2026-10-27; groomer out, meal plan in, 2026-10-28). Evidence: docs/2026-09-22-flow-edges.md, last section.
 const expected = {
   'Context': ['Raw store', 'The WhatsApp assistant', 'Where I am', 'Right now'],
-  'Keeping track': ['The miners', 'The judge', 'The Curator', 'The groomer', 'Meeting follow-ups', 'The sparks garden'],
+  'Keeping track': ['The miners', 'The judge', 'The Curator', 'Meeting follow-ups', 'The sparks garden'],
   'Staying up to date': ['Mail triage', 'The newsletter reader', 'Lost touch', 'The weekly record'],
-  'Topically suggesting': ['The day planner', 'The midday door', 'The workout planner', 'Noticings', 'Travel days'],
+  'Topically suggesting': ['The day planner', 'The midday door', 'The workout planner', 'The meal plan', 'Noticings', 'Travel days'],
   'Self-healing': ['Samwise', 'The repairer', 'The health page'],
   'Home': ['The lights', 'The bedroom frame', 'The family archive', 'This page']
 };

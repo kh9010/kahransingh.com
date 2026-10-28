@@ -25,6 +25,10 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
   `/v2/home.js` and lives nowhere else**; the wall is built from it, so re-cutting the system
   is an edit to that one table. `index.html` holds only an empty `#wall-block` plus a
   `<noscript>` copy of the same six lines, which `tools/test_wall.mjs` pins to `IDEAS`.
+- **What runs behind each part** is `tools/wall-map.json`, keyed by part name (not served).
+  The system repo's weekly `wall-drift` job reads it on kMini and reports a part whose jobs
+  have stopped, or a running job no part accounts for. Re-cut `IDEAS`, re-key the map:
+  `tools/test_wall.mjs` fails until they name the same parts.
 - **Never name the system on the site** (Kahran, 2026-10-27): no "day-flow" in any copy a
   visitor reads; plain words only. Samwise and the Curator are the only working names that
   are public. `tools/test_wall.mjs` checks the wall, the flow view and `/context/`.

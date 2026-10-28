@@ -351,7 +351,7 @@ check('study 10: Keeping track is a mechanism page like /context/: same meta set
   assert.match(s10, NOINDEX, 'a study is noindexed')
   assert.doesNotMatch(s10, /<script/, 'no JS on a mechanism page')
   // Study 10 was cut against the five-idea wall (four Keeping track tools); the six-idea re-cut
-  // (2026-10-27) added the groomer and meeting follow-ups. A study stays as it was drawn, so its
+  // (2026-10-27) added meeting follow-ups (and a groomer, retired again 2026-10-28). A study stays as it was drawn, so its
   // sections must still be Keeping track parts by name, in IDEAS order, not all of them.
   const parts = ideaParts('Keeping track'), h2s = [...s10.matchAll(/<h2 id="h-[a-z]+">([^<]+)<\/h2>/g)].map(m => m[1])
   assert.deepEqual(h2s, parts.filter(p => h2s.includes(p)), 'the sections are IDEAS parts, by name and in order')

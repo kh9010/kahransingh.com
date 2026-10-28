@@ -110,6 +110,15 @@ check(!badFeed.length, "every feed leaves an idea and lands on a surface", JSON.
 const deadSurf = surfIds.filter((id) => !FEEDS.some((f) => f[1] === id));
 check(!deadSurf.length, "no surface without a line into it", deadSurf.join(", "));
 
+// What runs behind each part (tools/wall-map.json, read weekly by the drift check on the
+// always-on machine) is keyed by the same part names as IDEAS: re-cut the wall, re-key the map.
+const MAP = JSON.parse(readFileSync(path.join(ROOT, "tools/wall-map.json"), "utf8")).parts;
+const wallParts = IDEAS.flatMap((i) => i.parts);
+const unmapped = wallParts.filter((p) => !Array.isArray(MAP[p]) || !MAP[p].length);
+const orphaned = Object.keys(MAP).filter((p) => !wallParts.includes(p));
+check(!unmapped.length && !orphaned.length, "tools/wall-map.json names exactly the parts in IDEAS",
+  (unmapped.length ? "no map entry: " + unmapped.join(", ") : "") + (orphaned.length ? " map names parts the wall lacks: " + orphaned.join(", ") : ""));
+
 // Never the system's working name, anywhere a visitor reads.
 const visible = [
   ...IDEAS.flatMap((i) => [i.name, i.line, ...i.parts, i.detail.intro, i.detail.boundary, ...i.detail.tools]),
