@@ -691,6 +691,9 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   color: hsl(var(--me-ink) / .8);
   letter-spacing: .05em;
   text-align: center;
+  /* The column is narrower than its own heading, so "me" used to drop alone onto a
+     second line. Balance the break instead: two even lines, never an orphan. */
+  text-wrap: balance;
 }
 
 .is-landed .flow-head { opacity: 1; }
