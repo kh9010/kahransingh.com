@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Inspiration Pile, live</title>
+<style>
+:root { --paper: #fafaf8; --ink: #1a1a1a; --ink-2: #6e6e6e; --line: #e0ddd8; --hand: #8a5f19; --sel: #ecdcc0; --ok: #8fae94; }
+@media (prefers-color-scheme: dark) { :root { --paper: #141210; --ink: #ede7d9; --ink-2: #9a9385; --line: #332e26; --hand: #e2a34a; --sel: #3a2f1c; } }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { display: grid; grid-template-rows: 48px 1fr; background: var(--paper); color: var(--ink); font: 400 .8rem/1.3 'Space Grotesk', -apple-system, sans-serif; overflow: hidden; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; white-space: nowrap; }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--hand); outline-offset: 1px; }
+#bar { display: flex; align-items: center; gap: 8px; padding: 0 12px; border-bottom: 1px solid var(--line); min-width: 0; }
+.num { font-family: ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+#keep { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip { border-radius: 999px; padding: 4px 9px; }
+.chip[aria-pressed="true"] { background: var(--sel); border-color: var(--hand); }
+#note { flex: 1 1 20rem; min-width: 10rem; height: 32px; padding: 0 10px; font-size: 1rem; border: 1px solid var(--line); border-radius: 6px; background: transparent; }
+#note:focus { border-color: var(--hand); }
+#last { max-width: 12rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); text-decoration: none; }
+#st.bad { color: #b4503c; }
+a { color: inherit; }
+#frame { position: relative; min-height: 0; }
+iframe { width: 100%; height: 100%; border: 0; display: block; background: #fff; }
+#hint, #done { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--ink-2); }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <span class="num" id="count">0 / 0</span>
+  <button id="skip" type="button" title="←">skip</button>
+  <button id="keep" type="button" title="→ or Enter in the note">keep</button>
+  <button id="undo" type="button" title="z">undo</button>
+  <button class="chip" data-t="mechanical" type="button" aria-pressed="false" title="1">mechanical</button>
+  <button class="chip" data-t="linguistic" type="button" aria-pressed="false" title="2">linguistic</button>
+  <button class="chip" data-t="composition" type="button" aria-pressed="false" title="3">composition</button>
+  <input id="note" maxlength="500" autocomplete="off" placeholder="note" aria-label="note">
+  <button id="pop" type="button" title="p">pop out</button>
+  <a id="last" target="_blank" rel="noopener" hidden></a>
+  <a href="index.html#kept" class="num" id="kept">kept 0</a>
+  <small id="st">…</small>
+</div>
+<div id="frame">
+  <iframe id="site" title="site" allow="autoplay; fullscreen; clipboard-write; geolocation; camera; microphone"></iframe>
+  <div id="hint" hidden><span>This one blocks frames. It is open in the site window.</span></div>
+  <div id="done" hidden><span>pile done</span></div>
+</div>
+<script>
+(() => {
+  const TAGS = ['mechanical', 'linguistic', 'composition']
+  const $ = s => document.querySelector(s)
+  let items = [], order = [], picks = {}, history = [], cur = null, tags = new Set()
+  const byId = id => items.find(p => p.id === id)
+  const status = (t, bad) => { $('#st').textContent = t; $('#st').classList.toggle('bad', !!bad) }
+  const api = {
+    async load() { const r = await fetch('/api/study-01/picks', { cache: 'no-store' }); if (!r.ok) throw 0; return r.json() },
+    async put(id, rec) { const r = await fetch('/api/study-01/pick', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ id, rec }) }); if (!r.ok) throw 0 },
+  }
+  async function save(id) { try { status('…'); await api.put(id, picks[id] || null); status('saved') } catch { status('not saved', true) } }
+  function shuffle(ids, seed) {
+    let a = seed >>> 0
+    const rnd = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296 }
+    const o = ids.slice(); for (let i = o.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [o[i], o[j]] = [o[j], o[i]] } return o
+  }
+  const host = u => u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
+  const popOut = () => { if (cur) window.open(byId(cur).url, 'study01-site') }
+  function paintTags() { document.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', tags.has(b.dataset.t))) }
+  function show(note) {
+    const open = order.find(id => !picks[id])
+    const judged = order.filter(id => picks[id]).length
+    $('#count').textContent = judged + ' / ' + order.length
+    $('#kept').textContent = 'kept ' + Object.values(picks).filter(p => p.v === 'keep').length
+    const f = $('#site'); cur = open || null
+    $('#done').hidden = !!cur
+    if (!cur) { f.hidden = true; f.removeAttribute('src'); $('#hint').hidden = true; return }
+    document.body.dataset.id = cur
+    const c = byId(cur), blocked = c.frames === false
+    f.hidden = blocked; $('#hint').hidden = !blocked
+    if (blocked) { f.removeAttribute('src'); popOut() } else f.src = c.url
+    tags = new Set(); paintTags()
+    const n = $('#note'); n.value = note || ''; n.focus()
+    const last = history.at(-1), l = $('#last')
+    l.hidden = !last
+    if (last) { const lc = byId(last); l.href = lc.url; l.textContent = picks[last]?.v + ': ' + lc.name; l.title = lc.name + ' ' + host(lc.url) }
+  }
+  function judge(v) {
+    if (!cur) return
+    const id = cur, c = byId(id), rec = { v, tags: TAGS.filter(t => tags.has(t)), note: $('#note').value.trim(), at: new Date().toISOString() }
+    if (v === 'keep') { rec.name = c.name; rec.url = c.url }
+    picks[id] = rec; history.push(id); save(id); show()
+  }
+  function undo() {
+    let id = history.pop()
+    if (!id) id = Object.entries(picks).sort((a, b) => a[1].at < b[1].at ? 1 : -1)[0]?.[0]
+    if (!id) return
+    const p = picks[id]; delete picks[id]; save(id); show(p.note)
+    tags = new Set(p.tags); paintTags()
+  }
+  const toggle = t => { tags.has(t) ? tags.delete(t) : tags.add(t); paintTags() }
+  $('#keep').onclick = () => judge('keep'); $('#skip').onclick = () => judge('skip'); $('#undo').onclick = undo; $('#pop').onclick = popOut
+  document.querySelectorAll('.chip').forEach(b => b.onclick = () => { toggle(b.dataset.t); $('#note').focus() })
+  $('#note').addEventListener('keydown', e => {
+    if (e.isComposing) return
+    if (e.key === 'Enter') { e.preventDefault(); judge('keep') }
+    else if (e.key === 'Escape') { e.preventDefault(); e.target.blur() }
+  })
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey || /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return
+    const k = e.key.toLowerCase()
+    if (k === 'arrowright' || k === 'k') judge('keep')
+    else if (k === 'arrowleft' || k === 'j' || k === 'x') judge('skip')
+    else if (k === 'z' || k === 'backspace') undo()
+    else if (k === 'p') popOut()
+    else if (k === 'n') $('#note').focus()
+    else if (k === '1' || k === '2' || k === '3') toggle(TAGS[+k - 1])
+    else return
+    e.preventDefault()
+  })
+  $('#site').addEventListener('load', () => { if (document.activeElement === $('#site') || document.activeElement === document.body) $('#note').focus() })
+  async function boot() {
+    const pile = await (await fetch('pile.json', { cache: 'no-store' })).json()
+    items = pile.items; order = shuffle(items.map(p => p.id), pile.seed)
+    try { picks = await api.load(); status('saved') } catch { status('not saving', true) }
+    for (const id of Object.keys(picks)) if (!byId(id)) delete picks[id]
+    show()
+  }
+  boot()
+})()
+</script>
+</body>
+</html>

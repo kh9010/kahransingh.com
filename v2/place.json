@@ -1,7 +1,7 @@
 {
-  "place": null,
-  "lat": null,
-  "lon": null,
-  "tz": null,
-  "updated": "2026-10-26"
+  "place": "San Miguel de Allende",
+  "lat": 20.91,
+  "lon": -100.74,
+  "tz": "Etc/GMT+6",
+  "updated": "2026-10-27"
 }

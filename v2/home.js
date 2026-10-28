@@ -26,55 +26,111 @@
        hue    its pigment class — one per idea, defined at the top of home.css
        parts  the tools under it, canonical names (flow.js quotes these too)
        line   the quiet second line on the tile: the same parts, short
-       note   the one-line card on hover, in his voice
+       detail the reading panel: overview, one explanation per part, distinction
        href   null until the idea has a page of its own */
   var IDEAS = [
     {
       name:  'Context',
       hue:   'tile--catching',
       parts: ['Raw store', 'The WhatsApp assistant', 'Where I am', 'Right now'],
+      detail: {
+        "intro": "A conversation, a meeting, or a change of city can change what is useful next. Context gives the other tools something to work from without asking for the day to be explained again.",
+        "tools": [
+          "Keeps mail, chats, meetings, sleep, coding activity, reading, coaching notes and the Facebook and Instagram archives in one shared record. Earlier entries remain available, so a tool can look back rather than work from the latest summary alone.",
+          "Turns a spoken thought into text and keeps it alongside messages, where the miners can return to it later. The same chat answers questions from what the record already holds, and builds small things when asked.",
+          "Weighs explicit updates, calendar events, bookings in the mail and timezone clues to estimate where the day is happening, and asks one question only when they disagree. Home or away can change what a useful day plan, workout or photograph looks like.",
+          "Assembles one short account of today (meetings, open slots, readiness, what is already done) every few minutes, without a model. Planners and the assistant read it first, instead of each finding its own way into the record."
+        ],
+        "boundary": "Records and inferences are different things. A captured message is evidence; a place inferred from several clues still carries uncertainty."
+      },
       line:  'raw store · assistant · where I am · right now',
-      note:  'Works out what’s going on, and where I am, from what I already leave behind. Answers when I ask.',
       href:  '/context/'
     },
     {
       name:  'Keeping track',
       hue:   'tile--remembering',
       parts: ['The miners', 'The judge', 'The Curator', 'The groomer', 'Meeting follow-ups', 'The sparks garden'],
+      detail: {
+        "intro": "Mentioning something is not the same as committing to it. These tools look for things worth keeping, check them, and give obligations and unfinished ideas different homes.",
+        "tools": [
+          "Read voice notes, conversations and meetings for possible commitments and ideas. They propose things to keep rather than treating every passing thought as a new task.",
+          "Reviews the miners’ proposals before they reach the pending list or sparks garden. Finding a candidate and accepting it are separate steps.",
+          "Works with the pending list and prepares check-in questions. Open commitments also feed the day planner and the midday door, so a suggested next move can come from work already taken on.",
+          "Sorts the pending list and splits an item too big to start into first steps, keeping a copy of the original so a split can be undone. The commitment stays what was agreed.",
+          "Drafts a follow-up email after a recorded meeting: a short recap, and the next steps with who owns each. It only drafts; nothing is sent until it is read and sent by hand.",
+          "Keeps ideas apart from obligations. A thought can be saved and revisited without needing a deadline or pretending to be the next thing to do."
+        ],
+        "boundary": "Keeping an idea does not make it a task. Keeping a task does not make it urgent. The distinction is what keeps remembering from becoming another source of work."
+      },
       line:  'miners · judge · Curator · groomer · follow-ups · sparks garden',
-      note:  'Holds onto what I took on, splits it into first steps, drafts the follow-up after a meeting.',
       href:  null
     },
     {
       name:  'Staying up to date',
       hue:   'tile--knowing',
       parts: ['Mail triage', 'The newsletter reader', 'Lost touch', 'The weekly record'],
+      detail: {
+        "intro": "Mail asks what needs attention now; a weekly record asks what actually happened; a friendship gone quiet asks nothing at all. These tools do different kinds of reading, without making every incoming message another obligation.",
+        "tools": [
+          "Distinguishes personal correspondence from newsletters, using the record of correspondents as context. The mail card and inbox view make that sorting available to read, and a booking found in the mail arrives as a message of its own.",
+          "Gathers newsletters into a private reader with their full text, away from the inbox. Reading them becomes a choice made when there is time, not something mixed in with correspondence.",
+          "Ranks the people once written to often who have gone quiet, across every chat channel the record holds. Each week it proposes where some of them live; a city is kept only once it is confirmed.",
+          "Turns an extract of coding activity into the public /lately page. It is a look back at the work, not a transcript of private conversations or a copy of the inbox."
+        ],
+        "boundary": "The outputs serve different moments: sorting what arrived, reading at leisure, noticing who has gone quiet, and looking back at what was made. None is meant to be another stream of reminders."
+      },
       line:  'mail triage · newsletters · lost touch · weekly record',
-      note:  'Tells a person from a newsletter, notices who I’ve lost touch with, writes down the week.',
       href:  null
     },
     {
       name:  'Topically suggesting',
       hue:   'tile--public',
       parts: ['The day planner', 'The midday door', 'The workout planner', 'Noticings', 'Travel days'],
+      detail: {
+        "intro": "The useful suggestion depends on the day. A plan for the morning, a start after lunch, a workout, an old thought and a flight-day plan need different inputs; putting them together does not make them interchangeable.",
+        "tools": [
+          "Reads last night’s recovery, the calendar and pending work to shape the day, and sends it in the morning brief. The same plan is on the page, and help getting unstuck is there when asked.",
+          "Waits for the first free stretch after the midday meetings and offers one first fifteen minutes on something already taken on. At most one a day, and only when there is room for it.",
+          "Uses the home-or-away reading to help plan a session that fits the day. Today’s workout is available on request; the weekly plan has a separate review path for the coach.",
+          "Brings selected material from the past back into view. The brief carries a short line, or a message of its own when the thought was grown after the brief went out, with a longer page when it is worth staying with.",
+          "Uses the flight and bedtime information from daily planning to prepare flight-day messages. The point is a plan for that particular day, not a generic travel checklist."
+        ],
+        "boundary": "A suggestion is an offer, not another commitment. These tools help choose a next move; they do not turn every available possibility into a list."
+      },
       line:  'day planner · midday door · workouts · noticings · travel days',
-      note:  'Shapes the day from last night’s sleep, offers one start after lunch, a thing from my own past.',
       href:  null
     },
     {
       name:  'Self-healing',
       hue:   'tile--alive',
       parts: ['Samwise', 'The repairer', 'The health page'],
+      detail: {
+        "intro": "A quiet system can be working, or it can have stopped. These tools check for missing or unhealthy work, investigate failures, and make the results available to inspect.",
+        "tools": [
+          "Compares registered jobs with their run records to spot stale or unhealthy work. Those checks give the repairer and health page a shared view of what needs attention.",
+          "Reads the health results, investigates broken jobs and attempts repairs. A repair attempt is not itself proof that the job is working again.",
+          "Makes the health results visible when opened. It is a place to inspect what the checks found, rather than having to infer system health from silence."
+        ],
+        "boundary": "Monitoring has limits: a job needs a check and a run record to be visible here. Self-healing is a recovery path, not a promise that nothing breaks."
+      },
       line:  'Samwise · repairer · health page',
-      note:  'Watches itself, works out why something broke, and lands a fix with a way back.',
       href:  null
     },
     {
       name:  'Home',
       hue:   'tile--home',
       parts: ['The lights', 'The bedroom frame', 'The family archive', 'This page'],
+      detail: {
+        "intro": "Some of the system faces the rooms and the people rather than the work: the light in the apartment, the photographs on a wall, a family group, and this page. These tools look after those surfaces quietly.",
+        "tools": [
+          "Keeps the apartment lights following the sun, holds a mood set by hand, and offers a page to change them. A bulb that drops off the network, and a weekly summary of how the lights were used, arrive as messages.",
+          "Rotates a curated set of photographs on the bedroom frame through the day. The pictures were judged once and the judgements kept, so changing the rotation never means judging them again.",
+          "Keeps the family’s photographs in one private library and, twice a day, sends the family group an old picture with a question about it. The replies teach the question to get better.",
+          "Chooses today’s photograph and poem for this page, following the weather where the day is, and shows the city only when it is confidently known. A day that has passed keeps the pick it had."
+        ],
+        "boundary": "These are quiet by design: a light, a frame or a photograph should be noticed for what it shows, not for the system behind it. A place shown on this page is a city, never a point."
+      },
       line:  'lights · bedroom frame · family archive · this page',
-      note:  'Runs the lights by the sun, the photos on the bedroom wall, an old picture for the family, and this page.',
       href:  null
     }
   ];
@@ -348,19 +404,22 @@
     function tileFor(idea) {
       var li = document.createElement('li');
       li.className = 'tile ' + idea.hue + (idea.href ? ' tile--live' : '');
-      li.setAttribute('data-note', idea.note || '');
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'idea-trigger';
+      trigger.setAttribute('aria-label', idea.name);
+      li.appendChild(trigger);
 
-      var name = document.createElement(idea.href ? 'a' : 'span');
+      var name = document.createElement('span');
       name.className = 'tile-name';
-      if (idea.href) name.href = idea.href;
       name.textContent = idea.name;
-      li.appendChild(name);
+      trigger.appendChild(name);
 
       /* The parts, so the sixteen are still visible without sixteen tiles. */
       var parts = document.createElement('span');
       parts.className = 'tile-parts';
       parts.textContent = idea.line;
-      li.appendChild(parts);
+      trigger.appendChild(parts);
 
       return li;
     }
@@ -475,125 +534,195 @@
     apply();
   })();
 
-  /* ---------------------------------------------------------- the notes -- */
-
-  /* One line per tool, on hover, on tap, and on keyboard focus. Built from each
-     tile's data-note so the markup stays plain, and positioned from here so the
-     card can flip above/below and left/right to stay inside the tools column
-     and inside the viewport. The tile never resizes, so the block never moves. */
-  (function notes() {
-    var tiles = [];
-    Array.prototype.forEach.call(document.querySelectorAll('.tile[data-note]'), function (tile) {
-      var text = (tile.getAttribute('data-note') || '').trim();
-      if (!text) return;                        /* the live tile carries no note */
-      var card = document.createElement('span');
-      card.className = 'note';
-      card.id = 'tool-note-' + (tiles.length + 1);
-      card.setAttribute('role', 'tooltip');
-      card.textContent = text;
-      tile.appendChild(card);
-      tile.setAttribute('tabindex', '0');
-      tile.setAttribute('aria-describedby', card.id);
-      tile.noteCard = card;
-      tiles.push(tile);
-    });
-    if (!tiles.length) return;
-
-    var open = null, timer = null;
-    var GAP = 10, EDGE = 16, DELAY = 140;
-
-    /* Keep the card inside the tools column as well as the window. */
-    function bounds() {
-      var wall = document.querySelector('.wall');
-      var r = wall ? wall.getBoundingClientRect() : null;
-      return {
-        lo: Math.max(EDGE, r ? r.left : EDGE),
-        hi: Math.min(window.innerWidth - EDGE, r ? r.right : window.innerWidth - EDGE)
-      };
+  /* ---------------------------------------------------------- the details --
+     A reading panel, not a tooltip. It lives outside the transformed tiles.
+     Hover/focus previews; activation pins. No pointerdown toggle: a touch
+     scroll must stay a scroll. The flow controller shares the reading state. */
+  (function details() {
+    var tiles = Array.prototype.slice.call(document.querySelectorAll('#wall-block .tile'));
+    var open = null, pinned = false, timer = null, suppressFocus = false;
+    var previewTimer = null, pendingPreview = null, pointer = null;
+    var hover = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var compact = window.matchMedia('(max-width: 900px)');
+    function make(tag, cls, text) {
+      var node = document.createElement(tag);
+      if (cls) node.className = cls;
+      if (text) node.textContent = text;
+      return node;
     }
-
-    /* How much the tile is scaled by while it is hovered. Read from --lift, the
-       custom property the stylesheet sets alongside the transform, and NOT from
-       the computed transform — that one is still easing when the card opens
-       140ms in, and a half-finished number here puts the card permanently
-       askew. The stylesheet undoes the same scale on the card itself. */
-    function liftOf(tile) {
-      var v = parseFloat(getComputedStyle(tile).getPropertyValue('--lift'));
-      return (v && v > 0) ? v : 1;
-    }
-
-    function place(tile) {
-      var card = tile.noteCard;
-      card.style.left = '0px'; card.style.top = '0px'; card.style.maxWidth = '';
-      var b = bounds();
-      card.style.maxWidth = Math.min(248, b.hi - b.lo) + 'px';
-      var s = liftOf(tile);
-      var t = tile.getBoundingClientRect();
-      var c = card.getBoundingClientRect();
-      var left = t.left;
-      if (left + c.width > b.hi) left = b.hi - c.width;   /* flip to the right edge */
-      if (left < b.lo) left = b.lo;
-      card.style.left = ((left - t.left) / s) + 'px';
-      /* above by preference, below when there is no room up there */
-      card.style.top = (t.top - c.height - GAP >= EDGE)
-        ? (-(c.height + GAP) / s) + 'px'
-        : ((t.height + GAP) / s) + 'px';
-    }
-
-    function show(tile) {
-      if (open === tile) return;
-      hide();
-      tile.classList.add('is-noted');
-      place(tile);
-      open = tile;
-    }
-
-    function hide() {
+    function cancel() { clearTimeout(timer); }
+    function place() {
       if (!open) return;
-      open.classList.remove('is-noted');
-      open.noteCard.removeAttribute('style');
-      open = null;
+      var card = open.card;
+      card.style.left = ''; card.style.top = '';
+      if (compact.matches) return; // CSS owns the bounded phone sheet.
+      var wall = document.getElementById('wall-block').getBoundingClientRect();
+      var tile = open.tile.getBoundingClientRect();
+      var width = card.offsetWidth, height = card.offsetHeight, edge = 16;
+      // Prefer the space beside the whole diagram, not on top of its arrows.
+      var left = wall.left - width - 18;
+      if (left < edge) left = wall.right + 18;
+      left = Math.max(edge, Math.min(left, innerWidth - width - edge));
+      card.style.left = left + 'px';
+      card.style.top = Math.max(edge, Math.min(tile.top, innerHeight - height - edge)) + 'px';
     }
-
-    tiles.forEach(function (tile) {
-      tile.addEventListener('mouseenter', function () {
-        clearTimeout(timer);
-        timer = setTimeout(function () { show(tile); }, DELAY);  /* no flicker when sweeping */
-      });
-      tile.addEventListener('mouseleave', function () { clearTimeout(timer); hide(); });
-      /* only a keyboard focus opens it; a tap's focus is handled by the click */
-      tile.addEventListener('focus', function () {
-        if (!tile.matches || tile.matches(':focus-visible')) show(tile);
-      });
-      tile.addEventListener('blur', hide);
-      /* A live tile is a link that also carries a note. Anything aimed at the
-         link itself must reach it — otherwise the toggle below swallows the
-         keyboard activation and the page becomes unreachable without a mouse. */
-      function onLink(e) {
-        return !!(e.target && e.target.closest && e.target.closest('a'));
+    function hide(restore) {
+      cancel();
+      clearTimeout(previewTimer); pendingPreview = null;
+      if (!open) return;
+      var old = open;
+      open = null; pinned = false;
+      old.card.hidden = true;
+      old.tile.classList.remove('is-noted');
+      old.trigger.setAttribute('aria-expanded', 'false');
+      if (restore) {
+        suppressFocus = true;
+        old.trigger.focus({ preventScroll: true });
+        suppressFocus = false;
       }
-      tile.addEventListener('click', function (e) {
-        if (onLink(e)) return;
-        e.stopPropagation();
-        clearTimeout(timer);
-        if (open === tile) hide(); else show(tile);
+      document.dispatchEvent(new CustomEvent('kahran:detail-close'));
+    }
+    function show(item, pin) {
+      cancel();
+      if (pinned && !pin) return;
+      if (open !== item) {
+        hide(false);
+        open = item;
+        item.card.hidden = false;
+        item.card.scrollTop = 0;
+        item.tile.classList.add('is-noted');
+        item.trigger.setAttribute('aria-expanded', 'true');
+      }
+      pinned = pinned || !!pin;
+      place();
+    }
+    // Keep the passage between the tile and its panel traversable, even slowly.
+    // A different tile must receive a settled hover, not just a crossing pointer.
+    function inPassage() {
+      if (!open || !pointer) return false;
+      var a = open.trigger.getBoundingClientRect(), b = open.card.getBoundingClientRect();
+      return pointer.x >= Math.min(a.left, b.left) && pointer.x <= Math.max(a.right, b.right) &&
+        pointer.y >= Math.min(a.top, b.top) && pointer.y <= Math.max(a.bottom, b.bottom);
+    }
+    function preview(item) {
+      clearTimeout(previewTimer);
+      pendingPreview = item;
+      previewTimer = setTimeout(function () {
+        pendingPreview = null;
+        show(item, false);
+      }, 180);
+    }
+    function leaveSoon() {
+      cancel();
+      timer = setTimeout(function () {
+        if (!open || pinned || inPassage() || open.card.contains(document.activeElement) ||
+            open.trigger === document.activeElement && open.trigger.matches(':focus-visible')) return;
+        hide(false);
+      }, 450);
+    }
+    tiles.forEach(function (tile, i) {
+      var idea = IDEAS[i], trigger = tile.querySelector('.idea-trigger');
+      var card = make('section', 'idea-detail ' + idea.hue);
+      card.id = 'idea-detail-' + i;
+      card.hidden = true;
+      card.setAttribute('role', 'region');
+      card.setAttribute('aria-labelledby', card.id + '-title');
+      trigger.setAttribute('aria-controls', card.id);
+      trigger.setAttribute('aria-expanded', 'false');
+      var head = make('header', 'idea-detail-head');
+      var title = make('h2', '', idea.name);
+      title.id = card.id + '-title';
+      var close = make('button', 'idea-close', 'Close');
+      close.type = 'button';
+      close.setAttribute('aria-label', 'Close ' + idea.name + ' details');
+      head.appendChild(title); head.appendChild(close); card.appendChild(head);
+      card.appendChild(make('p', 'idea-intro', idea.detail.intro));
+      var list = make('dl', 'idea-tools');
+      idea.parts.forEach(function (part, n) {
+        list.appendChild(make('dt', '', part));
+        list.appendChild(make('dd', '', idea.detail.tools[n]));
       });
-      tile.addEventListener('keydown', function (e) {
-        if (onLink(e)) return;
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          if (open === tile) hide(); else show(tile);
+      card.appendChild(list);
+      card.appendChild(make('p', 'idea-boundary', idea.detail.boundary));
+      if (idea.href) {
+        var link = make('a', 'idea-more', 'More about ' + idea.name + ' →');
+        link.href = idea.href;
+        card.appendChild(link);
+      }
+      document.body.appendChild(card);
+      var item = { tile: tile, trigger: trigger, card: card, close: close };
+      close.addEventListener('click', function () { hide(true); });
+      trigger.addEventListener('pointerenter', function (e) {
+        if (e.pointerType !== 'mouse' || !hover.matches) return;
+        cancel(); preview(item);
+      });
+      trigger.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'mouse' && pendingPreview === item) preview(item);
+      });
+      trigger.addEventListener('pointerleave', function (e) {
+        if (pendingPreview === item) {
+          clearTimeout(previewTimer); pendingPreview = null;
+        }
+        if (e.pointerType === 'mouse') leaveSoon();
+      });
+      card.addEventListener('pointerenter', cancel);
+      card.addEventListener('pointerleave', function (e) {
+        if (e.pointerType === 'mouse') leaveSoon();
+      });
+      trigger.addEventListener('focus', function () {
+        if (!suppressFocus && trigger.matches(':focus-visible')) {
+          if (open !== item) hide(false);
+          show(item, false);
+        }
+      });
+      trigger.addEventListener('click', function () {
+        show(item, true);
+        close.focus({ preventScroll: true });
+      });
+      // Portalled panel follows its trigger in the keyboard reading order.
+      trigger.addEventListener('keydown', function (e) {
+        if (e.key === 'Tab' && !e.shiftKey && open === item) {
+          e.preventDefault(); close.focus({ preventScroll: true });
+        }
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key !== 'Tab') return;
+        var controls = card.querySelectorAll('button, a');
+        if (e.shiftKey && document.activeElement === controls[0]) {
+          e.preventDefault(); trigger.focus({ preventScroll: true });
+        } else if (!e.shiftKey && document.activeElement === controls[controls.length - 1]) {
+          e.preventDefault(); hide(false);
+          var next = tiles[i + 1];
+          (next ? next.querySelector('.idea-trigger') : document.querySelector('.flow-surf')).focus();
         }
       });
     });
-
-    document.addEventListener('click', hide);
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
-    window.addEventListener('scroll', hide, { passive: true });
-    window.addEventListener('resize', hide);
-
-    /* v2/flow.js shuts an open note before it moves the tile out from under it. */
-    window.kahranWall = { hideNote: hide };
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      pointer = { x: e.clientX, y: e.clientY };
+      if (!open || pinned) return;
+      if (inPassage()) cancel(); else leaveSoon();
+    });
+    document.addEventListener('focusin', function (e) {
+      if (open && !open.card.contains(e.target) && e.target !== open.trigger) hide(false);
+    });
+    document.addEventListener('pointerdown', function (e) {
+      if (open && !open.card.contains(e.target) && !tiles.some(function (t) { return t.contains(e.target); })) hide(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && open) {
+        e.preventDefault(); // flow.js must not close the diagram on this Escape.
+        hide(true);
+      }
+    });
+    window.addEventListener('resize', place);
+    window.addEventListener('scroll', place, { passive: true });
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', place);
+    window.kahranWall = {
+      hideNote: function () { hide(false); },
+      isReading: function () { return !!open; },
+      contains: function (node) { return !!(open && open.card.contains(node)); }
+    };
   })();
 
   /* ------------------------------------------------------------- go ------- */

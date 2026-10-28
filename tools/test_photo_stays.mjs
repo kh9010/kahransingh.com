@@ -18,6 +18,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = path.resolve(HERE, "..");
 const HTTP_PORT = 8123, CDP_PORT = 9333;
 const W = 1200, H = 800;
+const PAGE = process.env.PAGE || "/";   // a study copy of the home can be measured with the same checks
 
 function findShell() {
   const base = path.join(os.homedir(), ".cache/puppeteer/chrome-headless-shell");
@@ -76,7 +77,7 @@ try {
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
   const cdp = new CDP(ws);
   await cdp.send("Page.enable");
-  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/` });
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}${PAGE}` });
 
   // home.js fills the picture after fetching data.json; wait for a real one.
   await waitFor(() => cdp.evaluate(`(() => { const i = document.getElementById('photo'); return !!(i && i.src && i.complete && i.naturalWidth > 0); })()`), "photograph");

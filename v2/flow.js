@@ -150,15 +150,6 @@
     ['Home',                 'public']       // this page: today's photograph, poem and city
   ];
 
-  /* The line on the tile's own card, so the words and the arrows agree. */
-  var CHANNEL = {
-    'Context':              'one question, only when it cannot tell where he is; answers when he asks',
-    'Keeping track':        'his own words and three questions at 06:30; the list and the drafts when he asks',
-    'Staying up to date':   'the mail card at 06:30, a booking as its own message, the reader, /lately in public',
-    'Topically suggesting': 'the day at 06:30, a start after lunch, a late noticing, the flight-day messages, the page',
-    'Self-healing':         'a count at 06:30, the health page, a message only if the watcher itself stops',
-    'Home':                 'a Monday note, a bulb to flip, the lights page, the family group, this page'
-  };
 
   /* --------------------------------------------------------------- setup -- */
 
@@ -216,15 +207,6 @@
      height, which is what keeps the drawing above the fold. */
   block.appendChild(make('p', 'flow-head flow-head--watch', 'watching'));
 
-  /* The channel, as a second line on the tile's own card, naming the surface
-     its arrow points at so the words and the arrow always agree. */
-  Object.keys(CHANNEL).forEach(function (name) {
-    var tile = tiles[name];
-    if (!tile) return;
-    var card = tile.querySelector('.note');
-    if (!card) return;
-    card.appendChild(make('span', 'note-reach', CHANNEL[name]));
-  });
 
   /* The fourth column. Ordered so each one sits near the tiles that feed it,
      and spread down the whole height of the drawing by the flex column. */
@@ -634,12 +616,20 @@
      diagram in; leaving the line AND the diagram takes it away, after a grace
      so that crossing the gap between them does not close it. */
   var GRACE = 250;
-  var graceTimer = null;
+  var graceTimer = null, restoringBulletFocus = false;
   function holdOpen() { clearTimeout(graceTimer); }
   function leaveSoon() {
     clearTimeout(graceTimer);
-    graceTimer = setTimeout(function () { setFlow(false, true); }, GRACE);
+    graceTimer = setTimeout(function () {
+      if (window.kahranWall && window.kahranWall.isReading()) return;
+      if (region && region.contains(document.activeElement) && document.activeElement.matches(':focus-visible')) return;
+      setFlow(false, true);
+    }, GRACE);
   }
+
+  document.addEventListener('kahran:detail-close', function () {
+    if (canHover && region && !region.matches(':hover')) leaveSoon();
+  });
 
   if (bullet) {
     var canHover = !!(window.matchMedia && window.matchMedia('(hover: hover)').matches);
@@ -651,7 +641,9 @@
       }
     }
     bullet.addEventListener('focus', function () {
-      if (!bullet.matches || bullet.matches(':focus-visible')) { holdOpen(); setFlow(true, true); }
+      if (!restoringBulletFocus && (!bullet.matches || bullet.matches(':focus-visible'))) {
+        holdOpen(); setFlow(true, true);
+      }
     });
     /* touch: the line is a toggle, and a tap anywhere else puts it away */
     bullet.addEventListener('click', function (e) {
@@ -660,6 +652,7 @@
       setFlow(!open, true);
     });
     document.addEventListener('pointerdown', function (e) {
+      if (window.kahranWall && window.kahranWall.contains(e.target)) return;
       if (open && region && !region.contains(e.target)) { holdOpen(); setFlow(false, true); }
     });
   }
@@ -672,11 +665,15 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape' || !open) return;
+    if (e.key !== 'Escape' || e.defaultPrevented || !open) return;
     if (block.querySelector('.tile.is-noted')) return;   /* a note closes first */
     setFlow(false, true);
     if (isFlowHash()) history.replaceState(null, '', location.pathname + location.search);
-    if (bullet) bullet.focus();
+    if (bullet) {
+      restoringBulletFocus = true;
+      bullet.focus({ preventScroll: true });
+      restoringBulletFocus = false;
+    }
   });
 
   /* Touch a tile and the lines out of it light; touch a surface and everything
@@ -722,8 +719,8 @@
       }
       tile.addEventListener('mouseenter', on);
       tile.addEventListener('mouseleave', unlitAll);
-      tile.addEventListener('focus', on);
-      tile.addEventListener('blur', unlitAll);
+      tile.addEventListener('focusin', on);
+      tile.addEventListener('focusout', unlitAll);
     });
   })();
 
@@ -735,8 +732,8 @@
     function off() { svg.classList.remove('is-watched'); }
     s.addEventListener('mouseenter', on);
     s.addEventListener('mouseleave', off);
-    s.addEventListener('focus', on);
-    s.addEventListener('blur', off);
+    s.addEventListener('focusin', on);
+    s.addEventListener('focusout', off);
   })();
 
   var redraw = null;

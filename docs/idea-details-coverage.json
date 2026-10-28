@@ -1,0 +1,198 @@
+[
+  {
+    "idea": "Context",
+    "tools": [
+      {
+        "name": "Raw store",
+        "sources": [
+          "context/index.html#store"
+        ]
+      },
+      {
+        "name": "The WhatsApp assistant",
+        "sources": [
+          "context/index.html#capture",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "Where I am",
+        "sources": [
+          "context/index.html#movement",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "Right now",
+        "sources": [
+          "context/index.html#now",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Keeping track",
+    "tools": [
+      {
+        "name": "The miners",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The judge",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#the-sixteen-edges"
+        ]
+      },
+      {
+        "name": "The Curator",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The groomer",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "Meeting follow-ups",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The sparks garden",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Staying up to date",
+    "tools": [
+      {
+        "name": "Mail triage",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The newsletter reader",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "Lost touch",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The weekly record",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran",
+          "tools/weekly_record.py"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Topically suggesting",
+    "tools": [
+      {
+        "name": "The day planner",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The midday door",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The workout planner",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "Noticings",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "Travel days",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Self-healing",
+    "tools": [
+      {
+        "name": "Samwise",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran",
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The repairer",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      },
+      {
+        "name": "The health page",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#reaches-kahran"
+        ]
+      }
+    ]
+  },
+  {
+    "idea": "Home",
+    "tools": [
+      {
+        "name": "The lights",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The bedroom frame",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "The family archive",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27"
+        ]
+      },
+      {
+        "name": "This page",
+        "sources": [
+          "docs/2026-09-22-flow-edges.md#six-ideas-2026-10-27",
+          "tools/daily_pick.py",
+          "tools/place_feed.py"
+        ]
+      }
+    ]
+  }
+]

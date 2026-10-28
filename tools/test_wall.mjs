@@ -70,7 +70,6 @@ const PLACE = literal(flowJs, "PLACE");
 const EDGES = literal(flowJs, "EDGES");
 const SURFACES = literal(flowJs, "SURFACES");
 const FEEDS = literal(flowJs, "FEEDS");
-const CHANNEL = literal(flowJs, "CHANNEL");
 const READ = literal(flowJs, "READ");
 const GROUPS = literal(flowJs, "GROUPS");
 const names = IDEAS.map((i) => i.name);
@@ -80,8 +79,9 @@ check(names[5] === "Home", "Home is the sixth idea", names[5]);
 check(ROWS.reduce((a, b) => a + b, 0) === IDEAS.length && ROWS.join("+") === "3+3", "the wall is 3+3", ROWS.join("+"));
 const empty = IDEAS.filter((i) => !Array.isArray(i.parts) || !i.parts.length || i.parts.some((p) => !String(p).trim()));
 check(!empty.length, "every idea has parts", empty.map((i) => i.name).join(", "));
-const noLine = IDEAS.filter((i) => !i.line || !i.note);
-check(!noLine.length, "every idea has a line and a note", noLine.map((i) => i.name).join(", "));
+const noLine = IDEAS.filter((i) => !i.line || !i.detail || !i.detail.intro || !i.detail.boundary ||
+  !Array.isArray(i.detail.tools) || i.detail.tools.length !== i.parts.length);
+check(!noLine.length, "every idea has a line and a reading panel with one explanation per part", noLine.map((i) => i.name).join(", "));
 
 const hues = IDEAS.map((i) => i.hue);
 check(new Set(hues).size === hues.length, "one hue per idea", hues.join(" "));
@@ -109,13 +109,11 @@ const badFeed = FEEDS.filter((f) => !names.includes(f[0]) || !surfIds.includes(f
 check(!badFeed.length, "every feed leaves an idea and lands on a surface", JSON.stringify(badFeed));
 const deadSurf = surfIds.filter((id) => !FEEDS.some((f) => f[1] === id));
 check(!deadSurf.length, "no surface without a line into it", deadSurf.join(", "));
-check(names.every((n) => CHANNEL[n]), "every idea says on its card how it reaches him",
-  names.filter((n) => !CHANNEL[n]).join(", "));
 
 // Never the system's working name, anywhere a visitor reads.
 const visible = [
-  ...IDEAS.flatMap((i) => [i.name, i.line, i.note, ...i.parts]),
-  ...SURFACES.flatMap((s) => [s[1], s[2]]), ...Object.values(CHANNEL), READ,
+  ...IDEAS.flatMap((i) => [i.name, i.line, ...i.parts, i.detail.intro, i.detail.boundary, ...i.detail.tools]),
+  ...SURFACES.flatMap((s) => [s[1], s[2]]), READ,
   plain(nos), plain(contextHtml.replace(/<!--[\s\S]*?-->/g, "").replace(/<(script|style)[\s\S]*?<\/\1>/g, "")),
 ];
 const leaks = visible.filter((t) => BANNED.test(t));
@@ -213,21 +211,39 @@ try {
         const a = rects[i], b = rects[j];
         if (a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1) overlap++;
       }
-      const text = block.textContent + ' ' + tiles.map((t) => t.getAttribute('data-note')).join(' ') +
+      const text = block.textContent + ' ' +
+                   [...document.querySelectorAll('.idea-detail')].map((c) => c.textContent).join(' ') +
                    ' ' + (block.querySelector('svg title') || {}).textContent;
+      const panels = document.querySelectorAll('.idea-detail').length;
       const lines = block.querySelectorAll('.flow-line').length;
       const wires = block.querySelectorAll('.flow-wire--main, .flow-wire--light').length;
       const watch = block.querySelectorAll('.flow-wire--watch').length;
       const hscroll = document.documentElement.scrollWidth > window.innerWidth + 1;
-      return { n: tiles.length, over, overlap, text, lines, wires, watch, hscroll };
+      return { n: tiles.length, over, overlap, text, lines, wires, watch, hscroll, panels };
     })()`);
     check(r.n === 6, `six tiles in the flow view at ${tag}`, String(r.n));
     check(!r.over.length, `no tile's text overflows its box at ${tag}`, r.over.join(", "));
     check(r.overlap === 0, `no two tiles overlap at ${tag}`, r.overlap + " pairs");
-    check(!BANNED.test(r.text), `no "day-flow" in the rendered wall at ${tag}`);
+    check(!BANNED.test(r.text), `no "day-flow" in the rendered wall or its reading panels at ${tag}`);
+    check(r.panels === 6, `six reading panels at ${tag}`, String(r.panels));
     check(r.wires === EDGES.length && r.lines === FEEDS.length && r.watch === IDEAS.length - 1,
       `every arrow is drawn at ${tag}`, `${r.wires}/${EDGES.length} arrows, ${r.lines}/${FEEDS.length} lines, ${r.watch}/${IDEAS.length - 1} watch`);
     check(!r.hscroll, `no sideways scroll at ${tag}`);
+
+    // Home's reading panel opens, sits inside the window, and lists its four parts.
+    const hp = await cdp.evaluate(`(() => {
+      const t = [...document.querySelectorAll('#wall-block .tile')].find((x) => x.querySelector('.tile-name').textContent.trim() === 'Home');
+      t.querySelector('.idea-trigger').click();
+      const c = [...document.querySelectorAll('.idea-detail')].find((x) => !x.hidden);
+      if (!c) return null;
+      c.scrollIntoView({ block: 'nearest' });
+      const r = c.getBoundingClientRect();
+      return { title: c.querySelector('h2').textContent, dts: c.querySelectorAll('dt').length,
+               inside: r.left >= 0 && r.right <= innerWidth + 1 };
+    })()`);
+    await sleep(300);
+    await shot(cdp, `panel-${tag}.png`);
+    check(hp && hp.title === "Home" && hp.dts === 4 && hp.inside, `Home's reading panel opens inside the window at ${tag}`, JSON.stringify(hp));
   }
 } catch (e) {
   failures++;

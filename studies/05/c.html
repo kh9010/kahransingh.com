@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 05 · C</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root { --night: #0a0908; --ink: #ede7d9; --ink2: #9a9385; --ink3: #5f5a51; --line: #26221c;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease: cubic-bezier(.4,0,.2,1); color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--night); color: var(--ink); overflow: hidden; }
+body { font: 400 .78rem/1.45 var(--sans); -webkit-font-smoothing: antialiased; }
+canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+canvas.over { cursor: pointer; } canvas.drag { cursor: grabbing; }
+a { color: inherit; text-decoration: none; }
+header { position: fixed; top: 28px; left: 32px; right: 32px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; pointer-events: none; z-index: 2; }
+header > * { pointer-events: auto; }
+h1 { font: 500 .95rem var(--sans); letter-spacing: .01em; margin: 0; }
+h1 span { display: block; font-weight: 400; color: var(--ink2); margin-top: 2px; font-size: .78rem; }
+nav { display: flex; gap: 22px; font-size: .78rem; color: var(--ink2); }
+nav a { transition: color .2s var(--ease); } nav a:hover { color: var(--ink); }
+footer { position: fixed; left: 32px; bottom: 26px; z-index: 2; pointer-events: none; max-width: 46ch; }
+footer i { display: block; font: italic 300 .95rem/1.4 var(--serif); color: var(--ink2); }
+footer small { display: block; margin-top: 6px; font: 400 .64rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); }
+#plate { position: fixed; z-index: 3; top: 50%; right: max(5vw, 32px); width: min(40vw, 560px); transform: translateY(calc(-50% + 10px)); opacity: 0; pointer-events: none; transition: opacity .7s var(--ease), transform .9s var(--ease); }
+#plate.on { opacity: 1; transform: translateY(-50%); pointer-events: auto; }
+#plate small { display: block; font: 400 .64rem var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink3); margin-bottom: 18px; }
+#plate figure { margin: 0; }
+#plate img { display: block; max-width: 100%; max-height: 62vh; border-radius: 2px; box-shadow: 0 30px 80px -30px #000; }
+#plate figcaption { margin-top: 14px; font: italic 300 1rem var(--serif); color: var(--ink2); }
+#plate h2 { font: italic 300 1.9rem/1.15 var(--serif); margin: 0 0 22px; letter-spacing: -.01em; }
+#plate .poem { font: 300 1.06rem/1.62 var(--serif); white-space: pre-line; max-height: 52vh; overflow: auto; padding-right: 10px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+#plate .poem p { margin: 0 0 1.1em; }
+#plate .go { display: inline-block; margin-top: 20px; font: 400 .72rem var(--sans); color: var(--ink2); border-bottom: 1px solid var(--ink3); padding-bottom: 2px; }
+#plate .go:hover { color: var(--ink); }
+#x { position: absolute; top: -6px; right: 0; background: none; border: 0; color: var(--ink3); font: 400 1.1rem var(--sans); cursor: pointer; padding: 4px; }
+#x:hover { color: var(--ink); }
+@media (max-width: 720px) {
+  header { top: 18px; left: 16px; right: 16px; flex-direction: column; gap: 10px; }
+  footer { left: 16px; bottom: 18px; right: 16px; }
+  #plate { top: auto; bottom: 0; right: 0; left: 0; width: auto; transform: translateY(20px); padding: 22px 16px 28px; background: linear-gradient(transparent, var(--night) 18%); }
+  #plate.on { transform: none; }
+  #plate img { max-height: 42vh; } #plate .poem { max-height: 36vh; } #x { top: 18px; right: 12px; }
+}
+</style>
+</head>
+<body>
+<header><h1>kahran singh<span>Poet, investor, and builder.</span></h1><nav><a href="/poetry.html">poems</a><a href="/photography.html">photographs</a><a href="/context/">tools</a></nav></header>
+<footer><i id="sky"></i><small id="stone"></small></footer>
+<div id="plate" aria-live="polite"><button id="x" aria-label="close">×</button><div id="pc"></div></div>
+<script src="../03/shared.js"></script>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<script type="module">
+import * as THREE from 'three'
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js'
+
+const Q = new URLSearchParams(location.search)
+const V3 = THREE.Vector3, TAU = Math.PI * 2
+
+/* ---------- the stone the sky chooses ---------- */
+const STONES = {
+  sapphire:     { tint: [.22, .36, .88], ior: 2.05, name: 'sapphire' },
+  tanzanite:    { tint: [.42, .30, .93], ior: 2.05, name: 'tanzanite' },
+  smoky:        { tint: [.66, .55, .44], ior: 2.10, name: 'smoky quartz' },
+  aquamarine:   { tint: [.55, .84, .90], ior: 2.10, name: 'aquamarine' },
+  diamond:      { tint: [.98, .98, 1.0], ior: 2.42, name: 'diamond' },
+  morganite:    { tint: [.95, .76, .74], ior: 2.10, name: 'morganite' },
+  emerald:      { tint: [.18, .78, .45], ior: 2.00, name: 'emerald' },
+  citrine:      { tint: [1.0, .74, .26], ior: 2.10, name: 'citrine' },
+  topaz:        { tint: [.98, .58, .30], ior: 2.10, name: 'imperial topaz' },
+  alexandrite:  { tint: [.36, .56, .50], ior: 2.05, name: 'alexandrite' },
+}
+function stoneFor(r) {
+  if (Q.get('stone') && STONES[Q.get('stone')]) return STONES[Q.get('stone')]
+  const m = new Date().getMonth()
+  const season = m < 2 || m === 11 ? 'diamond' : m < 5 ? 'emerald' : m < 8 ? 'citrine' : 'topaz'
+  if (!r || r.weather_code == null) return STONES[season]
+  const c = r.weather_code, day = r.is_day !== 0
+  if (c === 0 || c === 1) return STONES[day ? 'sapphire' : 'tanzanite']
+  if (c === 2) return STONES[day ? season : 'tanzanite']
+  if (c === 3) return STONES.smoky
+  if (c === 45 || c === 48) return STONES.morganite
+  if ((c >= 51 && c <= 67) || (c >= 80 && c <= 82)) return STONES.aquamarine
+  if ((c >= 71 && c <= 77) || c === 85 || c === 86) return STONES.diamond
+  if (c >= 95) return STONES.alexandrite
+  return STONES[season]
+}
+
+/* ---------- a round brilliant, built facet by facet ---------- */
+function brilliant() {
+  const R = 1, rt = .56, hc = .30, gt = .035, hp = .86, rs = .80, rp = .24
+  const A = k => k * TAU / 8, yT = gt / 2 + hc, yC = -gt / 2 - hp
+  const P = (a, r, y) => new V3(Math.cos(a) * r, y, Math.sin(a) * r)
+  const T = [], G = [], Gb = [], S = [], Pv = [], C = new V3(0, yC, 0)
+  for (let k = 0; k < 8; k++) T.push(P(A(k), rt, yT))
+  for (let j = 0; j < 16; j++) { G.push(P(j * TAU / 16, R, gt / 2)); Gb.push(P(j * TAU / 16, R, -gt / 2)) }
+  const onPlane = (a, b, k, ang, r) => { // point at (ang, r) on the plane through a,b containing the tangent at A(k)
+    const t = new V3(-Math.sin(A(k)), 0, Math.cos(A(k))), n = new V3().subVectors(b, a).cross(t)
+    const x = Math.cos(ang) * r, z = Math.sin(ang) * r
+    return new V3(x, a.y - (n.x * (x - a.x) + n.z * (z - a.z)) / n.y, z)
+  }
+  for (let k = 0; k < 8; k++) { S.push(onPlane(T[k], G[2 * k], k, A(k + .5), rs)); Pv.push(onPlane(C, Gb[2 * k], k, A(k + .5), rp)) }
+  const tris = []
+  const tri = (a, b, c, tag = null) => tris.push({ v: [a, b, c], tag })
+  for (let k = 1; k < 7; k++) tri(T[0], T[k], T[k + 1], 'table')
+  for (let k = 0; k < 8; k++) {
+    const k1 = (k + 1) % 8, km = (k + 7) % 8
+    tri(T[k], T[k1], S[k])
+    tri(T[k], S[k], G[2 * k], 'kite' + k); tri(T[k], G[2 * k], S[km], 'kite' + k)
+    tri(S[k], G[2 * k], G[2 * k + 1]); tri(S[k], G[2 * k + 1], G[(2 * k + 2) % 16])
+    tri(Gb[2 * k], Pv[k], C); tri(Gb[2 * k], C, Pv[km])
+    tri(Gb[2 * k], Gb[2 * k + 1], Pv[k]); tri(Gb[2 * k + 1], Gb[(2 * k + 2) % 16], Pv[k])
+  }
+  for (let j = 0; j < 16; j++) { const j1 = (j + 1) % 16; tri(G[j], G[j1], Gb[j1]); tri(G[j], Gb[j1], Gb[j]) }
+  const planes = [], pos = [], facetOf = [], tags = {}
+  const ctr = new V3(0, -.1, 0)
+  for (const t of tris) {
+    let [a, b, c] = t.v
+    const n = new V3().subVectors(b, a).cross(new V3().subVectors(c, a)).normalize()
+    const cen = new V3().add(a).add(b).add(c).multiplyScalar(1 / 3)
+    if (n.dot(cen.clone().sub(ctr)) < 0) { n.negate();[b, c] = [c, b] }
+    const d = n.dot(a)
+    let id = planes.findIndex(p => p.n.dot(n) > .9999 && Math.abs(p.d - d) < 1e-3)
+    if (id < 0) { id = planes.length; planes.push({ n, d, tag: t.tag }) }
+    if (t.tag) (tags[t.tag] ||= { id, verts: [] }).verts.push(a.clone(), b.clone(), c.clone())
+    pos.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z); facetOf.push(id)
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.computeVertexNormals()
+  g.translate(0, .22, 0)
+  for (const p of planes) p.d += p.n.y * .22
+  for (const k in tags) tags[k].verts.forEach(v => v.y += .22)
+  return { geo: g, planes, facetOf, tags }
+}
+
+/* ---------- renderer, camera, the window ---------- */
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
+renderer.setPixelRatio(Math.min(Math.max(devicePixelRatio, 1.5), 2))
+renderer.setSize(innerWidth, innerHeight)
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15
+document.body.prepend(renderer.domElement)
+const cvs = renderer.domElement
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x070605)
+const camera = new THREE.PerspectiveCamera(26, innerWidth / innerHeight, .1, 100)
+const CAM = new V3(0, 2.1, 10.4); camera.position.copy(CAM); camera.lookAt(0, -.1, 0)
+
+const gem = brilliant()
+let stone = stoneFor(null)
+
+/* environment: a dark room with softboxes, pin lights, and one panel of today's sky */
+const envScene = new THREE.Scene()
+const roomMat = new THREE.ShaderMaterial({ side: THREE.BackSide, uniforms: { uSky: { value: new THREE.Color() } },
+  vertexShader: `varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `uniform vec3 uSky; varying vec3 vD; void main(){ float h = vD.y;
+    vec3 c = mix(vec3(.03,.026,.022), uSky*.45, smoothstep(-.2,.9,h)); c += vec3(.16,.13,.10)*exp(-abs(h-.05)*6.);
+    gl_FragColor = vec4(c,1.); }` })
+envScene.add(new THREE.Mesh(new THREE.SphereGeometry(20, 48, 24), roomMat))
+const lights = []
+function panel(w, h, p, col, k) { // a softbox: bright core, feathered edges
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.ShaderMaterial({ side: THREE.DoubleSide, toneMapped: false,
+    uniforms: { color: { value: new THREE.Color(...col).multiplyScalar(k) } },
+    vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+    fragmentShader: `uniform vec3 color; varying vec2 vUv; void main(){ vec2 q = abs(vUv-.5)*2.;
+      float e = (1.-smoothstep(.55,1.,q.x))*(1.-smoothstep(.55,1.,q.y)); gl_FragColor = vec4(color*e*e*(.85+.15*vUv.y),1.); }` }))
+  m.material.color = m.material.uniforms.color.value
+  m.position.set(...p); m.lookAt(0, 0, 0); envScene.add(m); lights.push(m); return m
+}
+panel(3.4, .32, [-.6, 5.6, 2.6], [1, .93, .84], 10)   // overhead strips, forward of the table's mirror line
+panel(.3, 2.2, [2.4, 4.8, 3.4], [1, .95, .9], 8)
+panel(.35, 3.2, [-4.5, 1.8, 3.2], [1, .95, .88], 9)   // key strip
+panel(.3, 2.6, [4.6, 1.2, -2.6], [.86, .92, 1], 14)    // rim strip
+panel(.6, .6, [1.2, 3.5, 5], [1, .97, .92], 40)       // front pin
+const skyPanel = panel(6, 2.4, [0, 2.2, -6], [1, 1, 1], 1)
+for (let i = 0; i < 26; i++) {                          // tiny spots for the fire
+  const a = i * 2.399, y = .25 + .7 * ((i * .618) % 1), r = Math.sqrt(1 - y * y)
+  const s = new THREE.Mesh(new THREE.SphereGeometry(.15, 10, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(1, .96, .9).multiplyScalar(30), toneMapped: false }))
+  s.position.set(Math.cos(a) * r * 7, y * 7, Math.sin(a) * r * 7); envScene.add(s)
+}
+const floorEnv = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshBasicMaterial({ color: 0x050403 }))
+floorEnv.rotation.x = -Math.PI / 2; floorEnv.position.y = -1.6; envScene.add(floorEnv)
+const cubeRT = new THREE.WebGLCubeRenderTarget(1024, { type: THREE.HalfFloatType, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter, magFilter: THREE.LinearFilter })
+const cubeCam = new THREE.CubeCamera(.1, 50, cubeRT)
+function bakeEnv() {
+  roomMat.uniforms.uSky.value.setRGB(...stone.tint)
+  skyPanel.material.color.setRGB(...stone.tint).multiplyScalar(1.1)
+  cubeCam.update(renderer, envScene)
+}
+
+/* ---------- the stone: an analytic ray trace through its own facets, per colour ---------- */
+const NP = gem.planes.length
+const gemMat = new THREE.ShaderMaterial({
+  defines: { NP, BOUNCES: 7 },
+  uniforms: {
+    uPlanes: { value: gem.planes.map(p => new THREE.Vector4(p.n.x, p.n.y, p.n.z, p.d)) },
+    uCamObj: { value: new V3() }, uRot: { value: new THREE.Matrix3() },
+    uEnv: { value: cubeRT.texture }, uIor: { value: 2.1 }, uDisp: { value: .08 },
+    uAbsorb: { value: new V3() }, uFlash: { value: 0 }, uTime: { value: 0 },
+  },
+  vertexShader: `varying vec3 vPos; varying vec3 vN;
+    void main(){ vPos = position; vN = normal; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `
+    uniform vec4 uPlanes[NP]; uniform vec3 uCamObj; uniform mat3 uRot; uniform samplerCube uEnv;
+    uniform float uIor, uDisp, uFlash; uniform vec3 uAbsorb;
+    varying vec3 vPos; varying vec3 vN;
+    vec3 env(vec3 d){ vec3 c = textureCube(uEnv, normalize(uRot*d)).rgb; return c + max(c-3., 0.)*uFlash*1.5; }
+    float trace(vec3 p, vec3 d, float ior, int ch){
+      float dist = 0.;
+      for (int b = 0; b < BOUNCES; b++){
+        float tm = 1e5; vec3 nh = vec3(0.,1.,0.);
+        for (int i = 0; i < NP; i++){ vec3 n = uPlanes[i].xyz; float dn = dot(n,d);
+          if (dn > 1e-4){ float t = (uPlanes[i].w - dot(n,p))/dn; if (t < tm){ tm = t; nh = n; } } }
+        tm = max(tm, 0.); p += d*tm; dist += tm;
+        vec3 o = refract(d, -nh, ior);
+        if (dot(o,o) < 1e-5){ d = reflect(d, -nh); continue; }
+        float a = uAbsorb[ch];
+        return env(o)[ch] * exp(-a*dist);
+      }
+      return env(d)[ch] * exp(-uAbsorb[ch]*dist) * .6;
+    }
+    void main(){
+      vec3 n = normalize(vN), rd = normalize(vPos - uCamObj);
+      float c = clamp(dot(-rd,n), 0., 1.);
+      float f0 = pow((uIor-1.)/(uIor+1.), 2.), F = f0 + (1.-f0)*pow(1.-c, 5.);
+      vec3 refl = env(reflect(rd, n));
+      vec3 col;
+      for (int ch = 0; ch < 3; ch++){
+        float ior = uIor + (float(ch)-1.)*uDisp;
+        col[ch] = trace(vPos, refract(rd, n, 1./ior), ior, ch);
+      }
+      gl_FragColor = vec4(col*(1.-F) + refl*F, 1.);
+    }` })
+const pivot = new THREE.Group(), tilt = new THREE.Group(), gemMesh = new THREE.Mesh(gem.geo, gemMat)
+tilt.add(gemMesh); pivot.add(tilt); scene.add(pivot)
+
+/* ---------- the images inside: a parallax plate under each crown facet ---------- */
+const ATL = 3, TILE = 640
+const atlasCanvas = document.createElement('canvas'); atlasCanvas.width = atlasCanvas.height = ATL * TILE
+const atlas = new THREE.CanvasTexture(atlasCanvas); atlas.colorSpace = THREE.SRGBColorSpace
+const facets = ['table', ...Array.from({ length: 8 }, (_, k) => 'kite' + k)]
+const tileOfPlane = {}
+const dPos = [], dUV = [], dTile = [], dN = [], dT = [], dB = []
+facets.forEach((tag, ti) => {
+  const f = gem.tags[tag]; if (!f) return
+  tileOfPlane[f.id] = ti
+  const n = gem.planes[f.id].n, cen = new V3(); f.verts.forEach(v => cen.add(v)); cen.multiplyScalar(1 / f.verts.length)
+  // long axis: toward the stone's centre line for kites, a fixed edge for the table
+  let up = tag === 'table' ? new V3(0, 0, -1) : new V3(cen.x, 0, cen.z).normalize().negate()
+  up.sub(n.clone().multiplyScalar(up.dot(n))).normalize()
+  const right = new V3().crossVectors(up, n).normalize()
+  let ext = 0; f.verts.forEach(v => { const q = v.clone().sub(cen); ext = Math.max(ext, Math.abs(q.dot(up)), Math.abs(q.dot(right))) })
+  for (const v of f.verts) {
+    const q = v.clone().sub(cen).multiplyScalar(.97).add(cen).add(n.clone().multiplyScalar(.002)), r = v.clone().sub(cen)
+    dPos.push(q.x, q.y, q.z); dUV.push(r.dot(right) / (2 * ext) + .5, r.dot(up) / (2 * ext) + .5); dTile.push(ti)
+    dN.push(n.x, n.y, n.z); dT.push(right.x, right.y, right.z); dB.push(up.x, up.y, up.z)
+  }
+})
+const dGeo = new THREE.BufferGeometry()
+dGeo.setAttribute('position', new THREE.Float32BufferAttribute(dPos, 3)); dGeo.setAttribute('aUV', new THREE.Float32BufferAttribute(dUV, 2))
+dGeo.setAttribute('aTile', new THREE.Float32BufferAttribute(dTile, 1)); dGeo.setAttribute('aN', new THREE.Float32BufferAttribute(dN, 3))
+dGeo.setAttribute('aT', new THREE.Float32BufferAttribute(dT, 3)); dGeo.setAttribute('aB', new THREE.Float32BufferAttribute(dB, 3))
+const decalMat = new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
+  uniforms: { uAtlas: { value: atlas }, uCamObj: gemMat.uniforms.uCamObj, uTint: { value: new THREE.Color() }, uHover: { value: -1 }, uOpen: { value: -1 }, uStrength: { value: 0 }, uWake: { value: 0 } },
+  vertexShader: `attribute vec2 aUV; attribute float aTile; attribute vec3 aN, aT, aB;
+    varying vec2 vUV; varying float vTile; varying vec3 vPos, vN, vT, vB;
+    void main(){ vUV = aUV; vTile = aTile; vPos = position; vN = aN; vT = aT; vB = aB; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: `uniform sampler2D uAtlas; uniform vec3 uCamObj, uTint; uniform float uHover, uOpen, uStrength, uWake;
+    varying vec2 vUV; varying float vTile; varying vec3 vPos, vN, vT, vB;
+    void main(){
+      vec3 V = normalize(uCamObj - vPos); float facing = dot(V, vN); if (facing <= 0.) discard;
+      vec2 par = vec2(dot(V,vT), dot(V,vB)) / max(facing,.25) * .16;   // the picture sits deep inside the stone
+      vec2 uv = (vUV - .5) * .86 + .5 - par;
+      float e = smoothstep(0.,.22,uv.x)*smoothstep(0.,.22,uv.y)*smoothstep(1.,.78,uv.x)*smoothstep(1.,.78,uv.y);
+      vec2 tuv = clamp(uv, .002, .998); float col = mod(vTile, ${ATL}.), row = floor(vTile / ${ATL}.);
+      vec3 t = texture2D(uAtlas, vec2((col + tuv.x)/${ATL}., 1. - (row + 1. - tuv.y)/${ATL}.)).rgb;
+      float l = pow(dot(t, vec3(.299,.587,.114)), 1.8);
+      bool hov = abs(vTile-uHover) < .5, op = abs(vTile-uOpen) < .5;
+      float k = uStrength * (hov ? 2.2 : 1.) * (op ? 1.6 : 1.) * (1. + uWake);
+      vec3 c = mix(uTint, vec3(1.), .25) * l * e * pow(facing, 2.2) * k;
+      gl_FragColor = vec4(c, 1.);
+    }` })
+const decal = new THREE.Mesh(dGeo, decalMat); decal.renderOrder = 5; gemMesh.add(decal)
+
+/* ---------- the velvet, the pool of light, the shadow, the coloured caustic ---------- */
+const FLOOR_Y = -1.12
+const floorMat = new THREE.ShaderMaterial({
+  uniforms: { uTint: { value: new THREE.Color() }, uSpin: { value: 0 }, uOff: { value: 0 }, uBg: { value: scene.background }, uLift: { value: 0 }, uFlash: gemMat.uniforms.uFlash },
+  vertexShader: `varying vec3 vW; void main(){ vec4 w = modelMatrix*vec4(position,1.); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }`,
+  fragmentShader: `uniform vec3 uTint, uBg; uniform float uSpin, uLift, uFlash, uOff; varying vec3 vW;
+    float h(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7)))*43758.5453); }
+    void main(){
+      vec2 p = vW.xz - vec2(uOff,.25);
+      float r = length(p * vec2(1., 1.25));
+      vec3 c = uBg + vec3(.075,.062,.05) * exp(-r*r*.18);                 // window spotlight on velvet
+      float s = exp(-dot(p*vec2(1.05,1.6), p*vec2(1.05,1.6))*2.2) * (1. - uLift*.4);
+      c *= 1. - .85*s;                                                       // contact shadow
+      vec2 q = vW.xz - vec2(uOff-.15, -.55); float rq = length(q*vec2(1.,1.6));   // caustic, thrown toward the viewer
+      float ang = atan(q.y, q.x);
+      float rays = pow(max(0., cos(ang*11. + uSpin*3.)), 10.) + .7*pow(max(0., cos(ang*17. - uSpin*5.)), 14.);
+      float ring = exp(-pow((rq-.4)/.22, 2.));
+      float spark = step(.985, h(floor(vW.xz*42.))) * ring;
+      c += uTint * (ring*(.03 + .09*rays) + spark*.12) * (1. + uFlash*1.5);
+      c += uTint * exp(-rq*rq*9.) * .05;
+      gl_FragColor = vec4(c, 1.);
+    }` })
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), floorMat)
+floor.rotation.x = -Math.PI / 2; floor.position.y = FLOOR_Y; scene.add(floor)
+
+/* ---------- post: bloom only on the glints ---------- */
+const composer = new EffectComposer(renderer)
+composer.addPass(new RenderPass(scene, camera))
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .5, .4, 1.8)
+composer.addPass(bloom); composer.addPass(new OutputPass())
+
+function applyStone() {
+  const ab = new V3(...stone.tint.map(t => -Math.log(Math.max(t, .02)) * 1.5))
+  gemMat.uniforms.uAbsorb.value.copy(ab); gemMat.uniforms.uIor.value = stone.ior
+  decalMat.uniforms.uTint.value.setRGB(...stone.tint); floorMat.uniforms.uTint.value.setRGB(...stone.tint).multiplyScalar(.9)
+  bakeEnv(); document.getElementById('stone').textContent = stone.name
+}
+applyStone()
+
+/* ---------- motion: slow spin, drag with inertia, the small mischief ---------- */
+const REST = new THREE.Euler(.72, 0, 0)
+tilt.rotation.copy(REST)
+let spin = 0, vel = { x: 0, y: 0 }, drag = null, moved = 0
+const user = new THREE.Quaternion(), look = new THREE.Quaternion(), lookTarget = new THREE.Quaternion()
+const mouse = new THREE.Vector2(0, 0), ndc = new THREE.Vector2(9, 9)
+let lastMove = performance.now(), phase = 'rest', phaseAt = 0, flash = 0, breath = 0, wake = 0
+let shiftX = 0, shiftTarget = 0
+const ray = new THREE.Raycaster()
+
+cvs.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY }; moved = 0; try { cvs.setPointerCapture(e.pointerId) } catch {} cvs.classList.add('drag') })
+addEventListener('pointermove', e => {
+  ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1)
+  if (phase === 'look' || phase === 'held') { phase = 'caught'; phaseAt = performance.now() }
+  lastMove = performance.now()
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y; moved += Math.abs(dx) + Math.abs(dy)
+    drag.x = e.clientX; drag.y = e.clientY; vel.x = dx * .0055; vel.y = dy * .0055
+  }
+})
+cvs.addEventListener('pointerup', e => {
+  cvs.classList.remove('drag')
+  if (drag && moved < 6) pick(true)
+  drag = null
+})
+addEventListener('keydown', e => { if (e.key === 'Escape') closePlate() })
+document.getElementById('x').onclick = closePlate
+
+function hit() {
+  ray.setFromCamera(ndc, camera)
+  const h = ray.intersectObject(gemMesh, false)[0]
+  if (!h) return null
+  const id = gem.facetOf[h.faceIndex]
+  return tileOfPlane[id] ?? null
+}
+function pick(click) {
+  const t = hit()
+  if (click) { if (t != null && content[t]) openPlate(t); else closePlate() }
+  return t
+}
+
+/* ---------- content ---------- */
+const content = []
+const pc = document.getElementById('pc'), plate = document.getElementById('plate')
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+function openPlate(t) {
+  const c = content[t]; decalMat.uniforms.uOpen.value = t
+  if (c.kind === 'photo') {
+    const place = (c.item.caption || '').split(' — ')
+    pc.innerHTML = `<small>photograph${place[1] ? ' · ' + esc(place[1]) : ''}</small><figure><a href="/photography.html"><img src="${esc(c.item.src)}" alt="${esc(c.item.alt || '')}"></a><figcaption>${esc(place[0] || c.item.alt || '')}</figcaption></figure>`
+  } else {
+    const st = c.item.stanzas.map(x => x.split('\n').filter((l, i) => i || l.trim().toLowerCase() !== c.item.title.trim().toLowerCase()).join('\n')).filter(x => x.trim()).map(s => `<p>${esc(s.replace(/ \/ /g, '\n'))}</p>`).join('')
+    pc.innerHTML = `<small>poem</small><h2>${esc(c.item.title)}</h2><div class="poem">${st}</div><a class="go" href="/poems/${esc(c.item.slug)}.html">read it on its page</a>`
+  }
+  plate.classList.add('on'); shiftTarget = innerWidth > 720 ? -1.55 : 0
+}
+function closePlate() { plate.classList.remove('on'); decalMat.uniforms.uOpen.value = -1; shiftTarget = 0 }
+
+function cover(ctx, img, x, y, s) {
+  const r = Math.max(s / img.width, s / img.height), w = img.width * r, h = img.height * r
+  ctx.drawImage(img, x + (s - w) / 2, y + (s - h) / 2, w, h)
+}
+function wordsTile(ctx, poem, x, y, s) {
+  ctx.fillStyle = '#000'; ctx.fillRect(x, y, s, s)
+  ctx.fillStyle = '#fff'; ctx.textAlign = 'center'
+  ctx.font = 'italic 300 46px Fraunces'; ctx.fillText(poem.title.length > 22 ? poem.title.slice(0, 21) + '…' : poem.title, x + s / 2, y + s * .3)
+  const lines = poem.stanzas.join('\n').split(/\n| \/ /).filter(l => l.trim() && l.trim().toLowerCase() !== poem.title.toLowerCase()).slice(0, 5)
+  ctx.font = '300 32px Fraunces'
+  lines.forEach((l, i) => ctx.fillText(l.length > 30 ? l.slice(0, 29) + '…' : l, x + s / 2, y + s * .44 + i * 46))
+}
+const loadImg = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src })
+
+async function fill(ctx) {
+  const d = ctx.data
+  const photos = [ctx.photo], poems = [ctx.poem]
+  try { S03.near(ctx.ps[ctx.photo.src], ctx.ps, 12).forEach(src => { const p = d.photos.find(x => x.src === src); if (p && !photos.includes(p) && photos.length < 5) photos.push(p) }) } catch {}
+  try { S03.near(ctx.qs[ctx.poem.slug], ctx.qs, 12).forEach(sl => { const p = d.poems.find(x => x.slug === sl); if (p && !poems.includes(p) && poems.length < 4) poems.push(p) }) } catch {}
+  let i = 1; while (photos.length < 5) { const p = d.photos[S03.hash(ctx.iso + i++) % d.photos.length]; if (!photos.includes(p)) photos.push(p) }
+  i = 1; while (poems.length < 4) { const p = d.poems[S03.hash(ctx.iso + 'q' + i++) % d.poems.length]; if (!poems.includes(p)) poems.push(p) }
+  // table: today's photograph; kites alternate photograph, poem, …
+  content[0] = { kind: 'photo', item: photos[0] }
+  for (let k = 0; k < 8; k++) content[k + 1] = k % 2 ? { kind: 'poem', item: poems[(k - 1) / 2] } : { kind: 'photo', item: photos[k / 2 + 1] }
+  await document.fonts.load('italic 300 46px Fraunces'); await document.fonts.load('300 32px Fraunces')
+  const g = atlasCanvas.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, atlasCanvas.width, atlasCanvas.height)
+  await Promise.all(content.map(async (c, t) => {
+    const x = (t % ATL) * TILE, y = Math.floor(t / ATL) * TILE
+    if (c.kind === 'photo') { const img = await loadImg(c.item.src); if (img) { g.filter = 'grayscale(1) contrast(1.15)'; cover(g, img, x, y, TILE); g.filter = 'none' } }
+    else wordsTile(g, c.item, x, y, TILE)
+  }))
+  atlas.needsUpdate = true
+}
+
+S03.load().then(async ctx => {
+  if (ctx.reading) { stone = stoneFor(ctx.reading); applyStone() }
+  document.getElementById('sky').textContent = ctx.line || ''
+  await fill(ctx)
+}).catch(() => {})
+
+/* ---------- loop ---------- */
+const clock = new THREE.Clock()
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+const tmpQ = new THREE.Quaternion(), ax = new V3()
+function frame() {
+  const dt = Math.min(clock.getDelta(), .05), now = performance.now(), T = now / 1000
+  // drag → user rotation, with inertia
+  if (!drag) { vel.x *= Math.pow(.04, dt); vel.y *= Math.pow(.04, dt) }
+  if (Math.abs(vel.x) + Math.abs(vel.y) > 1e-5) {
+    user.premultiply(tmpQ.setFromAxisAngle(ax.set(0, 1, 0), vel.x)).premultiply(tmpQ.setFromAxisAngle(ax.set(1, 0, 0), vel.y))
+    if (drag) vel.x = vel.y = 0
+  }
+  spin += dt * .07
+  // mischief: left alone, it turns to look at you, breathes, and winks
+  const idle = (now - lastMove) / 1000
+  if (phase === 'rest' && idle > 9 && !drag && !plate.classList.contains('on')) { phase = 'look'; phaseAt = now }
+  if (phase === 'look' || phase === 'held') {
+    const sp = new V3().setFromMatrixPosition(gemMesh.matrixWorld).project(camera)
+    const dx = THREE.MathUtils.clamp(ndc.x - sp.x, -1, 1), dy = THREE.MathUtils.clamp(ndc.y - sp.y, -1, 1)
+    lookTarget.setFromEuler(new THREE.Euler(-dy * .2 - .06, dx * .28, -dx * .05))
+    const t = (now - phaseAt) / 1000
+    if (phase === 'look' && t > 2.4) { phase = 'held'; phaseAt = now; flash = 1; breath = 1 }
+  } else lookTarget.identity()
+  if (phase === 'caught' && (now - phaseAt) > 900) phase = 'rest'
+  const lookRate = phase === 'caught' ? 7 : phase === 'look' ? 1.1 : 2
+  look.slerp(lookTarget, 1 - Math.exp(-dt * lookRate))
+  flash *= Math.pow(.08, dt); breath = Math.max(0, breath - dt / 2.6)
+  const br = Math.sin((1 - breath) * Math.PI) * (breath > 0 ? 1 : 0)
+  wake += ((phase === 'look' || phase === 'held' ? 1 : 0) - wake) * (1 - Math.exp(-dt * 1.5))
+
+  pivot.quaternion.copy(user).multiply(look)
+  gemMesh.rotation.y = spin
+  tilt.rotation.x = REST.x + Math.sin(T * .23) * .04; tilt.rotation.z = Math.sin(T * .17) * .03
+  const s = 1 + br * .02; pivot.scale.setScalar(s)
+  pivot.position.y = .02 * Math.sin(T * .5) + br * .03
+  shiftX += (shiftTarget - shiftX) * (1 - Math.exp(-dt * 2.2)); pivot.position.x = shiftX
+  floor.position.x = 0; floorMat.uniforms.uLift.value = br
+  camera.position.set(CAM.x + shiftX * .25, CAM.y, CAM.z); camera.lookAt(shiftX * .25, -.1, 0)
+
+  pivot.updateMatrixWorld(true)
+  gemMat.uniforms.uCamObj.value.copy(gemMesh.worldToLocal(camera.position.clone()))
+  gemMat.uniforms.uRot.value.setFromMatrix4(new THREE.Matrix4().extractRotation(gemMesh.matrixWorld))
+  gemMat.uniforms.uFlash.value = flash
+  floorMat.uniforms.uSpin.value = spin
+  floorMat.position && 0
+  floor.material.uniforms.uTint.value.setRGB(...stone.tint).multiplyScalar(.9)
+  floorMat.uniforms.uOff.value = shiftX
+  decalMat.uniforms.uStrength.value += (.24 - decalMat.uniforms.uStrength.value) * (1 - Math.exp(-dt * .6))
+  decalMat.uniforms.uWake.value = wake * .6
+  if (!drag) { const t = pick(false); decalMat.uniforms.uHover.value = t ?? -1; cvs.classList.toggle('over', t != null && !!content[t]) }
+  composer.render()
+  requestAnimationFrame(frame)
+}
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix()
+  renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight)
+})
+function fit() { const k = Math.max(1, .95 / (innerWidth / innerHeight)); CAM.set(0, 2.1 * k, 10.4 * k) }
+fit(); addEventListener('resize', fit)
+requestAnimationFrame(frame)
+</script>
+</body>
+</html>
