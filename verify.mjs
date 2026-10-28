@@ -56,3 +56,10 @@ check("the photograph never re-crops when the poem comes forward", () => {
   if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
   return `${oks} checks at 1200x800`;
 });
+
+check("the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows", () => {
+  const r = run("node", ["tools/test_wall.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} checks, rendered at 1200x800 and 390x844`;
+});

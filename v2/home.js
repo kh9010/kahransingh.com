@@ -2,9 +2,9 @@
    One photograph and one poem per calendar day, chosen by hashing the date, so
    a day that has happened never reshuffles.
 
-   The wall is five ideas, built from the IDEAS table below — the one place the
-   map from an idea to the tools under it lives. v2/flow.js reads the same five
-   names for the drawing. index.html carries a <noscript> copy of the same five
+   The wall is six ideas, built from the IDEAS table below — the one place the
+   map from an idea to the tools under it lives. v2/flow.js reads the same six
+   names for the drawing. index.html carries a <noscript> copy of the same six
    lines so the wall still says something with this file absent. */
 
 (function () {
@@ -18,11 +18,12 @@
      Kahran, 2026-09-22: "we don't need every single box on this home page …
      so maybe there's a big idea of context that subsumes some of these sub
      boxes." Sixteen boxes became five ideas; every one of the sixteen tools
-     still has a home, as `parts`. Re-cut the system by editing this table and
-     nothing else.
+     still has a home, as `parts`. Re-cut on 2026-10-27 against what runs now:
+     a sixth idea, Home, and the parts brought up to date. Re-cut the system by
+     editing this table and nothing else.
 
        name   the idea, and what the box is called
-       hue    its pigment class — one of the five, same five as before
+       hue    its pigment class — one per idea, defined at the top of home.css
        parts  the tools under it, canonical names (flow.js quotes these too)
        line   the quiet second line on the tile: the same parts, short
        note   the one-line card on hover, in his voice
@@ -31,33 +32,33 @@
     {
       name:  'Context',
       hue:   'tile--catching',
-      parts: ['Raw store', 'Voice & WhatsApp capture', 'Movement'],
-      line:  'raw store · capture · movement',
-      note:  'Works out what’s going on from what I already leave behind. Nothing to feed it.',
+      parts: ['Raw store', 'The WhatsApp assistant', 'Where I am', 'Right now'],
+      line:  'raw store · assistant · where I am · right now',
+      note:  'Works out what’s going on, and where I am, from what I already leave behind. Answers when I ask.',
       href:  '/context/'
     },
     {
       name:  'Keeping track',
       hue:   'tile--remembering',
-      parts: ['The miners', 'The judge', 'The Curator', 'The sparks garden'],
-      line:  'miners · judge · Curator · sparks garden',
-      note:  'Reads what I said and holds onto what I took on. Remembering is not my job.',
+      parts: ['The miners', 'The judge', 'The Curator', 'The groomer', 'Meeting follow-ups', 'The sparks garden'],
+      line:  'miners · judge · Curator · groomer · follow-ups · sparks garden',
+      note:  'Holds onto what I took on, splits it into first steps, drafts the follow-up after a meeting.',
       href:  null
     },
     {
       name:  'Staying up to date',
       hue:   'tile--knowing',
-      parts: ['Mail triage', 'The weekly record'],
-      line:  'mail triage · weekly record',
-      note:  'Tells a person from a newsletter, and writes down what the week actually was.',
+      parts: ['Mail triage', 'The newsletter reader', 'Lost touch', 'The weekly record'],
+      line:  'mail triage · newsletters · lost touch · weekly record',
+      note:  'Tells a person from a newsletter, notices who I’ve lost touch with, writes down the week.',
       href:  null
     },
     {
       name:  'Topically suggesting',
       hue:   'tile--public',
-      parts: ['The now brain', 'The workout planner', 'Noticings', 'Travel days'],
-      line:  'now brain · workout planner · noticings · travel days',
-      note:  'Offers one next move, today’s session, a thing from my own past. Never a list.',
+      parts: ['The day planner', 'The midday door', 'The workout planner', 'Noticings', 'Travel days'],
+      line:  'day planner · midday door · workouts · noticings · travel days',
+      note:  'Shapes the day from last night’s sleep, offers one start after lunch, a thing from my own past.',
       href:  null
     },
     {
@@ -67,12 +68,21 @@
       line:  'Samwise · repairer · health page',
       note:  'Watches itself, works out why something broke, and lands a fix with a way back.',
       href:  null
+    },
+    {
+      name:  'Home',
+      hue:   'tile--home',
+      parts: ['The lights', 'The bedroom frame', 'The family archive', 'This page'],
+      line:  'lights · bedroom frame · family archive · this page',
+      note:  'Runs the lights by the sun, the photos on the bedroom wall, an old picture for the family, and this page.',
+      href:  null
     }
   ];
 
-  /* The lean: three across, then two. Change these two numbers and the block
-     re-cuts itself; home.css shears row 1 and centres it under row 0. */
-  var WALL_ROWS = [3, 2];
+  /* The lean: three across, then three. Change these numbers and the block
+     re-cuts itself; home.css shears each row and centres a short one under
+     row 0. Kahran, 2026-10-27: a sixth idea, Home, so 3+2 became 3+3. */
+  var WALL_ROWS = [3, 3];
 
   /* ------------------------------------------------------------- the day -- */
 
@@ -314,8 +324,8 @@
 
   /* ------------------------------------------------------------- the wall --
 
-     Five boxes, built from IDEAS. An idea with an href is launched: full
-     colour, a link, and it lifts on hover. The other four are dim until you
+     Six boxes, built from IDEAS. An idea with an href is launched: full
+     colour, a link, and it lifts on hover. The others are dim until you
      touch them, which is the whole state model — there is no third thing a
      box can be. */
 
@@ -328,6 +338,7 @@
       var row = document.createElement('ul');
       row.className = 'wall-row';
       row.style.setProperty('--r', r);
+      row.style.setProperty('--miss', Math.max(0, WALL_ROWS[0] - n));
       for (var k = 0; k < n && i < IDEAS.length; k++, i++) {
         row.appendChild(tileFor(IDEAS[i]));
       }
@@ -359,7 +370,7 @@
 
   /* One switch shared by both animations. While anything is moving the frosted
      tiles go solid (see .tools-layer.is-busy in home.css): re-blurring the
-     photograph behind five tiles every frame is the most expensive thing here,
+     photograph behind six tiles every frame is the most expensive thing here,
      and Safari feels it most. Counted, because the poem and the diagram can
      move at the same time; the frost comes back a beat after the last one
      stops so a quick second pass does not flicker it on and off. */

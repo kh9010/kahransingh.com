@@ -1,9 +1,9 @@
 /* kahransingh.com — v2 home, the flow view.
 
-   The wall is a picture of what the five ideas are. This is a picture of how
-   they run: the same five tiles fly out of the lean into two columns — what
-   the system knows, and what it does with it — with the watcher on a row
-   beneath, and the connectors drawn in behind the glass.
+   The wall is a picture of what the six ideas are. This is a picture of how
+   they run: the same six tiles fly out of the lean into two columns — what
+   the system knows, and what it does with it — with the watcher and Home on
+   a row beneath, and the connectors drawn in behind the glass.
 
    Two things live here and nowhere else: PLACE, where each idea lands, and
    EDGES, what feeds what. Every idea-level edge here is a collapse of the
@@ -36,17 +36,20 @@
 
   /* [column, row]. Column 1 is what the system knows; column 2 is what it does
      with it. Context sits at the middle of the three rows on the left, so its
-     fan into all three leaves from the centre. Row 4 is the watcher's own row
-     beneath; its label goes in the empty column beside it. */
+     fan leaves from the centre. Row 4 is the watcher's row beneath, and Home
+     (2026-10-27) sits beside it in the second column: it is a thing the system
+     does, and the three rows above are full. The watcher's label goes in the
+     empty cell above the watcher. */
   var PLACE = {
     'Context':              [1, 2],
     'Keeping track':        [2, 1],
     'Staying up to date':   [2, 2],
     'Topically suggesting': [2, 3],
-    'Self-healing':         [1, 4]
+    'Self-healing':         [1, 4],
+    'Home':                 [2, 4]
   };
 
-  /* Five boxes name themselves, so the stage headings and the colour legend the
+  /* Six boxes name themselves, so the stage headings and the colour legend the
      sixteen tiles needed are both gone. One head is left, over the column of
      things that are not part of the system at all. */
   var HEADS = [[3, 'how it reaches me', 'flow-head--surf']];
@@ -58,9 +61,11 @@
 
        Context -> Keeping track          store -> miners
        Context -> Staying up to date     store -> mail triage; store -> weekly record
-       Context -> Topically suggesting   store -> now brain, -> noticings;
-                                         movement -> now brain, -> workout planner
-       Keeping track -> Topically ...    Curator -> now brain
+       Context -> Topically suggesting   store -> day planner, -> noticings;
+                                         where I am -> day planner, -> workout planner
+       Keeping track -> Topically ...    Curator -> day planner, -> midday door
+       Context -> Home                   where I am -> this page;
+                                         store -> family archive   (2026-10-27)
 
      Two lanes that were arrows on the sixteen-tile version are now INSIDE an
      idea and draw nothing: miners -> judge -> Curator, and judge -> sparks
@@ -69,77 +74,95 @@
     ['Context',       'Keeping track'],
     ['Context',       'Staying up to date'],
     ['Context',       'Topically suggesting'],
-    ['Keeping track', 'Topically suggesting']
+    ['Keeping track', 'Topically suggesting'],
+    ['Context',       'Home']
   ];
 
-  /* Every idea has at least one watched lane under it, so unlike the sixteen —
+  /* Every idea has at least one watched lane under it (Home's are the family
+     archive's three and this page's two publishers), so unlike the sixteen —
      where the Monday publish behind the weekly record had no envelope — there
      is nothing to leave out here. Kept as the seam: if an idea ever has no
      watched lane at all, name it here rather than draw a watch that isn't kept. */
   var UNWATCHED = {};
 
-  var READ = 'How the five ideas fit together, and how they reach me. On the ' +
-    'left is context: the raw store, what I say out loud, and where I am. It ' +
-    'feeds the other three. Keeping track reads what I said and holds onto what ' +
-    'I took on; staying up to date sorts what came in and publishes the week; ' +
-    'topically suggesting offers one next move, a session, a thing from my own ' +
-    'past, and the flight-day routine. Keeping track feeds topically suggesting ' +
-    'too. Self-healing watches all four, on the dashed lines. The right-hand ' +
-    'column is what I actually get: four of the five come out as one 06:30 ' +
-    'message, context asks a question on WhatsApp only when it cannot tell where ' +
-    'I am, several wait until I ask, and the weekly record goes past me to ' +
-    'everyone.';
+  var READ = 'How the six ideas fit together, and how they reach me. On the ' +
+    'left is context: the raw store, the WhatsApp assistant, where I am, and ' +
+    'what is true right now. It feeds four of the other five. Keeping track ' +
+    'holds onto what I took on; staying up to date sorts what came in and ' +
+    'writes down the week; topically suggesting shapes the day, offers one ' +
+    'start after lunch, and runs the flight-day routine. Keeping track feeds ' +
+    'topically suggesting too. Home runs the lights, the bedroom frame, the ' +
+    'family photographs and this page, and takes where I am from context. ' +
+    'Self-healing watches all five, on the dashed lines. The right-hand column ' +
+    'is what I actually get: four ideas come out in the 06:30 message; a ' +
+    'handful of things send a message of their own; context asks a question ' +
+    'only when it cannot tell where I am; the family archive talks to the ' +
+    'family; the weekly record and this page go past me to everyone; the ' +
+    'rest waits until I ask or open a page.';
 
   var WATCHER = 'Self-healing';
-  var WATCHED_ROW = 4;
 
   /* --------------------------------------------- and then it reaches him -- */
 
   /* The third column: not parts of the system, but the things he actually
      gets. Audited from the sending side — the call that puts something on a
      surface a person looks at — in the "Reaches Kahran" section of
-     docs/2026-09-22-flow-edges.md. id, what it is called, what kind of thing. */
+     docs/2026-09-22-flow-edges.md, re-audited in its 2026-10-27 section.
+     id, what it is called, what kind of thing. */
   var SURFACES = [
-    ['ask',    'when I ask for it',     'on request'],
-    ['page',   'a page I open',         'page'],
-    ['question', 'a question on WhatsApp', 'question'],
-    ['morning', 'the 06:30 message',    'message'],
-    ['flight', 'the flight-day messages', 'message'],
-    ['public', 'everyone',              'public']
+    ['ask',      'when I ask for it',       'on request'],
+    ['page',     'a page I open',           'page'],
+    ['question', 'a question on WhatsApp',  'question'],
+    ['morning',  'the 06:30 message',       'message'],
+    ['own',      'a message of its own',    'message'],
+    ['family',   'the family group',        'group'],
+    ['public',   'everyone',                'public']
   ];
 
-  /* Which idea comes out where, and which of its parts does it. Four of the
-     five land in the one 06:30 message, which is the only scheduled outbound
-     in the whole system — everything else waits to be asked. Context is the
-     single thing allowed to interrupt him with a question, and the weekly
-     record, under staying up to date, is the one that goes past him. */
+  /* Which idea comes out where, and which of its parts does it. Four ideas
+     land in the 06:30 message. It was once the only scheduled outbound; since
+     October the flight-day doses, the midday door, a noticing grown after the
+     brief, a booking in the mail, the Monday home note, a bulb to flip and the
+     watcher of the watcher each send a message of their own, rationed at the
+     one outbound door (quiet hours, once a day each). Context is still the
+     single thing that asks a question. The family archive talks to the
+     family, and two things go past him to everyone. */
   var FEEDS = [
     ['Keeping track',        'morning'],     // the miners, the Curator
     ['Staying up to date',   'morning'],     // mail triage
-    ['Topically suggesting', 'morning'],     // noticings
+    ['Topically suggesting', 'morning'],     // the day planner, noticings
     ['Self-healing',         'morning'],     // Samwise, the repairer
-    ['Context',              'question'],    // movement
-    ['Topically suggesting', 'flight'],      // travel days
-    ['Topically suggesting', 'page'],        // the now brain
+    ['Context',              'question'],    // where I am
+    ['Topically suggesting', 'own'],         // travel days, the midday door, a late noticing
+    ['Staying up to date',   'own'],         // mail triage: a booking in the mail
+    ['Self-healing',         'own'],         // only when Samwise itself goes quiet
+    ['Home',                 'own'],         // the lights: Monday note, a bulb to flip
+    ['Topically suggesting', 'page'],        // the day planner's page
     ['Self-healing',         'page'],        // the health page
+    ['Staying up to date',   'page'],        // the newsletter reader
+    ['Home',                 'page'],        // the lights page
+    ['Context',              'ask'],         // the assistant, answering from the store
     ['Staying up to date',   'ask'],         // the mail commands
-    ['Keeping track',        'ask'],         // the Curator's list, the sparks garden
+    ['Keeping track',        'ask'],         // the Curator's list, the sparks garden, follow-up drafts
     ['Topically suggesting', 'ask'],         // the workout card, unstick
-    ['Staying up to date',   'public']       // the weekly record
+    ['Home',                 'family'],      // the family archive
+    ['Staying up to date',   'public'],      // the weekly record
+    ['Home',                 'public']       // this page: today's photograph, poem and city
   ];
 
   /* The line on the tile's own card, so the words and the arrows agree. */
   var CHANNEL = {
-    'Context':              'one question, only when it cannot tell where he is',
-    'Keeping track':        'his own words and three questions at 06:30; the list when he asks',
-    'Staying up to date':   'the mail card at 06:30, /inbox when he asks, /lately in public',
-    'Topically suggesting': 'a line at 06:30, the flight-day messages, the page, when he asks',
-    'Self-healing':         'a count at 06:30, and the health page'
+    'Context':              'one question, only when it cannot tell where he is; answers when he asks',
+    'Keeping track':        'his own words and three questions at 06:30; the list and the drafts when he asks',
+    'Staying up to date':   'the mail card at 06:30, a booking as its own message, the reader, /lately in public',
+    'Topically suggesting': 'the day at 06:30, a start after lunch, a late noticing, the flight-day messages, the page',
+    'Self-healing':         'a count at 06:30, the health page, a message only if the watcher itself stops',
+    'Home':                 'a Monday note, a bulb to flip, the lights page, the family group, this page'
   };
 
   /* --------------------------------------------------------------- setup -- */
 
-  var GROUPS = ['tile--catching', 'tile--remembering', 'tile--knowing', 'tile--alive', 'tile--public'];
+  var GROUPS = ['tile--catching', 'tile--remembering', 'tile--knowing', 'tile--alive', 'tile--public', 'tile--home'];
 
   function groupOf(tile) {
     for (var i = 0; i < GROUPS.length; i++) if (tile.classList.contains(GROUPS[i])) return GROUPS[i];
@@ -164,12 +187,13 @@
   function colOf(t) { return +t.style.getPropertyValue('--fc'); }
   function rowOf(t) { return +t.style.getPropertyValue('--fr'); }
 
-  /* Layer first, then place within it: context lands, then the three that read
+  /* Layer first, then place within it: context lands, then the four that read
      it, then the watcher. */
   function delayOf(tile) {
     var c = colOf(tile), r = rowOf(tile);
-    var lay = (r === WATCHED_ROW) ? 2 : c - 1;
-    var idx = (r === WATCHED_ROW) ? c - 1 : r - 1;
+    var w = tile === tiles[WATCHER];
+    var lay = w ? 2 : c - 1;
+    var idx = w ? 0 : r - 1;
     return lay * 84 + idx * 18;
   }
 
@@ -306,6 +330,11 @@
     /* The watcher's own edge to every lane it watches: one faint curve each,
        from the top of its tile to the underside of theirs. */
     function watchPath(s, b) {
+      /* Home shares the watcher's row: a short level thread between them. */
+      if (b.row === s.row) {
+        var hx1 = s.x + s.w + 1, hx2 = b.x - 2, hy = s.y + s.h * 0.7;
+        return 'M' + r1(hx1) + ' ' + r1(hy) + ' L' + r1(hx2) + ' ' + r1(hy);
+      }
       var x1 = s.x + s.w / 2, y1 = s.y - 1;
       var x2 = b.x + b.w / 2, y2 = b.y + b.h + 2;
       var my = y1 - (y1 - y2) * 0.55;
@@ -387,7 +416,7 @@
     var s = boxOf(WATCHER);
     if (s) {
       flock.forEach(function (t) {
-        if (rowOf(t) === WATCHED_ROW) return;
+        if (t === s.tile) return;
         var nm = t.querySelector('.tile-name').textContent.trim();
         if (UNWATCHED[nm]) return;
         var b = boxOf(nm);
@@ -652,7 +681,7 @@
 
   /* Touch a tile and the lines out of it light; touch a surface and everything
      that lands there lights while the rest steps back \u2014 which is how you see,
-     in one gesture, that six separate jobs all come out as one message. */
+     in one gesture, how many separate jobs come out as one message. */
   (function surfaceHover() {
     function mark(pick) {
       if (!pick) { unlitAll(); return; }

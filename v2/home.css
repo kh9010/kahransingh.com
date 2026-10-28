@@ -1,6 +1,6 @@
 /* kahransingh.com — v2 home.
    One photograph of the day. Wide screens put the poem down the left and the
-   leaning block of five ideas on the right, both inside the first screen.
+   leaning block of six ideas on the right, both inside the first screen.
    Narrow screens stack: a screen of photograph with the poem on it, then the
    ideas on a dark band below, then paper. Fraunces carries the voice (the poem
    and the name of each idea); Space Grotesk carries only apparatus, which now
@@ -23,11 +23,11 @@
   --mast-gap:  clamp(2.5rem, 8vh, 5rem);
   --mast-block: calc(var(--mast-h) + var(--mast-gap));
 
-  /* Five ideas: three across, then two, each row stepping right by --tan of
+  /* Six ideas: three across, then three, each row stepping right by --tan of
      its distance from the top — the same shear the sixteen had, over half the
-     rows, so the block still leans. The short row is centred under the long
-     one as well as sheared, which keeps the block a block rather than a
-     staircase with a corner missing.
+     rows, so the block still leans. A short row (there is none at 3+3) is
+     centred under the long one as well as sheared, which keeps the block a
+     block rather than a staircase with a corner missing.
      --tools-w is the widest row (the top one), and the poem's max-width is
      computed off it, so the tile size decides how much room the poem keeps.
      At its 140px ceiling the poem is still at its full 30rem. */
@@ -49,13 +49,16 @@
 
 @media (prefers-color-scheme: dark) { :root { --paper: #171613; } }
 
-/* Five pigments, dark enough that near-white names clear 4.5:1 on every one of
-   the 26 photographs, and far enough apart to stay distinct as glass. */
+/* Six pigments, dark enough that near-white names clear 4.5:1 on every one of
+   the 26 photographs, and far enough apart to stay distinct as glass. Home
+   (2026-10-27) is plum, in the one wide gap left on the wheel, between the
+   indigo at 230 and the rose at 352. */
 .tile--catching    { --h: 192; --s: 40%; --l: 26%; }
 .tile--remembering { --h:  96; --s: 32%; --l: 24%; }
 .tile--knowing     { --h:  41; --s: 45%; --l: 26%; }
 .tile--alive       { --h: 352; --s: 38%; --l: 30%; }
 .tile--public      { --h: 230; --s: 38%; --l: 32%; }
+.tile--home        { --h: 292; --s: 28%; --l: 29%; }
 
 /* ------------------------------------------------------------------ base -- */
 
@@ -415,13 +418,14 @@ body {
   margin: 0 0 var(--gap);
   padding: 0;
   list-style: none;
-  /* the shear, plus half a tile per missing tile so the short row sits centred */
+  /* the shear, plus half a tile per missing tile so a short row sits centred;
+     --miss is set per row by v2/home.js from WALL_ROWS */
   margin-left: calc(var(--tan) * var(--r) * (var(--tile) + var(--gap))
-                    + var(--r) * (var(--tile) + var(--gap)) / 2);
+                    + var(--miss, 0) * (var(--tile) + var(--gap)) / 2);
 }
 .wall-row:last-child { margin-bottom: 0; }
 
-/* The five ideas that nothing has been built for yet still exist without
+/* The six ideas that nothing has been built for yet still exist without
    JavaScript, in the plainest possible form. */
 .wall-plain { margin: 0; padding: 0; list-style: none; max-width: 30rem; }
 .wall-plain li { margin: 0 0 .5rem; font-size: .8rem; line-height: 1.5; color: var(--on-photo-soft); }
@@ -599,9 +603,9 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 
 /* --------------------------------------------------------- the flow view --
 
-   The wall says what the five ideas are; this says how they run. The same five
+   The wall says what the six ideas are; this says how they run. The same six
    boxes are flown out of the lean into two columns — what the system knows,
-   and what it does with it — with the watcher on a row beneath and the
+   and what it does with it — with the watcher and Home on a row beneath and the
    connectors drawn behind the glass. The block keeps the wall's exact width,
    so the sentence above it does not move when the layout changes underneath.
    v2/flow.js holds where each idea lands and what feeds what; this holds only
@@ -618,9 +622,9 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 .is-flow .wall { width: calc(100% - min(30rem, 100% - var(--tools-w) - 2.5rem) - 1.9rem); }
 
 /* Two columns of ideas and the surfaces. Rows: the head, three rows of the
-   spine, then the watcher on its own. The watcher's label sits in the empty
-   second column beside it rather than on a row of its own, which is the
-   difference between the drawing ending above the fold and below it. */
+   spine, then the watcher with Home beside it. The watcher's label sits in the
+   empty first-column cell above it rather than on a row of its own, which is
+   the difference between the drawing ending above the fold and below it. */
 .is-flow .wall-block {
   position: relative;
   display: grid;
@@ -663,14 +667,14 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
 .is-flying .tile { pointer-events: none; will-change: transform, opacity; }
 
 /* Apparatus: small, spaced, lower case, and never louder than the thing it
-   labels. Five boxes name themselves, so the stage headings and the colour
+   labels. Six boxes name themselves, so the stage headings and the colour
    legend the sixteen needed are both gone — the only labels left name the two
    things that are NOT ideas: the column of surfaces, and the watching. */
 .is-flow .flow-head { display: block; grid-column: var(--fc); grid-row: 1; }
 .is-flow .flow-head--watch {
-  grid-column: 2;
-  grid-row: 5;
-  align-self: center;
+  grid-column: 1;
+  grid-row: 4;
+  align-self: end;
   margin: 0;
 }
 .is-flow .flow-wires { display: block; }
@@ -732,9 +736,9 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
    A third column, and a different kind of object from a tile: these are not
    parts of the system, they are the things Kahran actually gets. Warm ink,
    pill-shaped, no glass — so it is obvious at a glance where the machine stops
-   and a person starts. Six of them, and the four strands running into the
-   06:30 one are the truest thing on the page: almost everything the system has
-   to say, it says once a day, in one message.
+   and a person starts. Seven of them. The 06:30 one still carries the most:
+   four ideas say what they have to say once a day, in one message. Since
+   October a handful of things also send a message of their own.
 
    The lines that reach them are warm too, and they draw in last, after the
    connectors, so the story assembles left to right in time. */
