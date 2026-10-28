@@ -5,75 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <title>About — Kahran Singh</title>
-    <meta name="description" content="Kahran Singh is a storyteller, poet, and creative consultant based between Bangalore and New York City.">
+    <meta name="description" content="A letter from Kahran Singh: poems, software built to support himself, a studio, a fund, a board, a marriage, and the years in a line.">
     <meta property="og:title" content="About — Kahran Singh">
-    <meta property="og:description" content="Storyteller, poet, and creative consultant based between Bangalore and New York City.">
+    <meta property="og:description" content="A letter from Kahran Singh: poems, software built to support himself, a studio, a fund, a board, a marriage, and the years in a line.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kahransingh.com/about.html">
     <meta property="og:image" content="https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="About — Kahran Singh">
-    <meta name="twitter:description" content="Storyteller, poet, and creative consultant based between Bangalore and New York City.">
+    <meta name="twitter:description" content="A letter from Kahran Singh: poems, software built to support himself, a studio, a fund, a board, a marriage, and the years in a line.">
     <meta name="twitter:image" content="https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg">
     <link rel="canonical" href="https://kahransingh.com/about.html">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .word-pile {
-            position: relative;
-            margin-bottom: 3.5rem;
-            overflow: hidden;
-            cursor: default;
-        }
-        .about-intro { margin-bottom: 2rem; }
-        .quote-fallback { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 1.25rem; line-height: 1.7; }
-        .word-pile .letter {
-            position: absolute;
-            font-family: 'Fraunces', Georgia, serif;
-            font-style: italic;
-            color: #1a1a1a;
-            will-change: transform;
-            pointer-events: none;
-            white-space: pre;
-        }
-        .word-pile .measure {
-            position: absolute;
-            visibility: hidden;
-            font-family: 'Fraunces', Georgia, serif;
-            font-style: italic;
-            font-size: 1.25rem;
-            line-height: 1.7;
-            white-space: normal;
-            word-wrap: break-word;
-            top: 0;
-            left: 0;
-            width: 100%;
-        }
-        .word-pile .measure .word {
-            white-space: nowrap;
-            display: inline;
-        }
-        .word-pile .measure .space {
-            white-space: normal;
-            display: inline;
-        }
-
-        /* Lenticular hint — gentle rock when photo enters view */
-        @keyframes lenticularHint {
-            0% { transform: perspective(800px) rotateY(0deg); }
-            20% { transform: perspective(800px) rotateY(1.5deg); }
-            40% { transform: perspective(800px) rotateY(-1.2deg); }
-            60% { transform: perspective(800px) rotateY(0.8deg); }
-            80% { transform: perspective(800px) rotateY(-0.4deg); }
-            100% { transform: perspective(800px) rotateY(0deg); }
-        }
-        .lenticular.hint {
-            animation: lenticularHint 2.5s ease-in-out;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+    <style>
+        main.about { max-width: 560px; }
+        .letter { font-family: 'Fraunces', Georgia, serif; font-size: 1.05rem; line-height: 1.75; }
+        .letter p { margin: 0 0 1.4rem; }
+        .letter .lede { font-size: 1.3rem; line-height: 1.5; }
+        .letter a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: #ccc; }
+        .letter a:hover { text-decoration-color: #1a1a1a; }
+        .letter .sign { display: block; font-style: italic; margin-top: .6em; }
+        .years { list-style: none; margin: 2.2rem 0 0; padding: 0; }
+        .years li { display: grid; grid-template-columns: 70px 1fr; gap: 0 1rem; padding: 0.45rem 0; border-top: 1px solid #f0ede8; font-size: 0.9rem; line-height: 1.5; }
+        .years li:last-child { border-bottom: 1px solid #f0ede8; }
+        .years b { font-weight: 500; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6e6e6e; padding-top: 0.2em; white-space: nowrap; }
+        .years a { color: #1a1a1a; text-decoration: none; }
+        .years a:hover { text-decoration: underline; text-underline-offset: 2px; }
+        .foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e0ddd8; }
+        .foot .cv { font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; color: #1a1a1a; text-decoration: none; }
+        .foot .contact-row { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
+        .word-pile { position: relative; margin: 3.5rem 0 3rem; overflow: hidden; cursor: default; }
+        .quote-fallback { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 1.15rem; line-height: 1.7; color: #6e6e6e; margin: 0; }
+        .word-pile .glyph { position: absolute; top: 0; left: 0; font-family: 'Fraunces', Georgia, serif; font-style: italic; color: #6e6e6e; will-change: transform; pointer-events: none; white-space: pre; }
+        .word-pile .measure { position: absolute; visibility: hidden; top: 0; left: 0; width: 100%; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 1.15rem; line-height: 1.7; white-space: normal; word-wrap: break-word; }
+        .word-pile .measure .word { white-space: nowrap; }
+        @media (max-width: 768px) { main.about { padding-left: 16px; padding-right: 16px; } }
+        @media (max-width: 480px) { .years li { grid-template-columns: 1fr; gap: 0; } }
+    </style>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H63H3KD6WQ"></script>
 <script>
@@ -84,36 +56,43 @@
 </script>
 </head>
 <body>
-    <main>
+    <main class="about">
         <a href="/" class="mobile-header">kahran</a>
         <div class="page-header">
             <h1>about</h1>
         </div>
-
-        <p class="about-intro">Kahran Singh is a storyteller, poet, and creative consultant based between Bangalore and New York City.</p>
-
-        <figure class="home-photo lenticular" style="margin-top: 0; width: 100%; max-width: 640px; position: relative; overflow: hidden; aspect-ratio: 1281 / 1920;">
-            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg" alt="Kahran Singh at his wedding in Jaisalmer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
-            <img src="wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1377.jpg" alt="Kahran Singh laughing at his wedding in Jaisalmer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease;">
-            <figcaption>Jaisalmer, 2022 &mdash; <a href="https://www.namanverma.com" target="_blank" rel="noopener">Naman Verma</a></figcaption>
-        </figure>
-
+        <div class="letter">
+            <p class="lede">Hello. I’m Kahran.</p>
+            <p>I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and <a href="/lately/">a public record</a> of what got built. The <a href="/">photograph and poem on the home page</a> come out of the same machine, one of each a day.</p>
+            <p>Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months.</p>
+            <p>How the World Works, a first book, 2022, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</p>
+            <p>I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we <a href="/elopement/">eloped in Telluride</a>, in the snow, and did it again <a href="/wedding-celebration.html">in Jaisalmer</a> with 150 people a year later.</p>
+            <p>Write to me. Especially if you are drawing up your own contract with the world instead of signing the one you were handed: what it gives you, what you give back, and which of the settled questions you are asking again. Tell me what’s going on. <span class="sign">K</span></p>
+        </div>
         <div class="word-pile" id="word-pile">
             <p class="quote-fallback">Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.</p>
         </div>
-
-        <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e0ddd8;">
-            <a href="/cv.html" style="font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; color: #1a1a1a; text-decoration: none;">Full CV &rarr;</a>
+        <ol class="years">
+            <li><b>now</b><span>Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</span></li>
+            <li><b>2025</b><span>Board of TomboyX. <a href="/speaking.html">A panel in Kauai, seven StartOut talks.</a></span></li>
+            <li><b>2024</b><span><a href="/poem-films.html">Poem Films</a>, with Divya Tak. SEEN V, Boulder.</span></li>
+            <li><b>2022</b><span>Joyus Studio. How the World Works, a first book. Jaisalmer.</span></li>
+            <li><b>2021</b><span>Telluride.</span></li>
+            <li><b>2017</b><span>Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</span></li>
+            <li><b>2015</b><span>Vidyanext, Bangalore, until 2019.</span></li>
+            <li><b>2012</b><span>Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</span></li>
+            <li><b>2009</b><span>Microsoft, after an internship in the House of Commons.</span></li>
+            <li><b>2006</b><span>Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</span></li>
+        </ol>
+        <div class="foot">
+            <a class="cv" href="/cv.html">Full CV &rarr;</a>
+            <div class="contact-row">
+                <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+                <a href="https://instagram.com/kahran">Instagram</a>
+                <a href="https://medium.com/@kahrans">Medium</a>
+            </div>
         </div>
-
-        <div class="contact-row" style="margin-top: 1.5rem;">
-            <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-            <a href="https://instagram.com/kahran">Instagram</a>
-            <a href="https://medium.com/@kahrans">Medium</a>
-        </div>
-
     </main>
-
     <nav>
         <a href="/" class="nav-name">kahran</a>
         <a href="/poetry.html">poetry</a>
@@ -126,78 +105,6 @@
         <a href="/about.html" class="active" aria-current="page">about</a>
         <a href="/v1/">v1</a>
     </nav>
-
-    <script>
-
-    // Lenticular photo effect — serious to laughing
-    (function() {
-        var container = document.querySelector('.lenticular');
-        if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var smile = container.querySelectorAll('img')[1];
-        var showing = false;
-
-        // Subtle rocking hint when photo scrolls into view
-        var hinted = false;
-        var hintObserver = new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting && !hinted) {
-                hinted = true;
-                // Brief delay so it feels natural, not immediate
-                setTimeout(function() {
-                    container.classList.add('hint');
-                    // Flash the smile briefly during the rock
-                    setTimeout(function() {
-                        smile.style.transition = 'opacity 0.6s ease';
-                        smile.style.opacity = '0.4';
-                        setTimeout(function() {
-                            smile.style.opacity = '0';
-                            smile.style.transition = 'opacity 0.4s ease';
-                        }, 800);
-                    }, 600);
-                    container.addEventListener('animationend', function() {
-                        container.classList.remove('hint');
-                    });
-                }, 800);
-            }
-        }, { threshold: 0.5 });
-        hintObserver.observe(container);
-
-        // Desktop: moving cursor across the photo reveals the smile
-        var lastX = null;
-        var direction = 0;
-        container.addEventListener('mousemove', function(e) {
-            if (lastX === null) { lastX = e.clientX; return; }
-            var dx = e.clientX - lastX;
-            if (Math.abs(dx) < 4) return;
-            var newDir = dx > 0 ? 1 : -1;
-            if (direction !== 0 && newDir !== direction) {
-                showing = !showing;
-                smile.style.opacity = showing ? 1 : 0;
-            }
-            direction = newDir;
-            lastX = e.clientX;
-        });
-        container.addEventListener('mouseenter', function(e) {
-            showing = !showing;
-            smile.style.opacity = showing ? 1 : 0;
-            lastX = e.clientX;
-            direction = 0;
-        });
-        container.addEventListener('mouseleave', function() {
-            lastX = null;
-            direction = 0;
-        });
-
-        // Mobile: device tilt (already works, hint encourages discovery)
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', function(e) {
-                if (e.gamma === null) return;
-                var t = Math.max(0, Math.min(1, (e.gamma + 15) / 30));
-                smile.style.opacity = t;
-            });
-        }
-    })();
-    </script>
-
     <script>
     // Word pile — letters scatter and reassemble into quotes
     (function() {
@@ -228,7 +135,7 @@
         var letters = [];
         for (var i = 0; i < maxLen; i++) {
             var span = document.createElement('span');
-            span.className = 'letter';
+            span.className = 'glyph';
             pile.appendChild(span);
             letters.push(span);
         }
@@ -361,7 +268,7 @@
                 opacity: 1,
                 rotation: 0,
                 scale: 1,
-                fontSize: '1.25rem',
+                fontSize: '1.15rem',
                 x: function(idx) { return positions[idx] ? positions[idx].x : 0; },
                 y: function(idx) { return positions[idx] ? positions[idx].y : 0; }
             });
@@ -411,9 +318,8 @@
             if (masterTl) masterTl.resume();
         });
 
-        // Mobile tap to toggle pause
-        pile.addEventListener('touchstart', function(e) {
-            e.preventDefault();
+        // Touch screens: a tap toggles pause (a click, so a scroll that starts on the pile still scrolls)
+        if (window.matchMedia('(hover: none)').matches) pile.addEventListener('click', function() {
             paused = !paused;
             if (masterTl) {
                 if (paused) masterTl.pause();

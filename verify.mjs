@@ -465,6 +465,59 @@ checkNow("every name and year on a study is already on the site", () => {
   return `${names} names and ${years} years checked against ${PUBLIC.length} public pages`;
 });
 
+checkNow("about.html is his desk picks as a site page: full meta set, the nav, only the pile and whispers as page JS, every name and year already public, links resolve", () => {
+  // Picked 2026-10-28 from Study 09; the old About lives on at /v1/about.html.
+  const h = readFileSync(path.join(ROOT, "about.html"), "utf8");
+  const meta = [["title", /<title>About — Kahran Singh<\/title>/], ["description", /<meta name="description" content="[^"]{40,}">/], ["canonical", /<link rel="canonical" href="https:\/\/kahransingh\.com\/about\.html">/], ["og:title", /<meta property="og:title" content="[^"]+">/], ["og:description", /<meta property="og:description" content="[^"]{40,}">/], ["og:type", /<meta property="og:type" content="website">/], ["og:url", /<meta property="og:url" content="https:\/\/kahransingh\.com\/about\.html">/], ["og:image", /<meta property="og:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["twitter:card", /<meta name="twitter:card" content="summary_large_image">/], ["twitter:title", /<meta name="twitter:title" content="[^"]+">/], ["twitter:description", /<meta name="twitter:description" content="[^"]{40,}">/], ["twitter:image", /<meta name="twitter:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["site stylesheet", /href="\/style\.css"/], ["nav with about current", /<a href="\/about\.html" class="active" aria-current="page">about<\/a>/], ["nav name to the current home", /<a href="\/" class="nav-name">kahran<\/a>/], ["v1 in the nav", /<a href="\/v1\/">v1<\/a>/], ["mobile header", /class="mobile-header"/], ["16px phone gutters", /@media \(max-width: 768px\) \{ main\.about \{ padding-left: 16px; padding-right: 16px; \} \}/]];
+  for (const [label, re] of meta) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
+  for (const k of ["og:image", "twitter:image"]) {
+    const u = new RegExp(`(?:property|name)="${k}" content="https://kahransingh\\.com(/[^"]+)"`).exec(h)[1];
+    if (!existsSync(path.join(ROOT, u))) throw new Error(`about.html ${k} ${u} is not on disk`);
+  }
+  // Scripts: the analytics, and since 28 Oct (Kahran: "I do kind of miss the word pile … the poem whispers should stay")
+  // the GSAP word pile and the shared poem whispers (the live poem count was cut on 28 Oct). Nothing else; the lenticular stays out.
+  const scripts = [...h.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)];
+  const allowed = (attrs, body) => /googletagmanager\.com/.test(attrs) || /gtag\('config'/.test(body) || attrs.includes('src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"') || attrs.includes('src="/poem-whisper.js"') || /^\s*\/\/ Word pile/.test(body) ;
+  for (const [, attrs, body] of scripts) if (!allowed(attrs, body)) throw new Error(`about.html carries a script beyond analytics, the word pile and the whispers: <script${attrs}>`);
+  for (const [label, re] of [["the word pile", /<div class="word-pile" id="word-pile">\s*<p class="quote-fallback">Sometimes I smile at myself \(in the mirror\)/], ["the poem whispers", /<script src="\/poem-whisper\.js"><\/script>/], ["the GSAP the old About used", /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/gsap@3\/dist\/gsap\.min\.js"><\/script>/]]) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
+  if (/lenticular|NVP_KAHRANXGOURAV_WEDDING-1377/.test(h)) throw new Error("the lenticular wedding photograph is back on about.html; Kahran let it go on 28 Oct");
+  const quotes = (/var quotes = \[([\s\S]*?)\];/.exec(h) || [, ""])[1].match(/'[^']+'/g) || [];
+  if (quotes.length !== 6) throw new Error(`the word pile has ${quotes.length} quotes, not the old About's six`);
+  const main = /<main[^>]*>([\s\S]*?)<\/main>/.exec(h)?.[1] || "";
+  // A link closing before punctuation leaves "Telluride , in": close that gap so an edited (link-free) pick still matches.
+  const plain = (s) => s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").replace(/ ([,.;:])/g, "$1").trim();
+  // The page is the desk's picks: every paragraph and year line of about-draft.html, verbatim.
+  const draft = readFileSync(path.join(ROOT, "studies", "09", "about-draft.html"), "utf8");
+  const pieces = [...draft.matchAll(/<p class="(?:lede|para|close)">([\s\S]*?)<\/p>|<span class="t">([\s\S]*?)<\/span><\/li>/g)].map((m) => plain(m[1] || m[2]));
+  const mainText = plain(main);
+  for (const p of pieces) if (!mainText.includes(p)) throw new Error(`about.html drops the picked line "${p.slice(0, 50)}…"`);
+  // Public-safe by construction, as for the studies: the old About counts as public, the new one does not vouch for itself.
+  const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v1/index.html", "v1/about.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
+  const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
+  const dict = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
+  const text = main.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/g, " ");
+  let names = 0, years = 0, links = 0;
+  for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) {
+    if (dict.has(m[1].toLowerCase())) continue;
+    if (!corpus.includes(m[1].toLowerCase())) throw new Error(`about.html names "${m[1]}", which no other public page does`);
+    names++;
+  }
+  for (const m of text.matchAll(/\b(19|20)\d\d\b/g)) {
+    if (!corpus.includes(m[0])) throw new Error(`about.html says ${m[0]}, a year no other public page carries`);
+    years++;
+  }
+  for (const m of h.matchAll(/(?:href|src)="([^"#?]+)/g)) {
+    const u = m[1];
+    if (/^(https?:|mailto:)/.test(u)) continue;
+    let p = path.join(ROOT, u);
+    if (u.endsWith("/")) p = path.join(p, "index.html");
+    if (!existsSync(p)) throw new Error(`about.html: ${u} does not resolve`);
+    links++;
+  }
+  if (!existsSync(path.join(ROOT, "v1", "about.html"))) throw new Error("the old About is gone from /v1/about.html");
+  return `${meta.length} page rules, ${pieces.length} picked lines verbatim, ${names} names and ${years} years against ${PUBLIC.length} public pages, ${links} internal links on disk, old About at /v1/about.html`;
+});
+
 checkNow("tune: every dial lives in defaults.json and the CSS fallback equals it", () => {
   let dials = 0;
   for (const n of TUNED) {
