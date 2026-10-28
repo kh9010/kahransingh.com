@@ -401,14 +401,55 @@ body {
 }
 .doing-bullet:hover,
 .doing-bullet:focus-visible { text-decoration-color: rgba(246, 243, 236, .5); }
-/* the other lines under Right now: same type, nothing to open */
-.doing-bullet--still { display: inline-block; cursor: default; }
-.doing-bullet--still:hover { text-decoration-color: transparent; }
-
-/* empty until there is something to say; the slot exists so filling it later
-   is content, not plumbing */
-.doing-panel { margin: .45rem 0 0; font-size: .8rem; line-height: 1.5; color: var(--on-photo-soft); }
-.doing-panel[hidden] { display: none; }
+/* The other lines under Right now open a note: the old tile note card
+   (30c61cd), a line or two, floating under its line so nothing reflows.
+   Hover shows it on a mouse, a tap or Enter pins it; home.js sets is-open. */
+.doing-note {
+  display: none;
+  position: absolute;
+  top: calc(100% + .45rem);
+  left: 0;
+  z-index: 7;
+  width: max-content;
+  max-width: 248px;
+  margin: 0;
+  padding: .6rem .72rem;
+  border-radius: 10px;
+  background: rgba(27, 26, 20, .90);
+  border: 1px solid rgba(246, 243, 236, .16);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .45);
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: .78rem;
+  line-height: 1.45;
+  letter-spacing: -.002em;
+  color: var(--on-photo);
+  text-align: left;
+  white-space: normal;
+  hyphens: none;
+}
+/* keeps the pointer inside the line on its way down to the link */
+.doing-note::before { content: ''; position: absolute; left: 0; right: 0; top: -.5rem; height: .5rem; }
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .doing-note { -webkit-backdrop-filter: blur(16px) saturate(115%); backdrop-filter: blur(16px) saturate(115%); }
+}
+.doing-item.is-open { z-index: 7; }
+.doing-item.is-open .doing-note { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .doing-item.is-open .doing-note { animation: noteIn .14s ease both; }
+}
+@keyframes noteIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+.doing-item.is-open .doing-bullet { text-decoration-color: rgba(246, 243, 236, .5); }
+.doing-play, .doing-soon { white-space: nowrap; color: var(--on-photo-soft); }
+.doing-play {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+  text-decoration-color: rgba(246, 243, 236, .4);
+}
+.doing-play:hover, .doing-play:focus-visible { color: var(--on-photo); text-decoration-color: var(--on-photo); }
+.doing-play[hidden], .doing-soon[hidden] { display: none; }
 
 /* The diagram is out of sight until the first line is asked for. */
 .tools-layer:not(.is-flow) .wall-block { display: none; }
@@ -935,6 +976,7 @@ a.tile-name:hover { text-decoration-color: var(--on-photo); }
   .tile-name { font-size: .8rem; line-height: 1.2; }
   .tile-parts { font-size: .54rem; line-height: 1.38; }
   .doing-bullet { font-size: .88rem; }
+  .doing-note { max-width: min(248px, calc(100vw - 32px)); font-size: .75rem; }
   .vswitch { right: 12px; bottom: 12px; }
 }
 

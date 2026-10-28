@@ -140,8 +140,19 @@
             <button type="button" class="doing-bullet" id="doing-tools"
                     aria-expanded="false" aria-controls="wall-block">building tools to support myself</button>
           </li>
-          <li class="doing-item"><span class="doing-bullet doing-bullet--still">making a mirror that reads you a poem</span></li>
-          <li class="doing-item"><span class="doing-bullet doing-bullet--still">making a game out of things lost on the Delhi Metro</span></li>
+          <!-- Each line below opens a short note. Where its link goes lives in
+               v2/right-now.json and nowhere else; an empty href there shows
+               "coming soon" in place of the link. -->
+          <li class="doing-item" data-line="mirror">
+            <button type="button" class="doing-bullet doing-bullet--note"
+                    aria-expanded="false" aria-controls="doing-note-mirror">making a mirror that reads you a poem</button>
+            <p class="doing-note" id="doing-note-mirror">it photographs you four times, reads your face, and builds a poem out of lines from my own poems. <a class="doing-play" hidden>try it</a><span class="doing-soon" hidden>coming soon</span></p>
+          </li>
+          <li class="doing-item" data-line="metro">
+            <button type="button" class="doing-bullet doing-bullet--note"
+                    aria-expanded="false" aria-controls="doing-note-metro">making a game out of things lost on the Delhi Metro</button>
+            <p class="doing-note" id="doing-note-metro">a museum you walk through inside a Delhi Metro train, made from 24,646 real lost-and-found records. building it with a friend. <a class="doing-play" hidden>try it</a><span class="doing-soon" hidden>coming soon</span></p>
+          </li>
         </ul>
 
         <!-- The six boxes are built by v2/home.js from the IDEAS table, which
