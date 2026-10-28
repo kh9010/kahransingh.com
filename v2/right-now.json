@@ -1,15 +1,20 @@
 {
-  "_about": "Where each 'Right now' line on the home page links. Empty href = no link (the note says coming soon). current = how the weekly drift check decides the link is the newest version.",
+  "_about": "Where each 'Right now' line on the home page links. Empty href = no link (the note says coming soon) until that piece has been submitted to an open call. current = how the weekly drift check decides a filled link is the newest version.",
   "lines": [
     {
       "id": "mirror",
-      "href": "https://kh9010.github.io/your-poetic-face/v/09/",
-      "current": { "kind": "ypf-latest-version", "source": "https://kh9010.github.io/your-poetic-face/" }
+      "href": "",
+      "current": {
+        "kind": "ypf-latest-version",
+        "source": "https://kh9010.github.io/your-poetic-face/"
+      }
     },
     {
       "id": "metro",
       "href": "",
-      "current": { "kind": "head-200" }
+      "current": {
+        "kind": "head-200"
+      }
     }
   ]
 }

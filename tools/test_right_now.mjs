@@ -101,8 +101,10 @@ check(rnLines.every((l) => typeof l.href === "string" && (l.href === "" || /^htt
   "every href is absolute or empty");
 check(rnLines.every((l) => l.current && KINDS.has(l.current.kind) && (l.current.kind !== "ypf-latest-version" || /^https:\/\/\S+$/.test(l.current.source || ""))),
   "every line says how \"most current\" is judged", rnLines.map((l) => l.current && l.current.kind).join(" | "));
-const mirror = rnLines.find((l) => l.id === "mirror");
-check(mirror && mirror.href !== "", "the mirror line links to the piece");
+// Both hrefs stay empty until each piece has been submitted to an open call
+// (Kahran, 2026-10-28); the note then says "coming soon". The checks below
+// still run the moment one is filled.
+check(rnLines.some((l) => l.id === "mirror") && rnLines.some((l) => l.id === "metro"), "the mirror and metro lines are both listed");
 
 /* ------------------------------------------------------------- network -- */
 for (const l of rnLines.filter((l) => l.href)) {
