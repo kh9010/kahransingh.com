@@ -662,6 +662,24 @@
         "wind_kmh": 12.7,
         "cloud_pct": 77
       }
+    },
+    "2026-10-28": {
+      "poem": "dear-bottle",
+      "photo": "/photos/casper-wyoming-cce8cbde.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.8419704416260752,
+        "warmth": 0.7742857142857144,
+        "wet": 0.3,
+        "stillness": 0.9275,
+        "season": 0.19807738956144827,
+        "inside": 0.7371428571428572,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 22.1,
+        "wind_kmh": 14.9,
+        "cloud_pct": 73
+      }
     }
   }
 }
