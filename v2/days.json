@@ -680,6 +680,24 @@
         "wind_kmh": 14.9,
         "cloud_pct": 73
       }
+    },
+    "2026-10-29": {
+      "poem": "everytime-you-wink-at-me",
+      "photo": "/photos/provincetown-massachusetts-08da554d.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.9263725462281215,
+        "warmth": 0.7914285714285714,
+        "wet": 0.3,
+        "stillness": 1.0,
+        "season": 0.19126635985822432,
+        "inside": 0.7457142857142857,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 22.7,
+        "wind_kmh": 9.9,
+        "cloud_pct": 47
+      }
     }
   }
 }
