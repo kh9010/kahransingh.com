@@ -698,6 +698,24 @@
         "wind_kmh": 9.9,
         "cloud_pct": 47
       }
+    },
+    "2026-10-30": {
+      "poem": "when-i-dance-with-you",
+      "photo": "/photos/night-market.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6756196836384021,
+        "warmth": 0.8228571428571428,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.1845466894061648,
+        "inside": 0.9114285714285715,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 23.8,
+        "wind_kmh": 11.2,
+        "cloud_pct": 64
+      }
     }
   }
 }
