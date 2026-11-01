@@ -716,6 +716,24 @@
         "wind_kmh": 11.2,
         "cloud_pct": 64
       }
+    },
+    "2026-10-31": {
+      "poem": "did-you-know",
+      "photo": "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6076086378111478,
+        "warmth": 0.8771428571428571,
+        "wet": 0.4,
+        "stillness": 0.7974999999999999,
+        "season": 0.17792036666386574,
+        "inside": 0.7385714285714285,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 25.7,
+        "wind_kmh": 20.1,
+        "cloud_pct": 71
+      }
     }
   }
 }
