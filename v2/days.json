@@ -734,6 +734,24 @@
         "wind_kmh": 20.1,
         "cloud_pct": 71
       }
+    },
+    "2026-11-01": {
+      "poem": "oh-that-again",
+      "photo": "/photos/sayulita-mexico-25fbaafd.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6776679324454058,
+        "warmth": 0.8628571428571429,
+        "wet": 0.4,
+        "stillness": 0.8775,
+        "season": 0.17138935246683407,
+        "inside": 0.7314285714285714,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 25.2,
+        "wind_kmh": 16.9,
+        "cloud_pct": 16
+      }
     }
   }
 }
