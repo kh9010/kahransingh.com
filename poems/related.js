@@ -1,3 +1,7 @@
+// Every poem page loads this file, so it also brings in /track.js, which
+// counts the clicks on the related poems below (see track.js).
+(function () { var s = document.createElement('script'); s.src = '/track.js'; document.head.appendChild(s); })();
+
 // Poem theme data — maps each poem to its themes and related poems
 const poemData = {
     'have-you-ever-seen': { themes: ['nature', 'wonder'], title: 'Have you ever seen' },

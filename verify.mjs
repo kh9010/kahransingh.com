@@ -477,8 +477,9 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, o
   // Scripts: the analytics, and since 28 Oct (Kahran: "I do kind of miss the word pile … the poem whispers should stay")
   // the GSAP word pile and the shared poem whispers (the live poem count was cut on 28 Oct). Nothing else; the lenticular stays out.
   const scripts = [...h.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)];
-  const allowed = (attrs, body) => /googletagmanager\.com/.test(attrs) || /gtag\('config'/.test(body) || attrs.includes('src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"') || attrs.includes('src="/poem-whisper.js"') || /^\s*\/\/ Word pile/.test(body) ;
-  for (const [, attrs, body] of scripts) if (!allowed(attrs, body)) throw new Error(`about.html carries a script beyond analytics, the word pile and the whispers: <script${attrs}>`);
+  // /track.js is analytics too: the clicks that open something, sent as events (3 Nov).
+  const allowed = (attrs, body) => /googletagmanager\.com/.test(attrs) || /gtag\('config'/.test(body) || attrs.includes('src="/track.js"') || attrs.includes('src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"') || attrs.includes('src="/poem-whisper.js"') || /^\s*\/\/ Word pile/.test(body) ;
+  for (const [, attrs, body] of scripts) if (!allowed(attrs, body)) throw new Error(`about.html carries a script beyond analytics (with /track.js), the word pile and the whispers: <script${attrs}>`);
   for (const [label, re] of [["the word pile", /<div class="word-pile" id="word-pile">\s*<p class="quote-fallback">Sometimes I smile at myself \(in the mirror\)/], ["the poem whispers", /<script src="\/poem-whisper\.js"><\/script>/], ["the GSAP the old About used", /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/gsap@3\/dist\/gsap\.min\.js"><\/script>/]]) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
   if (/lenticular|NVP_KAHRANXGOURAV_WEDDING-1377/.test(h)) throw new Error("the lenticular wedding photograph is back on about.html; Kahran let it go on 28 Oct");
   const quotes = (/var quotes = \[([\s\S]*?)\];/.exec(h) || [, ""])[1].match(/'[^']+'/g) || [];
@@ -570,6 +571,43 @@ checkNow("idea details: coverage, audited graph, public provenance", () => {
   const r = run("node", ["tools/test_idea_details.mjs"], ROOT);
   if (!r.ok) throw new Error(r.out.trim().split("\n").slice(-6).join(" | "));
   return r.out.trim().split("\n").filter((l) => l.startsWith("PASS")).map((l) => l.replace(/^PASS /, "")).join("; ");
+});
+
+checkNow("every page carries the Analytics tag, and track.js still finds what it counts", () => {
+  // Page views need the gtag snippet on every page a visitor can land on. Exempt, each for a reason:
+  //   studies/NN/  working drafts, opened inside the studies rail (which is tagged), so a tag there would count twice;
+  //   redirect stubs (meta refresh) hand the visitor on to a tagged page;
+  //   lately/record/  tools/weekly_record.py rewrites it each week from its template, which carries the tag, and refuses
+  //                   to overwrite a hand edit, so it picks the tag up on the next run rather than by hand.
+  const TAG = /googletagmanager\.com\/gtag\/js\?id=G-H63H3KD6WQ[\s\S]*gtag\('config', 'G-H63H3KD6WQ'\)/;
+  const pages = [];
+  (function walk(dir) {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      if (e.name.startsWith(".") || e.name === "node_modules") continue;
+      const p = path.join(dir, e.name);
+      if (e.isDirectory()) walk(p); else if (e.name.endsWith(".html")) pages.push(path.relative(ROOT, p));
+    }
+  })(ROOT);
+  let tagged = 0, exempt = 0;
+  for (const rel of pages) {
+    const h = readFileSync(path.join(ROOT, rel), "utf8");
+    if (/^studies\/\d/.test(rel) || /http-equiv=["']refresh/i.test(h) || rel === "lately/record/index.html") { exempt++; continue; }
+    if (!TAG.test(h)) throw new Error(`${rel} has no Google Analytics tag (G-H63H3KD6WQ)`);
+    tagged++;
+  }
+  if (!/G-H63H3KD6WQ/.test(readFileSync(path.join(TOOLS, "weekly_record.py"), "utf8"))) throw new Error("tools/weekly_record.py's page template lost the Analytics tag");
+  // track.js reads the markup rather than hooking the page scripts, so a renamed class would silently stop counting.
+  const has = (f, needle, what) => { if (!readFileSync(path.join(ROOT, f), "utf8").includes(needle)) throw new Error(`${f} no longer has ${what}, which track.js counts`); };
+  has("v2/home.js", "'idea-trigger'", "the tile button .idea-trigger");
+  has("v2/home.js", "'idea-detail ", "the panel .idea-detail");
+  has("index.html", 'id="doing-tools"', "the flow view's line #doing-tools");
+  has("index.html", 'class="doing-item" data-line=', "the Right now notes .doing-item[data-line]");
+  has("about.html", 'id="word-pile"', "the quote pile #word-pile");
+  has("v1/about.html", 'id="word-pile"', "the quote pile #word-pile");
+  has("poems/related.js", "'stanza explore-slide'", "the related poems .explore-slide");
+  for (const f of ["index.html", "about.html", "v1/about.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
+  has("poems/related.js", "s.src = '/track.js'", "the line that loads /track.js on every poem");
+  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home, both Abouts and every poem`;
 });
 
 process.exit(0)

@@ -11,6 +11,7 @@ This is a **public** GitHub Pages repo (custom domain kahransingh.com, plain HTM
 ## Conventions
 
 - Serve media at web-appropriate sizes: photos ≤ ~2400px long edge / ≤ ~1MB; loop videos re-encoded small (see `video-poems/` at 540px). GitHub Pages can't serve Git LFS, so keep assets in the repo but small — don't move served media to LFS.
+- Every page carries the Google Analytics tag (`G-H63H3KD6WQ`), private sections included; `verify.mjs` fails on a page without it (exempt: `studies/NN/` drafts, redirect stubs, and `lately/record/`, which the weekly generator rewrites from its tagged template). Clicks that open something go as events through `/track.js`, which reads the markup and lists its event names at the top; it is loaded on the home, both Abouts and, via `poems/related.js`, every poem. Rename a class it counts and `verify.mjs` says so.
 - Every top-level page carries `<title>`, meta description, canonical, and OG/Twitter card tags. New poem pages should mirror `og:description` into a `<meta name="description">` and include an `og:image`.
 
 ## Two versions live side by side (since 2026-09-21)
