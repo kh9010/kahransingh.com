@@ -752,6 +752,24 @@
         "wind_kmh": 16.9,
         "cloud_pct": 16
       }
+    },
+    "2026-11-02": {
+      "poem": "out-to-play-he-calls-them",
+      "photo": "/photos/sayulita-mexico-9d65e1b6.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6494657648817043,
+        "warmth": 0.8742857142857143,
+        "wet": 0.4,
+        "stillness": 1.0,
+        "season": 0.16495557944724437,
+        "inside": 0.7371428571428571,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 25.6,
+        "wind_kmh": 9.3,
+        "cloud_pct": 42
+      }
     }
   }
 }
