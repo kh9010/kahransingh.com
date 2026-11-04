@@ -57,6 +57,13 @@ checkNow("the photograph never re-crops when the poem comes forward", () => {
   return `${oks} checks at 1200x800`;
 });
 
+checkNow("no picture is ever stretched, on any of six screens", () => {
+  const r = run("node", ["tools/test_photo_aspect.mjs"], ROOT);
+  const oks = (r.out.match(/^ok /gm) || []).length;
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
+  return `${oks} page-and-screen checks; ` + r.out.trim().split("\n").pop();
+});
+
 // ── studies rail checks (this branch): run after the site checks above, in one async pass ──
 // Starts its own study server on a free port with a throwaway picks file, drives headless Chrome over the DevTools protocol.
 import fs from 'node:fs'
