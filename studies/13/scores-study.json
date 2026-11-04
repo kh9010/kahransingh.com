@@ -1,0 +1,574 @@
+{
+ "version": 1,
+ "axes": [
+  "light",
+  "warmth",
+  "wet",
+  "stillness",
+  "season",
+  "inside",
+  "mood"
+ ],
+ "scored_at": "2026-10-28",
+ "scored_by": "Claude, reading each file, in the shape of v2/scores-photos.json (axes per docs/2026-09-21-daily-pick-design.md). Study 13 only: not in the daily rotation. place is a name only, and only where the picture or its file name says it; no coordinates invented.",
+ "photos": {
+  "/photos/van-sleeping.jpg": {
+   "light": 0.25,
+   "warmth": 0.45,
+   "wet": 0.1,
+   "stillness": 0.6,
+   "season": 0.5,
+   "inside": 0.1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "Inside a camper van on the road, someone asleep under a pillow, the highway through the windscreen"
+  },
+  "/photos/tetrapods-C617472A.jpg": {
+   "light": 0.55,
+   "warmth": 0.4,
+   "wet": 0.5,
+   "stillness": 0.3,
+   "season": 0.5,
+   "inside": 0.9,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "Concrete tetrapods piled at the edge of the sea"
+  },
+  "/photos/lavender-field-44DFB472.jpg": {
+   "light": 0.5,
+   "warmth": 0.5,
+   "wet": 0.2,
+   "stillness": 0.4,
+   "season": 0.7,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "Stalks of lavender against a pale sky, a field beyond"
+  },
+  "/photos/calla-lilies-1CB0954F.jpg": {
+   "light": 0.35,
+   "warmth": 0.5,
+   "wet": 0.3,
+   "stillness": 0.1,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "White calla lilies in a dark garden bed"
+  },
+  "/photos/pine-boardwalk-7FB4DA90.jpg": {
+   "light": 0.6,
+   "warmth": 0.5,
+   "wet": 0.1,
+   "stillness": 0.2,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "day",
+   "place": null,
+   "notes": "A boardwalk running between pines toward two walkers"
+  },
+  "/photos/gnarled-tree-beach-9254A749.jpg": {
+   "light": 0.65,
+   "warmth": 0.6,
+   "wet": 0.3,
+   "stillness": 0.2,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "A bare gnarled tree on a beach of black lava rock"
+  },
+  "/photos/misty-walkway-48FA8D97.jpg": {
+   "light": 0.5,
+   "warmth": 0.6,
+   "wet": 0.2,
+   "stillness": 0.1,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "A paved walkway beside a railing under old trees and palms"
+  },
+  "/photos/museum-hallway-4BC2AB1E.jpg": {
+   "light": 0.7,
+   "warmth": 0.5,
+   "wet": 0,
+   "stillness": 0,
+   "season": 0.5,
+   "inside": 0,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "A long museum gallery of framed portraits, a bench and one visitor"
+  },
+  "/photos/dune-grass-path-2EFABBF7.jpg": {
+   "light": 0.6,
+   "warmth": 0.5,
+   "wet": 0.1,
+   "stillness": 0.3,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "A sand path winding through dune grass"
+  },
+  "/photos/nyc-riverfront-DE8723B3.jpg": {
+   "light": 0.6,
+   "warmth": 0.45,
+   "wet": 0.1,
+   "stillness": 0.4,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": {
+    "name": "New York"
+   },
+   "notes": "A riverside walk under towers and an elevated road, a couple walking"
+  },
+  "/photos/forest-sunrays-C5ED39F1.jpg": {
+   "light": 0.4,
+   "warmth": 0.5,
+   "wet": 0.2,
+   "stillness": 0.1,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "Sun through tall straight trunks in a forest"
+  },
+  "/photos/juniper-berries-07D3E4F0.jpg": {
+   "light": 0.5,
+   "warmth": 0.45,
+   "wet": 0.1,
+   "stillness": 0.1,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "Juniper berries on a branch, close"
+  },
+  "/photos/geranium-bw-1A1B3229.jpg": {
+   "light": 0.5,
+   "warmth": 0.5,
+   "wet": 0.1,
+   "stillness": 0.2,
+   "season": 0.7,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "Pale wild geranium flowers, close"
+  },
+  "/photos/beach-umbrella-1EB3BFB6.jpg": {
+   "light": 0.75,
+   "warmth": 0.75,
+   "wet": 0.3,
+   "stillness": 0.3,
+   "season": 0.85,
+   "inside": 1,
+   "mood": 0.65,
+   "hour": "day",
+   "place": null,
+   "notes": "Someone lying on the sand in a hat under a beach umbrella"
+  },
+  "/photos/banyan-tree-6A29610A.jpg": {
+   "light": 0.5,
+   "warmth": 0.75,
+   "wet": 0.3,
+   "stillness": 0.2,
+   "season": 0.7,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "A banyan tree spreading its limbs over a path, a figure beneath"
+  },
+  "/photos/bhutan-summit-6D1ECE66.jpg": {
+   "light": 0.55,
+   "warmth": 0.35,
+   "wet": 0.1,
+   "stillness": 0.4,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Bhutan"
+   },
+   "notes": "A lone figure on a rocky ridge under blue sky"
+  },
+  "/photos/boat-friends-A963213F.jpg": {
+   "light": 0.85,
+   "warmth": 0.8,
+   "wet": 0.5,
+   "stillness": 0.6,
+   "season": 0.9,
+   "inside": 1,
+   "mood": 0.75,
+   "hour": "day",
+   "place": null,
+   "notes": "Two people resting on the bow of a boat in bright sun"
+  },
+  "/photos/cypress-kayak-F5BA8A7A.jpg": {
+   "light": 0.6,
+   "warmth": 0.6,
+   "wet": 0.8,
+   "stillness": 0.5,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.65,
+   "hour": "day",
+   "place": null,
+   "notes": "Kayaks on a dark creek among cypress trees"
+  },
+  "/photos/glass-sculpture-C9B56AB5.jpg": {
+   "light": 0.55,
+   "warmth": 0.5,
+   "wet": 0,
+   "stillness": 0,
+   "season": 0.5,
+   "inside": 0,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Japan"
+   },
+   "notes": "A glass globe holding flowers in a gallery"
+  },
+  "/photos/infinity-room-BD764E63.jpg": {
+   "light": 0.15,
+   "warmth": 0.3,
+   "wet": 0,
+   "stillness": 0.2,
+   "season": 0.5,
+   "inside": 0,
+   "mood": 0.6,
+   "hour": "night",
+   "place": {
+    "name": "Japan"
+   },
+   "notes": "Lights like stars in a mirrored room, people in silhouette"
+  },
+  "/photos/japan-bridge-night-03BAB9C2.jpg": {
+   "light": 0.15,
+   "warmth": 0.4,
+   "wet": 0.1,
+   "stillness": 0.3,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.45,
+   "hour": "night",
+   "place": {
+    "name": "Japan"
+   },
+   "notes": "A lit footbridge over a road among towers at night"
+  },
+  "/photos/japan-gallery-quilt-27BBE65D.jpg": {
+   "light": 0.7,
+   "warmth": 0.5,
+   "wet": 0,
+   "stillness": 0,
+   "season": 0.5,
+   "inside": 0,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Japan"
+   },
+   "notes": "Two visitors before a bright patchwork quilt in a gallery"
+  },
+  "/photos/jungle-path-DAB66F7D.jpg": {
+   "light": 0.45,
+   "warmth": 0.75,
+   "wet": 0.4,
+   "stillness": 0.2,
+   "season": 0.7,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "day",
+   "place": null,
+   "notes": "A dirt path through green jungle, a figure far ahead"
+  },
+  "/photos/mexico-plaza-476B1258.jpg": {
+   "light": 0.75,
+   "warmth": 0.7,
+   "wet": 0,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Mexico"
+   },
+   "notes": "A plaza with market stalls, a red arcade and a large bronze head"
+  },
+  "/photos/sea-cliff-8632EF29.jpg": {
+   "light": 0.55,
+   "warmth": 0.4,
+   "wet": 0.1,
+   "stillness": 0.2,
+   "season": 0.4,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "day",
+   "place": {
+    "name": "Bhutan"
+   },
+   "notes": "Stone stairs climbing a cliff to a monastery, prayer flags above"
+  },
+  "/photos/snowy-pass-648E669E.jpg": {
+   "light": 0.7,
+   "warmth": 0.15,
+   "wet": 0.3,
+   "stillness": 0.4,
+   "season": 0.3,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "A valley of rock and old snow below a mountain pass"
+  },
+  "/photos/surfers-walking-6CE80723.jpg": {
+   "light": 0.4,
+   "warmth": 0.65,
+   "wet": 0.4,
+   "stillness": 0.5,
+   "season": 0.7,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "dusk",
+   "place": null,
+   "notes": "Someone carrying bodyboards down a path to the beach"
+  },
+  "/photos/winnebago-4069A7FC.jpg": {
+   "light": 0.7,
+   "warmth": 0.5,
+   "wet": 0,
+   "stillness": 0.5,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "A camper van seen head-on, the driver behind the windscreen"
+  },
+  "/photos/jeep-stream-A0C4CAF7.jpg": {
+   "light": 0.45,
+   "warmth": 0.6,
+   "wet": 0.6,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "day",
+   "place": null,
+   "notes": "An SUV parked at a stream in the woods"
+  },
+  "/photos/forest-bridge-creek-194CECED.jpg": {
+   "light": 0.45,
+   "warmth": 0.5,
+   "wet": 0.8,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "A wooden footbridge over a mossy creek among tall trees"
+  },
+  "/photos/bougainvillea-street-887A6F65.jpg": {
+   "light": 0.75,
+   "warmth": 0.8,
+   "wet": 0,
+   "stillness": 0.3,
+   "season": 0.8,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "Pink bougainvillea before a blue wall, a man passing"
+  },
+  "/photos/puget-sound-clouds-836485B6.jpg": {
+   "light": 0.75,
+   "warmth": 0.45,
+   "wet": 0.6,
+   "stillness": 0.4,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": {
+    "name": "Puget Sound"
+   },
+   "notes": "Open water under a long bank of cloud"
+  },
+  "/photos/diwali-gifts-7E597412.jpg": {
+   "light": 0.3,
+   "warmth": 0.6,
+   "wet": 0,
+   "stillness": 0.1,
+   "season": 0.3,
+   "inside": 0,
+   "mood": 0.7,
+   "hour": "night",
+   "place": null,
+   "notes": "Two people opening Diwali gifts in a living room strung with lights"
+  },
+  "/photos/wood-spiral-4DC35586.jpg": {
+   "light": 0.6,
+   "warmth": 0.55,
+   "wet": 0,
+   "stillness": 0.1,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "Offcuts of wood stacked end-on in a spiral"
+  },
+  "/photos/chive-flowers-043155D7.jpg": {
+   "light": 0.3,
+   "warmth": 0.55,
+   "wet": 0.1,
+   "stillness": 0.2,
+   "season": 0.75,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "dusk",
+   "place": null,
+   "notes": "Purple chive flowers against dark green"
+  },
+  "/photos/red-leaves-10B89607.jpg": {
+   "light": 0.4,
+   "warmth": 0.6,
+   "wet": 0.2,
+   "stillness": 0.1,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "Crimson coleus leaves, close"
+  },
+  "/photos/sheep-valley-18920780.jpg": {
+   "light": 0.5,
+   "warmth": 0.4,
+   "wet": 0.3,
+   "stillness": 0.4,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "day",
+   "place": null,
+   "notes": "Sheep on a stony mountain valley floor"
+  },
+  "/photos/glacial-lake-28B7AF30.jpg": {
+   "light": 0.55,
+   "warmth": 0.3,
+   "wet": 0.5,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.7,
+   "hour": "day",
+   "place": null,
+   "notes": "A hiker before a pale blue glacial lake under snowy peaks"
+  },
+  "/photos/poppy-macro-2B2A81D7.jpg": {
+   "light": 0.2,
+   "warmth": 0.55,
+   "wet": 0.3,
+   "stillness": 0.3,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.6,
+   "hour": "dusk",
+   "place": null,
+   "notes": "Two figures in silhouette on a beach at sunset"
+  },
+  "/photos/buddha-plant-333E9F81.jpg": {
+   "light": 0.55,
+   "warmth": 0.75,
+   "wet": 0,
+   "stillness": 0,
+   "season": 0.5,
+   "inside": 0,
+   "mood": 0.55,
+   "hour": "day",
+   "place": null,
+   "notes": "Green leaves before a soft Buddha figure in warm light"
+  },
+  "/photos/firework-burst-5004742B.jpg": {
+   "light": 0.15,
+   "warmth": 0.5,
+   "wet": 0.4,
+   "stillness": 0.2,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.45,
+   "hour": "dusk",
+   "place": null,
+   "notes": "A man in silhouette against the sea at dusk"
+  },
+  "/photos/langur-sitting-6C239336.jpg": {
+   "light": 0.6,
+   "warmth": 0.55,
+   "wet": 0,
+   "stillness": 0,
+   "season": 0.3,
+   "inside": 0,
+   "mood": 0.5,
+   "hour": "day",
+   "place": null,
+   "notes": "A person in a grey hood drinking from a blue and white cup"
+  },
+  "/photos/langur-climbing-9B6D6B84.jpg": {
+   "light": 0.2,
+   "warmth": 0.55,
+   "wet": 0.3,
+   "stillness": 0.3,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.65,
+   "hour": "dusk",
+   "place": null,
+   "notes": "A figure with arms outstretched on a beach at sunset"
+  },
+  "/photos/spotted-deer-D8AE667C.jpg": {
+   "light": 0.15,
+   "warmth": 0.5,
+   "wet": 0.8,
+   "stillness": 0.2,
+   "season": 0.5,
+   "inside": 1,
+   "mood": 0.45,
+   "hour": "dusk",
+   "place": null,
+   "notes": "Low sun reflected in a pool on a wet beach"
+  },
+  "/photos/beach-reflection-DDAF92C4.jpg": {
+   "light": 0.8,
+   "warmth": 0.7,
+   "wet": 0,
+   "stillness": 0.3,
+   "season": 0.6,
+   "inside": 1,
+   "mood": 0.55,
+   "hour": "day",
+   "place": null,
+   "notes": "A young man setting tiles on a painted temple spire"
+  }
+ }
+}
