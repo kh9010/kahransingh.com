@@ -662,6 +662,114 @@
         "wind_kmh": 12.7,
         "cloud_pct": 77
       }
+    },
+    "2026-10-28": {
+      "poem": "dear-bottle",
+      "photo": "/photos/casper-wyoming-cce8cbde.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.8419704416260752,
+        "warmth": 0.7742857142857144,
+        "wet": 0.3,
+        "stillness": 0.9275,
+        "season": 0.19807738956144827,
+        "inside": 0.7371428571428572,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 22.1,
+        "wind_kmh": 14.9,
+        "cloud_pct": 73
+      }
+    },
+    "2026-10-29": {
+      "poem": "everytime-you-wink-at-me",
+      "photo": "/photos/provincetown-massachusetts-08da554d.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.9263725462281215,
+        "warmth": 0.7914285714285714,
+        "wet": 0.3,
+        "stillness": 1.0,
+        "season": 0.19126635985822432,
+        "inside": 0.7457142857142857,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 22.7,
+        "wind_kmh": 9.9,
+        "cloud_pct": 47
+      }
+    },
+    "2026-10-30": {
+      "poem": "when-i-dance-with-you",
+      "photo": "/photos/night-market.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6756196836384021,
+        "warmth": 0.8228571428571428,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.1845466894061648,
+        "inside": 0.9114285714285715,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 23.8,
+        "wind_kmh": 11.2,
+        "cloud_pct": 64
+      }
+    },
+    "2026-10-31": {
+      "poem": "did-you-know",
+      "photo": "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6076086378111478,
+        "warmth": 0.8771428571428571,
+        "wet": 0.4,
+        "stillness": 0.7974999999999999,
+        "season": 0.17792036666386574,
+        "inside": 0.7385714285714285,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 25.7,
+        "wind_kmh": 20.1,
+        "cloud_pct": 71
+      }
+    },
+    "2026-11-01": {
+      "poem": "oh-that-again",
+      "photo": "/photos/sayulita-mexico-25fbaafd.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6776679324454058,
+        "warmth": 0.8628571428571429,
+        "wet": 0.4,
+        "stillness": 0.8775,
+        "season": 0.17138935246683407,
+        "inside": 0.7314285714285714,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 25.2,
+        "wind_kmh": 16.9,
+        "cloud_pct": 16
+      }
+    },
+    "2026-11-02": {
+      "poem": "out-to-play-he-calls-them",
+      "photo": "/photos/sayulita-mexico-9d65e1b6.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.6494657648817043,
+        "warmth": 0.8742857142857143,
+        "wet": 0.4,
+        "stillness": 1.0,
+        "season": 0.16495557944724437,
+        "inside": 0.7371428571428571,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 25.6,
+        "wind_kmh": 9.3,
+        "cloud_pct": 42
+      }
     }
   }
 }
