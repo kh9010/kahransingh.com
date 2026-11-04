@@ -17,6 +17,9 @@
  *   note_link      the link inside that note      { note, link }
  *   quote_pile_tap the About's pile of quotes     { page }
  *   related_poem   a poem's "related" links       { from, to }
+ *   photo_open     a photograph opened full size  { photo }
+ *                  (by tap, click or keyboard; counted, like the flow view,
+ *                  when the photography page's lightbox actually opens)
  */
 (function () {
   function send(name, params) {
@@ -57,6 +60,16 @@
     var item = b.closest('.doing-item');
     if (item.classList.contains('is-open')) send('note_open', { note: item.getAttribute('data-line') });
   });
+
+  var box = document.getElementById('lightbox'), boxImg = document.getElementById('lightbox-img');
+  if (box && boxImg && window.MutationObserver) {
+    var shown = box.classList.contains('active');
+    new MutationObserver(function () {
+      var now = box.classList.contains('active');
+      if (now && !shown) send('photo_open', { photo: slug(path(boxImg.getAttribute('src') || '')).replace(/\.(jpe?g|png|webp)$/i, '') });
+      shown = now;
+    }).observe(box, { attributes: true, attributeFilter: ['class'] });
+  }
 
   var door = document.getElementById('doing-tools');
   if (door && window.MutationObserver) {
