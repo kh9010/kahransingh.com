@@ -696,9 +696,12 @@ checkNow("every page carries the Analytics tag, and track.js still finds what it
   has("about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("v1/about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("poems/related.js", "'stanza explore-slide'", "the related poems .explore-slide");
-  for (const f of ["index.html", "about.html", "v1/about.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
+  has("photography.html", 'id="lightbox"', "the lightbox #lightbox");
+  has("photography.html", 'id="lightbox-img"', "the lightbox picture #lightbox-img");
+  has("photography.html", "lightbox.classList.add('active')", "the lightbox's open state .active");
+  for (const f of ["index.html", "about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
   has("poems/related.js", "s.src = '/track.js'", "the line that loads /track.js on every poem");
-  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home, both Abouts and every poem`;
+  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home, both Abouts, the photography page and every poem`;
 });
 
 process.exit(0)
