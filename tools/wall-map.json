@@ -43,7 +43,7 @@
     "feedback", "feedback-pipe", "now-chat", "now-chat-door", "notify-door", "scheduler", "place-affinity",
     "claude-sessions-digest", "classify-owners", "repo-hygiene", "skills-roster", "activity-log-freshness",
     "activity-records", "sync-conflict-janitor", "wa-sweep", "wall-drift",
-    "armoire-weekly", "armoire-notebook",
+    "armoire-weekly", "armoire-notebook", "hermes:fare-watch-home-jan2027",
     "com.kahran.scheduler", "com.kahran.whatsapp-keepalive", "com.kahran.obsidian-keepalive",
     "com.kahran.granola-watch", "com.kahran.system-inbox-lane", "com.kahran.capture-health",
     "com.kahran.sync-health", "com.kahran.ollama", "com.kahran.contacts-sync-detector",

@@ -34,11 +34,25 @@ class AboutPhotosTests(unittest.TestCase):
         links = {attrs.get('href') for tag, attrs in Page('index.html').tags if tag == 'a'}
         self.assertTrue({'/about.html', '/photography.html'} <= links)
 
-    def test_about_has_readable_existing_copy_without_javascript(self):
-        page = Page('about.html')
+    def test_old_about_stays_openable_as_v1_with_its_copy(self):
+        # The pre-desk About moved to /v1/about.html on 2026-10-28 (picked from Study 09).
+        page = Page('v1/about.html')
         text = ''.join(page.text)
         self.assertIn('Kahran Singh is a storyteller, poet, and creative consultant', text)
         self.assertIn('Sometimes I smile at myself (in the mirror)', text)
+        links = {attrs.get('href') for tag, attrs in Page('v1/index.html').tags if tag == 'a'}
+        self.assertIn('/v1/about.html', links)
+
+    def test_about_reads_without_javascript(self):
+        page = Page('about.html')
+        text = ''.join(page.text)
+        self.assertIn('Hello. I’m Kahran.', text)
+        self.assertIn('Write to me. Especially if you are drawing up your own contract with the world', text)
+        self.assertIn('Tell me what’s going on.', text)
+        self.assertNotIn('data-count', (ROOT / 'about.html').read_text())
+        # 28 Oct: the word pile came back; without JS it shows one of its six quotes.
+        self.assertIn('Sometimes I smile at myself (in the mirror)', text)
+        self.assertNotIn('lenticular', (ROOT / 'about.html').read_text())
 
     def test_about_returns_to_current_home_and_keeps_v1_accessible(self):
         tags = Page('about.html').tags
