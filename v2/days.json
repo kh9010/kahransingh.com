@@ -770,6 +770,24 @@
         "wind_kmh": 9.3,
         "cloud_pct": 42
       }
+    },
+    "2026-11-03": {
+      "poem": "everyday-i-can-spend",
+      "photo": "/photos/paro-bhutan-6f8bbbbf.jpg",
+      "place": "San Miguel de Allende, Mexico",
+      "why": {
+        "light": 0.9710101963426755,
+        "warmth": 0.9028571428571429,
+        "wet": 0.0,
+        "stillness": 0.935,
+        "season": 0.15862095146204264,
+        "inside": 0.9514285714285715,
+        "mood": 0.5,
+        "weather_code": 1,
+        "tmax": 26.6,
+        "wind_kmh": 14.6,
+        "cloud_pct": 8
+      }
     }
   }
 }
