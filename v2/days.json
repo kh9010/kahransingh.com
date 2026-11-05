@@ -788,6 +788,24 @@
         "wind_kmh": 14.6,
         "cloud_pct": 8
       }
+    },
+    "2026-11-04": {
+      "poem": "let-tomorrow-come",
+      "photo": "/photos/fire-island-new-york-72585dde.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.610819421795319,
+        "warmth": 0.7657142857142857,
+        "wet": 0.0,
+        "stillness": 0.61,
+        "season": 0.15238734302956386,
+        "inside": 0.8828571428571428,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 21.8,
+        "wind_kmh": 15.6,
+        "cloud_pct": 15
+      }
     }
   }
 }
