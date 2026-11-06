@@ -494,7 +494,7 @@ import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 const STUDIES = readdirSync(path.join(ROOT, "studies")).filter((d) => /^\d\d$/.test(d)).sort();
 const SINCE06 = STUDIES.filter((n) => n >= "06"); // 01–05 are the inspiration and gem studies, checked above
 const ABOUT = ["06", "07", "08"];                      // the About pages proper; 09 is their desk
-const TUNED = SINCE06.filter((n) => n !== "10");       // 10 is a mechanism page like /context/: no JS, so no ?tune (its dials arrive with its promotion)
+const TUNED = SINCE06.filter((n) => n !== "10" && n !== "15"); // 10 is a mechanism page like /context/: no JS, so no ?tune (its dials arrive with its promotion); 15 is the doors data, judged by reading, no look or timing to tune
 const studyHtml = (n) => readFileSync(path.join(ROOT, "studies", n, "index.html"), "utf8");
 
 checkNow("the rail matches the studies and opens on the newest", () => {
@@ -610,9 +610,33 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, o
   return `${meta.length} page rules, ${pieces.length} picked lines verbatim, ${names} names and ${years} years against ${PUBLIC.length} public pages, ${links} internal links on disk, old About at /v1/about.html`;
 });
 
+/* Studies 14 on are canvas/script pieces (the stone, the crossing): a dial is
+   read by CSS (its fallback must equal defaults.json) or by script (the key
+   quoted in one of the study's own .html/.js files). Every dial is read
+   somewhere; the study loads tune.js. 06–13 keep the CSS-only rule above. */
+function scriptDials(n) {
+  const dir = path.join(ROOT, "studies", n);
+  const f = path.join(dir, "defaults.json");
+  if (!existsSync(f)) throw new Error(`study ${n} has no defaults.json`);
+  const d = JSON.parse(readFileSync(f, "utf8"));
+  const src = readdirSync(dir).filter((x) => /\.(html|js|mjs)$/.test(x) && x !== "check.mjs" && x !== "tune.js")
+    .map((x) => readFileSync(path.join(dir, x), "utf8")).join("\n");
+  const css = new Map([...src.matchAll(/var\(--([a-z0-9-]+),\s*([^)]+)\)/g)].map((m) => [m[1], m[2].trim()]));
+  for (const [k, v] of Object.entries(d)) {
+    if (css.has(k)) { if (Number(css.get(k)) !== Number(v) && css.get(k) !== String(v)) throw new Error(`study ${n}: "${k}" falls back to ${css.get(k)} in CSS, defaults.json says ${v}`); continue; }
+    if (src.includes(`var(--${k})`)) continue; // no fallback: the value only ever comes from defaults.json via tune.js
+    const decl = new RegExp(`--${k}:\\s*([^;]+);`).exec(src);
+    if (decl) { if (Number(decl[1]) !== Number(v) && decl[1].trim() !== String(v)) throw new Error(`study ${n}: --${k} is ${decl[1].trim()} in CSS, defaults.json says ${v}`); continue; }
+    if (!new RegExp(`['"\`]${k.replace(/[-]/g, "\\-")}['"\`]`).test(src)) throw new Error(`study ${n}: "${k}" is in defaults.json but nothing reads it`);
+  }
+  if (!/<script[^>]+src="[^"]*tune\.js"/.test(src)) throw new Error(`study ${n} does not load tune.js`);
+  return Object.keys(d).length;
+}
+
 checkNow("tune: every dial lives in defaults.json and the CSS fallback equals it", () => {
   let dials = 0;
   for (const n of TUNED) {
+    if (n >= "14") { dials += scriptDials(n); continue; }
     const f = path.join(ROOT, "studies", n, "defaults.json");
     if (!existsSync(f)) throw new Error(`study ${n} has no defaults.json`);
     const d = JSON.parse(readFileSync(f, "utf8"));
@@ -634,7 +658,8 @@ checkNow("every link out of a study resolves", () => {
   for (const n of SINCE06) {
     for (const m of studyHtml(n).matchAll(/(?:href|src)="([^"#?]+)/g)) {
       const u = m[1];
-      if (/^(https?:|mailto:)/.test(u)) { n_ext++; continue; }
+      if (u.includes("${")) continue; // a template literal in the page's script, built at run time, not a link on disk
+      if (/^(https?:|mailto:|data:)/.test(u)) { n_ext++; continue; }
       let p = u.startsWith("/") ? path.join(ROOT, u) : path.join(ROOT, "studies", n, u);
       if (p.endsWith("/")) p = path.join(p, "index.html");
       if (!existsSync(p)) throw new Error(`study ${n}: ${u} does not resolve`);

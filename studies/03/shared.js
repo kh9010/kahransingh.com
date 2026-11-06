@@ -18,7 +18,9 @@
   async function load() {
     await js('/v2/weather.js'); await js('/v2/pick.js')
     const line = document.createElement('span')
-    const [data, ps, qs, idea] = await Promise.all([get('/v2/data.json'), get('/v2/scores-photos.json'), get('/v2/scores-poems.json'), ideas()])
+    const [data, days, ps, qs, idea] = await Promise.all([get('/v2/data.json'), get('/v2/days.json'), get('/v2/scores-photos.json'), get('/v2/scores-poems.json'), ideas()])
+    // days.json is pick.js's novelty memory; home.js hands it over, so the studies must too, or they pick a different poem from /
+    window.kahranPick && window.kahranPick.setDays(days)
     window.kahranPick && window.kahranPick.setData(data)
     const sky = new Promise(r => { document.addEventListener('kahran:weather', r, { once: true }); setTimeout(r, 3000) })
     window.kahranWeather && window.kahranWeather.load(line)

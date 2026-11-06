@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>15 / The doors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hs-paper: #fafaf8; --hs-surface: #fff; --hs-surface-2: #f2f0e8;
+  --hs-ink: #1a1a1a; --hs-ink-2: #6e6e6e; --hs-ink-3: #9a958c;
+  --hs-line: #e0ddd8; --hs-line-faint: #f0ede8;
+  --hs-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --hs-serif: 'Fraunces', Georgia, serif;
+  --hs-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --hs-fs-label: .72rem; --hs-fs-meta: .78rem; --hs-fs-body: 1.0625rem; --hs-fs-title: 1.15rem;
+  --hs-track-label: .12em; --hs-lh: 1.62; --hs-unit: 4px; --hs-gap: 8px; --hs-gutter: 16px; --hs-radius: 6px;
+  --hs-ease: cubic-bezier(.4, 0, .2, 1); --hs-on: .2s;
+  --hs-hand: #8a5f19; --hs-select: color-mix(in srgb, var(--hs-hand) 22%, var(--hs-paper));
+}
+@media (prefers-color-scheme: dark) {
+  :root { --hs-paper: #141210; --hs-surface: #1c1a15; --hs-surface-2: #171613; --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-ink-3: #6f6a62; --hs-line: #332e26; --hs-line-faint: #26221c; --hs-hand: #e2a34a; --hs-select: color-mix(in srgb, var(--hs-hand) 20%, var(--hs-paper)); color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+::selection { background: var(--hs-select); }
+body { margin: 0; background: var(--hs-paper); color: var(--hs-ink); font-family: var(--hs-font); font-size: var(--hs-fs-meta); }
+a { color: inherit; }
+header { padding: 20px var(--hs-gutter) 12px; max-width: 1180px; margin: 0 auto; }
+h1 { font-family: var(--hs-serif); font-weight: 400; font-size: var(--hs-fs-title); margin: 0 0 4px; }
+header p { margin: 0; color: var(--hs-ink-2); line-height: 1.5; max-width: 62ch; }
+.bar { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 12px; font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-3); }
+.bar span { display: flex; gap: 10px; }
+.bar a { text-decoration: none; color: var(--hs-ink-2); padding: 4px 0; }
+.bar a[aria-current] { color: var(--hs-ink); border-bottom: 1px solid var(--hs-ink); }
+.vocab { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 12px; }
+.vocab a { text-decoration: none; padding: 2px 8px; border: 1px solid var(--hs-line); border-radius: var(--hs-radius); color: var(--hs-ink-2); white-space: nowrap; }
+.vocab a small { color: var(--hs-ink-3); font-family: var(--hs-mono); font-size: .66rem; margin-left: 4px; }
+.vocab a.on { border-color: var(--hs-ink); color: var(--hs-ink); background: var(--hs-surface); }
+main { max-width: 1180px; margin: 0 auto; padding: 0 var(--hs-gutter) 64px; }
+
+/* reading */
+.poems { columns: 3 320px; column-gap: 40px; }
+.poem { break-inside: avoid; padding: 18px 0 14px; border-top: 1px solid var(--hs-line-faint); }
+.poem h2 { font-family: var(--hs-font); font-weight: 500; font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-3); margin: 0 0 8px; display: flex; justify-content: space-between; gap: 8px; }
+.poem h2 small { font-family: var(--hs-mono); letter-spacing: 0; text-transform: none; }
+.poem .text { font-family: var(--hs-serif); font-weight: 300; font-size: .95rem; line-height: 1.55; white-space: pre-line; }
+.poem .stanza { display: block; }
+.poem .stanza + .stanza { margin-top: .8em; }
+.poem .stanza.rest { display: none; }
+.poem.open .stanza.rest { display: block; }
+.fold { display: block; background: none; border: 0; padding: 0; margin-top: .4em; font: inherit; color: var(--hs-ink-3); cursor: pointer; letter-spacing: .2em; }
+.poem.open .fold { display: none; }
+.door { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; font-weight: 400; color: var(--hs-ink); cursor: pointer; }
+.door sup { font-family: var(--hs-font); font-size: .62rem; letter-spacing: .04em; color: var(--hs-hand); margin-left: 3px; vertical-align: .5em; font-weight: 400; white-space: nowrap; }
+.door:hover, .door.lit { background: var(--hs-select); }
+.poem .doors { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--hs-ink-3); }
+.poem .doors a { text-decoration: none; color: var(--hs-ink-2); }
+.poem .doors a::before { content: '→ '; color: var(--hs-ink-3); }
+
+/* graph */
+.graph { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 820px) { .graph { grid-template-columns: 1fr; } }
+svg { width: 100%; height: auto; display: block; -webkit-tap-highlight-color: transparent; }
+.edge { stroke: var(--hs-line); fill: none; transition: opacity var(--hs-on) var(--hs-ease); }
+.node { cursor: pointer; }
+.node circle { fill: var(--hs-surface); stroke: var(--hs-ink-3); stroke-width: 1; }
+.node text { font-family: var(--hs-font); font-size: 11px; fill: var(--hs-ink); paint-order: stroke; stroke: var(--hs-paper); stroke-width: 3px; text-anchor: middle; }
+.focus .edge { opacity: .12; }
+.focus .edge.on { opacity: 1; stroke: var(--hs-ink-2); }
+.focus .node { opacity: .3; }
+.focus .node.on, .focus .node.here { opacity: 1; }
+.node.here circle { fill: var(--hs-ink); stroke: var(--hs-ink); }
+.side h3 { font-family: var(--hs-serif); font-weight: 400; font-size: var(--hs-fs-display, 1.8rem); margin: 0 0 2px; font-size: 1.8rem; }
+.side .meta { color: var(--hs-ink-3); margin-bottom: 12px; }
+.photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; margin-bottom: 16px; }
+.photos img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; background: var(--hs-surface-2); }
+.hits { list-style: none; margin: 0; padding: 0; }
+.hits li { padding: 8px 0; border-top: 1px solid var(--hs-line-faint); }
+.hits b { font-weight: 500; font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-3); display: block; }
+.hits q { font-family: var(--hs-serif); font-size: .98rem; quotes: none; }
+.hits .on { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 3px; }
+.hits .on a { text-decoration: none; color: var(--hs-ink-2); }
+.hits .on a::before { content: '→ '; color: var(--hs-ink-3); }
+</style>
+</head>
+<body>
+<header>
+  <h1>15 / The doors</h1>
+  <p>Which words open a door out of a poem, and which line in each poem carries the word.<br>Every word reaches at least three poems and three photographs; two vocabularies, one to pick.</p>
+  <div class="bar">
+    <span id="views"><a data-v="read" href="?v=read">reading</a><a data-v="graph" href="?v=graph">graph</a></span>
+    <span id="vocabs"><a data-vocab="senses" href="?vocab=senses">senses</a><a data-vocab="feelings" href="?vocab=feelings">feelings</a></span>
+  </div>
+  <nav class="vocab" id="words"></nav>
+</header>
+<main id="main"></main>
+<script>
+const qs = new URLSearchParams(location.search)
+const V = qs.get('v') === 'graph' ? 'graph' : 'read'
+const VOCAB = qs.get('vocab') === 'feelings' ? 'feelings' : 'senses'
+const W = qs.get('w')
+const href = o => '?' + new URLSearchParams({ v: V, vocab: VOCAB, ...o }).toString()
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+
+for (const a of document.querySelectorAll('#views a')) { a.href = '?' + new URLSearchParams({ v: a.dataset.v, vocab: VOCAB }); if (a.dataset.v === V) a.setAttribute('aria-current', 'page') }
+for (const a of document.querySelectorAll('#vocabs a')) { a.href = '?' + new URLSearchParams({ v: V, vocab: a.dataset.vocab }); if (a.dataset.vocab === VOCAB) a.setAttribute('aria-current', 'page') }
+
+Promise.all([fetch('/v2/data.json').then(r => r.json()), fetch('doors.json').then(r => r.json())]).then(([data, doors]) => {
+  const v = doors.vocabs[VOCAB]
+  const poems = data.poems
+  const bySlug = Object.fromEntries(poems.map(p => [p.slug, p]))
+  const alt = Object.fromEntries(data.photos.map(p => [p.src, p.alt]))
+  const words = v.words
+  const wordIdx = Object.fromEntries(words.map(w => [w.word, w]))
+
+  document.getElementById('words').innerHTML = words.map(w =>
+    `<a href="${href({ v: 'graph', w: w.word })}" class="${w.word === W ? 'on' : ''}">${esc(w.word)}<small>${w.poems.length}·${w.photos.length}</small></a>`).join('')
+
+  const main = document.getElementById('main')
+  if (V === 'read') reading(); else graph()
+
+  // a stanza with its doors underlined, the word beside each
+  function mark(stanza, ds) {
+    const spans = []
+    for (const d of ds) { const at = stanza.indexOf(d.phrase); if (at >= 0) spans.push([at, at + d.phrase.length, d]) }
+    spans.sort((a, b) => a[0] - b[0])
+    let out = '', i = 0
+    for (const [a, b, d] of spans) {
+      if (a < i) continue
+      out += esc(stanza.slice(i, a)) + `<a class="door" href="${href({ v: 'graph', w: d.word })}" data-w="${esc(d.word)}">${esc(stanza.slice(a, b))}<sup>${esc(d.word)}</sup></a>`
+      i = b
+    }
+    return out + esc(stanza.slice(i))
+  }
+
+  function reading() {
+    const list = W ? poems.filter(p => (v.poems[p.slug] || []).some(d => d.word === W)) : poems
+    main.innerHTML = `<div class="poems">${list.map(p => {
+      const ds = v.poems[p.slug] || []
+      // a door belongs to the first stanza that holds it; stanzas without one fold behind ⋯
+      const placed = new Set()
+      let folded = 0
+      const body = p.stanzas.map(s => {
+        const here = ds.filter(d => !placed.has(d) && s.includes(d.phrase)); here.forEach(d => placed.add(d))
+        if (!here.length) folded++
+        return `<span class="stanza${here.length ? '' : ' rest'}">${mark(s, here)}</span>`
+      }).join('')
+      return `<article class="poem" id="${p.slug}">
+        <h2>${esc(p.title)}<small>${ds.length} doors</small></h2>
+        <div class="text">${body}</div>
+        ${folded ? `<button class="fold" type="button" title="${folded} more">⋯</button>` : ''}
+        <div class="doors">${ds.map(d => `<a href="${href({ v: 'graph', w: d.word })}">${esc(d.word)} <small>${wordIdx[d.word].poems.length - 1}</small></a>`).join('')}</div>
+      </article>`
+    }).join('')}</div>`
+    for (const b of main.querySelectorAll('.fold')) b.onclick = () => b.closest('.poem').classList.add('open')
+  }
+
+  function graph() {
+    // words on a ring, ordered so neighbours sit near: greedy chain by shared poems
+    const share = (a, b) => a.poems.filter(s => b.poems.includes(s)).length
+    const order = [words.reduce((m, w) => w.poems.length > m.poems.length ? w : m)]
+    const left = new Set(words.filter(w => w !== order[0]))
+    while (left.size) {
+      const last = order[order.length - 1]; let best = null, bs = -1
+      for (const w of left) { const s = share(last, w) * 10 + w.poems.length / 100; if (s > bs) { bs = s; best = w } }
+      order.push(best); left.delete(best)
+    }
+    const S = 640, C = S / 2, R = 250
+    const pos = new Map(order.map((w, i) => { const t = i / order.length * Math.PI * 2 - Math.PI / 2; return [w.word, [C + R * Math.cos(t), C + R * Math.sin(t)]] }))
+    const edges = []
+    for (let i = 0; i < words.length; i++) for (let j = i + 1; j < words.length; j++) {
+      const n = share(words[i], words[j]); if (n) edges.push([words[i].word, words[j].word, n])
+    }
+    const maxDeg = Math.max(...words.map(w => w.poems.length + w.photos.length))
+    const svg = `<svg viewBox="0 0 ${S} ${S}" class="${W ? 'focus' : ''}">
+      ${edges.map(([a, b, n]) => { const [x1, y1] = pos.get(a), [x2, y2] = pos.get(b); return `<path class="edge${W === a || W === b ? ' on' : ''}" d="M${x1},${y1} Q${C},${C} ${x2},${y2}" stroke-width="${(.5 + n * .6).toFixed(1)}"><title>${esc(a)} · ${esc(b)} · ${n}</title></path>` }).join('')}
+      ${order.map(w => { const [x, y] = pos.get(w.word); const r = 4 + 9 * Math.sqrt((w.poems.length + w.photos.length) / maxDeg); const near = W && wordIdx[W] && share(wordIdx[W], w) > 0
+        return `<a href="${href({ w: w.word })}" class="node${w.word === W ? ' here' : near ? ' on' : ''}"><circle cx="${x}" cy="${y}" r="${r.toFixed(1)}"/><text x="${x}" y="${(y < C ? y - r - 5 : y + r + 13).toFixed(1)}">${esc(w.word)}</text></a>` }).join('')}
+    </svg>`
+    const w = wordIdx[W]
+    const side = w ? `<h3>${esc(w.word)}</h3>
+      <div class="meta">${w.poems.length} poems · ${w.photos.length} photographs</div>
+      <div class="photos">${w.photos.map(s => `<img src="${s}" alt="${esc(alt[s] || '')}" title="${esc(alt[s] || '')}" loading="lazy">`).join('')}</div>
+      <ul class="hits">${w.poems.map(slug => {
+        const p = bySlug[slug], ds = v.poems[slug], d = ds.find(x => x.word === w.word)
+        return `<li><b>${esc(p.title)}</b><q>${esc(d.phrase)}</q><div class="on">${ds.filter(x => x !== d).map(x => `<a href="${href({ w: x.word })}">${esc(x.word)}</a>`).join('')}</div></li>`
+      }).join('')}</ul>` : `<div class="meta">${words.length} words · ${edges.length} shared-poem links</div>`
+    main.innerHTML = `<div class="graph"><div>${svg}</div><div class="side">${side}</div></div>`
+  }
+})
+</script>
+</body>
+</html>

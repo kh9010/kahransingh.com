@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 14</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* Study 05 B's mosaic stone, carried onto the home's first screen with today's real pick.
+   Numbers live in defaults.json (?tune on studies/tune-server.cjs). */
+:root {
+  --seam: #0d0c0b; --t1: #161513; --t2: #24221f; --t3: #34312c;
+  --bone: #e7e2d7; --ink: #1d1b18; --char: #22201d; --charink: #e4ddd0;
+  --floor: #ede7d9; --floor2: #9a9385;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --rimhi: 255,244,222; --rimlo: 0,0,0;
+  --scrim: .6; --dim: .42; --cut-s: 2.6;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --seam: #faf9f6; --t1: #ece8df; --t2: #dcd7cc; --t3: #c9c3b6; --bone: #fbfaf7; --ink: #1a1a1a; --floor: #1a1a1a; --floor2: #6e6e6e; } }
+:root[data-theme="light"] { --seam: #faf9f6; --t1: #ece8df; --t2: #dcd7cc; --t3: #c9c3b6; --bone: #fbfaf7; --ink: #1a1a1a; --floor: #1a1a1a; --floor2: #6e6e6e; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--seam); color: var(--floor); overflow-x: clip; }
+a { color: inherit; }
+
+/* the ask, at /studies/14/ with no ?v */
+#ask { max-width: 640px; padding: 16px; font: 400 .78rem/1.5 var(--sans); background: #fafaf8; color: #1a1a1a; min-height: 100vh; }
+#ask p { margin: 0 0 4px; } #ask nav { display: flex; gap: 8px; margin-top: 12px; }
+#ask nav a { text-decoration: none; border: 1px solid #e0ddd8; border-left: 3px solid #1a1a1a; border-radius: 6px; padding: 8px 10px; background: #fff; }
+#ask nav b { font-weight: 500; }
+body:not([data-v]) #app, body:not([data-v]) .vs { display: none; }
+body[data-v] #ask { display: none; }
+
+/* the stone */
+.stone { position: relative; overflow: hidden; background: var(--seam); }
+body[data-v="a"], body[data-v="c"] { --seam: #0d0c0b; }
+.s { position: absolute; inset: 0; transition: clip-path calc(var(--cut, var(--cut-s)) * 1s) var(--ease), filter .9s var(--ease); will-change: clip-path;
+     transform-origin: var(--ox) var(--oy); transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+.s .rim { position: absolute; background: linear-gradient(var(--ang, 135deg), rgba(var(--rimhi), var(--rim, .3)) 0%, rgba(var(--rimhi), 0) 50%, rgba(var(--rimlo), 0) 55%, rgba(var(--rimlo), var(--rimd, .3)) 100%); }
+.s .in { position: absolute; inset: 0; transition: clip-path calc(var(--cut, var(--cut-s)) * 1s) var(--ease); }
+.s .in > * { position: absolute; }
+.s .ground { inset: 0; }
+.s img { display: block; max-width: none; }
+.s.mono img { filter: grayscale(1) contrast(1.06) brightness(.94); }
+.s .sheen { pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(var(--ang, 135deg), rgba(255,250,240,var(--lit, .2)) 0%, rgba(255,250,240,0) 46%, rgba(0,0,0,var(--shade, .2)) 100%); }
+.s .glint { inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgba(255,246,228,var(--g, 0)) 0, rgba(255,246,228,0) 22vmax); }
+.s.sky .ground { background: linear-gradient(170deg, var(--sky1), var(--sky2)); }
+.stone.dim .s { filter: brightness(var(--dim)) saturate(.6); }
+
+/* verse set on a facet (b: the poem down the stone; c: the poem as the table) */
+.verse { font: 300 17px/1.42 var(--serif); color: var(--ink); overflow: hidden; }
+.s.dark .verse { color: var(--charink); }
+.verse .l { display: block; text-indent: -1em; padding-left: 1em; }
+.verse .gap { display: block; height: .7em; }
+.verse h2 { margin: 0 0 .7em; font: italic 400 1.18em/1.25 var(--serif); }
+.verse h2 a, .verse a { text-decoration: none; }
+.verse.scroll { overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+
+/* the mat: name, where he is, the way out, the caption */
+header { position: fixed; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); z-index: 9; max-width: 34ch; pointer-events: none; }
+header h1 { margin: 0; font: 500 1.15rem/1 var(--sans); letter-spacing: .01em; }
+header h1 a { text-decoration: none; pointer-events: auto; }
+header p { margin: 10px 0 14px; font: italic 300 1.0625rem/1.4 var(--serif); opacity: .86; }
+header p:empty { display: none; }
+header nav { pointer-events: auto; display: flex; flex-wrap: wrap; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+header nav a { color: var(--floor2); text-decoration: none; transition: color .2s var(--ease); }
+header nav a:hover, header nav a:focus-visible { color: var(--floor); }
+.cap { font: 400 .7rem/1.5 var(--sans); letter-spacing: .012em; color: var(--floor2); }
+.vs { position: fixed; top: 10px; right: 10px; z-index: 20; display: flex; gap: 2px; font: 400 .72rem/1 var(--sans); }
+.vs a { text-decoration: none; color: var(--floor2); padding: 5px 7px; border-radius: 6px; }
+.vs a[aria-current] { color: var(--floor); background: rgba(127,127,127,.18); }
+
+/* ---- a: the photograph IS the stone ---- */
+.scrim { display: none; } [data-v="a"] .scrim { display: block; }
+[data-v="a"] #stone { position: fixed; inset: 0; }
+[data-v="a"] .scrim { position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(20deg, rgba(8,8,7,var(--scrim)) 0%, rgba(8,8,7,calc(var(--scrim) * .5)) 30%, rgba(8,8,7,0) 55%),
+              linear-gradient(270deg, rgba(8,8,7,calc(var(--scrim) * .75)) 0%, rgba(8,8,7,0) 34%); }
+[data-v="a"] header, [data-v="a"] .vs a, [data-v="a"] .cap { color: #ede7d9; } [data-v="a"] header nav a, [data-v="a"] .vs a { color: #c9c3b6; }
+[data-v="a"] header nav a:hover { color: #fff; }
+[data-v="a"] .cap { position: fixed; right: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); z-index: 3; color: #c9c3b6; text-align: right; }
+.hold { position: fixed; z-index: 6; right: clamp(16px, 6vw, 96px); top: 50%; transform: translateY(-50%); }
+.label { display: block; margin: 0; padding: 0; border: 0; background: none; text-align: left; cursor: pointer; color: #f6f3ec; }
+.label small { display: block; margin-bottom: .2rem; font: 400 .62rem/1.5 var(--sans); letter-spacing: .13em; text-transform: uppercase; color: #ded9cf; }
+.label span { display: block; font: 400 1.35rem/1.25 var(--serif); max-width: 16ch; }
+.leaf { position: fixed; z-index: 7; background: var(--bone); color: var(--ink); padding: 38px 40px; opacity: 0; pointer-events: none;
+  clip-path: polygon(8% 0, 100% 0, 100% 88%, 93% 100%, 0 100%, 0 7%); transform: scale(.96); transition: opacity .5s var(--ease), transform .5s var(--ease); }
+.leaf.on { opacity: 1; pointer-events: auto; transform: none; }
+.leaf .verse { height: 100%; }
+@media (max-width: 640px) {
+  .hold { top: auto; bottom: 196px; left: 16px; right: 16px; transform: none; }
+  [data-v="a"] .cap { left: 16px; right: 16px; top: 52px; bottom: auto; text-align: left; }
+}
+
+/* ---- b: the stone beside a whole photograph ---- */
+[data-v="b"] #app { display: grid; grid-template-columns: calc(var(--photo-pane, .58) * 100vw) 1fr; }
+[data-v="b"] .pane { position: sticky; top: 0; height: 100vh; overflow: clip; }
+[data-v="b"] #still { position: absolute; display: block; width: 0; }
+[data-v="b"] header { position: absolute; }
+[data-v="b"] .cap { position: absolute; }
+@media (max-width: 640px) {
+  [data-v="b"] #app { display: block; }
+  [data-v="b"] .pane { position: relative; height: auto; }
+  [data-v="b"] header { position: static; padding: 14px 16px 18px; max-width: none; }
+  [data-v="b"] header p { margin: 8px 0 12px; }
+}
+
+/* ---- c: the poem is the stone's table ---- */
+[data-v="c"] #stone { position: fixed; inset: 0; }
+[data-v="c"] .cap { position: fixed; right: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); z-index: 3; text-align: right; color: #ede7d9; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+@media (max-width: 640px) { [data-v="c"] .cap { display: none; } }
+</style>
+</head>
+<body>
+<div id="ask">
+  <p><b>14 · The stone is the home.</b> Study 05 B's mosaic stone as the first screen of <code>/</code>, holding today's real photograph and poem, his place and a way out.</p>
+  <p>One question, three answers: how do the stone, the photograph and the poem share the screen?</p>
+  <nav><a href="?v=a"><b>a</b> the photograph is the stone</a><a href="?v=b"><b>b</b> the stone beside the photograph</a><a href="?v=c"><b>c</b> the poem is the stone's table</a></nav>
+</div>
+<div id="app">
+  <div class="pane" id="pane"></div>
+  <div class="stone" id="stone" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+  <header id="mat">
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where"></p>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a><a href="/#flow">tools</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+</div>
+<nav class="vs" aria-label="Study 14 variants"><a href="?v=a">a</a><a href="?v=b">b</a><a href="?v=c">c</a></nav>
+<script src="tune.js"></script>
+<script src="../03/shared.js"></script>
+<script src="today.js"></script>
+<script type="module">
+import { Delaunay } from 'https://cdn.jsdelivr.net/npm/d3-delaunay@6/+esm'
+
+const V = new URLSearchParams(location.search).get('v')
+const th = new URLSearchParams(location.search).get('theme'); if (th) document.documentElement.dataset.theme = th
+if (['a', 'b', 'c'].includes(V)) start()
+
+async function start() {
+document.body.dataset.v = V
+document.querySelectorAll('.vs a').forEach(a => a.getAttribute('href') === '?v=' + V && a.setAttribute('aria-current', 'page'))
+const T = await window.S14T
+const num = (k, f) => { const x = parseFloat(T[k]); return Number.isFinite(x) ? x : f }
+const $ = s => document.querySelector(s)
+const stone = $('#stone'), pane = $('#pane'), mat = $('#mat')
+let ctx = await S14.load($('#where'))
+document.body.dataset.photo = ctx.photo.src; document.body.dataset.poem = ctx.poem.slug; document.body.dataset.how = ctx.how
+$('#cap').textContent = ctx.photo.caption || ''
+
+/* ---- small geometry ---- */
+const phone = () => innerWidth < 640
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+const hash = S03.hash
+function centroid(p) { let a = 0, x = 0, y = 0; for (let i = 0; i < p.length; i++) { const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length], c = x0 * y1 - x1 * y0; a += c; x += (x0 + x1) * c; y += (y0 + y1) * c } a *= .5; return a ? [x / (6 * a), y / (6 * a)] : p[0] }
+const N = 20
+function shape(p, inset) { // seam inset + a fixed vertex count from the top, so cuts morph instead of jump
+  const c = centroid(p)
+  let q = p.map(([x, y]) => { const dx = c[0] - x, dy = c[1] - y, d = Math.hypot(dx, dy) || 1, k = inset / d; return [x + dx * k, y + dy * k] })
+  let s = 0; q.forEach(([x, y], i) => { if (y < q[s][1]) s = i }); q = q.slice(s).concat(q.slice(0, s))
+  while (q.length < N) q.push(q[q.length - 1])
+  return q.slice(0, N)
+}
+const poly = q => `polygon(${q.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`
+const bbox = p => { const xs = p.map(a => a[0]), ys = p.map(a => a[1]), x = Math.min(...xs), y = Math.min(...ys); return [x, y, Math.max(...xs) - x, Math.max(...ys) - y] }
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+function inner(p, c, k0 = .92) { // the largest centred rectangle (by a shrinking scale) that sits inside the cell
+  const [, , bw, bh] = bbox(p)
+  for (let k = k0; k > .2; k -= .02) { const w = bw * k, h = bh * k, x = c[0] - w / 2, y = c[1] - h / 2
+    if ([[x, y], [x + w, y], [x, y + h], [x + w, y + h]].every(pt => inPoly(pt, p))) return [x, y, w, h] }
+  return [c[0] - bw * .1, c[1] - bh * .1, bw * .2, bh * .2]
+}
+function voronoi(sites, w, h, stretch = 1) {
+  const v = Delaunay.from(sites.map(([x, y]) => [x / stretch, y])).voronoi([0, 0, w / stretch, h])
+  return sites.map((_, i) => (v.cellPolygon(i) || []).slice(0, -1).map(([x, y]) => [x * stretch, y]))
+}
+function span(p, c, axis) { // the cell's extent through its centre along one axis
+  const o = 1 - axis, hits = []
+  for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]
+    if ((a[o] - c[o]) * (b[o] - c[o]) <= 0 && a[o] !== b[o]) hits.push(a[axis] + (c[o] - a[o]) / (b[o] - a[o]) * (b[axis] - a[axis])) }
+  return hits.length > 1 ? Math.max(...hits) - Math.min(...hits) : 0
+}
+function across(p, y) { // where a horizontal line at y enters and leaves the cell
+  const xs = []
+  for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]
+    if ((a[1] - y) * (b[1] - y) <= 0 && a[1] !== b[1]) xs.push(a[0] + (y - a[1]) / (b[1] - a[1]) * (b[0] - a[0])) }
+  return xs.length > 1 ? [Math.min(...xs), Math.max(...xs)] : null
+}
+function band(p, c, h, pad) { // the widest run that stays inside the cell from h/2 above the centre to h/2 below
+  let l = -Infinity, r = Infinity
+  for (let k = 0; k <= 6; k++) { const s = across(p, c[1] - h / 2 + h * k / 6); if (!s) continue; l = Math.max(l, s[0] + pad); r = Math.min(r, s[1] - pad) }
+  return [l, r]
+}
+const lineCount = st => st.reduce((a, s) => a + s.length, 0) + Math.max(0, st.length - 1) * .5
+
+/* ---- what the day gives: sky, neighbours ---- */
+const R = ctx.reading || {}
+const cloud = R.cloud_cover ?? 40, wind = R.wind_speed_10m ?? 8, wet = (R.precipitation || 0) > 0
+const skyTone = !(R.is_day ?? 1) ? ['#1b2230', '#0f1219'] : wet ? ['#6f767a', '#3e4447'] : cloud > 60 ? ['#a7aaa8', '#6f7372'] : ['#9fb6c8', '#d9d4c6']
+const placeOf = S03.placeOf
+function frames(r) { // his monochrome frames nearest today's photograph by the seven score axes, one per place
+  const near = ctx.ps[ctx.photo.src] ? S03.near(ctx.ps[ctx.photo.src], ctx.ps, 40) : []
+  return [...near.map(s => ctx.data.photos.find(p => p.src === s)), ...ctx.data.photos]
+    .filter((p, i, a) => p && a.findIndex(o => placeOf(o) === placeOf(p)) === i && placeOf(p) !== placeOf(ctx.photo) && /Monochrome/.test(p.caption))
+}
+
+/* ---- a facet ---- */
+function facet(host, kind, r) {
+  const el = document.createElement('div'); el.className = 's'
+  const inn = document.createElement('div'); inn.className = 'in'
+  const ground = document.createElement('div'); ground.className = 'ground'
+  const rim = document.createElement('div'); rim.className = 'rim'
+  const sheen = document.createElement('div'); sheen.className = 'sheen'
+  const glint = document.createElement('div'); glint.className = 'glint'
+  inn.append(ground); el.append(rim, inn); host.append(el)
+  const sh = { el, inn, ground, rim, sheen, glint, kind, n: [(r() - .5) * .9, (r() - .5) * .9] }
+  sh.finish = () => inn.append(sheen, glint)
+  return sh
+}
+function withPhoto(sh, photo, today) {
+  const img = new Image(); img.decoding = 'async'; img.alt = today ? (photo.alt || '') : ''; img.src = photo.src
+  if (today) img.dataset.today = ''
+  img.style.visibility = 'hidden'; img.onload = () => { img.style.visibility = ''; place(sh) }
+  sh.img = img; sh.inn.append(img); sh.ground.style.background = 'var(--t2)'
+  if (!today || /Monochrome/.test(photo.caption)) sh.el.classList.add('mono')
+}
+function place(sh) { // the picture covers its frame in its own shape: sized by its aspect, never by object-fit
+  const img = sh.img; if (!img || !img.naturalWidth || !sh.fit) return
+  const [x, y, w, h] = sh.fit, a = img.naturalWidth / img.naturalHeight
+  const [iw, ih] = w / h > a ? [w, w / a] : [h * a, h]
+  Object.assign(img.style, { left: x + (w - iw) / 2 + 'px', top: y + (h - ih) / 2 + 'px', width: iw + 'px', height: ih + 'px' })
+}
+function verse(withTitle, chunks, cls = '') { // stanzas → lines, a gap between stanzas; the title links the poem's own page
+  const v = document.createElement('div'); v.className = 'verse ' + cls
+  if (withTitle) { const h = document.createElement('h2'), a = document.createElement('a'); a.href = '/poems/' + ctx.poem.slug + '.html'; a.textContent = ctx.poem.title; a.dataset.todayTitle = ''; h.append(a); v.append(h) }
+  chunks.forEach((st, i) => { if (i) v.append(Object.assign(document.createElement('span'), { className: 'gap' })); st.forEach(t => v.append(Object.assign(document.createElement('span'), { className: 'l', textContent: t }))) })
+  return v
+}
+function fit(v, w, h, max = num('poem-max-px', 17), min = num('poem-min-px', 12.5)) { // largest type that fits; past the floor, it scrolls
+  Object.assign(v.style, { width: w + 'px', height: 'auto', maxHeight: 'none' }); v.classList.remove('scroll')
+  let px = max; v.style.fontSize = px + 'px'
+  while (v.scrollHeight > h && px > min) { px = Math.max(min, px - .5); v.style.fontSize = px + 'px' }
+  v.style.height = Math.min(h, v.scrollHeight) + 'px'
+  if (v.scrollHeight > h + 1) { v.classList.add('scroll'); v.style.height = h + 'px' }
+}
+
+/* ---- the stone object: sites, facets, light, breath ---- */
+let S = null
+function lay() {
+  const { shards, geo, W, H } = S, seam = num('seam-px', .6)
+  shards.forEach(sh => {
+    const p = geo[sh.cell]; if (!p || p.length < 3) { sh.el.style.clipPath = 'polygon(0 0,0 0,0 0)'; return }
+    const [x, y, w, h] = bbox(p), c = centroid(p)
+    sh.c = c; sh.p = p
+    sh.el.style.clipPath = poly(shape(p, seam)); sh.inn.style.clipPath = poly(shape(p, seam * 3.5))
+    sh.el.style.setProperty('--ox', c[0] + 'px'); sh.el.style.setProperty('--oy', c[1] + 'px')
+    for (const e of [sh.rim, sh.sheen]) Object.assign(e.style, { left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px' })
+    if (sh.img) { sh.fit = sh.whole ? [0, 0, W, H] : [x, y, w, h]; place(sh) }
+    if (sh.layText) sh.layText(p, c)
+  })
+  if (V === 'b') { const vs = [...stone.querySelectorAll('.verse')].filter(v => v.closest('.s').dataset.k === 'lines'); const px = Math.min(...vs.map(v => parseFloat(v.style.fontSize) || 17)); vs.forEach(v => { v.style.fontSize = px + 'px'; v.style.height = 'auto'; v.classList.remove('scroll'); v.style.top = v._cy - v.offsetHeight / 2 + 'px' }) }
+}
+let L = null, Tg = null, lastMove = -1e9
+addEventListener('pointermove', e => { if (!S) return; const b = stone.getBoundingClientRect(); Tg = [e.clientX - b.left, e.clientY - b.top]; lastMove = performance.now() })
+function light(t) {
+  if (S) {
+    const { shards, W, H } = S, lamp = num('lamp', .62), gl = num('glint', .34), tilt = num('tilt', 1.4)
+    const b = stone.getBoundingClientRect(), vw = innerWidth, vh = innerHeight
+    if (performance.now() - lastMove > 4000) { const a = t / 26000; Tg = [vw * (.5 + .38 * Math.cos(a)) - b.left, vh * (.42 + .3 * Math.sin(a * 1.3)) - b.top] } // unattended: the sun walks
+    if (!L) L = [...Tg]
+    L[0] += (Tg[0] - L[0]) * .05; L[1] += (Tg[1] - L[1]) * .05
+    const Z = Math.max(vw, vh) * .55
+    for (const sh of shards) {
+      if (!sh.c) continue
+      let dx = L[0] - sh.c[0], dy = L[1] - sh.c[1]; const d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
+      const nz = Math.sqrt(Math.max(0, 1 - sh.n[0] ** 2 - sh.n[1] ** 2)), dot = sh.n[0] * dx + sh.n[1] * dy + nz * (Z / d)
+      const s = sh.el.style, k = Math.max(0, Math.min(1, (dot - .55) / .45)), q = sh.quiet ? .45 : 1
+      s.setProperty('--lit', ((.04 + k * lamp) * q).toFixed(3)); s.setProperty('--shade', ((.5 - k * .46) * q).toFixed(3))
+      s.setProperty('--rim', (.12 + k * .8).toFixed(3)); s.setProperty('--rimd', (.5 - k * .4).toFixed(3))
+      s.setProperty('--ang', (Math.atan2(-dy - sh.n[1] * .6, -dx - sh.n[0] * .6) * 180 / Math.PI + 90).toFixed(1) + 'deg')
+      const g = Math.max(0, 1 - Math.hypot(dx * .9 - sh.n[0], dy * .9 - sh.n[1]) * 2.2)
+      s.setProperty('--g', (g * g * gl * q).toFixed(3)); s.setProperty('--gx', (L[0] + sh.n[0] * 120) + 'px'); s.setProperty('--gy', (L[1] + sh.n[1] * 120) + 'px')
+      s.setProperty('--rx', (-dy * tilt * q).toFixed(2) + 'deg'); s.setProperty('--ry', (dx * tilt * q).toFixed(2) + 'deg')
+    }
+  }
+  requestAnimationFrame(light)
+}
+let breath = null
+function breathe() { // sites drift inside a small leash of where today's cut put them; the stone breathes, never jumps
+  clearInterval(breath)
+  breath = setInterval(() => {
+    if (!S || document.querySelector('.leaf.on')) return
+    const { home, fixed, W, H } = S, lim = Math.min(W, H) * num('leash', .035)
+    S.sites = S.sites.map(([x, y], i) => { if (fixed.has(i)) return [x, y]
+      const a = Math.random() * Math.PI * 2, nx = x + Math.cos(a) * lim * .5, ny = y + Math.sin(a) * lim * .5, [h0, h1] = home[i], d = Math.hypot(nx - h0, ny - h1)
+      return d > lim ? [h0 + (nx - h0) * lim / d, h1 + (ny - h1) * lim / d] : [nx, ny] })
+    S.geo = voronoi(S.sites, W, H, S.stretch)
+    S.shards.forEach(sh => sh.el.style.setProperty('--cut', num('breathe-s', 18)))
+    lay()
+  }, num('breathe-s', 18) * 1000)
+}
+
+/* the brilliant cut seen from above: a table, a crown of facets round it, the girdle beyond (05 B's plant) */
+function brilliant(r, W, H, hero, floor, ax, ay, count) {
+  const sites = [hero, floor], min = Math.min(W, H)
+  const add = (x, y) => { if (x < -40 || y < -40 || x > W + 40 || y > H + 40) return
+    if (sites.some(([a, b], i) => Math.hypot(a - x, b - y) < (i === 1 ? min * .34 : min * .11))) return
+    sites.push([Math.max(1, Math.min(W - 1, x)), Math.max(1, Math.min(H - 1, y))]) }
+  const n1 = phone() ? 6 : Math.round(7 + cloud / 100 * 3), rot = r() * Math.PI * 2
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16, m = 1 + (r() - .5) * .1; add(hero[0] + Math.cos(t) * ax * m, hero[1] + Math.sin(t) * ay * m) }
+  const crown = sites.length
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3, m = 1.36 + (r() - .5) * .14; add(hero[0] + Math.cos(t) * ax * m, hero[1] + Math.sin(t) * ay * m) }
+  for (let k = 0; k < 400 && sites.length < count; k++) { const x = r() * W, y = r() * H; if (((x - hero[0]) / ax) ** 2 + ((y - hero[1]) / ay) ** 2 > 2.1) add(x, y) }
+  return { sites, crown }
+}
+function floorTest(W, H) { // anything the name, the line and the links sit on stays quiet stone
+  const m = mat.getBoundingClientRect(), b = stone.getBoundingClientRect(), pts = []
+  for (let i = 0; i <= 4; i++) for (let j = 0; j <= 2; j++) pts.push([m.left - b.left + m.width * i / 4, m.top - b.top + m.height * j / 2])
+  return p => pts.some(pt => inPoly(pt, p))
+}
+
+/* ---- the three answers ---- */
+function build() {
+  const app = $('#app'), cap = $('#cap'); app.append(mat, cap); mat.style.cssText = cap.style.cssText = ''
+  stone.textContent = ''; pane.textContent = ''; document.querySelectorAll('.hold,.leaf').forEach(e => e.remove())
+  const seed = hash(ctx.iso + '|' + (R.weather_code ?? 'x') + '|' + V), r = rng(seed)
+  const count = Math.round((phone() ? num('facets-phone', 14) : num('facets-desk', 26)) + cloud / 100 * (phone() ? 4 : 8))
+  const stretch = V === 'b' ? 1 : 1 + Math.min(wind, 40) / 45
+  const pool = frames(r); let fi = 0
+  const nextFrame = () => pool[fi++ % pool.length]
+  let W, H, sites, kinds = [], fixed = new Set([0, 1])
+
+  if (V === 'a') { // every facet is a piece of the one photograph; the poem waits as its title, and opens on a leaf
+    W = innerWidth; H = innerHeight; stone.style.height = H + 'px'
+    const hero = phone() ? [W * .5, H * .34] : [W * .56, H * .44], floor = phone() ? [W * .3, H * .86] : [W * .1, H * .88]
+    ;({ sites } = brilliant(r, W, H, hero, floor, phone() ? W * .66 : W * .34, phone() ? H * .3 : H * .46, count))
+    kinds = sites.map(() => 'whole')
+  }
+  if (V === 'c') { // the poem is the table; today's photograph is the crown around it; his other frames are the girdle
+    W = innerWidth; H = innerHeight; stone.style.height = H + 'px'
+    const hero = phone() ? [W * .5, H * .38] : [W * .55, H * .47], floor = phone() ? [W * .3, H * .9] : [W * .1, H * .88]
+    const ax = phone() ? W * .82 : W * num('table-x', .36), ay = phone() ? H * .38 : H * num('table-y', .5)
+    let crown; ({ sites, crown } = brilliant(r, W, H, hero, floor, ax, ay, count))
+    const cs = voronoi(sites, W, H, stretch), quiet = floorTest(W, H); let skyGiven = false
+    kinds = sites.map((s, i) => {
+      if (i === 0) return 'table'
+      if (i === 1 || quiet(cs[i])) return 'blank'
+      if (i < crown) return 'whole'
+      const ring = ((s[0] - hero[0]) / ax) ** 2 + ((s[1] - hero[1]) / ay) ** 2
+      if (ring < 2.4) return 'whole'
+      if (!skyGiven && s[1] < H * .3 && r() < .5) { skyGiven = true; return 'sky' }
+      return r() < .72 ? 'frame' : 'blank'
+    })
+  }
+  if (V === 'b') { // the photograph whole and still; beside it the stone, cut down its spine into the poem
+    const pw = phone() ? innerWidth : Math.round(innerWidth * num('photo-pane', .58)), ph = phone() ? 0 : innerHeight
+    const img = new Image(); img.id = 'still'; img.alt = ctx.photo.alt || ''; img.src = ctx.photo.src; img.dataset.today = ''; img.decoding = 'async'
+    pane.append(img); if (phone()) { pane.after(mat); mat.after(cap) } else pane.append(mat, cap)
+    const size = () => { const a = img.naturalWidth / img.naturalHeight; if (!a) return
+      if (phone()) { const maxH = innerHeight * .56; let w = pw, h = w / a; if (h > maxH) { h = maxH; w = h * a } pane.style.height = h + 'px'
+        Object.assign(img.style, { left: (pw - w) / 2 + 'px', top: 0, width: w + 'px', height: h + 'px' }); cap.style.cssText = 'position:static;margin:-8px 0 14px;padding:0 16px'; return }
+      const m = Math.max(24, innerWidth * .034), mb = 150, mw = pw - 2 * m, mh = ph - m - mb; let w = mw, h = w / a; if (h > mh) { h = mh; w = h * a }
+      Object.assign(img.style, { left: m + 'px', top: m + 'px', width: w + 'px', height: h + 'px' })
+      Object.assign(mat.style, { left: m + 'px', bottom: '40px' }); Object.assign(cap.style, { right: (pw - m - w) + 'px', top: (m + h + 10) + 'px', margin: 0 }) }
+    img.onload = size; if (img.complete) size()
+    W = phone() ? innerWidth : innerWidth - pw
+    const per = Math.max(1, num('verse-lines', 3)), lines = []
+    ctx.stanzas.forEach((st, si) => { for (let i = 0; i < st.length; i += per) lines.push({ st: [st.slice(i, i + per)], gapBefore: si > 0 && i === 0 }) })
+    let chunks = lines; const most = phone() ? 9 : 12
+    if (chunks.length > most) { const k = Math.ceil(chunks.length / most); chunks = []; for (let i = 0; i < lines.length; i += k) chunks.push({ st: lines.slice(i, i + k).flatMap(c => c.st) }) }
+    const lh = num('poem-max-px', 17) * 1.42, pad = phone() ? 46 : 64
+    const hs = [lh * 2.6 + pad, ...chunks.map(c => lineCount(c.st) * lh + pad)]
+    const need = hs.reduce((a, b) => a + b, 0) * 1.08
+    H = Math.max(phone() ? innerHeight * .7 : innerHeight, need); stone.style.height = H + 'px'
+    const sc = H / (need / 1.08); let y = 0
+    sites = hs.map((h, i) => { const c = y + h * sc / 2; y += h * sc; return [W * (.5 + (r() - .5) * .14), c] })
+    sites.forEach((_, i) => fixed.add(i))
+    kinds = sites.map((_, i) => i === 0 ? 'title' : 'lines')
+    const spine = sites.length // one cut per row, on alternating sides, so each line of the poem keeps a wide run of stone
+    for (let k = 0; k < spine; k++) { if (phone() && k % 2) continue; const left = phone() ? k % 4 === 0 : k % 2 === 0, x = left ? W * (.005 + r() * .03) : W * (.995 - r() * .03), band = hs[k] * sc, yy = sites[k][1] + (r() - .5) * band * .6
+      sites.push([x, yy]); kinds.push(k === 1 ? 'sky' : r() < .6 ? 'frame' : 'blank') }
+    var chunkOf = chunks
+  }
+
+  const geo = voronoi(sites, W, H, stretch)
+  let qi = 0
+  const shards = kinds.map((k, i) => {
+    const sh = facet(stone, k, r); sh.cell = i
+    sh.el.dataset.k = k
+    if (k === 'whole') { withPhoto(sh, ctx.photo, true); sh.whole = true; if (i === 1) sh.quiet = true }
+    if (k === 'frame') withPhoto(sh, nextFrame(), false)
+    if (k === 'blank') { sh.ground.style.background = `var(--${['t1', 't2', 't3'][i % 3]})`; sh.quiet = true }
+    if (k === 'sky') { sh.el.classList.add('sky'); sh.el.style.setProperty('--sky1', skyTone[0]); sh.el.style.setProperty('--sky2', skyTone[1]) }
+    if (k === 'table') {
+      sh.ground.style.background = 'var(--bone)'; sh.quiet = true
+      const v = verse(true, ctx.stanzas); sh.inn.append(v)
+      sh.layText = (p, c) => { const [x, y, w, h] = inner(p, c); Object.assign(v.style, { left: x + 'px', top: y + 'px' }); fit(v, w, h) }
+    }
+    if (k === 'title' || k === 'lines') {
+      const dark = k === 'title' || qi % 4 === 2
+      sh.ground.style.background = dark ? 'var(--char)' : 'var(--bone)'; if (dark) sh.el.classList.add('dark'); sh.quiet = true
+      const v = k === 'title' ? verse(true, []) : verse(false, chunkOf[qi++].st); sh.inn.append(v)
+      sh.layText = (p, c) => { const h = span(p, c, 1) * .8, pad = phone() ? 10 : 22; let th = h * .3
+        for (let k = 0; k < 3; k++) { const [l, r] = band(p, c, th, pad), ww = Math.min(r - l, 460), x = (l + r) / 2 - ww / 2
+          Object.assign(v.style, { left: x + 'px' }); fit(v, ww, h); th = v.offsetHeight }
+        v._cy = c[1]; v.style.top = c[1] - v.offsetHeight / 2 + 'px' }
+    }
+    sh.finish()
+    return sh
+  })
+  S = { shards, geo, sites: sites.map(s => [...s]), home: sites, fixed, W, H, stretch }
+  lay(); breathe()
+
+  if (V === 'a') { // the poem: its title on the stone; hover, tap or focus lays the leaf
+    const hold = document.createElement('div'); hold.className = 'hold'
+    const b = document.createElement('button'); b.className = 'label'; b.type = 'button'; b.setAttribute('aria-expanded', 'false')
+    b.innerHTML = '<small>this moment’s poem</small><span data-today-title></span>'; b.querySelector('span').textContent = ctx.poem.title
+    hold.append(b); document.body.append(hold)
+    const leaf = document.createElement('article'); leaf.className = 'leaf'; leaf.append(verse(true, ctx.stanzas)); document.body.append(leaf)
+    const sizeLeaf = () => { const w = phone() ? innerWidth - 32 : Math.min(460, innerWidth * .36), h = phone() ? innerHeight - 120 : Math.min(innerHeight - 96, 640)
+      Object.assign(leaf.style, { width: w + 'px', height: h + 'px', left: phone() ? '16px' : innerWidth - w - Math.max(16, innerWidth * .06) + 'px', top: (innerHeight - h) / 2 + 'px' })
+      fit(leaf.querySelector('.verse'), w - 80, h - 76) }
+    let t
+    const open = () => { clearTimeout(t); sizeLeaf(); leaf.classList.add('on'); stone.classList.add('dim'); hold.style.opacity = 0; b.setAttribute('aria-expanded', 'true') }
+    const close = () => { clearTimeout(t); leaf.classList.remove('on'); stone.classList.remove('dim'); hold.style.opacity = ''; b.setAttribute('aria-expanded', 'false') }
+    b.onclick = () => leaf.classList.contains('on') ? close() : open()
+    if (matchMedia('(hover: hover)').matches) { b.onpointerenter = () => { t = setTimeout(open, 380) }; b.onpointerleave = () => clearTimeout(t); leaf.onpointerleave = () => { t = setTimeout(close, 500) }; leaf.onpointerenter = () => clearTimeout(t) }
+    stone.onclick = close; addEventListener('keydown', e => e.key === 'Escape' && close())
+    hold.style.transition = 'opacity .4s'
+  }
+}
+
+build()
+requestAnimationFrame(light)
+let rz = 0, lastWH = innerWidth + 'x' + innerHeight
+addEventListener('resize', () => { const wh = innerWidth + 'x' + innerHeight; if (wh === lastWH) return; lastWH = wh; clearTimeout(rz); rz = setTimeout(build, 250) })
+document.addEventListener('s14:tune', build)
+document.addEventListener('kahran:weather', () => { // the sky can change while you are here; if the pick turns, the stone re-cuts with it
+  const p = ctx.resolve(); if (p.photo === ctx.photo && p.poem === ctx.poem) return
+  ctx = { ...ctx, ...p, stanzas: ctx.stanzasOf(p.poem) }; document.body.dataset.photo = p.photo.src; document.body.dataset.poem = p.poem.slug; $('#cap').textContent = p.photo.caption || ''
+  stone.style.transition = 'opacity 2.4s var(--ease)'; stone.style.opacity = 0; setTimeout(() => { build(); stone.style.opacity = 1 }, 2500)
+})
+document.body.dataset.ready = 'yes'
+}
+</script>
+</body>
+</html>
