@@ -806,6 +806,24 @@
         "wind_kmh": 15.6,
         "cloud_pct": 15
       }
+    },
+    "2026-11-05": {
+      "poem": "memories-of-tomorrow",
+      "photo": "/photos/cdmx-plaza.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.19464051923602516,
+        "warmth": 0.78,
+        "wet": 0.3,
+        "stillness": 0.5675,
+        "season": 0.1462565987748326,
+        "inside": 0.74,
+        "mood": 0.5,
+        "weather_code": 51,
+        "tmax": 22.3,
+        "wind_kmh": 17.3,
+        "cloud_pct": 93
+      }
     }
   }
 }
