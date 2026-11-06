@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 16 · the crossing</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+/* Study 16: the crossing between two worlds, on 05 B's mosaic stone.
+   A world is one photograph cut into facets, with its poem on a bone shard. Every number is a dial in defaults.json. */
+:root {
+  --seam: #0d0c0b; --bone: #e7e2d7; --ink: #1d1b18; --floor: #ede7d9; --floor2: #9a9385;
+  --rimhi: 255,244,222; --rimlo: 0,0,0;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--seam); }
+#stage { position: fixed; inset: 0; perspective: 1800px; }
+.gem { position: absolute; inset: 0; transform-style: preserve-3d; }
+.world { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.f { position: absolute; inset: 0; }
+.f .in { position: absolute; inset: 0; }
+.f img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(1.06) brightness(.94); }
+.f .rim { position: absolute; background: linear-gradient(var(--ang, 135deg), rgba(var(--rimhi), var(--rim, .3)) 0%, rgba(var(--rimhi), 0) 50%, rgba(var(--rimlo), 0) 55%, rgba(var(--rimlo), var(--rimd, .3)) 100%); }
+.f .sh { position: absolute; pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(var(--ang, 135deg), rgba(255,250,240,var(--lit, .2)) 0%, rgba(255,250,240,0) 46%, rgba(0,0,0,var(--shade, .2)) 100%); }
+.poem { position: absolute; z-index: 3; background: var(--bone); color: var(--ink); padding: 30px 34px 32px;
+  font: 300 1rem/1.55 var(--serif); white-space: pre-line; box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 24px 70px rgba(0,0,0,.45); }
+.poem b { display: block; font: italic 300 1.25rem/1.3 var(--serif); margin-bottom: 12px; white-space: normal; }
+.door { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(29,27,24,.32); cursor: pointer; transition: border-color .2s var(--ease); }
+.door:hover, .door:focus-visible { border-color: var(--ink); outline: none; }
+.door i { font: 400 .66rem/1 var(--sans); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: #8a8375; margin-left: 8px; opacity: 0; transition: opacity .2s var(--ease); }
+.door:hover i, .door:focus-visible i { opacity: 1; }
+.cap { position: absolute; z-index: 3; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 48px); font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #ede7d9; opacity: .85; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+.bridge { position: fixed; z-index: 15; left: 50%; top: 50%; pointer-events: none; white-space: nowrap; color: #f3efe6;
+  font: italic 300 calc(var(--d-word-size, 92) * 1px)/1 var(--serif); text-shadow: 0 0 40px rgba(0,0,0,.7); }
+nav { position: fixed; z-index: 20; top: 14px; left: clamp(16px, 3.4vw, 56px); display: flex; gap: 14px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+nav a { color: var(--floor2); text-decoration: none; text-shadow: 0 1px 6px rgba(0,0,0,.6); transition: color .2s var(--ease); }
+nav a:hover, nav a[aria-current] { color: var(--floor); }
+@media (max-width: 640px) { .poem { padding: 22px 22px 24px; overflow: auto; } nav { gap: 10px; } }
+</style>
+</head>
+<body>
+<nav aria-label="Crossings"><a href="./">16</a><a href="?x=a" data-x="a">shatter</a><a href="?x=b" data-x="b">fall</a><a href="?x=c" data-x="c">turn</a><a href="?x=d" data-x="d">word</a><a href="?x=e" data-x="e">develop</a></nav>
+<div id="stage"></div>
+<script src="tune.js"></script>
+<script type="module">
+import WORLDS from './worlds.js'
+
+const qs = new URLSearchParams(location.search)
+const X = /^[a-e]$/.test(qs.get('x') || '') ? qs.get('x') : 'a'
+const START = WORLDS[qs.get('w')] ? qs.get('w') : 'A'
+document.querySelectorAll('nav a[data-x]').forEach(a => { a.href = `?x=${a.dataset.x}&w=${START}`; if (a.dataset.x === X) a.setAttribute('aria-current', 'page') })
+const stage = document.getElementById('stage'), root = document.documentElement
+const reduce = matchMedia('(prefers-reduced-motion: reduce)')
+await window.S16tuned
+const dial = (k, f) => { const v = parseFloat(getComputedStyle(root).getPropertyValue('--' + k)); return Number.isFinite(v) ? v : f }
+const dialS = (k, f) => getComputedStyle(root).getPropertyValue('--' + k).trim() || f
+const VW = () => innerWidth, VH = () => innerHeight, phone = () => innerWidth < 640
+const PH = s => '/photos/' + s
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+function hash(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0 }
+
+/* ---- photographs: fetched once, decoded before any crossing starts ---- */
+const decoded = {}
+for (const [k, w] of Object.entries(WORLDS)) { const im = new Image(); im.src = PH(w.photo); decoded[k] = im.decode().then(() => im).catch(() => im) }
+
+/* ---- the cut: a brilliant seen from above, around where the photograph's weight sits ---- */
+function clipHalf(P, f) { const out = []
+  for (let k = 0; k < P.length; k++) { const a = P[k], b = P[(k + 1) % P.length], fa = f(a), fb = f(b)
+    if (fa <= 0) out.push(a)
+    if ((fa <= 0) !== (fb <= 0)) { const t = fa / (fa - fb); out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]) } }
+  return out }
+function voronoi(S, w, h) { return S.map((s, i) => { let P = [[0, 0], [w, 0], [w, h], [0, h]]
+  S.forEach((t, j) => { if (j === i || !P.length) return; const nx = t[0] - s[0], ny = t[1] - s[1], mx = (s[0] + t[0]) / 2, my = (s[1] + t[1]) / 2
+    P = clipHalf(P, ([x, y]) => (x - mx) * nx + (y - my) * ny) })
+  return P }) }
+function plant(r) {
+  const w = VW(), h = VH(), count = Math.round(dial('facets', 24) * (phone() ? .6 : 1))
+  const hx = phone() ? w * .5 : w * .38, hy = phone() ? h * .28 : h * .48, ax = phone() ? w * .3 : w * .17, ay = phone() ? h * .14 : h * .22
+  const S = [[hx, hy]], n1 = phone() ? 6 : 8, rot = r() * Math.PI * 2, gap = Math.min(w, h) * .09
+  const add = (x, y) => { if (x < 2 || y < 2 || x > w - 2 || y > h - 2) return; if (S.some(([a, b]) => Math.hypot(a - x, b - y) < gap)) return; S.push([x, y]) }
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16; add(hx + Math.cos(t) * ax, hy + Math.sin(t) * ay) }
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3; add(hx + Math.cos(t) * ax * 1.9, hy + Math.sin(t) * ay * 1.9) }
+  for (let k = 0; k < 600 && S.length < count; k++) add(r() * w, r() * h)
+  return S
+}
+function centroid(p) { let a = 0, x = 0, y = 0; for (let i = 0; i < p.length; i++) { const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length], c = x0 * y1 - x1 * y0; a += c; x += (x0 + x1) * c; y += (y0 + y1) * c } a *= .5; return a ? [x / (6 * a), y / (6 * a)] : p[0] }
+const NV = 20
+function shape(p, inset) { const c = centroid(p) // seam inset + a fixed vertex count, so a cut can morph into another
+  let q = p.map(([x, y]) => { const dx = c[0] - x, dy = c[1] - y, d = Math.hypot(dx, dy) || 1, k = Math.min(inset / d, .5); return [x + dx * k, y + dy * k] })
+  let s = 0; q.forEach(([x, y], i) => { if (y < q[s][1]) s = i }); q = q.slice(s).concat(q.slice(0, s))
+  while (q.length < NV) q.push(q[q.length - 1]); return q.slice(0, NV) }
+const scaleAbout = (p, [cx, cy], k) => p.map(([x, y]) => [cx + (x - cx) * k, cy + (y - cy) * k])
+const poly = q => `polygon(${q.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`
+const bbox = p => { const xs = p.map(a => a[0]), ys = p.map(a => a[1]), x = Math.min(...xs), y = Math.min(...ys); return [x, y, Math.max(...xs) - x, Math.max(...ys) - y] }
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+const div = (c) => { const e = document.createElement('div'); e.className = c; return e }
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+
+/* ---- a world: its photograph cut into facets, its poem on a bone shard, its place ---- */
+function makeWorld(key) {
+  const w = WORLDS[key], r = rng(hash(key + '|16')), el = div('world'); el.dataset.key = key
+  const cells = voronoi(plant(r), VW(), VH()), seam = dial('seam-px', 1.4)
+  const facets = cells.filter(p => p.length > 2).map((p, i) => {
+    const f = div('f'), inn = div('in'), rim = div('rim'), sh = div('sh'), img = new Image()
+    img.src = PH(w.photo); img.alt = i ? '' : w.cap; img.decoding = 'async'
+    const c = centroid(p), [x, y, bw, bh] = bbox(p)
+    f.style.clipPath = poly(shape(p, seam * .45)); inn.style.clipPath = poly(shape(p, seam * 1.6))
+    f.style.transformOrigin = `${c[0]}px ${c[1]}px`
+    for (const e of [rim, sh]) Object.assign(e.style, { left: x + 'px', top: y + 'px', width: bw + 'px', height: bh + 'px' })
+    inn.append(img, sh); f.append(rim, inn); el.append(f)
+    return { el: f, p, c, n: [(r() - .5) * .9, (r() - .5) * .9] }
+  })
+  const poem = div('poem'), lines = w.body.split('\n')
+  if ((lines[0] || '').trim().toLowerCase() === w.title.toLowerCase()) lines.shift()
+  poem.innerHTML = `<b>${esc(w.title)}</b>` + esc(lines.join('\n').replace(/^\n+/, '')).replace(/\{([^|}]+)\|([^|}]+)\|([A-Z])\}/g,
+    (_, line, tag, to) => `<a class="door" href="?x=${X}&amp;w=${to}" data-to="${to}" data-tag="${tag}">${line}<i>${tag}</i></a>`)
+  const cap = div('cap'); cap.textContent = w.cap
+  el.append(poem, cap); stage.append(el)
+  if (phone()) Object.assign(poem.style, { left: '16px', width: (VW() - 32) + 'px', bottom: '16px', maxHeight: '50vh' })
+  else { const pw = Math.min(400, VW() * .36); Object.assign(poem.style, { width: pw + 'px', left: (VW() - pw - Math.max(32, VW() * .06)) + 'px' }); poem.style.top = Math.max(24, (VH() - poem.offsetHeight) / 2) + 'px' }
+  poem.querySelectorAll('.door').forEach(a => a.addEventListener('click', e => { e.preventDefault(); cross(a.dataset.to, a.dataset.tag, a) }))
+  return { key, el, facets, poem, cap }
+}
+
+/* ---- light: the cursor is a low lamp over the cut, as on 05 B ---- */
+let L = [VW() * .7, VH() * .2], T = [...L], lastMove = 0
+addEventListener('pointermove', e => { T = [e.clientX, e.clientY]; lastMove = performance.now() })
+const live = new Set()
+function frame(t) {
+  if (performance.now() - lastMove > 4000) { const a = t / 26000; T = [VW() * (.5 + .38 * Math.cos(a)), VH() * (.42 + .3 * Math.sin(a * 1.3))] }
+  L[0] += (T[0] - L[0]) * .05; L[1] += (T[1] - L[1]) * .05
+  const Z = Math.max(VW(), VH()) * .55, lamp = dial('lamp', .8)
+  for (const wd of live) for (const f of wd.facets) {
+    let dx = L[0] - f.c[0], dy = L[1] - f.c[1]; const d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
+    const nz = Math.sqrt(Math.max(0, 1 - f.n[0] ** 2 - f.n[1] ** 2)), dot = f.n[0] * dx + f.n[1] * dy + nz * (Z / d)
+    const k = Math.max(0, Math.min(1, (dot - .55) / .45)) * lamp, s = f.el.style
+    s.setProperty('--lit', (.04 + k * .62).toFixed(3)); s.setProperty('--shade', (.5 - k * .46).toFixed(3))
+    s.setProperty('--rim', (.12 + k * .8).toFixed(3)); s.setProperty('--rimd', (.5 - k * .4).toFixed(3))
+    s.setProperty('--ang', (Math.atan2(-dy - f.n[1] * .6, -dx - f.n[0] * .6) * 180 / Math.PI + 90).toFixed(1) + 'deg')
+  }
+  requestAnimationFrame(frame)
+}
+
+/* ---- the crossings. Each animates old → next and says how long it takes; finish() is on a clock, not on events ---- */
+const anim = (el, frames, o) => el.animate(frames, { fill: 'both', easing: 'cubic-bezier(.4,0,.2,1)', ...o })
+const DIAG = () => Math.hypot(VW(), VH())
+function arrive(next, at) { const ms = dial('poem-ms', 800)
+  anim(next.poem, [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: ms, delay: at })
+  anim(next.cap, [{ opacity: 0 }, { opacity: .85 }], { duration: ms, delay: at + ms * .3 })
+  return at + ms * 1.3 }
+function leave(old, ms = 360) { anim(old.poem, [{ opacity: 1 }, { opacity: 0 }], { duration: ms }); anim(old.cap, [{ opacity: .85 }, { opacity: 0 }], { duration: ms }) }
+
+const CROSS = {
+  // a · shatter: the stone breaks outward from the line you touched; the next photograph's facets fly in and set
+  a({ old, next, pt }) {
+    const T = dial('a-ms', 2400), P = dial('a-piece-ms', 1100), K = dial('a-throw', .4) * Math.min(VW(), VH()), tilt = dial('a-tilt', 34), D = DIAG()
+    leave(old)
+    old.facets.forEach((f, i) => { const dx = f.c[0] - pt[0], dy = f.c[1] - pt[1], d = Math.hypot(dx, dy) || 1, k = K * (.7 + (i * .37 % 1) * .7)
+      anim(f.el, [{ transform: 'perspective(1600px) none', opacity: 1 }, { transform: `perspective(1600px) translate(${dx / d * k}px,${dy / d * k + k * .5}px) rotate3d(${-dy},${dx},0,${tilt}deg) scale(.82)`, opacity: 0 }],
+        { duration: P * .85, delay: d / D * T * .25, easing: 'cubic-bezier(.55,0,.8,.4)' }) })
+    next.facets.forEach((f, i) => { const dx = f.c[0] - pt[0], dy = f.c[1] - pt[1], d = Math.hypot(dx, dy) || 1, k = K * (.6 + (i * .61 % 1) * .6)
+      anim(f.el, [{ transform: `perspective(1600px) translate(${-dx / d * k}px,${-dy / d * k - k * .3}px) rotate3d(${dy},${-dx},0,${tilt}deg) scale(1.12)`, opacity: 0 }, { opacity: 1, offset: .4 }, { transform: 'perspective(1600px) none', opacity: 1 }],
+        { duration: P, delay: T * .22 + d / D * (T * .78 - P - dial('poem-ms', 800) * .4), easing: 'cubic-bezier(.15,.7,.2,1)' }) })
+    return arrive(next, T - dial('poem-ms', 800) * .9)
+  },
+  // b · fall: the facet under the line opens; the next world is down there; you fall through it
+  b({ old, next, pt }) {
+    const T = dial('b-ms', 2400), depth = dial('b-depth', 9), win = dial('b-window', .3), blur = dial('b-blur', 6)
+    const hole = old.facets.find(f => inPoly(pt, f.p)) || old.facets.reduce((a, f) => Math.hypot(f.c[0] - pt[0], f.c[1] - pt[1]) < Math.hypot(a.c[0] - pt[0], a.c[1] - pt[1]) ? f : a)
+    const c = hole.c, o = `${c[0]}px ${c[1]}px`, ease = 'cubic-bezier(.75,0,.25,1)', fallMs = T * .78
+    const reach = Math.max(...[[0, 0], [VW(), 0], [0, VH()], [VW(), VH()]].map(q => Math.hypot(q[0] - c[0], q[1] - c[1]))) / Math.max(8, Math.min(...hole.p.map(q => Math.hypot(q[0] - c[0], q[1] - c[1])))) * 1.2
+    leave(old, 300)
+    old.el.style.transformOrigin = o; next.el.style.transformOrigin = o
+    anim(old.el, [{ transform: 'scale(1)', filter: 'brightness(1) blur(0px)' }, { transform: `scale(${depth})`, filter: `brightness(1.5) blur(${blur}px)` }], { duration: fallMs, easing: ease })
+    anim(hole.el, [{ opacity: 1 }, { opacity: 0 }], { duration: T * .18 })
+    const at = s => poly(shape(scaleAbout(hole.p, c, s), 0))
+    anim(next.el, [{ clipPath: at(1 / win), transform: `scale(${win})` }, { clipPath: at(Math.max(reach, depth) / 1), transform: 'scale(1)' }], { duration: fallMs, easing: ease })
+    return arrive(next, fallMs * .8)
+  },
+  // c · turn: the stone is lifted and turned like a gem; the next world was on its far face
+  c({ old, next }) {
+    const T = dial('c-ms', 2300), lift = dial('c-lift', .74), tx = dial('c-tilt', 10), roll = dial('c-roll', 6), dark = dial('c-dark', .35), turnMs = T * .8
+    const gem = div('gem'); stage.append(gem); gem.append(old.el, next.el); next.gem = gem
+    next.el.style.transform = 'rotateY(180deg)'
+    leave(old, 300)
+    anim(gem, [{ transform: 'rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1)' }, { transform: `rotateX(${tx}deg) rotateY(90deg) rotateZ(${roll}deg) scale(${lift})`, offset: .5 }, { transform: 'rotateX(0deg) rotateY(180deg) rotateZ(0deg) scale(1)' }], { duration: turnMs, easing: 'cubic-bezier(.6,0,.3,1)' })
+    anim(old.el, [{ filter: 'brightness(1)' }, { filter: `brightness(${dark})` }], { duration: turnMs / 2, easing: 'ease-in' })
+    anim(next.el, [{ filter: `brightness(${dark})` }, { filter: 'brightness(1)' }], { duration: turnMs / 2, delay: turnMs / 2, easing: 'ease-out' })
+    next.poem.style.opacity = 0
+    return arrive(next, turnMs * .85)
+  },
+  // d · word: the door's word lifts out and grows; the stones gather into it; the next world unfolds from it
+  d({ old, next, pt, tag }) {
+    const T = dial('d-ms', 3000), WT = dial('d-word-ms', 900), g = dial('d-gather', .75), D = DIAG(), C = [VW() / 2, VH() / 2]
+    const word = div('bridge'); word.textContent = tag; stage.after(word); next.word = word
+    const s0 = 15 / dial('d-word-size', 92)
+    anim(word, [{ transform: `translate(-50%,-50%) translate(${pt[0] - C[0]}px,${pt[1] - C[1]}px) scale(${s0})`, opacity: 0 }, { opacity: 1, offset: .25 }, { transform: 'translate(-50%,-50%) scale(1)', opacity: 1, letterSpacing: '.01em' }], { duration: WT, easing: 'cubic-bezier(.3,0,.1,1)' })
+    anim(word, [{ opacity: 1, filter: 'blur(0px)', letterSpacing: '.01em' }, { opacity: 0, filter: 'blur(8px)', letterSpacing: '.28em' }], { duration: T * .3, delay: T * .52, fill: 'forwards', composite: 'replace' })
+    leave(old, 260)
+    old.facets.forEach(f => { const dx = C[0] - f.c[0], dy = C[1] - f.c[1], d = Math.hypot(dx, dy)
+      anim(f.el, [{ transform: 'none', opacity: 1 }, { transform: `translate(${dx * g}px,${dy * g}px) scale(.12) rotate(${(f.n[0] * 90).toFixed(1)}deg)`, opacity: 0 }], { duration: T * .32, delay: WT * .35 + (1 - d / D) * T * .12, easing: 'cubic-bezier(.6,0,.9,.5)' }) })
+    next.facets.forEach(f => { const dx = C[0] - f.c[0], dy = C[1] - f.c[1], d = Math.hypot(dx, dy)
+      anim(f.el, [{ transform: `translate(${dx}px,${dy}px) scale(.04) rotate(${(-f.n[1] * 120).toFixed(1)}deg)`, opacity: 0 }, { opacity: 1, offset: .3 }, { transform: 'none', opacity: 1 }], { duration: T * .36, delay: T * .48 + d / D * T * .16, easing: 'cubic-bezier(.1,.6,.2,1)' }) })
+    return arrive(next, T - dial('poem-ms', 800) * 1.1)
+  },
+  // e · develop: the old print fades toward paper; the next comes up facet by facet, shadows first, like a print in the tray
+  e({ old, next, tones }) {
+    const T = dial('e-ms', 2800), fade = dial('e-fade', .55), P = dial('e-piece-ms', 700), paper = dialS('e-paper', '#e7e2d7')
+    leave(old)
+    const veil = div('veil'); veil.style.cssText = `position:absolute;inset:0;z-index:2;background:${paper};pointer-events:none`; old.el.append(veil)
+    anim(veil, [{ opacity: 0 }, { opacity: fade }], { duration: T * .3, easing: 'ease-in' })
+    const order = next.facets.map((f, i) => [tones[i] ?? .5, f]).sort((a, b) => a[0] - b[0])
+    const span = T * .9 - P - T * .12
+    order.forEach(([, f], i) => anim(f.el, [{ opacity: 0, filter: 'brightness(2.2) contrast(.3)' }, { opacity: 1, offset: .35 }, { opacity: 1, filter: 'brightness(1) contrast(1)' }], { duration: P, delay: T * .12 + i / Math.max(1, order.length - 1) * span, easing: 'cubic-bezier(.3,0,.2,1)' }))
+    return arrive(next, T * .72)
+  },
+  // calm: for reduced motion, the next world simply comes up through the last
+  calm({ old, next }) {
+    const ms = dial('calm-ms', 1100)
+    leave(old, ms * .5)
+    anim(next.el, [{ opacity: 0 }, { opacity: 1 }], { duration: ms })
+    next.poem.style.opacity = 0
+    return arrive(next, ms * .5)
+  },
+}
+
+/* tone of each facet in the next photograph, read off a small cover-fitted copy, for 'develop' */
+function tonesOf(img, facets) {
+  const w = 96, h = Math.max(1, Math.round(96 * VH() / VW())), cv = document.createElement('canvas'); cv.width = w; cv.height = h
+  const g = cv.getContext('2d', { willReadFrequently: true }), a = img.naturalWidth / img.naturalHeight, b = w / h
+  const [sw, sh] = a > b ? [img.naturalHeight * b, img.naturalHeight] : [img.naturalWidth, img.naturalWidth / b]
+  try { g.drawImage(img, (img.naturalWidth - sw) / 2, (img.naturalHeight - sh) / 2, sw, sh, 0, 0, w, h) } catch { return [] }
+  const px = g.getImageData(0, 0, w, h).data, sx = w / VW(), sy = h / VH()
+  return facets.map(f => { const [x, y, bw, bh] = bbox(f.p); let s = 0, n = 0
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) { const X = x + (i + .5) / 6 * bw, Y = y + (j + .5) / 6 * bh; if (!inPoly([X, Y], f.p)) continue
+      const k = (Math.min(h - 1, Math.floor(Y * sy)) * w + Math.min(w - 1, Math.floor(X * sx))) * 4; s += px[k] * .2126 + px[k + 1] * .7152 + px[k + 2] * .0722; n++ }
+    return n ? s / n / 255 : .5 })
+}
+
+/* ---- the crossing itself: one at a time; a click during a crossing is ignored, and the clock always lands it ---- */
+let cur = null, busy = false
+async function cross(to, tag, door) {
+  if (busy || !WORLDS[to] || (cur && cur.key === to)) return
+  busy = true; root.dataset.crossing = '1'
+  const old = cur; old.el.style.pointerEvents = 'none'
+  const rc = door.getBoundingClientRect(), pt = [rc.left + rc.width / 2, rc.top + rc.height / 2]
+  const img = await Promise.race([decoded[to], sleep(900)])
+  const next = makeWorld(to); next.el.style.pointerEvents = 'none'; live.add(next)
+  const kind = reduce.matches ? 'calm' : X
+  const tones = kind === 'e' && img && img.naturalWidth ? tonesOf(img, next.facets) : []
+  const total = CROSS[kind]({ old, next, pt, tag, tones })
+  setTimeout(() => finish(old, next), total + 60)
+}
+function finish(old, next) {
+  live.delete(old); old.el.remove()
+  if (next.gem) { stage.append(next.el); next.gem.remove(); next.el.style.transform = '' }
+  if (next.word) next.word.remove()
+  next.el.style.clipPath = ''; next.el.style.pointerEvents = ''; next.poem.style.opacity = ''
+  next.el.getAnimations({ subtree: true }).forEach(a => a.cancel())
+  cur = next; busy = false; delete root.dataset.crossing
+  history.replaceState(null, '', `?x=${X}&w=${next.key}`)
+  document.querySelectorAll('nav a[data-x]').forEach(a => a.href = `?x=${a.dataset.x}&w=${next.key}`)
+}
+
+cur = makeWorld(START); live.add(cur)
+requestAnimationFrame(frame)
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (busy) return; const k = cur.key; live.delete(cur); cur.el.remove(); cur = makeWorld(k); live.add(cur) }, 250) })
+window.S16 = { get busy() { return busy }, get world() { return cur && cur.key }, worlds: WORLDS, x: X }
+root.dataset.ready = '1'
+</script>
+</body>
+</html>

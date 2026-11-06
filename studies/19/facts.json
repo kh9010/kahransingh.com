@@ -1,0 +1,524 @@
+{
+ "lede": {
+  "text": "Poet, investor, counsel to founders. Bangalore and New York.",
+  "src": "studies/06/index.html"
+ },
+ "kinds": {
+  "make": "making",
+  "work": "work",
+  "back": "backing",
+  "talk": "talks",
+  "learn": "learning",
+  "life": "life"
+ },
+ "omitted": [
+  {
+   "text": "Photographs on a Leica Q2 Monochrome.",
+   "why": "no camera line (Kahran, 28 Oct)"
+  },
+  {
+   "text": "One a day on the home page, with a poem.",
+   "why": "said by about.html's line on the home page's photograph and poem"
+  },
+  {
+   "text": "A panel at the Common Ground Summit, Kauai, and seven StartOut talks on fundraising and generative AI.",
+   "why": "itemised: the panel and the seven talks from cv.html"
+  },
+  {
+   "text": "Speaking.",
+   "why": "a link word, not a fact"
+  },
+  {
+   "text": "97 poems on this site since.",
+   "why": "no poem count (Kahran, 28 Oct)"
+  },
+  {
+   "text": "Before it, an internship in the House of Commons.",
+   "why": "itemised from cv.html: House of Commons, with the office"
+  }
+ ],
+ "facts": [
+  {
+   "when": "now",
+   "y": "now",
+   "kind": "make",
+   "text": "Building software with Claude most days: tools to support myself, worked out from what I already leave behind. The record is public.",
+   "src": "studies/06/index.html",
+   "a": [
+    "The record is public.",
+    "/lately/"
+   ]
+  },
+  {
+   "when": "now",
+   "y": "now",
+   "kind": "make",
+   "text": "The photograph and poem on the home page come out of the same machine, one of each a day.",
+   "src": "about.html",
+   "a": [
+    "photograph and poem on the home page",
+    "/"
+   ]
+  },
+  {
+   "when": "now",
+   "y": "now",
+   "kind": "learn",
+   "text": "MFA candidate in Writing and Poetics at the Jack Kerouac School, Naropa University.",
+   "src": "studies/06/index.html"
+  },
+  {
+   "when": "now",
+   "y": "now",
+   "kind": "learn",
+   "text": "Learning Kathak from Rachna Nivas at the Kathak Legacy Project, New York.",
+   "src": "studies/06/index.html",
+   "a": [
+    "Rachna Nivas",
+    "https://www.rachnanivas.com/kathaklegacyproject"
+   ]
+  },
+  {
+   "when": "2025–",
+   "y": 2025,
+   "kind": "back",
+   "text": "Board of TomboyX.",
+   "src": "studies/06/index.html",
+   "g": "tomboyx",
+   "to": "now"
+  },
+  {
+   "when": "2025–",
+   "y": 2025,
+   "kind": "back",
+   "text": "Led the board through a recapitalization designed so employees’ equity was made right.",
+   "src": "studies/06/index.html",
+   "g": "tomboyx",
+   "to": "now"
+  },
+  {
+   "when": "2025–26",
+   "y": 2025,
+   "kind": "work",
+   "text": "Chief Revenue Officer at Klydo, a fashion platform built for India. Wound down in 2026.",
+   "src": "studies/06/index.html",
+   "g": "klydo",
+   "to": 2026
+  },
+  {
+   "when": "Dec 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Narrative Threads: Weaving Voice, Vision, and Value",
+   "src": "cv.html",
+   "sub": "Common Ground Summit ’25 — Kauai"
+  },
+  {
+   "when": "Dec 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "With Von Diaz, Scott Goldberg, and Michael Hansen. Moderated by Amanda Dugan.",
+   "src": "speaking.html"
+  },
+  {
+   "when": "Sep 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Psychological Challenges & How to Brace for Them",
+   "src": "cv.html",
+   "sub": "with Divya Tak",
+   "a": [
+    "Psychological Challenges & How to Brace for Them",
+    "https://www.youtube.com/watch?v=D7j-jQ12-Kk"
+   ]
+  },
+  {
+   "when": "Aug 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Curating Your Story",
+   "src": "cv.html",
+   "sub": "with Divya Tak",
+   "a": [
+    "Curating Your Story",
+    "https://www.youtube.com/watch?v=j2tkS5o6G0A"
+   ]
+  },
+  {
+   "when": "Jul 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Understanding the Money You Can Raise",
+   "src": "cv.html",
+   "sub": "with Divya Tak",
+   "a": [
+    "Understanding the Money You Can Raise",
+    "https://www.youtube.com/watch?v=2j3plyzLtRY"
+   ]
+  },
+  {
+   "when": "Jun 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Know Your Investors Before the First Meeting",
+   "src": "cv.html",
+   "sub": "with Divya Tak",
+   "a": [
+    "Know Your Investors Before the First Meeting",
+    "https://www.youtube.com/watch?v=qtYkYYBOJ8U"
+   ]
+  },
+  {
+   "when": "Mar 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "10 Tinkering Experiments To Do with AI",
+   "src": "cv.html",
+   "sub": "StartOut",
+   "a": [
+    "10 Tinkering Experiments To Do with AI",
+    "https://www.youtube.com/watch?v=86KEXmW5CRE"
+   ]
+  },
+  {
+   "when": "Feb 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Advanced Prompting: Controlling Style, Tone and Context",
+   "src": "cv.html",
+   "sub": "StartOut",
+   "a": [
+    "Advanced Prompting: Controlling Style, Tone and Context",
+    "https://www.youtube.com/watch?v=n-8OI-cjPp8"
+   ]
+  },
+  {
+   "when": "Jan 2025",
+   "y": 2025,
+   "kind": "talk",
+   "text": "Prompting: How to Talk to Our AI Friends",
+   "src": "cv.html",
+   "sub": "StartOut",
+   "a": [
+    "Prompting: How to Talk to Our AI Friends",
+    "https://www.youtube.com/watch?v=q6fTgWRc8UI"
+   ]
+  },
+  {
+   "when": "2024–",
+   "y": 2024,
+   "kind": "back",
+   "text": "Mentor at StartOut.",
+   "src": "studies/06/index.html",
+   "g": "startout",
+   "to": "now"
+  },
+  {
+   "when": "2024–",
+   "y": 2024,
+   "kind": "make",
+   "text": "The Line Before, an interactive installation with Divya Tak, submitted to Science Gallery Bengaluru.",
+   "src": "studies/06/index.html",
+   "g": "linebefore",
+   "to": "now"
+  },
+  {
+   "when": "2024–",
+   "y": 2024,
+   "kind": "make",
+   "text": "Each choice shapes a generative flower; every flower joins a living garden of all previous visitors' poems.",
+   "src": "projects.html",
+   "g": "linebefore",
+   "to": "now"
+  },
+  {
+   "when": "2024–",
+   "y": 2024,
+   "kind": "make",
+   "text": "Three kinds of intelligence are tangled in every line: the poet's, the machine's, the visitor's.",
+   "src": "projects.html",
+   "g": "linebefore",
+   "to": "now"
+  },
+  {
+   "when": "2024",
+   "y": 2024,
+   "kind": "make",
+   "text": "Poem Films with Divya Tak.",
+   "src": "studies/06/index.html",
+   "g": "poemfilms",
+   "a": [
+    "Poem Films",
+    "/poem-films.html"
+   ]
+  },
+  {
+   "when": "2024",
+   "y": 2024,
+   "kind": "make",
+   "text": "Selected for SEEN V by Creativity Alive Boulder; shown at Boulder Public Library.",
+   "src": "studies/06/index.html",
+   "g": "poemfilms"
+  },
+  {
+   "when": "2024",
+   "y": 2024,
+   "kind": "make",
+   "text": "An experiment in how different visuals change the feeling of a poem.",
+   "src": "projects.html",
+   "g": "poemfilms"
+  },
+  {
+   "when": "2024",
+   "y": 2024,
+   "kind": "make",
+   "text": "For each poem, two entirely different video interpretations — one with rain drops, one with a rain-soaked street; one in an open field, one with a figure in shadows.",
+   "src": "projects.html",
+   "g": "poemfilms"
+  },
+  {
+   "when": "2024",
+   "y": 2024,
+   "kind": "make",
+   "text": "Made using MidJourney and Stable Diffusion.",
+   "src": "projects.html",
+   "g": "poemfilms"
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "work",
+   "text": "Co-founded Joyus Studio with Divya Tak: storytelling and experience design.",
+   "src": "studies/06/index.html",
+   "g": "joyus",
+   "to": "now",
+   "a": [
+    "Joyus Studio",
+    "https://joyus.studio"
+   ]
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "work",
+   "text": "Narrative strategy, behavior design, creative consulting, and an \"AI Explained\" video series for founders and leaders.",
+   "src": "cv.html",
+   "g": "joyus",
+   "to": "now"
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "make",
+   "text": "A podcast, Thinking on Thinking.",
+   "src": "studies/06/index.html",
+   "g": "podcast"
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "make",
+   "text": "On behavior, entrepreneurship, and the real questions we avoid asking.",
+   "src": "cv.html",
+   "g": "podcast"
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "make",
+   "text": "Available on Spotify, Apple Podcasts, and iHeart.",
+   "src": "cv.html",
+   "g": "podcast"
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "make",
+   "text": "Comics about Mr Curl.",
+   "src": "studies/06/index.html",
+   "g": "comics"
+  },
+  {
+   "when": "2022–",
+   "y": 2022,
+   "kind": "make",
+   "text": "Hand-drawn stories about friendship, connection, and small absurdities — written by me, illustrated by Divya.",
+   "src": "projects.html",
+   "g": "comics"
+  },
+  {
+   "when": "2022",
+   "y": 2022,
+   "kind": "make",
+   "text": "How the World Works, a first book of poems.",
+   "src": "studies/06/index.html"
+  },
+  {
+   "when": "2022",
+   "y": 2022,
+   "kind": "life",
+   "text": "Married Gourav in Jaisalmer: four days at Suryagarh, 150 guests.",
+   "src": "studies/06/index.html",
+   "a": [
+    "four days at Suryagarh, 150 guests",
+    "/wedding-celebration.html"
+   ]
+  },
+  {
+   "when": "2021",
+   "y": 2021,
+   "kind": "life",
+   "text": "Eloped with Gourav in Telluride, in the snow, in Indian dress.",
+   "src": "studies/06/index.html",
+   "a": [
+    "Eloped with Gourav in Telluride",
+    "/elopement/"
+   ]
+  },
+  {
+   "when": "2019–",
+   "y": 2019,
+   "kind": "back",
+   "text": "Advisor to Armoire.",
+   "src": "studies/06/index.html",
+   "g": "armoire",
+   "to": "now"
+  },
+  {
+   "when": "2017–",
+   "y": 2017,
+   "kind": "back",
+   "text": "General Partner at Tres Monos Capital with Sweta Jagirdar and Sahil Sagar: early-stage, underrepresented founders.",
+   "src": "studies/06/index.html",
+   "g": "tresmonos",
+   "to": "now",
+   "a": [
+    "Tres Monos Capital",
+    "https://tresmonos.capital"
+   ]
+  },
+  {
+   "when": "2017–",
+   "y": 2017,
+   "kind": "back",
+   "text": "Portfolio includes Armoire, Humanly, and Kosha.",
+   "src": "cv.html",
+   "g": "tresmonos",
+   "to": "now"
+  },
+  {
+   "when": "2017–",
+   "y": 2017,
+   "kind": "back",
+   "text": "Investments include Swae, Kosha, and Doyobi.",
+   "src": "projects.html",
+   "g": "tresmonos",
+   "to": "now"
+  },
+  {
+   "when": "2015–19",
+   "y": 2015,
+   "kind": "work",
+   "text": "Vidyanext, Bangalore. CEO, then CMO and Head of Product.",
+   "src": "studies/06/index.html",
+   "g": "vidyanext",
+   "to": 2019
+  },
+  {
+   "when": "2015–19",
+   "y": 2015,
+   "kind": "work",
+   "text": "Took over after a leadership crisis; when it could not be saved, placed all 65+ people within two months.",
+   "src": "studies/06/index.html",
+   "g": "vidyanext",
+   "to": 2019
+  },
+  {
+   "when": "2012–15",
+   "y": 2012,
+   "kind": "work",
+   "text": "Aditi Technologies, then Symphony Teleca: product, presales and programme management across the US, India and Russia.",
+   "src": "studies/06/index.html",
+   "g": "aditi",
+   "to": 2015
+  },
+  {
+   "when": "2012–15",
+   "y": 2012,
+   "kind": "work",
+   "text": "Technical Product Manager → Solution Architect → Engagement Manager",
+   "src": "cv.html",
+   "g": "aditi",
+   "to": 2015
+  },
+  {
+   "when": "2012–15",
+   "y": 2012,
+   "kind": "work",
+   "text": "Clients included Dodge Data & Analytics (McGraw-Hill) and TUI Travel.",
+   "src": "cv.html",
+   "g": "aditi",
+   "to": 2015
+  },
+  {
+   "when": "2011–12",
+   "y": 2011,
+   "kind": "work",
+   "text": "DataSphere Technologies, mobile product lead.",
+   "src": "studies/06/index.html",
+   "g": "datasphere",
+   "to": 2012
+  },
+  {
+   "when": "2010–11",
+   "y": 2010,
+   "kind": "work",
+   "text": "TravelPost, first intern. Led the mobile product, later spun off as Trover.",
+   "src": "studies/06/index.html",
+   "g": "travelpost",
+   "to": 2011
+  },
+  {
+   "when": "2009–10",
+   "y": 2009,
+   "kind": "work",
+   "text": "Microsoft, program manager, student audience marketing.",
+   "src": "studies/06/index.html",
+   "g": "microsoft",
+   "to": 2010
+  },
+  {
+   "when": "2009",
+   "y": 2009,
+   "kind": "work",
+   "text": "House of Commons",
+   "src": "cv.html",
+   "sub": "Intern — Office of Mike Hancock MP CBE"
+  },
+  {
+   "when": "2008–09",
+   "y": 2008,
+   "kind": "learn",
+   "text": "A year abroad at University College London.",
+   "src": "studies/06/index.html",
+   "g": "ucl",
+   "to": 2009
+  },
+  {
+   "when": "2006–11",
+   "y": 2006,
+   "kind": "learn",
+   "text": "Tufts University, computer science and economics; publisher of the Tufts Daily.",
+   "src": "studies/06/index.html",
+   "g": "tufts",
+   "to": 2011
+  },
+  {
+   "when": "later",
+   "y": "later",
+   "kind": "learn",
+   "text": "Later, the French Culinary Institute, New York.",
+   "src": "studies/06/index.html"
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+  "facets-desk": "26",
+  "facets-phone": "14",
+  "seam-px": "0.6",
+  "tilt": "1.4",
+  "lamp": "0.62",
+  "glint": "0.34",
+  "breathe-s": "18",
+  "leash": "0.035",
+  "scrim": "0.6",
+  "dim": "0.42",
+  "photo-pane": "0.58",
+  "verse-lines": "3",
+  "table-x": "0.36",
+  "table-y": "0.5",
+  "poem-max-px": "17",
+  "poem-min-px": "12.5",
+  "cut-s": "2.6"
+}

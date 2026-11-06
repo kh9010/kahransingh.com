@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <title>About — Kahran Singh</title>
+    <meta name="description" content="Kahran Singh: poet, investor, counsel to founders. Bangalore and New York. Every fact at once.">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+    <style>
+        .lede { font-family: 'Fraunces', Georgia, serif; font-size: var(--lede-size, 1.25rem); line-height: 1.45; margin-bottom: 1.5rem; }
+        .ways { list-style: none; border-top: 1px solid var(--rule, #f0ede8); }
+        .ways li { padding: 0.5rem 0; border-bottom: 1px solid var(--rule, #f0ede8); }
+        .ways a { text-decoration: none; }
+        .ways b { display: inline-block; width: 1.5rem; font-weight: 500; color: var(--label, #6e6e6e); }
+        .f a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; text-decoration-color: #d6d2c9; }
+        .f a:hover { text-decoration-color: #1a1a1a; }
+        .w { font: 500 0.72rem/1 'Space Grotesk', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--label, #6e6e6e); white-space: nowrap; font-variant-numeric: tabular-nums; }
+        .s { color: var(--label, #6e6e6e); }
+        .lit-list .f { transition: opacity 0.2s cubic-bezier(.4,0,.2,1); }
+        .lit-list.is-lit .f:not(.lit) { opacity: var(--fade, 0.28); }
+        .foot { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e0ddd8; }
+        .foot .cv { font-family: 'Fraunces', Georgia, serif; font-size: 1.15rem; color: #1a1a1a; text-decoration: none; }
+        .foot .contact-row { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
+
+        /* a: the wall */
+        main.v-a { max-width: var(--wall-measure, 1180px); }
+        main.v-a, main.v-b, main.v-c, main.v-d { padding-top: var(--top, 2.5rem); }
+        main.v-a .page-header { margin-bottom: 1.25rem; padding-bottom: 1rem; }
+        .wall { columns: var(--wall-cols, 4); column-gap: var(--wall-gap, 1.75rem); font-size: var(--wall-size, 0.8rem); line-height: var(--wall-lh, 1.42); }
+        .wall .f { display: block; break-inside: avoid; margin-bottom: var(--wall-row, 0.4rem); }
+        .wall .w { display: block; margin: 0.35rem 0 0.15rem; }
+
+        /* b: the years */
+        main.v-b { max-width: var(--tl-measure, 860px); }
+        .years .row { display: grid; grid-template-columns: var(--tl-year-w, 64px) auto 1fr; border-top: 1px solid var(--rule, #f0ede8); }
+        .years .row:last-child { border-bottom: 1px solid var(--rule, #f0ede8); }
+        .years .yr { padding: var(--tl-pad, 0.32rem) 0; font: 500 0.72rem/1.9 'Space Grotesk', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--label, #6e6e6e); }
+        .years .row.empty .yr { padding: 0; line-height: var(--tl-empty, 0.7rem); font-size: 0.62rem; color: #9a958c; }
+        .years .lanes { display: flex; margin-right: 0.75rem; }
+        .years .lane { width: var(--lane-w, 11px); position: relative; }
+        .years .lane.on::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; background: var(--lane, #cfcabe); transition: background 0.2s cubic-bezier(.4,0,.2,1); }
+        .years .lane.start::after { content: ''; position: absolute; top: calc(var(--tl-pad, 0.32rem) + 0.45rem); left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: var(--lane, #cfcabe); }
+        .years .lane.on.hot::before, .years .lane.start.hot::after { background: #1a1a1a; }
+        .years .txt { padding: var(--tl-pad, 0.32rem) 0; font-size: var(--tl-size, 0.9rem); line-height: 1.55; }
+        .years .txt .w { margin-right: 0.35rem; }
+        .sep { color: #9a958c; }
+
+        /* c: one paragraph */
+        main.v-c { max-width: var(--run-measure, 680px); }
+        .run { font-family: 'Fraunces', Georgia, serif; font-size: var(--run-size, 1.12rem); line-height: var(--run-lh, 1.85); }
+        .run .w { margin: 0 0.15rem 0 0.1rem; vertical-align: 0.12em; }
+
+        /* d: by kind */
+        main.v-d { max-width: var(--cols-measure, 1180px); }
+        .kinds { display: grid; grid-template-columns: var(--col-year-w, 52px) repeat(6, minmax(0, 1fr)); column-gap: var(--col-gap, 1.1rem); font-size: var(--col-size, 0.8rem); line-height: var(--col-lh, 1.42); }
+        .kinds .hd { position: sticky; top: 0; background: #fafaf8; padding: 0.4rem 0; font: 500 0.72rem/1.4 'Space Grotesk', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #1a1a1a; border-bottom: 1px solid #e0ddd8; z-index: 1; }
+        .kinds .cell { padding: 0.45rem 0; border-top: 1px solid var(--rule, #f0ede8); }
+        .kinds .cell .f { display: block; margin-bottom: 0.3rem; }
+        .kinds .cell .w { display: block; margin-bottom: 0.1rem; }
+        .kinds .yr { font: 500 0.72rem/1.9 'Space Grotesk', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--label, #6e6e6e); }
+        .kinds .row-lit { background: #f2f0e8; }
+
+        @media (max-width: 768px) {
+            main.v-a, main.v-b, main.v-c, main.v-d { padding-left: 16px; padding-right: 16px; }
+            .wall { columns: 1; }
+            .kinds { display: block; }
+            .kinds .hd { display: none; }
+            .kinds .cell { border-top: 0; padding: 0.15rem 0 0.35rem; }
+            .kinds .cell:empty { display: none; }
+            .kinds .yr { display: block; border-top: 1px solid #e0ddd8; margin-top: 0.6rem; padding-top: 0.4rem; color: #1a1a1a; }
+            .kinds .cell[data-kl]::before { content: attr(data-kl); display: block; font: 500 0.66rem/1.6 'Space Grotesk', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: #9a958c; }
+            .years .row { grid-template-columns: 44px auto 1fr; }
+            .years .lane { width: var(--lane-w-phone, 6px); }
+            .years .lanes { margin-right: 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <a href="/" class="mobile-header">kahran</a>
+        <div class="page-header">
+            <h1>about</h1>
+        </div>
+        <div id="volume">
+            <p class="lede">Every fact at once: 51 lines from 06, the CV and the public pages, verbatim.</p>
+            <p class="lede">Four ways to hold a full life in one look.</p>
+            <ol class="ways">
+                <li><a href="?v=a"><b>a</b>the wall: all of it on one screen</a></li>
+                <li><a href="?v=b"><b>b</b>the years: busy years run long, quiet years stay thin, the long things as lines</a></li>
+                <li><a href="?v=c"><b>c</b>one paragraph, the ledger as running text</a></li>
+                <li><a href="?v=d"><b>d</b>by kind: making, work, backing, talks, learning, life, read across a year</a></li>
+            </ol>
+        </div>
+        <div class="foot">
+            <a class="cv" href="/cv.html">Full CV &rarr;</a>
+            <div class="contact-row">
+                <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+                <a href="https://instagram.com/kahran">Instagram</a>
+                <a href="https://medium.com/@kahrans">Medium</a>
+            </div>
+        </div>
+    </main>
+    <nav>
+        <a href="/" class="nav-name">kahran</a>
+        <a href="/poetry.html">poetry</a>
+        <a href="/photography.html">photography</a>
+        <a href="/projects.html">projects</a>
+        <a href="/lately/">lately</a>
+        <a href="/working-with-me.html">work with me</a>
+        <a href="/speaking.html">speaking</a>
+        <a href="/archive.html">archive</a>
+        <a href="/about.html" class="active" aria-current="page">about</a>
+        <a href="/v1/">v1</a>
+    </nav>
+    <script src="tune.js"></script>
+    <script src="volume.js"></script>
+</body>
+</html>

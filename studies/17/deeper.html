@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<title>Study 17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --on-photo: #f6f3ec; --on-photo-soft: #ded9cf; --band: #15140f;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --pad-x: clamp(16px, 4vw, 48px);
+  --w: 0;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--band); color: var(--on-photo); overflow: hidden; }
+body { font-family: 'Fraunces', Georgia, serif; -webkit-tap-highlight-color: transparent; }
+
+.stage { position: fixed; inset: 0; }
+.world { position: absolute; inset: 0; transition: opacity calc(var(--cross-ms) * .5ms) var(--ease); }
+.world.leaving { opacity: 0; pointer-events: none; }
+.world.arriving { opacity: 0; }
+
+.photo { position: absolute; inset: 0; background: center / cover no-repeat;
+  filter: brightness(.82);
+  transition: filter calc(var(--cross-ms) * 1ms) var(--ease), transform calc(var(--cross-ms) * 1ms) var(--ease); }
+.world::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(10,9,7,.62) 0, rgba(10,9,7,.38) min(42rem, 70%), rgba(10,9,7,0) min(60rem, 100%)); }
+.caption { position: absolute; left: var(--pad-x); bottom: 1.2rem; z-index: 2; pointer-events: none;
+  font: 400 .7rem/1.55 'Space Grotesk', sans-serif; letter-spacing: .012em; color: var(--on-photo-soft); }
+
+/* The poem. The title is pinned where it is; the body hangs beneath it and is
+   only ever clipped from the bottom, so nothing above the fold line moves. */
+.poem { position: absolute; z-index: 3; left: var(--pad-x); top: 18vh; width: min(30rem, calc(100% - 2 * var(--pad-x)));
+  /* the reach: the hover zone runs past the text on every side */
+  padding: 24px; margin: -24px; }
+.title { display: block; margin: 0; padding: 6px 0; border: 0; background: none; color: var(--on-photo);
+  font: 400 clamp(1.25rem, 2.1vw, 1.6rem)/1.26 'Fraunces', Georgia, serif; letter-spacing: -.006em;
+  text-align: left; cursor: pointer; }
+.fold { display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows calc(var(--fold-ms) * 1ms) var(--ease), opacity calc(var(--fold-ms) * 1ms) var(--ease), visibility 0s linear calc(var(--fold-ms) * 1ms);
+  visibility: hidden; }
+.fold > .body { overflow: hidden; min-height: 0; }
+.poem[data-state="open"] .fold { grid-template-rows: 1fr; opacity: 1; visibility: visible;
+  transition: grid-template-rows calc(var(--open-ms) * 1ms) var(--ease), opacity calc(var(--open-ms) * 1ms) var(--ease), visibility 0s; }
+.body { padding-top: 1.1rem; font-weight: 300; font-size: var(--poem-size); line-height: 1.78; }
+.stanza { margin: 0 0 1.2rem; }
+.stanza:last-child { margin-bottom: 0; }
+.line { display: block; text-indent: -1.05em; padding-left: 1.05em; }
+
+/* A door is the line itself. Its reach is taller than the text (inline padding
+   does not move the lines), and the word it travels by sits after it. */
+.door { color: var(--on-photo); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .26em;
+  text-decoration-color: rgba(246,243,236,.42); padding: .42em 0; cursor: pointer;
+  transition: text-decoration-color .2s var(--ease); }
+.door:hover, .door:focus-visible { text-decoration-color: var(--on-photo); outline: none; }
+.tag { font: 400 .68rem 'Space Grotesk', sans-serif; letter-spacing: .1em; text-indent: 0; margin-left: .55em;
+  color: var(--on-photo-soft); opacity: var(--door-tag-alpha); white-space: nowrap; text-decoration: none; display: inline-block;
+  transition: opacity .2s var(--ease); }
+.door:hover .tag, .door:focus-visible .tag { opacity: 1; }
+
+/* c · the balance. Nothing folds; the weight moves from the photograph to the poem. */
+[data-p="c"] .fold { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition: none; }
+[data-p="c"] .photo { filter: brightness(calc(var(--photo-shallow) + (var(--photo-deep) - var(--photo-shallow)) * var(--w)));
+  transform: scale(calc(1.04 - .04 * var(--w))); }
+[data-p="c"] .poem { opacity: calc(var(--poem-shallow) + (var(--poem-deep) - var(--poem-shallow)) * var(--w));
+  transition: opacity calc(var(--cross-ms) * 1ms) var(--ease); }
+[data-p="c"] .poem:hover, [data-p="c"] .poem:focus-within { opacity: 1; }
+[data-p="c"] .world::after { opacity: calc(.45 + .55 * var(--w)); }
+[data-p="c"] .title { cursor: default; }
+
+/* d · line by line. Nothing collapses, ever: lines fade in place, so no line
+   moves under the pointer. Folded, the title and the doors stay. */
+[data-p="d"] .fold { grid-template-rows: 1fr; opacity: 1; visibility: visible; transition: none; }
+[data-p="d"] .line { opacity: 0; transition: opacity calc(var(--open-ms) * .6ms) var(--ease); }
+[data-p="d"] .line.shown { opacity: 1; }
+[data-p="d"] .line.has-door:not(.shown) { pointer-events: none; }
+[data-p="d"] .poem[data-state="folding"] .line:not(.has-door),
+[data-p="d"] .poem[data-state="folded"] .line:not(.has-door) { opacity: 0; transition-duration: calc(var(--fold-ms) * 1ms); }
+
+.crossing { position: fixed; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; pointer-events: none;
+  font: italic 300 clamp(2.4rem, 7vw, 5.5rem)/1 'Fraunces', Georgia, serif; color: var(--on-photo);
+  opacity: 0; transition: opacity calc(var(--cross-ms) * .35ms) var(--ease); }
+.crossing.on { opacity: 1; }
+
+@media (max-width: 640px) {
+  .poem { top: 14vh; }
+  .body { font-size: 1.02rem; line-height: 1.7; }
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<div class="crossing" id="crossing" aria-hidden="true"></div>
+<script src="tune.js"></script>
+<script>
+/* The six worlds are the sketch's (worlds-v2.html): real poems, real
+   photographs; which lines are doors is study 15's question, not this one. */
+const W = {
+  A: { photo: "papel-picado.jpg", cap: "Sayulita, Nayarit", title: "thrum thrum",
+       body: `thrum thrum
+what brings you to excitement today
+my liege
+
+colors to express my unease
+Violet is too gentle of a flower.
+We need {the harshness of purple|purple|B}, or red
+Or a pink to show intestinal flesh and {precluded winter|cold|C}` },
+  B: { photo: "night-street.jpg", cap: "Roma Norte, Mexico City", title: "wrestle",
+       body: `I wrestle with these feelings of badness
+I have done something wrong
+My heart tells me
+Oily -seeming
+{Dark -feeling|night|E}
+
+But damn it does start to change
+once it moves
+
+Substance too thick congeals so dark
+But {beautifies to purple in the light|soft light|D}` },
+  C: { photo: "crested-butte-colorado-e25ede7f.jpg", cap: "Crested Butte, Colorado", title: "London",
+       body: `There’s a coldness in the air
+I, me, mine! does not remember,
+From this place
+
+There’s a coldness in these people,
+But it feels jagged now,
+Full of icy points
+
+You, {my dark friend|night|E}, might just be
+A wrong
+Person.
+
+There’s a coldness in the air
+And {it is not just the air|cold wind|D}.` },
+  D: { photo: "kodagu-india-124b384b.jpg", cap: "Kodagu", title: "To Flutter",
+       body: `To flutter
+Is to act in that moment
+after doing
+When you have cocked the second arrow
+And maybe the third
+But {you pause, a’wondering|stillness|F}
+
+Was right right?
+
+It’s {a cold wind that blows from the north|cold|C}
+Sends my heart a’flutter.` },
+  E: { photo: "lanterns.jpg", cap: "Sayulita, Nayarit", title: "I Listen",
+       body: `Is it better to know this is your last goodbye
+Mutter words of encouragement
+Paltry nothings to fill
+{A silence|stillness|F}
+
+This time when the silence comes
+There will be no escape
+{No respite on a beach|shore|F}
+
+Let the guillotine come in the night
+Sharp strokes and sharp blades
+Exhaust not my precious store of hope.` },
+  F: { photo: "still-lake.jpg", cap: "Still lake", title: "Large objects exert a gravitational pull",
+       body: `Large objects exert a gravitational pull
+The issue arises when the connection between objects
+start to exert its own gravitational pull
+{That thing which binds you to them|pull|A} is now alive with its own force
+
+What do you do for {your fundamental forces|weight|B}
+What about fundamental relationships
+What about when the relationship matters more than the person` }
+};
+
+const P = /^[a-d]$/.test(new URLSearchParams(location.search).get('p')) ? new URLSearchParams(location.search).get('p') : 'a';
+document.documentElement.dataset.p = P;
+const stage = document.getElementById('stage'), crossing = document.getElementById('crossing');
+const num = (k) => +window.T[k];
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+/* n counts crossings (every move between worlds, back included); depth is how
+   far in you are. The hold grows with n; the balance follows depth. */
+let n = 0, depth = 0, busy = false, settled = false, world = null;
+
+const holdFor = (k) => Math.min(num('hold-cap-ms'), num('hold-ms') * Math.pow(num('hold-growth'), k));
+
+function poemHTML(w) {
+  return w.body.split(/\n\s*\n/).map((st) => '<div class="stanza">' + st.split('\n').map((ln) => {
+    const door = /\{([^|}]+)\|([^|}]+)\|([A-Z])\}/.exec(ln);
+    const html = esc(ln).replace(/\{([^|}]+)\|([^|}]+)\|([A-Z])\}/g, (_, t, tag, to) =>
+      `<a class="door" href="?p=${P}&amp;w=${to}" data-to="${to}" data-tag="${tag}">${t}<span class="tag">${tag}</span></a>`);
+    return `<span class="line${door ? ' has-door' : ''}">${html}</span>`;
+  }).join('') + '</div>').join('');
+}
+
+function Poem(el) {
+  const fold = el.querySelector('.fold'), title = el.querySelector('.title');
+  const lines = [...el.querySelectorAll('.line')];
+  let timer = 0, held = false, expired = false, inside = false, alive = true;
+  const set = (s) => { if (alive) el.dataset.state = s; };
+  const clear = () => { clearTimeout(timer); timer = 0; };
+  const after = (ms, f) => { clear(); timer = setTimeout(() => { if (alive) f(); }, ms); };
+
+  /* Fold only with nobody there. If the pointer is over the poem when the
+     time comes, the fold waits for it to leave and then a grace more. */
+  function foldNow() {
+    if (inside) { expired = true; return; }
+    set('folding');
+    after(num('fold-ms'), () => set('folded'));
+  }
+  function arm(ms) {
+    expired = false;
+    if (P === 'c' || settled) return;                        // never folds
+    after(ms, foldNow);
+  }
+  function open(ms) {
+    set('open');
+    arm(ms);
+  }
+  function unfoldLines(ms) {                                 // d: the doors last
+    set('unfolding');
+    const plain = lines.filter((l) => !l.classList.contains('has-door'));
+    const doors = lines.filter((l) => l.classList.contains('has-door'));
+    let t = 0; const step = num('line-ms');
+    const q = [];
+    plain.forEach((l) => { q.push([t, l]); t += step; });
+    t += num('door-pause-ms');
+    doors.forEach((l) => { q.push([t, l]); t += step; });
+    q.forEach(([at, l]) => setTimeout(() => alive && l.classList.add('shown'), at));
+    setTimeout(() => { if (alive) open(ms); }, t);
+  }
+  function reopen() {
+    if (P === 'c') return;
+    const s = el.dataset.state;
+    if (s === 'open' || s === 'unfolding') return;          // its own hold runs on
+    if (P === 'd') lines.forEach((l) => l.classList.add('shown'));
+    set('open'); clear();
+  }
+
+  // the mouse: being over the poem holds it open; leaving lets it go, gently
+  el.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; inside = true; reopen(); });
+  el.addEventListener('pointerleave', (e) => {
+    if (e.pointerType !== 'mouse') return; inside = false;
+    if (P === 'c' || settled) return;
+    const s = el.dataset.state;
+    if (s === 'open' && (expired || !timer)) after(num('leave-grace-ms'), foldNow);
+  });
+  // touch: the title opens it again, for this world's whole hold
+  title.addEventListener('click', (e) => {
+    if (P === 'c' || settled) return;
+    const s = el.dataset.state;
+    if (s === 'folded' || s === 'folding') { if (P === 'd') lines.forEach((l) => l.classList.add('shown')); open(holdFor(n)); }
+    else if (e.pointerType !== 'mouse' && s === 'open') { clear(); foldNow(); }
+  });
+
+  return {
+    arrive() {
+      if (P === 'b' && n + 1 >= num('settle-after')) settled = true;
+      const ms = holdFor(n);
+      if (P === 'c') { set('open'); return; }
+      setTimeout(() => { if (!alive) return; P === 'd' ? unfoldLines(ms) : open(ms); }, num('arrive-ms'));
+    },
+    kill() { alive = false; clear(); }
+  };
+}
+
+function render(key) {
+  const w = W[key];
+  const el = document.createElement('section');
+  el.className = 'world arriving';
+  el.dataset.key = key;
+  el.innerHTML = `<div class="photo" style="background-image:url('/photos/${w.photo}')"></div>
+    <p class="caption">${esc(w.cap)}</p>
+    <div class="poem" data-state="folded"><button class="title" type="button">${esc(w.title)}</button>
+      <div class="fold"><div class="body">${poemHTML(w)}</div></div></div>`;
+  stage.append(el);
+  document.documentElement.style.setProperty('--w', Math.min(1, depth / Math.max(1, num('balance-worlds') - 1)).toFixed(3));
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove('arriving')));
+  const poem = Poem(el.querySelector('.poem'));
+  el.addEventListener('click', (e) => {
+    const a = e.target.closest('a.door');
+    if (!a) return;
+    e.preventDefault();
+    go(a.dataset.to, a.dataset.tag, depth + 1, true);
+  });
+  world = { el, poem, key };
+  poem.arrive();
+}
+
+function go(key, tag, toDepth, push) {
+  if (busy) return; busy = true;
+  const old = world;
+  old.poem.kill();
+  old.el.classList.add('leaving');
+  crossing.textContent = tag || '';
+  if (tag) crossing.classList.add('on');
+  n++; depth = toDepth;
+  if (push) history.pushState({ key, depth }, '', `?p=${P}&w=${key}`);
+  setTimeout(() => { render(key); crossing.classList.remove('on'); }, num('cross-ms') * .5);
+  setTimeout(() => { old.el.remove(); busy = false; }, num('cross-ms'));
+}
+
+addEventListener('popstate', (e) => {
+  const s = e.state || { key: 'A', depth: 0 };
+  go(s.key, '', s.depth, false);
+});
+
+window.tuned.then(() => {
+  const start = /^[A-F]$/.test(new URLSearchParams(location.search).get('w')) ? new URLSearchParams(location.search).get('w') : 'A';
+  history.replaceState({ key: start, depth: 0 }, '', location.search || `?p=${P}`);
+  render(start);
+});
+</script>
+</body>
+</html>
