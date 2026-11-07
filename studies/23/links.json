@@ -1,8 +1,8 @@
 {
  "coverage": {
-  "linked": 203,
-  "of": 203,
-  "internal": 178,
+  "linked": 202,
+  "of": 202,
+  "internal": 177,
   "external": 25,
   "with_see": 86
  },
@@ -1338,20 +1338,6 @@
     "hey, you there",
     "hey",
     "hey you here"
-   ],
-   "see": []
-  },
-  {
-   "id": "poem:a-house-before-house",
-   "making": "poems",
-   "text": "A house before house",
-   "href": "/poems/a-house-before-house.html",
-   "to": "A house before house",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "A house, my house, before",
-    "house, with the sun of late",
-    "afternoon and the warmth of"
    ],
    "see": []
   },

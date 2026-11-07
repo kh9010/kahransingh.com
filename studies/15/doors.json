@@ -44,8 +44,7 @@
      "poems": [
       "i-watch-my-hair",
       "mama",
-      "the-sun-kissed-the-mountains",
-      "a-house-before-house"
+      "the-sun-kissed-the-mountains"
      ],
      "photos": [
       "/photos/hawaii-landscape.jpg",
@@ -137,8 +136,7 @@
      "poems": [
       "freedom-yet-unabridged",
       "how-can-you-just-be-gone",
-      "my-friend-who-died",
-      "a-house-before-house"
+      "my-friend-who-died"
      ],
      "photos": [
       "/photos/still-lake.jpg",
@@ -445,8 +443,7 @@
       "its-funny",
       "oh-the-horror-i-say",
       "to-see-such-beauty",
-      "wedding-poem",
-      "a-house-before-house"
+      "wedding-poem"
      ],
      "photos": [
       "/photos/hilo-hawaii-a09cc2ce.jpg",
@@ -1658,20 +1655,6 @@
       "phrase": "*beat*",
       "word": "the beat"
      }
-    ],
-    "a-house-before-house": [
-     {
-      "phrase": "with the sun of late",
-      "word": "low sun"
-     },
-     {
-      "phrase": "there is a greyness but the",
-      "word": "grey"
-     },
-     {
-      "phrase": "there is an orange tree with",
-      "word": "orange"
-     }
     ]
    },
    "photos": {
@@ -2109,8 +2092,7 @@
       "teental",
       "time-in-a-fig-grove",
       "wedding-poem",
-      "being-loved",
-      "a-house-before-house"
+      "being-loved"
      ],
      "photos": [
       "/photos/buoys-wall.jpg",
@@ -2427,8 +2409,7 @@
       "platitudes-of-suffering",
       "when-you-were-young",
       "being-loved",
-      "wrestle",
-      "a-house-before-house"
+      "wrestle"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -2571,8 +2552,7 @@
       "the-mist",
       "when-you-were-young",
       "being-loved",
-      "animals-in-love",
-      "a-house-before-house"
+      "animals-in-love"
      ],
      "photos": [
       "/photos/scooter-beach.jpg",
@@ -3657,20 +3637,6 @@
      {
       "phrase": "is that yours or is that mine",
       "word": "falling in love"
-     }
-    ],
-    "a-house-before-house": [
-     {
-      "phrase": "A house, my house, before",
-      "word": "home"
-     },
-     {
-      "phrase": "In the closet if you hide",
-      "word": "hiding"
-     },
-     {
-      "phrase": "running on a hill in",
-      "word": "play"
      }
     ]
    },

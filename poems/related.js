@@ -97,7 +97,6 @@ const poemData = {
     'hey': { themes: ['love', 'identity'], title: 'hey' },
     'i-came-out': { themes: ['identity', 'nature'], title: 'I came out' },
     'wrestle': { themes: ['identity', 'mortality'], title: 'wrestle' },
-    'a-house-before-house': { themes: ['identity', 'place'], title: 'A house before house' },
 };
 
 const themeLabels = {

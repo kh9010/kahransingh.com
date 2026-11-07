@@ -1033,17 +1033,6 @@
    "mood": 0.85,
    "hour": "night",
    "notes": "Shoulder caught in shirt, shared breath; beat; hi"
-  },
-  "a-house-before-house": {
-   "light": 0.7,
-   "warmth": 0.7,
-   "wet": 0.15,
-   "stillness": 0.55,
-   "season": 0.6,
-   "inside": 0.5,
-   "mood": 0.75,
-   "hour": "dusk",
-   "notes": "Late-afternoon house of saris, orange tree; ends running, peonies"
   }
  }
 }
