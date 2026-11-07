@@ -55,7 +55,14 @@ header nav a:hover, header nav a:focus-visible { color: #fff; }
 .vs span { display: flex; gap: 2px; }
 .vs a { text-decoration: none; color: var(--ink-on2); padding: 5px 7px; border-radius: 6px; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
 .vs a[aria-current] { color: #ede7d9; background: rgba(127,127,127,.22); }
-@media (max-width: 640px) {
+@media (max-height: 560px) and (orientation: landscape) {
+  header { left: 16px; bottom: 14px; max-width: 42vw; }
+  header p { margin: 6px 0 8px; font-size: .9rem; }
+  .cap { left: 16px; right: auto; top: 40px; bottom: auto; text-align: left; max-width: 44vw; }
+  .vs { flex-direction: row; gap: 8px; top: 6px; }
+  .vs a { padding: 4px 5px; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
   header { left: 16px; right: 16px; bottom: 16px; max-width: none; }
   header p { margin: 6px 0 10px; font-size: .95rem; }
   .cap { left: 16px; right: auto; top: 74px; bottom: auto; text-align: left; max-width: 70%; }
@@ -98,7 +105,8 @@ const app = $('#app'), cv = $('#stone'), g = cv.getContext('2d'), readEl = $('#r
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 let W = 0, H = 0, DPR = 1
-const phone = () => W < 640
+const phone = () => W < 640 && H > W * .9 // a phone held upright; a phone on its side is short, see low()
+const low = () => H < 560 && W > H
 function size() { W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR) }
 size()
 await Promise.race([Promise.all(['300 18px Fraunces', 'italic 400 18px Fraunces', 'italic 300 30px Fraunces', '400 12px "Space Grotesk"'].map(f => document.fonts.load(f))), sleep(3000)]) // the poem is measured and drawn in its own face
@@ -198,6 +206,7 @@ const raw = {}, prepared = new Map()
 const loadImg = src => raw[src] ||= new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src })
 function poemRect() { // 20's
   if (phone()) { const top = Math.round(H * .34), bottom = H - mat.offsetHeight - 34; return [16, top, W - 32, Math.max(160, bottom - top)] }
+  if (low()) { const w = Math.min(440, W * .48), right = Math.max(16, W * .03), top = Math.round(H * .16); return [W - w - right, top, w, H - top - 14] } // on its side: the poem takes the right half, the mat keeps the left
   const w = Math.min(440, W * .36), right = Math.max(32, W * .06), top = Math.round(H * .13); return [W - w - right, top, w, H * .74] }
 async function photo(p) {
   const tag = `${p.src}@${cv.width}x${cv.height}`
