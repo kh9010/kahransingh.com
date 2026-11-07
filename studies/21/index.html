@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>21 / The big ideas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hs-paper: #fafaf8; --hs-surface: #fff; --hs-surface-2: #f2f0e8;
+  --hs-ink: #1a1a1a; --hs-ink-2: #6e6e6e; --hs-ink-3: #9a958c;
+  --hs-line: #e0ddd8; --hs-line-faint: #f0ede8;
+  --hs-font: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --hs-serif: 'Fraunces', Georgia, serif;
+  --hs-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+  --hs-fs-label: .72rem; --hs-fs-meta: .78rem; --hs-fs-body: 1.0625rem; --hs-fs-title: 1.15rem;
+  --hs-track-label: .12em; --hs-gutter: 16px; --hs-radius: 6px;
+  --hs-ease: cubic-bezier(.4, 0, .2, 1); --hs-on: .2s;
+  --hs-hand: #8a5f19; --hs-select: color-mix(in srgb, var(--hs-hand) 22%, var(--hs-paper));
+}
+@media (prefers-color-scheme: dark) {
+  :root { --hs-paper: #141210; --hs-surface: #1c1a15; --hs-surface-2: #171613; --hs-ink: #ede7d9; --hs-ink-2: #9a9385; --hs-ink-3: #6f6a62; --hs-line: #332e26; --hs-line-faint: #26221c; --hs-hand: #e2a34a; --hs-select: color-mix(in srgb, var(--hs-hand) 20%, var(--hs-paper)); color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+::selection { background: var(--hs-select); }
+body { margin: 0; background: var(--hs-paper); color: var(--hs-ink); font-family: var(--hs-font); font-size: var(--hs-fs-meta); }
+a { color: inherit; }
+header { padding: 20px var(--hs-gutter) 12px; max-width: 1180px; margin: 0 auto; }
+h1 { font-family: var(--hs-serif); font-weight: 400; font-size: var(--hs-fs-title); margin: 0 0 4px; }
+.count { color: var(--hs-ink-3); font-family: var(--hs-mono); font-size: .7rem; }
+.bar { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 12px; font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-3); }
+.bar span { display: flex; flex-wrap: wrap; gap: 0 12px; }
+.bar a { text-decoration: none; color: var(--hs-ink-2); padding: 4px 0; }
+.bar a[aria-current] { color: var(--hs-ink); border-bottom: 1px solid var(--hs-ink); }
+.index { display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 12px; }
+.index a { text-decoration: none; padding: 2px 8px; border: 1px solid var(--hs-line); border-radius: var(--hs-radius); color: var(--hs-ink-2); }
+.index a small { color: var(--hs-ink-3); font-family: var(--hs-mono); font-size: .66rem; margin-left: 4px; }
+.index a:hover { border-color: var(--hs-ink-3); color: var(--hs-ink); }
+.left-out { margin-top: 8px; color: var(--hs-ink-3); font-style: italic; font-family: var(--hs-serif); }
+main { max-width: 1180px; margin: 0 auto; padding: 0 var(--hs-gutter) 64px; }
+
+/* by idea */
+.idea { padding: 28px 0 8px; border-top: 1px solid var(--hs-line); scroll-margin-top: 8px; }
+.idea > h2 { font-family: var(--hs-serif); font-weight: 400; font-size: var(--idea-size, 1.6rem); line-height: 1.15; margin: 0; }
+.idea .meta { color: var(--hs-ink-3); margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 0 14px; }
+.idea .meta a { color: var(--hs-ink-2); text-decoration: none; }
+.strain { margin: 6px 0 0; color: var(--hs-hand); font-family: var(--hs-serif); font-style: italic; font-size: .92rem; max-width: 70ch; }
+.strip { display: flex; gap: 4px; overflow-x: auto; margin: 12px 0 4px; scrollbar-width: thin; }
+.strip img { width: var(--thumb, 56px); height: var(--thumb, 56px); object-fit: cover; flex: none; border-radius: 2px; background: var(--hs-surface-2); }
+.lines { columns: 2 420px; column-gap: 40px; margin-top: 10px; }
+.at { break-inside: avoid; padding: 8px 0 10px; border-top: 1px solid var(--hs-line-faint); }
+.at b { display: flex; justify-content: space-between; gap: 8px; font-weight: 500; font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-3); }
+.at b a { text-decoration: none; }
+.at b small { font-weight: 400; letter-spacing: 0; text-transform: none; display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.at b small a { color: var(--hs-ink-2); }
+.at .ctx { font-family: var(--hs-serif); font-weight: 300; font-size: var(--line-size, 1rem); line-height: 1.5; white-space: pre-line; margin-top: 3px; }
+.ctx .dim { opacity: var(--context-alpha, .42); }
+.ctx mark { background: none; color: var(--hs-ink); font-weight: 400; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+
+/* by poem */
+.poems { columns: 3 320px; column-gap: 40px; }
+.poem { break-inside: avoid; padding: 18px 0 14px; border-top: 1px solid var(--hs-line-faint); scroll-margin-top: 8px; }
+.poem h2 { font-family: var(--hs-font); font-weight: 500; font-size: var(--hs-fs-label); letter-spacing: var(--hs-track-label); text-transform: uppercase; color: var(--hs-ink-3); margin: 0 0 8px; display: flex; justify-content: space-between; gap: 8px; }
+.poem h2 small { font-family: var(--hs-mono); letter-spacing: 0; text-transform: none; }
+.poem .text { font-family: var(--hs-serif); font-weight: 300; font-size: .95rem; line-height: 1.55; white-space: pre-line; }
+.poem .stanza { display: block; }
+.poem .stanza + .stanza { margin-top: .8em; }
+.poem .stanza.rest { display: none; }
+.poem.open .stanza.rest { display: block; }
+.fold { display: block; background: none; border: 0; padding: 0; margin-top: .4em; font: inherit; color: var(--hs-ink-3); cursor: pointer; letter-spacing: .2em; }
+.poem.open .fold { display: none; }
+.door { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; font-weight: 400; color: var(--hs-ink); }
+.door sup { font-family: var(--hs-font); font-size: .62rem; letter-spacing: .02em; color: var(--hs-hand); opacity: var(--door-tag-alpha, .7); margin-left: 3px; vertical-align: .5em; font-weight: 400; white-space: nowrap; }
+.door:hover { background: var(--hs-select); }
+.poem .note { margin-top: 8px; color: var(--hs-hand); font-family: var(--hs-serif); font-style: italic; font-size: .85rem; line-height: 1.45; }
+</style>
+<script src="tune.js"></script>
+</head>
+<body>
+<header>
+  <h1>21 / The big ideas <span class="count" id="count"></span></h1>
+  <div class="bar">
+    <span id="vocabs"><a data-vocab="pairs">tensions</a><a data-vocab="questions">questions</a><a data-vocab="nouns">nouns</a><a data-vocab="his">his words</a></span>
+    <span id="views"><a data-v="ideas">by idea</a><a data-v="poems">by poem</a></span>
+  </div>
+  <nav class="index" id="index"></nav>
+  <div class="left-out" id="left-out"></div>
+</header>
+<main id="main"></main>
+<script>
+const qs = new URLSearchParams(location.search)
+const VOCABS = ['pairs', 'questions', 'nouns', 'his']
+const VOCAB = VOCABS.includes(qs.get('vocab')) ? qs.get('vocab') : 'his'
+const V = qs.get('v') === 'poems' ? 'poems' : 'ideas'
+const url = (o, hash = '') => '?' + new URLSearchParams({ vocab: VOCAB, v: V, ...o }) + hash
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+const slugOf = w => 'i-' + w.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+for (const a of document.querySelectorAll('#vocabs a')) { a.href = url({ vocab: a.dataset.vocab }); if (a.dataset.vocab === VOCAB) a.setAttribute('aria-current', 'page') }
+for (const a of document.querySelectorAll('#views a')) { a.href = url({ v: a.dataset.v }); if (a.dataset.v === V) a.setAttribute('aria-current', 'page') }
+
+Promise.all([fetch('/v2/data.json').then(r => r.json()), fetch('doors.json').then(r => r.json())]).then(([data, doors]) => {
+  const v = doors.vocabs[VOCAB]
+  const bySlug = Object.fromEntries(data.poems.map(p => [p.slug, p]))
+  const alt = Object.fromEntries(data.photos.map(p => [p.src, p.alt]))
+  const nDoors = Object.values(v.poems).reduce((n, d) => n + d.length, 0)
+  document.getElementById('count').textContent = `${v.words.length} ideas · ${nDoors} doors · ${data.poems.length} poems · ${Object.keys(v.photos).length}/${data.photos.length} photographs`
+  document.getElementById('index').innerHTML = v.words.map(w =>
+    `<a href="${url({ v: 'ideas' }, '#' + slugOf(w.word))}">${esc(w.word)}<small>${w.poems.length}·${w.photos.length}</small></a>`).join('')
+  document.getElementById('left-out').textContent = v.left_out || ''
+  const main = document.getElementById('main')
+  main.innerHTML = V === 'ideas' ? byIdea() : byPoem()
+  for (const b of main.querySelectorAll('.fold')) b.onclick = () => b.closest('.poem').classList.add('open')
+  if (location.hash) document.querySelector(location.hash)?.scrollIntoView()
+
+  // the line that holds the door, with the line before and after it dimmed
+  function context(slug, phrase) {
+    const st = bySlug[slug].stanzas.find(s => s.includes(phrase))
+    const at = st.indexOf(phrase), end = at + phrase.length
+    const a = st.lastIndexOf('\n', at - 1) + 1, bRaw = st.indexOf('\n', end), b = bRaw < 0 ? st.length : bRaw
+    const before = st.slice(0, Math.max(a - 1, 0)).split('\n').filter(Boolean).pop() || ''
+    const after = bRaw < 0 ? '' : (st.slice(b + 1).split('\n').find(Boolean) || '')
+    const clip = s => s.length > 140 ? s.slice(0, 140) + '…' : s
+    const mid = st.slice(a, b)
+    const ma = at - a, mb = end - a
+    const head = mid.slice(0, ma), tail = mid.slice(mb)
+    return (before ? `<span class="dim">${esc(clip(before))}</span>\n` : '') +
+      `${esc(head.length > 160 ? '…' + head.slice(-160) : head)}<mark>${esc(phrase)}</mark>${esc(tail.length > 160 ? tail.slice(0, 160) + '…' : tail)}` +
+      (after ? `\n<span class="dim">${esc(clip(after))}</span>` : '')
+  }
+
+  function byIdea() {
+    return v.words.map(w => `<section class="idea" id="${slugOf(w.word)}">
+      <h2>${esc(w.word)}</h2>
+      <div class="meta"><span>${w.poems.length} poems · ${w.photos.length} photographs</span>${w.from ? `<a href="${url({ v: 'poems' }, '#' + w.from)}">${esc(bySlug[w.from].title)}</a>` : ''}</div>
+      ${w.strain ? `<p class="strain">${esc(w.strain)}</p>` : ''}
+      ${w.photos.length ? `<div class="strip">${w.photos.map(s => `<img src="${s}" alt="${esc(alt[s] || '')}" title="${esc(alt[s] || '')}" loading="lazy">`).join('')}</div>` : ''}
+      <div class="lines">${w.poems.map(slug => {
+        const ds = v.poems[slug], d = ds.find(x => x.word === w.word)
+        return `<div class="at"><b><a href="${url({ v: 'poems' }, '#' + slug)}">${esc(bySlug[slug].title)}</a><small>${ds.filter(x => x !== d).map(x => `<a href="#${slugOf(x.word)}">${esc(x.word)}</a>`).join('')}</small></b>
+          <div class="ctx">${context(slug, d.phrase)}</div></div>`
+      }).join('')}</div>
+    </section>`).join('')
+  }
+
+  function mark(stanza, ds) {
+    const spans = ds.map(d => [stanza.indexOf(d.phrase), d]).filter(([a]) => a >= 0).sort((x, y) => x[0] - y[0])
+    let out = '', i = 0
+    for (const [a, d] of spans) {
+      if (a < i) continue
+      out += esc(stanza.slice(i, a)) + `<a class="door" href="${url({ v: 'ideas' }, '#' + slugOf(d.word))}">${esc(d.phrase)}<sup>${esc(d.word)}</sup></a>`
+      i = a + d.phrase.length
+    }
+    return out + esc(stanza.slice(i))
+  }
+
+  function byPoem() {
+    return `<div class="poems">${data.poems.map(p => {
+      const ds = v.poems[p.slug] || [], placed = new Set()
+      let folded = 0
+      const body = p.stanzas.map(s => {
+        const here = ds.filter(d => !placed.has(d) && s.includes(d.phrase)); here.forEach(d => placed.add(d))
+        if (!here.length) folded++
+        return `<span class="stanza${here.length ? '' : ' rest'}">${mark(s, here)}</span>`
+      }).join('')
+      const note = doors.notes[p.slug]
+      return `<article class="poem" id="${p.slug}">
+        <h2>${esc(p.title)}<small>${ds.length}</small></h2>
+        <div class="text">${body}</div>
+        ${folded ? `<button class="fold" type="button" title="${folded} more">⋯</button>` : ''}
+        ${note ? `<div class="note">${esc(note)}</div>` : ''}
+      </article>`
+    }).join('')}</div>`
+  }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+{
+  "checked": "2026-11-06",
+  "rows": [
+    {
+      "start": "MFA candidate",
+      "href": "https://en.wikipedia.org/wiki/Jack_Kerouac_School_of_Disembodied_Poetics",
+      "how": "fetched 200, title names the Jack Kerouac School; naropa.edu/academics/jks/ redirects to the university home, so not used"
+    },
+    {
+      "start": "How the World Works",
+      "href": "https://www.amazon.com/How-World-Works-Kahran-Singh/dp/9395621354",
+      "how": "linked from cv.html and archive.html; fetched 200"
+    },
+    {
+      "start": "Building software",
+      "href": "/lately/",
+      "how": "the fact's own link (studies/06)"
+    },
+    {
+      "start": "Board of TomboyX",
+      "href": "https://tomboyx.com",
+      "how": "linked from v1/index.html and cv.html's companies; fetched 200"
+    },
+    {
+      "start": "Chief Revenue Officer",
+      "href": "/cv.html",
+      "how": "klydo.in and www.klydo.in did not answer and Wikipedia has no page; the CV carries the entry (cv.html, Klydo)"
+    },
+    {
+      "start": "Co-founded",
+      "href": "https://joyus.studio",
+      "how": "the fact's own link; fetched 200"
+    },
+    {
+      "start": "Advisor to Armoire",
+      "href": "https://armoire.style",
+      "how": "linked from tresmonos.capital's own portfolio; fetched 200, title names Armoire"
+    },
+    {
+      "start": "General Partner",
+      "href": "https://tresmonos.capital",
+      "how": "the fact's own link; fetched 200"
+    },
+    {
+      "start": "Portfolio includes",
+      "href": "https://tresmonos.capital/#portfolio",
+      "how": "tresmonos.capital has a #portfolio section linking armoire.style, humanly.io and kosha.co (fetched 200)"
+    },
+    {
+      "start": "Vidyanext",
+      "href": "https://yourstory.com/2016/04/vidyanext",
+      "how": "linked from cv.html and archive.html; answers 403 to a script (a bot wall), so the site's own link is the evidence"
+    },
+    {
+      "start": "Aditi Technologies",
+      "href": "https://en.wikipedia.org/wiki/Symphony_Teleca",
+      "how": "fetched 200; the article names the Aditi Technologies acquisition. en.wikipedia.org/wiki/Aditi_Technologies is 404"
+    },
+    {
+      "start": "Clients included",
+      "href": "/cv.html",
+      "how": "the line is the CV's, verbatim (cv.html)"
+    },
+    {
+      "start": "DataSphere",
+      "href": "/cv.html",
+      "how": "www.datasphere.com did not answer; the CV carries the entry"
+    },
+    {
+      "start": "Mobile product lead",
+      "href": "/cv.html",
+      "how": "the line is the CV's, verbatim (cv.html)"
+    },
+    {
+      "start": "TravelPost",
+      "href": "/cv.html",
+      "how": "en.wikipedia.org/wiki/Trover is the legal tort, not the app: rejected; the CV carries the entry"
+    },
+    {
+      "start": "Microsoft",
+      "href": "/cv.html",
+      "how": "the CV carries the role; microsoft.com says nothing about it"
+    },
+    {
+      "start": "A panel at the Common Ground",
+      "href": "/speaking.html",
+      "how": "the fact's own link; commongroundsummit.com is a parked lander (redirects to /lander), not used"
+    },
+    {
+      "start": "Mentor at StartOut",
+      "href": "https://startout.org",
+      "how": "fetched 200 (www.startout.org redirects there)"
+    },
+    {
+      "start": "Narrative Threads",
+      "href": "/speaking.html",
+      "how": "speaking.html and cv.html list the talk; it has no video"
+    },
+    {
+      "start": "Poem Films",
+      "href": "/poem-films.html",
+      "how": "the fact's own link"
+    },
+    {
+      "start": "Learning Kathak",
+      "href": "https://www.rachnanivas.com/kathaklegacyproject",
+      "how": "the fact's own link; fetched 200"
+    },
+    {
+      "start": "Married Gourav",
+      "href": "/wedding-celebration.html",
+      "how": "the fact's own link"
+    },
+    {
+      "start": "Eloped with Gourav",
+      "href": "/elopement/",
+      "how": "the fact's own link"
+    },
+    {
+      "start": "Tufts University",
+      "href": "https://www.tufts.edu",
+      "how": "fetched 200. The Tufts Daily's own site did not answer; its Wikipedia page is 200 but the fact is the university first"
+    }
+  ],
+  "lifts": {
+    "poems": {
+      "href": "/poetry.html",
+      "how": "the making's own page (07: all the poems)"
+    },
+    "photographs": {
+      "href": "/photography.html",
+      "how": "the making's own page (07: the photographs)"
+    },
+    "tools": {
+      "href": "/lately/",
+      "how": "07: the record"
+    },
+    "companies": {
+      "href": "/projects.html",
+      "how": "07: projects"
+    },
+    "speaking": {
+      "href": "/speaking.html",
+      "how": "the speaking page"
+    },
+    "films and installations": {
+      "href": "/poem-films.html",
+      "how": "the films page"
+    },
+    "dance": {
+      "href": "https://www.rachnanivas.com/kathaklegacyproject",
+      "how": "07's own link; fetched 200"
+    }
+  },
+  "items": {
+    "Context": {
+      "href": "/context/",
+      "how": "07's own link"
+    },
+    "Keeping track": {
+      "href": "/#flow",
+      "how": "the home's six ideas, opened as the flow view (index.html, v2/flow.js); no page of its own yet"
+    },
+    "Staying up to date": {
+      "href": "/lately/",
+      "how": "its weekly record is the public page"
+    },
+    "Topically suggesting": {
+      "href": "/#flow",
+      "how": "the home's six ideas, opened as the flow view; no page of its own yet"
+    },
+    "Self-healing": {
+      "href": "/#flow",
+      "how": "the home's six ideas, opened as the flow view; no page of its own yet"
+    },
+    "Joyus Studio": {
+      "href": "https://joyus.studio",
+      "how": "07's own link; fetched 200"
+    },
+    "Tres Monos Capital": {
+      "href": "https://tresmonos.capital",
+      "how": "07's own link; fetched 200"
+    },
+    "TomboyX": {
+      "href": "https://tomboyx.com",
+      "how": "07's own link; fetched 200"
+    },
+    "Vidyanext": {
+      "href": "https://yourstory.com/2016/04/vidyanext",
+      "how": "linked from cv.html and archive.html (403 to a script)"
+    },
+    "Poem Films": {
+      "href": "/poem-films.html",
+      "how": "07's own link"
+    },
+    "The Line Before": {
+      "href": "/projects.html",
+      "how": "projects.html describes it; its own link there (divya.studiotypo.xyz) answers 200 but its page shows nothing that names the piece, so the site's own page is used"
+    },
+    "Kathak Legacy Project": {
+      "href": "https://www.rachnanivas.com/kathaklegacyproject",
+      "how": "07's own link; fetched 200"
+    }
+  },
+  "art": {
+    "poems": {
+      "href": "/poems/oh-that-again.html",
+      "how": "07's own link"
+    },
+    "photographs": {
+      "href": "/photography.html",
+      "how": "the picture is on the photography page"
+    }
+  },
+  "see": [
+    [
+      "poem:teental",
+      "row:learning-kathak",
+      "Teental is a rhythm cycle of Kathak"
+    ],
+    [
+      "row:a-panel-at-the-common",
+      "talk:*",
+      "the seven StartOut talks are the talks listed"
+    ],
+    [
+      "row:building-software-with-claude",
+      "week:*",
+      "the record's weeks"
+    ],
+    [
+      "item:keeping-track",
+      "item:context",
+      "the six ideas"
+    ],
+    [
+      "item:staying-up-to-date",
+      "item:context",
+      "the six ideas"
+    ],
+    [
+      "item:topically-suggesting",
+      "item:context",
+      "the six ideas"
+    ],
+    [
+      "item:self-healing",
+      "item:context",
+      "the six ideas"
+    ],
+    [
+      "item:staying-up-to-date",
+      "week:*",
+      "the weekly record"
+    ],
+    [
+      "art:poems",
+      "poem:oh-that-again",
+      "the same poem"
+    ]
+  ]
+}

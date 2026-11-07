@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 22 · the crossing, made of facets</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+/* Study 22: the crossing is made of the stone's facets. One canvas draws 05 B's cut (its plant, its stretch,
+   its lamp); every crossing moves those cells. The poem lands as 17 d: title, lines one by one, doors last. */
+:root {
+  --seam: #0d0c0b; --bone: #e7e2d7; --ink: #1d1b18; --floor: #ede7d9; --floor2: #9a9385;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--seam); }
+#stone { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+.poem { position: fixed; z-index: 3; background: var(--bone); color: var(--ink); padding: 30px 34px 32px;
+  font: 300 1rem/1.55 var(--serif); box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 24px 70px rgba(0,0,0,.45); }
+.poem b { display: block; font: italic 300 1.25rem/1.3 var(--serif); margin-bottom: 12px; }
+.poem .st { margin: 0 0 1em; } .poem .st:last-child { margin: 0; }
+.poem .ln { display: block; opacity: 0; transition: opacity calc(var(--line-ms) * 1.8ms) var(--ease); }
+.poem .ln.shown { opacity: 1; }
+.poem .ln.has-door:not(.shown) { pointer-events: none; }
+.door { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(29,27,24,.26); cursor: pointer; transition: border-color .2s var(--ease); }
+.door:hover, .door:focus-visible { border-color: var(--ink); outline: none; }
+.door i { font: 400 .66rem/1 var(--sans); font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: #8a8375; margin-left: 8px; opacity: 0; transition: opacity .2s var(--ease); }
+.door:hover i, .door:focus-visible i { opacity: 1; }
+.cap { position: fixed; z-index: 3; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 48px); font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #ede7d9; opacity: .85; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+nav { position: fixed; z-index: 20; top: 14px; left: clamp(16px, 3.4vw, 56px); display: flex; flex-wrap: wrap; gap: 14px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+nav a { color: var(--floor2); text-decoration: none; text-shadow: 0 1px 6px rgba(0,0,0,.6); transition: color .2s var(--ease); }
+nav a:hover, nav a[aria-current] { color: var(--floor); }
+@media (max-width: 640px) { .poem { padding: 22px 22px 24px; overflow: auto; } nav { gap: 10px; } }
+</style>
+</head>
+<body>
+<nav aria-label="Crossings"><a href="./">22</a><a href="?x=a" data-x="a">shatter</a><a href="?x=b" data-x="b">fall</a><a href="?x=c" data-x="c">through</a><a href="?x=d" data-x="d">set</a><a href="?x=e" data-x="e">turn</a><a href="?x=f" data-x="f">word</a></nav>
+<canvas id="stone" aria-hidden="true"></canvas>
+<script src="tune.js"></script>
+<script type="module">
+import WORLDS from '../16/worlds.js' // 16's six worlds and their doors, unchanged: this study asks only about the crossing
+
+const qs = new URLSearchParams(location.search)
+const X = /^[a-f]$/.test(qs.get('x') || '') ? qs.get('x') : 'a'
+const START = WORLDS[qs.get('w')] ? qs.get('w') : 'A'
+document.querySelectorAll('nav a[data-x]').forEach(a => { a.href = `?x=${a.dataset.x}&w=${START}`; if (a.dataset.x === X) a.setAttribute('aria-current', 'page') })
+const root = document.documentElement, cv = document.getElementById('stone'), g = cv.getContext('2d')
+const reduce = matchMedia('(prefers-reduced-motion: reduce)')
+await window.S22tuned
+const dial = (k, f) => { const v = parseFloat(getComputedStyle(root).getPropertyValue('--' + k)); return Number.isFinite(v) ? v : f }
+const dialS = (k, f) => getComputedStyle(root).getPropertyValue('--' + k).trim() || f
+const SEAM = getComputedStyle(root).getPropertyValue('--seam').trim() || '#0d0c0b'
+let W = 0, H = 0, DPR = 1
+const phone = () => W < 640
+function size() { W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR) }
+size()
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+function hash(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0 }
+const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v
+const ss = (a, b, t) => clamp01((t - a) / (b - a))
+const io = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+const out = t => 1 - (1 - t) ** 3
+
+/* ---- the cut: 05 B's brilliant seen from above, verbatim (the table, a crown round it, the girdle, quiet stone at the floor) ---- */
+function plant(key) {
+  const r = rng(hash(key + '|22')), cloud = dial('cloud', 40), ph = phone()
+  const COUNT = Math.round((ph ? 14 : 26) + cloud / 100 * (ph ? 4 : 8))
+  const [hx, hy] = ph ? [W * .5, H * .34] : [W * .6, H * .44], [fx, fy] = ph ? [W * .3, H * .86] : [W * .1, H * .88]
+  const n1 = ph ? 6 : Math.round(7 + cloud / 100 * 3), rot = r() * Math.PI * 2
+  const ax = ph ? W * .66 : W * .34, ay = ph ? H * .3 : H * .46
+  const S = [[hx, hy], [fx, fy]]; let loose = 1
+  const add = (x, y) => { if (x < -40 || y < -40 || x > W + 40 || y > H + 40) return
+    if (S.some(([a, b], i) => Math.hypot(a - x, b - y) < (i === 1 ? Math.min(W, H) * .34 : Math.min(W, H) * .11) * loose)) return
+    S.push([Math.max(1, Math.min(W - 1, x)), Math.max(1, Math.min(H - 1, y))]) }
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16, m = 1 + (r() - .5) * .1; add(hx + Math.cos(t) * ax * m, hy + Math.sin(t) * ay * m) }
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3, m = 1.36 + (r() - .5) * .14; add(hx + Math.cos(t) * ax * m, hy + Math.sin(t) * ay * m) }
+  for (let k = 0; k < 400 && S.length < COUNT; k++) { const x = r() * W, y = r() * H; if (((x - hx) / ax) ** 2 + ((y - hy) / ay) ** 2 > 2.1) add(x, y) }
+  while (S.length < COUNT) { loose *= .85; for (let k = 0; k < 200 && S.length < COUNT; k++) add(r() * W, r() * H) } // every world the same count, so cuts can morph cell for cell
+  return S.slice(0, COUNT)
+}
+function clipHalf(P, f) { const o = []
+  for (let k = 0; k < P.length; k++) { const a = P[k], b = P[(k + 1) % P.length], fa = f(a), fb = f(b)
+    if (fa <= 0) o.push(a)
+    if ((fa <= 0) !== (fb <= 0)) { const t = fa / (fa - fb); o.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]) } }
+  return o }
+const clean = P => P.filter((p, i) => { const q = P[(i + 1) % P.length]; return Math.hypot(p[0] - q[0], p[1] - q[1]) > .05 })
+function voronoi(S) { // 05 B's: the wind draws the facets out (sites squeezed by the stretch, cells drawn back out)
+  const st = 1 + Math.min(dial('wind', 8), 40) / 45, w = W / st, T = S.map(([x, y]) => [x / st, y])
+  return T.map((s, i) => { let P = [[0, 0], [w, 0], [w, H], [0, H]]
+    for (let j = 0; j < T.length && P.length; j++) { if (j === i) continue; const t = T[j], nx = t[0] - s[0], ny = t[1] - s[1]; if (!nx && !ny) continue
+      const mx = (s[0] + t[0]) / 2, my = (s[1] + t[1]) / 2; P = clipHalf(P, ([x, y]) => (x - mx) * nx + (y - my) * ny) }
+    return clean(P.map(([x, y]) => [x * st, y])) }) }
+function centroid(p) { let a = 0, x = 0, y = 0; for (let i = 0; i < p.length; i++) { const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length], c = x0 * y1 - x1 * y0; a += c; x += (x0 + x1) * c; y += (y0 + y1) * c } a *= .5; return a ? [x / (6 * a), y / (6 * a)] : p[0] || [0, 0] }
+const area2 = P => P.reduce((a, [x0, y0], i) => { const [x1, y1] = P[(i + 1) % P.length]; return a + x0 * y1 - x1 * y0 }, 0)
+function inset(P, s) { // a true offset of every edge, so the seam is the same width all round (16's were thin on slanted edges)
+  const n = P.length; if (n < 3 || s <= 0) return P
+  const sg = area2(P) > 0 ? 1 : -1, c = centroid(P)
+  const L = P.map((a, i) => { const b = P[(i + 1) % n]; let dx = b[0] - a[0], dy = b[1] - a[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l; return { p: [a[0] - dy * sg * s, a[1] + dx * sg * s], d: [dx, dy] } })
+  const Q = P.map((v, i) => { const A = L[(i - 1 + n) % n], B = L[i], den = A.d[0] * B.d[1] - A.d[1] * B.d[0]
+    if (Math.abs(den) < 1e-6) return B.p
+    const t = ((B.p[0] - A.p[0]) * B.d[1] - (B.p[1] - A.p[1]) * B.d[0]) / den, q = [A.p[0] + A.d[0] * t, A.p[1] + A.d[1] * t]
+    if (Math.hypot(q[0] - v[0], q[1] - v[1]) > s * 5) { const dx = c[0] - v[0], dy = c[1] - v[1], d = Math.hypot(dx, dy) || 1; return [v[0] + dx / d * s * 1.5, v[1] + dy / d * s * 1.5] }
+    return q })
+  return area2(Q) * area2(P) > 0 ? Q : [] }
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+const bbox = p => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const [x, y] of p) { if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y } return [x0, y0, x1, y1] }
+function adjacency(cells) { // two cells touch where they share two corners
+  return cells.map((A, i) => cells.map((B, j) => j).filter(j => j !== i && A.filter(a => cells[j].some(b => Math.hypot(a[0] - b[0], a[1] - b[1]) < 1)).length >= 2)) }
+
+/* ---- affine maps [a,b,c,d,e,f] (canvas order) ---- */
+const mul = (A, B) => [A[0] * B[0] + A[2] * B[1], A[1] * B[0] + A[3] * B[1], A[0] * B[2] + A[2] * B[3], A[1] * B[2] + A[3] * B[3], A[0] * B[4] + A[2] * B[5] + A[4], A[1] * B[4] + A[3] * B[5] + A[5]]
+const tr = (x, y) => [1, 0, 0, 1, x, y], sc = (x, y = x) => [x, 0, 0, y, 0, 0], rot = a => [Math.cos(a), Math.sin(a), -Math.sin(a), Math.cos(a), 0, 0]
+const about = ([cx, cy], ...ms) => [tr(cx, cy), ...ms, tr(-cx, -cy)].reduce(mul)
+const flip = (axis, k) => [rot(axis), sc(1, k), rot(-axis)].reduce(mul) // a facet turning on an axis in its own plane, seen from above
+const apply = (m, [x, y]) => [m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]]
+
+/* ---- photographs: cover-fitted to the screen once, toned as 05 B tones its frames ---- */
+const raw = {}, prepared = new Map()
+const load = key => raw[key] ||= new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = '/photos/' + WORLDS[key].photo })
+async function photo(key) {
+  const tag = `${key}@${cv.width}x${cv.height}`
+  if (prepared.has(tag)) return prepared.get(tag)
+  const im = await load(key), c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height
+  const x = c.getContext('2d', { willReadFrequently: true }); x.fillStyle = '#24221f'; x.fillRect(0, 0, c.width, c.height)
+  if (im && im.naturalWidth) {
+    const a = im.naturalWidth / im.naturalHeight, b = c.width / c.height, [sw, sh] = a > b ? [im.naturalHeight * b, im.naturalHeight] : [im.naturalWidth, im.naturalWidth / b]
+    const fil = typeof x.filter === 'string'
+    if (fil) x.filter = 'grayscale(1) contrast(1.06) brightness(.94)'
+    x.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, c.width, c.height)
+    if (!fil) { const d = x.getImageData(0, 0, c.width, c.height), p = d.data
+      for (let i = 0; i < p.length; i += 4) { const l = (((p[i] * .2126 + p[i + 1] * .7152 + p[i + 2] * .0722) / 255 - .5) * 1.06 + .5) * 241; p[i] = p[i + 1] = p[i + 2] = l }
+      x.putImageData(d, 0, 0) }
+  }
+  prepared.set(tag, c); if (prepared.size > 5) prepared.delete(prepared.keys().next().value)
+  return c
+}
+
+/* ---- a world: its photograph, its cut, its poem card, its place ---- */
+function shapeWorld(w) {
+  w.sites = plant(w.key); const r = rng(hash(w.key + '|n'))
+  w.normals = w.sites.map(() => [(r() - .5) * .9, (r() - .5) * .9])
+  w.cells = voronoi(w.sites); w.cents = w.cells.map(centroid)
+}
+const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+function makeCard(w) {
+  const d = WORLDS[w.key], card = document.createElement('div'); card.className = 'poem'
+  const lines = d.body.split('\n'); if ((lines[0] || '').trim().toLowerCase() === d.title.toLowerCase()) lines.shift()
+  const sts = lines.join('\n').replace(/^\n+/, '').split(/\n\s*\n/)
+  card.innerHTML = `<b>${esc(d.title)}</b>` + sts.map(st => '<div class="st">' + st.split('\n').map(ln => {
+    const has = /\{[^|}]+\|[^|}]+\|[A-Z]\}/.test(ln)
+    return `<span class="ln${has ? ' has-door' : ''}">` + esc(ln).replace(/\{([^|}]+)\|([^|}]+)\|([A-Z])\}/g,
+      (_, line, tag, to) => `<a class="door" href="?x=${X}&amp;w=${to}" data-to="${to}" data-tag="${tag}">${line}<i>${tag}</i></a>`) + '</span>' }).join('') + '</div>').join('')
+  const cap = document.createElement('div'); cap.className = 'cap'; cap.textContent = d.cap
+  document.body.append(card, cap)
+  if (phone()) Object.assign(card.style, { left: '16px', width: (W - 32) + 'px', bottom: '16px', maxHeight: '50vh' })
+  else { const pw = Math.min(400, W * .36); Object.assign(card.style, { width: pw + 'px', left: (W - pw - Math.max(32, W * .06)) + 'px' }); card.style.top = Math.max(24, (H - card.offsetHeight) / 2) + 'px' }
+  card.querySelectorAll('.door').forEach(a => a.addEventListener('click', e => { e.preventDefault(); const rc = a.getBoundingClientRect(); cross(a.dataset.to, a.dataset.tag, [rc.left + rc.width / 2, rc.top + rc.height / 2]) }))
+  w.card = card; w.cap = cap
+}
+const anim = (el, frames, o) => el.animate(frames, { fill: 'both', easing: 'cubic-bezier(.4,0,.2,1)', ...o })
+function unfold(w, delay) { // 17 d: the card and title, then each plain line, a pause, the doors last
+  const pm = dial('poem-ms', 700), step = dial('line-ms', 320)
+  anim(w.card, [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: pm, delay })
+  anim(w.cap, [{ opacity: 0 }, { opacity: .85 }], { duration: pm, delay: delay + pm * .3 })
+  const lines = [...w.card.querySelectorAll('.ln')], plain = lines.filter(l => !l.classList.contains('has-door')), doors = lines.filter(l => l.classList.contains('has-door'))
+  let t = delay + pm * .6; const q = []
+  plain.forEach(l => { q.push([t, l]); t += step }); t += dial('door-pause-ms', 700); doors.forEach(l => { q.push([t, l]); t += step })
+  w.timers = q.map(([at, l]) => setTimeout(() => l.classList.add('shown'), at))
+  return delay + pm
+}
+function leave(w, ms = 340) { anim(w.card, [{ opacity: 1 }, { opacity: 0 }], { duration: ms }); anim(w.cap, [{ opacity: .85 }, { opacity: 0 }], { duration: ms }) }
+
+/* ---- light: the cursor is a low lamp over the cut, as on 05 B ---- */
+let Lx = W * .7, Ly = H * .2, Tx = Lx, Ty = Ly, lastMove = 0
+addEventListener('pointermove', e => { Tx = e.clientX; Ty = e.clientY; lastMove = performance.now() })
+
+/* ---- one facet: clip to its cut (seam all round), draw its layers, then the lamp on its own angle and its bevel ---- */
+function facet(P, c, n, layers, o = {}) {
+  const k1 = o.k ?? 1, Q = inset(P, dial('seam-px', 2.4) / 2 * k1)
+  if (Q.length < 3) return
+  g.save(); g.setTransform(DPR, 0, 0, DPR, 0, 0); if (o.m) g.transform(...o.m)
+  g.beginPath(); Q.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip()
+  const [x0, y0, x1, y1] = bbox(Q), A = o.alpha ?? 1
+  for (const L of layers) { const a = (L.alpha ?? 1) * A; if (a <= .002) continue; g.globalAlpha = a
+    if (L.fill) { g.fillStyle = L.fill; g.fillRect(x0 - 2, y0 - 2, x1 - x0 + 4, y1 - y0 + 4); continue }
+    g.save(); if (L.screen) g.setTransform(DPR, 0, 0, DPR, 0, 0); if (L.m) g.transform(...L.m); g.drawImage(L.img, 0, 0, W, H); g.restore() }
+  g.globalAlpha = A
+  // the lamp: 05 B's facet light, on this facet's normal
+  let dx = Lx - c[0], dy = Ly - c[1]; const Z = Math.max(W, H) * .55, d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
+  const nz = Math.sqrt(Math.max(0, 1 - n[0] ** 2 - n[1] ** 2)), k = clamp01((n[0] * dx + n[1] * dy + nz * Z / d - .55) / .45) * dial('lamp', .8)
+  let ux = dx + n[0] * .6, uy = dy + n[1] * .6; const ul = Math.hypot(ux, uy) || 1; ux /= ul; uy /= ul
+  const R = Math.max(x1 - x0, y1 - y0) / 2 || 1, gr = g.createLinearGradient(c[0] + ux * R, c[1] + uy * R, c[0] - ux * R, c[1] - uy * R)
+  gr.addColorStop(0, `rgba(255,250,240,${.04 + k * .62})`); gr.addColorStop(.46, 'rgba(255,250,240,0)'); gr.addColorStop(1, `rgba(0,0,0,${.5 - k * .46})`)
+  g.globalCompositeOperation = 'soft-light'; g.fillStyle = gr; g.fillRect(x0, y0, x1 - x0, y1 - y0)
+  const gl = Math.max(0, 1 - Math.hypot(dx * .9 - n[0], dy * .9 - n[1]) * 2.2)
+  if (gl > .02) { g.globalCompositeOperation = 'screen'; const rg = g.createRadialGradient(Lx + n[0] * 120, Ly + n[1] * 120, 0, Lx + n[0] * 120, Ly + n[1] * 120, Math.max(W, H) * .22)
+    rg.addColorStop(0, `rgba(255,246,228,${gl * gl * .34})`); rg.addColorStop(1, 'rgba(255,246,228,0)'); g.fillStyle = rg; g.fillRect(x0, y0, x1 - x0, y1 - y0) }
+  g.globalCompositeOperation = 'source-over'
+  if (o.shade) { g.fillStyle = `rgba(0,0,0,${o.shade})`; g.fillRect(x0, y0, x1 - x0, y1 - y0) }
+  if (o.glow) { g.globalCompositeOperation = 'screen'; g.fillStyle = `rgba(255,248,232,${o.glow})`; g.fillRect(x0, y0, x1 - x0, y1 - y0); g.globalCompositeOperation = 'source-over' }
+  // the bevel: an edge facing the lamp catches it, the far edges fall into shadow
+  const bev = dial('bevel', .6), sg = area2(Q) > 0 ? 1 : -1
+  g.lineWidth = dial('bevel-px', 1.6) * 2 * k1
+  for (let i = 0; i < Q.length; i++) { const a = Q[i], b = Q[(i + 1) % Q.length]; let ex = b[1] - a[1], ey = -(b[0] - a[0]); const el = Math.hypot(ex, ey); if (el < 1) continue
+    ex = ex / el * sg; ey = ey / el * sg; const f = ex * ux + ey * uy
+    g.strokeStyle = f > 0 ? `rgba(255,244,222,${bev * (.15 + .85 * k) * f})` : `rgba(0,0,0,${bev * .8 * -f})`
+    g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke() }
+  if (o.fire) { g.globalCompositeOperation = 'screen'; g.lineWidth = 1.6 * k1 // light split by the facet's edge: spectral fringes, the only colour, and only while light is passing through
+    ;[[255, 70, 50], [70, 255, 140], [80, 120, 255]].forEach(([rr, gg, bb], j) => { g.strokeStyle = `rgba(${rr},${gg},${bb},${o.fire * .7})`
+      for (let i = 0; i < Q.length; i++) { const a = Q[i], b = Q[(i + 1) % Q.length]; let ex = -(b[1] - a[1]), ey = b[0] - a[0]; const el = Math.hypot(ex, ey); if (el < 1) continue
+        const s = (2 + j * 2.2) * k1 * -sg; ex = ex / el * s; ey = ey / el * s; g.beginPath(); g.moveTo(a[0] + ex, a[1] + ey); g.lineTo(b[0] + ex, b[1] + ey); g.stroke() } })
+    g.globalCompositeOperation = 'source-over' }
+  g.restore()
+}
+function clear() { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1; g.fillStyle = SEAM; g.fillRect(0, 0, W, H) }
+function drawWorld(w, o = {}) { w.cells.forEach((P, i) => facet(P, w.cents[i], w.normals[i], [{ img: w.img }], o)) }
+
+/* ---- the crossing's shared parts: old cells matched to the next cut's, so the stone re-cuts cell for cell ---- */
+function match(A, B) { // B reordered so B[i] is A[i]'s partner; the table and the floor keep theirs
+  const n = A.length, used = new Set([0, 1]), out = [B[0], B[1]], taken = new Set([0, 1]), pairs = []
+  for (let i = 2; i < n; i++) for (let j = 2; j < n; j++) pairs.push([Math.hypot(A[i][0] - B[j][0], A[i][1] - B[j][1]), i, j])
+  pairs.sort((p, q) => p[0] - q[0])
+  for (const [, i, j] of pairs) { if (used.has(i) || taken.has(j)) continue; out[i] = j; used.add(i); taken.add(j) }
+  return out.map((v, i) => i < 2 ? i : v) }
+function geo(C, s) { // the cut at s between the old and the next
+  const key = Math.round(s * 400); if (C.geoKey === key) return C.geoV
+  const S = C.old.sites.map((a, i) => { const b = C.next.sites[C.pair[i]]; return [a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s] })
+  const N = C.old.normals.map((a, i) => { const b = C.next.normals[C.pair[i]]; return [a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s] })
+  const cells = voronoi(S); C.geoKey = key; return C.geoV = { cells, cents: cells.map(centroid), normals: N } }
+const reach = (C, c) => Math.hypot(c[0] - C.pt[0], c[1] - C.pt[1]) / C.far // 0 at the door, 1 at the farthest corner
+const cellAt = (pt, w) => { const i = w.cells.findIndex(P => inPoly(pt, P)); return i >= 0 ? i : w.cents.reduce((b, c, j) => Math.hypot(c[0] - pt[0], c[1] - pt[1]) < Math.hypot(w.cents[b][0] - pt[0], w.cents[b][1] - pt[1]) ? j : b, 0) }
+
+const CROSS = {
+  // a · shatter: the stone breaks along its own seams from the line you touched; each shard lifts, turns over, and its far face
+  // is its piece of the next world; the shards set back down into the next world's cut
+  a: { arrive: .8, draw(C, t) {
+    const K = dial('a-throw', .2) * Math.min(W, H), lift = dial('a-lift', .14), G = geo(C, io(ss(.22, .86, t)))
+    g.save(); g.setTransform(DPR, 0, 0, DPR, 0, 0); g.translate(W / 2, H / 2); g.scale(.96, .96); g.translate(-W / 2, -H / 2) // through the cracks: the next world, below
+    g.globalAlpha = dial('a-depth', .4) * Math.sin(Math.PI * ss(0, .9, t)); g.drawImage(C.next.img, 0, 0, W, H); g.restore()
+    G.cells.map((P, i) => { const c0 = C.old.cents[i], dx = c0[0] - C.pt[0], dy = c0[1] - C.pt[1], d = Math.hypot(dx, dy) || 1
+      const st = reach(C, c0) * .44, u = ss(st, st + .42, t), up = Math.sin(Math.PI * u), cos = Math.cos(Math.PI * io(u)), rr = C.rand[i], thin = Math.max(Math.abs(cos), .2)
+      const m = mul(tr(dx / d * K * up * (.5 + rr), dy / d * K * up * (.5 + rr) + K * .25 * up), about(G.cents[i], rot((rr - .5) * .6 * up), sc(1 + lift * up), flip(Math.atan2(dy, dx) + Math.PI / 2, thin)))
+      return [up, () => facet(P, G.cents[i], G.normals[i], [{ img: cos > 0 ? C.old.img : C.next.img }], { m, shade: (1 - thin) * .45, glow: (1 - thin) ** 4 * .4 })] })
+      .sort((p, q) => p[0] - q[0]).forEach(([, f]) => f())
+  } },
+  // b · fall: the facet under the line becomes a window with the whole next world inside it; you fall through that facet,
+  // the stone flying past, until the facet is the screen; then the next world's own cut closes round you
+  b: { arrive: .78, setup(C) {
+    const i = cellAt(C.pt, C.old), P = inset(C.old.cells[i], 4), c = C.old.cents[i]
+    let lo = 1, hi = 600; for (let k = 0; k < 40; k++) { const z = (lo + hi) / 2; [[0, 0], [W, 0], [W, H], [0, H]].every(q => inPoly([c[0] + (q[0] - c[0]) / z, c[1] + (q[1] - c[1]) / z], P)) ? hi = z : lo = z }
+    Object.assign(C, { hole: i, zmax: hi * 1.03 })
+  }, draw(C, t) {
+    const i = C.hole, c = C.old.cents[i], open = io(ss(0, .3, t)), fall = io(ss(.2, .86, t)), Z = C.zmax ** fall, cam = about(c, sc(Z))
+    C.old.cells.forEach((P, j) => { if (j === i) return; const b = bbox(P.map(p => apply(cam, p))); if (b[2] < 0 || b[3] < 0 || b[0] > W || b[1] > H) return
+      facet(P, C.old.cents[j], C.old.normals[j], [{ img: C.old.img }], { m: cam, k: 1 / Z, shade: .12 * open + .3 * fall }) })
+    let V = C.old.cells[i].map(p => apply(cam, p)) // the window on screen, cut to the screen: the next photograph is scaled just to cover it
+    for (const f of [([x]) => -x, ([x]) => x - W, ([, y]) => -y, ([, y]) => y - H]) V = clipHalf(V, f)
+    const s = Math.min(1, Math.max(.02, ...V.map(([x, y]) => Math.max(x > c[0] ? (x - c[0]) / (W - c[0]) : (c[0] - x) / c[0], y > c[1] ? (y - c[1]) / (H - c[1]) : (c[1] - y) / c[1]))))
+    facet(C.old.cells[i], c, C.old.normals[i], [{ img: C.old.img, alpha: 1 - open }, { img: C.next.img, alpha: open, screen: true, m: about(c, sc(s)) }], { m: cam, k: 1 / Z, glow: .3 * Math.sin(Math.PI * open) * (1 - fall) })
+    const fin = io(ss(.86, 1, t)); if (fin > 0) drawWorld(C.next, { alpha: fin })
+  } },
+  // c · through: the next world is first seen through the gem, every facet bending it its own way (a lens per facet, light split
+  // at the edges); then the facets come true, the pieces line up into one photograph, and the cut settles to the next world's
+  c: { arrive: .8, draw(C, t) {
+    const bend = dial('c-bend', .35), fire = dial('c-fire', .35), R = Math.min(W, H) * .5, G = geo(C, io(ss(.5, .95, t))), relax = 1 - io(ss(.42, .92, t))
+    G.cells.forEach((P, i) => { const c = G.cents[i], n = G.normals[i], st = reach(C, C.old.cents[i]) * .3, a = io(ss(st, st + .28, t)), k = relax * bend
+      const m = about(c, tr(n[0] * k * R, n[1] * k * R), sc(1 + k * (.5 + C.rand[i] * .6)))
+      facet(P, c, n, [{ img: C.old.img, alpha: 1 - a * (1 - relax * .25) }, { img: C.next.img, alpha: a, m }], { glow: a * (1 - a) * 4 * .16, fire: fire * a * relax }) })
+  } },
+  // d · set: the photograph lifts out of the old cut and leaves bare stone; the bare stone re-cuts; the next world is set into it
+  // piece by piece from the table outward, each piece seating with a glint
+  d: { arrive: .82, setup(C) { C.order = C.rand.map((r, i) => i).sort((p, q) => Math.hypot(...[0, 1].map(k => C.next.cents[C.pair[p]][k] - C.next.cents[0][k])) - Math.hypot(...[0, 1].map(k => C.next.cents[C.pair[q]][k] - C.next.cents[0][k]))) },
+  draw(C, t) {
+    const G = geo(C, io(ss(.16, .58, t))), tones = ['stone-1', 'stone-2', 'stone-3'].map((k, j) => dialS(k, ['#161513', '#24221f', '#34312c'][j])), n = G.cells.length
+    const rank = []; C.order.forEach((i, r) => rank[i] = r / Math.max(1, n - 1))
+    G.cells.map((P, i) => { const go = io(ss(C.rand[i] * .22, C.rand[i] * .22 + .16, t)), st = .3 + rank[i] * .48, u = ss(st, st + .17, t), stone = { fill: tones[i % 3] }
+      if (u <= 0) return [0, () => facet(P, G.cents[i], G.normals[i], [stone, { img: C.old.img, alpha: 1 - go }])]
+      const lift = 1 - out(u), m = about(G.cents[i], tr(0, -12 * lift), sc(1 + .07 * lift))
+      return [1, () => { facet(P, G.cents[i], G.normals[i], [stone], {}); facet(P, G.cents[i], G.normals[i], [{ img: C.next.img }], { m, alpha: io(Math.min(1, u * 1.6)), glow: Math.sin(Math.PI * u) ** 2 * .4 }) }] })
+      .sort((p, q) => p[0] - q[0]).forEach(([, f]) => f())
+  } },
+  // e · turn: the gem turns facet by facet: a sweep from the door across the stone, each facet turning on its own cut
+  // and showing the next world on its far face; the edge-on moment of each facet is a line of light
+  e: { arrive: .78, draw(C, t) {
+    const sweep = dial('e-sweep', .5), G = geo(C, io(ss(.35, .92, t))), far = Math.max(C.pt[0], W - C.pt[0]) || 1
+    G.cells.forEach((P, i) => { const c0 = C.old.cents[i], st = Math.abs(c0[0] - C.pt[0]) / far * sweep + Math.abs(c0[1] - C.pt[1]) / H * .08, u = ss(st, st + .4, t)
+      const cos = Math.cos(Math.PI * io(u)), thin = Math.max(Math.abs(cos), .2), up = Math.sin(Math.PI * u), m = about(G.cents[i], sc(1 + .05 * up), flip(Math.PI / 2 + G.normals[i][0] * .5, thin))
+      facet(P, G.cents[i], G.normals[i], [{ img: cos > 0 ? C.old.img : C.next.img }], { m, shade: (1 - thin) * .4, glow: (1 - thin) ** 5 * .55 }) })
+  } },
+  // f · word: the door's word leaves the poem and crosses the stone facet to facet toward the table; every facet it lands on
+  // turns to the next world, and the turning spreads from each one to its neighbours along the seams
+  f: { arrive: .8, setup(C) {
+    const adj = adjacency(C.old.cells), start = cellAt(C.pt, C.old), prev = new Map([[start, -1]]), q = [start]
+    while (q.length) { const a = q.shift(); for (const b of adj[a]) if (!prev.has(b)) { prev.set(b, a); q.push(b) } }
+    const goal = [...prev.keys()].reduce((b, a) => reach(C, C.old.cents[a]) > reach(C, C.old.cents[b]) ? a : b, start) // across the whole stone
+    const path = []; for (let a = goal; a !== -1 && a !== undefined; a = prev.get(a)) path.unshift(a)
+    const T0 = .06, T1 = .58, hop = dial('f-hop', .07), at = new Array(adj.length).fill(9)
+    path.forEach((a, k) => at[a] = T0 + (k + 1) / path.length * (T1 - T0))
+    for (let pass = 0; pass < adj.length; pass++) adj.forEach((ns, a) => ns.forEach(b => { if (at[a] + hop < at[b]) at[b] = at[a] + hop }))
+    const top = Math.max(...at); if (top > .8) at.forEach((v, a) => at[a] = T0 + (v - T0) * (.8 - T0) / (top - T0))
+    Object.assign(C, { path, at, T0, T1 })
+  }, draw(C, t) {
+    const G = geo(C, io(ss(.62, .95, t)))
+    G.cells.forEach((P, i) => { const u = ss(C.at[i], C.at[i] + .12, t)
+      facet(P, G.cents[i], G.normals[i], [{ img: C.old.img }, { img: C.next.img, alpha: io(u) }], { glow: Math.sin(Math.PI * u) ** 2 * .18 }) })
+    const pts = [C.pt, ...C.path.map(a => C.old.cents[a])], v = ss(C.T0, C.T1, t) * (pts.length - 1), k = Math.min(pts.length - 2, Math.floor(v)), f = io(v - k)
+    const a = pts[Math.max(0, k)], b = pts[Math.max(0, k) + 1] || a, hopH = Math.min(W, H) * .05
+    const x = a[0] + (b[0] - a[0]) * f, y = a[1] + (b[1] - a[1]) * f - Math.sin(Math.PI * f) * hopH * (k >= 0 ? 1 : 0)
+    const px = dial('f-word-px', 44) * (phone() ? .75 : 1), grow = ss(C.T1, .8, t), alpha = ss(0, C.T0, t) * (1 - grow)
+    if (alpha > 0) { g.save(); g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = alpha; g.font = `italic 300 ${px * (.45 + .55 * ss(0, .2, t) + .3 * grow)}px Fraunces, Georgia, serif`
+      g.textAlign = 'center'; g.textBaseline = 'middle'; g.shadowColor = 'rgba(0,0,0,.75)'; g.shadowBlur = 24; g.fillStyle = '#f3efe6'; g.fillText(C.tag, x, y); g.restore() }
+  } },
+  // calm, for reduced motion: the next world comes up through the last
+  calm: { arrive: .5, draw(C, t) { drawWorld(C.old); drawWorld(C.next, { alpha: io(t) }) } },
+}
+
+/* ---- the loop: the lamp moves, the stone is drawn, a crossing draws itself on its own clock ---- */
+let cur = null, crossing = null, busy = false
+function frame(now) {
+  if (now - lastMove > 4000) { const a = now / 26000; Tx = W * (.5 + .38 * Math.cos(a)); Ty = H * (.42 + .3 * Math.sin(a * 1.3)) } // unattended: the sun walks
+  Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05
+  clear()
+  const C = crossing, t = C ? (now - C.t0) / C.ms : 1
+  if (C && t < 1) { C.t = t; CROSS[C.kind].draw(C, Math.max(0, t)) } else if (cur) drawWorld(cur)
+  requestAnimationFrame(frame)
+}
+async function cross(to, tag, pt) {
+  if (busy || !WORLDS[to] || !cur || cur.key === to) return
+  busy = true; root.dataset.crossing = '1'
+  const old = cur, next = { key: to }; shapeWorld(next); next.img = await photo(to)
+  old.card.style.pointerEvents = 'none'; (old.timers || []).forEach(clearTimeout); leave(old)
+  const kind = reduce.matches ? 'calm' : X, ms = { a: dial('a-ms', 2600), b: dial('b-ms', 2600), c: dial('c-ms', 2700), d: dial('d-ms', 2800), e: dial('e-ms', 2300), f: dial('f-ms', 3000), calm: dial('calm-ms', 1100) }[kind]
+  const r = rng(hash(old.key + to))
+  const C = { kind, old, next, pt, tag, ms, pair: match(old.sites, next.sites), rand: old.sites.map(() => r()), far: Math.max(...[[0, 0], [W, 0], [0, H], [W, H]].map(q => Math.hypot(q[0] - pt[0], q[1] - pt[1]))) }
+  CROSS[kind].setup?.(C)
+  makeCard(next); next.card.style.pointerEvents = 'none'
+  const shown = unfold(next, ms * CROSS[kind].arrive)
+  C.t0 = performance.now(); crossing = C
+  setTimeout(() => finish(C), Math.max(ms, shown) + 60)
+}
+function finish(C) {
+  if (crossing !== C) return
+  C.old.card.remove(); C.old.cap.remove()
+  cur = C.next; crossing = null; busy = false; delete root.dataset.crossing
+  cur.card.style.pointerEvents = ''
+  history.replaceState(null, '', `?x=${X}&w=${cur.key}`)
+  document.querySelectorAll('nav a[data-x]').forEach(a => a.href = `?x=${a.dataset.x}&w=${cur.key}`)
+  warm()
+}
+function warm() { setTimeout(() => cur.card.querySelectorAll('.door').forEach(a => photo(a.dataset.to)), 400) } // the doors' worlds, ready before they are asked for
+
+cur = { key: START }; shapeWorld(cur); cur.img = await photo(START); makeCard(cur); unfold(cur, 0); warm()
+document.fonts.load('italic 300 40px Fraunces').catch(() => {})
+requestAnimationFrame(frame)
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(async () => { if (busy) return; size(); shapeWorld(cur); cur.img = await photo(cur.key)
+  const k = cur; k.card.remove(); k.cap.remove(); makeCard(k); k.card.querySelectorAll('.ln').forEach(l => l.classList.add('shown')) }, 250) })
+
+/* for the checker: the cut, and how the canvas reads (mean, spread, how much is bare seam) */
+window.S22 = { get busy() { return busy }, get world() { return cur && cur.key }, get t() { return crossing ? crossing.t : null }, worlds: WORLDS, x: X,
+  get cells() { return cur.cells.length }, get edges() { return cur.cells.flatMap(P => P.map((a, i) => { const b = P[(i + 1) % P.length]; return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2] })).filter(([x, y]) => x > 3 && y > 3 && x < W - 3 && y < H - 3) },
+  read() { const w = 96, h = Math.round(96 * H / W), c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); x.drawImage(cv, 0, 0, w, h)
+    const p = x.getImageData(0, 0, w, h).data; let s = 0, s2 = 0, dark = 0; const n = w * h
+    for (let i = 0; i < p.length; i += 4) { const l = (p[i] * .2126 + p[i + 1] * .7152 + p[i + 2] * .0722) / 255; s += l; s2 += l * l; if (l < .045) dark++ }
+    const m = s / n; return { mean: m, sd: Math.sqrt(Math.max(0, s2 / n - m * m)), bare: dark / n } },
+  at(pts) { const x = g.getImageData(0, 0, cv.width, cv.height).data; return pts.map(([px, py]) => { const i = (Math.round(py * DPR) * cv.width + Math.round(px * DPR)) * 4; return (x[i] * .2126 + x[i + 1] * .7152 + x[i + 2] * .0722) / 255 }) } }
+root.dataset.ready = '1'
+</script>
+</body>
+</html>
