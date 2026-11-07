@@ -311,9 +311,6 @@ POEMS = {
 "hey": (
     ["your breath got caught in my air | breath", "*beat* | the beat"],
     ["we got stuck together somehow | held close", "is that yours or is that mine | falling in love"]),
-"a-house-before-house": (
-    ["with the sun of late | low sun", "there is a greyness but the | grey", "there is an orange tree with | orange"],
-    ["A house, my house, before | home", "In the closet if you hide | hiding", "running on a hill in | play"]),
 }
 
 # photo file stem: (senses words, feelings words)

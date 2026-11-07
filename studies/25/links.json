@@ -1,18 +1,18 @@
 {
  "coverage": {
-  "linked": 203,
-  "of": 203,
-  "internal": 178,
+  "linked": 202,
+  "of": 202,
+  "internal": 177,
   "external": 25,
-  "with_kin": 200,
+  "with_kin": 199,
   "by_kind": {
    "hand": 55,
    "photo": 91,
-   "home": 66,
+   "home": 64,
    "name": 42,
    "page": 14,
    "next": 25,
-   "theme": 86,
+   "theme": 84,
    "year": 23,
    "making": 28
   }
@@ -2356,11 +2356,6 @@
      "id": "row:tufts-university-computer-science-and",
      "kind": "name",
      "why": "London"
-    },
-    {
-     "id": "poem:a-house-before-house",
-     "kind": "theme",
-     "why": "identity · place"
     }
    ]
   },
@@ -5331,31 +5326,6 @@
    ]
   },
   {
-   "id": "poem:a-house-before-house",
-   "making": "poems",
-   "text": "A house before house",
-   "href": "/poems/a-house-before-house.html",
-   "to": "A house before house",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "A house, my house, before",
-    "house, with the sun of late",
-    "afternoon and the warmth of"
-   ],
-   "kin": [
-    {
-     "id": "place:yosemite",
-     "kind": "home",
-     "why": "the home, 9 Oct"
-    },
-    {
-     "id": "poem:london",
-     "kind": "theme",
-     "why": "identity · place"
-    }
-   ]
-  },
-  {
    "id": "lift:photographs",
    "making": "photographs",
    "text": "photographs",
@@ -6155,11 +6125,6 @@
    "how": "the photograph from there is on the photography page (v2/data.json, /photos/yosemite-trail.jpg)",
    "img": "/photos/yosemite-trail.jpg",
    "kin": [
-    {
-     "id": "poem:a-house-before-house",
-     "kind": "home",
-     "why": "the home, 9 Oct"
-    },
     {
      "id": "place:mariposa-grove-yosemite",
      "kind": "name",

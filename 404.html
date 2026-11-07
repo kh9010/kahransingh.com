@@ -18,6 +18,13 @@
   gtag('js', new Date());
   gtag('config', 'G-H63H3KD6WQ');
 </script>
+<script>
+  // Anything missing under the poetry section goes to the poetry page (poems get unpublished when they go out for submission).
+  (function () {
+    var p = location.pathname;
+    if (/^\/(poems|poetry)(\/|\.|$)/.test(p)) location.replace('/poetry.html');
+  })();
+</script>
 </head>
 <body>
     <main>
