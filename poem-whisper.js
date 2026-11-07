@@ -19,8 +19,7 @@
         { line: 'Whose to say we aren\u2019t the moth', href: '/poems/i-was-feeling-sorry-for-a-moth.html' },
         { line: 'Dream, dream dream, little tree', href: '/poems/hark-my-love.html' },
         { line: 'To be alone with the mountains is a special gift', href: '/poems/to-be-alone.html' },
-        { line: 'It was hard to tell which person was being held', href: '/poems/today-i-saw-a-man-on-a-leash.html' },
-        { line: 'His eyes did not know how beautiful he was', href: '/poems/his-hair-was-curly.html' }
+        { line: 'It was hard to tell which person was being held', href: '/poems/today-i-saw-a-man-on-a-leash.html' }
     ];
 
     // Don't run on mobile

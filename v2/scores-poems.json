@@ -88,17 +88,6 @@
    "hour": "night",
    "notes": "Blood's siren song; pain grown past crying"
   },
-  "burned-invitingly": {
-   "light": 0.1,
-   "warmth": 0.35,
-   "wet": 0.15,
-   "stillness": 0.2,
-   "season": 0.4,
-   "inside": 0.1,
-   "mood": 0.05,
-   "hour": "night",
-   "notes": "Scars burn invitingly; kindness a snare; darkest"
-  },
   "california": {
    "light": 0.6,
    "warmth": 0.85,
@@ -285,17 +274,6 @@
    "mood": 0.55,
    "hour": "day",
    "notes": "Long talk with a tree about light and gouges"
-  },
-  "his-hair-was-curly": {
-   "light": 0.35,
-   "warmth": 0.55,
-   "wet": 0.1,
-   "stillness": 0.35,
-   "season": 0.5,
-   "inside": 0.2,
-   "mood": 0.4,
-   "hour": "dusk",
-   "notes": "Portrait: curly hair hides pained eyes"
   },
   "how-can-you-just-be-gone": {
    "light": 0.2,
@@ -1066,17 +1044,6 @@
    "mood": 0.75,
    "hour": "dusk",
    "notes": "Late-afternoon house of saris, orange tree; ends running, peonies"
-  },
-  "purple-dragon": {
-   "light": 0.25,
-   "warmth": 0.2,
-   "wet": 0.9,
-   "stillness": 0.4,
-   "season": 0.15,
-   "inside": 0.5,
-   "mood": 0.1,
-   "hour": "dawn",
-   "notes": "Grey Northwest winter, rushed mornings; dragon killed; shame, rain"
   }
  }
 }
