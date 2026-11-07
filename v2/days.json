@@ -824,6 +824,24 @@
         "wind_kmh": 17.3,
         "cloud_pct": 93
       }
+    },
+    "2026-11-06": {
+      "poem": "blood-oh-once-you-called",
+      "photo": "/photos/fireworks-water.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.7285714285714285,
+        "wet": 0.5,
+        "stillness": 0.72,
+        "season": 0.14023053288370801,
+        "inside": 0.6142857142857143,
+        "mood": 0.5,
+        "weather_code": 61,
+        "tmax": 20.5,
+        "wind_kmh": 11.2,
+        "cloud_pct": 100
+      }
     }
   }
 }
