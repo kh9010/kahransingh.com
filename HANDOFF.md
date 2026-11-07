@@ -30,8 +30,10 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 
   | # | The one question | Ways | Pick / state |
   |---|---|---|---|
-  | 24 | Which vocabulary feels right when you actually travel: the real walk from his picks (20 d in, 17 d arrival, 22 c crossing) | `?vocab=` his · pairs · questions · nouns; `?name=` never · crossing (default) · door | waiting on Kahran. Agent's read: his is the most alive, questions the most intriguing, nouns flattest. Fixed 22 c's faint fringes and 20's black gaps; arrival capped ~5s (`arrive-cap-ms`) |
-  | 25 | 23 c + d as one behaviour | `?v=` a jumps ride the lift · b kin lit in the block · c a column of lifted facts · d kin gathered in the lift | waiting on Kahran. 203 of 206 facts have kin (23 had 86), 1,392 ties each with kind + reason in `links.json`; the Washington DC/state tie from 23 removed. Agent's read: a, then c |
+  | 24 | Which vocabulary feels right when you actually travel: the real walk from his picks (20 d in, 17 d arrival, 22 c crossing) | `?vocab=` his · pairs · questions · nouns; `?name=` never · crossing (default) · door | **Likes it** (7 Nov): "I like it but I want the facets to do something; you should be able to tap those too." Vocab not yet picked → Study 26. Agent's read: his is the most alive, questions the most intriguing, nouns flattest. Fixed 22 c's faint fringes and 20's black gaps; arrival capped ~5s (`arrive-cap-ms`) |
+  | 25 | 23 c + d as one behaviour | `?v=` a jumps ride the lift · b kin lit in the block · c a column of lifted facts · d kin gathered in the lift | **Picked d** (7 Nov): "I love d for 25." → Study 27 (with 19 b's years). 203 of 206 facts have kin (23 had 86), 1,392 ties each with kind + reason in `links.json`; the Washington DC/state tie from 23 removed. Agent's read: a, then c |
+
+  **7 Nov, a phone on its side:** Kahran couldn't pick in 24 ("semi impossible for me to pick with the UX"): on a short landscape screen inside the rail, the poem fell onto the name and weather line. Fixed: 24 has `low()` (short and wide: the poem takes the right half) and the phone layout is upright only; the rail opens a study full screen on a phone or small window. Check studies at 844×390, not only 1440 and 390×844.
 
   Studies 17 d (line by line, doors last) is the arrival in 20 and 22. Unifying 18 d / 23 / 19 b into one About is a later study.
 
