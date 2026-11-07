@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 20</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* Study 20: the stone as the way in. 14 a + c (the photograph and the poem both broken across the facets),
+   and five ways the stone itself opens into the worlds. Every world is the same stone with its poem arriving
+   line by line, doors last (17 d). Numbers live in defaults.json (?tune on studies/tune-server.cjs). */
+:root {
+  --seam: #0d0c0b; --t2: #24221f; --on: #f3efe6; --on2: #c9c3b6;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+  --rimhi: 255,244,222; --rimlo: 0,0,0;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--seam); color: var(--on); overflow: hidden; height: 100%; }
+a { color: inherit; }
+
+#ask { max-width: 640px; padding: 16px; font: 400 .78rem/1.5 var(--sans); background: #fafaf8; color: #1a1a1a; min-height: 100vh; overflow: auto; }
+#ask p { margin: 0 0 4px; } #ask nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#ask nav a { text-decoration: none; border: 1px solid #e0ddd8; border-left: 3px solid #1a1a1a; border-radius: 6px; padding: 8px 10px; background: #fff; }
+#ask nav b { font-weight: 500; }
+body:not([data-v]) #app, body:not([data-v]) .vs { display: none; }
+body[data-v] #ask { display: none; }
+body:not([data-v]) { overflow: auto; background: #fafaf8; }
+
+#app { position: fixed; inset: 0; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+body[data-v="c"] #app, body[data-v="d"] #app { touch-action: none; }
+#layers { position: absolute; inset: 0; }
+.layer { position: absolute; inset: 0; }
+.stone { position: absolute; inset: 0; overflow: hidden; }
+
+/* a facet */
+.s { position: absolute; inset: 0; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+     transform-origin: var(--ox) var(--oy);
+     transform: perspective(1600px) translate(var(--px, 0px), var(--py, 0px)) rotateX(var(--rx, 0deg)) rotateY(calc(var(--ry, 0deg) + var(--turn, 0deg))) scale(var(--k, 1));
+     filter: brightness(var(--bri, 1)); }
+.s .rim { position: absolute; background: linear-gradient(var(--ang, 135deg), rgba(var(--rimhi), var(--rim, .3)) 0%, rgba(var(--rimhi), 0) 50%, rgba(var(--rimlo), 0) 55%, rgba(var(--rimlo), var(--rimd, .3)) 100%); }
+.s .in { position: absolute; inset: 0; background: var(--t2); }
+.s .in > * { position: absolute; }
+.s img { display: block; max-width: none; }
+.s.mono img { filter: grayscale(1) contrast(1.06) brightness(.94); }
+.s .sheen { pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(var(--ang, 135deg), rgba(255,250,240,var(--lit, .2)) 0%, rgba(255,250,240,0) 46%, rgba(0,0,0,var(--shade, .2)) 100%); }
+.s .glint { inset: 0; pointer-events: none; mix-blend-mode: screen;
+  background: radial-gradient(circle at var(--gx) var(--gy), rgba(255,246,228,var(--g, 0)) 0, rgba(255,246,228,0) 22vmax); }
+.s.glimpse img { transition: filter .5s var(--ease); }
+.s.glimpse.near img { filter: grayscale(.2) brightness(1.04) !important; }
+.s .scrim { inset: 0; pointer-events: none; }
+
+/* the poem: drawn in every facet it crosses (each a little off, so it breaks at the seams); read and pressed on .read */
+.verse { font: 300 18px/1.5 var(--serif); color: var(--on); overflow: hidden; text-shadow: 0 1px 2px rgba(0,0,0,.35), 0 1px 16px rgba(0,0,0,.7); }
+.verse h2 { margin: 0 0 .7em; font: italic 400 1.22em/1.25 var(--serif); }
+.verse h2 a { text-decoration: none; }
+.verse .l { display: block; text-indent: -1em; padding-left: 1em; transition: opacity calc(var(--line-ms, 320) * 2ms) var(--ease); }
+.verse .gap { display: block; height: .7em; }
+.verse .door { text-decoration: none; }
+.layer.world .s .door, .layer.carving .s .door { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .28em;
+  text-decoration-color: rgba(243,239,230,var(--door-alpha, .22)); transition: text-decoration-color .2s var(--ease); }
+.s .door.lit { text-decoration-color: rgba(243,239,230,.85) !important; }
+.layer.carving .s .door { text-decoration: none; }
+.s.carvedf img { filter: grayscale(1) brightness(1.5) contrast(.5) sepia(.12) !important; }
+.s.carvedf .sc { display: none; }
+.s.carvedf .verse { color: #4a453d; text-shadow: 0 1px 0 rgba(255,252,245,.5); }
+.s.carvedf .door.carved { color: #16130f; text-shadow: 0 -1px 0 rgba(0,0,0,.45), 0 1px 0 rgba(255,252,245,.9); }
+.s.carvedf .rim { opacity: 1; filter: brightness(1.6); }
+.arriving .verse .l, .arriving .verse h2 { opacity: 0; }
+.arriving .verse .l.shown, .arriving .verse h2.shown { opacity: 1; }
+.verse h2 { transition: opacity calc(var(--line-ms, 320) * 2ms) var(--ease); }
+
+.read { position: absolute; z-index: 4; }
+.read .verse { color: transparent; text-shadow: none; position: absolute; user-select: text; -webkit-user-select: text; touch-action: pan-y; }
+.layer:not(:last-child) .read, .layer:not(:last-child) .read * { pointer-events: none !important; }
+.read .verse.scroll { overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.read .verse.scroll::-webkit-scrollbar { display: none; }
+.read .door { pointer-events: none; outline: none; border-radius: 2px; }
+.layer.world .read .door, .layer.carving .read .door { pointer-events: auto; cursor: pointer; }
+.read .door:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
+.arriving .read .l:not(.shown) .door, .arriving .read h2:not(.shown) a { pointer-events: none !important; }
+.gl { position: absolute; z-index: 3; background: none; border: 0; padding: 0; cursor: pointer; border-radius: 4px; }
+.gl:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: -6px; }
+body[data-v="c"] #app, body[data-v="d"] #app { cursor: default; }
+
+/* the mat: name, where he is, the way out */
+.s .in > .sc { inset: 0; pointer-events: none;
+  background: linear-gradient(20deg, rgba(8,8,7,calc(var(--scrim-alpha, .72) * .9)) 0%, rgba(8,8,7,0) 38%),
+              linear-gradient(270deg, rgba(8,8,7,var(--scrim-alpha, .72)) 0%, rgba(8,8,7,calc(var(--scrim-alpha, .72) * .7)) 32%, rgba(8,8,7,0) 52%); }
+header { position: fixed; z-index: 9; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); max-width: 34ch; pointer-events: none; color: #ede7d9; }
+header h1 { margin: 0; font: 500 1.15rem/1 var(--sans); letter-spacing: .01em; }
+header h1 a { text-decoration: none; pointer-events: auto; }
+header p { margin: 10px 0 14px; font: italic 300 1.0625rem/1.4 var(--serif); opacity: .86; }
+header p:empty { display: none; }
+header nav { pointer-events: auto; display: flex; flex-wrap: wrap; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+header nav a { color: var(--on2); text-decoration: none; transition: color .2s var(--ease); }
+header nav a:hover, header nav a:focus-visible { color: #fff; }
+.cap { position: fixed; z-index: 9; right: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); margin: 0; font: 400 .7rem/1.5 var(--sans); letter-spacing: .012em; color: var(--on2); text-align: right; pointer-events: none; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.vs { position: fixed; top: 10px; right: 10px; z-index: 20; display: flex; gap: 2px; font: 400 .72rem/1 var(--sans); }
+.vs a { text-decoration: none; color: var(--on2); padding: 5px 7px; border-radius: 6px; }
+.vs a[aria-current] { color: #ede7d9; background: rgba(127,127,127,.22); }
+@media (max-width: 640px) {
+  .s .in > .sc { background: linear-gradient(0deg, rgba(8,8,7,var(--scrim-alpha, .72)) 0%, rgba(8,8,7,calc(var(--scrim-alpha, .72) * .8)) 48%, rgba(8,8,7,0) 66%); }
+  header { left: 16px; right: 16px; bottom: 16px; max-width: none; }
+  header p { margin: 6px 0 10px; font-size: .95rem; }
+  .cap { left: 16px; right: auto; top: 14px; bottom: auto; text-align: left; }
+}
+</style>
+</head>
+<body>
+<div id="ask">
+  <p><b>20 · The stone is the way in.</b> 14 a + c: today's photograph and poem broken across the stone. Five ways the stone itself opens into the worlds; each ends inside one, its poem arriving line by line, doors last (17 d).</p>
+  <nav><a href="?v=a"><b>a</b> glimpses</a><a href="?v=b"><b>b</b> carved doors</a><a href="?v=c"><b>c</b> the stone turns</a><a href="?v=d"><b>d</b> pressing in</a><a href="?v=e"><b>e</b> the stone re-cuts</a></nav>
+</div>
+<div id="app">
+  <div id="layers"></div>
+  <header id="mat">
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where"></p>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a><a href="/#flow">tools</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+</div>
+<nav class="vs" aria-label="Study 20 variants"><a href="?v=a">a</a><a href="?v=b">b</a><a href="?v=c">c</a><a href="?v=d">d</a><a href="?v=e">e</a></nav>
+<script src="tune.js"></script>
+<script src="../14/today.js"></script>
+<script type="module">
+import { Delaunay } from 'https://cdn.jsdelivr.net/npm/d3-delaunay@6/+esm'
+
+addEventListener('unhandledrejection', e => console.error('unhandled: ' + (e.reason && e.reason.stack || e.reason)))
+const Q = new URLSearchParams(location.search), V = Q.get('v')
+if (/^[a-e]$/.test(V || '')) start()
+
+async function start() {
+document.body.dataset.v = V
+document.querySelectorAll('.vs a').forEach(a => a.getAttribute('href') === '?v=' + V && a.setAttribute('aria-current', 'page'))
+const T = await window.S20T
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+const num = (k, f) => { const x = parseFloat(T[k]); return Number.isFinite(x) ? x : f }
+const $ = s => document.querySelector(s)
+const layersEl = $('#layers'), app = $('#app'), mat = $('#mat'), cap = $('#cap')
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+const phone = () => innerWidth < 640
+await Promise.race([Promise.all(['300 18px Fraunces', 'italic 400 18px Fraunces', '400 16px "Space Grotesk"'].map(f => document.fonts.load(f))), sleep(3000)]) // the poem is measured in its own face, or it wraps differently once Fraunces lands
+const [ctx, DJ] = await Promise.all([S14.load($('#where')), fetch('../15/doors.json').then(r => r.json())])
+const VOC = DJ.vocabs.senses // the doors as Study 15 left them; Study 21 is re-drawing them
+const data = ctx.data, stanzasOf = ctx.stanzasOf
+
+/* ---------- small geometry (14's) ---------- */
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+function hash(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0 }
+function centroid(p) { let a = 0, x = 0, y = 0; for (let i = 0; i < p.length; i++) { const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length], c = x0 * y1 - x1 * y0; a += c; x += (x0 + x1) * c; y += (y0 + y1) * c } a *= .5; return a ? [x / (6 * a), y / (6 * a)] : p[0] }
+const area = p => Math.abs(p.reduce((a, [x0, y0], i) => { const [x1, y1] = p[(i + 1) % p.length]; return a + x0 * y1 - x1 * y0 }, 0) / 2)
+const NV = 20
+function shape(p, inset) { const c = centroid(p)
+  let q = p.map(([x, y]) => { const dx = c[0] - x, dy = c[1] - y, d = Math.hypot(dx, dy) || 1, k = Math.min(inset / d, .5); return [x + dx * k, y + dy * k] })
+  let s = 0; q.forEach(([x, y], i) => { if (y < q[s][1]) s = i }); q = q.slice(s).concat(q.slice(0, s))
+  while (q.length < NV) q.push(q[q.length - 1]); return q.slice(0, NV) }
+const poly = q => `polygon(${q.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`
+const bbox = p => { const xs = p.map(a => a[0]), ys = p.map(a => a[1]), x = Math.min(...xs), y = Math.min(...ys); return [x, y, Math.max(...xs) - x, Math.max(...ys) - y] }
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+const scaleAbout = (p, [cx, cy], k) => p.map(([x, y]) => [cx + (x - cx) * k, cy + (y - cy) * k])
+function inner(p, c) { const [, , bw, bh] = bbox(p)
+  for (let k = .9; k > .2; k -= .04) { const w = bw * k, h = bh * k, x = c[0] - w / 2, y = c[1] - h / 2
+    if ([[x, y], [x + w, y], [x, y + h], [x + w, y + h]].every(pt => inPoly(pt, p))) return [x, y, w, h] }
+  return [c[0] - 20, c[1] - 20, 40, 40] }
+const voronoi = (S, w, h) => { const v = Delaunay.from(S).voronoi([0, 0, w, h]); return S.map((_, i) => (v.cellPolygon(i) || []).slice(0, -1)) }
+function hitsRect(p, [x, y, w, h], pad = 0) { // does the cell overlap the rectangle
+  x -= pad; y -= pad; w += 2 * pad; h += 2 * pad
+  if (p.some(([a, b]) => a >= x && a <= x + w && b >= y && b <= y + h)) return true
+  for (let i = 0; i <= 6; i++) for (let j = 0; j <= 6; j++) if (inPoly([x + w * i / 6, y + h * j / 6], p)) return true
+  return false }
+const ease = u => u < .5 ? 4 * u * u * u : 1 - (-2 * u + 2) ** 3 / 2
+function tween(ms, f, e = ease) { return new Promise(res => { const t0 = performance.now(); let done = false
+  const step = t => { if (done) return; const u = Math.min(1, (t - t0) / ms); f(e(u)); if (u < 1) requestAnimationFrame(step); else { done = true; res() } }
+  requestAnimationFrame(step); setTimeout(() => { if (!done) { done = true; f(1); res() } }, ms + 400) }) } // the clock always lands it
+
+/* ---------- worlds and their doors ---------- */
+const photoBy = src => data.photos.find(p => p.src === src), poemBy = slug => data.poems.find(p => p.slug === slug)
+const keyOf = w => w.poem.slug + '~' + w.photo.src.replace('/photos/', '')
+function worldOf(key) { const [s, f] = String(key || '').split('~'); const poem = poemBy(s), photo = photoBy('/photos/' + f); return poem && photo ? { poem, photo } : null }
+function target(w, word) { // a door carries its word to another poem and another photograph that share it
+  const W = VOC.words.find(x => x.word === word) || { poems: [], photos: [] }, h = hash(w.poem.slug + '|' + word)
+  const ps = W.poems.filter(s => s !== w.poem.slug && poemBy(s)), fs = W.photos.filter(s => s !== w.photo.src && photoBy(s))
+  return { poem: ps.length ? poemBy(ps[h % ps.length]) : data.poems[h % data.poems.length], photo: fs.length ? photoBy(fs[(h >>> 7) % fs.length]) : data.photos[(h >>> 7) % data.photos.length], word }
+}
+const doorsOf = w => { const ls = stanzasOf(w.poem).flat() // only lines the poem actually shows (the home drops a first line that repeats the title)
+  return (VOC.poems[w.poem.slug] || []).map((d, k) => ({ ...d, k, to: target(w, d.word) })).filter(d => ls.some(l => l.includes(d.phrase))) }
+
+/* ---------- a layer: one world as a stone ---------- */
+function verseEl(w, doors, mode) {
+  const v = document.createElement('div'); v.className = 'verse'
+  const h = document.createElement('h2'), a = document.createElement('a'); a.href = '/poems/' + w.poem.slug + '.html'; a.textContent = w.poem.title; h.append(a); v.append(h)
+  let i = 0; const used = new Set()
+  stanzasOf(w.poem).forEach((st, si) => {
+    if (si) v.append(Object.assign(document.createElement('span'), { className: 'gap' }))
+    st.forEach(t => { const l = document.createElement('span'); l.className = 'l'; l.dataset.i = i++
+      const d = doors.find(d => !used.has(d.k) && t.includes(d.phrase))
+      if (d) { used.add(d.k); const at = t.indexOf(d.phrase), door = document.createElement('a')
+        door.className = 'door'; door.dataset.k = d.k; door.href = '?v=' + V + '&w=' + encodeURIComponent(keyOf(d.to)); door.textContent = d.phrase
+        if (mode !== 'world' && !(mode === 'home' && V === 'b')) door.tabIndex = -1
+        l.dataset.door = ''; l.append(t.slice(0, at), door, t.slice(at + d.phrase.length)) }
+      else l.textContent = t
+      v.append(l) }) })
+  v._used = used; return v
+}
+function poemRect() { const W = innerWidth, H = innerHeight
+  if (phone()) { const top = Math.round(H * .34), bottom = H - mat.offsetHeight - 34; return [16, top, W - 32, Math.max(160, bottom - top)] }
+  const w = Math.min(440, W * .36), right = Math.max(32, W * .06), top = Math.round(H * .13); return [W - w - right, top, w, H * .74] }
+function fit(v, w, h) { const max = num('poem-max-px', 18), min = num('poem-min-px', 13)
+  Object.assign(v.style, { width: w + 'px', height: 'auto' }); v.classList.remove('scroll')
+  let px = max; v.style.fontSize = px + 'px'
+  while (v.scrollHeight > h && px > min) { px = Math.max(min, px - .5); v.style.fontSize = px + 'px' }
+  v.style.height = Math.min(h, v.scrollHeight) + 'px'
+  if (v.scrollHeight > h + 1) { v.classList.add('scroll'); v.style.height = h + 'px' }
+}
+function plant(r, W, H, count, fixed = [], fixedGap = []) {
+  const S = fixed.map(p => [...p]), min = Math.min(W, H)
+  const add = (x, y, gap) => { if (x < 2 || y < 2 || x > W - 2 || y > H - 2) return; if (S.some(([a, b], i) => Math.hypot(a - x, b - y) < (i < fixed.length ? Math.max(gap, fixedGap[i]) : gap))) return; S.push([x, y]) }
+  const hero = phone() ? [W * .5, H * .2] : [W * .36, H * .44], ax = phone() ? W * .36 : W * .17, ay = phone() ? H * .12 : H * .24
+  add(hero[0], hero[1], min * .12)
+  const n1 = phone() ? 6 : 8, rot = r() * Math.PI * 2
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16; add(hero[0] + Math.cos(t) * ax, hero[1] + Math.sin(t) * ay, min * .1) }
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3; add(hero[0] + Math.cos(t) * ax * 1.9, hero[1] + Math.sin(t) * ay * 1.9, min * .1) }
+  for (let k = 0; k < 900 && S.length < count; k++) add(r() * W, r() * H, min * .12)
+  for (let k = 0; k < 900 && S.length < count; k++) add(r() * W, r() * H, min * .04)
+  return S.slice(0, Math.max(count, fixed.length))
+}
+const pending = new Set()
+function Layer(w, o = {}) { // o: mode 'home'|'world', glimpses [world], sites, normals
+  const W = innerWidth, H = innerHeight, mode = o.mode || 'world', r = rng(hash(keyOf(w) + '|' + V + '|' + W))
+  const el = document.createElement('div'); el.className = 'layer ' + mode + (mode === 'home' && V === 'b' ? ' carving' : '')
+  const stone = document.createElement('div'); stone.className = 'stone'; stone.setAttribute('aria-hidden', 'true')
+  const read = document.createElement('div'); read.className = 'read'
+  const all = doorsOf(w), v = verseEl(w, all, mode), doors = all.filter(d => v._used.has(d.k)); read.append(v); el.append(stone, read); layersEl.append(el)
+  const R = poemRect(); Object.assign(v.style, { left: R[0] + 'px', top: R[1] + 'px' }); fit(v, R[2], R[3])
+  if (phone()) { R[1] = R[1] + R[3] - v.offsetHeight; v.style.top = R[1] + 'px' } // on the phone the poem sits down on the name, in the shade
+  const rr = v.getBoundingClientRect(), PR = [R[0], R[1], rr.width, rr.height]
+  // b: each door line gets a facet of its own, centred on it
+  const fixed = [], fixedGap = [], carvedAt = {}
+  if (mode === 'home' && V === 'b') v.querySelectorAll('.door').forEach(a => { const b = a.getClientRects()[0]; if (!b) return
+    carvedAt[a.dataset.k] = fixed.length; fixed.push([b.left + b.width / 2, b.top + b.height / 2]); fixedGap.push(Math.max(phone() ? 80 : 120, b.width * (phone() ? .7 : .9))) })
+  if (mode === 'home' && V === 'b') { const lh = parseFloat(v.style.fontSize) * 1.5, doorsAt = fixed.slice() // a bezel round each carved line keeps its plate close to it
+    v.querySelectorAll('.door').forEach(a => { const b = a.getClientRects()[0]; if (!b) return
+      const c = [b.left + b.width / 2, b.top + b.height / 2], rx = Math.max(b.width * 1.1 + 24, 90), ry = lh * 2.3
+      for (let k = 0; k < 6; k++) { const t = k / 6 * Math.PI * 2 + Math.PI / 6, q = [c[0] + Math.cos(t) * rx, c[1] + Math.sin(t) * ry]
+        if (doorsAt.some(d => d !== c && Math.hypot(d[0] - q[0], (d[1] - q[1]) * 2) < ry * 1.6 && !(d[0] === c[0] && d[1] === c[1]))) continue
+        fixed.push(q); fixedGap.push(36) } }) }
+  if (mode === 'home' && V === 'b' && phone()) { const m = mat.getBoundingClientRect(); for (let k = 0; k < 4; k++) { fixed.push([W * (k + .5) / 4, m.top + 30]); fixedGap.push(40) } } // keep the plates off the name
+  if (o.glimpses && o.glimpses.length && phone()) for (let k = 0; k < 5; k++) { fixed.push([W * (k + .5) / 5, R[1] - 6]); fixedGap.push(40) } // a row along the poem's top edge, so the facets above it stay clear of the poem
+  const count = Math.round(phone() ? num('facets-phone', 15) : num('facets-desk', 26))
+  const sites = o.sites || plant(r, W, H, count, fixed, fixedGap), geo = voronoi(sites, W, H), seam = num('seam-px', .8), refr = num('refract-px', 5)
+  // a, e: some facets away from the poem hold the worlds behind it
+  const glimpseAt = new Map()
+  if (o.glimpses && o.glimpses.length) {
+    const mr = mat.getBoundingClientRect(), MR = [mr.left, mr.top, mr.width, mr.height], vr = $('.vs').getBoundingClientRect()
+    const cand = geo.map((p, i) => [i, p]).filter(([i, p]) => p.length > 2 && i > 0 && !hitsRect(p, PR, 14) && !hitsRect(p, MR, 8) && !hitsRect(p, [vr.left, vr.top, vr.width, vr.height], 4) && !(phone() && hitsRect(p, [0, 0, W, 44])))
+      .sort((a, b) => area(b[1]) - area(a[1]))
+    const picked = []
+    for (const [i, p] of cand) { if (picked.length >= o.glimpses.length) break
+      const c = centroid(p); if (picked.some(j => Math.hypot(...centroid(geo[j]).map((x, d) => x - c[d])) < Math.min(W, H) * .18)) continue; picked.push(i) }
+    picked.forEach((i, n) => glimpseAt.set(i, o.glimpses[n]))
+  }
+  const facets = geo.map((p, i) => {
+    const f = document.createElement('div'); f.className = 's'
+    const inn = document.createElement('div'); inn.className = 'in'
+    const rim = document.createElement('div'); rim.className = 'rim'
+    const sheen = document.createElement('div'); sheen.className = 'sheen'
+    const glint = document.createElement('div'); glint.className = 'glint'
+    f.append(rim, inn); stone.append(f)
+    const n = o.normals ? o.normals[i] : [(r() - .5) * .9, (r() - .5) * .9], gw = glimpseAt.get(i), shown = gw || w
+    const F = { el: f, inn, p, n, i, world: gw || null, quiet: false }
+    if (p.length < 3) { f.style.clipPath = 'polygon(0 0,0 0,0 0)'; return F }
+    const c = centroid(p), [x, y, bw, bh] = bbox(p); F.c = c
+    f.style.clipPath = poly(shape(p, seam)); inn.style.clipPath = poly(shape(p, seam * 3))
+    f.style.setProperty('--ox', c[0] + 'px'); f.style.setProperty('--oy', c[1] + 'px')
+    for (const e of [rim, sheen]) Object.assign(e.style, { left: x + 'px', top: y + 'px', width: bw + 'px', height: bh + 'px' })
+    F.img = photoImg(inn, shown.photo, n, refr, gw ? num('glimpse-dim', .72) : 0); inn.append(Object.assign(document.createElement('div'), { className: 'sc' }), sheen) // the shade and the light fall on the stone, under the words
+    if (gw || /Monochrome/.test(shown.photo.caption)) f.classList.add('mono')
+    if (gw) f.classList.add('glimpse')
+    if (!gw && hitsRect(p, PR, 4)) { const cl = v.cloneNode(true); cl.querySelectorAll('a').forEach(a => { a.removeAttribute('href'); a.removeAttribute('tabindex') })
+      cl.style.left = R[0] + n[0] * refr + 'px'; cl.style.top = R[1] + n[1] * refr + 'px'; cl.classList.remove('scroll'); inn.append(cl); F.clone = cl }
+    if (Object.values(carvedAt).includes(i)) { f.classList.add('carvedf'); const k = Object.keys(carvedAt).find(k => carvedAt[k] === i); F.carved = k; F.clone && F.clone.querySelector(`.door[data-k="${k}"]`)?.classList.add('carved') }
+    inn.append(glint)
+    return F
+  })
+  v.addEventListener('scroll', () => facets.forEach(F => F.clone && (F.clone.scrollTop = v.scrollTop)))
+  // doors light in every facet they cross
+  v.querySelectorAll('.door').forEach(a => { const lit = on => el.querySelectorAll(`.s .door[data-k="${a.dataset.k}"]`).forEach(d => d.classList.toggle('lit', on))
+    a.addEventListener('pointerenter', () => lit(true)); a.addEventListener('pointerleave', () => lit(false)); a.addEventListener('focus', () => lit(true)); a.addEventListener('blur', () => lit(false)) })
+  // keyboard and a plain target for each glimpse
+  facets.filter(F => F.world).forEach(F => { const b = document.createElement('button'); b.type = 'button'; b.className = 'gl'; b.setAttribute('aria-label', F.world.poem.title)
+    const [x, y, bw, bh] = inner(F.p, F.c); Object.assign(b.style, { left: x + 'px', top: y + 'px', width: bw + 'px', height: bh + 'px' })
+    b.addEventListener('click', e => { e.stopPropagation(); glimpse(F) }); b.addEventListener('pointerenter', () => F.el.classList.add('near')); b.addEventListener('pointerleave', () => F.el.classList.remove('near'))
+    el.append(b) })
+  return { el, stone, read, v, facets, sites, w, doors, mode, PR }
+}
+function photoImg(host, photo, n, refr, dim) { // the picture covers the screen in its own shape, never object-fit, a little off per facet
+  const img = new Image(); img.decoding = 'async'; img.alt = ''; img.src = photo.src; img.style.visibility = 'hidden'
+  const place = () => { const W = innerWidth, H = innerHeight, a = img.naturalWidth / img.naturalHeight; if (!a) return
+    const [iw, ih] = W / H > a ? [W + 2 * refr, (W + 2 * refr) / a] : [(H + 2 * refr) * a, H + 2 * refr]
+    Object.assign(img.style, { left: (W - iw) / 2 + n[0] * refr + 'px', top: (H - ih) / 2 + n[1] * refr + 'px', width: iw + 'px', height: ih + 'px', visibility: '' }) }
+  img.onload = place; if (img.complete) place()
+  if (dim) img.style.filter = `grayscale(1) brightness(${dim})`
+  host.append(img); return img
+}
+
+/* ---------- light: the cursor is a low lamp over the cut (05 B); unattended, the sun walks ---------- */
+let L = null, Tg = [innerWidth * .7, innerHeight * .2], lastMove = -1e9, layers = []
+addEventListener('pointermove', e => { Tg = [e.clientX, e.clientY]; lastMove = performance.now()
+  if (cur && cur.mode === 'home') cur.facets.forEach(F => F.world && F.el.classList.toggle('near', !!F.c && inPoly(Tg, F.p))) })
+function light(t) {
+  const still = reduce()
+  if (!still && performance.now() - lastMove > 4000) { const a = t / 26000; Tg = [innerWidth * (.5 + .38 * Math.cos(a)), innerHeight * (.42 + .3 * Math.sin(a * 1.3))] }
+  if (!L) L = [...Tg]
+  L[0] += (Tg[0] - L[0]) * .05; L[1] += (Tg[1] - L[1]) * .05
+  const Z = Math.max(innerWidth, innerHeight) * .55, lamp = num('lamp-lit', .6), gl = num('glint-alpha', .3), tilt = still ? 0 : num('tilt-deg', 1.4)
+  for (const ly of layers) for (const F of ly.facets) {
+    if (!F.c) continue
+    let dx = L[0] - F.c[0], dy = L[1] - F.c[1]; const d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
+    const nz = Math.sqrt(Math.max(0, 1 - F.n[0] ** 2 - F.n[1] ** 2)), dot = F.n[0] * dx + F.n[1] * dy + nz * (Z / d)
+    const s = F.el.style, k = Math.max(0, Math.min(1, (dot - .55) / .45)), q = F.clone ? .55 : 1
+    s.setProperty('--lit', ((.04 + k * lamp) * q).toFixed(3)); s.setProperty('--shade', ((.5 - k * .46) * q).toFixed(3))
+    s.setProperty('--rim', (.12 + k * .8).toFixed(3)); s.setProperty('--rimd', (.5 - k * .4).toFixed(3))
+    s.setProperty('--ang', (Math.atan2(-dy - F.n[1] * .6, -dx - F.n[0] * .6) * 180 / Math.PI + 90).toFixed(1) + 'deg')
+    const g = Math.max(0, 1 - Math.hypot(dx * .9 - F.n[0], dy * .9 - F.n[1]) * 2.2) * (F.carved != null ? 1.8 : 1)
+    s.setProperty('--g', (g * g * gl * q).toFixed(3)); s.setProperty('--gx', (L[0] + F.n[0] * 120) + 'px'); s.setProperty('--gy', (L[1] + F.n[1] * 120) + 'px')
+    s.setProperty('--rx', (-dy * tilt * q).toFixed(2) + 'deg'); s.setProperty('--ry', (dx * tilt * q).toFixed(2) + 'deg')
+  }
+  requestAnimationFrame(light)
+}
+
+/* ---------- the arrival (17 d): line by line, the doors last; nothing moves ---------- */
+let arrivalRun = 0
+async function arrive(ly) {
+  const run = ++arrivalRun, el = ly.el
+  if (reduce()) { el.classList.remove('arriving'); el.dataset.arrived = '1'; return }
+  const show = sel => el.querySelectorAll(sel).forEach(e => e.classList.add('shown'))
+  await sleep(num('arrive-delay-ms', 500)); if (run !== arrivalRun) return
+  show('.verse h2')
+  const lines = [...ly.v.querySelectorAll('.l')], plain = lines.filter(l => !('door' in l.dataset)), doors = lines.filter(l => 'door' in l.dataset)
+  const step = num('line-ms', 320)
+  for (const l of plain) { await sleep(step); if (run !== arrivalRun) return; show(`.l[data-i="${l.dataset.i}"]`) }
+  await sleep(num('door-pause-ms', 700))
+  for (const l of doors) { await sleep(step); if (run !== arrivalRun) return; show(`.l[data-i="${l.dataset.i}"]`) }
+  el.dataset.arrived = '1'
+}
+
+/* ---------- state ---------- */
+let cur = null, busy = false
+const at = s => { document.body.dataset.at = s }
+function setWorld(ly) { cur = ly; document.body.dataset.poem = ly.w.poem.slug; document.body.dataset.photo = ly.w.photo.src; cap.textContent = ly.w.photo.caption || '' }
+function landed(next, old) {
+  if (old) { old.el.remove(); layers = layers.filter(l => l !== old) }
+  next.el.style.cssText = ''; next.el.getAnimations().forEach(a => a.cancel())
+  setWorld(next); busy = false; at('world')
+  history.pushState({ k: keyOf(next.w) }, '', '?v=' + V + '&w=' + encodeURIComponent(keyOf(next.w)))
+  arrive(next)
+}
+function newWorld(w, o = {}) { const ly = Layer(w, { mode: 'world', ...o }); ly.el.classList.add('arriving'); layers.push(ly); return ly }
+window.S20 = { get at() { return document.body.dataset.at }, get busy() { return busy }, get layers() { return layers.length }, expect: null,
+  get world() { return cur && { poem: cur.w.poem.slug, photo: cur.w.photo.src, title: cur.w.poem.title } }, get cur() { return cur }, keyOf }
+
+// a plain crossfade: the one crossing inside the worlds (crossings are Study 22's question), and every entrance under reduced motion
+async function calm(w) {
+  if (busy) return; busy = true; at('entering'); S20.expect = keyOf(w)
+  const old = cur, next = newWorld(w); next.el.style.opacity = 0
+  old.read.style.pointerEvents = 'none'
+  await tween(num('cross-ms', 1200), u => { next.el.style.opacity = u; old.el.style.opacity = 1 - u })
+  landed(next, old)
+}
+// the world comes out of a facet: its shape grows until it is the whole screen (a, b)
+async function openFrom(F, w) {
+  if (busy) return; if (reduce()) return calm(w)
+  busy = true; at('entering'); S20.expect = keyOf(w)
+  const old = cur, next = newWorld(w), c = F.c, W = innerWidth, H = innerHeight
+  const reach = Math.max(...[[0, 0], [W, 0], [0, H], [W, H]].map(q => Math.hypot(q[0] - c[0], q[1] - c[1]))) / Math.max(8, Math.min(...F.p.map(q => Math.hypot(q[0] - c[0], q[1] - c[1])))) * 1.25
+  old.read.style.pointerEvents = 'none'; old.el.querySelectorAll('.gl').forEach(b => b.remove())
+  const ms = num('open-ms', 1500)
+  next.el.animate([{ clipPath: poly(shape(F.p, 0)) }, { clipPath: poly(shape(scaleAbout(F.p, c, reach), 0)) }], { duration: ms, easing: 'cubic-bezier(.7,0,.2,1)', fill: 'both' })
+  old.el.animate([{ opacity: 1, filter: 'brightness(1)' }, { opacity: 1, filter: 'brightness(.55)' }], { duration: ms, fill: 'both' })
+  await sleep(ms + 40); landed(next, old)
+}
+function glimpse(F) { if (!F || !F.world || busy || !cur || cur.mode !== 'home') return; if (V === 'a') openFrom(F, F.world); if (V === 'e') recut(F) }
+
+/* e · the stone re-cuts around the world you touched; the glimpse becomes the centre of the next cut */
+async function recut(F) {
+  if (busy) return; if (reduce()) return calm(F.world)
+  busy = true; at('entering'); S20.expect = keyOf(F.world)
+  const old = cur, w = F.world, W = innerWidth, H = innerHeight, r = rng(hash(keyOf(w) + '|' + V + '|' + W))
+  const ns = plant(r, W, H, old.sites.length).slice(0, old.sites.length)
+  while (ns.length < old.sites.length) ns.push([r() * W, r() * H])
+  const used = new Set([F.i]), perm = [F.i] // the glimpse turns into the new centre; every other facet travels to its nearest new place
+  for (let j = 1; j < ns.length; j++) { let best = -1, bd = Infinity
+    old.sites.forEach((s, i) => { if (used.has(i)) return; const d = Math.hypot(s[0] - ns[j][0], s[1] - ns[j][1]); if (d < bd) { bd = d; best = i } }); used.add(best); perm.push(best) }
+  const geo = voronoi(ns, W, H), seam = num('seam-px', .8), ms = num('recut-ms', 1800), stag = num('recut-stagger-ms', 700), refr = num('refract-px', 5)
+  old.read.style.pointerEvents = 'none'; old.el.querySelectorAll('.gl').forEach(b => b.remove())
+  old.read.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ms * .3, fill: 'both' })
+  perm.forEach((i, j) => { const O = old.facets[i], p = geo[j]; if (!O.c || p.length < 3) return
+    const d = Math.hypot(O.c[0] - F.c[0], O.c[1] - F.c[1]) / Math.hypot(W, H), delay = d * stag
+    O.el.animate([{ clipPath: O.el.style.clipPath }, { clipPath: poly(shape(p, seam)) }], { duration: ms, delay, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'both' })
+    O.inn.animate([{ clipPath: O.inn.style.clipPath }, { clipPath: poly(shape(p, seam * 3)) }], { duration: ms, delay, easing: 'cubic-bezier(.6,0,.2,1)', fill: 'both' })
+    const img = photoImg(O.inn, w.photo, O.n, refr, 0); O.inn.insertBefore(img, O.img.nextSibling)
+    if (!/Monochrome/.test(w.photo.caption)) O.el.classList.remove('mono'); else O.el.classList.add('mono')
+    img.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms * .55, delay: delay + ms * .2, fill: 'both' })
+    if (O.clone) O.clone.animate([{ opacity: 1 }, { opacity: 0 }], { duration: ms * .3, fill: 'both' }) })
+  await sleep(ms + stag + 60)
+  const next = newWorld(w, { sites: ns, normals: perm.map(i => old.facets[i].n) })
+  landed(next, old)
+}
+
+/* c · the stone turns: the next world is on the backs of the same facets. Drag to turn it (either way, a different door), or just touch it */
+let turning = null
+function turnTo(p) { const { old, next, dir } = turning, sp = num('turn-spread', .7), W = innerWidth
+  old.facets.forEach((F, i) => { const N = next.facets[i]; if (!F.c) return
+    const x = dir < 0 ? 1 - F.c[0] / W : F.c[0] / W, q = Math.max(0, Math.min(1, p * (1 + sp) - sp * x))
+    F.el.style.setProperty('--turn', (q < .5 ? q * 180 * -dir : 90) + 'deg'); F.el.style.visibility = q < .5 ? '' : 'hidden'
+    if (N) { N.el.style.setProperty('--turn', (q >= .5 ? (q - 1) * 180 * -dir : -90) + 'deg'); N.el.style.visibility = q >= .5 ? '' : 'hidden' } })
+  turning.p = p }
+function turnStart(dir) {
+  if (busy || !cur || cur.mode !== 'home') return null
+  const d = cur.doors.length ? cur.doors[dir < 0 || cur.doors.length < 2 ? 0 : 1] : null; if (!d) return null
+  busy = true; at('entering'); S20.expect = keyOf(d.to)
+  const old = cur, next = newWorld(d.to, { sites: old.sites, normals: old.facets.map(F => F.n) })
+  layersEl.insertBefore(next.el, old.el); old.read.style.pointerEvents = 'none'
+  turning = { old, next, dir, p: 0 }; turnTo(0); return turning
+}
+async function turnEnd(go) {
+  const t = turning; if (!t) return
+  const from = t.p, to = go ? 1 : 0, ms = num('turn-ms', 1600) * Math.abs(to - from)
+  await tween(Math.max(1, ms), u => turnTo(from + (to - from) * u))
+  turning = null
+  if (go) { t.next.facets.forEach(N => { N.el.style.removeProperty('--turn'); N.el.style.visibility = '' }); landed(t.next, t.old) }
+  else { t.next.el.remove(); layers = layers.filter(l => l !== t.next); t.old.facets.forEach(F => { F.el.style.removeProperty('--turn'); F.el.style.visibility = '' }); t.old.read.style.pointerEvents = ''; busy = false; at('stone') }
+}
+
+/* d · pressing in: the stone gives under the finger, its seams open onto the world beneath; let go early and it comes back */
+let pressing = null
+function pressTo(d, g = 0) { const { old, pt } = pressing, W = innerWidth, H = innerHeight, m = Math.min(W, H), sink = num('press-sink', .16), push = num('press-push-px', 28)
+  old.facets.forEach(F => { if (!F.c) return
+    const dx = F.c[0] - pt[0], dy = F.c[1] - pt[1], dist = Math.hypot(dx, dy) || 1, fall = Math.exp(-dist / (m * .55)), s = F.el.style
+    const off = push * d * (.35 + fall)
+    s.setProperty('--px', (dx / dist * off).toFixed(1) + 'px'); s.setProperty('--py', (dy / dist * off).toFixed(1) + 'px')
+    s.setProperty('--k', ((1 - sink * d * (.4 + fall)) * (1 - .45 * g)).toFixed(4)); s.setProperty('--bri', (1 - .42 * d * fall).toFixed(3))
+    s.opacity = String(1 - Math.min(1, g * (1.4 - fall * .6))) })
+  old.read.style.opacity = String(1 - d) }
+function pressStart(pt) {
+  if (busy || !cur || cur.mode !== 'home') return
+  let best = cur.doors[0], bd = Infinity // the world beneath is the one behind the door line nearest the finger
+  cur.v.querySelectorAll('.door').forEach(a => { const b = a.getBoundingClientRect(), dd = Math.hypot(b.left + b.width / 2 - pt[0], b.top + b.height / 2 - pt[1]); if (dd < bd) { bd = dd; best = cur.doors.find(d => String(d.k) === a.dataset.k) } })
+  if (!best) return
+  if (reduce()) return calm(best.to)
+  busy = true; at('entering'); S20.expect = keyOf(best.to)
+  const old = cur, next = newWorld(best.to); layersEl.insertBefore(next.el, old.el); old.read.style.pointerEvents = 'none'
+  pressing = { old, next, pt, d: 0, t0: performance.now(), held: true, run: 0 }
+  const ms = num('press-ms', 1100), t0 = performance.now()
+  const step = () => { if (!pressing || !pressing.held) return; const d = Math.min(1, (performance.now() - t0) / ms); pressing.d = d; pressTo(ease(d)); if (d >= 1) giveWay(); else requestAnimationFrame(step) }
+  requestAnimationFrame(step)
+}
+async function pressUp() {
+  const p = pressing; if (!p || !p.held) return; p.held = false
+  if (performance.now() - p.t0 < num('press-tap-ms', 260)) { const from = p.d; await tween(num('press-ms', 1100) * (1 - from), u => pressTo(ease(from + (1 - from) * u))); return giveWay() }
+  const from = p.d; await tween(500, u => pressTo(ease(from) * (1 - u)))
+  p.next.el.remove(); layers = layers.filter(l => l !== p.next); p.old.read.style.pointerEvents = ''; p.old.read.style.opacity = ''
+  p.old.facets.forEach(F => { for (const k of ['--px', '--py', '--k', '--bri']) F.el.style.removeProperty(k); F.el.style.opacity = '' })
+  pressing = null; busy = false; at('stone')
+}
+async function giveWay() { const p = pressing; if (!p || p.gave) return; p.gave = true; p.held = false
+  await tween(num('fall-ms', 900), u => pressTo(1, u), u => u * u)
+  pressing = null; landed(p.next, p.old) }
+
+/* ---------- input ---------- */
+let down = null
+app.addEventListener('pointerdown', e => {
+  if (e.button > 0 || e.target.closest('header,.vs,a,button') || !cur || cur.mode !== 'home') return
+  if (V === 'c') down = { x: e.clientX, y: e.clientY, id: e.pointerId, moved: false }
+  if (V === 'd') { pressStart([e.clientX, e.clientY]); try { app.setPointerCapture(e.pointerId) } catch {} }
+})
+app.addEventListener('pointermove', e => {
+  if (V !== 'c' || !down || e.pointerId !== down.id) return
+  const dx = e.clientX - down.x
+  if (!down.moved && Math.abs(dx) > 8) { down.moved = true; if (!reduce()) { try { app.setPointerCapture(e.pointerId) } catch {} turnStart(Math.sign(dx)) } }
+  if (turning && down.moved) turnTo(Math.max(0, Math.min(1, dx * turning.dir / (innerWidth * num('turn-reach', .45)))))
+})
+const up = e => {
+  if (V === 'd') return pressUp()
+  if (V !== 'c' || !down) return
+  const d = down; down = null
+  if (!d.moved) { if (reduce()) { const x = cur && cur.doors[0]; return x && calm(x.to) } if (turnStart(-1)) turnEnd(true); return }
+  if (turning) turnEnd(turning.p > .3)
+}
+app.addEventListener('pointerup', up); app.addEventListener('pointercancel', e => { if (V === 'd') pressUp(); else if (turning) { down = null; turnEnd(false) } })
+app.addEventListener('click', e => {
+  if (busy && e.target.closest('#layers a')) return e.preventDefault() // mid-way in, a second touch goes nowhere
+  const a = e.target.closest('.read .door')
+  if (a && cur && !busy) { e.preventDefault()
+    const d = cur.doors.find(d => String(d.k) === a.dataset.k); if (!d) return
+    if (cur.mode === 'home' && V === 'b') return openFrom(cur.facets.find(F => F.carved === a.dataset.k) || cur.facets[0], d.to)
+    if (cur.mode === 'world') return calm(d.to)
+    return }
+  if (cur && cur.mode === 'home' && (V === 'a' || V === 'e')) { const F = cur.facets.find(F => F.world && F.c && inPoly([e.clientX, e.clientY], F.p)); if (F) glimpse(F) }
+})
+addEventListener('keydown', e => {
+  if (!cur || cur.mode !== 'home' || busy || e.target.closest?.('a,button,input')) return
+  if (V === 'c' && ['ArrowLeft', 'ArrowRight', 'Enter', ' '].includes(e.key)) { e.preventDefault(); if (reduce()) return calm(cur.doors[0].to); if (turnStart(e.key === 'ArrowRight' ? 1 : -1)) turnEnd(true) }
+  if (V === 'd' && ['Enter', ' '].includes(e.key)) { e.preventDefault(); pressStart([innerWidth / 2, innerHeight / 2]); pressUp() }
+})
+addEventListener('popstate', () => location.reload())
+
+/* ---------- the home stone ---------- */
+function home() {
+  layersEl.textContent = ''; layers = []
+  const today = { poem: ctx.poem, photo: ctx.photo }, ds = doorsOf(today)
+  let glimpses = null
+  if (V === 'a') glimpses = ds.map(d => d.to)
+  if (V === 'e') { const seen = new Set([keyOf(today)]); glimpses = []
+    for (const d of ds) { if (!seen.has(keyOf(d.to))) { seen.add(keyOf(d.to)); glimpses.push(d.to) } }
+    for (const d of ds) for (const d2 of doorsOf(d.to)) if (!seen.has(keyOf(d2.to)) && glimpses.length < (phone() ? 5 : 8)) { seen.add(keyOf(d2.to)); glimpses.push(d2.to) } }
+  const ly = Layer(today, { mode: 'home', glimpses }); layers.push(ly); setWorld(ly); at('stone')
+}
+const direct = worldOf(Q.get('w'))
+if (direct) { const ly = newWorld(direct); setWorld(ly); at('world'); arrive(ly) } else home()
+requestAnimationFrame(light)
+let rz = 0, lastWH = innerWidth + 'x' + innerHeight
+const rebuild = () => { if (busy) return; if (cur.mode === 'home') home(); else { layersEl.textContent = ''; const ly = newWorld(cur.w); layers = [ly]; setWorld(ly); ly.el.classList.remove('arriving'); ly.el.dataset.arrived = '1' } }
+addEventListener('resize', () => { const wh = innerWidth + 'x' + innerHeight; if (wh === lastWH) return; lastWH = wh; clearTimeout(rz); rz = setTimeout(rebuild, 250) })
+document.addEventListener('s20:tune', rebuild)
+document.body.dataset.ready = 'yes'
+}
+</script>
+</body>
+</html>

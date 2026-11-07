@@ -1,0 +1,2687 @@
+{
+ "coverage": {
+  "linked": 206,
+  "of": 206,
+  "internal": 181,
+  "external": 25,
+  "with_see": 86
+ },
+ "checked": "2026-11-06",
+ "facts": [
+  {
+   "id": "lift:poems",
+   "making": "poems",
+   "text": "poems",
+   "href": "/poetry.html",
+   "to": "Poetry",
+   "how": "the making's own page (07: all the poems)",
+   "see": []
+  },
+  {
+   "id": "row:mfa-candidate-in-writing-and",
+   "making": "poems",
+   "text": "MFA candidate in Writing and Poetics at the Jack Kerouac School, Naropa University.",
+   "href": "https://en.wikipedia.org/wiki/Jack_Kerouac_School_of_Disembodied_Poetics",
+   "to": "Wikipedia",
+   "how": "fetched 200, title names the Jack Kerouac School; naropa.edu/academics/jks/ redirects to the university home, so not used",
+   "see": []
+  },
+  {
+   "id": "row:how-the-world-works-a",
+   "making": "poems",
+   "text": "How the World Works, a first book of poems.",
+   "href": "https://www.amazon.com/How-World-Works-Kahran-Singh/dp/9395621354",
+   "to": "amazon.com",
+   "how": "linked from cv.html and archive.html; fetched 200",
+   "see": []
+  },
+  {
+   "id": "poem:a-conversation-among-birds",
+   "making": "poems",
+   "text": "A conversation among birds",
+   "href": "/poems/a-conversation-among-birds.html",
+   "to": "A conversation among birds",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "a conversation among birds",
+    "Are you satisfied this morning / That’s a long sentence / Hark, here comes the dawn / that quiet scythe will slay this rural landscape"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:a-wedding-toast",
+   "making": "poems",
+   "text": "A Wedding Toast",
+   "href": "/poems/a-wedding-toast.html",
+   "to": "A Wedding Toast",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "All I know, my friends",
+    "Is that terrible heartbreak",
+    "I would feel"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:an-ode-to-aspens",
+   "making": "poems",
+   "text": "An Ode to Aspens",
+   "href": "/poems/an-ode-to-aspens.html",
+   "to": "An Ode to Aspens",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To me,",
+    "They’ve always been silent soldiers",
+    "Fighting against the slow erosion to entropy"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:and-now-that-we-walk",
+   "making": "poems",
+   "text": "And Now That We Walk in These Days of Light",
+   "href": "/poems/and-now-that-we-walk.html",
+   "to": "And Now That We Walk in These Days of Light",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "And now that we walk in these days of light",
+    "Let the sun shine on our path"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:anuraag-oh-anuraag",
+   "making": "poems",
+   "text": "Anuraag oh Anuraag",
+   "href": "/poems/anuraag-oh-anuraag.html",
+   "to": "Anuraag oh Anuraag",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Anuraag oh Anuraag",
+    "Tell me where will you go?",
+    "You are caught and snared"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:ariel",
+   "making": "poems",
+   "text": "ariel",
+   "href": "/poems/ariel.html",
+   "to": "ariel",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I'm sorry",
+    "i loved you once",
+    "and my love"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:blood-oh-once-you-called",
+   "making": "poems",
+   "text": "Blood Oh Once You Called to Me",
+   "href": "/poems/blood-oh-once-you-called.html",
+   "to": "Blood Oh Once You Called to Me",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Blood oh once you called to me",
+    "A siren song of betrayal",
+    "A defiance"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:burned-invitingly",
+   "making": "poems",
+   "text": "Burned Invitingly",
+   "href": "/poems/burned-invitingly.html",
+   "to": "Burned Invitingly",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "He feels weird, hearing those words.",
+    "The pit grows in his stomach",
+    "and the scars on his wrist burn invitingly."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:california",
+   "making": "poems",
+   "text": "California",
+   "href": "/poems/california.html",
+   "to": "California",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "California",
+    "There is a strange haze over the valley",
+    "It reminds me of home"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:dear-bottle",
+   "making": "poems",
+   "text": "Dear Bottle",
+   "href": "/poems/dear-bottle.html",
+   "to": "Dear Bottle",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I hope you are having a nice adventure without me"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:delicate-pieces-before-the-end",
+   "making": "poems",
+   "text": "Delicate pieces before the end",
+   "href": "/poems/delicate-pieces-before-the-end.html",
+   "to": "Delicate pieces before the end",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To find beauty",
+    "In a streetcar",
+    "Or a bus"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:did-you-know",
+   "making": "poems",
+   "text": "Did You Know There Are Spiders with Only 5 Legs",
+   "href": "/poems/did-you-know.html",
+   "to": "Did You Know There Are Spiders with Only 5 Legs",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Did you know there are spiders with only 5 legs",
+    "I met one this morning",
+    "the time when the bulbuls duet with the sparrows"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:do-you-miss-me",
+   "making": "poems",
+   "text": "Do You Miss Me",
+   "href": "/poems/do-you-miss-me.html",
+   "to": "Do You Miss Me",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Do you miss me",
+    "Now that I hide",
+    "my heart"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:everyday-i-can-spend",
+   "making": "poems",
+   "text": "Everyday I Can Spend",
+   "href": "/poems/everyday-i-can-spend.html",
+   "to": "Everyday I Can Spend",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Everyday I can spend",
+    "in the company of those whom I love",
+    "I count a day thankful."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:everytime-you-wink-at-me",
+   "making": "poems",
+   "text": "Everytime you wink at me",
+   "href": "/poems/everytime-you-wink-at-me.html",
+   "to": "Everytime you wink at me",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Everytime you wink at me",
+    "I wonder if my heart skipped a beat",
+    "Or if I just forgot to breath"
+   ],
+   "see": [
+    "film:everytime-you-wink-at-me"
+   ]
+  },
+  {
+   "id": "poem:everywhere-i-turn",
+   "making": "poems",
+   "text": "Everywhere I Turn",
+   "href": "/poems/everywhere-i-turn.html",
+   "to": "Everywhere I Turn",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Everywhere I turn",
+    "In the flutter of the leaves and the remembrance of your laugh",
+    "Everywhere I turn"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:falling-in-love",
+   "making": "poems",
+   "text": "Falling in love with who I am vs who I could be",
+   "href": "/poems/falling-in-love.html",
+   "to": "Falling in love with who I am vs who I could be",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Falling in love with who I am",
+    "Is like the air",
+    "You can breath"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:freedom-yet-unabridged",
+   "making": "poems",
+   "text": "Freedom, Yet Unabridged",
+   "href": "/poems/freedom-yet-unabridged.html",
+   "to": "Freedom, Yet Unabridged",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "As my feet flew over",
+    "the expanse",
+    "Grey and long before me,"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:glass-houses",
+   "making": "poems",
+   "text": "Glass Houses",
+   "href": "/poems/glass-houses.html",
+   "to": "Glass Houses",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Glass houses",
+    "We take so much time",
+    "To build our houses"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:guadalajara",
+   "making": "poems",
+   "text": "Guadalajara",
+   "href": "/poems/guadalajara.html",
+   "to": "Guadalajara",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I feel blood and strife and fear",
+    "In this soil",
+    "I feel worry"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:hark-my-love",
+   "making": "poems",
+   "text": "Hark, My Love!",
+   "href": "/poems/hark-my-love.html",
+   "to": "Hark, My Love!",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Hark, my love!",
+    "It’s a little tree",
+    "onto that hillside"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:have-you-ever-seen",
+   "making": "poems",
+   "text": "Have you ever seen",
+   "href": "/poems/have-you-ever-seen.html",
+   "to": "Have you ever seen",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Have you ever seen",
+    "Something so beautiful",
+    "As the world reflected in drops of dew"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:have-you-watched-creepers-creep",
+   "making": "poems",
+   "text": "Have you watched creepers creep",
+   "href": "/poems/have-you-watched-creepers-creep.html",
+   "to": "Have you watched creepers creep",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Come watch creepers creep",
+    "See this dedication!"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:hey-you-there-hey-you-here",
+   "making": "poems",
+   "text": "Hey you there, hey you here",
+   "href": "/poems/hey-you-there-hey-you-here.html",
+   "to": "Hey you there, hey you here",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "hey you there",
+    "hey you here",
+    "we got stuck together somehow"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:hey-you-tree-there",
+   "making": "poems",
+   "text": "Hey you tree there",
+   "href": "/poems/hey-you-tree-there.html",
+   "to": "Hey you tree there",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Hey you tree there it’s nice to see you today I didn’t know you knew so much about height and heights — I knew you knew about growth but it was only when I started to talk to this one part of you it told me about how we are always thinking about heights.",
+    "And how most of you doesn’t have to worry about heights — most of you gets to just grow and do its thing, be growing and be taller. Be trying to be ever taller. Responsible for the height, but not for worrying about it just growth growth growth."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:his-hair-was-curly",
+   "making": "poems",
+   "text": "His hair was curly",
+   "href": "/poems/his-hair-was-curly.html",
+   "to": "His hair was curly",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "His hair was curly, and it smiled when he did.",
+    "His heart was too shy to let it relax, so it danced, motionless, and kept you from looking in his eyes.",
+    "His eyes were arresting, and chiseled by shadows. Makeup or fatigue, who could tell?"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:how-can-you-just-be-gone",
+   "making": "poems",
+   "text": "How Can You Just Be Gone",
+   "href": "/poems/how-can-you-just-be-gone.html",
+   "to": "How Can You Just Be Gone",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "How can you just be gone",
+    "That’s it",
+    "That’s the one by one"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-feel-sad-about-endings",
+   "making": "poems",
+   "text": "I feel sad about endings",
+   "href": "/poems/i-feel-sad-about-endings.html",
+   "to": "I feel sad about endings",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I feel sad about endings",
+    "It's in the existential sort of sad",
+    "Like when it's too humid for your hair"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-left-my-heart-at-home-today",
+   "making": "poems",
+   "text": "I left my heart at home today",
+   "href": "/poems/i-left-my-heart-at-home-today.html",
+   "to": "I left my heart at home today",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I left my heart at home today",
+    "and without heart",
+    "the chest feels strange"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-listen",
+   "making": "poems",
+   "text": "I Listen",
+   "href": "/poems/i-listen.html",
+   "to": "I Listen",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Is it better to know this is your last goodbye",
+    "Mutter words of encouragement",
+    "Suggestions of forlorn strength"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-saw-something-beautiful-today",
+   "making": "poems",
+   "text": "I saw something beautiful today",
+   "href": "/poems/i-saw-something-beautiful-today.html",
+   "to": "I saw something beautiful today",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I saw something beautiful today",
+    "It gives me shivers to think of it",
+    "For to let yourself see beauty"
+   ],
+   "see": [
+    "film:i-saw-something-beautiful-today"
+   ]
+  },
+  {
+   "id": "poem:i-was-feeling-sorry-for-a-moth",
+   "making": "poems",
+   "text": "I Was Feeling Sorry for a Moth",
+   "href": "/poems/i-was-feeling-sorry-for-a-moth.html",
+   "to": "I Was Feeling Sorry for a Moth",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I was feeling sorry for a moth,",
+    "Or flying ant,",
+    "Some creature without full understanding of its wings"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-watch-my-hair",
+   "making": "poems",
+   "text": "I watch my hair",
+   "href": "/poems/i-watch-my-hair.html",
+   "to": "I watch my hair",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I watch my hair",
+    "Turn golden",
+    "In the reflection of my eyes"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-watched-a-butterfly-today",
+   "making": "poems",
+   "text": "I watched a butterfly today",
+   "href": "/poems/i-watched-a-butterfly-today.html",
+   "to": "I watched a butterfly today",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I watched a butterfly today",
+    "It was beautiful and orange",
+    "And had a certain way about it"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-will-always-be-a-poet",
+   "making": "poems",
+   "text": "I Will Always Be a Poet",
+   "href": "/poems/i-will-always-be-a-poet.html",
+   "to": "I Will Always Be a Poet",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I will always be a poet",
+    "Without my hands I will be a poet",
+    "If you sand away my finger tips I will be a poet"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:in-my-heart-something-called-to-the-rain",
+   "making": "poems",
+   "text": "In my heart something called to the rain",
+   "href": "/poems/in-my-heart-something-called-to-the-rain.html",
+   "to": "In my heart something called to the rain",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "In my heart something called to the rain",
+    "It had always called to the rain",
+    "In days before and days past"
+   ],
+   "see": [
+    "film:in-my-heart-something-called-to-the-rain"
+   ]
+  },
+  {
+   "id": "poem:it-used-to-be-me",
+   "making": "poems",
+   "text": "it used to be me",
+   "href": "/poems/it-used-to-be-me.html",
+   "to": "it used to be me",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "it used to be",
+    "it used to be me",
+    "writhing under you"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:its-funny",
+   "making": "poems",
+   "text": "one year on",
+   "href": "/poems/its-funny.html",
+   "to": "one year on",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "It’s funny",
+    "Being apart from you",
+    "My husband"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:kashmir",
+   "making": "poems",
+   "text": "Kashmir",
+   "href": "/poems/kashmir.html",
+   "to": "Kashmir",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "As I look and wonder",
+    "‘Has such a thing been seen before’",
+    "I search"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:large-objects",
+   "making": "poems",
+   "text": "Large objects exert a gravitational pull",
+   "href": "/poems/large-objects.html",
+   "to": "Large objects exert a gravitational pull",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Large objects exert a gravitational pull",
+    "The issue arises when the connection between objects start to exert its own gravitational pull",
+    "That thing which binds you to them is now alive with its own force"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:late-why-so-late",
+   "making": "poems",
+   "text": "Late why so late",
+   "href": "/poems/late-why-so-late.html",
+   "to": "Late why so late",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Late why so late.",
+    "Maybe we should have gone to the airport instead of napping.",
+    "But done."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:let-tomorrow-come",
+   "making": "poems",
+   "text": "Let tomorrow come",
+   "href": "/poems/let-tomorrow-come.html",
+   "to": "Let tomorrow come",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Let tomorrow come for today has no brother",
+    "Let tomorrow come for today has no cousin",
+    "Let tomorrow come for that fear and heart of mine"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:london",
+   "making": "poems",
+   "text": "London",
+   "href": "/poems/london.html",
+   "to": "London",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "There’s a coldness in the air",
+    "I, me, mine! does not remember,",
+    "From this place"
+   ],
+   "see": [
+    "row:tufts-university-computer-science-and"
+   ]
+  },
+  {
+   "id": "poem:mama",
+   "making": "poems",
+   "text": "Mama",
+   "href": "/poems/mama.html",
+   "to": "Mama",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Mama was what we called him",
+    "Because Masseur always seemed to harsh",
+    "Too far away a relation"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:memories-of-tomorrow",
+   "making": "poems",
+   "text": "Memories of tomorrow",
+   "href": "/poems/memories-of-tomorrow.html",
+   "to": "Memories of tomorrow",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I wonder,",
+    "will This be,",
+    "when I, tomorrow,"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:my-friend-who-died",
+   "making": "poems",
+   "text": "my friend who died",
+   "href": "/poems/my-friend-who-died.html",
+   "to": "my friend who died",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "My friend who died",
+    "It's too bad",
+    "English has no imperfect"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:not-in-my-life",
+   "making": "poems",
+   "text": "Not in my life",
+   "href": "/poems/not-in-my-life.html",
+   "to": "Not in my life",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "you can try to talk to me all you want",
+    "I will not speak to you",
+    "Not in my life"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:oh-that-again",
+   "making": "poems",
+   "text": "Oh that again I might see such beauty in my life",
+   "href": "/poems/oh-that-again.html",
+   "to": "Oh that again I might see such beauty in my life",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Oh that again I might see such beauty in my life",
+    "As a single flower",
+    "Opened and yet unmarked"
+   ],
+   "see": [
+    "art:poems"
+   ]
+  },
+  {
+   "id": "poem:oh-the-horror-i-say",
+   "making": "poems",
+   "text": "Oh the horror I say",
+   "href": "/poems/oh-the-horror-i-say.html",
+   "to": "Oh the horror I say",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Oh the horror I say",
+    "A finger on nicely chopped",
+    "Upon the cutting board"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:one-beautiful-moment",
+   "making": "poems",
+   "text": "One Beautiful Moment",
+   "href": "/poems/one-beautiful-moment.html",
+   "to": "One Beautiful Moment",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "One beautiful moment",
+    "Where you don’t have to decide anything",
+    "You don’t have to do anything"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:one-in-community",
+   "making": "poems",
+   "text": "One in community community community",
+   "href": "/poems/one-in-community.html",
+   "to": "One in community community community",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "One in a community or a community or a community",
+    "A Community speaks: Bataille tells us it is in death we find our people interchangeable.",
+    "In death we reveal their individuality."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:out-of-many-one",
+   "making": "poems",
+   "text": "Out of Many, One",
+   "href": "/poems/out-of-many-one.html",
+   "to": "Out of Many, One",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Out of many, one",
+    "Out of one, many."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:out-to-play-he-calls-them",
+   "making": "poems",
+   "text": "Out to play He calls them",
+   "href": "/poems/out-to-play-he-calls-them.html",
+   "to": "Out to play He calls them",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Out to play He calls them",
+    "One, two, they come in a line",
+    "Chasing, what else?"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:park",
+   "making": "poems",
+   "text": "Park",
+   "href": "/poems/park.html",
+   "to": "Park",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I whisper to you",
+    "A story of today",
+    "Blond girls"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:platitudes-of-suffering",
+   "making": "poems",
+   "text": "Platitudes of Suffering",
+   "href": "/poems/platitudes-of-suffering.html",
+   "to": "Platitudes of Suffering",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "For it is only in death,",
+    "that we shall lay down our Labors,",
+    "our Arms."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:sit-let-us-listen",
+   "making": "poems",
+   "text": "Sit let us listen to the sound of this moment",
+   "href": "/poems/sit-let-us-listen.html",
+   "to": "Sit let us listen to the sound of this moment",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Sit let us listen to the sound of this moment",
+    "Watch the game board",
+    "See the leaves"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:social-media-is-not-the-right-place-for-grief",
+   "making": "poems",
+   "text": "Social media is not the right place for grief",
+   "href": "/poems/social-media-is-not-the-right-place-for-grief.html",
+   "to": "Social media is not the right place for grief",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Social media is not the right place for grief",
+    "Some other place is more right",
+    "Maybe some place profound"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:sometimes-curious-feel",
+   "making": "poems",
+   "text": "sometimes, a curious feel",
+   "href": "/poems/sometimes-curious-feel.html",
+   "to": "sometimes, a curious feel",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "There's a curious feel we feel, sometimes",
+    "It's a light pressure on the nose",
+    "A gentle warm pushing down"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:sometimes-i-feel-cold",
+   "making": "poems",
+   "text": "sometimes I feel cold",
+   "href": "/poems/sometimes-i-feel-cold.html",
+   "to": "sometimes I feel cold",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Sometimes",
+    "I feel cold when I think",
+    "Sometimes"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:sometimes-i-listen-to-these-poets",
+   "making": "poems",
+   "text": "Sometimes I listen to these poets",
+   "href": "/poems/sometimes-i-listen-to-these-poets.html",
+   "to": "Sometimes I listen to these poets",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Sometimes I listen to these poets",
+    "go on and on",
+    "about"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:sometimes-quaver",
+   "making": "poems",
+   "text": "sometimes, the whole field a'quaver",
+   "href": "/poems/sometimes-quaver.html",
+   "to": "sometimes, the whole field a'quaver",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Sometimes to watch the whole field a'quaver",
+    "Is to see leaves dancing a tiny dance",
+    "Feet so fast a'flutter"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:song-of-tomorrow",
+   "making": "poems",
+   "text": "Song of Tomorrow",
+   "href": "/poems/song-of-tomorrow.html",
+   "to": "Song of Tomorrow",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Sing to me, oh, Song of Tomorrow",
+    "Tell me the stories you once told",
+    "Of disasters foreshadowed"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:teental",
+   "making": "poems",
+   "text": "Teental",
+   "href": "/poems/teental.html",
+   "to": "Teental",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "teental",
+    "ta comes the first step, to greet sum and kiss it goodbye, assure it the cycle begins again",
+    "te comes the second step, likely alone in the sound scape, a perfect quarter away from the beat to come"
+   ],
+   "see": [
+    "row:learning-kathak-from-rachna-nivas"
+   ]
+  },
+  {
+   "id": "poem:the-light-sings",
+   "making": "poems",
+   "text": "The Light Sings to Me in the Morning",
+   "href": "/poems/the-light-sings.html",
+   "to": "The Light Sings to Me in the Morning",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "the light sings to me in the morning",
+    "coos, really, a feather’s brush against my ears.",
+    "drrrrrrrrrrrrrrum, drrrrrrrrrum, drrrrrum."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:the-mist",
+   "making": "poems",
+   "text": "The Mist",
+   "href": "/poems/the-mist.html",
+   "to": "The Mist",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "In the morning you can listen to the mist. It dies as it burns, little by little, slow by slow.",
+    "If you sit still and don't move your eyes you can see it fleeing.",
+    "It runs from the invading sun, hoping, wondering,"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:the-sun-kissed-the-mountains",
+   "making": "poems",
+   "text": "The sun kissed the mountains",
+   "href": "/poems/the-sun-kissed-the-mountains.html",
+   "to": "The sun kissed the mountains",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "The sun kissed the mountains",
+    "And by its sly caress",
+    "Peaks in harsh repose"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:there-comes-a-point",
+   "making": "poems",
+   "text": "There Comes a Point",
+   "href": "/poems/there-comes-a-point.html",
+   "to": "There Comes a Point",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "There comes a point one chooses death.",
+    "And at that point,",
+    "You die."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:there-is-a-soft-tingle",
+   "making": "poems",
+   "text": "There Is a Soft Tingle I Feel",
+   "href": "/poems/there-is-a-soft-tingle.html",
+   "to": "There Is a Soft Tingle I Feel",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "There is a soft tingle I feel",
+    "When grounded",
+    "Into the trees"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:these-days-are-gone",
+   "making": "poems",
+   "text": "These Days Are Gone",
+   "href": "/poems/these-days-are-gone.html",
+   "to": "These Days Are Gone",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "these days are gone",
+    "never can they return",
+    "who has hardened?"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:these-water-nymphs",
+   "making": "poems",
+   "text": "These Water Nymphs",
+   "href": "/poems/these-water-nymphs.html",
+   "to": "These Water Nymphs",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "They come up from the River",
+    "Have you ever felt hands",
+    "So soft"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:this-growing-older",
+   "making": "poems",
+   "text": "This growing older",
+   "href": "/poems/this-growing-older.html",
+   "to": "This growing older",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "This growing older",
+    "Wondering",
+    "If this goodbye is the last"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:thrum-thrum",
+   "making": "poems",
+   "text": "thrum thrum",
+   "href": "/poems/thrum-thrum.html",
+   "to": "thrum thrum",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "thrum thrum",
+    "what brings you to excitement today",
+    "my liege"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:time-in-a-fig-grove",
+   "making": "poems",
+   "text": "Time in a Fig Grove",
+   "href": "/poems/time-in-a-fig-grove.html",
+   "to": "Time in a Fig Grove",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "And he looked down the Long Years,",
+    "And the Grove grew and grew and grew",
+    "And then faded from view."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:to-be-alone",
+   "making": "poems",
+   "text": "To Be Alone",
+   "href": "/poems/to-be-alone.html",
+   "to": "To Be Alone",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To be alone",
+    "with the mountains",
+    "As different than in the mountains"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:to-flutter",
+   "making": "poems",
+   "text": "To Flutter",
+   "href": "/poems/to-flutter.html",
+   "to": "To Flutter",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To flutter",
+    "Is to act in that moment",
+    "after doing"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:to-know-me",
+   "making": "poems",
+   "text": "To Know Me",
+   "href": "/poems/to-know-me.html",
+   "to": "To Know Me",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To know me",
+    "Is to know joy",
+    "Because I laugh a lot"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:to-see-such-beauty",
+   "making": "poems",
+   "text": "To See Such Beauty",
+   "href": "/poems/to-see-such-beauty.html",
+   "to": "To See Such Beauty",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To see such beauty",
+    "To stand in a field",
+    "Or the side of a road"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:to-touch-in-a-way",
+   "making": "poems",
+   "text": "To touch, in a way",
+   "href": "/poems/to-touch-in-a-way.html",
+   "to": "To touch, in a way",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "To touch",
+    "in a way",
+    "gives remembrance"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:today-birds",
+   "making": "poems",
+   "text": "Today",
+   "href": "/poems/today-birds.html",
+   "to": "Today",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "We are past the morning of the small birds",
+    "Into the morning of the crows",
+    "Or is it ravens"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:today-i-saw-a-man-on-a-leash",
+   "making": "poems",
+   "text": "Today I Saw a Man on a Leash",
+   "href": "/poems/today-i-saw-a-man-on-a-leash.html",
+   "to": "Today I Saw a Man on a Leash",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Today I saw a man on a leash",
+    "Or maybe it was a woman on a leash",
+    "It was hard to tell which person was being held"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:today-i-write-about-red",
+   "making": "poems",
+   "text": "Today I Write About Red",
+   "href": "/poems/today-i-write-about-red.html",
+   "to": "Today I Write About Red",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Today I write about Red",
+    "(not Blue a color so close so dear to near heart I am not sure who I was before I met you)",
+    "But Red."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:today-if-there-is-tomorrow",
+   "making": "poems",
+   "text": "Today If There Is Tomorrow",
+   "href": "/poems/today-if-there-is-tomorrow.html",
+   "to": "Today If There Is Tomorrow",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Today if there is tomorrow",
+    "If there was a day it was tomorrow and if it was tomorrow, it was a day"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:wedding-poem",
+   "making": "poems",
+   "text": "Wedding Poem",
+   "href": "/poems/wedding-poem.html",
+   "to": "Wedding Poem",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Our story began in Sadashivnagar, under orange lights and in empty roads",
+    "A time when the land is very dry, the summer is yet to come, and the rains are yet to start",
+    "By April, we were found, in that brief wisp of spring,"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:when-i-dance-with-you",
+   "making": "poems",
+   "text": "When I Dance with You",
+   "href": "/poems/when-i-dance-with-you.html",
+   "to": "When I Dance with You",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "When I dance with you",
+    "I don’t know where my body ends",
+    "And yours begins"
+   ],
+   "see": [
+    "film:when-i-dance-with-you"
+   ]
+  },
+  {
+   "id": "poem:when-i-laugh",
+   "making": "poems",
+   "text": "When I Laugh",
+   "href": "/poems/when-i-laugh.html",
+   "to": "When I Laugh",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "When I laugh",
+    "with you",
+    "There is this warm glow"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:when-im-not-here",
+   "making": "poems",
+   "text": "When I'm not here",
+   "href": "/poems/when-im-not-here.html",
+   "to": "When I'm not here",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "When I'm not here",
+    "With you",
+    "I miss"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:when-you-watch-the-whales-from-shore",
+   "making": "poems",
+   "text": "When you watch the whales from shore",
+   "href": "/poems/when-you-watch-the-whales-from-shore.html",
+   "to": "When you watch the whales from shore",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "When you watch the whales from shore",
+    "There is a certainty. Anesthesia",
+    "Wonder"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:when-you-were-young",
+   "making": "poems",
+   "text": "When You Were Young",
+   "href": "/poems/when-you-were-young.html",
+   "to": "When You Were Young",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "When you were young",
+    "You got to try on different identities",
+    "To act, to play, to try this face with these people"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:xoxo",
+   "making": "poems",
+   "text": "Xoxo",
+   "href": "/poems/xoxo.html",
+   "to": "Xoxo",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Xoxo",
+    "How lucky am I;",
+    "To be surrounded by;"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:i-came-out",
+   "making": "poems",
+   "text": "I came out",
+   "href": "/poems/i-came-out.html",
+   "to": "I came out",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "In the morning you can listen to the mist. It dies as it burns, little by little, slow by slow.",
+    "If you sit still and don’t move your eyes you can see it fleeing.",
+    "It runs from the invading sun, hoping, wondering,"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:being-loved",
+   "making": "poems",
+   "text": "Being Loved",
+   "href": "/poems/being-loved.html",
+   "to": "Being Loved",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "There is a memory I have a day I once got lost. There have been times I have been truly lost, but this was not a time I was truly lost. This was a time that I was thought to be lost, not by myself, but by the context and situations that I existed in. In my mind, there was a moment of trying a new thing, of doing something fun, or going to go to chase a feeling. It is hazy the way that feelings are remembered in the chasing. It is hazy the way that memories are remembered in the after. I remember the swing. And swinging."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:animals-in-love",
+   "making": "poems",
+   "text": "Animals in Love",
+   "href": "/poems/animals-in-love.html",
+   "to": "Animals in Love",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I watch us eat a piece of meat.",
+    "We are a heathen revealed.",
+    "Base animal instincts."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:wrestle",
+   "making": "poems",
+   "text": "wrestle",
+   "href": "/poems/wrestle.html",
+   "to": "wrestle",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I wrestle with these feelings of badness",
+    "I have done something wrong",
+    "My heart tells me"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:bladder-bag",
+   "making": "poems",
+   "text": "Bladder bag",
+   "href": "/poems/bladder-bag.html",
+   "to": "Bladder bag",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "I, bladder bag, am made cold again, my secret inner fire being doused again, again, again, where did that warmth that surrounded me once go.",
+    "Who she this whale I once was disgorging my contents and purging my sisters to make a slop, what is this soup",
+    "She this whale I once was takes me with a soft hand, speaks gently, makes soft the water and stirs away the hard pieces that come of the night."
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:hey",
+   "making": "poems",
+   "text": "hey",
+   "href": "/poems/hey.html",
+   "to": "hey",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "hey, you there",
+    "hey",
+    "hey you here"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:a-house-before-house",
+   "making": "poems",
+   "text": "A house before house",
+   "href": "/poems/a-house-before-house.html",
+   "to": "A house before house",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "A house, my house, before",
+    "house, with the sun of late",
+    "afternoon and the warmth of"
+   ],
+   "see": []
+  },
+  {
+   "id": "poem:purple-dragon",
+   "making": "poems",
+   "text": "Purple Dragon",
+   "href": "/poems/purple-dragon.html",
+   "to": "Purple Dragon",
+   "how": "the poem’s own page (v2/data.json)",
+   "lines": [
+    "Before the winter, before the string, Dad was always gone in the morning *Kahran come down and have your breakfast Kahran what are you doing Kahran we are running late I am going to count to 3* wrapping a bagel, an egg, an egg inside a bagel in a paper towel and out the door; late to see the drops on the petal of a buttercup revealed by the mist pressed on its way by the rising sun;"
+   ],
+   "see": []
+  },
+  {
+   "id": "lift:photographs",
+   "making": "photographs",
+   "text": "photographs",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the making's own page (07: the photographs)",
+   "see": []
+  },
+  {
+   "id": "place:roma-norte-mexico-city",
+   "making": "photographs",
+   "text": "Roma Norte, Mexico City",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/roma-sidewalk.jpg)",
+   "img": "/photos/roma-sidewalk.jpg",
+   "see": [
+    "place:mexico-city-mexico",
+    "place:sayulita-mexico"
+   ]
+  },
+  {
+   "id": "place:sayulita-nayarit",
+   "making": "photographs",
+   "text": "Sayulita, Nayarit",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/papel-picado.jpg)",
+   "img": "/photos/papel-picado.jpg",
+   "see": [
+    "place:sayulita-mexico"
+   ]
+  },
+  {
+   "id": "place:mt-rainier-washington",
+   "making": "photographs",
+   "text": "Mt Rainier, Washington",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/alpine-lake.jpg)",
+   "img": "/photos/alpine-lake.jpg",
+   "see": [
+    "place:mount-rainier-national-park-washington",
+    "place:san-juan-islands-washington",
+    "place:washington-dc"
+   ]
+  },
+  {
+   "id": "place:fire-island-new-york",
+   "making": "photographs",
+   "text": "Fire Island, New York",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/beach-solitude.jpg)",
+   "img": "/photos/beach-solitude.jpg",
+   "see": []
+  },
+  {
+   "id": "place:cape-cod",
+   "making": "photographs",
+   "text": "Cape Cod",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/buoys-wall.jpg)",
+   "img": "/photos/buoys-wall.jpg",
+   "see": []
+  },
+  {
+   "id": "place:yellowstone",
+   "making": "photographs",
+   "text": "Yellowstone",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/still-lake.jpg)",
+   "img": "/photos/still-lake.jpg",
+   "see": []
+  },
+  {
+   "id": "place:berlin",
+   "making": "photographs",
+   "text": "Berlin",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/concrete-museum.jpg)",
+   "img": "/photos/concrete-museum.jpg",
+   "see": []
+  },
+  {
+   "id": "place:hawaii",
+   "making": "photographs",
+   "text": "Hawaii",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/tree-tunnel.jpg)",
+   "img": "/photos/tree-tunnel.jpg",
+   "see": [
+    "place:big-island-hawaii",
+    "place:puako-hawaii",
+    "place:laupahoehoe-hawaii",
+    "place:hilo-hawaii",
+    "place:hawaii-volcanoes-national-park"
+   ]
+  },
+  {
+   "id": "place:big-island-hawaii",
+   "making": "photographs",
+   "text": "Big Island, Hawaii",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/misty-hillside.jpg)",
+   "img": "/photos/misty-hillside.jpg",
+   "see": [
+    "place:hawaii",
+    "place:puako-hawaii",
+    "place:laupahoehoe-hawaii",
+    "place:hilo-hawaii",
+    "place:hawaii-volcanoes-national-park"
+   ]
+  },
+  {
+   "id": "place:telluride-colorado",
+   "making": "photographs",
+   "text": "Telluride, Colorado",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/kitchen-night.jpg)",
+   "img": "/photos/kitchen-night.jpg",
+   "see": [
+    "row:eloped-with-gourav-in-telluride",
+    "place:crested-butte-colorado"
+   ]
+  },
+  {
+   "id": "place:kerala",
+   "making": "photographs",
+   "text": "Kerala",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/restaurant-night.jpg)",
+   "img": "/photos/restaurant-night.jpg",
+   "see": []
+  },
+  {
+   "id": "place:yosemite",
+   "making": "photographs",
+   "text": "Yosemite",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/yosemite-trail.jpg)",
+   "img": "/photos/yosemite-trail.jpg",
+   "see": [
+    "place:mariposa-grove-yosemite"
+   ]
+  },
+  {
+   "id": "place:goa",
+   "making": "photographs",
+   "text": "Goa",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/scooter-beach.jpg)",
+   "img": "/photos/scooter-beach.jpg",
+   "see": []
+  },
+  {
+   "id": "place:singapore",
+   "making": "photographs",
+   "text": "Singapore",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/singapore-225bdfc9.jpg)",
+   "img": "/photos/singapore-225bdfc9.jpg",
+   "see": []
+  },
+  {
+   "id": "place:sagrada-familia-barcelona",
+   "making": "photographs",
+   "text": "Sagrada Família, Barcelona",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/sagrada-familia-barcelona-e210fc03.jpg)",
+   "img": "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+   "see": []
+  },
+  {
+   "id": "place:kodagu-india",
+   "making": "photographs",
+   "text": "Kodagu, India",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/kodagu-india-346cc700.jpg)",
+   "img": "/photos/kodagu-india-346cc700.jpg",
+   "see": []
+  },
+  {
+   "id": "place:crested-butte-colorado",
+   "making": "photographs",
+   "text": "Crested Butte, Colorado",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/crested-butte-colorado-8ada8f57.jpg)",
+   "img": "/photos/crested-butte-colorado-8ada8f57.jpg",
+   "see": [
+    "place:telluride-colorado"
+   ]
+  },
+  {
+   "id": "place:puako-hawaii",
+   "making": "photographs",
+   "text": "Puako, Hawaiʻi",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/puako-hawaii-98409f6b.jpg)",
+   "img": "/photos/puako-hawaii-98409f6b.jpg",
+   "see": [
+    "place:hawaii",
+    "place:big-island-hawaii",
+    "place:laupahoehoe-hawaii",
+    "place:hilo-hawaii",
+    "place:hawaii-volcanoes-national-park"
+   ]
+  },
+  {
+   "id": "place:laupahoehoe-hawaii",
+   "making": "photographs",
+   "text": "Laupahoehoe, Hawaiʻi",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/laupahoehoe-hawaii-96a28c20.jpg)",
+   "img": "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+   "see": [
+    "place:hawaii",
+    "place:big-island-hawaii",
+    "place:puako-hawaii",
+    "place:hilo-hawaii",
+    "place:hawaii-volcanoes-national-park"
+   ]
+  },
+  {
+   "id": "place:hilo-hawaii",
+   "making": "photographs",
+   "text": "Hilo, Hawaiʻi",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/hilo-hawaii-3cb5d78d.jpg)",
+   "img": "/photos/hilo-hawaii-3cb5d78d.jpg",
+   "see": [
+    "place:hawaii",
+    "place:big-island-hawaii",
+    "place:puako-hawaii",
+    "place:laupahoehoe-hawaii",
+    "place:hawaii-volcanoes-national-park"
+   ]
+  },
+  {
+   "id": "place:hawaii-volcanoes-national-park",
+   "making": "photographs",
+   "text": "Hawaiʻi Volcanoes National Park",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/hawaii-volcanoes-national-park-8e2b64e2.jpg)",
+   "img": "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg",
+   "see": [
+    "place:hawaii",
+    "place:big-island-hawaii",
+    "place:puako-hawaii",
+    "place:laupahoehoe-hawaii",
+    "place:hilo-hawaii"
+   ]
+  },
+  {
+   "id": "place:kaanapali-maui",
+   "making": "photographs",
+   "text": "Kāʻanapali, Maui",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/kaanapali-maui-2be2cfcb.jpg)",
+   "img": "/photos/kaanapali-maui-2be2cfcb.jpg",
+   "see": []
+  },
+  {
+   "id": "place:mount-rainier-national-park-washington",
+   "making": "photographs",
+   "text": "Mount Rainier National Park, Washington",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/mount-rainier-national-park-washington-ddab98b6.jpg)",
+   "img": "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+   "see": [
+    "place:mt-rainier-washington",
+    "place:san-juan-islands-washington",
+    "place:washington-dc"
+   ]
+  },
+  {
+   "id": "place:san-juan-islands-washington",
+   "making": "photographs",
+   "text": "San Juan Islands, Washington",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/san-juan-islands-washington-657f1936.jpg)",
+   "img": "/photos/san-juan-islands-washington-657f1936.jpg",
+   "see": [
+    "place:mt-rainier-washington",
+    "place:mount-rainier-national-park-washington",
+    "place:washington-dc"
+   ]
+  },
+  {
+   "id": "place:washington-dc",
+   "making": "photographs",
+   "text": "Washington, DC",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/washington-dc-c631b9f2.jpg)",
+   "img": "/photos/washington-dc-c631b9f2.jpg",
+   "see": [
+    "place:mt-rainier-washington",
+    "place:mount-rainier-national-park-washington",
+    "place:san-juan-islands-washington"
+   ]
+  },
+  {
+   "id": "place:acadia-national-park-maine",
+   "making": "photographs",
+   "text": "Acadia National Park, Maine",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/acadia-national-park-maine-9678573e.jpg)",
+   "img": "/photos/acadia-national-park-maine-9678573e.jpg",
+   "see": [
+    "place:bar-harbor-maine"
+   ]
+  },
+  {
+   "id": "place:bar-harbor-maine",
+   "making": "photographs",
+   "text": "Bar Harbor, Maine",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/bar-harbor-maine-bb0a8fe5.jpg)",
+   "img": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+   "see": [
+    "place:acadia-national-park-maine"
+   ]
+  },
+  {
+   "id": "place:casper-wyoming",
+   "making": "photographs",
+   "text": "Casper, Wyoming",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/casper-wyoming-02035a8d.jpg)",
+   "img": "/photos/casper-wyoming-02035a8d.jpg",
+   "see": []
+  },
+  {
+   "id": "place:mexico-city-mexico",
+   "making": "photographs",
+   "text": "Mexico City, Mexico",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/mexico-city-mexico-6eb743ec.jpg)",
+   "img": "/photos/mexico-city-mexico-6eb743ec.jpg",
+   "see": [
+    "place:roma-norte-mexico-city",
+    "place:sayulita-mexico"
+   ]
+  },
+  {
+   "id": "place:diamante-valley-costa-rica",
+   "making": "photographs",
+   "text": "Diamante Valley, Costa Rica",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/diamante-valley-costa-rica-3092189d.jpg)",
+   "img": "/photos/diamante-valley-costa-rica-3092189d.jpg",
+   "see": []
+  },
+  {
+   "id": "place:paro-bhutan",
+   "making": "photographs",
+   "text": "Paro, Bhutan",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/paro-bhutan-08988839.jpg)",
+   "img": "/photos/paro-bhutan-08988839.jpg",
+   "see": [
+    "place:wangdue-phodrang-bhutan"
+   ]
+  },
+  {
+   "id": "place:wangdue-phodrang-bhutan",
+   "making": "photographs",
+   "text": "Wangdue Phodrang, Bhutan",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/wangdue-phodrang-bhutan-d0e1e540.jpg)",
+   "img": "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg",
+   "see": [
+    "place:paro-bhutan"
+   ]
+  },
+  {
+   "id": "place:provincetown-massachusetts",
+   "making": "photographs",
+   "text": "Provincetown, Massachusetts",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/provincetown-massachusetts-f214fa8d.jpg)",
+   "img": "/photos/provincetown-massachusetts-f214fa8d.jpg",
+   "see": []
+  },
+  {
+   "id": "place:honshu-japan",
+   "making": "photographs",
+   "text": "Honshu, Japan",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/honshu-japan-0d03d128.jpg)",
+   "img": "/photos/honshu-japan-0d03d128.jpg",
+   "see": [
+    "place:setonaikai-national-park-japan"
+   ]
+  },
+  {
+   "id": "place:setonaikai-national-park-japan",
+   "making": "photographs",
+   "text": "Setonaikai National Park, Japan",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/setonaikai-national-park-japan-64937bce.jpg)",
+   "img": "/photos/setonaikai-national-park-japan-64937bce.jpg",
+   "see": [
+    "place:honshu-japan"
+   ]
+  },
+  {
+   "id": "place:roppongi-tokyo",
+   "making": "photographs",
+   "text": "Roppongi, Tokyo",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/roppongi-tokyo-a5f50e72.jpg)",
+   "img": "/photos/roppongi-tokyo-a5f50e72.jpg",
+   "see": []
+  },
+  {
+   "id": "place:sayulita-mexico",
+   "making": "photographs",
+   "text": "Sayulita, Mexico",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/sayulita-mexico-25fbaafd.jpg)",
+   "img": "/photos/sayulita-mexico-25fbaafd.jpg",
+   "see": [
+    "place:roma-norte-mexico-city",
+    "place:mexico-city-mexico",
+    "place:sayulita-nayarit"
+   ]
+  },
+  {
+   "id": "place:mariposa-grove-yosemite",
+   "making": "photographs",
+   "text": "Mariposa Grove, Yosemite",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the photograph from there is on the photography page (v2/data.json, /photos/mariposa-grove-yosemite-e6c620bb.jpg)",
+   "img": "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+   "see": [
+    "place:yosemite"
+   ]
+  },
+  {
+   "id": "lift:tools",
+   "making": "tools",
+   "text": "tools",
+   "href": "/lately/",
+   "to": "Lately",
+   "how": "07: the record",
+   "see": []
+  },
+  {
+   "id": "row:building-software-with-claude-most",
+   "making": "tools",
+   "text": "Building software with Claude most days: tools to support myself, worked out from what I already leave behind. The record is public.",
+   "href": "/lately/",
+   "to": "Lately",
+   "how": "the fact's own link (studies/06)",
+   "see": [
+    "week:2026-w42",
+    "week:2026-w41",
+    "week:2026-w40",
+    "week:2026-w39",
+    "week:2026-w38",
+    "week:2026-w37",
+    "week:2026-w36",
+    "week:2026-w35",
+    "week:2026-w34",
+    "week:2026-w33",
+    "week:2026-w32",
+    "week:2026-w31",
+    "week:2026-w30",
+    "week:2026-w29",
+    "week:2026-w28"
+   ]
+  },
+  {
+   "id": "week:2026-w42",
+   "making": "tools",
+   "text": "13h 34m at the keyboard, 167 commits across 8 repositories, 16 sessions.",
+   "href": "/lately/2026-w42/",
+   "to": "12–18 October 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w41"
+   ]
+  },
+  {
+   "id": "week:2026-w41",
+   "making": "tools",
+   "text": "13h 07m at the keyboard, 205 commits across 10 repositories, 22 sessions.",
+   "href": "/lately/2026-w41/",
+   "to": "5–11 October 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w42",
+    "week:2026-w40"
+   ]
+  },
+  {
+   "id": "week:2026-w40",
+   "making": "tools",
+   "text": "5h 22m at the keyboard, 88 commits across 8 repositories, 19 sessions.",
+   "href": "/lately/2026-w40/",
+   "to": "28 September – 4 October 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w41",
+    "week:2026-w39"
+   ]
+  },
+  {
+   "id": "week:2026-w39",
+   "making": "tools",
+   "text": "14h 02m at the keyboard, 170 commits across 9 repositories, 23 sessions.",
+   "href": "/lately/2026-w39/",
+   "to": "21–27 September 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w40",
+    "week:2026-w38"
+   ]
+  },
+  {
+   "id": "week:2026-w38",
+   "making": "tools",
+   "text": "2h 08m at the keyboard, 26 commits across 4 repositories, 17 sessions.",
+   "href": "/lately/2026-w38/",
+   "to": "14–20 September 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w39",
+    "week:2026-w37"
+   ]
+  },
+  {
+   "id": "week:2026-w37",
+   "making": "tools",
+   "text": "7h 39m at the keyboard, 45 commits across 6 repositories, 19 sessions.",
+   "href": "/lately/2026-w37/",
+   "to": "7–13 September 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w38",
+    "week:2026-w36"
+   ]
+  },
+  {
+   "id": "week:2026-w36",
+   "making": "tools",
+   "text": "34h 00m at the keyboard, 201 commits across 11 repositories, 44 sessions.",
+   "href": "/lately/2026-w36/",
+   "to": "31 August – 6 September 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w37",
+    "week:2026-w35"
+   ]
+  },
+  {
+   "id": "week:2026-w35",
+   "making": "tools",
+   "text": "34h 05m at the keyboard, 130 commits across 6 repositories, 28 sessions.",
+   "href": "/lately/2026-w35/",
+   "to": "24–30 August 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w36",
+    "week:2026-w34"
+   ]
+  },
+  {
+   "id": "week:2026-w34",
+   "making": "tools",
+   "text": "12h 56m at the keyboard, 108 commits across 9 repositories, 28 sessions.",
+   "href": "/lately/2026-w34/",
+   "to": "17–23 August 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w35",
+    "week:2026-w33"
+   ]
+  },
+  {
+   "id": "week:2026-w33",
+   "making": "tools",
+   "text": "21h 50m at the keyboard, 164 commits across 11 repositories, 43 sessions.",
+   "href": "/lately/2026-w33/",
+   "to": "10–16 August 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w34",
+    "week:2026-w32"
+   ]
+  },
+  {
+   "id": "week:2026-w32",
+   "making": "tools",
+   "text": "28h 57m at the keyboard, 435 commits across 21 repositories, 92 sessions.",
+   "href": "/lately/2026-w32/",
+   "to": "3–9 August 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w33",
+    "week:2026-w31"
+   ]
+  },
+  {
+   "id": "week:2026-w31",
+   "making": "tools",
+   "text": "5h 10m at the keyboard, 90 commits across 6 repositories, 12 sessions.",
+   "href": "/lately/2026-w31/",
+   "to": "27 July – 2 August 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w32",
+    "week:2026-w30"
+   ]
+  },
+  {
+   "id": "week:2026-w30",
+   "making": "tools",
+   "text": "26h 16m at the keyboard, 201 commits across 9 repositories, 151 sessions.",
+   "href": "/lately/2026-w30/",
+   "to": "20–26 July 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w31",
+    "week:2026-w29"
+   ]
+  },
+  {
+   "id": "week:2026-w29",
+   "making": "tools",
+   "text": "7h 00m at the keyboard, 45 commits across 12 repositories, 9 sessions.",
+   "href": "/lately/2026-w29/",
+   "to": "13–19 July 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w30",
+    "week:2026-w28"
+   ]
+  },
+  {
+   "id": "week:2026-w28",
+   "making": "tools",
+   "text": "5h 19m at the keyboard, 253 commits across 13 repositories, 5 sessions.",
+   "href": "/lately/2026-w28/",
+   "to": "6–12 July 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "see": [
+    "row:building-software-with-claude-most",
+    "item:staying-up-to-date",
+    "week:2026-w29"
+   ]
+  },
+  {
+   "id": "lift:companies",
+   "making": "companies",
+   "text": "companies",
+   "href": "/projects.html",
+   "to": "Projects",
+   "how": "07: projects",
+   "see": []
+  },
+  {
+   "id": "row:board-of-tomboyx-led-the",
+   "making": "companies",
+   "text": "Board of TomboyX. Led the board through a recapitalization designed so employees’ equity was made right.",
+   "href": "https://tomboyx.com",
+   "to": "tomboyx.com",
+   "how": "linked from v1/index.html and cv.html's companies; fetched 200",
+   "see": [
+    "item:tomboyx"
+   ]
+  },
+  {
+   "id": "row:chief-revenue-officer-at-klydo",
+   "making": "companies",
+   "text": "Chief Revenue Officer at Klydo, a fashion platform built for India. Wound down in 2026.",
+   "href": "/cv.html",
+   "to": "CV",
+   "how": "klydo.in and www.klydo.in did not answer and Wikipedia has no page; the CV carries the entry (cv.html, Klydo)",
+   "see": []
+  },
+  {
+   "id": "row:co-founded-joyus-studio-with",
+   "making": "companies",
+   "text": "Co-founded Joyus Studio with Divya Tak: storytelling and experience design. A podcast, Thinking on Thinking. Comics about Mr Curl.",
+   "href": "https://joyus.studio",
+   "to": "joyus.studio",
+   "how": "the fact's own link; fetched 200",
+   "see": [
+    "item:joyus-studio",
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak"
+   ]
+  },
+  {
+   "id": "row:advisor-to-armoire",
+   "making": "companies",
+   "text": "Advisor to Armoire.",
+   "href": "https://armoire.style",
+   "to": "armoire.style",
+   "how": "linked from tresmonos.capital's own portfolio; fetched 200, title names Armoire",
+   "see": [
+    "row:portfolio-includes-armoire-humanly-and"
+   ]
+  },
+  {
+   "id": "row:general-partner-at-tres-monos",
+   "making": "companies",
+   "text": "General Partner at Tres Monos Capital with Sweta Jagirdar and Sahil Sagar: early-stage, underrepresented founders.",
+   "href": "https://tresmonos.capital",
+   "to": "tresmonos.capital",
+   "how": "the fact's own link; fetched 200",
+   "see": [
+    "item:tres-monos-capital"
+   ]
+  },
+  {
+   "id": "row:portfolio-includes-armoire-humanly-and",
+   "making": "companies",
+   "text": "Portfolio includes Armoire, Humanly, and Kosha.",
+   "href": "https://tresmonos.capital/#portfolio",
+   "to": "tresmonos.capital",
+   "how": "tresmonos.capital has a #portfolio section linking armoire.style, humanly.io and kosha.co (fetched 200)",
+   "see": [
+    "row:advisor-to-armoire"
+   ]
+  },
+  {
+   "id": "row:vidyanext-bangalore-ceo-then-cmo",
+   "making": "companies",
+   "text": "Vidyanext, Bangalore. CEO, then CMO and Head of Product. Took over after a leadership crisis; when it could not be saved, placed all 65+ people within two months.",
+   "href": "https://yourstory.com/2016/04/vidyanext",
+   "to": "yourstory.com",
+   "how": "linked from cv.html and archive.html; answers 403 to a script (a bot wall), so the site's own link is the evidence",
+   "see": [
+    "item:vidyanext"
+   ]
+  },
+  {
+   "id": "row:aditi-technologies-then-symphony-teleca",
+   "making": "companies",
+   "text": "Aditi Technologies, then Symphony Teleca: product, presales and programme management across the US, India and Russia.",
+   "href": "https://en.wikipedia.org/wiki/Symphony_Teleca",
+   "to": "Wikipedia",
+   "how": "fetched 200; the article names the Aditi Technologies acquisition. en.wikipedia.org/wiki/Aditi_Technologies is 404",
+   "see": []
+  },
+  {
+   "id": "row:clients-included-dodge-data-analytics",
+   "making": "companies",
+   "text": "Clients included Dodge Data & Analytics (McGraw-Hill) and TUI Travel.",
+   "href": "/cv.html",
+   "to": "CV",
+   "how": "the line is the CV's, verbatim (cv.html)",
+   "see": []
+  },
+  {
+   "id": "row:datasphere-technologies-mobile-product-lead",
+   "making": "companies",
+   "text": "DataSphere Technologies, mobile product lead.",
+   "href": "/cv.html",
+   "to": "CV",
+   "how": "www.datasphere.com did not answer; the CV carries the entry",
+   "see": []
+  },
+  {
+   "id": "row:mobile-product-lead-for-a",
+   "making": "companies",
+   "text": "Mobile product lead for a late-stage 300-person startup.",
+   "href": "/cv.html",
+   "to": "CV",
+   "how": "the line is the CV's, verbatim (cv.html)",
+   "see": []
+  },
+  {
+   "id": "row:travelpost-first-intern-led-the",
+   "making": "companies",
+   "text": "TravelPost, first intern. Led the mobile product, later spun off as Trover.",
+   "href": "/cv.html",
+   "to": "CV",
+   "how": "en.wikipedia.org/wiki/Trover is the legal tort, not the app: rejected; the CV carries the entry",
+   "see": []
+  },
+  {
+   "id": "row:microsoft-program-manager-student-audience",
+   "making": "companies",
+   "text": "Microsoft, program manager, student audience marketing. Before it, an internship in the House of Commons.",
+   "href": "/cv.html",
+   "to": "CV",
+   "how": "the CV carries the role; microsoft.com says nothing about it",
+   "see": []
+  },
+  {
+   "id": "lift:speaking",
+   "making": "speaking",
+   "text": "speaking",
+   "href": "/speaking.html",
+   "to": "Speaking",
+   "how": "the speaking page",
+   "see": []
+  },
+  {
+   "id": "row:a-panel-at-the-common",
+   "making": "speaking",
+   "text": "A panel at the Common Ground Summit, Kauai, and seven StartOut talks on fundraising and generative AI. Speaking.",
+   "href": "/speaking.html",
+   "to": "Speaking",
+   "how": "the fact's own link; commongroundsummit.com is a parked lander (redirects to /lander), not used",
+   "see": [
+    "row:mentor-at-startout-the-line",
+    "talk:narrative-threads-weaving-voice-vision",
+    "talk:psychological-challenges-how-to-brace",
+    "talk:curating-your-story",
+    "talk:understanding-the-money-you-can",
+    "talk:know-your-investors-before-the",
+    "talk:10-tinkering-experiments-to-do",
+    "talk:advanced-prompting-controlling-style-tone",
+    "talk:prompting-how-to-talk-to"
+   ]
+  },
+  {
+   "id": "row:mentor-at-startout-the-line",
+   "making": "speaking",
+   "text": "Mentor at StartOut. The Line Before, an interactive installation with Divya Tak, submitted to Science Gallery Bengaluru.",
+   "href": "https://startout.org",
+   "to": "startout.org",
+   "how": "fetched 200 (www.startout.org redirects there)",
+   "see": [
+    "row:co-founded-joyus-studio-with",
+    "row:poem-films-with-divya-tak",
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:narrative-threads-weaving-voice-vision",
+   "making": "speaking",
+   "text": "Narrative Threads: Weaving Voice, Vision, and Value",
+   "href": "/speaking.html",
+   "to": "Speaking",
+   "how": "speaking.html and cv.html list the talk; it has no video",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:psychological-challenges-how-to-brace",
+   "making": "speaking",
+   "text": "Psychological Challenges & How to Brace for Them",
+   "href": "https://www.youtube.com/watch?v=D7j-jQ12-Kk",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:curating-your-story",
+   "making": "speaking",
+   "text": "Curating Your Story",
+   "href": "https://www.youtube.com/watch?v=j2tkS5o6G0A",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:understanding-the-money-you-can",
+   "making": "speaking",
+   "text": "Understanding the Money You Can Raise",
+   "href": "https://www.youtube.com/watch?v=2j3plyzLtRY",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:know-your-investors-before-the",
+   "making": "speaking",
+   "text": "Know Your Investors Before the First Meeting",
+   "href": "https://www.youtube.com/watch?v=qtYkYYBOJ8U",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:10-tinkering-experiments-to-do",
+   "making": "speaking",
+   "text": "10 Tinkering Experiments To Do with AI",
+   "href": "https://www.youtube.com/watch?v=86KEXmW5CRE",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:advanced-prompting-controlling-style-tone",
+   "making": "speaking",
+   "text": "Advanced Prompting: Controlling Style, Tone and Context",
+   "href": "https://www.youtube.com/watch?v=n-8OI-cjPp8",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "talk:prompting-how-to-talk-to",
+   "making": "speaking",
+   "text": "Prompting: How to Talk to Our AI Friends",
+   "href": "https://www.youtube.com/watch?v=q6fTgWRc8UI",
+   "to": "youtube.com",
+   "how": "the talk’s own video, linked from cv.html and speaking.html",
+   "see": [
+    "row:a-panel-at-the-common"
+   ]
+  },
+  {
+   "id": "lift:films-and-installations",
+   "making": "films and installations",
+   "text": "films and installations",
+   "href": "/poem-films.html",
+   "to": "Poem Films",
+   "how": "the films page",
+   "see": [
+    "row:poem-films-with-divya-tak",
+    "item:poem-films"
+   ]
+  },
+  {
+   "id": "row:poem-films-with-divya-tak",
+   "making": "films and installations",
+   "text": "Poem Films with Divya Tak. Selected for SEEN V by Creativity Alive Boulder; shown at Boulder Public Library.",
+   "href": "/poem-films.html",
+   "to": "Poem Films",
+   "how": "the fact's own link",
+   "see": [
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "lift:films-and-installations",
+    "item:poem-films"
+   ]
+  },
+  {
+   "id": "film:when-i-dance-with-you",
+   "making": "films and installations",
+   "text": "When I Dance with You a sunset room · a city at night",
+   "href": "/poems/when-i-dance-with-you.html",
+   "to": "When I Dance with You",
+   "how": "the poem the film is of (poem-films.html)",
+   "img": "/video-poems/posters/when-i-dance-with-you-1.jpg",
+   "see": [
+    "poem:when-i-dance-with-you"
+   ]
+  },
+  {
+   "id": "film:everytime-you-wink-at-me",
+   "making": "films and installations",
+   "text": "Every Time You Wink at Me an abstract swirl · a luminous figure",
+   "href": "/poems/everytime-you-wink-at-me.html",
+   "to": "Everytime you wink at me",
+   "how": "the poem the film is of (poem-films.html)",
+   "img": "/video-poems/posters/everytime-you-wink-at-me-1.jpg",
+   "see": [
+    "poem:everytime-you-wink-at-me"
+   ]
+  },
+  {
+   "id": "film:in-my-heart-something-called-to-the-rain",
+   "making": "films and installations",
+   "text": "In My Heart Something Called to the Rain rain on still water · a rainy street",
+   "href": "/poems/in-my-heart-something-called-to-the-rain.html",
+   "to": "In my heart something called to the rain",
+   "how": "the poem the film is of (poem-films.html)",
+   "img": "/video-poems/posters/in-my-heart-something-called-to-the-rain-1.jpg",
+   "see": [
+    "poem:in-my-heart-something-called-to-the-rain"
+   ]
+  },
+  {
+   "id": "film:i-saw-something-beautiful-today",
+   "making": "films and installations",
+   "text": "I Saw Something Beautiful Today a golden field · a figure in the dark",
+   "href": "/poems/i-saw-something-beautiful-today.html",
+   "to": "I saw something beautiful today",
+   "how": "the poem the film is of (poem-films.html)",
+   "img": "/video-poems/posters/i-saw-something-beautiful-today-1.jpg",
+   "see": [
+    "poem:i-saw-something-beautiful-today"
+   ]
+  },
+  {
+   "id": "lift:dance",
+   "making": "dance",
+   "text": "dance",
+   "href": "https://www.rachnanivas.com/kathaklegacyproject",
+   "to": "rachnanivas.com",
+   "how": "07's own link; fetched 200",
+   "see": [
+    "row:learning-kathak-from-rachna-nivas",
+    "item:kathak-legacy-project"
+   ]
+  },
+  {
+   "id": "row:learning-kathak-from-rachna-nivas",
+   "making": "dance",
+   "text": "Learning Kathak from Rachna Nivas at the Kathak Legacy Project, New York.",
+   "href": "https://www.rachnanivas.com/kathaklegacyproject",
+   "to": "rachnanivas.com",
+   "how": "the fact's own link; fetched 200",
+   "see": [
+    "item:kathak-legacy-project",
+    "lift:dance",
+    "poem:teental"
+   ]
+  },
+  {
+   "id": "row:married-gourav-in-jaisalmer-four",
+   "making": "years",
+   "text": "Married Gourav in Jaisalmer: four days at Suryagarh, 150 guests.",
+   "href": "/wedding-celebration.html",
+   "to": "Kahran & Gourav — A Celebration of Love",
+   "how": "the fact's own link",
+   "see": [
+    "row:eloped-with-gourav-in-telluride"
+   ]
+  },
+  {
+   "id": "row:eloped-with-gourav-in-telluride",
+   "making": "years",
+   "text": "Eloped with Gourav in Telluride, in the snow, in Indian dress.",
+   "href": "/elopement/",
+   "to": "Telluride, December 2021 — Kahran & Gourav",
+   "how": "the fact's own link",
+   "see": [
+    "place:telluride-colorado",
+    "row:married-gourav-in-jaisalmer-four"
+   ]
+  },
+  {
+   "id": "row:tufts-university-computer-science-and",
+   "making": "years",
+   "text": "Tufts University, computer science and economics; publisher of the Tufts Daily. A year abroad at University College London. Later, the French Culinary Institute, New York.",
+   "href": "https://www.tufts.edu",
+   "to": "tufts.edu",
+   "how": "fetched 200. The Tufts Daily's own site did not answer; its Wikipedia page is 200 but the fact is the university first",
+   "see": [
+    "poem:london"
+   ]
+  },
+  {
+   "id": "art:poems",
+   "making": "poems",
+   "text": "Oh that again I might see such beauty in my life / As a single flower / Opened and yet unmarked / Ungrieved by the world",
+   "href": "/poems/oh-that-again.html",
+   "to": "Oh that again I might see such beauty in my life",
+   "how": "07's own link",
+   "see": [
+    "poem:oh-that-again"
+   ]
+  },
+  {
+   "id": "art:photographs",
+   "making": "photographs",
+   "text": "Alpine lake with mountains",
+   "href": "/photography.html",
+   "to": "Photography",
+   "how": "the picture is on the photography page",
+   "see": []
+  },
+  {
+   "id": "item:context",
+   "making": "tools",
+   "text": "Context",
+   "href": "/context/",
+   "to": "Context",
+   "how": "07's own link",
+   "see": [
+    "item:keeping-track",
+    "item:staying-up-to-date",
+    "item:topically-suggesting",
+    "item:self-healing"
+   ]
+  },
+  {
+   "id": "item:keeping-track",
+   "making": "tools",
+   "text": "Keeping track",
+   "href": "/#flow",
+   "to": "how they fit together",
+   "how": "the home's six ideas, opened as the flow view (index.html, v2/flow.js); no page of its own yet",
+   "see": [
+    "item:context"
+   ]
+  },
+  {
+   "id": "item:staying-up-to-date",
+   "making": "tools",
+   "text": "Staying up to date",
+   "href": "/lately/",
+   "to": "Lately",
+   "how": "its weekly record is the public page",
+   "see": [
+    "item:context",
+    "week:2026-w42",
+    "week:2026-w41",
+    "week:2026-w40",
+    "week:2026-w39",
+    "week:2026-w38",
+    "week:2026-w37",
+    "week:2026-w36",
+    "week:2026-w35",
+    "week:2026-w34",
+    "week:2026-w33",
+    "week:2026-w32",
+    "week:2026-w31",
+    "week:2026-w30",
+    "week:2026-w29",
+    "week:2026-w28"
+   ]
+  },
+  {
+   "id": "item:topically-suggesting",
+   "making": "tools",
+   "text": "Topically suggesting",
+   "href": "/#flow",
+   "to": "how they fit together",
+   "how": "the home's six ideas, opened as the flow view; no page of its own yet",
+   "see": [
+    "item:context"
+   ]
+  },
+  {
+   "id": "item:self-healing",
+   "making": "tools",
+   "text": "Self-healing",
+   "href": "/#flow",
+   "to": "how they fit together",
+   "how": "the home's six ideas, opened as the flow view; no page of its own yet",
+   "see": [
+    "item:context"
+   ]
+  },
+  {
+   "id": "item:joyus-studio",
+   "making": "companies",
+   "text": "Joyus Studio",
+   "href": "https://joyus.studio",
+   "to": "joyus.studio",
+   "how": "07's own link; fetched 200",
+   "see": [
+    "row:co-founded-joyus-studio-with"
+   ]
+  },
+  {
+   "id": "item:tres-monos-capital",
+   "making": "companies",
+   "text": "Tres Monos Capital",
+   "href": "https://tresmonos.capital",
+   "to": "tresmonos.capital",
+   "how": "07's own link; fetched 200",
+   "see": [
+    "row:general-partner-at-tres-monos"
+   ]
+  },
+  {
+   "id": "item:tomboyx",
+   "making": "companies",
+   "text": "TomboyX",
+   "href": "https://tomboyx.com",
+   "to": "tomboyx.com",
+   "how": "07's own link; fetched 200",
+   "see": [
+    "row:board-of-tomboyx-led-the"
+   ]
+  },
+  {
+   "id": "item:vidyanext",
+   "making": "companies",
+   "text": "Vidyanext",
+   "href": "https://yourstory.com/2016/04/vidyanext",
+   "to": "yourstory.com",
+   "how": "linked from cv.html and archive.html (403 to a script)",
+   "see": [
+    "row:vidyanext-bangalore-ceo-then-cmo"
+   ]
+  },
+  {
+   "id": "item:poem-films",
+   "making": "films and installations",
+   "text": "Poem Films",
+   "href": "/poem-films.html",
+   "to": "Poem Films",
+   "how": "07's own link",
+   "see": [
+    "lift:films-and-installations",
+    "row:poem-films-with-divya-tak"
+   ]
+  },
+  {
+   "id": "item:the-line-before",
+   "making": "films and installations",
+   "text": "The Line Before",
+   "href": "/projects.html",
+   "to": "Projects",
+   "how": "projects.html describes it; its own link there (divya.studiotypo.xyz) answers 200 but its page shows nothing that names the piece, so the site's own page is used",
+   "see": []
+  },
+  {
+   "id": "item:kathak-legacy-project",
+   "making": "dance",
+   "text": "Kathak Legacy Project",
+   "href": "https://www.rachnanivas.com/kathaklegacyproject",
+   "to": "rachnanivas.com",
+   "how": "07's own link; fetched 200",
+   "see": [
+    "row:learning-kathak-from-rachna-nivas",
+    "lift:dance"
+   ]
+  }
+ ]
+}
