@@ -86,7 +86,6 @@
     {
      "word": "the dark",
      "poems": [
-      "his-hair-was-curly",
       "i-listen",
       "i-was-feeling-sorry-for-a-moth",
       "i-watch-my-hair",
@@ -139,8 +138,7 @@
       "freedom-yet-unabridged",
       "how-can-you-just-be-gone",
       "my-friend-who-died",
-      "a-house-before-house",
-      "purple-dragon"
+      "a-house-before-house"
      ],
      "photos": [
       "/photos/still-lake.jpg",
@@ -177,8 +175,7 @@
       "in-my-heart-something-called-to-the-rain",
       "the-light-sings",
       "today-if-there-is-tomorrow",
-      "wedding-poem",
-      "purple-dragon"
+      "wedding-poem"
      ],
      "photos": [
       "/photos/laupahoehoe-hawaii-96a28c20.jpg",
@@ -191,8 +188,7 @@
      "poems": [
       "have-you-ever-seen",
       "the-mist",
-      "i-came-out",
-      "purple-dragon"
+      "i-came-out"
      ],
      "photos": [
       "/photos/kodagu-india-033e7e3b.jpg",
@@ -480,7 +476,6 @@
       "do-you-miss-me",
       "everywhere-i-turn",
       "glass-houses",
-      "his-hair-was-curly",
       "how-can-you-just-be-gone",
       "i-left-my-heart-at-home-today",
       "i-listen",
@@ -569,7 +564,6 @@
      "word": "skin",
      "poems": [
       "ariel",
-      "burned-invitingly",
       "delicate-pieces-before-the-end",
       "hey-you-there-hey-you-here",
       "i-will-always-be-a-poet",
@@ -601,7 +595,6 @@
      "poems": [
       "a-wedding-toast",
       "blood-oh-once-you-called",
-      "burned-invitingly",
       "i-left-my-heart-at-home-today",
       "kashmir",
       "large-objects",
@@ -707,16 +700,6 @@
      },
      {
       "phrase": "Where does our pain go",
-      "word": "heavy"
-     }
-    ],
-    "burned-invitingly": [
-     {
-      "phrase": "The scars on his wrist burned invitingly.",
-      "word": "skin"
-     },
-     {
-      "phrase": "The pit grows in his stomach",
       "word": "heavy"
      }
     ],
@@ -904,16 +887,6 @@
      {
       "phrase": "you can’t even find or make a grape of light",
       "word": "soft light"
-     }
-    ],
-    "his-hair-was-curly": [
-     {
-      "phrase": "His eyes were arresting, and chiseled by shadows.",
-      "word": "the dark"
-     },
-     {
-      "phrase": "After he spoke, purity troubled into silence.",
-      "word": "silence"
      }
     ],
     "how-can-you-just-be-gone": [
@@ -1699,20 +1672,6 @@
       "phrase": "there is an orange tree with",
       "word": "orange"
      }
-    ],
-    "purple-dragon": [
-     {
-      "phrase": "the drops on the petal of a buttercup",
-      "word": "dew"
-     },
-     {
-      "phrase": "rain falling sideways",
-      "word": "rain"
-     },
-     {
-      "phrase": "uniformly grey",
-      "word": "grey"
-     }
     ]
    },
    "photos": {
@@ -2323,7 +2282,6 @@
      "poems": [
       "ariel",
       "hark-my-love",
-      "his-hair-was-curly",
       "i-watched-a-butterfly-today",
       "late-why-so-late",
       "sometimes-quaver",
@@ -2449,8 +2407,7 @@
       "an-ode-to-aspens",
       "ariel",
       "guadalajara",
-      "i-watched-a-butterfly-today",
-      "purple-dragon"
+      "i-watched-a-butterfly-today"
      ],
      "photos": [
       "/photos/hilo-hawaii-fa94384a.jpg",
@@ -2464,7 +2421,6 @@
      "poems": [
       "do-you-miss-me",
       "have-you-watched-creepers-creep",
-      "his-hair-was-curly",
       "i-will-always-be-a-poet",
       "london",
       "oh-the-horror-i-say",
@@ -2472,8 +2428,7 @@
       "when-you-were-young",
       "being-loved",
       "wrestle",
-      "a-house-before-house",
-      "purple-dragon"
+      "a-house-before-house"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -2508,7 +2463,6 @@
      "word": "fear",
      "poems": [
       "a-conversation-among-birds",
-      "burned-invitingly",
       "guadalajara",
       "hey-you-tree-there",
       "in-my-heart-something-called-to-the-rain",
@@ -2543,8 +2497,7 @@
       "social-media-is-not-the-right-place-for-grief",
       "today-birds",
       "today-i-saw-a-man-on-a-leash",
-      "i-came-out",
-      "purple-dragon"
+      "i-came-out"
      ],
      "photos": [
       "/photos/beach-solitude.jpg",
@@ -2592,7 +2545,6 @@
     {
      "word": "prayer",
      "poems": [
-      "burned-invitingly",
       "i-saw-something-beautiful-today",
       "kashmir",
       "social-media-is-not-the-right-place-for-grief",
@@ -2611,7 +2563,6 @@
     {
      "word": "play",
      "poems": [
-      "burned-invitingly",
       "delicate-pieces-before-the-end",
       "out-to-play-he-calls-them",
       "sit-let-us-listen",
@@ -2718,20 +2669,6 @@
      {
       "phrase": "When we grew",
       "word": "grow tall"
-     }
-    ],
-    "burned-invitingly": [
-     {
-      "phrase": "Kindness is a card.",
-      "word": "play"
-     },
-     {
-      "phrase": "oh God kiss this mortal coil and reveal to me why",
-      "word": "prayer"
-     },
-     {
-      "phrase": "Take heed, innocent!",
-      "word": "fear"
      }
     ],
     "california": [
@@ -2934,16 +2871,6 @@
      {
       "phrase": "have you ever seen an elephant actually frightened of a mouse",
       "word": "fear"
-     }
-    ],
-    "his-hair-was-curly": [
-     {
-      "phrase": "And it kept you from looking in his eyes.",
-      "word": "hiding"
-     },
-     {
-      "phrase": "so it danced, motionless",
-      "word": "dancing"
      }
     ],
     "how-can-you-just-be-gone": [
@@ -3744,20 +3671,6 @@
      {
       "phrase": "running on a hill in",
       "word": "play"
-     }
-    ],
-    "purple-dragon": [
-     {
-      "phrase": "Soaring alone, uncaring of clouds, purple chortling with delight.",
-      "word": "free"
-     },
-     {
-      "phrase": "Shame in not having wings",
-      "word": "hiding"
-     },
-     {
-      "phrase": "she was splayed at an impossible angle.",
-      "word": "the fall"
      }
     ]
    },

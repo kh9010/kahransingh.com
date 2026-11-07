@@ -53,9 +53,6 @@ POEMS = {
 "blood-oh-once-you-called": (
     ["Blood oh once you called to me | red", "Where does our pain go | heavy"],
     ["Leave you may, | leaving", "When we grew | grow tall"]),
-"burned-invitingly": (
-    ["The scars on his wrist burned invitingly. | skin", "The pit grows in his stomach | heavy"],
-    ["Kindness is a card. | play", "oh God kiss this mortal coil and reveal to me why | prayer", "Take heed, innocent! | fear"]),
 "california": (
     ["There is a strange haze over the valley | mist", "Oh bruised, empty, raw dirt | stone"],
     ["It reminds me of home | home", "And the valley sings and laughs | laughter", "Look mommy, how grown is your little prince. | grow tall"]),
@@ -107,9 +104,6 @@ POEMS = {
 "hey-you-tree-there": (
     ["those gashes those gouges in your trunk | bark", "you can’t even find or make a grape of light | soft light"],
     ["just growth growth growth | grow tall", "have you ever seen an elephant actually frightened of a mouse | fear"]),
-"his-hair-was-curly": (
-    ["His eyes were arresting, and chiseled by shadows. | the dark", "After he spoke, purity troubled into silence. | silence"],
-    ["And it kept you from looking in his eyes. | hiding", "so it danced, motionless | dancing"]),
 "how-can-you-just-be-gone": (
     ["With an empty space | silence", "It’s just deeply sad. | grey"],
     ["This space that was your empty space | the empty space", "I will miss you my friend | missing you", "How can you just be gone | goodbye"]),
@@ -320,9 +314,6 @@ POEMS = {
 "a-house-before-house": (
     ["with the sun of late | low sun", "there is a greyness but the | grey", "there is an orange tree with | orange"],
     ["A house, my house, before | home", "In the closet if you hide | hiding", "running on a hill in | play"]),
-"purple-dragon": (
-    ["the drops on the petal of a buttercup | dew", "rain falling sideways | rain", "uniformly grey | grey"],
-    ["Soaring alone, uncaring of clouds, purple chortling with delight. | free", "Shame in not having wings | hiding", "she was splayed at an impossible angle. | the fall"]),
 }
 
 # photo file stem: (senses words, feelings words)

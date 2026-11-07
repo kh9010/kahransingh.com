@@ -1,18 +1,18 @@
 {
  "coverage": {
-  "linked": 206,
-  "of": 206,
-  "internal": 181,
+  "linked": 203,
+  "of": 203,
+  "internal": 178,
   "external": 25,
-  "with_kin": 203,
+  "with_kin": 200,
   "by_kind": {
    "hand": 55,
-   "photo": 93,
-   "home": 67,
+   "photo": 91,
+   "home": 66,
    "name": 42,
    "page": 14,
    "next": 25,
-   "theme": 89,
+   "theme": 86,
    "year": 23,
    "making": 28
   }
@@ -297,11 +297,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -377,9 +372,9 @@
      "why": "its photograph"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
+     "id": "place:cape-cod",
+     "kind": "home",
+     "why": "the home, 6 Nov"
     },
     {
      "id": "poem:freedom-yet-unabridged",
@@ -408,71 +403,6 @@
     },
     {
      "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
-     "kind": "theme",
-     "why": "identity · mortality"
-    }
-   ]
-  },
-  {
-   "id": "poem:burned-invitingly",
-   "making": "poems",
-   "text": "Burned Invitingly",
-   "href": "/poems/burned-invitingly.html",
-   "to": "Burned Invitingly",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "He feels weird, hearing those words.",
-    "The pit grows in his stomach",
-    "and the scars on his wrist burn invitingly."
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
-    },
-    {
-     "id": "poem:blood-oh-once-you-called",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:freedom-yet-unabridged",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:i-feel-sad-about-endings",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:mama",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:social-media-is-not-the-right-place-for-grief",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:sometimes-i-feel-cold",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -840,11 +770,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -930,11 +855,6 @@
      "why": "identity · mortality"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
      "id": "poem:i-feel-sad-about-endings",
      "kind": "theme",
      "why": "identity · mortality"
@@ -956,11 +876,6 @@
     },
     {
      "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -1339,11 +1254,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -1421,96 +1331,6 @@
      "id": "place:fire-island-new-york",
      "kind": "home",
      "why": "the home, 25 Sep"
-    }
-   ]
-  },
-  {
-   "id": "poem:his-hair-was-curly",
-   "making": "poems",
-   "text": "His hair was curly",
-   "href": "/poems/his-hair-was-curly.html",
-   "to": "His hair was curly",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "His hair was curly, and it smiled when he did.",
-    "His heart was too shy to let it relax, so it danced, motionless, and kept you from looking in his eyes.",
-    "His eyes were arresting, and chiseled by shadows. Makeup or fatigue, who could tell?"
-   ],
-   "kin": [
-    {
-     "id": "place:roma-norte-mexico-city",
-     "kind": "photo",
-     "why": "its photograph"
-    },
-    {
-     "id": "poem:ariel",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:falling-in-love",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:i-left-my-heart-at-home-today",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:it-used-to-be-me",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:its-funny",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:late-why-so-late",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:not-in-my-life",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:out-of-many-one",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:to-know-me",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:to-touch-in-a-way",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:being-loved",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:animals-in-love",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:hey",
-     "kind": "theme",
-     "why": "identity · love"
     }
    ]
   },
@@ -1593,11 +1413,6 @@
      "why": "identity · mortality"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
      "id": "poem:freedom-yet-unabridged",
      "kind": "theme",
      "why": "identity · mortality"
@@ -1619,11 +1434,6 @@
     },
     {
      "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -1659,11 +1469,6 @@
     },
     {
      "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "theme",
      "why": "identity · love"
     },
@@ -2178,11 +1983,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -2269,11 +2069,6 @@
     },
     {
      "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "theme",
      "why": "identity · love"
     },
@@ -2448,11 +2243,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -2603,11 +2393,6 @@
      "why": "identity · mortality"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
      "id": "poem:freedom-yet-unabridged",
      "kind": "theme",
      "why": "identity · mortality"
@@ -2629,11 +2414,6 @@
     },
     {
      "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -2779,11 +2559,6 @@
     },
     {
      "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "theme",
      "why": "identity · love"
     },
@@ -3028,11 +2803,6 @@
     },
     {
      "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "theme",
      "why": "identity · love"
     },
@@ -3382,11 +3152,6 @@
      "why": "identity · mortality"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
      "id": "poem:freedom-yet-unabridged",
      "kind": "theme",
      "why": "identity · mortality"
@@ -3408,11 +3173,6 @@
     },
     {
      "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -3472,11 +3232,6 @@
      "why": "identity · mortality"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
      "id": "poem:freedom-yet-unabridged",
      "kind": "theme",
      "why": "identity · mortality"
@@ -3498,11 +3253,6 @@
     },
     {
      "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -4482,11 +4232,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -4653,11 +4398,6 @@
     },
     {
      "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "theme",
      "why": "identity · love"
     },
@@ -5304,11 +5044,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -5389,11 +5124,6 @@
      "why": "identity · love"
     },
     {
-     "id": "poem:his-hair-was-curly",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
      "id": "poem:i-left-my-heart-at-home-today",
      "kind": "theme",
      "why": "identity · love"
@@ -5469,11 +5199,6 @@
      "why": "identity · mortality"
     },
     {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
      "id": "poem:freedom-yet-unabridged",
      "kind": "theme",
      "why": "identity · mortality"
@@ -5495,11 +5220,6 @@
     },
     {
      "id": "poem:sometimes-i-feel-cold",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:purple-dragon",
      "kind": "theme",
      "why": "identity · mortality"
     }
@@ -5555,11 +5275,6 @@
     },
     {
      "id": "poem:hey-you-there-hey-you-here",
-     "kind": "theme",
-     "why": "identity · love"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "theme",
      "why": "identity · love"
     },
@@ -5637,64 +5352,6 @@
      "id": "poem:london",
      "kind": "theme",
      "why": "identity · place"
-    }
-   ]
-  },
-  {
-   "id": "poem:purple-dragon",
-   "making": "poems",
-   "text": "Purple Dragon",
-   "href": "/poems/purple-dragon.html",
-   "to": "Purple Dragon",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "Before the winter, before the string, Dad was always gone in the morning *Kahran come down and have your breakfast Kahran what are you doing Kahran we are running late I am going to count to 3* wrapping a bagel, an egg, an egg inside a bagel in a paper towel and out the door; late to see the drops on the petal of a buttercup revealed by the mist pressed on its way by the rising sun;"
-   ],
-   "kin": [
-    {
-     "id": "place:laupahoehoe-hawaii",
-     "kind": "home",
-     "why": "the home, 11 Oct"
-    },
-    {
-     "id": "poem:blood-oh-once-you-called",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:burned-invitingly",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:freedom-yet-unabridged",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:i-feel-sad-about-endings",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:mama",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:social-media-is-not-the-right-place-for-grief",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:sometimes-i-feel-cold",
-     "kind": "theme",
-     "why": "identity · mortality"
-    },
-    {
-     "id": "poem:wrestle",
-     "kind": "theme",
-     "why": "identity · mortality"
     }
    ]
   },
@@ -5784,11 +5441,6 @@
     },
     {
      "id": "poem:hey-you-tree-there",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:his-hair-was-curly",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -5970,11 +5622,6 @@
     },
     {
      "id": "poem:blood-oh-once-you-called",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:burned-invitingly",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -6305,6 +5952,11 @@
      "id": "poem:and-now-that-we-walk",
      "kind": "home",
      "why": "the home, 25 Oct"
+    },
+    {
+     "id": "poem:blood-oh-once-you-called",
+     "kind": "home",
+     "why": "the home, 6 Nov"
     },
     {
      "id": "poem:mama",
@@ -6648,11 +6300,6 @@
    "how": "the photograph from there is on the photography page (v2/data.json, /photos/laupahoehoe-hawaii-96a28c20.jpg)",
    "img": "/photos/laupahoehoe-hawaii-96a28c20.jpg",
    "kin": [
-    {
-     "id": "poem:purple-dragon",
-     "kind": "home",
-     "why": "the home, 11 Oct"
-    },
     {
      "id": "place:hawaii",
      "kind": "name",

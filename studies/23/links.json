@@ -1,8 +1,8 @@
 {
  "coverage": {
-  "linked": 206,
-  "of": 206,
-  "internal": 181,
+  "linked": 203,
+  "of": 203,
+  "internal": 178,
   "external": 25,
   "with_see": 86
  },
@@ -128,20 +128,6 @@
     "Blood oh once you called to me",
     "A siren song of betrayal",
     "A defiance"
-   ],
-   "see": []
-  },
-  {
-   "id": "poem:burned-invitingly",
-   "making": "poems",
-   "text": "Burned Invitingly",
-   "href": "/poems/burned-invitingly.html",
-   "to": "Burned Invitingly",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "He feels weird, hearing those words.",
-    "The pit grows in his stomach",
-    "and the scars on his wrist burn invitingly."
    ],
    "see": []
   },
@@ -378,20 +364,6 @@
    "lines": [
     "Hey you tree there it’s nice to see you today I didn’t know you knew so much about height and heights — I knew you knew about growth but it was only when I started to talk to this one part of you it told me about how we are always thinking about heights.",
     "And how most of you doesn’t have to worry about heights — most of you gets to just grow and do its thing, be growing and be taller. Be trying to be ever taller. Responsible for the height, but not for worrying about it just growth growth growth."
-   ],
-   "see": []
-  },
-  {
-   "id": "poem:his-hair-was-curly",
-   "making": "poems",
-   "text": "His hair was curly",
-   "href": "/poems/his-hair-was-curly.html",
-   "to": "His hair was curly",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "His hair was curly, and it smiled when he did.",
-    "His heart was too shy to let it relax, so it danced, motionless, and kept you from looking in his eyes.",
-    "His eyes were arresting, and chiseled by shadows. Makeup or fatigue, who could tell?"
    ],
    "see": []
   },
@@ -1380,18 +1352,6 @@
     "A house, my house, before",
     "house, with the sun of late",
     "afternoon and the warmth of"
-   ],
-   "see": []
-  },
-  {
-   "id": "poem:purple-dragon",
-   "making": "poems",
-   "text": "Purple Dragon",
-   "href": "/poems/purple-dragon.html",
-   "to": "Purple Dragon",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "Before the winter, before the string, Dad was always gone in the morning *Kahran come down and have your breakfast Kahran what are you doing Kahran we are running late I am going to count to 3* wrapping a bagel, an egg, an egg inside a bagel in a paper towel and out the door; late to see the drops on the petal of a buttercup revealed by the mist pressed on its way by the rising sun;"
    ],
    "see": []
   },
