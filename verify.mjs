@@ -669,6 +669,28 @@ checkNow("every link out of a study resolves", () => {
   return `${n_int} internal targets exist on disk, ${n_ext} external left to the link audit`;
 });
 
+// Kahran, 7 Nov 2026: poems out for submission come off the site; a study built before that
+// carried one back in its door data (26, merged 8 Nov). Every poem a study's data can reach must
+// still be a page on the site.
+checkNow("no study reaches a poem that is off the site", () => {
+  const live = new Set(readdirSync(path.join(ROOT, "poems")).filter((f) => f.endsWith(".html")).map((f) => f.slice(0, -5)));
+  let n = 0, files = 0;
+  const walk = (x, where) => {
+    if (Array.isArray(x)) return x.forEach((v) => walk(v, where));
+    if (!x || typeof x !== "object") return;
+    for (const [k, v] of Object.entries(x)) {
+      const slugs = k === "poems" && Array.isArray(v) ? v.filter((s) => typeof s === "string") : (k === "poem" || k === "slug") && typeof v === "string" ? [v] : [];
+      for (const s of slugs) { if (s.includes("/") || s.includes(" ")) continue; n++; if (!live.has(s)) throw new Error(`${where}: "${s}" is not a poem on the site`); }
+      walk(v, where);
+    }
+  };
+  for (const n2 of SINCE06) {
+    const dir = path.join(ROOT, "studies", n2);
+    for (const f of readdirSync(dir).filter((f) => f.endsWith(".json"))) { files++; walk(JSON.parse(readFileSync(path.join(dir, f), "utf8")), `studies/${n2}/${f}`); }
+  }
+  return `${n} poem references in ${files} study data files, all pages on the site`;
+});
+
 checkNow("the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows", () => {
   const r = run("node", ["tools/test_wall.mjs"], ROOT);
   const oks = (r.out.match(/^ok /gm) || []).length;
