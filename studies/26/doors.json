@@ -34,7 +34,6 @@
  "notes": {
   "a-conversation-among-birds": "a field note more than a poem; the scythe carries it",
   "blood-oh-once-you-called": "the poem is pain outgrown; \"growing\" fits it better than \"change\", and some vocabularies cannot say which",
-  "burned-invitingly": "about harm; its doors go to life and death and the snare, never to anything light",
   "dear-bottle": "a small comic poem carrying a large idea, letting go; the scale is the joke",
   "hey-you-there-hey-you-here": "so short that every idea it touches is the same one, the edge between two people; the second and third doors are that edge seen from other sides",
   "late-why-so-late": "an airport, a flirt, a fear; light where the ideas are heavy, which is the point and the strain",
@@ -144,7 +143,6 @@
      "poems": [
       "an-ode-to-aspens",
       "blood-oh-once-you-called",
-      "burned-invitingly",
       "dear-bottle",
       "everytime-you-wink-at-me",
       "everywhere-i-turn",
@@ -220,7 +218,6 @@
       "a-wedding-toast",
       "anuraag-oh-anuraag",
       "ariel",
-      "burned-invitingly",
       "dear-bottle",
       "do-you-miss-me",
       "hey-you-there-hey-you-here",
@@ -309,8 +306,7 @@
       "when-you-were-young",
       "i-came-out",
       "animals-in-love",
-      "bladder-bag",
-      "purple-dragon"
+      "bladder-bag"
      ],
      "photos": [
       "/photos/staircase.jpg",
@@ -385,7 +381,6 @@
       "everytime-you-wink-at-me",
       "have-you-watched-creepers-creep",
       "hey-you-tree-there",
-      "his-hair-was-curly",
       "i-feel-sad-about-endings",
       "i-was-feeling-sorry-for-a-moth",
       "i-watch-my-hair",
@@ -395,9 +390,7 @@
       "when-im-not-here",
       "when-you-were-young",
       "being-loved",
-      "wrestle",
-      "a-house-before-house",
-      "purple-dragon"
+      "wrestle"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -420,7 +413,6 @@
      ],
      "poems": [
       "ariel",
-      "burned-invitingly",
       "delicate-pieces-before-the-end",
       "did-you-know",
       "everyday-i-can-spend",
@@ -527,8 +519,7 @@
       "the-light-sings",
       "time-in-a-fig-grove",
       "to-be-alone",
-      "xoxo",
-      "a-house-before-house"
+      "xoxo"
      ],
      "photos": [
       "/photos/lanterns.jpg",
@@ -550,8 +541,7 @@
       "out-of-many-one",
       "out-to-play-he-calls-them",
       "social-media-is-not-the-right-place-for-grief",
-      "today-i-saw-a-man-on-a-leash",
-      "a-house-before-house"
+      "today-i-saw-a-man-on-a-leash"
      ],
      "photos": [
       "/photos/scooter-beach.jpg",
@@ -570,7 +560,6 @@
      "poems": [
       "delicate-pieces-before-the-end",
       "have-you-ever-seen",
-      "his-hair-was-curly",
       "i-saw-something-beautiful-today",
       "i-watched-a-butterfly-today",
       "oh-that-again",
@@ -614,8 +603,7 @@
       "to-know-me",
       "today-i-saw-a-man-on-a-leash",
       "wedding-poem",
-      "when-you-were-young",
-      "purple-dragon"
+      "when-you-were-young"
      ],
      "photos": [
       "/photos/setonaikai-national-park-japan-64937bce.jpg",
@@ -716,20 +704,6 @@
      {
       "phrase": "A siren song of betrayal",
       "word": "seen · hidden"
-     }
-    ],
-    "burned-invitingly": [
-     {
-      "phrase": "Kindness is a snare.",
-      "word": "holding · letting go"
-     },
-     {
-      "phrase": "oh God kiss this mortal coil and reveal to me why",
-      "word": "alive · gone"
-     },
-     {
-      "phrase": "That frame of reference you carry everywhere",
-      "word": "remembering · inventing"
      }
     ],
     "california": [
@@ -959,16 +933,6 @@
      },
      {
       "phrase": "we never dreamed we would be required to be snapshots in half",
-      "word": "seen · hidden"
-     }
-    ],
-    "his-hair-was-curly": [
-     {
-      "phrase": "His eyes did not know how beautiful he was.",
-      "word": "beauty · its cost"
-     },
-     {
-      "phrase": "He disappeared behind his eyes, touched by pain.",
       "word": "seen · hidden"
      }
     ],
@@ -1897,34 +1861,6 @@
       "phrase": "your breath got caught in my air",
       "word": "alive · gone"
      }
-    ],
-    "a-house-before-house": [
-     {
-      "phrase": "A house, my house, before",
-      "word": "staying · leaving"
-     },
-     {
-      "phrase": "In the closet if you hide",
-      "word": "seen · hidden"
-     },
-     {
-      "phrase": "your way out of",
-      "word": "caught · free"
-     }
-    ],
-    "purple-dragon": [
-     {
-      "phrase": "Shame in not having wings, or feet, shame to be wondering if I’d made a dragon at all.",
-      "word": "seen · hidden"
-     },
-     {
-      "phrase": "My parents called him a snake.",
-      "word": "the word · the thing"
-     },
-     {
-      "phrase": "my namesake, my dream self",
-      "word": "who I am · who I could be"
-     }
     ]
    },
    "photos": {
@@ -2334,7 +2270,6 @@
       "alive"
      ],
      "poems": [
-      "burned-invitingly",
       "everytime-you-wink-at-me",
       "hey-you-there-hey-you-here",
       "how-can-you-just-be-gone",
@@ -2391,7 +2326,6 @@
       "a-wedding-toast",
       "anuraag-oh-anuraag",
       "ariel",
-      "burned-invitingly",
       "dear-bottle",
       "do-you-miss-me",
       "hey-you-there-hey-you-here",
@@ -2442,8 +2376,7 @@
       "when-you-were-young",
       "i-came-out",
       "animals-in-love",
-      "bladder-bag",
-      "purple-dragon"
+      "bladder-bag"
      ],
      "photos": [
       "/photos/staircase.jpg",
@@ -2504,7 +2437,6 @@
       "do-you-miss-me",
       "everytime-you-wink-at-me",
       "hey-you-tree-there",
-      "his-hair-was-curly",
       "i-feel-sad-about-endings",
       "i-was-feeling-sorry-for-a-moth",
       "i-watch-my-hair",
@@ -2514,9 +2446,7 @@
       "when-im-not-here",
       "when-you-were-young",
       "being-loved",
-      "wrestle",
-      "a-house-before-house",
-      "purple-dragon"
+      "wrestle"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -2661,8 +2591,7 @@
       "time-in-a-fig-grove",
       "to-be-alone",
       "today-birds",
-      "xoxo",
-      "a-house-before-house"
+      "xoxo"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -2698,8 +2627,7 @@
       "out-of-many-one",
       "out-to-play-he-calls-them",
       "social-media-is-not-the-right-place-for-grief",
-      "today-i-saw-a-man-on-a-leash",
-      "a-house-before-house"
+      "today-i-saw-a-man-on-a-leash"
      ],
      "photos": [
       "/photos/scooter-beach.jpg",
@@ -2730,8 +2658,7 @@
       "to-know-me",
       "today-i-saw-a-man-on-a-leash",
       "wedding-poem",
-      "when-you-were-young",
-      "purple-dragon"
+      "when-you-were-young"
      ],
      "photos": [
       "/photos/setonaikai-national-park-japan-64937bce.jpg",
@@ -2745,7 +2672,6 @@
      ],
      "poems": [
       "blood-oh-once-you-called",
-      "burned-invitingly",
       "hark-my-love",
       "hey-you-tree-there",
       "i-was-feeling-sorry-for-a-moth",
@@ -2776,7 +2702,6 @@
       "guadalajara",
       "have-you-ever-seen",
       "have-you-watched-creepers-creep",
-      "his-hair-was-curly",
       "i-saw-something-beautiful-today",
       "i-watched-a-butterfly-today",
       "oh-that-again",
@@ -2904,20 +2829,6 @@
      {
       "phrase": "A siren song of betrayal",
       "word": "who is watching?"
-     }
-    ],
-    "burned-invitingly": [
-     {
-      "phrase": "Kindness is a snare.",
-      "word": "whose love do we keep?"
-     },
-     {
-      "phrase": "oh God kiss this mortal coil and reveal to me why",
-      "word": "who can say?"
-     },
-     {
-      "phrase": "The scars on his wrist burned invitingly.",
-      "word": "why, again, today?"
      }
     ],
     "california": [
@@ -3151,16 +3062,6 @@
      },
      {
       "phrase": "we never dreamed we would be required to be snapshots in half",
-      "word": "who is watching?"
-     }
-    ],
-    "his-hair-was-curly": [
-     {
-      "phrase": "His eyes did not know how beautiful he was.",
-      "word": "have you ever seen?"
-     },
-     {
-      "phrase": "He disappeared behind his eyes, touched by pain.",
       "word": "who is watching?"
      }
     ],
@@ -4105,34 +4006,6 @@
       "phrase": "your breath got caught in my air",
       "word": "why, again, today?"
      }
-    ],
-    "a-house-before-house": [
-     {
-      "phrase": "A house, my house, before",
-      "word": "where is home?"
-     },
-     {
-      "phrase": "In the closet if you hide",
-      "word": "who is watching?"
-     },
-     {
-      "phrase": "your way out of",
-      "word": "could these walls be bent?"
-     }
-    ],
-    "purple-dragon": [
-     {
-      "phrase": "Shame in not having wings, or feet, shame to be wondering if I’d made a dragon at all.",
-      "word": "who is watching?"
-     },
-     {
-      "phrase": "My parents called him a snake.",
-      "word": "what are these words?"
-     },
-     {
-      "phrase": "my namesake, my dream self",
-      "word": "who could I be?"
-     }
     ]
    },
    "photos": {
@@ -4560,7 +4433,6 @@
       "alive"
      ],
      "poems": [
-      "burned-invitingly",
       "everytime-you-wink-at-me",
       "hey-you-there-hey-you-here",
       "how-can-you-just-be-gone",
@@ -4617,7 +4489,6 @@
       "a-wedding-toast",
       "anuraag-oh-anuraag",
       "ariel",
-      "burned-invitingly",
       "dear-bottle",
       "do-you-miss-me",
       "hey-you-there-hey-you-here",
@@ -4667,8 +4538,7 @@
       "when-you-were-young",
       "i-came-out",
       "animals-in-love",
-      "bladder-bag",
-      "purple-dragon"
+      "bladder-bag"
      ],
      "photos": [
       "/photos/staircase.jpg",
@@ -4740,7 +4610,6 @@
       "do-you-miss-me",
       "everytime-you-wink-at-me",
       "hey-you-tree-there",
-      "his-hair-was-curly",
       "i-feel-sad-about-endings",
       "i-was-feeling-sorry-for-a-moth",
       "i-watch-my-hair",
@@ -4750,9 +4619,7 @@
       "when-im-not-here",
       "when-you-were-young",
       "being-loved",
-      "wrestle",
-      "a-house-before-house",
-      "purple-dragon"
+      "wrestle"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -4890,8 +4757,7 @@
       "the-light-sings",
       "time-in-a-fig-grove",
       "to-be-alone",
-      "xoxo",
-      "a-house-before-house"
+      "xoxo"
      ],
      "photos": [
       "/photos/lanterns.jpg",
@@ -4912,8 +4778,7 @@
       "out-of-many-one",
       "out-to-play-he-calls-them",
       "social-media-is-not-the-right-place-for-grief",
-      "today-i-saw-a-man-on-a-leash",
-      "a-house-before-house"
+      "today-i-saw-a-man-on-a-leash"
      ],
      "photos": [
       "/photos/scooter-beach.jpg",
@@ -4974,8 +4839,7 @@
       "to-know-me",
       "today-i-saw-a-man-on-a-leash",
       "wedding-poem",
-      "when-you-were-young",
-      "purple-dragon"
+      "when-you-were-young"
      ],
      "photos": [
       "/photos/setonaikai-national-park-japan-64937bce.jpg",
@@ -4989,7 +4853,6 @@
      ],
      "poems": [
       "blood-oh-once-you-called",
-      "burned-invitingly",
       "hark-my-love",
       "hey-you-tree-there",
       "i-was-feeling-sorry-for-a-moth",
@@ -5016,7 +4879,6 @@
      "poems": [
       "delicate-pieces-before-the-end",
       "have-you-ever-seen",
-      "his-hair-was-curly",
       "i-saw-something-beautiful-today",
       "i-watched-a-butterfly-today",
       "oh-that-again",
@@ -5187,20 +5049,6 @@
      {
       "phrase": "A siren song of betrayal",
       "word": "shame"
-     }
-    ],
-    "burned-invitingly": [
-     {
-      "phrase": "Kindness is a snare.",
-      "word": "love"
-     },
-     {
-      "phrase": "oh God kiss this mortal coil and reveal to me why",
-      "word": "mystery"
-     },
-     {
-      "phrase": "The scars on his wrist burned invitingly.",
-      "word": "life"
      }
     ],
     "california": [
@@ -5438,16 +5286,6 @@
      },
      {
       "phrase": "we never dreamed we would be required to be snapshots in half",
-      "word": "shame"
-     }
-    ],
-    "his-hair-was-curly": [
-     {
-      "phrase": "His eyes did not know how beautiful he was.",
-      "word": "beauty"
-     },
-     {
-      "phrase": "He disappeared behind his eyes, touched by pain.",
       "word": "shame"
      }
     ],
@@ -6416,34 +6254,6 @@
       "phrase": "your breath got caught in my air",
       "word": "life"
      }
-    ],
-    "a-house-before-house": [
-     {
-      "phrase": "A house, my house, before",
-      "word": "home"
-     },
-     {
-      "phrase": "In the closet if you hide",
-      "word": "shame"
-     },
-     {
-      "phrase": "your way out of",
-      "word": "freedom"
-     }
-    ],
-    "purple-dragon": [
-     {
-      "phrase": "Shame in not having wings, or feet, shame to be wondering if I’d made a dragon at all.",
-      "word": "shame"
-     },
-     {
-      "phrase": "My parents called him a snake.",
-      "word": "language"
-     },
-     {
-      "phrase": "my namesake, my dream self",
-      "word": "self"
-     }
     ]
    },
    "photos": {
@@ -6876,7 +6686,6 @@
       "alive"
      ],
      "poems": [
-      "burned-invitingly",
       "everytime-you-wink-at-me",
       "hey-you-there-hey-you-here",
       "how-can-you-just-be-gone",
@@ -6935,7 +6744,6 @@
       "a-wedding-toast",
       "anuraag-oh-anuraag",
       "ariel",
-      "burned-invitingly",
       "dear-bottle",
       "do-you-miss-me",
       "hey-you-there-hey-you-here",
@@ -6987,8 +6795,7 @@
       "when-you-were-young",
       "i-came-out",
       "animals-in-love",
-      "bladder-bag",
-      "purple-dragon"
+      "bladder-bag"
      ],
      "photos": [
       "/photos/staircase.jpg",
@@ -7061,15 +6868,13 @@
       "do-you-miss-me",
       "everytime-you-wink-at-me",
       "hey-you-tree-there",
-      "his-hair-was-curly",
       "i-feel-sad-about-endings",
       "i-was-feeling-sorry-for-a-moth",
       "i-watch-my-hair",
       "i-will-always-be-a-poet",
       "park",
       "when-im-not-here",
-      "when-you-were-young",
-      "a-house-before-house"
+      "when-you-were-young"
      ],
      "photos": [
       "/photos/roma-sidewalk.jpg",
@@ -7092,11 +6897,9 @@
      ],
      "poems": [
       "blood-oh-once-you-called",
-      "his-hair-was-curly",
       "not-in-my-life",
       "being-loved",
-      "wrestle",
-      "purple-dragon"
+      "wrestle"
      ],
      "photos": [],
      "from": "being-loved",
@@ -7227,8 +7030,7 @@
       "the-light-sings",
       "time-in-a-fig-grove",
       "to-be-alone",
-      "xoxo",
-      "a-house-before-house"
+      "xoxo"
      ],
      "photos": [
       "/photos/lanterns.jpg",
@@ -7250,8 +7052,7 @@
       "out-of-many-one",
       "out-to-play-he-calls-them",
       "social-media-is-not-the-right-place-for-grief",
-      "today-i-saw-a-man-on-a-leash",
-      "a-house-before-house"
+      "today-i-saw-a-man-on-a-leash"
      ],
      "photos": [
       "/photos/scooter-beach.jpg",
@@ -7314,8 +7115,7 @@
       "to-know-me",
       "today-i-saw-a-man-on-a-leash",
       "wedding-poem",
-      "when-you-were-young",
-      "purple-dragon"
+      "when-you-were-young"
      ],
      "photos": [
       "/photos/setonaikai-national-park-japan-64937bce.jpg",
@@ -7330,7 +7130,6 @@
      ],
      "poems": [
       "blood-oh-once-you-called",
-      "burned-invitingly",
       "hark-my-love",
       "hey-you-tree-there",
       "i-was-feeling-sorry-for-a-moth",
@@ -7362,7 +7161,6 @@
       "guadalajara",
       "have-you-ever-seen",
       "have-you-watched-creepers-creep",
-      "his-hair-was-curly",
       "i-saw-something-beautiful-today",
       "i-watched-a-butterfly-today",
       "oh-that-again",
@@ -7518,20 +7316,6 @@
      {
       "phrase": "A siren song of betrayal",
       "word": "Shame came calling"
-     }
-    ],
-    "burned-invitingly": [
-     {
-      "phrase": "Kindness is a snare.",
-      "word": "held me close"
-     },
-     {
-      "phrase": "oh God kiss this mortal coil and reveal to me why",
-      "word": "Who am I to say?"
-     },
-     {
-      "phrase": "The scars on his wrist burned invitingly.",
-      "word": "I am alive, yet."
      }
     ],
     "california": [
@@ -7770,20 +7554,6 @@
      {
       "phrase": "we never dreamed we would be required to be snapshots in half",
       "word": "Bearing sad witness"
-     }
-    ],
-    "his-hair-was-curly": [
-     {
-      "phrase": "His eyes did not know how beautiful he was.",
-      "word": "to let yourself see beauty"
-     },
-     {
-      "phrase": "He disappeared behind his eyes, touched by pain.",
-      "word": "Bearing sad witness"
-     },
-     {
-      "phrase": "His heart was too shy to let it relax",
-      "word": "Shame came calling"
      }
     ],
     "how-can-you-just-be-gone": [
@@ -8746,34 +8516,6 @@
      {
       "phrase": "your breath got caught in my air",
       "word": "I am alive, yet."
-     }
-    ],
-    "a-house-before-house": [
-     {
-      "phrase": "A house, my house, before",
-      "word": "let me home"
-     },
-     {
-      "phrase": "In the closet if you hide",
-      "word": "Bearing sad witness"
-     },
-     {
-      "phrase": "your way out of",
-      "word": "these walls could be bent"
-     }
-    ],
-    "purple-dragon": [
-     {
-      "phrase": "Shame in not having wings, or feet, shame to be wondering if I’d made a dragon at all.",
-      "word": "Shame came calling"
-     },
-     {
-      "phrase": "My parents called him a snake.",
-      "word": "intangible nouns"
-     },
-     {
-      "phrase": "my namesake, my dream self",
-      "word": "who I could be"
      }
     ]
    },
