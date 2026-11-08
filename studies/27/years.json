@@ -1,0 +1,1278 @@
+{
+ "rows": [
+  "now",
+  "2025",
+  "2024",
+  "2023",
+  "2022",
+  "2021",
+  "2020",
+  "2019",
+  "2018",
+  "2017",
+  "2016",
+  "2015",
+  "2014",
+  "2013",
+  "2012",
+  "2011",
+  "2010",
+  "2009",
+  "2008",
+  "2007",
+  "2006"
+ ],
+ "lanes": [
+  {
+   "g": "row:tufts-university-computer-science-and",
+   "from": 2006,
+   "to": 2011,
+   "lane": 0
+  },
+  {
+   "g": "row:microsoft-program-manager-student-audience",
+   "from": 2009,
+   "to": 2010,
+   "lane": 1
+  },
+  {
+   "g": "row:travelpost-first-intern-led-the",
+   "from": 2010,
+   "to": 2011,
+   "lane": 2
+  },
+  {
+   "g": "row:datasphere-technologies-mobile-product-lead",
+   "from": 2011,
+   "to": 2012,
+   "lane": 1
+  },
+  {
+   "g": "row:aditi-technologies-then-symphony-teleca",
+   "from": 2012,
+   "to": 2015,
+   "lane": 0
+  },
+  {
+   "g": "row:vidyanext-bangalore-ceo-then-cmo",
+   "from": 2015,
+   "to": 2019,
+   "lane": 1
+  },
+  {
+   "g": "row:general-partner-at-tres-monos",
+   "from": 2017,
+   "to": 2026,
+   "lane": 0
+  },
+  {
+   "g": "row:advisor-to-armoire",
+   "from": 2019,
+   "to": 2026,
+   "lane": 2
+  },
+  {
+   "g": "row:co-founded-joyus-studio-with",
+   "from": 2022,
+   "to": 2026,
+   "lane": 1
+  },
+  {
+   "g": "row:mentor-at-startout-the-line",
+   "from": 2024,
+   "to": 2026,
+   "lane": 3
+  },
+  {
+   "g": "row:board-of-tomboyx-led-the",
+   "from": 2025,
+   "to": 2026,
+   "lane": 4
+  },
+  {
+   "g": "row:chief-revenue-officer-at-klydo",
+   "from": 2025,
+   "to": 2026,
+   "lane": 5
+  }
+ ],
+ "facts": [
+  {
+   "id": "lift:poems",
+   "y": null,
+   "row": "now",
+   "how": "lifted at its first line (row:mfa-candidate-in-writing-and)"
+  },
+  {
+   "id": "row:mfa-candidate-in-writing-and",
+   "y": "now",
+   "row": "now"
+  },
+  {
+   "id": "row:how-the-world-works-a",
+   "y": "2022",
+   "row": "2022"
+  },
+  {
+   "id": "poem:a-conversation-among-birds",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:a-wedding-toast",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:an-ode-to-aspens",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:and-now-that-we-walk",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:anuraag-oh-anuraag",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:ariel",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:blood-oh-once-you-called",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:california",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:dear-bottle",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:delicate-pieces-before-the-end",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:did-you-know",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:do-you-miss-me",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:everyday-i-can-spend",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:everytime-you-wink-at-me",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:everywhere-i-turn",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:falling-in-love",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:freedom-yet-unabridged",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:glass-houses",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:guadalajara",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:hark-my-love",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:have-you-ever-seen",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:have-you-watched-creepers-creep",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:hey-you-there-hey-you-here",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:hey-you-tree-there",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:how-can-you-just-be-gone",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-feel-sad-about-endings",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-left-my-heart-at-home-today",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-listen",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-saw-something-beautiful-today",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-was-feeling-sorry-for-a-moth",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-watch-my-hair",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-watched-a-butterfly-today",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-will-always-be-a-poet",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:in-my-heart-something-called-to-the-rain",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:it-used-to-be-me",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:its-funny",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:kashmir",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:large-objects",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:late-why-so-late",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:let-tomorrow-come",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:london",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:mama",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:memories-of-tomorrow",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:my-friend-who-died",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:not-in-my-life",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:oh-that-again",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:oh-the-horror-i-say",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:one-beautiful-moment",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:one-in-community",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:out-of-many-one",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:out-to-play-he-calls-them",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:park",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:platitudes-of-suffering",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:sit-let-us-listen",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:social-media-is-not-the-right-place-for-grief",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:sometimes-curious-feel",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:sometimes-i-feel-cold",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:sometimes-i-listen-to-these-poets",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:sometimes-quaver",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:song-of-tomorrow",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:teental",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:the-light-sings",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:the-mist",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:the-sun-kissed-the-mountains",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:there-comes-a-point",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:there-is-a-soft-tingle",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:these-days-are-gone",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:these-water-nymphs",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:this-growing-older",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:thrum-thrum",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:time-in-a-fig-grove",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:to-be-alone",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:to-flutter",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:to-know-me",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:to-see-such-beauty",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:to-touch-in-a-way",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:today-birds",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:today-i-saw-a-man-on-a-leash",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:today-i-write-about-red",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:today-if-there-is-tomorrow",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:wedding-poem",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:when-i-dance-with-you",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:when-i-laugh",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:when-im-not-here",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:when-you-watch-the-whales-from-shore",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:when-you-were-young",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:xoxo",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:i-came-out",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:being-loved",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:animals-in-love",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:wrestle",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:bladder-bag",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "poem:hey",
+   "y": null,
+   "row": "now",
+   "how": "no year on the poem’s page; one of the home’s poems now (v2/data.json)"
+  },
+  {
+   "id": "lift:photographs",
+   "y": null,
+   "row": "now",
+   "how": "lifted at its first line (place:roma-norte-mexico-city)"
+  },
+  {
+   "id": "place:roma-norte-mexico-city",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:sayulita-nayarit",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:mt-rainier-washington",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:fire-island-new-york",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:cape-cod",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:yellowstone",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:berlin",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:hawaii",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:big-island-hawaii",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:telluride-colorado",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:kerala",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:yosemite",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:goa",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:singapore",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:sagrada-familia-barcelona",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:kodagu-india",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:crested-butte-colorado",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:puako-hawaii",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:laupahoehoe-hawaii",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:hilo-hawaii",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:hawaii-volcanoes-national-park",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:kaanapali-maui",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:mount-rainier-national-park-washington",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:san-juan-islands-washington",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:washington-dc",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:acadia-national-park-maine",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:bar-harbor-maine",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:casper-wyoming",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:mexico-city-mexico",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:diamante-valley-costa-rica",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:paro-bhutan",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:wangdue-phodrang-bhutan",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:provincetown-massachusetts",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:honshu-japan",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:setonaikai-national-park-japan",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:roppongi-tokyo",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:sayulita-mexico",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "place:mariposa-grove-yosemite",
+   "y": null,
+   "row": "now",
+   "how": "no year on the photograph; one of the home’s photographs now (v2/data.json)"
+  },
+  {
+   "id": "lift:tools",
+   "y": null,
+   "row": "now",
+   "how": "lifted at its first line (row:building-software-with-claude-most)"
+  },
+  {
+   "id": "row:building-software-with-claude-most",
+   "y": "now",
+   "row": "now"
+  },
+  {
+   "id": "week:2026-w42",
+   "y": "12–18 October",
+   "row": "now",
+   "how": "dated 2026-10-18 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w41",
+   "y": "5–11 October",
+   "row": "now",
+   "how": "dated 2026-10-11 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w40",
+   "y": "28 September – 4 October",
+   "row": "now",
+   "how": "dated 2026-10-04 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w39",
+   "y": "21–27 September",
+   "row": "now",
+   "how": "dated 2026-09-27 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w38",
+   "y": "14–20 September",
+   "row": "now",
+   "how": "dated 2026-09-20 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w37",
+   "y": "7–13 September",
+   "row": "now",
+   "how": "dated 2026-09-13 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w36",
+   "y": "31 August – 6 September",
+   "row": "now",
+   "how": "dated 2026-09-06 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w35",
+   "y": "24–30 August",
+   "row": "now",
+   "how": "dated 2026-08-30 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w34",
+   "y": "17–23 August",
+   "row": "now",
+   "how": "dated 2026-08-23 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w33",
+   "y": "10–16 August",
+   "row": "now",
+   "how": "dated 2026-08-16 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w32",
+   "y": "3–9 August",
+   "row": "now",
+   "how": "dated 2026-08-09 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w31",
+   "y": "27 July – 2 August",
+   "row": "now",
+   "how": "dated 2026-08-02 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w30",
+   "y": "20–26 July",
+   "row": "now",
+   "how": "dated 2026-07-26 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w29",
+   "y": "13–19 July",
+   "row": "now",
+   "how": "dated 2026-07-19 in lately/entries.json"
+  },
+  {
+   "id": "week:2026-w28",
+   "y": "6–12 July",
+   "row": "now",
+   "how": "dated 2026-07-12 in lately/entries.json"
+  },
+  {
+   "id": "lift:companies",
+   "y": null,
+   "row": "2025",
+   "how": "lifted at its first line (row:board-of-tomboyx-led-the)"
+  },
+  {
+   "id": "row:board-of-tomboyx-led-the",
+   "y": "2025–",
+   "row": "2025"
+  },
+  {
+   "id": "row:chief-revenue-officer-at-klydo",
+   "y": "2025–26",
+   "row": "2025"
+  },
+  {
+   "id": "row:co-founded-joyus-studio-with",
+   "y": "2022–",
+   "row": "2022"
+  },
+  {
+   "id": "row:advisor-to-armoire",
+   "y": "2019–",
+   "row": "2019"
+  },
+  {
+   "id": "row:general-partner-at-tres-monos",
+   "y": "2017–",
+   "row": "2017"
+  },
+  {
+   "id": "row:portfolio-includes-armoire-humanly-and",
+   "y": "2017–",
+   "row": "2017"
+  },
+  {
+   "id": "row:vidyanext-bangalore-ceo-then-cmo",
+   "y": "2015–19",
+   "row": "2015"
+  },
+  {
+   "id": "row:aditi-technologies-then-symphony-teleca",
+   "y": "2012–15",
+   "row": "2012"
+  },
+  {
+   "id": "row:clients-included-dodge-data-analytics",
+   "y": "2012–15",
+   "row": "2012"
+  },
+  {
+   "id": "row:datasphere-technologies-mobile-product-lead",
+   "y": "2011–12",
+   "row": "2011"
+  },
+  {
+   "id": "row:mobile-product-lead-for-a",
+   "y": "2011–12",
+   "row": "2011"
+  },
+  {
+   "id": "row:travelpost-first-intern-led-the",
+   "y": "2010–11",
+   "row": "2010"
+  },
+  {
+   "id": "row:microsoft-program-manager-student-audience",
+   "y": "2009–10",
+   "row": "2009"
+  },
+  {
+   "id": "lift:speaking",
+   "y": null,
+   "row": "2025",
+   "how": "lifted at its first line (row:a-panel-at-the-common)"
+  },
+  {
+   "id": "row:a-panel-at-the-common",
+   "y": "2025",
+   "row": "2025"
+  },
+  {
+   "id": "row:mentor-at-startout-the-line",
+   "y": "2024–",
+   "row": "2024"
+  },
+  {
+   "id": "talk:narrative-threads-weaving-voice-vision",
+   "y": "Dec 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:psychological-challenges-how-to-brace",
+   "y": "Sep 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:curating-your-story",
+   "y": "Aug 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:understanding-the-money-you-can",
+   "y": "Jul 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:know-your-investors-before-the",
+   "y": "Jun 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:10-tinkering-experiments-to-do",
+   "y": "Mar 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:advanced-prompting-controlling-style-tone",
+   "y": "Feb 2025",
+   "row": "2025"
+  },
+  {
+   "id": "talk:prompting-how-to-talk-to",
+   "y": "Jan 2025",
+   "row": "2025"
+  },
+  {
+   "id": "lift:films-and-installations",
+   "y": null,
+   "row": "2024",
+   "how": "lifted at its first line (row:poem-films-with-divya-tak)"
+  },
+  {
+   "id": "row:poem-films-with-divya-tak",
+   "y": "2024",
+   "row": "2024"
+  },
+  {
+   "id": "film:when-i-dance-with-you",
+   "y": "2024",
+   "row": "2024"
+  },
+  {
+   "id": "film:everytime-you-wink-at-me",
+   "y": "2024",
+   "row": "2024"
+  },
+  {
+   "id": "film:in-my-heart-something-called-to-the-rain",
+   "y": "2024",
+   "row": "2024"
+  },
+  {
+   "id": "film:i-saw-something-beautiful-today",
+   "y": "2024",
+   "row": "2024"
+  },
+  {
+   "id": "lift:dance",
+   "y": null,
+   "row": "now",
+   "how": "lifted at its first line (row:learning-kathak-from-rachna-nivas)"
+  },
+  {
+   "id": "row:learning-kathak-from-rachna-nivas",
+   "y": "now",
+   "row": "now"
+  },
+  {
+   "id": "row:married-gourav-in-jaisalmer-four",
+   "y": "2022",
+   "row": "2022"
+  },
+  {
+   "id": "row:eloped-with-gourav-in-telluride",
+   "y": "2021",
+   "row": "2021"
+  },
+  {
+   "id": "row:tufts-university-computer-science-and",
+   "y": "2006–11",
+   "row": "2006"
+  },
+  {
+   "id": "art:poems",
+   "y": null,
+   "row": "now",
+   "how": "inside poems, lifted at now"
+  },
+  {
+   "id": "art:photographs",
+   "y": null,
+   "row": "now",
+   "how": "inside photographs, lifted at now"
+  },
+  {
+   "id": "item:context",
+   "y": null,
+   "row": "now",
+   "how": "inside tools, lifted at now"
+  },
+  {
+   "id": "item:keeping-track",
+   "y": null,
+   "row": "now",
+   "how": "inside tools, lifted at now"
+  },
+  {
+   "id": "item:staying-up-to-date",
+   "y": null,
+   "row": "now",
+   "how": "inside tools, lifted at now"
+  },
+  {
+   "id": "item:topically-suggesting",
+   "y": null,
+   "row": "now",
+   "how": "inside tools, lifted at now"
+  },
+  {
+   "id": "item:self-healing",
+   "y": null,
+   "row": "now",
+   "how": "inside tools, lifted at now"
+  },
+  {
+   "id": "item:joyus-studio",
+   "y": null,
+   "row": "2025",
+   "how": "inside companies, lifted at 2025"
+  },
+  {
+   "id": "item:tres-monos-capital",
+   "y": null,
+   "row": "2025",
+   "how": "inside companies, lifted at 2025"
+  },
+  {
+   "id": "item:tomboyx",
+   "y": null,
+   "row": "2025",
+   "how": "inside companies, lifted at 2025"
+  },
+  {
+   "id": "item:vidyanext",
+   "y": null,
+   "row": "2025",
+   "how": "inside companies, lifted at 2025"
+  },
+  {
+   "id": "item:poem-films",
+   "y": null,
+   "row": "2024",
+   "how": "inside films and installations, lifted at 2024"
+  },
+  {
+   "id": "item:the-line-before",
+   "y": null,
+   "row": "2024",
+   "how": "inside films and installations, lifted at 2024"
+  },
+  {
+   "id": "item:kathak-legacy-project",
+   "y": null,
+   "row": "now",
+   "how": "inside dance, lifted at now"
+  }
+ ]
+}
