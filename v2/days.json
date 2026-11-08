@@ -842,6 +842,24 @@
         "wind_kmh": 11.2,
         "cloud_pct": 100
       }
+    },
+    "2026-11-07": {
+      "poem": "to-flutter",
+      "photo": "/photos/honshu-japan-0d03d128.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.4804362491873573,
+        "warmth": 0.6,
+        "wet": 0.0,
+        "stillness": 0.48250000000000004,
+        "season": 0.13431092856603732,
+        "inside": 0.8,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 16.0,
+        "wind_kmh": 20.7,
+        "cloud_pct": 33
+      }
     }
   }
 }
