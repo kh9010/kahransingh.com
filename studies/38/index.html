@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Study 38 — the way to the years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+/* Study 38: 32 a's crossing (the photograph flies itself into its EXIF year's row in 27 a, and back), made findable with no
+   instruction text. One question: what in the world, at rest, is the way to the About? ?d=
+     a  the dateline: the poem ends the way a poem is signed, with the photograph's place and its EXIF month and year; the date is a door,
+        set as the poem's door lines are (the poem's own type, the door hairline)
+     b  the years at the edge: 27 a's rows as a ruler down the world's edge, now at the top; the photograph's own year is lit and written
+     c  the photograph's own facet: the facet where its date reads clearest on the photograph itself carries the date; the whole facet is the door
+     d  once by itself: a's dateline, and on a first visit, after the poem's own reading time (its words at a reading pace), the crossing
+        happens once on its own and comes back; any touch before then and it never does
+   In every way the site nav's "about" does the same flight, and the browser's own back brings the photograph home.
+   Numbers live in defaults.json. */
+:root { --ink-seam: #0d0c0b; --ink-on: #f3efe6; --ink-on2: #c9c3b6; --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif; --ease: cubic-bezier(.4,0,.2,1); }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--ink-seam); color: var(--ink-on); }
+a { color: inherit; }
+#about { position: fixed; left: 0; top: 0; width: 100%; height: 100%; border: 0; z-index: 1; background: #fafaf8; opacity: 0; pointer-events: none; transition: opacity .28s var(--ease); }
+body[data-at="about"] #about { opacity: 1; pointer-events: auto; }
+#ph { position: fixed; z-index: 3; left: 0; top: 0; width: 100vw; height: 100vh; object-fit: cover; display: block; will-change: left, top, width, height; }
+#ph[hidden] { display: none; }
+#world { position: fixed; inset: 0; z-index: 4; transition: opacity .28s var(--ease); -webkit-tap-highlight-color: transparent; }
+body[data-at="about"] #world { opacity: 0; pointer-events: none; }
+#stone { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.scrim { position: absolute; inset: 0; pointer-events: none; }
+#poem { position: absolute; overflow: auto; scrollbar-width: none; font: 300 var(--poem-px, 18px)/1.5 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.7); }
+#poem::-webkit-scrollbar { display: none; }
+#poem h2 { margin: 0 0 .7em; font: italic 400 1.22em/1.25 var(--serif); }
+#poem h2 a { text-decoration: none; }
+#poem .l { display: block; text-indent: -1em; padding-left: 1em; }
+#poem .gap { display: block; height: .7em; }
+.fade { opacity: 0; transition: opacity .5s var(--ease); }
+.fade.shown { opacity: 1; }
+/* a door, as the poem's door lines are drawn: the poem's own type, a hairline under it; the finger's reach is wider than the words */
+.door { position: relative; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .28em; text-decoration-color: rgba(243,239,230,var(--door-alpha)); cursor: pointer; }
+.door::after { content: ''; position: absolute; left: 50%; top: 50%; width: max(100% + 12px, var(--hit-px)); height: var(--hit-px); transform: translate(-50%, -50%); }
+.door:hover, .door:focus-visible { text-decoration-color: rgba(243,239,230,.85); outline: none; }
+#dl { position: absolute; margin: 0; font: italic 300 var(--poem-px, 18px)/1.5 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.7); }
+#dl[hidden] { display: none; }
+#ruler { position: absolute; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; pointer-events: none; }
+#ruler[hidden] { display: none; }
+#ruler .tk { position: relative; display: block; height: 1px; width: var(--tick-px); background: rgba(243,239,230,var(--tick-alpha)); box-shadow: 0 0 6px rgba(0,0,0,.6); }
+#ruler .tk.lit { width: var(--tick-lit-px); background: var(--ink-on); }
+#ruler .end { position: absolute; right: calc(var(--tick-px) + 8px); top: 50%; transform: translateY(-50%); font: 400 .62rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-on2); text-shadow: 0 1px 8px rgba(0,0,0,.7); white-space: nowrap; }
+#ruler .door { position: absolute; right: calc(var(--tick-lit-px) + 10px); top: 50%; transform: translateY(-50%); pointer-events: auto; font: italic 300 var(--poem-px, 18px)/1 var(--serif); color: var(--ink-on); text-decoration: none; text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.7); white-space: nowrap; }
+#fdoor { position: absolute; margin: 0; font: italic 300 var(--poem-px, 18px)/1.2 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.7); white-space: nowrap; transform: translate(-50%, -50%); }
+#fdoor[hidden] { display: none; }
+header { position: absolute; z-index: 2; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); max-width: 34ch; color: #ede7d9; }
+header h1 { margin: 0; font: 500 1.15rem/1 var(--sans); }
+header h1 a { text-decoration: none; }
+header p { margin: 10px 0 14px; font: italic 300 1.0625rem/1.4 var(--serif); opacity: .86; }
+header p:empty { display: none; }
+header nav { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 14px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+header nav a { color: var(--ink-on2); text-decoration: none; text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+header nav a:hover, header nav a:focus-visible { color: #fff; }
+.cap { position: absolute; z-index: 2; right: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); margin: 0; max-width: 40ch; font: 400 .7rem/1.6 var(--sans); color: var(--ink-on2); text-align: right; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.cap:empty { display: none; }
+.vs { position: fixed; top: 10px; right: 10px; z-index: 20; display: flex; gap: 2px; font: 400 .72rem/1 var(--sans); }
+.vs a { text-decoration: none; color: var(--ink-on2); padding: 5px 7px; border-radius: 6px; text-shadow: 0 1px 6px rgba(0,0,0,.6); background: rgba(13,12,11,.18); }
+.vs a[aria-current] { color: #ede7d9; background: rgba(127,127,127,.4); }
+body[data-at="about"] .vs a { color: #6e6e6e; text-shadow: none; background: rgba(26,26,26,.05); }
+body[data-at="about"] .vs a[aria-current] { color: #1a1a1a; background: rgba(26,26,26,.12); }
+@media (max-height: 560px) and (orientation: landscape) {
+  header { left: 16px; bottom: 14px; max-width: 46vw; }
+  header nav { margin-top: 8px; gap: 14px; }
+  .cap { left: 16px; right: auto; top: 14px; bottom: auto; text-align: left; max-width: 44vw; }
+  .vs { top: 50%; right: auto; left: 10px; transform: translateY(-50%); }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  header { left: 16px; right: 16px; bottom: 16px; max-width: none; }
+  .cap { left: 16px; right: auto; top: 16px; bottom: auto; text-align: left; max-width: 70%; }
+}
+</style>
+</head>
+<body data-at="loading">
+<iframe id="about" title="About" src="../27/index.html?v=a" tabindex="-1"></iframe>
+<img id="ph" alt="" hidden>
+<div id="world">
+  <canvas id="stone" aria-hidden="true"></canvas>
+  <div class="scrim" id="scrim"></div>
+  <div id="poem"></div>
+  <p id="dl" class="fade" hidden><span id="dl-place"></span>, <a class="door" id="dl-door" href="/about.html"></a></p>
+  <nav id="ruler" class="fade" aria-label="Years" hidden></nav>
+  <p id="fdoor" class="fade" hidden><a class="door" id="f-door" href="/about.html"></a></p>
+  <header>
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where"></p>
+    <nav aria-label="The rest of the site"><a id="to-about" href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a><a href="/#flow">tools</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+</div>
+<nav class="vs" aria-label="Study 38 ways"><a data-d="a">a</a><a data-d="b">b</a><a data-d="c">c</a><a data-d="d">d</a></nav>
+<script src="tune.js"></script>
+<script src="today.js"></script>
+<script type="module">
+addEventListener('unhandledrejection', e => console.error('unhandled: ' + (e.reason && e.reason.stack || e.reason)))
+const Q = new URLSearchParams(location.search)
+const T = await window.S38T
+const num = (k, f) => { const x = parseFloat(T[k]); return Number.isFinite(x) ? x : f }
+const WAYS = ['a', 'b', 'c', 'd']
+const D = WAYS.includes(Q.get('d')) ? Q.get('d') : WAYS.includes(T['way']) ? T['way'] : 'a'
+document.documentElement.dataset.way = D
+document.querySelectorAll('.vs a').forEach(a => { const q = new URLSearchParams(location.search); q.set('d', a.dataset.d); a.href = '?' + q; if (a.dataset.d === D) a.setAttribute('aria-current', 'true') })
+
+const $ = s => document.querySelector(s)
+const ph = $('#ph'), cv = $('#stone'), g = cv.getContext('2d'), poemEl = $('#poem'), frame = $('#about'), body = document.body
+const dl = $('#dl'), ruler = $('#ruler'), fdoor = $('#fdoor')
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+const nextFrame = () => new Promise(r => requestAnimationFrame(r))
+let W = innerWidth, H = innerHeight, DPR = Math.min(devicePixelRatio || 1, 2)
+const phone = () => W < 640 && H > W * .9
+const low = () => H < 560 && W > H
+const MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+/* ---------- the data: the site's own, and each photograph's date with its basis ---------- */
+const [X, data, homeSrc] = await Promise.all([fetch('crossings.json').then(r => r.json()), fetch('/v2/data.json').then(r => r.json()), fetch('/v2/home.js').then(r => r.text())])
+const stanzasOf = (() => { const grab = (a, b) => { const i = homeSrc.indexOf(a), j = homeSrc.indexOf(b, i); if (i < 0 || j < 0) throw new Error('home.js moved: ' + a); return homeSrc.slice(i, j) }
+  return new Function(grab('function norm', '/* ---------------------------------------------------------- the render') + '; return stanzasOf')() })()
+const recOf = src => X.photos.find(p => p.src === src)
+const poemBy = s => data.poems.find(p => p.slug === s), photoBy = src => data.photos.find(p => p.src === src)
+const yearLabel = r => r.row === 'now' ? String(r.y) : r.row
+const dateLabel = r => { const [y, m] = r.taken.split('-'); return MON[+m - 1] + ' ' + y }
+
+/* ---------- the About: 27 a in the frame, untouched but for the photograph a crossing lifts into it ---------- */
+await new Promise(r => { if (frame.contentDocument && frame.contentDocument.readyState === 'complete' && frame.contentDocument.querySelector('.v-a')) r(); else frame.addEventListener('load', r, { once: true }) })
+const fd = frame.contentDocument, fw = frame.contentWindow
+const st = fd.createElement('style')
+st.textContent = `.w38 { cursor: pointer; } .lift.w38 img { max-height: none; aspect-ratio: 3 / 2; } .lift.w38 .w38-p { display: block; font-family: 'Fraunces', Georgia, serif; font-size: 1.05rem; line-height: 1.4; padding-top: .3rem; }`
+fd.head.append(st)
+const rowEl = row => fd.querySelector(`.v-a .yr[data-y="${row}"]`)
+const rectIn = el => { const f = frame.getBoundingClientRect(), r = el.getBoundingClientRect(); return { x: r.left + f.left, y: r.top + f.top, w: r.width, h: r.height } }
+function scrollRowTo(el, at) { const r = el.getBoundingClientRect(); fw.scrollTo(0, Math.max(0, fw.scrollY + r.top - at)) }
+function unquiet(row) { const el = rowEl(row); if (el && el.classList.contains('empty')) { el.classList.remove('empty'); el.dataset.w38Was = 'empty'; el.querySelector('.yl').textContent = row } return el }
+function clean() {
+  fd.querySelectorAll('[data-w38]').forEach(n => n.remove())
+  fd.querySelectorAll('.yr[data-w38-was="empty"]').forEach(n => { n.classList.add('empty'); n.querySelector('.yl').textContent = ''; delete n.dataset.w38Was })
+}
+
+/* ---------- geometry (28's, from 05 B: the wind draws the facets out) ---------- */
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+function hash(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0 }
+const io = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+const lerp = (a, b, t) => a + (b - a) * t
+function clipHalf(P, f) { const o = []; for (let k = 0; k < P.length; k++) { const a = P[k], b = P[(k + 1) % P.length], fa = f(a), fb = f(b); if (fa <= 0) o.push(a); if ((fa <= 0) !== (fb <= 0)) { const t = fa / (fa - fb); o.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]) } } return o }
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+function voronoi(S) { const s = 1 + Math.min(num('wind', 8), 40) / 45, w = W / s, Tt = S.map(([x, y]) => [x / s, y])
+  return Tt.map((p, i) => { let P = [[0, 0], [w, 0], [w, H], [0, H]]
+    for (let j = 0; j < Tt.length && P.length; j++) { if (j === i) continue; const t = Tt[j], nx = t[0] - p[0], ny = t[1] - p[1]; if (!nx && !ny) continue; const mx = (p[0] + t[0]) / 2, my = (p[1] + t[1]) / 2; P = clipHalf(P, ([x, y]) => (x - mx) * nx + (y - my) * ny) }
+    return P.map(([x, y]) => [x * s, y]) }) }
+function plant(key) { // 20's: a hero facet, two rings, the rest scattered
+  const r = rng(hash(key + '|24|' + W)), count = Math.round(phone() ? num('facets-phone', 15) : low() ? num('facets-low', 15) : num('facets-desk', 26)), min = Math.min(W, H), S = []
+  let loose = 1
+  const add = (x, y, gap) => { if (x < 2 || y < 2 || x > W - 2 || y > H - 2) return; if (S.some(([a, b]) => Math.hypot(a - x, b - y) < gap * loose)) return; S.push([x, y]) }
+  const hero = phone() ? [W * .5, H * .2] : [W * .36, H * .44], ax = phone() ? W * .36 : W * .17, ay = phone() ? H * .12 : H * .24
+  add(hero[0], hero[1], 0)
+  const n1 = phone() ? 6 : 8, rot = r() * Math.PI * 2
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16; add(hero[0] + Math.cos(t) * ax, hero[1] + Math.sin(t) * ay, min * .1) }
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3; add(hero[0] + Math.cos(t) * ax * 1.9, hero[1] + Math.sin(t) * ay * 1.9, min * .1) }
+  for (let k = 0; k < 900 && S.length < count; k++) add(r() * W, r() * H, min * .12)
+  while (S.length < count) { loose *= .8; for (let k = 0; k < 300 && S.length < count; k++) add(r() * W, r() * H, min * .12) }
+  return S.slice(0, count)
+}
+function cover(im, r) { const s = Math.max(r.w / im.naturalWidth, r.h / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s; return { x: r.x + (r.w - w) / 2, y: r.y + (r.h - h) / 2, w, h } }
+const box = el => { const r = el.getBoundingClientRect(); return { x: r.left, y: r.top, w: r.width, h: r.height } }
+const over = (a, b, m = 0) => !(a.x + a.w + m <= b.x || b.x + b.w + m <= a.x || a.y + a.h + m <= b.y || b.y + b.h + m <= a.y)
+
+/* ---------- the world ---------- */
+let cur = null, busy = false, arriveRun = 0
+function size() { W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR) }
+function gutter() { // b: the poem keeps clear of the ruler's edge, as wide as its lit year is written
+  if (D !== 'b') return 0; const d = $('#ruler .door'); return num('ruler-right-px', 18) + num('tick-lit-px', 28) + 10 + (d ? d.offsetWidth : 40) + num('ruler-pad-px', 10) }
+function poemBox() { // where the poem sits on the photograph, clear of the name and the caption (and, in b, the ruler's edge)
+  const gut = gutter()
+  if (low()) return { x: W * .5, y: 16, w: W * .5 - 20 - gut, h: H - 32 }
+  if (phone()) return { x: 16, y: 90, w: W - 32 - gut, h: H - 90 - 170 }
+  return { x: Math.max(16, W * .06), y: H * .1, w: Math.min(W * .4, 520), h: H * .62 }
+}
+function drawSeams() {
+  g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H)
+  if (!cur) return
+  g.lineJoin = 'round'
+  cur.cells.forEach((P, i) => { g.beginPath(); P.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath()
+    g.strokeStyle = `rgba(13,12,11,${num('seam-alpha', .85)})`; g.lineWidth = num('seam-px', 2.2); g.stroke()
+    g.strokeStyle = 'rgba(243,239,230,.12)'; g.lineWidth = .8; g.stroke() })
+  if (cur.facet != null) { const P = cur.cells[cur.facet]; g.beginPath(); P.forEach(([x, y], k) => k ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath()
+    g.strokeStyle = `rgba(243,239,230,${num('facet-lit-alpha', .5)})`; g.lineWidth = 1; g.stroke() }
+}
+function layoutPoem() {
+  const b = poemBox(), max = num('poem-max-px', 18), min = num('poem-min-px', 13), gap = num('date-gap-px', 14), withDl = D === 'a' || D === 'd'
+  const fit = px => { poemEl.style.setProperty('--poem-px', px + 'px'); document.documentElement.style.setProperty('--poem-px', px + 'px')
+    const dh = withDl ? dl.offsetHeight + gap : 0; poemEl.style.maxHeight = Math.max(40, b.h - dh) + 'px'; return poemEl.scrollHeight <= poemEl.clientHeight + 1 }
+  Object.assign(poemEl.style, { left: b.x + 'px', top: b.y + 'px', width: b.w + 'px' })
+  Object.assign(dl.style, { left: b.x + 'px', width: b.w + 'px' })
+  let px = max; while (!fit(px) && px > min) px -= .5
+  if (withDl) dl.style.top = (b.y + poemEl.offsetHeight + gap) + 'px'
+  const sc = $('#scrim'), a = num('scrim-alpha', .6), e = num('edge-alpha', .45)
+  const edge = D === 'b' ? `, linear-gradient(to left, rgba(0,0,0,${e}), transparent ${gutter() * 1.4}px)` : ''
+  sc.style.background = (low() ? `linear-gradient(to left, rgba(0,0,0,${a}), rgba(0,0,0,${a * .6}) 50%, transparent 72%)` : phone() ? `linear-gradient(to bottom, rgba(0,0,0,${a * .5}), rgba(0,0,0,${a}) 22%, rgba(0,0,0,${a * .7}) 70%, rgba(0,0,0,${a}))` : `linear-gradient(to right, rgba(0,0,0,${a}), rgba(0,0,0,${a * .5}) 40%, transparent 62%), linear-gradient(to top, rgba(0,0,0,${a * .7}), transparent 30%)`) + edge
+}
+function setPoem(slug) {
+  const p = poemBy(slug); poemEl.textContent = ''; poemEl.dataset.poem = slug
+  const h = document.createElement('h2'), a = document.createElement('a'); h.className = 'fade'; a.href = `/poems/${slug}.html`; a.textContent = p.title; h.append(a); poemEl.append(h)
+  stanzasOf(p).forEach((s, i) => { if (i) poemEl.append(Object.assign(document.createElement('span'), { className: 'gap' })); s.forEach(l => { const e = document.createElement('span'); e.className = 'l fade'; e.textContent = l; poemEl.append(e) }) })
+}
+
+/* the way in, at rest: one per ?d=, each carrying the photograph's own EXIF date */
+const wayIn = () => D === 'b' ? $('#ruler .door') : D === 'c' ? $('#f-door') : $('#dl-door')
+function setWay() {
+  const r = cur.rec
+  dl.hidden = !(D === 'a' || D === 'd'); ruler.hidden = D !== 'b'; fdoor.hidden = D !== 'c'
+  $('#cap').textContent = D === 'b' || D === 'c' ? r.place : ''
+  $('#dl-place').textContent = r.place
+  const d = $('#dl-door'); d.textContent = dateLabel(r); d.dataset.basis = 'exif:' + r.taken
+  if (D === 'b') { ruler.textContent = ''
+    for (const row of X.rows) { const t = document.createElement('span'); t.className = 'tk'; t.dataset.row = row
+      if (row === r.row) { t.classList.add('lit'); const a = document.createElement('a'); a.className = 'door'; a.href = '/about.html'; a.textContent = yearLabel(r); a.dataset.basis = 'exif:' + r.taken; a.dataset.row = row; a.setAttribute('aria-label', dateLabel(r)); t.append(a) }
+      else if (row === X.rows[0] || row === X.rows[X.rows.length - 1]) t.append(Object.assign(document.createElement('span'), { className: 'end', textContent: row }))
+      ruler.append(t) }
+    const rt = low() ? num('ruler-top-low', 8) : num('ruler-top', 14), rb = low() ? num('ruler-bottom-low', 8) : phone() ? num('ruler-bottom-phone', 28) : num('ruler-bottom', 22)
+    Object.assign(ruler.style, { right: num('ruler-right-px', 18) + 'px', top: rt + '%', bottom: rb + '%' })
+    ruler.querySelector('.door').addEventListener('click', escape) }
+  const f = $('#f-door'); f.textContent = dateLabel(r); f.dataset.basis = 'exif:' + r.taken
+}
+function placeFacet() { // c: the facet where the date reads clearest on the photograph itself, clear of the poem, the name and the caption
+  cur.facet = null; if (D !== 'c') return
+  const s = 1 / 6, w = Math.ceil(W * s), h = Math.ceil(H * s), c = document.createElement('canvas'); c.width = w; c.height = h
+  const x = c.getContext('2d', { willReadFrequently: true }), cr = cover(ph, { x: 0, y: 0, w, h }); x.drawImage(ph, cr.x, cr.y, cr.w, cr.h)
+  const px = x.getImageData(0, 0, w, h).data
+  const lum = (X0, Y0) => { const i = (Math.min(h - 1, Math.max(0, Math.round(Y0 * s))) * w + Math.min(w - 1, Math.max(0, Math.round(X0 * s)))) * 4; const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }; return .2126 * f(px[i]) + .7152 * f(px[i + 1]) + .0722 * f(px[i + 2]) }
+  fdoor.hidden = false; const lw = fdoor.offsetWidth, lh = fdoor.offsetHeight, hit = num('hit-px', 44), bw = Math.max(lw + 12, hit), bh = Math.max(lh, hit)
+  const keep = [box(poemEl), box($('header')), box($('#cap')), box($('.vs'))].filter(b => b.w && b.h), m = 10
+  let best = null
+  cur.cells.forEach((P, i) => {
+    let cx = 0, cy = 0, n = 0; for (let yy = 0; yy < H; yy += 8) for (let xx = 0; xx < W; xx += 8) if (inPoly([xx, yy], P)) { cx += xx; cy += yy; n++ }
+    if (!n) return; cx /= n; cy /= n
+    const L = { x: cx - bw / 2, y: cy - bh / 2, w: bw, h: bh }
+    if (L.x < m || L.y < m || L.x + L.w > W - m || L.y + L.h > H - m) return
+    if (![[L.x, L.y], [L.x + L.w, L.y], [L.x, L.y + L.h], [L.x + L.w, L.y + L.h]].every(p => inPoly(p, P))) return
+    if (keep.some(k => over(L, k, m))) return
+    let sum = 0, k = 0; for (let yy = cy - lh / 2; yy <= cy + lh / 2; yy += 4) for (let xx = cx - lw / 2; xx <= cx + lw / 2; xx += 4) { sum += lum(xx, yy); k++ }
+    const bg = sum / k, contrast = (.86 + .05) / (bg + .05)
+    if (!best || contrast > best.contrast) best = { i, cx, cy, contrast }
+  })
+  if (!best) { fdoor.hidden = true; return }
+  cur.facet = best.i; Object.assign(fdoor.style, { left: best.cx + 'px', top: best.cy + 'px' })
+  fdoor.dataset.facet = best.i; fdoor.dataset.basis = 'clearest:' + best.contrast.toFixed(2)
+}
+async function arrive() { // 17 d's arrival: the title, then each line in order, capped; the way in comes to rest with the last line
+  const run = ++arriveRun, els = [...document.querySelectorAll('#poem .fade')].concat([dl, ruler, fdoor].filter(e => !e.hidden))
+  if (reduce()) { els.forEach(e => e.classList.add('shown')); return true }
+  const step = Math.min(num('line-ms', 320), num('arrive-cap-ms', 5200) / Math.max(1, els.length))
+  for (const e of els) { if (run !== arriveRun) return false; e.classList.add('shown'); await sleep(step) }
+  return run === arriveRun
+}
+async function load(src) { if (ph.getAttribute('src') !== src) { ph.src = src } try { await ph.decode() } catch {} }
+function place(el, r) { Object.assign(el.style, { left: r.x + 'px', top: r.y + 'px', width: r.w + 'px', height: r.h + 'px' }) }
+const full = () => ({ x: 0, y: 0, w: W, h: H })
+let moving = 0 // how many motions are under way; body[data-still] says none is, for the check
+const still = () => { body.dataset.still = moving || busy ? '0' : '1' }
+function tween(ms, each) { moving++; still(); return new Promise(res => { const done = () => { moving--; still(); res() }; if (reduce() || ms <= 0) { each(1); return done() } const t0 = performance.now(); const f = now => { const t = Math.min(1, (now - t0) / ms); each(io(t)); t < 1 ? requestAnimationFrame(f) : done() }; requestAnimationFrame(f) }) }
+const flyRect = (a, b, ms) => tween(ms, t => place(ph, { x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) }))
+function enterWorld(rec, slug) { // the world as it rests: the photograph whole, the stone's facets over it, the poem, its way to the years
+  cur = { rec, slug, cells: voronoi(plant(rec.src + '~' + slug)), facet: null }
+  ph.hidden = false; place(ph, full()); ph.alt = photoBy(rec.src).alt
+  setPoem(slug); setWay(); layoutPoem(); placeFacet(); drawSeams()
+  body.dataset.at = 'world'; body.dataset.photo = rec.src; body.dataset.poem = slug
+  return arrive()
+}
+
+/* ---------- 32 a's crossing: the photograph goes to its year, lifted like a making, and comes back ---------- */
+let lift = null
+const A = {
+  async out() {
+    const r = cur.rec, row = unquiet(r.row)
+    lift = fd.createElement('span'); lift.className = 'lift w38'; lift.dataset.w38 = 'lift'; lift.dataset.basis = 'exif:' + r.taken
+    lift.innerHTML = `<span class="lh">photographs</span><img alt=""><span data-t="figcaption"></span><span class="w38-p"></span>`
+    lift.querySelector('img').src = r.src; lift.querySelector('[data-t="figcaption"]').textContent = r.place + ' · ' + dateLabel(r)
+    lift.querySelector('.w38-p').textContent = poemBy(cur.slug).title
+    row.querySelector('.run').prepend(lift)
+    lift.style.visibility = 'hidden'
+    try { await lift.querySelector('img').decode() } catch {}
+    scrollRowTo(row, Math.round(H * num('row-at', .22)))
+    await nextFrame()
+    const to = rectIn(lift.querySelector('img'))
+    body.dataset.at = 'about'
+    await flyRect(full(), to, num('fly-ms', 1100))
+    lift.style.visibility = ''; ph.hidden = true
+    lift.onclick = e => { e.preventDefault(); e.stopPropagation(); if (history.state && history.state.s38 === 'about') history.back(); else home() }
+  },
+  async back() {
+    const from = rectIn(lift.querySelector('img')); place(ph, from); ph.hidden = false; lift.style.visibility = 'hidden'
+    await flyRect(from, full(), num('fly-ms', 1100))
+    clean(); lift = null; return { rested: enterWorld(cur.rec, cur.slug) }
+  },
+}
+async function escape(e, auto = false) { e && e.preventDefault && e.preventDefault(); if (busy || body.dataset.at !== 'world') return false; busy = true; still(); arriveRun++
+  try { clean(); await A.out(); if (!auto) history.pushState({ s38: 'about' }, '') } finally { busy = false; still() } return true }
+async function home() { if (busy || body.dataset.at !== 'about' || !lift) return null; busy = true; still(); let o; try { o = await A.back() } finally { busy = false; still() } return o }
+addEventListener('popstate', () => { home() })
+$('#dl-door').addEventListener('click', escape)
+$('#f-door').addEventListener('click', escape)
+$('#to-about').addEventListener('click', escape)
+cv.addEventListener('click', e => { if (D !== 'c' || cur.facet == null || body.dataset.at !== 'world') return; if (inPoly([e.clientX, e.clientY], cur.cells[cur.facet])) escape(e) })
+window.S38 = { inFacet: (x, y) => D === 'c' && !!cur && cur.facet != null && inPoly([x, y], cur.cells[cur.facet]) } // for the check: is a point inside the date's facet
+cv.addEventListener('pointermove', e => { cv.style.cursor = D === 'c' && cur && cur.facet != null && inPoly([e.clientX, e.clientY], cur.cells[cur.facet]) ? 'pointer' : '' })
+const refit = () => { if (cur && body.dataset.at === 'world' && !busy) { cur.cells = voronoi(plant(cur.rec.src + '~' + cur.slug)); place(ph, full()); setWay(); layoutPoem(); placeFacet(); drawSeams()
+  document.querySelectorAll('#world .fade').forEach(e => e.classList.add('shown')) } }
+addEventListener('resize', () => { size(); refit() })
+document.addEventListener('s38:tune', refit)
+
+/* ---------- d: on a first visit, once the poem has come to rest, the crossing happens once by itself and comes back ---------- */
+async function once() {
+  let seen = false; try { seen = localStorage.getItem('s38-once') === '1' } catch {}
+  if (seen || reduce()) { body.dataset.once = 'skipped'; return }
+  let touched = false; const mark = () => { touched = true }
+  for (const ev of ['pointerdown', 'keydown', 'wheel']) addEventListener(ev, mark, { once: true, capture: true })
+  // the poem is given its own reading time first: its words at a reading pace, never less than the rest
+  const words = (poemEl.innerText.match(/\S+/g) || []).length, rest = Math.max(num('once-rest-ms', 2600), words / num('read-wpm', 200) * 60000)
+  body.dataset.onceRest = Math.round(rest)
+  await sleep(rest)
+  if (touched || body.dataset.at !== 'world') { body.dataset.once = 'touched'; return }
+  try { localStorage.setItem('s38-once', '1') } catch {}
+  body.dataset.once = 'out'
+  if (!await escape(null, true)) { body.dataset.once = 'touched'; return }
+  let stay = false; const keep = () => { stay = true }
+  for (const ev of ['pointerdown', 'wheel', 'touchstart', 'keydown']) fw.addEventListener(ev, keep, { once: true, capture: true })
+  await sleep(num('once-hold-ms', 3200))
+  if (stay || body.dataset.at !== 'about') { body.dataset.once = 'stayed'; history.pushState({ s38: 'about' }, ''); return }
+  await home(); body.dataset.once = 'done'
+}
+
+/* ---------- which world: ?at=<photograph> (&p=<poem>), else today's pair as the home chooses it ---------- */
+size()
+await Promise.race([Promise.all(['300 18px Fraunces', 'italic 300 18px Fraunces', 'italic 400 18px Fraunces', '500 12px "Space Grotesk"'].map(f => document.fonts.load(f))), sleep(3000)]) // the poem is fitted in its own face
+let rec = null, slug = null
+const atQ = Q.get('at')
+if (atQ) { rec = X.photos.find(p => p.src === '/photos/' + atQ.replace(/\.jpg$/, '') + '.jpg'); slug = Q.get('p') && poemBy(Q.get('p')) ? Q.get('p') : rec && rec.poem }
+if (!rec || !slug) { const ctx = await S14.load($('#where')); rec = recOf(ctx.photo.src); slug = ctx.poem.slug }
+await load(rec.src)
+const rested = enterWorld(rec, slug)
+still()
+if (D === 'd') rested.then(ok => ok && once())
+</script>
+</body>
+</html>
