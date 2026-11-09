@@ -4,7 +4,7 @@
 //   poems/*.html            the live poems (a line is kept only if it is on its page, word for word)
 //   v2/data.json            the poems' lines as the home reads them (stanzasOf, from v2/home.js) and the 77 photographs
 //   poem-films.html         the four poem films: each film's two worlds, and their posters (video-poems/posters/)
-//   about.html              the About: its sentences, its years, the word pile's six lines
+//   v2/about.html           the About (the letter, archived there 9 Nov): its sentences, its years, the word pile's six lines
 //   v2/home.js              the wall's ideas (IDEAS): each idea's sentences
 //   studies/21/readings.txt every poem read by hand: its strongest lines and the ideas they hold
 //   studies/21/ideas.json   the ideas each photograph was read for
@@ -71,17 +71,17 @@ for (const ph of data.photos) {
       add({ id: `film:${slug}:${k + 1}`, kind: 'film', text: w, img, src: 'poem-films.html', poem: slug, title, other: worlds[1 - k], year: '2024' }) }) } }
 
 /* ---- the About: its sentences, its years, the word pile's lines ---- */
-{ const h = read('about.html'), main = /<main[^>]*>([\s\S]*?)<\/main>/.exec(h)[1]
+{ const h = read('v2/about.html'), main = /<main[^>]*>([\s\S]*?)<\/main>/.exec(h)[1]
   const paras = [...main.matchAll(/<p(?: class="lede")?>([\s\S]*?)<\/p>/g)].map(m => S.plain(m[1].replace(/<span class="sign">[\s\S]*?<\/span>/, '')).replace(/ ([,.;:])/g, '$1'))
   paras.forEach((p, pi) => { const sents = S.sentences(p)
-    sents.forEach((t, k) => { if (OTHERS.test(t) || !onPage('about.html', t) || S.words(t, true).length < 4) return
-      add({ id: `about:p${pi}.${k}`, kind: 'about', text: t, src: 'about.html', title: 'About', year: (/\b(19|20)\d\d\b/.exec(t) || [null])[0], after: sents[k + 1] && !OTHERS.test(sents[k + 1]) && onPage('about.html', sents[k + 1]) ? sents[k + 1] : null, whole: sents.filter(x => !OTHERS.test(x) && onPage('about.html', x)) }) }) })
+    sents.forEach((t, k) => { if (OTHERS.test(t) || !onPage('v2/about.html', t) || S.words(t, true).length < 4) return
+      add({ id: `about:p${pi}.${k}`, kind: 'about', text: t, src: 'v2/about.html', title: 'About', year: (/\b(19|20)\d\d\b/.exec(t) || [null])[0], after: sents[k + 1] && !OTHERS.test(sents[k + 1]) && onPage('v2/about.html', sents[k + 1]) ? sents[k + 1] : null, whole: sents.filter(x => !OTHERS.test(x) && onPage('v2/about.html', x)) }) }) })
   for (const m of main.matchAll(/<li><b>([^<]+)<\/b><span>([\s\S]*?)<\/span><\/li>/g)) { const y = m[1].trim(), sents = S.sentences(S.plain(m[2]).replace(/ ([,.;:])/g, '$1'))
-    sents.forEach((t, k) => { if (OTHERS.test(t) || !onPage('about.html', t)) return
-      add({ id: `about:${y}.${k}`, kind: 'about', text: t, src: 'about.html', title: 'About', year: /^\d{4}$/.test(y) ? y : null, row: y, after: null, whole: sents.filter(x => !OTHERS.test(x)) }) }) }
+    sents.forEach((t, k) => { if (OTHERS.test(t) || !onPage('v2/about.html', t)) return
+      add({ id: `about:${y}.${k}`, kind: 'about', text: t, src: 'v2/about.html', title: 'About', year: /^\d{4}$/.test(y) ? y : null, row: y, after: null, whole: sents.filter(x => !OTHERS.test(x)) }) }) }
   const q = (/var quotes = \[([\s\S]*?)\];/.exec(h) || [, ''])[1]
   ;[...q.matchAll(/'((?:[^'\\]|\\.)+)'/g)].map(m => m[1].replace(/\\u([0-9a-f]{4})/gi, (_, x) => String.fromCharCode(parseInt(x, 16))).replace(/\\'/g, '\''))
-    .forEach((t, k) => { if (!h.includes(t) && !h.includes(t.replace(/’/g, '\\u2019'))) return dropped.push('quote ' + k); add({ id: `about:said.${k}`, kind: 'about', text: t, src: 'about.html', title: 'About', year: null, said: true, after: null, whole: [t] }) }) }
+    .forEach((t, k) => { if (!h.includes(t) && !h.includes(t.replace(/’/g, '\\u2019'))) return dropped.push('quote ' + k); add({ id: `about:said.${k}`, kind: 'about', text: t, src: 'v2/about.html', title: 'About', year: null, said: true, after: null, whole: [t] }) }) }
 
 /* ---- the wall: each idea's sentences, as v2/home.js holds them ---- */
 { const IDEAS = new Function(home.slice(home.indexOf('var IDEAS'), home.indexOf('];', home.indexOf('var IDEAS')) + 2) + '; return IDEAS')()
@@ -94,7 +94,7 @@ for (const ph of data.photos) {
 const df = {}; for (const p of poems) for (const w of new Set(S.words(stanzasOf(p).flat().join(' ')))) df[w] = (df[w] || 0) + 1
 const common = Object.entries(df).filter(([, n]) => n > poems.length * S.COMMON).map(([w]) => w).sort()
 
-const out = { made_by: 'studies/37/build.mjs', from: ['poems/*.html', 'v2/data.json', 'v2/home.js', 'poem-films.html', 'about.html', 'studies/21/readings.txt', 'studies/21/ideas.json', 'studies/32/crossings.json'],
+const out = { made_by: 'studies/37/build.mjs', from: ['poems/*.html', 'v2/data.json', 'v2/home.js', 'poem-films.html', 'v2/about.html', 'studies/21/readings.txt', 'studies/21/ideas.json', 'studies/32/crossings.json'],
   counts: Object.fromEntries(['line', 'photo', 'film', 'about', 'idea'].map(k => [k, segs.filter(s => s.kind === k).length])), poems: poems.length, common, df, dropped, segs }
 writeFileSync(path.join(HERE, 'segments.json'), JSON.stringify(out))
 console.log(`${segs.length} segments: ${Object.entries(out.counts).map(([k, n]) => `${n} ${k}`).join(', ')}; ${common.length} words too common to link; ${dropped.length} left out (not on their page as written)`)
