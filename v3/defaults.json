@@ -75,9 +75,13 @@
   "grow-ms": "3000",
   "tools-pad-px": "4",
   "tools-tight-track": "0.04",
-  "recut-tries": "32",
-  "tools-dot-px": "8",
-  "tools-dot-hit-px": "18",
+  "recut-tries": "64",
   "tools-glow": "0.05",
-  "tools-near-px": "110"
+  "tools-near-px": "110",
+  "poem-rise-gap-px": "16",
+  "poem-least-px": "180",
+  "tools-poem-gap-px": "16",
+  "poem-least-tight-px": "90",
+  "poem-least-w-px": "320",
+  "poem-least-w-tight-px": "240"
 }
