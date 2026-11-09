@@ -14,9 +14,9 @@ for (const [k, v] of Object.entries(T)) document.documentElement.style.setProper
 const num = (k, f) => { const x = parseFloat(T[k]); return Number.isFinite(x) ? x : f }
 // his picks, held: 24's vocabulary and naming, 37's shape, 39's grow, 36's return
 const VOCAB = 'his', NAME = 'crossing', Y = 'shape', X = 'grow', JW = 'c'
-/* the way into the About's years, ONE seam: where it lives, and the flight into it (yearsOut below). 27 a lives at this address until
-   Kahran says whether it replaces about.html; then this becomes '/about.html'. A page here without 27 a's year rows is opened plainly. */
-const YEARS = '/studies/27/index.html?v=a'
+/* the way into the About's years, ONE seam: where it lives, and the flight into it (yearsOut below). 27 a became about.html on 9 Nov
+   (built by studies/27/build.mjs --about). A page here without 27 a's year rows is opened plainly. */
+const YEARS = '/about.html'
 const qs = (o = {}) => '?' + new URLSearchParams(o).toString()
 document.body.dataset.a = 'line'
 const track = (name, params = {}) => document.dispatchEvent(new CustomEvent('home:track', { detail: { name, params } })) // track.js counts it

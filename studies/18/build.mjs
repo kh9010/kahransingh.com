@@ -26,7 +26,7 @@ const art = (k) => one(/<figure class="art">([\s\S]*?)<\/figure>/, makes[k], `07
 const txt = (k) => one(/<div class="text">([\s\S]*?)<\/div>/, makes[k], `07 ${k} text`)[1].trim();
 
 // ---- about.html: the poems line, the photograph-and-poem sentence, his close (rulings 28 Oct)
-const sAbout = read('about.html');
+const sAbout = read('v2/about.html'); // the desk's About (the letter), archived at /v2/ on 9 Nov
 const aboutPoems = one(/<p>(How the World Works, a first book, 2022, and one a day[^<]*)<\/p>/, sAbout, 'about poems line')[1];
 const aboutPhoto = one(/(The <a href="\/">photograph and poem on the home page<\/a> come out of the same machine, one of each a day\.)/, sAbout, 'about photo sentence')[1];
 const close = one(/<p>(Write to me\.[\s\S]*?Tell me what’s going on\.) <span class="sign">/, sAbout, 'his close')[1];
