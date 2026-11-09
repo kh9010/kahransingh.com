@@ -63,6 +63,7 @@
   "tools-ground": "0.82",
   "tools-inside": "0.6",
   "tools-inside-floor": "0.25",
+  "tools-inside-last": "0",
   "tools-inside-least": "0.4",
   "tools-lean-px": "30",
   "tools-measure-phone-px": "190",

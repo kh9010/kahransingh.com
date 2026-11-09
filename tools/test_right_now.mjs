@@ -40,7 +40,7 @@ function check(cond, label, detail) {
 
 /* --------------------------------------------------------------- source -- */
 
-const html = readFileSync(path.join(ROOT, "index.html"), "utf8");
+const html = readFileSync(path.join(ROOT, "v2/index.html"), "utf8"); // the Right now lines live on /v2/ only since the stone took / (2026-11-09)
 const list = (html.match(/<ul class="doing-list">([\s\S]*?)<\/ul>/) || [])[1] || "";
 const items = [...list.matchAll(/<li class="doing-item"[^>]*>([\s\S]*?)<\/li>/g)].map((m) => m[0]);
 const text = (h) => h.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
@@ -176,7 +176,7 @@ async function shot(cdp, file) {
 }
 
 try {
-  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/index.html`).then((r) => r.ok), "static server");
+  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/v2/index.html`).then((r) => r.ok), "static server");
   const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDP_PORT}/json`).then((r) => r.json()), "devtools");
   const ws = new WebSocket(targets.find((t) => t.type === "page").webSocketDebuggerUrl);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
@@ -185,7 +185,7 @@ try {
 
   for (const [w, h, mobile, tag] of [[1200, 800, false, "1200"], [390, 844, true, "390"]]) {
     await cdp.send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: mobile ? 2 : 1, mobile });
-    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/` });
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/v2/` });
     await waitFor(() => cdp.evaluate("document.querySelectorAll('#wall-block .tile').length === 6 && document.fonts.status === 'loaded' && document.getElementById('photo').complete && document.getElementById('photo').naturalWidth > 0"), "six tiles and the photograph " + tag, 200);
     await sleep(700);
     await shot(cdp, `now-${tag}.png`);
@@ -264,7 +264,7 @@ try {
     requestId: msg.params.requestId, responseCode: 200,
     responseHeaders: [{ name: "Content-Type", value: "application/json" }],
     body: Buffer.from(JSON.stringify(swapped)).toString("base64") }); };
-  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/` });
+  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/v2/` });
   await waitFor(() => cdp.evaluate("document.documentElement.getAttribute('data-right-now') === 'ready'"), "swapped right-now.json");
   const sw = await cdp.evaluate(SLOTS);
   check(swapped.lines.every((l) => { const s = sw[l.id]; return s && (l.href ? s.link === l.href && !s.soon : s.link === null && s.soon); }),

@@ -212,7 +212,7 @@ async function photo(p) {
   if (im && im.naturalWidth) {
     const a = im.naturalWidth / im.naturalHeight, b = c.width / c.height, [sw, sh] = a > b ? [im.naturalHeight * b, im.naturalHeight] : [im.naturalWidth, im.naturalWidth / b]
     if (/Monochrome/.test(p.caption || '')) x.filter = 'grayscale(1) contrast(1.06) brightness(.94)'
-    x.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, c.width, c.height); x.filter = 'none'; c.ok = true; c.im = im
+    x.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, c.width, c.height); x.filter = 'none'; c.ok = true; c.im = im; c.crop = [sw, sh, im.naturalWidth, im.naturalHeight]
   }
   const A = num('scrim-alpha', .72), s = (g0, stops) => { stops.forEach(([o, al]) => g0.addColorStop(o, `rgba(8,8,7,${al})`)); x.fillStyle = g0; x.fillRect(0, 0, c.width, c.height) }
   x.setTransform(DPR, 0, 0, DPR, 0, 0)
@@ -438,10 +438,11 @@ function fitIn(w, i, stops, to, inside = num('tools-inside', .6)) { // where the
   const P = inset(w.cells[i], num('seam-px', 2.2) + 6); if (P.length < 3) return null
   const [x0, y0, x1, y1] = bbox(P), c = w.cents[i]; let best = null, bd = Infinity
   // nearest the line, then flush with it, then nearest the facet's centre
-  for (const [bw, bh, mw] of namesBoxes()) for (let y = y0; y + bh <= y1; y += 6) for (let x = x0; x + bw <= x1; x += 6) {
+  for (const [bw, bh, mw] of namesBoxes()) { const ox = inside > 0 ? 0 : bw / 2, oy = inside > 0 ? 0 : bh / 2 // on the last rung only their centre need be in the cut
+    for (let y = y0 - oy; y + bh <= y1 + oy; y += 6) for (let x = x0 - ox; x + bw <= x1 + ox; x += 6) {
     const pts = []; for (let a = 0; a <= 4; a++) for (let b = 0; b <= 2; b++) pts.push([x + bw * a / 4, y + bh * b / 2])
     if (!inPoly([x + bw / 2, y + bh / 2], P) || pts.filter(p => inPoly(p, P)).length < pts.length * inside || x < 8 || y < 8 || x + bw > W - 8 || y + bh > H - 8 || stops.some(o => meet([x, y, bw, bh], o, 10))) continue
-    const d = gapOf([x, y, bw, bh], to) * 1e4 + Math.abs(x - to[0]) * 10 + Math.hypot(x + bw / 2 - c[0], y + bh / 2 - c[1]); if (d < bd) { bd = d; best = [Math.round(x), Math.round(y), bw, bh, mw] } }
+    const d = gapOf([x, y, bw, bh], to) * 1e4 + Math.abs(x - to[0]) * 10 + Math.hypot(x + bw / 2 - c[0], y + bh / 2 - c[1]); if (d < bd) { bd = d; best = [Math.round(x), Math.round(y), bw, bh, mw] } } }
   return best }
 function capFor(w) { const was = cap.textContent; cap.textContent = w.photo.caption || ''; const r = rectOf('#cap'); cap.textContent = was; return r } // this world's caption, where it will sit (a world is planned before it is shown)
 const stopsOf = w => [w.R, rectOf('#mat'), capFor(w), rectOf('.vs')]
@@ -449,7 +450,7 @@ function toolsFacet(w, fs) { // the facet nearest the where line that can hold t
   const where = whereRect(), stops = stopsOf(w)
   // most of them inside their facet if a facet that near can hold them; else they lean over a seam rather than leave the line (a phone's band above it is often cut on the slant)
   const sorter = (a, b) => a.d - b.d // nearest first (40's pick)
-  const levels = [num('tools-inside', .6), num('tools-inside-least', .4), num('tools-inside-floor', .25)].map(k => ({ k,
+  const levels = [num('tools-inside', .6), num('tools-inside-least', .4), num('tools-inside-floor', .25), num('tools-inside-last', 0)].map(k => ({ k, // the last: only their centre in the cut, so a short screen's slim facets still hold them
     cand: fs.map(f => { const box = fitIn(w, f.i, stops, where, k); return box && { i: f.i, box, d: +gapOf(box, where).toFixed(1) } }).filter(Boolean).sort(sorter) })).filter(L => L.cand.length)
   if (!levels.length) return null
   const nearest = Math.min(...levels.map(L => L.cand[0].d)), L = levels.find(L => L.cand[0].d <= nearest + num('tools-lean-px', 30)) || levels[0]
@@ -528,18 +529,24 @@ function yearFacet(w, fs, tools) {
   const lw = yearA.offsetWidth, lh = yearA.offsetHeight; yearEl.style.cssText = was
   const hit = num('hit-px', 44), bw = Math.max(lw + 12, hit), bh = Math.max(lh, hit), m = 10, lum = lumOf(w.img)
   const keep = [w.R, rectOf('#mat'), capFor(w), rectOf('.vs'), ...(tools ? [tools.box.slice(0, 4)] : [])].filter(b => b[2] > 0 && b[3] > 0)
+  // where in a facet the date can sit: at its centre with a finger's reach inside the cut (38's), else anywhere in it with that reach, else anywhere its words fit
+  const spot = (P, cx, cy, bw0, bh0) => { const L = [cx - bw0 / 2, cy - bh0 / 2, bw0, bh0]
+    return L[0] >= m && L[1] >= m && L[0] + L[2] <= W - m && L[1] + L[3] <= H - m && [[L[0], L[1]], [L[0] + L[2], L[1]], [L[0], L[1] + L[3]], [L[0] + L[2], L[1] + L[3]]].every(p => inPoly(p, P)) && !keep.some(k => meet(L, k, m)) }
+  const levels = [[bw, bh, false], [bw, bh, true], [lw + 4, lh + 2, true]]
   let best = null, n0 = 0
-  for (const f of fs) { if (f.i === toolsI) continue; const P = w.cells[f.i]
-    let cx = 0, cy = 0, n = 0; for (let yy = 0; yy < H; yy += 8) for (let xx = 0; xx < W; xx += 8) if (inPoly([xx, yy], P)) { cx += xx; cy += yy; n++ }
-    if (!n) continue; cx /= n; cy /= n
-    const L = [cx - bw / 2, cy - bh / 2, bw, bh]
-    if (L[0] < m || L[1] < m || L[0] + L[2] > W - m || L[1] + L[3] > H - m) continue
-    if (![[L[0], L[1]], [L[0] + L[2], L[1]], [L[0], L[1] + L[3]], [L[0] + L[2], L[1] + L[3]]].every(p => inPoly(p, P))) continue
-    if (keep.some(k => meet(L, k, m))) continue
-    n0++; let sum = 0, k = 0; for (let yy = cy - lh / 2; yy <= cy + lh / 2; yy += 4) for (let xx = cx - lw / 2; xx <= cx + lw / 2; xx += 4) { sum += lum(xx, yy); k++ }
-    const contrast = (.86 + .05) / (sum / k + .05)
-    if (!best || contrast > best.contrast) best = { i: f.i, at: [cx, cy], box: [cx - lw / 2, cy - lh / 2, lw, lh], contrast } }
-  return best && { ...best, rec, basis: { rule: 'where the date reads clearest', contrast: +best.contrast.toFixed(2), of: n0, taken: rec.taken } } }
+  for (const [bw0, bh0, roam] of levels) {
+    for (const f of fs) { if (f.i === toolsI) continue; const P = w.cells[f.i]
+      let cx = 0, cy = 0, n = 0; for (let yy = 0; yy < H; yy += 8) for (let xx = 0; xx < W; xx += 8) if (inPoly([xx, yy], P)) { cx += xx; cy += yy; n++ }
+      if (!n) continue; cx /= n; cy /= n
+      let at = spot(P, cx, cy, bw0, bh0) ? [cx, cy] : null
+      if (!at && roam) { const [x0, y0, x1, y1] = bbox(P); let bd = Infinity
+        for (let yy = y0; yy <= y1; yy += 6) for (let xx = x0; xx <= x1; xx += 6) { const d = Math.hypot(xx - cx, yy - cy); if (d < bd && spot(P, xx, yy, bw0, bh0)) { bd = d; at = [xx, yy] } } }
+      if (!at) continue
+      n0++; let sum = 0, k = 0; for (let yy = at[1] - lh / 2; yy <= at[1] + lh / 2; yy += 4) for (let xx = at[0] - lw / 2; xx <= at[0] + lw / 2; xx += 4) { sum += lum(xx, yy); k++ }
+      const contrast = (.86 + .05) / (sum / k + .05)
+      if (!best || contrast > best.contrast) best = { i: f.i, at, box: [at[0] - lw / 2, at[1] - lh / 2, lw, lh], contrast, reach: [bw0, bh0], roam } }
+    if (best) break }
+  return best && { ...best, rec, basis: { rule: 'where the date reads clearest', contrast: +best.contrast.toFixed(2), of: n0, roam: best.roam, reach: best.reach, taken: rec.taken } } }
 function showYear(w) { const p = planOf(w)[w.yearI]
   yearEl.classList.toggle('on', !!p); if (!p) return
   yearA.textContent = dateLabel(p.rec); yearA.href = YEARS; yearA.dataset.basis = 'exif:' + p.rec.taken
@@ -601,7 +608,7 @@ function showWin(i, s) { const w = cur, p = planOf(w)[i] // the piece as written
   const src = document.createElement('small'); src.className = 'src'
   if (s.href) src.append(Object.assign(document.createElement('a'), { href: s.href, textContent: s.small })); else src.textContent = s.small
   backEl.append(src)
-  if (p && p.basis) backEl.append(Object.assign(document.createElement('small'), { className: 'basis', textContent: p.basis }))
+  if (p && typeof p.basis === 'string') backEl.append(Object.assign(document.createElement('small'), { className: 'basis', textContent: p.basis }))
   placeWin(w, i)
   FX.win = { w, i, t0: performance.now(), fact: { kind: s.t } } }
 function placeWin(w, i) { // its words go where they are clear of the poem, the name and the caption, whatever their length: near the facet first,
@@ -626,8 +633,8 @@ function placeWin(w, i) { // its words go where they are clear of the poem, the 
 }
 function hideWin() { FX.win = null; FX.glimpse = null; backEl.style.opacity = 0 }
 async function glimpse(w, i, st) { // another photograph or a film's still, seen through this one facet only; a photograph's answering region lies in it, the rest stays this photograph
-  const p = photoBy(st.src) || { src: st.src, caption: '' }, img = await photo(p); if (cur !== w || !FX.win || FX.win.i !== i) return
-  const R = REG.photos[st.src], s = num('align-zoom', 1.5), [cx, cy] = w.cents[i]
+  const p = photoBy(st.src) || { src: st.src, caption: '' }, [img] = await Promise.all([photo(p), st.src.startsWith('/photos/') ? regOf(st.src) : null]); if (cur !== w || !FX.win || FX.win.i !== i) return
+  const R = REG[st.src], s = num('align-zoom', 1.5), [cx, cy] = w.cents[i]
   const r = st.cell != null && R && !st.whole ? S33Cut.cover(R, W, H).to((st.cell % 6 + .5) / 6, (Math.floor(st.cell / 6) + .5) / 4) : null
   const m = r ? [s, 0, 0, s, cx - s * Math.max(cx / s, Math.min(W - (W - cx) / s, r[0])), cy - s * Math.max(cy / s, Math.min(H - (H - cy) / s, r[1]))] : [1, 0, 0, 1, 0, 0]
   FX.glimpse = { w, i, img, m, src: st.src, t0: FX.win.t0 } }
@@ -881,6 +888,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     return { logic: K.logic, ran: K.ran, fallback: K.fallback, summary: K.summary, src: cur.photo.src, key: cur.key, seed: cur.key + (cur.cutT ? '|' + cur.cutT : ''), count: K.sites.length, W, H, wind, stretch: K.stretch, d: K.d,
       sites: K.sites, tags: K.tags, features: K.features, cells: cur.cells } },
   get cap() { return cap.textContent },
+  get crop() { const c = cur && cur.img; return c && c.crop && { shown: c.crop[0] / c.crop[1], file: c.crop[2] / c.crop[3], screen: cv.width / cv.height } }, // cover: a crop of the file in the screen's own shape, never a stretch
   read() { const w = 96, h = Math.round(96 * H / W), c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); x.drawImage(cv, 0, 0, w, h)
     const p = x.getImageData(0, 0, w, h).data; let s = 0, dark = 0, n = w * h; for (let i = 0; i < p.length; i += 4) { const l = (p[i] * .2126 + p[i + 1] * .7152 + p[i + 2] * .0722) / 255; s += l; if (l < .06) dark++ } return { mean: s / n, bare: dark / n } },
   // the tools facet, the facets that could have held it, and the surfaces it must keep clear of (40's)
@@ -910,6 +918,7 @@ let rz = 0, lastWH = innerWidth + 'x' + innerHeight
 const rebuild = async () => { if (busy) return; size(); prepared.clear(); const o = cur, w = await makeWorld({ poem: o.poem, photo: o.photo, word: o.word, from: o.from }, o.mode, o.trail.slice(0, -1)); drop(o); show(w)
   w.lines.forEach((l, i) => { w.Tg[i] = w.A[i] = 1; l.classList.add('shown') }); w.arrived = true; w.dirty = true }
 addEventListener('resize', () => { const wh = innerWidth + 'x' + innerHeight; if (wh === lastWH) return; lastWH = wh; clearTimeout(rz); rz = setTimeout(rebuild, 250) })
+HOME.firstLoad = ['/', ...performance.getEntriesByType('resource').filter(e => e.name.startsWith(location.origin)).map(e => new URL(e.name).pathname)] // what the first screen took, for the check
 document.body.dataset.ready = 'yes'
 // after the first screen: what the facets deal from, then the chain behind the line
 requestAnimationFrame(() => setTimeout(() => segReady().then(() => { if (cur && !busy) { cur.plan = null; planOf(cur) } }), 0))

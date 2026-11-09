@@ -35,7 +35,8 @@ const VIEWPORTS = [
   { w: 1024, h: 1366, mobile: true }, { w: 390, h: 844, mobile: true },
   { w: 430, h: 932, mobile: true }, { w: 844, h: 390, mobile: true },
 ];
-const PAGES = (process.env.PAGES || "/photography.html,/").split(",");
+const HOME_PAGE = "/v2/";
+const PAGES = (process.env.PAGES || "/photography.html,/v2/").split(","); // the wall's home is /v2/ since 2026-11-09; the stone at / draws its photograph on a canvas, covered, never stretched (tools/test_home.mjs)
 const SEEDS = [1, 2, 3];
 const STAGE = "#photo";   // the home stage photo: cover allowed, stretch never
 
@@ -126,7 +127,7 @@ try {
         await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}${pg}` });
         await sleep(600);
         await waitFor(() => cdp.evaluate("document.readyState === 'complete' || document.readyState === 'interactive'"), "load");
-        await sleep(pg === "/" ? 1500 : 400);
+        await sleep(pg === HOME_PAGE ? 1500 : 400);
         const rows = await cdp.evaluate(MEASURE);
         for (const r of rows) {
           pageN++; measured++;
@@ -139,9 +140,9 @@ try {
           if (why) { pageBad++; bad.push({ pg, vp: `${vp.w}x${vp.h}`, seed, ...r, off, why }); }
         }
       }
-      check(pageBad === 0, `${pg} at ${vp.w}x${vp.h}: no picture stretched or cropped (${pageN} measured${pg === "/" ? (stageSeen ? ", stage photo among them" : ", NO stage photo seen") : ""})`,
+      check(pageBad === 0, `${pg} at ${vp.w}x${vp.h}: no picture stretched or cropped (${pageN} measured${pg === HOME_PAGE ? (stageSeen ? ", stage photo among them" : ", NO stage photo seen") : ""})`,
         pageBad ? bad.filter((b) => b.pg === pg && b.vp === `${vp.w}x${vp.h}`).slice(0, 4).map((b) => `${b.src} ${b.why} (content ${b.content.join("x")}, file ${b.natural.join("x")})`).join("; ") : "");
-      if (pg === "/" && !stageSeen) { failures++; console.log("FAIL the home stage photo was not found at " + `${vp.w}x${vp.h}`); }
+      if (pg === HOME_PAGE && !stageSeen) { failures++; console.log("FAIL the home stage photo was not found at " + `${vp.w}x${vp.h}`); }
     }
   }
 } catch (e) {

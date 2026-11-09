@@ -18,7 +18,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SITE_ROOT = path.resolve(HERE, "..");
 const HTTP_PORT = 8123, CDP_PORT = 9333;
 const W = 1200, H = 800;
-const PAGE = process.env.PAGE || "/";   // a study copy of the home can be measured with the same checks
+const PAGE = process.env.PAGE || "/v2/"; // the wall's home, at /v2/ since 2026-11-09 (the stone at / draws its photograph on a canvas); a study copy can be measured with the same checks
 
 function findShell() {
   const base = path.join(os.homedir(), ".cache/puppeteer/chrome-headless-shell");
@@ -70,7 +70,7 @@ function check(cond, label, detail) {
 }
 
 try {
-  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/index.html`).then((r) => r.ok), "static server");
+  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/v2/index.html`).then((r) => r.ok), "static server");
   const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDP_PORT}/json`).then((r) => r.json()), "devtools");
   const page = targets.find((t) => t.type === "page");
   const ws = new WebSocket(page.webSocketDebuggerUrl);
