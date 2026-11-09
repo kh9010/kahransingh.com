@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://kahransingh.com/lately/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/"/>
   <id>https://kahransingh.com/lately/</id>
-  <updated>2026-10-18T00:00:00Z</updated>
+  <updated>2026-11-08T00:00:00Z</updated>
   <author><name>Kahran Singh</name></author>
+  <entry>
+    <title>2–8 November</title>
+    <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w45/"/>
+    <id>tag:kahransingh.com,2026:lately/record-2026-w45</id>
+    <updated>2026-11-08T00:00:00Z</updated>
+    <category term="code"/>
+    <summary>14h 20m at the keyboard, 150 commits across 9 repositories, 20 sessions.
+14h 20m · 150 commits · 20 sessions</summary>
+  </entry>
   <entry>
     <title>12–18 October</title>
     <link rel="alternate" type="text/html" href="https://kahransingh.com/lately/2026-w42/"/>
