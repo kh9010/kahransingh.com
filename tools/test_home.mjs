@@ -643,7 +643,8 @@ try {
       plan.push({ seg, link: p.link, cls: p.cls, basis: p.basis, to: { photo: '/photos/' + p.to.split('~')[1], poem: p.to.split('~')[0] }, steps: p.steps.map(st => ({ ...st, to: st.to ? { photo: '/photos/' + st.to.split('~')[1], poem: st.to.split('~')[0] } : undefined })) }); facets.push(p.facet) }
     plan.forEach(p => p.steps.forEach(st => { if (st.t !== 'move') delete st.to }))
     P37.plansHold(world, plan, facets, 'shape', label, bad)
-    check(!bad.length && kinds.tools === 1 && kinds.year === 1 && kinds.title === 1, `${label}: every one of ${ids.length} facets yields: the tools, the photograph's date, the poem's title, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
+    const st0 = await cdp.eval('(() => { const s = HOME.state; return { title: s.title, tools: s.tools, inn: s.titleIn && s.titleIn.i } })()'), onlyNames = st0.title < 0 && st0.inn === st0.tools // the title lies in the names' facet alone: no facet of its own
+    check(!bad.length && kinds.tools === 1 && kinds.year === 1 && (kinds.title === 1 || onlyNames && !kinds.title), `${label}: every one of ${ids.length} facets yields: the tools, the photograph's date, the poem's title, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
     return plans }
   const probeHold = async label => { const ids = await cdp.eval('HOME.drawn'), bad = []
     for (const i of ids) for (const [n, lines] of [[60, 0], [220, 0], [480, 0], [200, 6], [1400, 0]]) { probes++; if (await cdp.eval(`HOME.probe(${i}, ${n}, ${lines})`)) bad.push(`#${i} at ${n}${lines ? ' in ' + lines + ' lines' : ''}`) }
@@ -788,6 +789,7 @@ try {
   const titleSplit = []
   const titleHold = async (label, go) => {
     const s = await cdp.eval('HOME.state'), w = await cdp.eval('HOME.world'), P = s.cells[s.title] || [], href = `/poems/${w.slug}.html`
+    if (s.title < 0 && s.titleIn && s.titleIn.i === s.tools) { check((s.titleHref || '').endsWith(href) && s.titleUnder, `${label}: the title lies in the names' facet alone, so it has no facet of its own; it is still underlined and opens the poem`, JSON.stringify({ title: s.title, tools: s.tools, in: s.titleIn })); return }
     const clearPx = Number(DEF['seam-px']) / 2 + Number(DEF['refract-px']) * .45 // the title is drawn up to .45 x refract-px off in each facet: it must stay clear of every seam by that
     const corners = s.titleRects.flatMap(r => [[r[0], r[1]], [r[0] + r[2], r[1]], [r[0], r[1] + r[3]], [r[0] + r[2], r[1] + r[3]], [r[0] + r[2] / 2, r[1] + r[3] / 2]])
     const out = corners.filter(c => !inPoly(c, P) || distEdge(c, P) < clearPx), grid = b => { const o = []; for (let a = 0; a <= 4; a++) for (let c = 0; c <= 2; c++) o.push([b[0] + b[2] * a / 4, b[1] + b[3] * c / 2]); return o }
