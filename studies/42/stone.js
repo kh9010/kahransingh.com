@@ -536,7 +536,7 @@ function closeTools() { if (toolsOpen < 0) return; toolsOpen = -1; toolsAt = -1;
 const toolSet = (b, open) => { b.nextElementSibling.hidden = !open; b.setAttribute('aria-expanded', String(open)); snap() }
 function deeper() { // the idea's own facet again. c: the first time, the general lays itself beneath this world. Then (every way) its next tool
   // opens, in the table's order; past the last, the facet has given all it holds and closes
-  const i = toolsAt, gen = toolsEl.querySelector('.gen'); pulse(i, .8, 500)
+  const i = toolsAt, gen = toolsEl.querySelector('.gen'); pulse(i, .8, 500); openedAt = performance.now() // the click this touch sends next must not land on what it lays open
   if (gen && gen.hidden) { gen.hidden = false; snap(); gen.scrollIntoView({ block: 'nearest' }); return said(i, 'general', { idea: IDEAS[toolsOpen].name }) }
   const b = [...toolsEl.querySelectorAll('li > button')].find(b => b.getAttribute('aria-expanded') === 'false')
   if (!b) { said(i, 'closed', { idea: IDEAS[toolsOpen].name }); return closeTools() }

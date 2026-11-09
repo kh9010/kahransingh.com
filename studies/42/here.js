@@ -38,6 +38,7 @@
   const gapOf = g => g < .005 ? 'less than a hundredth' : two(g)
   const and = L => L.length < 2 ? L.join('') : L.slice(0, -1).join(', ') + ' and ' + L[L.length - 1]
   const dates = L => L.length <= 2 ? and(L.map(day)) : `${L.length} days, last ${day(L[L.length - 1])}`
+  const best = parts => ['light', 'warmth', 'wet', 'stillness', 'season', 'inside'].reduce((b, a) => parts[a] < parts[b] ? a : b, 'light')
   const decimals = v => { const m = /\.(\d+)$/.exec(String(v)); return m ? m[1].length : 0 }
 
   /* env: { photo, poem, mode ('home' | 'world'), ctx (today's pick: S14.load), model (34's: S34.explain), stepOf (34's), where (the line's
@@ -68,7 +69,9 @@
       Object.assign(F.pick, { ranked: true, photoRank: P ? P.rank : null, poemRank: Q ? Q.rank : null, bonus: P ? P.bonus : 0, km: P && P.place && P.place.km != null ? Math.round(P.place.km) : null,
         poemGap: m.poems[0].score - m.poems[1].score, photoGap: m.photos[0].score - m.photos[1].score, second: m.poems[1].item.title,
         nearKm: m.rule && m.rule.nearKm, farKm: m.rule && m.rule.farKm, near: m.rule && m.rule.near,
-        asks: ['light', 'warmth', 'wet', 'stillness', 'season'].map(a => env.stepOf(a, m.day[a])) })
+        asks: ['light', 'warmth', 'wet', 'stillness'].map(a => env.stepOf(a, m.day[a])), wetDay: m.day.wet >= .5, outDay: m.day.inside >= .5,
+        // what each answers to most: the measure (mood aside: the sky cannot read it) where its own reading lies closest to tonight's, by pick.js's weights
+        poemBest: Q ? best(Q.parts) : null, photoBest: P ? best(P.parts) : null })
       F.km = F.pick.km }
     else F.km = null
     const H = IDEAS.find(I => I.name === 'Home'), at = H ? H.parts.indexOf('This page') : -1
@@ -76,50 +79,45 @@
     F.publishers = src.publishers
     return F }
 
+  const NOUN = (a, F) => ({ light: 'light', warmth: 'warmth', wet: F.pick.wetDay ? 'wet' : 'dryness', stillness: 'stillness', season: 'the time of year', inside: F.pick.outDay ? 'being out of doors' : 'shelter' })[a]
+  const KM = { 1: 'about ten kilometres', 2: 'about a kilometre', 3: 'about a hundred metres' }
   function say(F) {
-    const T = `“${F.title}”`, P = F.photo, S = F.sky, now = S.night ? 'tonight' : 'today', Now = S.night ? 'Tonight' : 'Today'
-    const out = {}
-    // Context: where and when the photograph was made, the poem's year; where he is now and the sky the line reads
-    const made = `This photograph was made at ${P.place}${/,/.test(P.place) && (P.month || P.camera) ? ',' : ''}${P.month ? ` in ${P.month} ${P.year}` : ''}${P.camera ? `, on a ${P.camera}` : ''}`
-    out['Context'] = [{ s: F.poem.year ? `${made}; ${T} was written by ${F.poem.year}.` : `${made}; ${T} carries no year the record can prove.`, at: 'boundary' },
-      { s: S.place && S.phrase ? `${Now} he is in ${S.place}${F.km != null ? `, ${F.km.toLocaleString('en-US')} km from where it was taken,` : ''} and ${S.phrase}${S.temp != null ? ` at ${S.temp} °C` : ''}.`
+    const T = `“${F.title}”`, P = F.photo, S = F.sky, k = F.pick, A = F.archive, now = S.night ? 'tonight' : 'today', Now = S.night ? 'Tonight' : 'Today'
+    const out = {}, kept = F.poem.year ? `The earliest copy he kept of ${T} is from ${F.poem.year}` : `No copy of ${T} can yet be dated`
+    // Context owns where he is and the sky; it gives where and when the photograph was made, and the poem's year
+    out['Context'] = [{ s: `${kept}; this photograph was made at ${P.place}${/,/.test(P.place) && (P.month || P.camera) ? ',' : ''}${P.month ? ` in ${P.month} ${P.year}` : ''}${P.camera ? `, on a ${P.camera}` : ''}.`, at: 'boundary' },
+      { s: S.place && S.phrase ? `${Now} he is in ${S.place}${F.km != null ? `, ${F.km.toLocaleString('en-US')} km away` : ''}, where ${S.phrase}${S.temp != null ? ` at ${S.temp} °C` : ''}.`
         : S.place ? `He is in ${S.place}; the sky there could not be read.` : 'Where he is goes unsaid: it is not known with enough confidence.', at: 'Where I am' }]
-    // Topically suggesting: the reading, what it asked for, where this poem and this photograph stood against it; what the poem is near
-    const tp = [], k = F.pick, bare = S.phrase ? S.phrase.replace(/^(it's|there's) /, '') : null
-    const lift = k.bonus ? `, lifted ${two(k.bonus)} for lying within ${k.bonus === k.near ? k.nearKm : k.farKm} km of him` : ''
+    // Topically suggesting: what in tonight's sky the poem and the photograph answer to; one rank; the home's own pair only when this is not it
+    const tp = []
     if (F.how === 'live' && k.ranked) {
-      const [l, wa, we, st, se] = k.asks, season = /half$/.test(se) ? se + ' of the year' : se === 'between' ? 'between seasons' : se
-      tp.push(`${Now}’s sky over ${S.place}, ${bare}${S.temp != null ? ` at ${S.temp} °C` : ''}, read as ${l}, ${wa}, ${we} and ${st}, ${season}.`)
-      if (F.mine) tp.push(`Of ${k.poems} poems ${T} came first, ${gapOf(k.poemGap)} ahead of “${k.second}”; of ${k.photos} photographs this one came first by ${gapOf(k.photoGap)}${lift}.`)
-      else tp.push(`Weighed against it, ${T} stands ${ord(k.poemRank)} of ${k.poems} poems and this photograph ${ord(k.photoRank)} of ${k.photos}${lift}; the home’s own pair ${now} is ${k.same ? 'this photograph' : k.place} with ${k.samePoem ? 'this poem' : `“${k.title}”`}.`) }
+      const [l, wa, we, st] = k.asks
+      tp.push(`${Now}’s sky reads ${l}, ${wa}, ${we} and ${st}; ${T} answers it most in ${NOUN(k.poemBest, F)}, this photograph in ${NOUN(k.photoBest, F)}.`)
+      const home = k.same && k.samePoem ? '' : `; the home itself pairs ${k.same ? 'this photograph' : k.place} with ${k.samePoem ? 'this poem' : `“${k.title}”`}`
+      tp.push(F.mine ? `Of ${k.poems} poems it came first ${now}.` : `Of ${k.poems} poems it stands ${ord(k.poemRank)} ${now}${home}.`) }
     else if (F.how === 'frozen') tp.push(`Today’s pair is the one the archive kept for ${day(F.iso)}, chosen from that day’s whole sky${F.mine ? '' : `: ${k.place} with “${k.title}”`}.`)
-    else tp.push(`No reading of the sky reached this page, so today’s pair falls to the date itself, the same on every visit${F.mine ? '' : `: ${k.place} with “${k.title}”`}.`)
-    if (F.themes) { const L = F.themes.labels, n = F.themes.kin
-      tp.push(`On its own page, three neighbours are drawn at random from the ${n} other poems that share ${L.length > 1 ? `one of its themes, ${and(L)}` : `its theme, ${L[0]}`}.`) }
+    else tp.push(`No reading of the sky reached this page, so today’s pair falls to the date itself${F.mine ? '' : `: ${k.place} with “${k.title}”`}.`)
+    if (F.themes) { const L = F.themes.labels; tp.push(`Its page offers three of the ${F.themes.kin} other poems that also hold ${L.length > 1 ? L.slice(0, -1).join(', ') + ' or ' + L[L.length - 1] : L[0]}.`) }
     out['Topically suggesting'] = tp.map(s => ({ s, at: 'intro' }))
-    // Keeping track: where this poem and this photograph sit in the record, and the archive the day joins
-    const month = P.month ? (P.sameMonth > 1 ? `, from ${P.month} ${P.year}, is one of ${P.sameMonth} made that month` : `, from ${P.month} ${P.year}, is the only one made that month`) : ''
-    const k1 = (F.poem.year ? `${T} is one of the ${F.poem.yearCount} poems the record dates to ${F.poem.year}` : `${T} is one of the ${F.poem.undated} poems the record cannot yet date`)
-      + `; this photograph${month}${P.row ? `, and it stands in the About under ${P.row}` : ''}.`
-    const A = F.archive, ps = P.shown, qs = F.poem.shown
+    // Keeping track: where this poem and this photograph sit in the record, and what the archive holds of them
+    const ph = P.month ? (P.sameMonth > 1 ? `this photograph one of ${P.sameMonth} he made in ${P.month} ${P.year}` : `this photograph the only one he made in ${P.month} ${P.year}`) : 'this photograph undated'
+    const row = P.row && String(P.row) !== String(P.year) ? `, kept in the About under ${P.row}` : ''
+    const ps = P.shown, qs = F.poem.shown
     const shown = !ps.length && !qs.length ? 'neither has yet stood on the home' : ps.length && qs.length ? `this photograph stood on the home on ${dates(ps)}, ${T} on ${dates(qs)}`
       : ps.length ? `this photograph stood on the home on ${dates(ps)}` : `${T} stood on the home on ${dates(qs)}`
-    out['Keeping track'] = [{ s: k1, at: 'intro' }, { s: `The archive has kept ${A.days} days since ${A.since}; ${shown}, and ${A.hasToday ? 'today’s pair is already in it' : `${now}’s pair joins it at day’s end`}.`, at: 'intro' }]
-    // Staying up to date: what on this screen was read, and when; the day frozen, never reshuffled
-    const up = [S.place && S.phrase ? `The sky over ${S.place} was read ${S.readAt ? `at ${S.readAt}` : 'as this page opened'}, against where he is as last written, on ${S.written}.`
-      : `Where he is was last written on ${S.written}${S.place ? `; the sky over ${S.place} could not be read` : ', with no city this page may name'}.`]
-    up.push(F.how === 'live' ? (A.hasToday ? 'Today’s pair follows that reading; the archive already holds this day, and once it has passed it replays exactly as kept, never reshuffled.' : `Today’s pair follows that reading until ${A.freeze}, when it is frozen into the archive; from then on the day replays exactly as kept, never reshuffled.`)
-      : F.how === 'frozen' ? 'Today’s pair is already frozen in the archive and replays exactly as kept, never reshuffled.' : 'With no reading, today’s pair falls to the date, the same on every visit, never reshuffled.')
+    out['Keeping track'] = [{ s: `${F.poem.year ? `${T} is one of the ${F.poem.yearCount} poems he kept from ${F.poem.year}` : `${T} is one of the ${F.poem.undated} poems no copy yet dates`}, ${ph}${row}.`, at: 'intro' },
+      { s: `The archive holds ${A.days} days since ${A.since}; ${shown}.`, at: 'intro' }]
+    // Staying up to date: when this screen's readings were taken; the day frozen, never reshuffled
+    const up = [S.place && S.phrase ? `The sky was read ${S.readAt ? `at ${S.readAt}` : 'as this page opened'}, and where he is was last set on ${S.written}.` : `Where he is was last set on ${S.written}${S.place ? '; the sky could not be read' : ', with no city this page may name'}.`]
+    up.push(F.how === 'live' ? (A.hasToday ? 'Today’s pair follows the sky; the archive already holds this day, and once it has passed it replays exactly as kept.' : `Today’s pair follows the sky until ${A.freeze}, when the archive freezes it; after that the day replays exactly as kept.`)
+      : F.how === 'frozen' ? 'Today’s pair is already frozen in the archive and replays exactly as kept.' : 'With no reading, today’s pair falls to the date, the same on every visit.')
     out['Staying up to date'] = up.map(s => ({ s, at: 'intro' }))
-    // Self-healing: the two publishers behind this page are watched lanes; when each last ran
-    const heal = []
-    if (F.publishers === 'two') heal.push({ s: 'Two publishers stand behind this page, one writing where he is and one keeping each day’s pair, and both are among the lanes the self-healing checks watch.', at: 'Samwise' })
-    heal.push({ s: `Where he is was last written on ${S.written}, and the last day the archive kept is ${A.last}.`, at: 'Samwise' })
-    out['Self-healing'] = heal
-    // Home: this page is one of its surfaces, and what it carries; the city at the precision it reaches the page
-    const hm = F.home ? `This page is the ${F.home.at === F.home.of - 1 ? 'last' : ORDW[F.home.at]} of the ${COUNT[F.home.of] || F.home.of} surfaces Home looks after, and ${now} it carries a photograph from ${P.place}${/,/.test(P.place) ? ',' : ''} and ${T}${S.place ? ` under ${S.place}’s sky` : ''}.` : null
-    out['Home'] = [hm && { s: hm, at: 'This page' }, { s: S.place && S.decimals != null && PLACES[S.decimals] ? `The city under his name reaches it rounded to a ${PLACES[S.decimals]} of a degree, and only when where he is is known with confidence; a weaker reading leaves the line unsaid.`
-      : `Where he is goes unsaid ${now}, as it does whenever it is not known with confidence.`, at: 'boundary' }].filter(Boolean)
+    // Self-healing: what is watched so this page stays right, and when each last checked in
+    out['Self-healing'] = [F.publishers === 'two' && { s: 'Two jobs keep this page right, one noting where he is and one keeping each day’s pair, and both are watched for going quiet.', at: 'Samwise' },
+      { s: F.publishers === 'two' ? `The first last checked in on ${S.written}, the second on ${A.last}.` : `Where he is was last set on ${S.written}; the archive last kept ${A.last}.`, at: 'Samwise' }].filter(Boolean)
+    // Home: this page is one of its surfaces, and what it carries; how near the page is told where he is
+    out['Home'] = [F.home && { s: `This page is the ${F.home.at === F.home.of - 1 ? 'last' : ORDW[F.home.at]} of the ${COUNT[F.home.of] || F.home.of} surfaces Home looks after; ${now} it carries a photograph from ${P.place}${/,/.test(P.place) ? ',' : ''} and ${T}.`, at: 'This page' },
+      { s: S.place && KM[S.decimals] ? `His city shows under his name only when it is known with confidence, and never more closely than ${KM[S.decimals]}.` : `Where he is goes unsaid ${now}: it is not known with confidence.`, at: 'boundary' }].filter(Boolean)
     return out }
 
   window.S42 = { load, facts, say }

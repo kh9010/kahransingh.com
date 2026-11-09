@@ -92,7 +92,7 @@ function rankAll() { // pick.js's own formula, run here: closeness by its weight
       const bonus = e ? T0.placeBonus(e.place, READING.lat, READING.lon) : 0, km = e && e.place && e.place.lat != null ? T0.haversineKm(READING.lat, READING.lon, e.place.lat, e.place.lon) : null
       return { i, key, it, bonus, km, score: -dist + bonus + (recent.has(key) ? PEN : 0) + T0.tiebreak(ISO, key) } }).sort((a, b) => b.score - a.score || a.i - b.i).map((x, r) => ({ ...x, rank: r + 1 })) }
   return { day, photos: rk('photo', DATA.photos, 'src', PS, +NOV[2]), poems: rk('poem', DATA.poems, 'slug', QS, +NOV[1]) } }
-const RANK = rankAll()
+const RANK = rankAll(), ZERO = { light: 0, warmth: 0, wet: 0, stillness: 0, season: 0, inside: 0, mood: 0 }
 const dayW = iso => +iso.slice(8, 10) + ' ' + MON[+iso.slice(5, 7) - 1]
 const ordN = n => n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10] || 'th')
 const andL = L => L.length < 2 ? L.join('') : L.slice(0, -1).join(', ') + ' and ' + L[L.length - 1]
@@ -110,32 +110,33 @@ function expected(src, slug, mode, readAt) {
   const T = `“${poem.title}”`, py = PY.poems[slug], night = READING.is_day === 0, Now = night ? 'Tonight' : 'Today', now = night ? 'tonight' : 'today'
   const phrase = PHRASE(READING.weather_code, READING.is_day !== 0), temp = Math.round(READING.temperature_2m), P = RANK.photos.find(x => x.key === src), Q = RANK.poems.find(x => x.key === slug)
   const km = P.km != null ? Math.round(P.km) : null, comma = /,/.test(place) ? ',' : ''
-  const out = {}
-  out['Context'] = [[`This photograph was made at ${place}${comma} in ${month} ${year}, on a ${camera}; ${T} ${py ? `was written by ${py.year}` : 'carries no year the record can prove'}.`, 'boundary'],
-    [`${Now} he is in ${READING.place}${km != null ? `, ${km.toLocaleString('en-US')} km from where it was taken,` : ''} and ${phrase} at ${temp} °C.`, 'Where I am']]
-  const [l, wa, we, st, se] = ['light', 'warmth', 'wet', 'stillness', 'season'].map(a => STEP(a, RANK.day[a])), season = /half$/.test(se) ? se + ' of the year' : se === 'between' ? 'between seasons' : se
-  const lift = P.bonus ? `, lifted ${P.bonus.toFixed(2)} for lying within ${P.bonus === NEAR ? NEARKM : FARKM} km of him` : ''
-  const gap = g => g < .005 ? 'less than a hundredth' : g.toFixed(2), pickRec = XJ.photos.find(p => p.src === RANK.photos[0].key)
+  const out = {}, W8 = Object.fromEntries(['light', 'warmth', 'wet', 'stillness', 'season', 'inside', 'mood'].map(a => [a, T0.weightedDistance({ ...ZERO, [a]: 1 }, ZERO) ** 2]))
+  out['Context'] = [[`${py ? `The earliest copy he kept of ${T} is from ${py.year}` : `No copy of ${T} can yet be dated`}; this photograph was made at ${place}${comma} in ${month} ${year}, on a ${camera}.`, 'boundary'],
+    [`${Now} he is in ${READING.place}${km != null ? `, ${km.toLocaleString('en-US')} km away` : ''}, where ${phrase} at ${temp} °C.`, 'Where I am']]
+  // what each answers to most: the measure, mood aside, where its own reading lies nearest tonight's, by pick.js's weights
+  const near = key => { const v = T0.itemVector(key.startsWith('/') ? PS : QS, key); return ['light', 'warmth', 'wet', 'stillness', 'season', 'inside'].reduce((b, a) => W8[a] * (RANK.day[a] - v[a]) ** 2 < W8[b] * (RANK.day[b] - v[b]) ** 2 ? a : b, 'light') }
+  const noun = a => ({ light: 'light', warmth: 'warmth', wet: RANK.day.wet >= .5 ? 'wet' : 'dryness', stillness: 'stillness', season: 'the time of year', inside: RANK.day.inside >= .5 ? 'being out of doors' : 'shelter' })[a]
+  const [l, wa, we, st] = ['light', 'warmth', 'wet', 'stillness'].map(a => STEP(a, RANK.day[a])), pickRec = XJ.photos.find(p => p.src === RANK.photos[0].key)
   const th = REL.P[slug], labels = th.themes.map(t => REL.L[t] || t), kin = Object.entries(REL.P).filter(([s, e]) => s !== slug && e.themes.some(t => th.themes.includes(t))).length
-  out['Topically suggesting'] = [`${Now}’s sky over ${READING.place}, ${phrase.replace(/^(it's|there's) /, '')} at ${temp} °C, read as ${l}, ${wa}, ${we} and ${st}, ${season}.`,
-    mode === 'home' ? `Of ${DATA.poems.length} poems ${T} came first, ${gap(RANK.poems[0].score - RANK.poems[1].score)} ahead of “${RANK.poems[1].it.title}”; of ${DATA.photos.length} photographs this one came first by ${gap(RANK.photos[0].score - RANK.photos[1].score)}${lift}.`
-      : `Weighed against it, ${T} stands ${ordN(Q.rank)} of ${DATA.poems.length} poems and this photograph ${ordN(P.rank)} of ${DATA.photos.length}${lift}; the home’s own pair ${now} is ${RANK.photos[0].key === src ? 'this photograph' : pickRec.place} with ${RANK.poems[0].key === slug ? 'this poem' : `“${RANK.poems[0].it.title}”`}.`,
-    `On its own page, three neighbours are drawn at random from the ${kin} other poems that share ${labels.length > 1 ? `one of its themes, ${andL(labels)}` : `its theme, ${labels[0]}`}.`].map(s => [s, 'intro'])
+  const samePhoto = RANK.photos[0].key === src, samePoem = RANK.poems[0].key === slug
+  out['Topically suggesting'] = [`${Now}’s sky reads ${l}, ${wa}, ${we} and ${st}; ${T} answers it most in ${noun(near(slug))}, this photograph in ${noun(near(src))}.`,
+    mode === 'home' ? `Of ${DATA.poems.length} poems it came first ${now}.` : `Of ${DATA.poems.length} poems it stands ${ordN(Q.rank)} ${now}${samePhoto && samePoem ? '' : `; the home itself pairs ${samePhoto ? 'this photograph' : pickRec.place} with ${samePoem ? 'this poem' : `“${RANK.poems[0].it.title}”`}`}.`,
+    `Its page offers three of the ${kin} other poems that also hold ${labels.length > 1 ? labels.slice(0, -1).join(', ') + ' or ' + labels[labels.length - 1] : labels[0]}.`].map(s => [s, 'intro'])
   const sameMonth = XJ.photos.filter(p => p.taken.slice(0, 7) === rec.taken.slice(0, 7)).length
   const ps = realDays.filter(d => DAYS[d].photo === src), qs = realDays.filter(d => DAYS[d].poem === slug)
   const shown = !ps.length && !qs.length ? 'neither has yet stood on the home' : ps.length && qs.length ? `this photograph stood on the home on ${datesL(ps)}, ${T} on ${datesL(qs)}` : ps.length ? `this photograph stood on the home on ${datesL(ps)}` : `${T} stood on the home on ${datesL(qs)}`
   const hasToday = !!DAYS[ISO]
-  out['Keeping track'] = [`${T} is one of the ${py ? Object.values(PY.poems).filter(e => e.year === py.year).length + ' poems the record dates to ' + py.year : Object.keys(PY.undated).length + ' poems the record cannot yet date'}; this photograph, from ${month} ${year}, ${sameMonth > 1 ? `is one of ${sameMonth} made that month` : 'is the only one made that month'}, and it stands in the About under ${rec.row}.`,
-    `The archive has kept ${realDays.length} days since ${dayW(realDays[0])}; ${shown}, and ${hasToday ? 'today’s pair is already in it' : `${now}’s pair joins it at day’s end`}.`].map(s => [s, 'intro'])
-  out['Staying up to date'] = [`The sky over ${READING.place} was read at ${clockOf(readAt)}, against where he is as last written, on ${dayW(PLACE.updated)}.`,
-    hasToday ? 'Today’s pair follows that reading; the archive already holds this day, and once it has passed it replays exactly as kept, never reshuffled.' : `Today’s pair follows that reading until ${FREEZE}, when it is frozen into the archive; from then on the day replays exactly as kept, never reshuffled.`].map(s => [s, 'intro'])
-  const pubs = WALL.parts['This page'].filter(r => /publish/.test(r)).length // the two publishers, from the map of what runs behind each part
-  if (pubs !== 2) throw new Error('This page no longer has two publishers in tools/wall-map.json: the Self-healing sentence must change')
-  out['Self-healing'] = [['Two publishers stand behind this page, one writing where he is and one keeping each day’s pair, and both are among the lanes the self-healing checks watch.', 'Samwise'],
-    [`Where he is was last written on ${dayW(PLACE.updated)}, and the last day the archive kept is ${dayW(realDays[realDays.length - 1])}.`, 'Samwise']]
+  out['Keeping track'] = [`${T} is one of the ${py ? Object.values(PY.poems).filter(e => e.year === py.year).length + ' poems he kept from ' + py.year : Object.keys(PY.undated).length + ' poems no copy yet dates'}, this photograph ${sameMonth > 1 ? `one of ${sameMonth} he made` : 'the only one he made'} in ${month} ${year}${String(rec.row) !== String(year) ? `, kept in the About under ${rec.row}` : ''}.`,
+    `The archive holds ${realDays.length} days since ${dayW(realDays[0])}; ${shown}.`].map(s => [s, 'intro'])
+  out['Staying up to date'] = [`The sky was read at ${clockOf(readAt)}, and where he is was last set on ${dayW(PLACE.updated)}.`,
+    hasToday ? 'Today’s pair follows the sky; the archive already holds this day, and once it has passed it replays exactly as kept.' : `Today’s pair follows the sky until ${FREEZE}, when the archive freezes it; after that the day replays exactly as kept.`].map(s => [s, 'intro'])
+  const pubs = WALL.parts['This page'].filter(r => /publish/.test(r)).length // the two jobs behind this page, from the map of what runs behind each part
+  if (pubs !== 2) throw new Error('This page no longer has two publishing jobs in tools/wall-map.json: the Self-healing sentence must change')
+  out['Self-healing'] = [['Two jobs keep this page right, one noting where he is and one keeping each day’s pair, and both are watched for going quiet.', 'Samwise'],
+    [`The first last checked in on ${dayW(PLACE.updated)}, the second on ${dayW(realDays[realDays.length - 1])}.`, 'Samwise']]
   const Hm = IDEAS.find(I => I.name === 'Home'), at = Hm.parts.indexOf('This page'), dec = Math.max(...[PLACE.lat, PLACE.lon].map(v => (String(v).split('.')[1] || '').length))
-  out['Home'] = [[`This page is the ${at === Hm.parts.length - 1 ? 'last' : ['first', 'second', 'third'][at]} of the ${['', 'one', 'two', 'three', 'four', 'five', 'six'][Hm.parts.length]} surfaces Home looks after, and ${now} it carries a photograph from ${place}${comma} and ${T} under ${READING.place}’s sky.`, 'This page'],
-    [`The city under his name reaches it rounded to a ${{ 1: 'tenth', 2: 'hundredth', 3: 'thousandth' }[dec]} of a degree, and only when where he is is known with confidence; a weaker reading leaves the line unsaid.`, 'boundary']]
+  out['Home'] = [[`This page is the ${at === Hm.parts.length - 1 ? 'last' : ['first', 'second', 'third'][at]} of the ${['', 'one', 'two', 'three', 'four', 'five', 'six'][Hm.parts.length]} surfaces Home looks after; ${now} it carries a photograph from ${place}${comma} and ${T}.`, 'This page'],
+    [`His city shows under his name only when it is known with confidence, and never more closely than ${{ 1: 'about ten kilometres', 2: 'about a kilometre', 3: 'about a hundred metres' }[dec]}.`, 'boundary']]
   for (const k of Object.keys(out)) out[k] = out[k].map(([s, at]) => ({ s, at }))
   return out }
 // the words a sentence may hold in capitals: the data's own names (places, titles, cameras, months, the ideas and their tools) and a sentence's first word
