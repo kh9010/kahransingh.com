@@ -210,6 +210,25 @@ function facetsFor(photo, poem, W, H) { const count = W < 640 ? 15 : H < 560 ? 1
   const K = CUT.cut({ R, W, H, count, logic: 'masses', wind: 8, seed: key, dials: { share: .75, gap: .03, spacing: .16, fillGap: .13, lineMin: .25 } }), cells = CUT.voronoi(K.sites, W, H, 8), n = linesOf(poem).length
   return CUT.facets(K, cells, W, H, 8, R).filter(f => f.edges.length && f.region).map(f => S37.describe(f, R, { line: Math.min(n - 1, Math.floor(f.centroid[1] / H * n)), c: f.centroid })) }
 const D = { SEG, data, VOC, KIN, stanzasOf }
+/* every segment's way out lands where its words are written: each step the page builds with a link (S37.steps itself, both ways a
+   tap unfolds) must carry words that are on that page, word for word. /#flow counts as /v2/#flow (the stone forwards it), and a page
+   that loads /v2/home.js shows the IDEAS written there. 9 Nov: the About's segments are the letter's, so they go to /v2/about.html */
+{ const bad = [], seen = new Set(), known = new Set(); let links = 0
+  // The one link that does not (9 Nov, left for Kahran): the Context idea's opening, unfolded whole, goes to the idea's own page
+  // (its IDEAS href), which says the same thing in other words. Listed so it cannot spread; the check fails if it stops being true.
+  const KNOWN = { 'idea:context /context/': 'IDEAS gives Context an href to its own page; the opening is written on the wall, not there' }
+  const fileOf = h => { const u = h.startsWith('/#flow') ? '/v2/' : h.replace(/[#?].*$/, ''); return u.replace(/^\//, '').replace(/(^|\/)$/, '$1index.html') }
+  const holds = (f, t) => { if (!existsSync(path.join(ROOT, f))) return false; const raw = read(f)
+    return verbatim(f, t) || raw.includes(t) || raw.includes(t.replace(/’/g, '\\u2019')) || (raw.includes('<script src="/v2/home.js">') && verbatim('v2/home.js', t)) }
+  for (const s of SEG.segs) { const to = { photo: data.photos.find(q => q.src !== s.img).src, poem: data.poems.find(q => q.slug !== s.poem && live.has(q.slug)).slug }
+    for (const y of ['shape', 'whole']) for (const st of S37.steps({ seg: s, link: { k: 'word' }, to }, y, D)) { if (!st.href || st.t === 'move') continue
+      const f = fileOf(st.href), pieces = st.t === 'lines' ? st.lines : st.big.split(' · '), key = st.href + '|' + pieces.join('|'); if (seen.has(key)) continue; seen.add(key); links++
+      const miss = pieces.find(t => !holds(f, t)); if (!miss) continue
+      if (KNOWN[s.id.split(':').slice(0, 2).join(':') + ' ' + st.href]) { known.add(s.id.split(':').slice(0, 2).join(':') + ' ' + st.href); continue }
+      bad.push(`${s.id} → ${st.href}: "${miss.slice(0, 50)}" is not there`) } }
+  for (const k of Object.keys(KNOWN)) if (!known.has(k)) bad.push(`${k} is listed as known but now lands on its words: take it off the list`)
+  check(!bad.length && links > 0, `every one of ${links.toLocaleString('en-US')} links a segment opens lands on a page holding its words, word for word (the About's at /v2/about.html; ${known.size} known exception, named in the check)`, bad.slice(0, 6).join(' | ')) }
+
 function plansHold(world, plan, facets, y, tag, bad) { // the rules every dealt world obeys, static or drawn
   const say = m => { if (bad.length < 14) bad.push(`${tag}: ${m}`) }, uniq = (f, what) => { const m = new Map(); plan.forEach((p, i) => { if (!p) return; const k = f(p); if (k == null) return; if (m.has(k)) say(`#${m.get(k)} and #${i} share ${what} ${k}`); else m.set(k, i) }) }
   plan.forEach((p, i) => { if (!p) say(`facet ${i} yields nothing`) })

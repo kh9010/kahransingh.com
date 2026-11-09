@@ -26,6 +26,18 @@ if (process.argv.includes('--about')) {
   const units = take(/(<script type="application\/json" id="units">[\s\S]*?<\/script>)/, 'units');
   // the wall's flow view moved to /v2/#flow on 9 Nov; the stone forwards /#flow, but a link should not need forwarding
   const flow = (h) => h.replaceAll('"/#flow"', '"/v2/#flow"');
+  // The tools making's caption is 07's "the five ideas on the home page", written when the wall had five. The live page counts:
+  // the ideas from IDEAS in /v2/home.js (the one table), the ones listed from the list above the caption. Not one of the facts.
+  const homeJs = read('v2/home.js');
+  const IDEAS = new Function(homeJs.slice(homeJs.indexOf('var IDEAS'), homeJs.indexOf('];', homeJs.indexOf('var IDEAS')) + 2) + '; return IDEAS')();
+  const NUM = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  const ideasLine = (h) => {
+    const re = /(<a class="lh u" data-id="lift:tools"[\s\S]*?)<span data-t="p" class="from">the five ideas on the <a href="\/">home page<\/a><\/span data-t="p">/;
+    const m = re.exec(h); if (!m) throw new Error('build --about: the tools caption "the five ideas on the home page" moved; look again');
+    const listed = (m[1].match(/data-id="item:/g) || []).length, all = IDEAS.length;
+    const words = listed === all ? `the ${NUM[all]} ideas` : `${NUM[listed]} of the ${NUM[all]} ideas`;
+    return h.replace(re, `$1<span data-t="p" class="from">${words} on the <a href="/">home page</a></span data-t="p">`);
+  };
   const URL_ = 'https://kahransingh.com/about.html', IMG = 'https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg';
   const page = `<!DOCTYPE html>
 <html lang="en" data-v="a">
@@ -63,7 +75,7 @@ ${style}</style>
 </head>
 <body>
 <main>
-${head}${flow(a)}</main>
+${head}${ideasLine(flow(a))}</main>
 ${nav}
 ${flow(units)}
 <script src="/about.js"></script>

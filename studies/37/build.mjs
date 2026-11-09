@@ -70,18 +70,18 @@ for (const ph of data.photos) {
     worlds.forEach((w, k) => { const img = `/video-poems/posters/${slug}-${k + 1}.jpg`; if (!existsSync(path.join(ROOT, img)) || !onPage('poem-films.html', w)) { dropped.push(img); return }
       add({ id: `film:${slug}:${k + 1}`, kind: 'film', text: w, img, src: 'poem-films.html', poem: slug, title, other: worlds[1 - k], year: '2024' }) }) } }
 
-/* ---- the About: its sentences, its years, the word pile's lines ---- */
+/* ---- the About: its sentences, its years, the word pile's lines. These are the letter's words, so they link to the letter (/v2/about.html since 9 Nov) ---- */
 { const h = read('v2/about.html'), main = /<main[^>]*>([\s\S]*?)<\/main>/.exec(h)[1]
   const paras = [...main.matchAll(/<p(?: class="lede")?>([\s\S]*?)<\/p>/g)].map(m => S.plain(m[1].replace(/<span class="sign">[\s\S]*?<\/span>/, '')).replace(/ ([,.;:])/g, '$1'))
   paras.forEach((p, pi) => { const sents = S.sentences(p)
     sents.forEach((t, k) => { if (OTHERS.test(t) || !onPage('v2/about.html', t) || S.words(t, true).length < 4) return
-      add({ id: `about:p${pi}.${k}`, kind: 'about', text: t, src: 'v2/about.html', title: 'About', year: (/\b(19|20)\d\d\b/.exec(t) || [null])[0], after: sents[k + 1] && !OTHERS.test(sents[k + 1]) && onPage('v2/about.html', sents[k + 1]) ? sents[k + 1] : null, whole: sents.filter(x => !OTHERS.test(x) && onPage('v2/about.html', x)) }) }) })
+      add({ id: `about:p${pi}.${k}`, kind: 'about', text: t, src: 'v2/about.html', href: '/v2/about.html', title: 'About', year: (/\b(19|20)\d\d\b/.exec(t) || [null])[0], after: sents[k + 1] && !OTHERS.test(sents[k + 1]) && onPage('v2/about.html', sents[k + 1]) ? sents[k + 1] : null, whole: sents.filter(x => !OTHERS.test(x) && onPage('v2/about.html', x)) }) }) })
   for (const m of main.matchAll(/<li><b>([^<]+)<\/b><span>([\s\S]*?)<\/span><\/li>/g)) { const y = m[1].trim(), sents = S.sentences(S.plain(m[2]).replace(/ ([,.;:])/g, '$1'))
     sents.forEach((t, k) => { if (OTHERS.test(t) || !onPage('v2/about.html', t)) return
-      add({ id: `about:${y}.${k}`, kind: 'about', text: t, src: 'v2/about.html', title: 'About', year: /^\d{4}$/.test(y) ? y : null, row: y, after: null, whole: sents.filter(x => !OTHERS.test(x)) }) }) }
+      add({ id: `about:${y}.${k}`, kind: 'about', text: t, src: 'v2/about.html', href: '/v2/about.html', title: 'About', year: /^\d{4}$/.test(y) ? y : null, row: y, after: null, whole: sents.filter(x => !OTHERS.test(x)) }) }) }
   const q = (/var quotes = \[([\s\S]*?)\];/.exec(h) || [, ''])[1]
   ;[...q.matchAll(/'((?:[^'\\]|\\.)+)'/g)].map(m => m[1].replace(/\\u([0-9a-f]{4})/gi, (_, x) => String.fromCharCode(parseInt(x, 16))).replace(/\\'/g, '\''))
-    .forEach((t, k) => { if (!h.includes(t) && !h.includes(t.replace(/’/g, '\\u2019'))) return dropped.push('quote ' + k); add({ id: `about:said.${k}`, kind: 'about', text: t, src: 'v2/about.html', title: 'About', year: null, said: true, after: null, whole: [t] }) }) }
+    .forEach((t, k) => { if (!h.includes(t) && !h.includes(t.replace(/’/g, '\\u2019'))) return dropped.push('quote ' + k); add({ id: `about:said.${k}`, kind: 'about', text: t, src: 'v2/about.html', href: '/v2/about.html', title: 'About', year: null, said: true, after: null, whole: [t] }) }) }
 
 /* ---- the wall: each idea's sentences, as v2/home.js holds them ---- */
 { const IDEAS = new Function(home.slice(home.indexOf('var IDEAS'), home.indexOf('];', home.indexOf('var IDEAS')) + 2) + '; return IDEAS')()

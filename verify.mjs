@@ -634,6 +634,18 @@ checkNow("about.html is 27 a as a site page: every fact of 27's word for word in
   const ids = [...main.matchAll(/data-id="([^"]+)"/g)].map((m) => m[1]);
   if (ids.length !== L.facts.length || new Set(ids).size !== L.facts.length) throw new Error(`about.html holds ${ids.length} facts (${new Set(ids).size} distinct); 27 has ${L.facts.length}`);
   for (const [id, sp] of spans) if (!main.includes(sp)) throw new Error(`about.html: ${id} is not 27 a's, word for word`);
+  // Beyond the facts, version a is carried whole, with exactly two recorded changes: /#flow is /v2/#flow, and the tools caption,
+  // 07's "the five ideas on the home page" (written for the five-idea wall), counts the ideas from IDEAS in /v2/home.js.
+  const homeJs = readFileSync(path.join(ROOT, "v2", "home.js"), "utf8");
+  const nIdeas = new Function(homeJs.slice(homeJs.indexOf("var IDEAS"), homeJs.indexOf("];", homeJs.indexOf("var IDEAS")) + 2) + "; return IDEAS")().length;
+  const NUM = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+  const OLD = '<span data-t="p" class="from">the five ideas on the <a href="/">home page</a>';
+  const listed = (a27.slice(a27.indexOf('data-id="lift:tools"'), a27.indexOf(OLD)).match(/data-id="item:/g) || []).length;
+  const NEW = `<span data-t="p" class="from">${listed === nIdeas ? "the " + NUM[nIdeas] : NUM[listed] + " of the " + NUM[nIdeas]} ideas on the <a href="/">home page</a>`;
+  if (a27.split(OLD).length !== 2) throw new Error("27 a's tools caption is no longer 07's \"the five ideas on the home page\"; look again at the recorded change");
+  const aboutA = /<div class="v v-a" data-v="a">([\s\S]*?)<\/main>/.exec(h)?.[1].replace(/\n$/, "") ?? "";
+  if (aboutA !== a27.replace(OLD, NEW).replace(/\n$/, "")) throw new Error("about.html's version a is not 27 a with only its two recorded changes (the flow link, the ideas count)");
+  if (/\bfive ideas\b/.test(h) && nIdeas !== 5) throw new Error(`about.html says "five ideas"; the home has ${nIdeas}`);
   const rows = [...main.matchAll(/<div class="yr( empty)?" data-y="([^"]+)">([\s\S]*?)(?=<div class="yr|<\/div><\/div>\s*<p class="close">)/g)];
   if (rows.map((x) => x[2]).join() !== Y.rows.join()) throw new Error(`about.html's years are ${rows.map((x) => x[2]).join()}, 27's ${Y.rows.join()}`);
   const place = Object.fromEntries(Y.facts.map((f) => [f.id, f.row]));
@@ -653,7 +665,7 @@ checkNow("about.html is 27 a as a site page: every fact of 27's word for word in
   for (const m of h.matchAll(/"h":"(\/[^"#?]*)/g)) { let p = path.join(ROOT, m[1]); if (m[1].endsWith("/")) p = path.join(p, "index.html"); if (!existsSync(p)) throw new Error(`about.html: a fact opens ${m[1]}, not on disk`); links++; }
   const YEARS = /const YEARS = '([^']+)'/.exec(readFileSync(path.join(ROOT, "v3", "stone.js"), "utf8"))?.[1];
   if (YEARS !== "/about.html") throw new Error(`the stone's year facet opens ${YEARS}, not /about.html`);
-  return `${meta.length} page rules, ${L.facts.length} facts word for word in ${Y.rows.length} years, ${L.facts.length - missing.length} readable without JS, ${links} internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html`;
+  return `${meta.length} page rules, ${L.facts.length} facts word for word in ${Y.rows.length} years, version a whole but for the flow link and the ideas count (${NUM[listed]} of ${NUM[nIdeas]}), ${L.facts.length - missing.length} readable without JS, ${links} internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html`;
 });
 
 /* Studies 14 on are canvas/script pieces (the stone, the crossing): a dial is

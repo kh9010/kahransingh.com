@@ -69,6 +69,9 @@ class AboutPhotosTests(unittest.TestCase):
         self.assertIn('Write to me. Especially if you are drawing up your own contract with the world', text)
         self.assertIn('Board of TomboyX', text)
         self.assertIn('How the World Works', text)
+        # 07's caption said "the five ideas"; the home has six (count from IDEAS, see build.mjs --about).
+        self.assertNotIn('the five ideas', text)
+        self.assertIn('of the six ideas on the home page', text)
         hrefs = [attrs.get('href', '') for tag, attrs in page.tags if tag == 'a']
         self.assertFalse([h for h in hrefs if h.startswith('?')], 'no version switcher or ?tune on the live page')
 
