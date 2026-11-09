@@ -99,5 +99,7 @@
   "yield-min-px": "11",
   "yield-retone-ms": "450",
   "label-ms": "2000",
-  "line-feather-px": "8"
+  "line-feather-px": "8",
+  "seam-band-px": "3.5",
+  "line-rounds": "3"
 }

@@ -263,7 +263,7 @@ function lineCanvases(w) { // each line drawn once, in its face and shadow; the 
     L.ga = L.gt = w.img ? groundFor([vr.left + ux0, vr.top + uy0 - v.scrollTop, ux1 - ux0, uy1 - uy0], w.img.getContext('2d', { willReadFrequently: true }), [[INK, 1]]) : 0
     { const gc = document.createElement('canvas'); gc.width = c.width; gc.height = c.height; const gx = gc.getContext('2d'), f = num('line-feather-px', 8)
       gx.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR); gx.filter = `blur(${f / 2 * DPR}px)`; gx.fillStyle = `rgb(${GROUND})`
-      gx.beginPath(); gx.roundRect(ux0 - f, uy0 - f / 2, ux1 - ux0 + f * 2, uy1 - uy0 + f, f); gx.fill(); L.g = gc }
+      gx.beginPath(); gx.roundRect(ux0 - f, uy0 - f, ux1 - ux0 + f * 2, uy1 - uy0 + f * 2, f); gx.fill(); L.g = gc }
     x.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR)
     for (const [blur, al] of [[16, .7], [2, .35]]) { x.shadowColor = `rgba(0,0,0,${al})`; x.shadowBlur = blur * DPR; x.shadowOffsetY = DPR
       for (const r of L.runs) { x.font = r.font; x.letterSpacing = r.ls === 'normal' ? '0px' : r.ls; x.globalAlpha = r.tag ? .6 : 1; x.fillStyle = r.tag ? '#c9c3b6' : '#f3efe6'; x.fillText(r.t, r.x, r.y) } }
@@ -680,12 +680,14 @@ const ratio = (a, b) => { const x = lumOfRGB(a), y = lumOfRGB(b); return (Math.m
 const blend = (top, a, bot) => [0, 1, 2].map(j => top[j] * a + bot[j] * (1 - a))
 const rgbOf = s => { const v = (/rgba?\(([^)]+)\)/.exec(s) || [, '0 0 0'])[1].split(/[\s,/]+/).filter(Boolean).map(Number); return [v[0], v[1], v[2], v.length > 3 ? v[3] : 1] }
 const GROUND = [13, 12, 11], INK = [243, 239, 230] // --ink-seam, the stone's own dark; --ink-on, the poem's
-function groundFor(r, x, inks) { // how dark a ground under rect r (screen px) must be for every ink [colour, strength] to read at AA over what canvas x (the screen's size, at DPR) holds there
+function groundFor(r, x, inks, quant = num('yield-quantile', .998), mask = null) { // how dark a ground under rect r (screen px) must be for every ink [colour, strength] to read at AA over what canvas x (the screen's size, at DPR) holds there:
+  // against all but the brightest few in a thousand of its pixels (a yield's box), or against the brightest (quant 1: a label, a poem line, whose words can sit on it); mask: pixels to leave out (the seams)
   const k = x.canvas.width / W, x0 = Math.max(0, Math.floor(r[0] * k)), y0 = Math.max(0, Math.floor(r[1] * k)), x1 = Math.min(x.canvas.width, Math.ceil((r[0] + r[2]) * k)), y1 = Math.min(x.canvas.height, Math.ceil((r[1] + r[3]) * k))
   if (x1 <= x0 || y1 <= y0 || !inks.length) return 0
-  const px = x.getImageData(x0, y0, x1 - x0, y1 - y0).data, L = []
-  for (let j = 0; j < px.length; j += 8) L.push([lumOfRGB([px[j], px[j + 1], px[j + 2]]), j])
-  L.sort((p, q) => p[0] - q[0]); const at = L[Math.min(L.length - 1, Math.floor(L.length * num('yield-quantile', .998)))][1], bg = [px[at], px[at + 1], px[at + 2]]
+  const px = x.getImageData(x0, y0, x1 - x0, y1 - y0).data, mk = mask && mask.getImageData(x0, y0, x1 - x0, y1 - y0).data, L = []
+  for (let j = 0; j < px.length; j += 4) if (!mk || mk[j] > 127) L.push([lumOfRGB([px[j], px[j + 1], px[j + 2]]), j])
+  if (!L.length) return 0
+  L.sort((p, q) => p[0] - q[0]); const at = L[Math.min(L.length - 1, Math.floor(L.length * quant))][1], bg = [px[at], px[at + 1], px[at + 2]]
   const reads = a0 => { const b = blend(GROUND, a0, bg); return inks.every(([c, op]) => ratio(blend(c, op, b), b) >= num('yield-aa', 4.8)) }
   let a = 0; const max = num('yield-scrim-max', .9); while (a < max && !reads(a)) a = Math.min(max, a + .02); return a }
 function inksOf(el, upTo) { // each text under el that shows, in its own colour and the strength its ancestors leave it (up to upTo)
@@ -697,14 +699,34 @@ const unionRect = e => { let [l, t, w0, h0] = rectArr(e), r = l + w0, b = t + h0
 const LABELS = ['#cap', '#year', '#names', 'header', '.vs']
 function groundLabels() { if (!cur) return
   for (const q of LABELS) { const e = $(q); if (!e) continue; const shown = !/^#(names|year)$/.test(q) || e.classList.contains('on'), inks = shown ? inksOf(e, e) : [], r = unionRect(e)
-    e.style.setProperty('--scrim', (r[2] > 0 && inks.length ? groundFor(r, g, inks) : 0).toFixed(2)) } }
+    e.style.setProperty('--scrim', (r[2] > 0 && inks.length ? groundFor(r, g, inks, 1) : 0).toFixed(2)) } }
 let groundT = 0
 function groundLines(w, snap) { // the stone drawn bare (no words, no grounds) and each line's need read off it: what the lamp does to a facet is counted
   if (!w || !w.lc || !w.v) return; const st = w.v.scrollTop, [rx, ry] = w.R
   w.bare = 'raw'; composite(w); ledger = { t: null, list: [] }; clear(); drawWorld(w)
-  for (const L of w.lc) if (L.u) { L.gt = Math.min(num('yield-scrim-max', .9), groundFor([rx + L.u[0], ry + L.u[1] - st, L.u[2], L.u[3]], g, [[INK, 1]]) / EDGE); if (snap) L.ga = L.gt }
+  const faces = seamMask() // a seam's stroke is drawn over the words, so no word reads there: the line's need is read off the facets' faces
+  const max = num('yield-scrim-max', .9), at = L => [rx + L.u[0], ry + L.u[1] - st, L.u[2], L.u[3]]
+  for (const L of w.lc) if (L.u) L.gt = Math.min(max, groundFor(at(L), g, [[INK, 1]], 1, faces) / edge())
+  /* the lamp lies over the grounds too and lifts them, so each is read again with the grounds laid (words still off): a line still short
+     gets the more it needs, a few rounds at most */
+  const was = w.lc.map(L => L.ga)
+  for (let k = 0; k < num('line-rounds', 3); k++) { w.lc.forEach(L => { L.ga = L.gt }); w.bare = true; composite(w); ledger = { t: null, list: [] }; clear(); drawWorld(w); const f2 = seamMask(); let short = 0
+    for (const L of w.lc) if (L.u && L.gt < max) { const more = groundFor(at(L), g, [[INK, 1]], 1, f2) / edge(); if (more > .005) { short++; L.gt = Math.min(max, 1 - (1 - L.gt) * (1 - more)) } }
+    if (!short) break }
+  w.lc.forEach((L, i) => { L.ga = snap ? L.gt : was[i] })
   w.bare = false; composite(w); ledger = { t: null, list: [] }; clear() }
-const EDGE = .8413 // the feather at a line's top and bottom: half the feather out over a blur of half the feather is one sigma, so the ground there lies at Φ(1) of its strength
+let maskC = null
+function seamMask() { // white where a facet's face is drawn this frame, black within seam-band-px of its edge (from the ledger)
+  const c = maskC ||= document.createElement('canvas'); if (c.width !== cv.width || c.height !== cv.height) { c.width = cv.width; c.height = cv.height }
+  const x = c.getContext('2d', { willReadFrequently: true }); x.setTransform(1, 0, 0, 1, 0, 0); x.fillStyle = '#000'; x.fillRect(0, 0, c.width, c.height); x.setTransform(DPR, 0, 0, DPR, 0, 0)
+  const path = Q => { x.beginPath(); Q.forEach(([a, b], i) => i ? x.lineTo(a, b) : x.moveTo(a, b)); x.closePath() }
+  x.fillStyle = '#fff'; for (const e of ledger.list) if (e.Q && e.seen > .5) { path(e.Q); x.fill() }
+  x.strokeStyle = '#000'; x.lineWidth = num('seam-band-px', 3.5) * 2; x.lineJoin = 'round'; for (const e of ledger.list) if (e.Q && e.seen > .5) { path(e.Q); x.stroke() }
+  return x }
+/* how strong a line's ground still is at its words' edge: it reaches the feather past them and is blurred over half the feather, and a facet can draw it
+   (with the words) up to REACH * refract-px off, so at worst the edge lies (feather - that) / (feather / 2) sigma inside the ground's own edge */
+const phi = z => { const t = 1 / (1 + .3275911 * Math.abs(z) / Math.SQRT2), e = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - .284496736) * t + .254829592) * t * Math.exp(-z * z / 2); return .5 * (1 + Math.sign(z) * e) }
+const edge = () => { const f = num('line-feather-px', 8); return phi((f - refr() * REACH) / (f / 2)) }
 function toneWin(raise) {
   const r = backEl.getBoundingClientRect()
   let a = groundFor([r.left, r.top, r.width, r.height], g, inksOf(backEl, backEl))
@@ -891,7 +913,7 @@ let last = performance.now()
 function frame(now) {
   const dt = Math.min(100, now - last); last = now
   if (!reduce() && now - lastMove > 4000 && !HOME.still) { const a = now / 26000; Tx = W * (.5 + .38 * Math.cos(a)); Ty = H * (.42 + .3 * Math.sin(a * 1.3)) } // unattended, the sun walks
-  Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05
+  Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05; if (HOME.still) { Lx = Tx; Ly = Ty } // held still (the check's), the lamp is where it rests
   const k = 1 - Math.exp(-dt / Math.max(1, num('line-ms', 320) * .66))
   for (const w of [...live(), crossing && crossing.old].filter(Boolean)) { w.A.forEach((a, i) => { const b = a + (w.Tg[i] - a) * k; if (Math.abs(b - a) > .001) { w.A[i] = Math.abs(w.Tg[i] - b) < .004 ? w.Tg[i] : b; w.dirty = true } })
     if (w.lc) for (const L of w.lc) if (L.gt != null && Math.abs(L.gt - L.ga) > .002) { L.ga += (L.gt - L.ga) * k; w.dirty = true } // a line's ground follows the lamp, never jumps
