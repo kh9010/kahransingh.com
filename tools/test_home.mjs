@@ -1005,7 +1005,7 @@ try {
     for (const [s, vp] of SIZES.entries()) { await view(vp); await reduceMotion(false); errors.length = 0
       for (const [j, key] of worlds.entries()) { if (!at(key, j, s)) continue; seen++; await open('?w=' + encodeURIComponent(key))
         const r = await cdp.eval(`(async () => { HOME.still = true; const measure = ${MEASURE}, frame = () => new Promise(r => requestAnimationFrame(() => r())), wait = ms => new Promise(r => setTimeout(r, ms))
-          await wait(900); HOME.groundLabels(); await frame(); await frame(); await wait(700) // the lamp held still and settled; the labels' grounds read as the page's own re-read does, their fade done
+          while (!HOME.world.arrived) await wait(100); await wait(900); HOME.groundLabels(); // the poem arrived whole first await frame(); await frame(); await wait(700) // the lamp held still and settled; the labels' grounds read as the page's own re-read does, their fade done
           const rest = measure(['.verse', '.cap', '#year', '#names', 'header', '.vs'])
           const b = document.querySelector('#names.on button'); let tools = {}; if (b) { b.click(); await wait(450); tools = measure(['#tools']); dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(100) }
           const ys = []; for (const [i, p] of HOME.plans.entries()) { if (!p || !p.steps) continue

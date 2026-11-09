@@ -256,14 +256,14 @@ function lineCanvases(w) { // each line drawn once, in its face and shadow; the 
     if (!L.runs.length) continue
     const pad = 22, x0 = Math.min(...L.runs.map(r => r.x)) - pad, x1 = Math.max(...L.runs.map(r => r.x + r.w)) + pad, y0 = Math.min(...L.runs.map(r => r.top)) - pad, y1 = Math.max(...L.runs.map(r => r.bot)) + pad
     const c = document.createElement('canvas'); c.width = Math.ceil((x1 - x0) * DPR); c.height = Math.ceil((y1 - y0) * DPR); const x = c.getContext('2d')
-    /* the line's own ground, on its own canvas: read off the photograph under the line (the shade under the poem included), only as dark as
-       its words need to read at AA, feathered so the lines' grounds run together as one quiet shade; nothing where the photograph is dark */
+    /* the line's own ground, on its own canvas, feathered so the lines' grounds run together as one quiet shade. How strong it lies (L.ga) is
+       read off the stone as drawn, the lamp included (groundLines); until then, off the photograph */
     const ux0 = Math.min(...L.runs.map(r => r.x)), ux1 = Math.max(...L.runs.map(r => r.x + r.w)), uy0 = Math.min(...L.runs.map(r => r.top)), uy1 = Math.max(...L.runs.map(r => r.bot))
-    const ga = w.img ? groundFor([vr.left + ux0, vr.top + uy0 - v.scrollTop, ux1 - ux0, uy1 - uy0], w.img.getContext('2d', { willReadFrequently: true }), [[INK, 1]]) : 0
-    if (ga > 0) { const gc = document.createElement('canvas'); gc.width = c.width; gc.height = c.height; const gx = gc.getContext('2d'), f = num('line-feather-px', 8)
-      gx.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR); gx.filter = `blur(${f / 2 * DPR}px)`; gx.fillStyle = `rgba(${GROUND},${ga})`
+    L.u = [ux0, uy0, ux1 - ux0, uy1 - uy0]
+    L.ga = L.gt = w.img ? groundFor([vr.left + ux0, vr.top + uy0 - v.scrollTop, ux1 - ux0, uy1 - uy0], w.img.getContext('2d', { willReadFrequently: true }), [[INK, 1]]) : 0
+    { const gc = document.createElement('canvas'); gc.width = c.width; gc.height = c.height; const gx = gc.getContext('2d'), f = num('line-feather-px', 8)
+      gx.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR); gx.filter = `blur(${f / 2 * DPR}px)`; gx.fillStyle = `rgb(${GROUND})`
       gx.beginPath(); gx.roundRect(ux0 - f, uy0 - f / 2, ux1 - ux0 + f * 2, uy1 - uy0 + f, f); gx.fill(); L.g = gc }
-    L.ground = ga
     x.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR)
     for (const [blur, al] of [[16, .7], [2, .35]]) { x.shadowColor = `rgba(0,0,0,${al})`; x.shadowBlur = blur * DPR; x.shadowOffsetY = DPR
       for (const r of L.runs) { x.font = r.font; x.letterSpacing = r.ls === 'normal' ? '0px' : r.ls; x.globalAlpha = r.tag ? .6 : 1; x.fillStyle = r.tag ? '#c9c3b6' : '#f3efe6'; x.fillText(r.t, r.x, r.y) } }
@@ -293,8 +293,8 @@ function composite(w) {
   const x = w.text.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, w.text.width, w.text.height)
   const [rx, ry, rw, rh] = w.R, st = w.v.scrollTop, da = num('door-alpha', .3)
   x.setTransform(DPR, 0, 0, DPR, 0, 0); x.beginPath(); x.rect(rx - 30, ry - 2, rw + 60, rh + 4); x.clip(); x.translate(rx, ry - st)
-  w.lc.forEach((L, i) => { const a = w.A[i]; if (a < .003 || !L.c) return; x.globalAlpha = a; if (L.g) x.drawImage(L.g, L.x0, L.y0, L.w, L.h)
-    if (w.bare) return; x.drawImage(L.c, L.x0, L.y0, L.w, L.h)
+  w.lc.forEach((L, i) => { const a = w.A[i]; if (a < .003 || !L.c || w.bare === 'raw') return; if (L.g && L.ga > .003) { x.globalAlpha = a * L.ga; x.drawImage(L.g, L.x0, L.y0, L.w, L.h) }
+    if (w.bare) return; x.globalAlpha = a; x.drawImage(L.c, L.x0, L.y0, L.w, L.h)
     for (const [u0, u1, y, k, px] of L.unders) { if (w.mode !== 'world' && k !== 'title') continue // the title is a way in at home too: to the whole poem
       if (k === 'title') w.drewTitleUnder = a > .5
       x.globalAlpha = a; x.strokeStyle = `rgba(243,239,230,${w.lit === k ? .85 : da})`; x.lineWidth = 1; x.beginPath(); x.moveTo(u0, y + px * .28); x.lineTo(u1, y + px * .28); x.stroke() } })
@@ -699,6 +699,12 @@ function groundLabels() { if (!cur) return
   for (const q of LABELS) { const e = $(q); if (!e) continue; const shown = !/^#(names|year)$/.test(q) || e.classList.contains('on'), inks = shown ? inksOf(e, e) : [], r = unionRect(e)
     e.style.setProperty('--scrim', (r[2] > 0 && inks.length ? groundFor(r, g, inks) : 0).toFixed(2)) } }
 let groundT = 0
+function groundLines(w, snap) { // the stone drawn bare (no words, no grounds) and each line's need read off it: what the lamp does to a facet is counted
+  if (!w || !w.lc || !w.v) return; const st = w.v.scrollTop, [rx, ry] = w.R
+  w.bare = 'raw'; composite(w); ledger = { t: null, list: [] }; clear(); drawWorld(w)
+  for (const L of w.lc) if (L.u) { L.gt = Math.min(num('yield-scrim-max', .9), groundFor([rx + L.u[0], ry + L.u[1] - st, L.u[2], L.u[3]], g, [[INK, 1]]) / EDGE); if (snap) L.ga = L.gt }
+  w.bare = false; composite(w); ledger = { t: null, list: [] }; clear() }
+const EDGE = .8413 // the feather at a line's top and bottom: half the feather out over a blur of half the feather is one sigma, so the ground there lies at Φ(1) of its strength
 function toneWin(raise) {
   const r = backEl.getBoundingClientRect()
   let a = groundFor([r.left, r.top, r.width, r.height], g, inksOf(backEl, backEl))
@@ -887,7 +893,9 @@ function frame(now) {
   if (!reduce() && now - lastMove > 4000 && !HOME.still) { const a = now / 26000; Tx = W * (.5 + .38 * Math.cos(a)); Ty = H * (.42 + .3 * Math.sin(a * 1.3)) } // unattended, the sun walks
   Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05
   const k = 1 - Math.exp(-dt / Math.max(1, num('line-ms', 320) * .66))
-  for (const w of [...live(), crossing && crossing.old].filter(Boolean)) { w.A.forEach((a, i) => { const b = a + (w.Tg[i] - a) * k; if (Math.abs(b - a) > .001) { w.A[i] = Math.abs(w.Tg[i] - b) < .004 ? w.Tg[i] : b; w.dirty = true } }); if (w.dirty) composite(w) }
+  for (const w of [...live(), crossing && crossing.old].filter(Boolean)) { w.A.forEach((a, i) => { const b = a + (w.Tg[i] - a) * k; if (Math.abs(b - a) > .001) { w.A[i] = Math.abs(w.Tg[i] - b) < .004 ? w.Tg[i] : b; w.dirty = true } })
+    if (w.lc) for (const L of w.lc) if (L.gt != null && Math.abs(L.gt - L.ga) > .002) { L.ga += (L.gt - L.ga) * k; w.dirty = true } // a line's ground follows the lamp, never jumps
+    if (w.dirty) composite(w) }
   clear()
   const C = crossing
   if (pressing && pressing.d + pressing.gv > 0) { const p = pressing
@@ -896,7 +904,7 @@ function frame(now) {
     ledger = { t: null, list: [] }; p.old.cells.forEach((P, i) => note('h' + i, facet(P, p.old.cents[i], p.old.normals[i], [{ img: p.old.img }, ...textLayer(p.old, i, p.old.normals[i], P, 1 - p.d)], pose[i]), pose[i].m, pose[i].alpha)) }
   else if (C) crossFrame(C)
   else if (cur) { touchFrame(cur, now, dt); ledger = { t: null, list: [] }; drawWorld(cur); if (ends && !ends.after) ends.after = ledger.list
-    if (!busy && (groundT++ === 2 || groundT % Math.max(30, Math.round(num('label-ms', 2000) / 16.7)) === 0)) groundLabels() } // as the lamp walks, each label's ground follows what is under it
+    if (!busy && (groundT++ === 2 || groundT % Math.max(30, Math.round(num('label-ms', 2000) / 16.7)) === 0)) { groundLines(cur); drawWorld(cur); groundLabels() } } // as the lamp walks, each ground follows what is under it
   winFrame(now)
   requestAnimationFrame(frame) }
 function touchFrame(w, now, dt) {
@@ -970,7 +978,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     FX.win.toned = true; toneWin(true)
     return { i, k, t: s.t, text: backEl.textContent } },
   draw(o = {}) { if (!cur) return; if (!!o.bare !== !!cur.bare) { cur.bare = !!o.bare; composite(cur) } clear(); ledger = { t: null, list: [] }; drawWorld(cur) }, // bare: the poem's words left off, their grounds kept (what the check reads them against)
-  groundLabels() { groundLabels() },
+  groundLabels() { if (cur) { groundLines(cur, true); this.draw() } groundLabels() }, // read now and settled at once (the check's; the page eases them)
   hideWin() { hideWin() },
   tapPoint(i) { return cur ? touchAt(cur, i) : null },
   async rest() { // every facet, as drawn now, against this photograph and against the one it leads to: the closer must be this one (pixels, not code)
