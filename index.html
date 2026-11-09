@@ -5,10 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <title>Kahran Singh</title>
-<meta name="description" content="Kahran Singh is a poet, investor, and builder. A different photograph and a different poem every day, and the wall of tools he is building to support himself.">
+<meta name="description" content="Kahran Singh is a poet, investor, and builder. A different photograph and a different poem every day, and the tools he is building to support himself.">
 <link rel="canonical" href="https://kahransingh.com/">
-<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#171613" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0d0c0b">
 
 <meta property="og:title" content="Kahran Singh">
 <meta property="og:description" content="Poet, investor, and builder. A different photograph and a different poem every day, and the tools he is building to support himself.">
@@ -20,10 +19,12 @@
 <meta name="twitter:description" content="Poet, investor, and builder. A different photograph and a different poem every day, and the tools he is building to support himself.">
 <meta name="twitter:image" content="https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg">
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/v2/home.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v3/stone.css">
+<noscript><style>#app, #names, #tools, #year { display: none; }</style></noscript>
 
 <script type="application/ld+json">
 {
@@ -64,130 +65,55 @@
 </script>
 </head>
 <body>
-
-<div class="stage">
-
-  <!-- The photograph covers exactly this block, so it is one viewport for a
-       short poem and grows with a long one. On a phone the tools sit below it
-       rather than inside it, which keeps the crop a composition, not a slice. -->
-  <div class="screen">
-    <div class="stage-photo">
-      <img id="photo" src="" alt="" loading="eager" decoding="async" fetchpriority="high">
-    </div>
-    <div class="stage-scrim" aria-hidden="true"></div>
-
-    <div class="stage-copy">
-      <header class="masthead">
-        <h1 class="wordmark"><a href="/">kahran singh</a></h1>
-        <nav class="site-links" aria-label="Explore">
-          <a href="/about.html">about</a>
-          <a href="/photography.html">photos</a>
-        </nav>
-        <div class="day" hidden>
-          <p class="day-date" id="day-date">&nbsp;</p>
-          <p class="day-where" id="day-where"></p>
-          <nav class="day-walk" aria-label="Choose a day">
-            <button type="button" class="day-step" id="day-back" data-step="-1">&#8592; yesterday</button>
-            <button type="button" class="day-step" id="day-fwd" data-step="1">today &#8594;</button>
-          </nav>
-        </div>
-      </header>
-
-      <!-- One thing at two distances. The label is the poem's own title set
-           small under a tiny caption; hovering, holding or focusing starts it
-           travelling toward you, and as it arrives it IS the poem. A single
-           progress value in v2/home.js drives both, so letting go half way
-           turns it round from wherever it got to. -->
-      <main class="opening" id="opening" aria-live="polite">
-        <div class="poem-hold" id="poem-hold">
-          <button type="button" class="poem-label" id="poem-label"
-                  aria-expanded="false" aria-controls="poem">
-            <span class="poem-label-cap">this moment&rsquo;s poem</span>
-            <span class="poem-label-title" id="poem-label-title"></span>
-          </button>
-          <article class="poem" id="poem">
-            <h2 class="poem-title"><a id="poem-link" href="/poetry.html"></a></h2>
-            <div class="poem-body" id="poem-body"></div>
-          </article>
-        </div>
-      </main>
-
-      <noscript>
-        <p class="fallback">Today&rsquo;s photograph and poem need JavaScript. The
-        <a href="/poetry.html">poems</a> and the <a href="/photography.html">photographs</a>
-        are also on their own pages.</p>
-      </noscript>
-    </div>
-
-    <!-- bottom-left of the photograph, the way a caption sits on a print -->
-    <p class="plate-caption" id="caption"></p>
-  </div>
-
-  <!-- Wide: lifted into the right of the first screen, level with the poem's
-       opening, so poem and tools are in view together. Narrow: falls back into
-       the flow, below the photograph, on its own dark band. -->
-  <!-- Wide: lifted into the right of the first screen, level with the poem.
-       Narrow: falls back into the flow, below the photograph. At rest this is
-       three lines; the first one brings the diagram in, the other two are
-       what else is on the bench and do nothing. -->
-  <div class="tools-layer">
-    <div class="tools-inner">
-      <section class="wall doing" aria-labelledby="doing-line">
-        <h2 class="doing-line" id="doing-line">Right now I&rsquo;m:</h2>
-
-        <ul class="doing-list">
-          <li class="doing-item">
-            <button type="button" class="doing-bullet" id="doing-tools"
-                    aria-expanded="false" aria-controls="wall-block">building tools to support myself</button>
-          </li>
-          <!-- Each line below opens a short note. Where its link goes lives in
-               v2/right-now.json and nowhere else; an empty href there shows
-               "coming soon" in place of the link. -->
-          <li class="doing-item" data-line="mirror">
-            <button type="button" class="doing-bullet doing-bullet--note"
-                    aria-expanded="false" aria-controls="doing-note-mirror">making a mirror that reads you a poem</button>
-            <p class="doing-note" id="doing-note-mirror">it photographs you four times, reads your face, and builds a poem out of lines from my own poems. <a class="doing-play" hidden>try it</a><span class="doing-soon" hidden>coming soon</span></p>
-          </li>
-          <li class="doing-item" data-line="metro">
-            <button type="button" class="doing-bullet doing-bullet--note"
-                    aria-expanded="false" aria-controls="doing-note-metro">making a game out of things lost on the Delhi Metro</button>
-            <p class="doing-note" id="doing-note-metro">a museum you walk through inside a Delhi Metro train, made from 24,646 real lost-and-found records. building it with a friend. <a class="doing-play" hidden>try it</a><span class="doing-soon" hidden>coming soon</span></p>
-          </li>
-        </ul>
-
-        <!-- The six boxes are built by v2/home.js from the IDEAS table, which
-             is the only place the map from an idea to the tools under it
-             lives. They are out of sight until the first line is asked. -->
-        <div class="wall-block" id="wall-block">
-          <noscript>
-            <ul class="wall-plain">
-              <li><b>Context</b> raw store &middot; assistant &middot; <a href="/context/">where I am</a> &middot; right now</li>
-              <li><b>Keeping track</b> miners &middot; judge &middot; Curator &middot; follow-ups &middot; sparks garden</li>
-              <li><b>Staying up to date</b> mail triage &middot; newsletters &middot; lost touch &middot; <a href="/lately/">weekly record</a></li>
-              <li><b>Topically suggesting</b> day planner &middot; midday &middot; workouts &middot; meals &middot; noticings &middot; travel</li>
-              <li><b>Self-healing</b> Samwise &middot; repairer &middot; health page</li>
-              <li><b>Home</b> lights &middot; bedroom frame &middot; family archive &middot; this page</li>
-            </ul>
-          </noscript>
-        </div>
-      </section>
-    </div>
-  </div>
-
+<!-- v3: the stone. Everything on it is drawn by /v3/stone.js from the studies Kahran picked (33, 37, 39, 40, 35/34/36 c, 38 c);
+     the six ideas are IDEAS in /v2/home.js, read live. The noscript copy below carries the same six lines. -->
+<div id="app">
+  <canvas id="stone" aria-hidden="true"></canvas>
+  <div id="read"></div>
+  <p id="idea" aria-hidden="true"></p>
+  <p id="back" aria-live="polite"></p>
+  <header id="mat">
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where" role="button" tabindex="0" aria-expanded="false" aria-controls="why"></p>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+  <div id="why-scrim"></div>
+  <section id="why" aria-label="The decision behind today's pair" aria-hidden="true"><button class="why-x" type="button" aria-label="close">×</button><div class="why-body"></div></section>
 </div>
-
-<!-- Version switch. Self-contained: the .vswitch block in home.css is the whole
-     component, ready to drop into /v1/index.html with v2 and v1 swapped. -->
-<div class="vswitch" role="navigation" aria-label="Site version">
-  <span class="vswitch-here" aria-current="page">v2</span>
-  <a href="/v1/">v1</a>
-</div>
-
-<script src="/v2/pick.js"></script>
-<script src="/v2/home.js"></script>
-<script src="/v2/flow.js"></script>
+<div id="names"></div>
+<aside id="tools" aria-live="polite"></aside>
+<p id="year"><a href="/about.html"></a></p>
+<img id="ph" alt="" hidden>
+<nav class="vs" aria-label="Site version"><span aria-current="page">v3</span><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<noscript>
+  <div class="plain">
+    <h1><a href="/">kahran singh</a></h1>
+    <img src="/photos/roma-sidewalk.jpg" alt="Night sidewalk in Roma Norte, Mexico City" width="2170" height="1448">
+    <article class="poem">
+      <h2><a href="/poems/it-used-to-be-me.html">it used to be me</a></h2>
+      <p>it used to be<br>it used to be me<br>writhing under you<br>or riding beside you</p>
+      <p>it used to be me<br>who made you<br>forget to wonder</p>
+      <p>it used to be.</p>
+      <p>me.</p>
+    </article>
+    <ul class="wall-plain">
+      <li><b>Context</b> raw store &middot; assistant &middot; <a href="/context/">where I am</a> &middot; right now</li>
+      <li><b>Keeping track</b> miners &middot; judge &middot; Curator &middot; follow-ups &middot; sparks garden</li>
+      <li><b>Staying up to date</b> mail triage &middot; newsletters &middot; lost touch &middot; <a href="/lately/">weekly record</a></li>
+      <li><b>Topically suggesting</b> day planner &middot; midday &middot; workouts &middot; meals &middot; noticings &middot; travel</li>
+      <li><b>Self-healing</b> Samwise &middot; repairer &middot; health page</li>
+      <li><b>Home</b> lights &middot; bedroom frame &middot; family archive &middot; this page</li>
+    </ul>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a></nav>
+  </div>
+</noscript>
+<script src="/v3/today.js"></script>
+<script src="/v3/cut.js"></script>
+<script src="/v3/cross.js"></script>
+<script src="/v3/segs.js"></script>
+<script src="/v3/moment.js"></script>
 <script src="/track.js"></script>
-<script src="/v2/weather.js"></script>
-<script>if (window.kahranWeather) window.kahranWeather.load(document.getElementById('day-where'));</script>
+<script type="module" src="/v3/stone.js"></script>
 </body>
 </html>
