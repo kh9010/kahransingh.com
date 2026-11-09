@@ -1008,7 +1008,7 @@ try {
         const r = await cdp.eval(`(async () => { HOME.still = true; const measure = ${MEASURE}, frame = () => new Promise(r => requestAnimationFrame(() => r())), wait = ms => new Promise(r => setTimeout(r, ms))
           while (!HOME.world.arrived) await wait(100); await wait(2000); HOME.groundLabels(); // the poem arrived whole first, the lamp come to rest await frame(); await frame(); await wait(700) // the lamp held still and settled; the labels' grounds read as the page's own re-read does, their fade done
           const rest = measure(['.verse', '.cap', '#year', '#names', 'header', '.vs'])
-          const b = document.querySelector('#names.on button'); let tools = {}; if (b) { b.click(); await wait(450); tools = measure(['#tools']); dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(100) }
+          const b = document.querySelector('#names.on button'); let tools = {}; if (b) { b.click(); const te = document.getElementById('tools'); for (let n = 0; n < 50 && +getComputedStyle(te).opacity < 1; n++) await wait(60); tools = measure(['#tools']); dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(100) }
           const ys = []; for (const [i, p] of HOME.plans.entries()) { if (!p || !p.steps) continue
             for (const [k, st] of p.steps.entries()) { if (st.t === 'move') continue; const y = await HOME.yieldAt(i, k); if (y) ys.push([i, k, measure(['#back'])]) } }
           HOME.hideWin(); return { rest, tools, ys } })()`)
