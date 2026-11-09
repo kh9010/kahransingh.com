@@ -6,7 +6,7 @@
 // always a verbatim string of one of them. Picks live in picks.json (written by
 // studies/server.cjs); this script renders index.html (the desk: lines on the
 // left, the assembled About on the right, readable without JS) and, with
-// --about, about-draft.html (the same About in about.html's own frame).
+// --about, about-draft.html (the same About in its live page's own frame, /v2/about.html since 9 Nov).
 //
 //   node studies/09/build.mjs            → studies/09/index.html + lines.json
 //   node studies/09/build.mjs --about    → studies/09/about-draft.html too
@@ -203,8 +203,8 @@ ${FOOT}
 writeFileSync(path.join(HERE, "index.html"), html);
 
 if (process.argv.includes("--about")) {
-  // The same About in about.html's own frame: head and nav from the live page, the picked lines as the main.
-  const live = readFileSync(path.join(ROOT, "about.html"), "utf8");
+  // The same About in its page's own frame (/v2/about.html since 9 Nov): head and nav from that page, the picked lines as the main.
+  const live = readFileSync(path.join(ROOT, "v2", "about.html"), "utf8"); // the letter moved to /v2/about.html on 9 Nov, when about.html became 27 a
   const head = /<head>([\s\S]*?)<\/head>/.exec(live)[1].replace(/<style>[\s\S]*?<\/style>/, `<style>${ABOUT_CSS}</style>`).replace(/<script[^>]*gsap[^>]*><\/script>\s*/, "");
   const nav = /<nav>[\s\S]*?<\/nav>/.exec(live)[0];
   const draft = `<!DOCTYPE html>\n<html lang="en">\n<head>${head}</head>\n<body>\n    <main class="about">\n        <a href="/" class="mobile-header">kahran</a>\n        <div class="page-header">\n            <h1>about</h1>\n        </div>\n${about}\n${FOOT}\n    </main>\n    ${nav}\n</body>\n</html>\n`;

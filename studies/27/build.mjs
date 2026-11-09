@@ -4,12 +4,96 @@
 // new here: each fact's row in the years, with a reason when the fact carries no year, and 19 b's lanes.
 // Writes index.html (style from page.css, dials from defaults.json) + links.json (25's doors and kin) + years.json.
 // node studies/27/build.mjs   (check.mjs then proves it)
+// node studies/27/build.mjs --about [--check]   the live About: /about.html is version a of the committed index.html, as a site
+//   page (Kahran picked 27 a, 8 Nov; live 9 Nov), and /about.js is kin.js byte for byte. It reads only this study's committed
+//   page and touches none of the study's files, so the About is exactly what he picked, and a rebuild changes nothing until
+//   the study itself is rebuilt. --check exits 1 if either file differs from what this would write.
 import { readFileSync, writeFileSync, existsSync, copyFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.resolve(HERE, '..', '..');
 const read = (f) => readFileSync(path.join(ROOT, f), 'utf8');
+
+if (process.argv.includes('--about')) {
+  const s = readFileSync(path.join(HERE, 'index.html'), 'utf8');
+  const take = (re, what) => { const m = re.exec(s); if (!m) throw new Error(`build --about: ${what} not found in studies/27/index.html`); return m[1]; };
+  const desc = take(/<meta name="description" content="([^"]+)">/, 'description');
+  const style = take(/<style>\n([\s\S]*?)<\/style>/, 'style');
+  const a = take(/(<div class="v v-a" data-v="a">[\s\S]*?<\/div>\n)<div class="v v-b"/, 'version a');
+  const head = take(/<main>\n([\s\S]*?)<div class="v v-a"/, 'the page header');
+  const nav = take(/(<nav>[\s\S]*?<\/nav>)/, 'nav');
+  const units = take(/(<script type="application\/json" id="units">[\s\S]*?<\/script>)/, 'units');
+  // the wall's flow view moved to /v2/#flow on 9 Nov; the stone forwards /#flow, but a link should not need forwarding
+  const flow = (h) => h.replaceAll('"/#flow"', '"/v2/#flow"');
+  // The tools making's caption is 07's "the five ideas on the home page", written when the wall had five. The live page counts:
+  // the ideas from IDEAS in /v2/home.js (the one table), the ones listed from the list above the caption. Not one of the facts.
+  const homeJs = read('v2/home.js');
+  const IDEAS = new Function(homeJs.slice(homeJs.indexOf('var IDEAS'), homeJs.indexOf('];', homeJs.indexOf('var IDEAS')) + 2) + '; return IDEAS')();
+  const NUM = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  const ideasLine = (h) => {
+    const re = /(<a class="lh u" data-id="lift:tools"[\s\S]*?)<span data-t="p" class="from">the five ideas on the <a href="\/">home page<\/a><\/span data-t="p">/;
+    const m = re.exec(h); if (!m) throw new Error('build --about: the tools caption "the five ideas on the home page" moved; look again');
+    const listed = (m[1].match(/data-id="item:/g) || []).length, all = IDEAS.length;
+    const words = listed === all ? `the ${NUM[all]} ideas` : `${NUM[listed]} of the ${NUM[all]} ideas`;
+    return h.replace(re, `$1<span data-t="p" class="from">${words} on the <a href="/">home page</a></span data-t="p">`);
+  };
+  const URL_ = 'https://kahransingh.com/about.html', IMG = 'https://kahransingh.com/wedding/photos/wedding-day/NVP_KAHRANXGOURAV_WEDDING-1361.jpg';
+  const page = `<!DOCTYPE html>
+<html lang="en" data-v="a">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>About — Kahran Singh</title>
+<meta name="description" content="${desc}">
+<meta property="og:title" content="About — Kahran Singh">
+<meta property="og:description" content="${desc}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${URL_}">
+<meta property="og:image" content="${IMG}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About — Kahran Singh">
+<meta name="twitter:description" content="${desc}">
+<meta name="twitter:image" content="${IMG}">
+<link rel="canonical" href="${URL_}">
+<link rel="stylesheet" href="/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+${style}</style>
+<!-- Google tag (gtag.js). The home opens this page inside itself to fly a photograph into its year; that is the home's
+     year_open event, not a visit here, so a framed copy sends no page view. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H63H3KD6WQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  if (window.top === window) gtag('config', 'G-H63H3KD6WQ');
+</script>
+</head>
+<body>
+<main>
+${head}${ideasLine(flow(a))}</main>
+${nav}
+${flow(units)}
+<script src="/about.js"></script>
+<script src="/track.js"></script>
+</body>
+</html>
+`;
+  const kin = readFileSync(path.join(HERE, 'kin.js'), 'utf8');
+  const outs = [[path.join(ROOT, 'about.html'), page], [path.join(ROOT, 'about.js'), kin]];
+  if (process.argv.includes('--check')) {
+    const stale = outs.filter(([f, t]) => !existsSync(f) || readFileSync(f, 'utf8') !== t).map(([f]) => path.relative(ROOT, f));
+    if (stale.length) { console.log(`about: ${stale.join(', ')} not what studies/27/build.mjs --about writes`); process.exit(1); }
+    console.log('about: about.html and about.js are 27 a as built'); process.exit(0);
+  }
+  for (const [f, t] of outs) writeFileSync(f, t);
+  console.log(`about: about.html ${page.length} bytes (27 a), about.js ${kin.length} bytes (kin.js)`);
+  process.exit(0);
+}
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const one = (re, s, what) => { const m = re.exec(s); if (!m) throw new Error(`build: ${what} not found`); return m; };
 const ENT = { amp: '&', lt: '<', gt: '>', quot: '"', nbsp: ' ', mdash: '—', ndash: '–', rsquo: '’', middot: '·', rarr: '→' };
@@ -26,7 +110,7 @@ const s07 = read('studies/07/index.html');
 const makes = Object.fromEntries([...s07.matchAll(/<section class="make">\s*<h2>([^<]+)<\/h2>([\s\S]*?)<\/section>/g)].map((m) => [m[1], m[2]]));
 const lede07 = one(/<p class="lede">([^.]*\.)/, s07, '07 lede')[1];
 const art = (k) => one(/<figure class="art">([\s\S]*?)<\/figure>/, makes[k], `07 ${k} art`)[1].trim();
-const sAbout = read('about.html');
+const sAbout = read('v2/about.html'); // the desk's About (the letter), archived at /v2/ on 9 Nov
 const close = one(/<p>(Write to me\.[\s\S]*?Tell me what’s going on\.) <span class="sign">/, sAbout, 'his close')[1];
 const sCv = read('cv.html');
 const cvLine = (s) => { if (!sCv.replace(/&amp;/g, '&').includes(s)) throw new Error(`build: cv lacks "${s}"`); return esc(s); };

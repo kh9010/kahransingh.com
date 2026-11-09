@@ -54,7 +54,7 @@ const readings = {}; { let cur = null; for (const raw of read('studies/21/readin
 const conceptsOfLine = (slug, lines) => new Set((readings[slug] || []).filter(r => r.phrase.some(p => lines.some(l => l.includes(p)))).flatMap(r => r.concepts))
 const conceptsOfPoem = slug => new Set((readings[slug] || []).flatMap(r => r.concepts))
 const conceptsOfPhoto = src => (IDEAS21.photos[src.split('/').pop().replace(/\.[a-z]+$/i, '')] || '').split(/\s+/).filter(Boolean)
-const aboutYears = [...read('about.html').matchAll(/<li><b>([^<]+)<\/b><span>([\s\S]*?)<\/span><\/li>/g)].map(m => ({ y: m[1].trim(), text: asRead(m[2]) }))
+const aboutYears = [...read('v2/about.html').matchAll(/<li><b>([^<]+)<\/b><span>([\s\S]*?)<\/span><\/li>/g)].map(m => ({ y: m[1].trim(), text: asRead(m[2]) }))
 
 /* the check's own reading of where a facet sits (33's regions at its centre), and of 28's regions */
 const REGION_WORDS = { eye: 'see seen saw seeing eyes eye look looked looking watch watched watching gaze face mirror', sky: 'sky skies cloud clouds heaven heavens moon stars star birds bird wind air blue fly flying rain',
@@ -125,7 +125,7 @@ function stepText(st, seg, world, to) { // why a step's words are not the site's
   if (st.t === 'glimpse') { if (!existsSync(path.join(ROOT, st.src))) return `${st.src} is not on the site`
     if (st.src.startsWith('/photos/')) { const ph = data.photos.find(p => p.src === st.src); return ph && ph.caption.startsWith(st.big + ' — ') ? null : `"${st.big}" is not ${st.src}'s caption` } }
   const file = st.t === 'glimpse' ? 'poem-films.html' : seg.kind === 'photo' ? 'v2/data.json' : seg.src
-  for (const piece of st.big.split(' · ')) if (!verbatim(file, piece) && !(seg.kind === 'about' && read('about.html').includes(piece.replace(/’/g, '\\u2019')))) return `"${piece.slice(0, 50)}" is not in ${file}`
+  for (const piece of st.big.split(' · ')) if (!verbatim(file, piece) && !(seg.kind === 'about' && read('v2/about.html').includes(piece.replace(/’/g, '\\u2019')))) return `"${piece.slice(0, 50)}" is not in ${file}`
   if (st.href && !existsSync(path.join(ROOT, st.href.replace(/^\//, '').replace(/#.*$/, '') || 'index.html').replace(/\/$/, '/index.html'))) return `${st.href} does not resolve`
   return null }
 
@@ -137,7 +137,7 @@ const reached = new Set(), kindsSeen = {}
     if (s.kind === 'line') { if (!live.has(s.poem)) bad.push(`${s.id}: not a live poem`); for (const l of s.lines) if (!verbatim(`poems/${s.poem}.html`, l)) bad.push(`${s.id}: "${l}"`) }
     if (s.kind === 'photo' && (!existsSync(path.join(ROOT, s.img)) || !data.photos.some(p => p.src === s.img && p.caption.startsWith(s.place + ' — ')))) bad.push(`${s.id}: not a photograph on the site`)
     if (s.kind === 'film' && (!existsSync(path.join(ROOT, s.img)) || !verbatim('poem-films.html', s.text) || !live.has(s.poem))) bad.push(`${s.id}: not on the films page`)
-    if (s.kind === 'about' && !verbatim('about.html', s.text) && !read('about.html').includes(s.text.replace(/’/g, '\\u2019'))) bad.push(`${s.id}: "${s.text}" is not on the About`)
+    if (s.kind === 'about' && !verbatim('v2/about.html', s.text) && !read('v2/about.html').includes(s.text.replace(/’/g, '\\u2019'))) bad.push(`${s.id}: "${s.text}" is not on the About`)
     if (s.kind === 'idea' && !IDEAS.some(I => [I.detail.intro, ...(I.detail.tools || []), I.detail.boundary].some(t => t && t.includes(s.text)) && I.name === s.title)) bad.push(`${s.id}: not on the wall`)
     if (/\b(Divya|Sweta|Sahil|Rachna|Gourav)\b/.test(s.text || '')) bad.push(`${s.id}: names someone else`) }
   check(!bad.length, `every one of ${segN.toLocaleString('en-US')} segments is in its source on the site, word for word, and names no one but him`, bad.slice(0, 6).join(' | ')) }
@@ -176,7 +176,7 @@ if (process.env.STATIC !== '0') {
 /* ---------- the check's own mutation guard: its readers must reject what they exist to reject ---------- */
 { const w = { photo: data.photos[0].src, poem: data.poems[0].slug, doors: [] }, seg = SEG.segs.find(s => s.kind === 'line' && /\bnight\b/.test(s.lines.join(' ')))
   const f = { uv: [.5, .9], tone: 'dark', sal: 0, edges: 0, side: null, door: null }
-  const fake = [commentary('the dark · a lovely quiet moment', w, seg), commentary('the dark · this one waits for 4°', w, seg), commentary('the night · ‘night’', w, seg), stepText({ t: 'say', big: seg.lines[0] + ' indeed', small: seg.title }, { ...seg, kind: 'about', src: 'about.html', text: '' }, w)]
+  const fake = [commentary('the dark · a lovely quiet moment', w, seg), commentary('the dark · this one waits for 4°', w, seg), commentary('the night · ‘night’', w, seg), stepText({ t: 'say', big: seg.lines[0] + ' indeed', small: seg.title }, { ...seg, kind: 'about', src: 'v2/about.html', text: '' }, w)]
   const wrong = [recount(w, f, seg, { k: 'region', cls: 'dark', word: 'moon' }, 'dark'), recount(w, f, seg, { k: 'region', cls: 'dark', word: 'night' }, 'light'), recount(w, { ...f, door: null }, seg, { k: 'word', word: 'zebra', line: 1 }, 'dark')]
   check(fake.every(Boolean) && wrong.every(Boolean) && !commentary('the dark · ‘night’', w, seg) && !recount(w, f, seg, { k: 'region', cls: 'dark', word: 'night' }, 'dark'), 'the check rejects invented commentary, a non-verbatim piece and a basis that does not hold', JSON.stringify({ fake, wrong })) }
 

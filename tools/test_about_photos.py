@@ -43,16 +43,37 @@ class AboutPhotosTests(unittest.TestCase):
         links = {attrs.get('href') for tag, attrs in Page('v1/index.html').tags if tag == 'a'}
         self.assertIn('/v1/about.html', links)
 
-    def test_about_reads_without_javascript(self):
-        page = Page('about.html')
+    def test_desk_about_stays_openable_at_v2_with_its_copy(self):
+        # The desk's About (picked from Study 09 on 2026-10-28) moved to /v2/about.html on 2026-11-09,
+        # when about.html became Study 27 a. It reads without JS and returns to the v2 home.
+        page = Page('v2/about.html')
         text = ''.join(page.text)
         self.assertIn('Hello. I’m Kahran.', text)
         self.assertIn('Write to me. Especially if you are drawing up your own contract with the world', text)
         self.assertIn('Tell me what’s going on.', text)
-        self.assertNotIn('data-count', (ROOT / 'about.html').read_text())
+        self.assertNotIn('data-count', (ROOT / 'v2/about.html').read_text())
         # 28 Oct: the word pile came back; without JS it shows one of its six quotes.
         self.assertIn('Sometimes I smile at myself (in the mirror)', text)
-        self.assertNotIn('lenticular', (ROOT / 'about.html').read_text())
+        self.assertNotIn('lenticular', (ROOT / 'v2/about.html').read_text())
+        names = [attrs['href'] for tag, attrs in page.tags if tag == 'a' and
+                 attrs.get('class') in ('nav-name', 'mobile-header')]
+        self.assertEqual(names, ['/v2/', '/v2/'])
+        links = {attrs.get('href') for tag, attrs in Page('v2/index.html').tags if tag == 'a'}
+        self.assertIn('/v2/about.html', links)
+
+    def test_about_is_27a_and_reads_without_javascript(self):
+        # 2026-11-09: about.html is Study 27 a (Kahran's pick, 8 Nov), built by studies/27/build.mjs --about.
+        page = Page('about.html')
+        text = ' '.join(' '.join(page.text).split())
+        self.assertIn('I make poems, photographs, tools and companies, and I am learning Kathak.', text)
+        self.assertIn('Write to me. Especially if you are drawing up your own contract with the world', text)
+        self.assertIn('Board of TomboyX', text)
+        self.assertIn('How the World Works', text)
+        # 07's caption said "the five ideas"; the home has six (count from IDEAS, see build.mjs --about).
+        self.assertNotIn('the five ideas', text)
+        self.assertIn('of the six ideas on the home page', text)
+        hrefs = [attrs.get('href', '') for tag, attrs in page.tags if tag == 'a']
+        self.assertFalse([h for h in hrefs if h.startswith('?')], 'no version switcher or ?tune on the live page')
 
     def test_about_returns_to_current_home_and_keeps_v1_accessible(self):
         tags = Page('about.html').tags

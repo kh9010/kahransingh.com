@@ -370,7 +370,7 @@ check('study 10: Keeping track is a mechanism page like /context/: same meta set
   assert.equal(h2s.length, 4, 'the study holds the four tools it was cut against')
   const text = plain(/<body>([\s\S]*)<\/body>/.exec(s10)[1])
   for (const place of ['New York', 'Bangalore', 'Seattle', 'Manhattan', 'Provincetown', 'Jaisalmer', 'Telluride', 'Boulder']) assert(!text.includes(place), 'never a location: ' + place)
-  const PUBLIC = ['index.html', 'v2/index.html', 'context/index.html', 'about.html', 'cv.html', 'v2/home.js'].map(f => read(path.join(ROOT, f))).join(' ').replace(/<[^>]+>/g, ' ').toLowerCase()
+  const PUBLIC = ['index.html', 'v2/index.html', 'context/index.html', 'v2/about.html', 'cv.html', 'v2/home.js'].map(f => read(path.join(ROOT, f))).join(' ').replace(/<[^>]+>/g, ' ').toLowerCase()
   const dict = new Set(read('/usr/share/dict/words').split('\n').map(w => w.toLowerCase()))
   let names = 0
   for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) { const w = m[1].toLowerCase(); if (dict.has(w) || dict.has(w.replace(/s$/, ''))) continue; assert(PUBLIC.includes(m[1].toLowerCase()), `names "${m[1]}", which no public page does`); names++ }
@@ -556,23 +556,24 @@ checkNow("every name and year on a study is already on the site", () => {
   return `${names} names and ${years} years checked against ${PUBLIC.length} public pages`;
 });
 
-checkNow("about.html is his desk picks as a site page: full meta set, the nav, only the pile and whispers as page JS, every name and year already public, links resolve", () => {
-  // Picked 2026-10-28 from Study 09; the old About lives on at /v1/about.html.
-  const h = readFileSync(path.join(ROOT, "about.html"), "utf8");
-  const meta = [["title", /<title>About — Kahran Singh<\/title>/], ["description", /<meta name="description" content="[^"]{40,}">/], ["canonical", /<link rel="canonical" href="https:\/\/kahransingh\.com\/about\.html">/], ["og:title", /<meta property="og:title" content="[^"]+">/], ["og:description", /<meta property="og:description" content="[^"]{40,}">/], ["og:type", /<meta property="og:type" content="website">/], ["og:url", /<meta property="og:url" content="https:\/\/kahransingh\.com\/about\.html">/], ["og:image", /<meta property="og:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["twitter:card", /<meta name="twitter:card" content="summary_large_image">/], ["twitter:title", /<meta name="twitter:title" content="[^"]+">/], ["twitter:description", /<meta name="twitter:description" content="[^"]{40,}">/], ["twitter:image", /<meta name="twitter:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["site stylesheet", /href="\/style\.css"/], ["nav with about current", /<a href="\/about\.html" class="active" aria-current="page">about<\/a>/], ["nav name to the current home", /<a href="\/" class="nav-name">kahran<\/a>/], ["v1 in the nav", /<a href="\/v1\/">v1<\/a>/], ["mobile header", /class="mobile-header"/], ["16px phone gutters", /@media \(max-width: 768px\) \{ main\.about \{ padding-left: 16px; padding-right: 16px; \} \}/]];
-  for (const [label, re] of meta) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
+checkNow("v2/about.html is his desk picks as a site page: full meta set, the nav, only the pile and whispers as page JS, every name and year already public, links resolve", () => {
+  // Picked 2026-10-28 from Study 09 and live at about.html until 9 Nov, when 27 a took that address; the letter lives on
+  // at /v2/about.html beside the v2 home, as the first About lives on at /v1/about.html.
+  const h = readFileSync(path.join(ROOT, "v2", "about.html"), "utf8");
+  const meta = [["title", /<title>About — Kahran Singh<\/title>/], ["description", /<meta name="description" content="[^"]{40,}">/], ["canonical", /<link rel="canonical" href="https:\/\/kahransingh\.com\/v2\/about\.html">/], ["og:title", /<meta property="og:title" content="[^"]+">/], ["og:description", /<meta property="og:description" content="[^"]{40,}">/], ["og:type", /<meta property="og:type" content="website">/], ["og:url", /<meta property="og:url" content="https:\/\/kahransingh\.com\/v2\/about\.html">/], ["og:image", /<meta property="og:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["twitter:card", /<meta name="twitter:card" content="summary_large_image">/], ["twitter:title", /<meta name="twitter:title" content="[^"]+">/], ["twitter:description", /<meta name="twitter:description" content="[^"]{40,}">/], ["twitter:image", /<meta name="twitter:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["site stylesheet", /href="\/style\.css"/], ["nav with about current", /<a href="\/v2\/about\.html" class="active" aria-current="page">about<\/a>/], ["nav name to the v2 home", /<a href="\/v2\/" class="nav-name">kahran<\/a>/], ["v1 in the nav", /<a href="\/v1\/">v1<\/a>/], ["mobile header", /class="mobile-header"/], ["16px phone gutters", /@media \(max-width: 768px\) \{ main\.about \{ padding-left: 16px; padding-right: 16px; \} \}/]];
+  for (const [label, re] of meta) if (!re.test(h)) throw new Error(`v2/about.html lacks ${label}`);
   for (const k of ["og:image", "twitter:image"]) {
     const u = new RegExp(`(?:property|name)="${k}" content="https://kahransingh\\.com(/[^"]+)"`).exec(h)[1];
-    if (!existsSync(path.join(ROOT, u))) throw new Error(`about.html ${k} ${u} is not on disk`);
+    if (!existsSync(path.join(ROOT, u))) throw new Error(`v2/about.html ${k} ${u} is not on disk`);
   }
   // Scripts: the analytics, and since 28 Oct (Kahran: "I do kind of miss the word pile … the poem whispers should stay")
   // the GSAP word pile and the shared poem whispers (the live poem count was cut on 28 Oct). Nothing else; the lenticular stays out.
   const scripts = [...h.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)];
   // /track.js is analytics too: the clicks that open something, sent as events (3 Nov).
   const allowed = (attrs, body) => /googletagmanager\.com/.test(attrs) || /gtag\('config'/.test(body) || attrs.includes('src="/track.js"') || attrs.includes('src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"') || attrs.includes('src="/poem-whisper.js"') || /^\s*\/\/ Word pile/.test(body) ;
-  for (const [, attrs, body] of scripts) if (!allowed(attrs, body)) throw new Error(`about.html carries a script beyond analytics (with /track.js), the word pile and the whispers: <script${attrs}>`);
-  for (const [label, re] of [["the word pile", /<div class="word-pile" id="word-pile">\s*<p class="quote-fallback">Sometimes I smile at myself \(in the mirror\)/], ["the poem whispers", /<script src="\/poem-whisper\.js"><\/script>/], ["the GSAP the old About used", /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/gsap@3\/dist\/gsap\.min\.js"><\/script>/]]) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
-  if (/lenticular|NVP_KAHRANXGOURAV_WEDDING-1377/.test(h)) throw new Error("the lenticular wedding photograph is back on about.html; Kahran let it go on 28 Oct");
+  for (const [, attrs, body] of scripts) if (!allowed(attrs, body)) throw new Error(`v2/about.html carries a script beyond analytics (with /track.js), the word pile and the whispers: <script${attrs}>`);
+  for (const [label, re] of [["the word pile", /<div class="word-pile" id="word-pile">\s*<p class="quote-fallback">Sometimes I smile at myself \(in the mirror\)/], ["the poem whispers", /<script src="\/poem-whisper\.js"><\/script>/], ["the GSAP the old About used", /<script src="https:\/\/cdn\.jsdelivr\.net\/npm\/gsap@3\/dist\/gsap\.min\.js"><\/script>/]]) if (!re.test(h)) throw new Error(`v2/about.html lacks ${label}`);
+  if (/lenticular|NVP_KAHRANXGOURAV_WEDDING-1377/.test(h)) throw new Error("the lenticular wedding photograph is back on the desk About; Kahran let it go on 28 Oct");
   const quotes = (/var quotes = \[([\s\S]*?)\];/.exec(h) || [, ""])[1].match(/'[^']+'/g) || [];
   if (quotes.length !== 6) throw new Error(`the word pile has ${quotes.length} quotes, not the old About's six`);
   const main = /<main[^>]*>([\s\S]*?)<\/main>/.exec(h)?.[1] || "";
@@ -582,7 +583,7 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, o
   const draft = readFileSync(path.join(ROOT, "studies", "09", "about-draft.html"), "utf8");
   const pieces = [...draft.matchAll(/<p class="(?:lede|para|close)">([\s\S]*?)<\/p>|<span class="t">([\s\S]*?)<\/span><\/li>/g)].map((m) => plain(m[1] || m[2]));
   const mainText = plain(main);
-  for (const p of pieces) if (!mainText.includes(p)) throw new Error(`about.html drops the picked line "${p.slice(0, 50)}…"`);
+  for (const p of pieces) if (!mainText.includes(p)) throw new Error(`v2/about.html drops the picked line "${p.slice(0, 50)}…"`);
   // Public-safe by construction, as for the studies: the old About counts as public, the new one does not vouch for itself.
   const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v2/index.html", "v1/index.html", "v1/about.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
   const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
@@ -591,11 +592,11 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, o
   let names = 0, years = 0, links = 0;
   for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) {
     if (dict.has(m[1].toLowerCase())) continue;
-    if (!corpus.includes(m[1].toLowerCase())) throw new Error(`about.html names "${m[1]}", which no other public page does`);
+    if (!corpus.includes(m[1].toLowerCase())) throw new Error(`v2/about.html names "${m[1]}", which no other public page does`);
     names++;
   }
   for (const m of text.matchAll(/\b(19|20)\d\d\b/g)) {
-    if (!corpus.includes(m[0])) throw new Error(`about.html says ${m[0]}, a year no other public page carries`);
+    if (!corpus.includes(m[0])) throw new Error(`v2/about.html says ${m[0]}, a year no other public page carries`);
     years++;
   }
   for (const m of h.matchAll(/(?:href|src)="([^"#?]+)/g)) {
@@ -603,11 +604,68 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, o
     if (/^(https?:|mailto:)/.test(u)) continue;
     let p = path.join(ROOT, u);
     if (u.endsWith("/")) p = path.join(p, "index.html");
-    if (!existsSync(p)) throw new Error(`about.html: ${u} does not resolve`);
+    if (!existsSync(p)) throw new Error(`v2/about.html: ${u} does not resolve`);
     links++;
   }
   if (!existsSync(path.join(ROOT, "v1", "about.html"))) throw new Error("the old About is gone from /v1/about.html");
-  return `${meta.length} page rules, ${pieces.length} picked lines verbatim, ${names} names and ${years} years against ${PUBLIC.length} public pages, ${links} internal links on disk, old About at /v1/about.html`;
+  return `${meta.length} page rules, ${pieces.length} picked lines verbatim, ${names} names and ${years} years against ${PUBLIC.length} public pages, ${links} internal links on disk, first About at /v1/about.html`;
+});
+
+checkNow("about.html is 27 a as a site page: every fact of 27's word for word in its year, readable without JS, full meta set, the nav, no switcher or tune, links resolve, and the stone's year facet opens it", () => {
+  // Kahran picked 27 a on 8 Nov ("It's nice. It just feels nice. I think it's easy."); it became about.html on 9 Nov, built from
+  // the study's committed page by `node studies/27/build.mjs --about` (about.html, and about.js = kin.js). Hand edits get overwritten.
+  const h = readFileSync(path.join(ROOT, "about.html"), "utf8"), study = readFileSync(path.join(ROOT, "studies", "27", "index.html"), "utf8");
+  const r = spawnSync(process.execPath, [path.join(ROOT, "studies", "27", "build.mjs"), "--about", "--check"], { encoding: "utf8" });
+  if (r.status !== 0) throw new Error((r.stdout + r.stderr).trim() + " (run node studies/27/build.mjs --about)");
+  const meta = [["title", /<title>About — Kahran Singh<\/title>/], ["description", /<meta name="description" content="[^"]{40,}">/], ["canonical", /<link rel="canonical" href="https:\/\/kahransingh\.com\/about\.html">/], ["og:title", /<meta property="og:title" content="About — Kahran Singh">/], ["og:description", /<meta property="og:description" content="[^"]{40,}">/], ["og:type", /<meta property="og:type" content="website">/], ["og:url", /<meta property="og:url" content="https:\/\/kahransingh\.com\/about\.html">/], ["og:image", /<meta property="og:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["twitter:card", /<meta name="twitter:card" content="summary_large_image">/], ["twitter:title", /<meta name="twitter:title" content="[^"]+">/], ["twitter:description", /<meta name="twitter:description" content="[^"]{40,}">/], ["twitter:image", /<meta name="twitter:image" content="https:\/\/kahransingh\.com\/[^"]+">/], ["site stylesheet", /href="\/style\.css"/], ["version a, set without JS", /<html lang="en" data-v="a">/], ["nav with about current", /<a href="\/about\.html" class="active" aria-current="page">about<\/a>/], ["nav name to the current home", /<a href="\/" class="nav-name">kahran<\/a>/], ["v1 in the nav", /<a href="\/v1\/">v1<\/a>/], ["mobile header", /<a href="\/" class="mobile-header">kahran<\/a>/]];
+  for (const [label, re] of meta) if (!re.test(h)) throw new Error(`about.html lacks ${label}`);
+  if (/<meta name="robots"/.test(h)) throw new Error("about.html carries a robots meta; the live About is indexable");
+  for (const k of ["og:image", "twitter:image"]) { const u = new RegExp(`(?:property|name)="${k}" content="https://kahransingh\\.com(/[^"]+)"`).exec(h)[1]; if (!existsSync(path.join(ROOT, u))) throw new Error(`about.html ${k} ${u} is not on disk`); }
+  // only version a: no other variant, no switcher, no ask header, no tune
+  if (/class="v v-[bcd]"|<header class="ask"|tune\.js|[?&]tune\b|href="\?v=/.test(h)) throw new Error("about.html carries a version switcher, another variant or the tune panel");
+  const scripts = [...h.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)];
+  const allowed = (attrs, body) => /googletagmanager\.com/.test(attrs) || /gtag\('config'/.test(body) || attrs.includes('id="units"') || attrs.includes('src="/about.js"') || attrs.includes('src="/track.js"');
+  for (const [, attrs] of scripts.filter(([, a, b]) => !allowed(a, b))) throw new Error(`about.html carries a script beyond analytics, its facts and /about.js: <script${attrs}>`);
+  if (readFileSync(path.join(ROOT, "about.js"), "utf8") !== readFileSync(path.join(ROOT, "studies", "27", "kin.js"), "utf8")) throw new Error("about.js is not 27's kin.js byte for byte");
+  // every fact: once, its markup word for word 27 a's (the flow view's link moved to /v2/#flow), inside the row years.json gives it
+  const L = JSON.parse(readFileSync(path.join(ROOT, "studies", "27", "links.json"), "utf8")), Y = JSON.parse(readFileSync(path.join(ROOT, "studies", "27", "years.json"), "utf8"));
+  const main = /<main>([\s\S]*?)<\/main>/.exec(h)?.[1] || "", a27 = /<div class="v v-a" data-v="a">([\s\S]*?)<div class="v v-b"/.exec(study)[1].replaceAll('"/#flow"', '"/v2/#flow"');
+  const spans = new Map([...a27.matchAll(/<span class="f" data-id="([^"]+)">[\s\S]*?<\/span>/g)].map((m) => [m[1], m[0]]));
+  const ids = [...main.matchAll(/data-id="([^"]+)"/g)].map((m) => m[1]);
+  if (ids.length !== L.facts.length || new Set(ids).size !== L.facts.length) throw new Error(`about.html holds ${ids.length} facts (${new Set(ids).size} distinct); 27 has ${L.facts.length}`);
+  for (const [id, sp] of spans) if (!main.includes(sp)) throw new Error(`about.html: ${id} is not 27 a's, word for word`);
+  // Beyond the facts, version a is carried whole, with exactly two recorded changes: /#flow is /v2/#flow, and the tools caption,
+  // 07's "the five ideas on the home page" (written for the five-idea wall), counts the ideas from IDEAS in /v2/home.js.
+  const homeJs = readFileSync(path.join(ROOT, "v2", "home.js"), "utf8");
+  const nIdeas = new Function(homeJs.slice(homeJs.indexOf("var IDEAS"), homeJs.indexOf("];", homeJs.indexOf("var IDEAS")) + 2) + "; return IDEAS")().length;
+  const NUM = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+  const OLD = '<span data-t="p" class="from">the five ideas on the <a href="/">home page</a>';
+  const listed = (a27.slice(a27.indexOf('data-id="lift:tools"'), a27.indexOf(OLD)).match(/data-id="item:/g) || []).length;
+  const NEW = `<span data-t="p" class="from">${listed === nIdeas ? "the " + NUM[nIdeas] : NUM[listed] + " of the " + NUM[nIdeas]} ideas on the <a href="/">home page</a>`;
+  if (a27.split(OLD).length !== 2) throw new Error("27 a's tools caption is no longer 07's \"the five ideas on the home page\"; look again at the recorded change");
+  const aboutA = /<div class="v v-a" data-v="a">([\s\S]*?)<\/main>/.exec(h)?.[1].replace(/\n$/, "") ?? "";
+  if (aboutA !== a27.replace(OLD, NEW).replace(/\n$/, "")) throw new Error("about.html's version a is not 27 a with only its two recorded changes (the flow link, the ideas count)");
+  if (/\bfive ideas\b/.test(h) && nIdeas !== 5) throw new Error(`about.html says "five ideas"; the home has ${nIdeas}`);
+  const rows = [...main.matchAll(/<div class="yr( empty)?" data-y="([^"]+)">([\s\S]*?)(?=<div class="yr|<\/div><\/div>\s*<p class="close">)/g)];
+  if (rows.map((x) => x[2]).join() !== Y.rows.join()) throw new Error(`about.html's years are ${rows.map((x) => x[2]).join()}, 27's ${Y.rows.join()}`);
+  const place = Object.fromEntries(Y.facts.map((f) => [f.id, f.row]));
+  for (const [, , row, inner] of rows) for (const m of inner.matchAll(/data-id="([^"]+)"/g)) if (place[m[1]] !== row) throw new Error(`about.html: ${m[1]} sits in ${row}, 27 puts it in ${place[m[1]]}`);
+  // without JS: every fact's words are in the page's own markup
+  const ENT = { amp: "&", middot: "·", rsquo: "’", mdash: "—", ndash: "–", nbsp: " ", rarr: "→", quot: '"' };
+  const text = main.replace(/<img [^>]*alt="([^"]*)"[^>]*>/g, " $1 ").replace(/<[^>]+>/g, " ").replace(/&([a-z]+);/g, (m, e) => ENT[e] ?? m).replace(/\s+/g, " ");
+  const missing = L.facts.filter((f) => f.text && f.text.split(" / ").some((t) => !text.includes(t.replace(/\s+/g, " ").trim())));
+  if (missing.length) throw new Error(`without JS, about.html lacks "${missing[0].text.slice(0, 50)}" (${missing.length} facts)`);
+  let links = 0;
+  if (/"\/#flow"/.test(h)) throw new Error("about.html still links /#flow; the flow view is /v2/#flow");
+  for (const m of h.matchAll(/(?:href|src)="([^"#?]+)/g)) {
+    const u = m[1]; if (/^(https?:|mailto:)/.test(u)) continue;
+    let p = path.join(ROOT, u); if (u.endsWith("/")) p = path.join(p, "index.html");
+    if (!existsSync(p)) throw new Error(`about.html: ${u} does not resolve`); links++;
+  }
+  for (const m of h.matchAll(/"h":"(\/[^"#?]*)/g)) { let p = path.join(ROOT, m[1]); if (m[1].endsWith("/")) p = path.join(p, "index.html"); if (!existsSync(p)) throw new Error(`about.html: a fact opens ${m[1]}, not on disk`); links++; }
+  const YEARS = /const YEARS = '([^']+)'/.exec(readFileSync(path.join(ROOT, "v3", "stone.js"), "utf8"))?.[1];
+  if (YEARS !== "/about.html") throw new Error(`the stone's year facet opens ${YEARS}, not /about.html`);
+  return `${meta.length} page rules, ${L.facts.length} facts word for word in ${Y.rows.length} years, version a whole but for the flow link and the ideas count (${NUM[listed]} of ${NUM[nIdeas]}), ${L.facts.length - missing.length} readable without JS, ${links} internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html`;
 });
 
 /* Studies 14 on are canvas/script pieces (the stone, the crossing): a dial is
@@ -747,15 +805,15 @@ checkNow("every page carries the Analytics tag, and track.js still finds what it
   has("v2/index.html", 'id="doing-tools"', "the flow view's line #doing-tools");
   has("v2/index.html", 'class="doing-item" data-line=', "the Right now notes .doing-item[data-line]");
   has("v3/stone.js", "new CustomEvent('home:track'", "the stone's home:track events");
-  has("about.html", 'id="word-pile"', "the quote pile #word-pile");
+  has("v2/about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("v1/about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("poems/related.js", "'stanza explore-slide'", "the related poems .explore-slide");
   has("photography.html", 'id="lightbox"', "the lightbox #lightbox");
   has("photography.html", 'id="lightbox-img"', "the lightbox picture #lightbox-img");
   has("photography.html", "lightbox.classList.add('active')", "the lightbox's open state .active");
-  for (const f of ["index.html", "v2/index.html", "about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
+  for (const f of ["index.html", "v2/index.html", "about.html", "v2/about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
   has("poems/related.js", "s.src = '/track.js'", "the line that loads /track.js on every poem");
-  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home (the stone and /v2/), both Abouts, the photography page and every poem`;
+  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home (the stone and /v2/), the three Abouts, the photography page and every poem`;
 });
 
 process.exit(0)

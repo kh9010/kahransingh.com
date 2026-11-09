@@ -16,7 +16,7 @@ const decode = (s) => s.replace(/&(#\d+|[a-z]+);/gi, (m, e) => e[0] === '#' ? St
 const plain = (h) => decode(h.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, ' ').replace(/<!--[\s\S]*?-->/g, ' ').replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
 const strings = (o) => typeof o === 'string' ? [o] : Array.isArray(o) ? o.flatMap(strings) : o && typeof o === 'object' ? Object.values(o).flatMap(strings) : [];
 
-const SOURCES = ['studies/06/index.html', 'studies/07/index.html', 'about.html', 'cv.html', 'v1/about.html', 'projects.html', 'speaking.html', 'poem-films.html', 'poetry.html', 'photography.html', 'archive.html', 'working-with-me.html', 'wedding-celebration.html', 'elopement/index.html', 'index.html', 'context/index.html', 'v2/data.json', 'lately/entries.json'];
+const SOURCES = ['studies/06/index.html', 'studies/07/index.html', 'v2/about.html', 'cv.html', 'v1/about.html', 'projects.html', 'speaking.html', 'poem-films.html', 'poetry.html', 'photography.html', 'archive.html', 'working-with-me.html', 'wedding-celebration.html', 'elopement/index.html', 'index.html', 'context/index.html', 'v2/data.json', 'lately/entries.json'];
 const corpus = SOURCES.map((f) => f.endsWith('.json') ? strings(JSON.parse(read(f))).join('\n') : plain(read(f))).join('\n').replace(/[ \t]+/g, ' ');
 // verify.mjs's public list for studies: names and years must already be on one of these
 const PUBLIC = ['cv.html', 'projects.html', 'working-with-me.html', 'speaking.html', 'archive.html', 'poetry.html', 'photography.html', 'index.html', 'v1/index.html', 'wedding-celebration.html', 'elopement/index.html', 'context/index.html', 'v2/home.js', 'v2/data.json'];

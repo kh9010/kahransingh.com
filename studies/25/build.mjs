@@ -25,7 +25,7 @@ const s07 = read('studies/07/index.html');
 const makes = Object.fromEntries([...s07.matchAll(/<section class="make">\s*<h2>([^<]+)<\/h2>([\s\S]*?)<\/section>/g)].map((m) => [m[1], m[2]]));
 const lede07 = one(/<p class="lede">([^.]*\.)/, s07, '07 lede')[1];
 const art = (k) => one(/<figure class="art">([\s\S]*?)<\/figure>/, makes[k], `07 ${k} art`)[1].trim();
-const sAbout = read('about.html');
+const sAbout = read('v2/about.html'); // the desk's About (the letter), archived at /v2/ on 9 Nov
 const close = one(/<p>(Write to me\.[\s\S]*?Tell me what’s going on\.) <span class="sign">/, sAbout, 'his close')[1];
 const sCv = read('cv.html');
 const cvLine = (s) => { if (!sCv.replace(/&amp;/g, '&').includes(s)) throw new Error(`build: cv lacks "${s}"`); return esc(s); };

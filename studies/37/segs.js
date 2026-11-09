@@ -185,7 +185,7 @@
   const titleOf = (D, s) => (D.data.poems.find(p => p.slug === s) || {}).title
   function steps(p, y, D) {
     const s = p.seg, mv = { t: 'move', to: p.to }, label = s.kind === 'photo' ? [s.place, s.year].filter(Boolean).join(', ') : s.kind === 'film' ? `Poem films · ${s.title}` : s.kind === 'about' ? (s.row ? `About · ${s.row}` : 'About') : s.kind === 'idea' ? `${s.title} · on the home` : s.title
-    const href = s.kind === 'line' || s.kind === 'film' ? `/poems/${s.poem}.html` : s.kind === 'about' ? '/about.html' : s.kind === 'idea' ? s.href : null
+    const href = s.kind === 'line' || s.kind === 'film' ? `/poems/${s.poem}.html` : s.kind === 'about' || s.kind === 'idea' ? s.href : null // a segment's link is in its data: where its words are
     const first = s.kind === 'line' ? { t: 'lines', lines: s.lines, small: label } : s.kind === 'photo' ? { t: 'glimpse', src: s.img, big: s.place, small: label, cell: p.link.k === 'kin' ? p.link.theirs : null }
       : s.kind === 'film' ? { t: 'glimpse', src: s.img, big: s.text, small: label } : { t: 'say', big: s.text, small: label }
     const flatOf = () => { const st = D.stanzasOf(D.data.poems.find(q => q.slug === s.poem)), gi = st.slice(0, s.stanza).reduce((n, x) => n + x.length, 0) + s.at, all = st.flat(), n = s.lines.length
