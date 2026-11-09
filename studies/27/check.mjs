@@ -3,6 +3,9 @@
 // - links.json: every fact still links (202 of 202 since 7 Nov), each href resolves; 25's doors and kin are all still here, unchanged
 //   (a tie may be added only where the site's own data grew), every tie has a kind and a reason, points at a fact, is mutual
 // - years.json: every fact has a row; a fact sits at its own year, or carries the recorded reason it sits where it does
+// - the poems (9 Nov, "I thought things were broken up by year"): every poem sits in the year poem-years.json evidences, with
+//   that how; the poems with no evidence are not on the page one by one but one line in now ("and N more poems", /poetry.html);
+//   now holds no poem title and no row holds more than a third of the poems
 // - the page: in each variant every fact appears once, its markup exactly 25's (so 18 d's words), inside its year's row;
 //   each making's lift sits in its row with 25's insides; no instruction words in <main>; years only those with facts are
 //   labelled; dials match defaults.json and collide with nothing the page sets for itself
@@ -16,7 +19,8 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 
-const MIN = 202, MIN_KIN = 199; // 206 and 203 until 7 Nov, when four poems came off the site (out for submission)
+const MIN = 194, MIN_KIN = 191; // 206 and 203 until 7 Nov, when four poems came off the site (out for submission); 202 and 199
+// until 9 Nov, when the 10 poems with no evidence of their year folded into one line (and the week of 2026-W45 arrived)
 const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.resolve(HERE, '..', '..');
 const read = (f) => readFileSync(path.join(ROOT, f), 'utf8');
 const fails = [];
@@ -43,14 +47,20 @@ for (const f of L.facts) {
 const withKin = L.facts.filter((f) => f.kin.length).length;
 if (withKin < MIN_KIN) fail(`${withKin} facts have kin, fewer than ${MIN_KIN}`);
 // 25 is where the doors and kin were picked (25 d, 7 Nov); nothing of it may go missing or change here
+// except: the poems with no evidence of their year, folded into one line (poem-years.json, undated), and the ties to them;
+// beyond 25 there may only be that line and the weeks the record has published since
 const L25 = JSON.parse(read('studies/25/links.json'));
-if (L25.facts.length !== L.facts.length) fail(`25 has ${L25.facts.length} facts, 27 has ${L.facts.length}`);
+const PY = JSON.parse(readFileSync(path.join(HERE, 'poem-years.json'), 'utf8'));
+const folded = new Set(Object.keys(PY.undated).map((s) => `poem:${s}`));
+const ids25 = new Set(L25.facts.map((f) => f.id));
+for (const f of L.facts) if (!ids25.has(f.id) && f.id !== 'more:poems' && !(f.id.startsWith('week:') && f.id > L25.facts.filter((x) => x.id.startsWith('week:')).map((x) => x.id).sort().at(-1))) fail(`${f.id} is in 27 but not 25, and is neither the undated line nor a newer week`);
 let kept = 0;
 for (const f of L25.facts) {
   const g = byId[f.id];
+  if (folded.has(f.id)) { if (g) fail(`${f.id} has no evidenced year, yet is a fact of its own`); continue; }
   if (!g) { fail(`${f.id} (25) is gone`); continue; }
   for (const k of ['text', 'href', 'to', 'making']) if (f[k] !== g[k]) fail(`${f.id}: ${k} is ${g[k]}, 25 says ${f[k]}`);
-  for (const k of f.kin) { const h = g.kin.find((x) => x.id === k.id); if (!h || h.kind !== k.kind || h.why !== k.why) fail(`${f.id} → ${k.id}: 25's tie (${k.kind}, ${k.why}) is lost or changed`); else kept++; }
+  for (const k of f.kin) { if (folded.has(k.id)) continue; const h = g.kin.find((x) => x.id === k.id); if (!h || h.kind !== k.kind || h.why !== k.why) fail(`${f.id} → ${k.id}: 25's tie (${k.kind}, ${k.why}) is lost or changed`); else kept++; }
 }
 
 // ---- years.json
@@ -67,6 +77,31 @@ for (const f of L.facts) {
   else if (p.how && p.how.trim()) reasoned++;
   else fail(`${f.id} sits at ${p.row}, not its own year (${p.y}), with no reason`);
 }
+
+// ---- the poems: each in its evidenced year, the rest one line in now; no wall of titles
+const data = JSON.parse(read('v2/data.json'));
+const poemFacts = L.facts.filter((f) => f.id.startsWith('poem:'));
+const rowFor = (y) => (y >= 2026 ? 'now' : String(y));
+for (const p of data.poems) {
+  const e = PY.poems[p.slug], u = PY.undated[p.slug], id = `poem:${p.slug}`;
+  if (!e === !u) { fail(`${p.slug}: in ${e ? 'both' : 'neither'} of poem-years.json's poems and undated`); continue; }
+  if (u) { if (!u.trim()) fail(`${p.slug}: undated with no reason`); continue; }
+  if (!Number.isInteger(e.year) || !e.how?.trim() || !e.how.includes(String(e.year)) || Object.keys(e).join() !== 'year,how') fail(`${p.slug}: poem-years.json holds a year and a how that says it, nothing else (the sources are kept privately)`);
+  if (!byId[id]) { fail(`${id} has an evidenced year but is not a fact`); continue; }
+  if (place[id]?.row !== rowFor(e.year)) fail(`${id} sits in ${place[id]?.row}; its evidence says ${e.year}`);
+  if (!place[id]?.how?.startsWith(e.how)) fail(`${id}: its row's reason is "${place[id]?.how}", not its evidence ("${e.how}")`);
+}
+for (const s of [...Object.keys(PY.poems), ...Object.keys(PY.undated)]) if (!data.poems.some((p) => p.slug === s)) fail(`poem-years.json names ${s}, not a poem on the site`);
+// the repo is public: no private channel is named in what it says about a poem's year (9 Nov)
+const PRIVATE = /raw\W?db|e-?mail|voice note|sent it|message|whatsapp|\.txt\b/i;
+for (const [what, t] of [['about', PY.about], ...Object.entries(PY.poems).map(([s, e]) => [s, e.how]), ...Object.entries(PY.undated)]) if (PRIVATE.test(t || '')) fail(`poem-years.json ${what} names a private channel ("${PRIVATE.exec(t)[0]}")`);
+const nUndated = Object.keys(PY.undated).length, more = byId['more:poems'];
+if (nUndated && (!more || more.text !== `and ${nUndated} more poems` || more.href !== '/poetry.html' || place['more:poems']?.row !== 'now')) fail(`the undated poems are not one line in now, "and ${nUndated} more poems" to /poetry.html`);
+const perRow = {};
+for (const f of poemFacts) perRow[place[f.id]?.row] = (perRow[place[f.id]?.row] || 0) + 1;
+const fullest = Object.entries(perRow).sort((a, b) => b[1] - a[1])[0] || ['', 0], cap = Math.ceil(data.poems.length / 3);
+if (perRow.now) fail(`now holds ${perRow.now} poem titles; a poem goes in its year or in the one undated line`);
+if (fullest[1] > cap) fail(`${fullest[0]} holds ${fullest[1]} poem titles, more than a third of the ${data.poems.length} poems (${cap})`);
 
 // ---- the page, statically
 const html = readFileSync(path.join(HERE, 'index.html'), 'utf8');
@@ -91,7 +126,7 @@ for (const [i, p] of parts.entries()) {
     if (label !== (empty ? '' : row)) fail(`${v} ${row}: labelled "${label}"`);
     for (const m of inner.matchAll(/data-id="([^"]+)"/g)) if (place[m[1]]?.row !== row) fail(`${v}: ${m[1]} sits in ${row}, years.json says ${place[m[1]]?.row}`);
   }
-  for (const [id, s] of span25) if (!p.includes(s)) fail(`${v}: ${id} is not word for word 25 d's (18 d's)`);
+  for (const [id, s] of span25) if (!folded.has(id) && !p.includes(s)) fail(`${v}: ${id} is not word for word 25 d's (18 d's)`);
   for (const [id, s] of lift25) if (!p.includes(s)) fail(`${v}: the lift ${id} is not 25 d's`);
   for (const m of p.matchAll(/<(span|a)\b[^>]*data-id="([^"]+)"[^>]*>(?:[\s\S]{0,40}?<a class="u" href="([^"]+)")?/g)) {
     const href = m[1] === 'a' ? /href="([^"]+)"/.exec(m[0])?.[1] : m[3];
@@ -207,5 +242,5 @@ for (const [w, h, touch, tag] of [[1440, 900, false, 'desktop'], [390, 844, true
 }
 ws.close(); cleanup();
 if (fails.length) { for (const f of fails) console.log('FAIL study 27: ' + f); process.exit(1); }
-console.log(`PASS study 27: ${linked.length} of ${L.facts.length} facts link; 25's ${kept} ties all kept (${ties} now, ${withKin} facts with kin, all mutual, each with a reason); every fact in a year: ${own} at their own, ${reasoned} by a recorded reason; 4 variants each hold all ${L.facts.length} word for word as 25 d, in their years; ${Object.keys(d).length} dials match, none collide; ${runs} headless lifts (where it sits, kin gathered, block still, on screen and uncovered, the way out, a step, the walk back) at 1440x900 and 390x844; shots in studies/27/shots/`);
+console.log(`PASS study 27: ${linked.length} of ${L.facts.length} facts link; 25's ${kept} ties all kept, but for those to the ${folded.size} undated poems (${ties} now, ${withKin} facts with kin, all mutual, each with a reason); every fact in a year: ${own} at their own, ${reasoned} by a recorded reason; ${poemFacts.length} poems each in its evidenced year across ${Object.keys(perRow).length} years (at most ${fullest[1]}, in ${fullest[0]}), ${nUndated} undated as one line in now; 4 variants each hold all ${L.facts.length} word for word as 25 d, in their years; ${Object.keys(d).length} dials match, none collide; ${runs} headless lifts (where it sits, kin gathered, block still, on screen and uncovered, the way out, a step, the walk back) at 1440x900 and 390x844; shots in studies/27/shots/`);
 process.exit(0);
