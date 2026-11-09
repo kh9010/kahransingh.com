@@ -138,12 +138,6 @@ const area2 = P => P.reduce((a, [x0, y0], i) => { const [x1, y1] = P[(i + 1) % P
 const bbox = p => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const [x, y] of p) { if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y } return [x0, y0, x1, y1] }
 const meets = (b, [x, y, w, h], pad = 0) => b[2] > x - pad && b[0] < x + w + pad && b[3] > y - pad && b[1] < y + h + pad
 const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
-function clipHalf(P, f) { const o = []
-  for (let k = 0; k < P.length; k++) { const a = P[k], b = P[(k + 1) % P.length], fa = f(a), fb = f(b)
-    if (fa <= 0) o.push(a)
-    if ((fa <= 0) !== (fb <= 0)) { const t = fa / (fa - fb); o.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]) } }
-  return o }
-const clean = P => P.filter((p, i) => { const q = P[(i + 1) % P.length]; return Math.hypot(p[0] - q[0], p[1] - q[1]) > .05 })
 const voronoi = S => S33Cut.voronoi(S, W, H, num('wind', 8)) // 05 B's, from 33's cut.js: the wind draws the facets out
 function inset(P, s) { // a true offset of every edge, so the seam is the same width all round
   const n = P.length; if (n < 3 || s <= 0) return P
