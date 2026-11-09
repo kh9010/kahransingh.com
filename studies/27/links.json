@@ -1,19 +1,19 @@
 {
  "coverage": {
-  "linked": 202,
-  "of": 202,
-  "internal": 177,
+  "linked": 194,
+  "of": 194,
+  "internal": 169,
   "external": 25,
-  "with_kin": 199,
+  "with_kin": 191,
   "by_kind": {
-   "hand": 55,
-   "photo": 91,
-   "home": 65,
+   "hand": 54,
+   "photo": 81,
+   "home": 59,
    "name": 42,
-   "page": 14,
-   "next": 25,
-   "theme": 84,
-   "year": 23,
+   "page": 16,
+   "next": 26,
+   "theme": 74,
+   "year": 81,
    "making": 28
   }
  },
@@ -38,6 +38,11 @@
    "to": "Poetry",
    "how": "the making's own page (07: all the poems)",
    "kin": [
+    {
+     "id": "more:poems",
+     "kind": "page",
+     "why": "the same page"
+    },
     {
      "id": "art:poems",
      "kind": "making",
@@ -111,6 +116,51 @@
      "id": "place:roma-norte-mexico-city",
      "kind": "photo",
      "why": "its photograph"
+    },
+    {
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -136,6 +186,76 @@
      "id": "poem:sometimes-curious-feel",
      "kind": "theme",
      "why": "love · wonder"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -171,6 +291,76 @@
      "id": "poem:today-birds",
      "kind": "theme",
      "why": "mortality · nature"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -235,6 +425,26 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:anuraag-oh-anuraag",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:late-why-so-late",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:out-to-play-he-calls-them",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "row:advisor-to-armoire",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -260,6 +470,36 @@
      "id": "place:kerala",
      "kind": "home",
      "why": "the home, 27 Sep"
+    },
+    {
+     "id": "poem:and-now-that-we-walk",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:delicate-pieces-before-the-end",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:late-why-so-late",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:out-to-play-he-calls-them",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:when-you-were-young",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "row:advisor-to-armoire",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -350,6 +590,16 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:wedding-poem",
+     "kind": "year",
+     "why": "2023"
+    },
+    {
+     "id": "poem:when-im-not-here",
+     "kind": "year",
+     "why": "2023"
     }
    ]
   },
@@ -425,6 +675,36 @@
      "id": "place:sayulita-nayarit",
      "kind": "photo",
      "why": "its photograph"
+    },
+    {
+     "id": "poem:freedom-yet-unabridged",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:memories-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:song-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:there-comes-a-point",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:to-know-me",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:when-you-watch-the-whales-from-shore",
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -478,6 +758,11 @@
      "id": "poem:xoxo",
      "kind": "theme",
      "why": "love"
+    },
+    {
+     "id": "poem:out-of-many-one",
+     "kind": "year",
+     "why": "2018"
     }
    ]
   },
@@ -543,6 +828,26 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:anuraag-oh-anuraag",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:late-why-so-late",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:out-to-play-he-calls-them",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "row:advisor-to-armoire",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -733,6 +1038,31 @@
      "id": "poem:everyday-i-can-spend",
      "kind": "theme",
      "why": "love · mortality"
+    },
+    {
+     "id": "poem:kashmir",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:mama",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:these-water-nymphs",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:time-in-a-fig-grove",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "row:eloped-with-gourav-in-telluride",
+     "kind": "year",
+     "why": "2021"
     }
    ]
   },
@@ -823,6 +1153,71 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -878,86 +1273,36 @@
      "id": "poem:wrestle",
      "kind": "theme",
      "why": "identity · mortality"
-    }
-   ]
-  },
-  {
-   "id": "poem:glass-houses",
-   "making": "poems",
-   "text": "Glass Houses",
-   "href": "/poems/glass-houses.html",
-   "to": "Glass Houses",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "Glass houses",
-    "We take so much time",
-    "To build our houses"
-   ],
-   "kin": [
-    {
-     "id": "place:roma-norte-mexico-city",
-     "kind": "photo",
-     "why": "its photograph"
     },
     {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:i-listen",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:california",
+     "kind": "year",
+     "why": "2020"
     },
     {
      "id": "poem:memories-of-tomorrow",
-     "kind": "theme",
-     "why": "mortality"
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:my-friend-who-died",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:song-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
     },
     {
      "id": "poem:there-comes-a-point",
-     "kind": "theme",
-     "why": "mortality"
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:these-days-are-gone",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:to-know-me",
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:this-growing-older",
-     "kind": "theme",
-     "why": "mortality"
-    }
-   ]
-  },
-  {
-   "id": "poem:guadalajara",
-   "making": "poems",
-   "text": "Guadalajara",
-   "href": "/poems/guadalajara.html",
-   "to": "Guadalajara",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "I feel blood and strife and fear",
-    "In this soil",
-    "I feel worry"
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
-    },
-    {
-     "id": "place:hawaii",
-     "kind": "home",
-     "why": "the home, 23 Sep"
+     "id": "poem:when-you-watch-the-whales-from-shore",
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -995,11 +1340,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -1025,22 +1365,12 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
      "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
      "kind": "theme",
      "why": "nature · wonder"
     },
@@ -1080,11 +1410,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -1110,22 +1435,12 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
      "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
      "kind": "theme",
      "why": "nature · wonder"
     },
@@ -1169,11 +1484,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -1199,22 +1509,12 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
      "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
      "kind": "theme",
      "why": "nature · wonder"
     },
@@ -1307,6 +1607,41 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -1331,61 +1666,51 @@
      "id": "place:fire-island-new-york",
      "kind": "home",
      "why": "the home, 25 Sep"
-    }
-   ]
-  },
-  {
-   "id": "poem:how-can-you-just-be-gone",
-   "making": "poems",
-   "text": "How Can You Just Be Gone",
-   "href": "/poems/how-can-you-just-be-gone.html",
-   "to": "How Can You Just Be Gone",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "How can you just be gone",
-    "That’s it",
-    "That’s the one by one"
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
     },
     {
-     "id": "poem:i-listen",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
     },
     {
-     "id": "poem:memories-of-tomorrow",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
     },
     {
-     "id": "poem:my-friend-who-died",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
     },
     {
-     "id": "poem:there-comes-a-point",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
     },
     {
-     "id": "poem:these-days-are-gone",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
     },
     {
-     "id": "poem:this-growing-older",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -1543,16 +1868,6 @@
      "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
      "id": "poem:memories-of-tomorrow",
      "kind": "theme",
      "why": "mortality"
@@ -1573,9 +1888,74 @@
      "why": "mortality"
     },
     {
-     "id": "poem:this-growing-older",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -1606,96 +1986,6 @@
      "id": "film:i-saw-something-beautiful-today",
      "kind": "page",
      "why": "its film"
-    },
-    {
-     "id": "poem:oh-that-again",
-     "kind": "theme",
-     "why": "wonder"
-    }
-   ]
-  },
-  {
-   "id": "poem:i-was-feeling-sorry-for-a-moth",
-   "making": "poems",
-   "text": "I Was Feeling Sorry for a Moth",
-   "href": "/poems/i-was-feeling-sorry-for-a-moth.html",
-   "to": "I Was Feeling Sorry for a Moth",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "I was feeling sorry for a moth,",
-    "Or flying ant,",
-    "Some creature without full understanding of its wings"
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
-    },
-    {
-     "id": "poem:hark-my-love",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:have-you-ever-seen",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:have-you-watched-creepers-creep",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:i-watched-a-butterfly-today",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:out-to-play-he-calls-them",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:sit-let-us-listen",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:sometimes-quaver",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:the-mist",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:these-water-nymphs",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:when-you-watch-the-whales-from-shore",
-     "kind": "theme",
-     "why": "nature · wonder"
     }
    ]
   },
@@ -1756,6 +2046,66 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -1798,11 +2148,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:out-to-play-he-calls-them",
      "kind": "theme",
      "why": "nature · wonder"
@@ -1823,11 +2168,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
@@ -1838,14 +2178,74 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:to-see-such-beauty",
+     "id": "poem:when-you-watch-the-whales-from-shore",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
-     "id": "poem:when-you-watch-the-whales-from-shore",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -1911,6 +2311,46 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -2121,6 +2561,16 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:wedding-poem",
+     "kind": "year",
+     "why": "2023"
+    },
+    {
+     "id": "poem:when-im-not-here",
+     "kind": "year",
+     "why": "2023"
     }
    ]
   },
@@ -2141,6 +2591,31 @@
      "id": "place:sayulita-nayarit",
      "kind": "photo",
      "why": "its photograph"
+    },
+    {
+     "id": "poem:everywhere-i-turn",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:mama",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:these-water-nymphs",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:time-in-a-fig-grove",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "row:eloped-with-gourav-in-telluride",
+     "kind": "year",
+     "why": "2021"
     }
    ]
   },
@@ -2201,6 +2676,46 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -2291,6 +2806,36 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:and-now-that-we-walk",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:anuraag-oh-anuraag",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:delicate-pieces-before-the-end",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:out-to-play-he-calls-them",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:when-you-were-young",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "row:advisor-to-armoire",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -2324,11 +2869,6 @@
     },
     {
      "id": "poem:song-of-tomorrow",
-     "kind": "theme",
-     "why": "mortality · wonder"
-    },
-    {
-     "id": "poem:today-if-there-is-tomorrow",
      "kind": "theme",
      "why": "mortality · wonder"
     }
@@ -2411,6 +2951,31 @@
      "id": "poem:wrestle",
      "kind": "theme",
      "why": "identity · mortality"
+    },
+    {
+     "id": "poem:everywhere-i-turn",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:kashmir",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:these-water-nymphs",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:time-in-a-fig-grove",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "row:eloped-with-gourav-in-telluride",
+     "kind": "year",
+     "why": "2021"
     }
    ]
   },
@@ -2433,16 +2998,6 @@
      "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
      "id": "poem:i-listen",
      "kind": "theme",
      "why": "mortality"
@@ -2463,9 +3018,29 @@
      "why": "mortality"
     },
     {
-     "id": "poem:this-growing-older",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:california",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:freedom-yet-unabridged",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:song-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:to-know-me",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:when-you-watch-the-whales-from-shore",
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -2488,16 +3063,6 @@
      "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
      "id": "poem:i-listen",
      "kind": "theme",
      "why": "mortality"
@@ -2514,11 +3079,6 @@
     },
     {
      "id": "poem:these-days-are-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:this-growing-older",
      "kind": "theme",
      "why": "mortality"
     }
@@ -2606,41 +3166,36 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
-    }
-   ]
-  },
-  {
-   "id": "poem:oh-that-again",
-   "making": "poems",
-   "text": "Oh that again I might see such beauty in my life",
-   "href": "/poems/oh-that-again.html",
-   "to": "Oh that again I might see such beauty in my life",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "Oh that again I might see such beauty in my life",
-    "As a single flower",
-    "Opened and yet unmarked"
-   ],
-   "kin": [
-    {
-     "id": "art:poems",
-     "kind": "hand",
-     "why": "the same poem"
     },
     {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
+     "id": "poem:oh-the-horror-i-say",
+     "kind": "year",
+     "why": "2017"
     },
     {
-     "id": "place:sayulita-mexico",
-     "kind": "home",
-     "why": "the home, 1 Nov"
+     "id": "poem:one-beautiful-moment",
+     "kind": "year",
+     "why": "2017"
     },
     {
-     "id": "poem:i-saw-something-beautiful-today",
-     "kind": "theme",
-     "why": "wonder"
+     "id": "poem:sit-let-us-listen",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:these-days-are-gone",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:general-partner-at-tres-monos",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:portfolio-includes-armoire-humanly-and",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -2678,9 +3233,34 @@
      "why": "identity · wonder"
     },
     {
-     "id": "poem:today-i-write-about-red",
-     "kind": "theme",
-     "why": "identity · wonder"
+     "id": "poem:not-in-my-life",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:one-beautiful-moment",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:sit-let-us-listen",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:these-days-are-gone",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:general-partner-at-tres-monos",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:portfolio-includes-armoire-humanly-and",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -2713,9 +3293,34 @@
      "why": "mortality · wonder"
     },
     {
-     "id": "poem:today-if-there-is-tomorrow",
-     "kind": "theme",
-     "why": "mortality · wonder"
+     "id": "poem:not-in-my-life",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:oh-the-horror-i-say",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:sit-let-us-listen",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:these-days-are-gone",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:general-partner-at-tres-monos",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:portfolio-includes-armoire-humanly-and",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -2758,9 +3363,49 @@
      "why": "identity · wonder"
     },
     {
-     "id": "poem:today-i-write-about-red",
-     "kind": "theme",
-     "why": "identity · wonder"
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -2850,6 +3495,11 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:dear-bottle",
+     "kind": "year",
+     "why": "2018"
     }
    ]
   },
@@ -2892,11 +3542,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -2917,11 +3562,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
@@ -2932,14 +3572,39 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:to-see-such-beauty",
+     "id": "poem:when-you-watch-the-whales-from-shore",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
-     "id": "poem:when-you-watch-the-whales-from-shore",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:and-now-that-we-walk",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:anuraag-oh-anuraag",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:delicate-pieces-before-the-end",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:late-why-so-late",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:when-you-were-young",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "row:advisor-to-armoire",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -2990,6 +3655,11 @@
      "id": "place:sayulita-nayarit",
      "kind": "photo",
      "why": "its photograph"
+    },
+    {
+     "id": "place:bar-harbor-maine",
+     "kind": "home",
+     "why": "the home, 8 Nov"
     },
     {
      "id": "poem:and-now-that-we-walk",
@@ -3072,11 +3742,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -3097,11 +3762,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
@@ -3112,14 +3772,39 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:to-see-such-beauty",
+     "id": "poem:when-you-watch-the-whales-from-shore",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
-     "id": "poem:when-you-watch-the-whales-from-shore",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:not-in-my-life",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:oh-the-horror-i-say",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:one-beautiful-moment",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:these-days-are-gone",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:general-partner-at-tres-monos",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:portfolio-includes-armoire-humanly-and",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -3250,6 +3935,76 @@
      "id": "poem:wrestle",
      "kind": "theme",
      "why": "identity · mortality"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -3310,6 +4065,66 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -3352,11 +4167,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -3377,22 +4187,12 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
     },
     {
      "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
      "kind": "theme",
      "why": "nature · wonder"
     },
@@ -3437,9 +4237,34 @@
      "why": "mortality · wonder"
     },
     {
-     "id": "poem:today-if-there-is-tomorrow",
-     "kind": "theme",
-     "why": "mortality · wonder"
+     "id": "poem:california",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:freedom-yet-unabridged",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:memories-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:there-comes-a-point",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:to-know-me",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:when-you-watch-the-whales-from-shore",
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -3475,6 +4300,51 @@
      "id": "poem:park",
      "kind": "theme",
      "why": "identity · place · wonder"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -3500,6 +4370,76 @@
      "id": "poem:in-my-heart-something-called-to-the-rain",
      "kind": "theme",
      "why": "nature"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -3537,11 +4477,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -3562,11 +4497,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
@@ -3577,104 +4507,74 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:to-see-such-beauty",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:when-you-watch-the-whales-from-shore",
      "kind": "theme",
      "why": "nature · wonder"
-    }
-   ]
-  },
-  {
-   "id": "poem:the-sun-kissed-the-mountains",
-   "making": "poems",
-   "text": "The sun kissed the mountains",
-   "href": "/poems/the-sun-kissed-the-mountains.html",
-   "to": "The sun kissed the mountains",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "The sun kissed the mountains",
-    "And by its sly caress",
-    "Peaks in harsh repose"
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
     },
     {
-     "id": "place:honshu-japan",
-     "kind": "home",
-     "why": "the home, 6 Oct"
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:hark-my-love",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:have-you-ever-seen",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:have-you-watched-creepers-creep",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:i-watched-a-butterfly-today",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:out-to-play-he-calls-them",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:sit-let-us-listen",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:sometimes-quaver",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:the-mist",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:these-water-nymphs",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
     },
     {
-     "id": "poem:to-see-such-beauty",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:when-you-watch-the-whales-from-shore",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -3697,16 +4597,6 @@
      "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
      "id": "poem:i-listen",
      "kind": "theme",
      "why": "mortality"
@@ -3727,9 +4617,29 @@
      "why": "mortality"
     },
     {
-     "id": "poem:this-growing-older",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:california",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:freedom-yet-unabridged",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:song-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:to-know-me",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:when-you-watch-the-whales-from-shore",
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -3787,16 +4697,6 @@
      "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
      "id": "poem:i-listen",
      "kind": "theme",
      "why": "mortality"
@@ -3817,9 +4717,34 @@
      "why": "mortality"
     },
     {
-     "id": "poem:this-growing-older",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:not-in-my-life",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:oh-the-horror-i-say",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:one-beautiful-moment",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:sit-let-us-listen",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:general-partner-at-tres-monos",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "row:portfolio-includes-armoire-humanly-and",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -3857,11 +4782,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -3887,17 +4807,7 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
      "kind": "theme",
      "why": "nature · wonder"
     },
@@ -3905,61 +4815,31 @@
      "id": "poem:when-you-watch-the-whales-from-shore",
      "kind": "theme",
      "why": "nature · wonder"
-    }
-   ]
-  },
-  {
-   "id": "poem:this-growing-older",
-   "making": "poems",
-   "text": "This growing older",
-   "href": "/poems/this-growing-older.html",
-   "to": "This growing older",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "This growing older",
-    "Wondering",
-    "If this goodbye is the last"
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
     },
     {
-     "id": "poem:glass-houses",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:everywhere-i-turn",
+     "kind": "year",
+     "why": "2021"
     },
     {
-     "id": "poem:how-can-you-just-be-gone",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:kashmir",
+     "kind": "year",
+     "why": "2021"
     },
     {
-     "id": "poem:i-listen",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:mama",
+     "kind": "year",
+     "why": "2021"
     },
     {
-     "id": "poem:memories-of-tomorrow",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "poem:time-in-a-fig-grove",
+     "kind": "year",
+     "why": "2021"
     },
     {
-     "id": "poem:my-friend-who-died",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:there-comes-a-point",
-     "kind": "theme",
-     "why": "mortality"
-    },
-    {
-     "id": "poem:these-days-are-gone",
-     "kind": "theme",
-     "why": "mortality"
+     "id": "row:eloped-with-gourav-in-telluride",
+     "kind": "year",
+     "why": "2021"
     }
    ]
   },
@@ -3993,11 +4873,6 @@
     },
     {
      "id": "poem:today-i-saw-a-man-on-a-leash",
-     "kind": "theme",
-     "why": "identity · wonder"
-    },
-    {
-     "id": "poem:today-i-write-about-red",
      "kind": "theme",
      "why": "identity · wonder"
     }
@@ -4040,6 +4915,31 @@
      "id": "poem:today-birds",
      "kind": "theme",
      "why": "mortality · nature"
+    },
+    {
+     "id": "poem:everywhere-i-turn",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:kashmir",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:mama",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:these-water-nymphs",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "row:eloped-with-gourav-in-telluride",
+     "kind": "year",
+     "why": "2021"
     }
    ]
   },
@@ -4077,11 +4977,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -4107,17 +5002,7 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-see-such-beauty",
      "kind": "theme",
      "why": "nature · wonder"
     },
@@ -4190,6 +5075,66 @@
      "id": "poem:when-you-were-young",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -4280,91 +5225,36 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
-    }
-   ]
-  },
-  {
-   "id": "poem:to-see-such-beauty",
-   "making": "poems",
-   "text": "To See Such Beauty",
-   "href": "/poems/to-see-such-beauty.html",
-   "to": "To See Such Beauty",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "To see such beauty",
-    "To stand in a field",
-    "Or the side of a road"
-   ],
-   "kin": [
-    {
-     "id": "place:roma-norte-mexico-city",
-     "kind": "photo",
-     "why": "its photograph"
     },
     {
-     "id": "poem:hark-my-love",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:california",
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:have-you-ever-seen",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:freedom-yet-unabridged",
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:have-you-watched-creepers-creep",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:memories-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:song-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
     },
     {
-     "id": "poem:i-watched-a-butterfly-today",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:out-to-play-he-calls-them",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:sit-let-us-listen",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:sometimes-quaver",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:the-mist",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:these-water-nymphs",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
-     "id": "poem:to-be-alone",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:there-comes-a-point",
+     "kind": "year",
+     "why": "2020"
     },
     {
      "id": "poem:when-you-watch-the-whales-from-shore",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -4450,6 +5340,71 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -4525,95 +5480,6 @@
      "id": "poem:thrum-thrum",
      "kind": "theme",
      "why": "identity · wonder"
-    },
-    {
-     "id": "poem:today-i-write-about-red",
-     "kind": "theme",
-     "why": "identity · wonder"
-    }
-   ]
-  },
-  {
-   "id": "poem:today-i-write-about-red",
-   "making": "poems",
-   "text": "Today I Write About Red",
-   "href": "/poems/today-i-write-about-red.html",
-   "to": "Today I Write About Red",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "Today I write about Red",
-    "(not Blue a color so close so dear to near heart I am not sure who I was before I met you)",
-    "But Red."
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
-    },
-    {
-     "id": "place:roma-norte-mexico-city",
-     "kind": "home",
-     "why": "the home, 22 Sep"
-    },
-    {
-     "id": "poem:oh-the-horror-i-say",
-     "kind": "theme",
-     "why": "identity · wonder"
-    },
-    {
-     "id": "poem:one-in-community",
-     "kind": "theme",
-     "why": "identity · wonder"
-    },
-    {
-     "id": "poem:thrum-thrum",
-     "kind": "theme",
-     "why": "identity · wonder"
-    },
-    {
-     "id": "poem:today-i-saw-a-man-on-a-leash",
-     "kind": "theme",
-     "why": "identity · wonder"
-    }
-   ]
-  },
-  {
-   "id": "poem:today-if-there-is-tomorrow",
-   "making": "poems",
-   "text": "Today If There Is Tomorrow",
-   "href": "/poems/today-if-there-is-tomorrow.html",
-   "to": "Today If There Is Tomorrow",
-   "how": "the poem’s own page (v2/data.json)",
-   "lines": [
-    "Today if there is tomorrow",
-    "If there was a day it was tomorrow and if it was tomorrow, it was a day"
-   ],
-   "kin": [
-    {
-     "id": "place:sayulita-nayarit",
-     "kind": "photo",
-     "why": "its photograph"
-    },
-    {
-     "id": "place:hilo-hawaii",
-     "kind": "home",
-     "why": "the home, 28 Sep"
-    },
-    {
-     "id": "poem:let-tomorrow-come",
-     "kind": "theme",
-     "why": "mortality · wonder"
-    },
-    {
-     "id": "poem:one-beautiful-moment",
-     "kind": "theme",
-     "why": "mortality · wonder"
-    },
-    {
-     "id": "poem:song-of-tomorrow",
-     "kind": "theme",
-     "why": "mortality · wonder"
     }
    ]
   },
@@ -4639,6 +5505,21 @@
      "id": "place:sayulita-nayarit",
      "kind": "home",
      "why": "the home, 29 Sep"
+    },
+    {
+     "id": "poem:ariel",
+     "kind": "year",
+     "why": "2023"
+    },
+    {
+     "id": "poem:its-funny",
+     "kind": "year",
+     "why": "2023"
+    },
+    {
+     "id": "poem:when-im-not-here",
+     "kind": "year",
+     "why": "2023"
     }
    ]
   },
@@ -4744,6 +5625,71 @@
      "id": "poem:xoxo",
      "kind": "theme",
      "why": "love"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -4794,6 +5740,21 @@
      "id": "poem:xoxo",
      "kind": "theme",
      "why": "love"
+    },
+    {
+     "id": "poem:ariel",
+     "kind": "year",
+     "why": "2023"
+    },
+    {
+     "id": "poem:its-funny",
+     "kind": "year",
+     "why": "2023"
+    },
+    {
+     "id": "poem:wedding-poem",
+     "kind": "year",
+     "why": "2023"
     }
    ]
   },
@@ -4831,11 +5792,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:i-watched-a-butterfly-today",
      "kind": "theme",
      "why": "nature · wonder"
@@ -4861,11 +5817,6 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "theme",
-     "why": "nature · wonder"
-    },
-    {
      "id": "poem:these-water-nymphs",
      "kind": "theme",
      "why": "nature · wonder"
@@ -4876,9 +5827,34 @@
      "why": "nature · wonder"
     },
     {
-     "id": "poem:to-see-such-beauty",
-     "kind": "theme",
-     "why": "nature · wonder"
+     "id": "poem:california",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:freedom-yet-unabridged",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:memories-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:song-of-tomorrow",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:there-comes-a-point",
+     "kind": "year",
+     "why": "2020"
+    },
+    {
+     "id": "poem:to-know-me",
+     "kind": "year",
+     "why": "2020"
     }
    ]
   },
@@ -4944,6 +5920,26 @@
      "id": "poem:to-flutter",
      "kind": "theme",
      "why": "identity"
+    },
+    {
+     "id": "poem:anuraag-oh-anuraag",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:late-why-so-late",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:out-to-play-he-calls-them",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "row:advisor-to-armoire",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -4994,6 +5990,71 @@
      "id": "poem:when-im-not-here",
      "kind": "theme",
      "why": "love"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-came-out",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -5014,6 +6075,76 @@
      "id": "poem:bladder-bag",
      "kind": "theme",
      "why": "identity · nature"
+    },
+    {
+     "id": "poem:a-wedding-toast",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:an-ode-to-aspens",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:falling-in-love",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-listen",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watch-my-hair",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:i-watched-a-butterfly-today",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-feel-cold",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:sometimes-i-listen-to-these-poets",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-light-sings",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:the-mist",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-flutter",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:to-touch-in-a-way",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:when-i-laugh",
+     "kind": "year",
+     "why": "2022"
+    },
+    {
+     "id": "poem:xoxo",
+     "kind": "year",
+     "why": "2022"
     }
    ]
   },
@@ -5092,6 +6223,41 @@
      "id": "poem:hey",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -5247,6 +6413,51 @@
      "id": "poem:i-came-out",
      "kind": "theme",
      "why": "identity · nature"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-there-hey-you-here",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:being-loved",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey",
+     "kind": "year",
+     "why": "2025"
     }
    ]
   },
@@ -5327,6 +6538,56 @@
      "id": "poem:animals-in-love",
      "kind": "theme",
      "why": "identity · love"
+    },
+    {
+     "id": "poem:a-conversation-among-birds",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:hey-you-tree-there",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:i-will-always-be-a-poet",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:large-objects",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:one-in-community",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:teental",
+     "kind": "year",
+     "why": "2025"
+    },
+    {
+     "id": "poem:bladder-bag",
+     "kind": "year",
+     "why": "2025"
+    }
+   ]
+  },
+  {
+   "id": "more:poems",
+   "making": "poems",
+   "text": "and 10 more poems",
+   "href": "/poetry.html",
+   "to": "Poetry",
+   "how": "the poems page, which holds every poem",
+   "kin": [
+    {
+     "id": "lift:poems",
+     "kind": "page",
+     "why": "the same page"
     }
    ]
   },
@@ -5391,11 +6652,6 @@
     },
     {
      "id": "poem:everyday-i-can-spend",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:glass-houses",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -5530,11 +6786,6 @@
      "why": "poems with this photograph"
     },
     {
-     "id": "poem:to-see-such-beauty",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
      "id": "poem:to-touch-in-a-way",
      "kind": "photo",
      "why": "poems with this photograph"
@@ -5563,11 +6814,6 @@
      "id": "poem:song-of-tomorrow",
      "kind": "home",
      "why": "the home, 17 Oct"
-    },
-    {
-     "id": "poem:today-i-write-about-red",
-     "kind": "home",
-     "why": "the home, 22 Sep"
     },
     {
      "id": "place:mexico-city-mexico",
@@ -5636,17 +6882,7 @@
      "why": "poems with this photograph"
     },
     {
-     "id": "poem:guadalajara",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
      "id": "poem:have-you-watched-creepers-creep",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:how-can-you-just-be-gone",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -5662,11 +6898,6 @@
     },
     {
      "id": "poem:i-listen",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:i-was-feeling-sorry-for-a-moth",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -5711,11 +6942,6 @@
      "why": "poems with this photograph"
     },
     {
-     "id": "poem:oh-that-again",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
      "id": "poem:one-beautiful-moment",
      "kind": "photo",
      "why": "poems with this photograph"
@@ -5756,22 +6982,12 @@
      "why": "poems with this photograph"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
      "id": "poem:these-days-are-gone",
      "kind": "photo",
      "why": "poems with this photograph"
     },
     {
      "id": "poem:these-water-nymphs",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:this-growing-older",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -5792,16 +7008,6 @@
     },
     {
      "id": "poem:today-i-saw-a-man-on-a-leash",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:today-i-write-about-red",
-     "kind": "photo",
-     "why": "poems with this photograph"
-    },
-    {
-     "id": "poem:today-if-there-is-tomorrow",
      "kind": "photo",
      "why": "poems with this photograph"
     },
@@ -5995,11 +7201,6 @@
      "id": "place:kaanapali-maui",
      "kind": "hand",
      "why": "Hawaiʻi"
-    },
-    {
-     "id": "poem:guadalajara",
-     "kind": "home",
-     "why": "the home, 23 Sep"
     },
     {
      "id": "place:big-island-hawaii",
@@ -6307,11 +7508,6 @@
    "img": "/photos/hilo-hawaii-3cb5d78d.jpg",
    "kin": [
     {
-     "id": "poem:today-if-there-is-tomorrow",
-     "kind": "home",
-     "why": "the home, 28 Sep"
-    },
-    {
      "id": "place:hawaii",
      "kind": "name",
      "why": "Hawaiʻi"
@@ -6484,6 +7680,11 @@
    "img": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
    "kin": [
     {
+     "id": "poem:platitudes-of-suffering",
+     "kind": "home",
+     "why": "the home, 8 Nov"
+    },
+    {
      "id": "poem:sometimes-curious-feel",
      "kind": "home",
      "why": "the home, 8 Oct"
@@ -6655,11 +7856,6 @@
      "why": "Japan"
     },
     {
-     "id": "poem:the-sun-kissed-the-mountains",
-     "kind": "home",
-     "why": "the home, 6 Oct"
-    },
-    {
      "id": "poem:to-flutter",
      "kind": "home",
      "why": "the home, 7 Nov"
@@ -6727,11 +7923,6 @@
    "how": "the photograph from there is on the photography page (v2/data.json, /photos/sayulita-mexico-25fbaafd.jpg)",
    "img": "/photos/sayulita-mexico-25fbaafd.jpg",
    "kin": [
-    {
-     "id": "poem:oh-that-again",
-     "kind": "home",
-     "why": "the home, 1 Nov"
-    },
     {
      "id": "poem:out-to-play-he-calls-them",
      "kind": "home",
@@ -6824,6 +8015,11 @@
    "how": "the fact's own link (studies/06)",
    "kin": [
     {
+     "id": "week:2026-w45",
+     "kind": "hand",
+     "why": "the record's weeks"
+    },
+    {
      "id": "week:2026-w42",
      "kind": "hand",
      "why": "the record's weeks"
@@ -6911,6 +8107,31 @@
    ]
   },
   {
+   "id": "week:2026-w45",
+   "making": "tools",
+   "text": "14h 20m at the keyboard, 150 commits across 9 repositories, 20 sessions.",
+   "href": "/lately/2026-w45/",
+   "to": "2–8 November 2026",
+   "how": "the week’s own page (lately/entries.json)",
+   "kin": [
+    {
+     "id": "row:building-software-with-claude-most",
+     "kind": "hand",
+     "why": "the record's weeks"
+    },
+    {
+     "id": "item:staying-up-to-date",
+     "kind": "hand",
+     "why": "the weekly record"
+    },
+    {
+     "id": "week:2026-w42",
+     "kind": "next",
+     "why": "the week before"
+    }
+   ]
+  },
+  {
    "id": "week:2026-w42",
    "making": "tools",
    "text": "13h 34m at the keyboard, 167 commits across 8 repositories, 16 sessions.",
@@ -6927,6 +8148,11 @@
      "id": "item:staying-up-to-date",
      "kind": "hand",
      "why": "the weekly record"
+    },
+    {
+     "id": "week:2026-w45",
+     "kind": "next",
+     "why": "the week after"
     },
     {
      "id": "week:2026-w41",
@@ -7577,6 +8803,36 @@
      "id": "row:general-partner-at-tres-monos",
      "kind": "next",
      "why": "before"
+    },
+    {
+     "id": "poem:and-now-that-we-walk",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:anuraag-oh-anuraag",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:delicate-pieces-before-the-end",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:late-why-so-late",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:out-to-play-he-calls-them",
+     "kind": "year",
+     "why": "2019"
+    },
+    {
+     "id": "poem:when-you-were-young",
+     "kind": "year",
+     "why": "2019"
     }
    ]
   },
@@ -7607,6 +8863,31 @@
      "id": "row:vidyanext-bangalore-ceo-then-cmo",
      "kind": "next",
      "why": "before"
+    },
+    {
+     "id": "poem:not-in-my-life",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:oh-the-horror-i-say",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:one-beautiful-moment",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:sit-let-us-listen",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:these-days-are-gone",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -7627,6 +8908,31 @@
      "id": "row:advisor-to-armoire",
      "kind": "name",
      "why": "Armoire"
+    },
+    {
+     "id": "poem:not-in-my-life",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:oh-the-horror-i-say",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:one-beautiful-moment",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:sit-let-us-listen",
+     "kind": "year",
+     "why": "2017"
+    },
+    {
+     "id": "poem:these-days-are-gone",
+     "kind": "year",
+     "why": "2017"
     }
    ]
   },
@@ -8806,6 +10112,31 @@
      "id": "row:married-gourav-in-jaisalmer-four",
      "kind": "name",
      "why": "Gourav"
+    },
+    {
+     "id": "poem:everywhere-i-turn",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:kashmir",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:mama",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:these-water-nymphs",
+     "kind": "year",
+     "why": "2021"
+    },
+    {
+     "id": "poem:time-in-a-fig-grove",
+     "kind": "year",
+     "why": "2021"
     }
    ]
   },
@@ -8832,11 +10163,6 @@
    "to": "Oh that again I might see such beauty in my life",
    "how": "07's own link",
    "kin": [
-    {
-     "id": "poem:oh-that-again",
-     "kind": "hand",
-     "why": "the same poem"
-    },
     {
      "id": "lift:poems",
      "kind": "making",
@@ -8922,6 +10248,11 @@
    "to": "Lately",
    "how": "its weekly record is the public page",
    "kin": [
+    {
+     "id": "week:2026-w45",
+     "kind": "hand",
+     "why": "the weekly record"
+    },
     {
      "id": "week:2026-w42",
      "kind": "hand",

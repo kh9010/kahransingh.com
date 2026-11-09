@@ -1,0 +1,349 @@
+{
+ "about": "Study 27 / the About: the year each poem of v2/data.json was written by, from the earliest credible evidence, and how that was found. Gathered 9 Nov 2026 from the book manuscript as submitted (Aug 2022), his public posts, his own dated documents and recordings, the poem films, and his writing library (a file is trusted by its creation date only when fewer than 8 files were created that day; busier days are migrations). The evidence is kept privately; only the year and the how reach the page. A poem with no credible evidence is in undated, with why.",
+ "poems": {
+  "a-conversation-among-birds": {
+   "year": 2025,
+   "how": "in a dated class portfolio of his (2025)"
+  },
+  "a-wedding-toast": {
+   "year": 2022,
+   "how": "the draft in his writing library is dated 2022"
+  },
+  "an-ode-to-aspens": {
+   "year": 2022,
+   "how": "the draft in his writing library is dated 2022"
+  },
+  "and-now-that-we-walk": {
+   "year": 2019,
+   "how": "he posted it on Instagram in 2019"
+  },
+  "anuraag-oh-anuraag": {
+   "year": 2019,
+   "how": "the draft in his writing library is dated 2019"
+  },
+  "ariel": {
+   "year": 2023,
+   "how": "in a prize or journal submission of his, dated 2023"
+  },
+  "blood-oh-once-you-called": {
+   "year": 2024,
+   "how": "the draft in his writing library is dated 2024"
+  },
+  "california": {
+   "year": 2020,
+   "how": "in a journal submission of his, dated 2020"
+  },
+  "dear-bottle": {
+   "year": 2018,
+   "how": "the draft in his writing library is dated 2018"
+  },
+  "delicate-pieces-before-the-end": {
+   "year": 2019,
+   "how": "the draft in his writing library is dated 2019"
+  },
+  "did-you-know": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "do-you-miss-me": {
+   "year": 2024,
+   "how": "the earliest copy of it he kept is from 2024"
+  },
+  "everyday-i-can-spend": {
+   "year": 2024,
+   "how": "the earliest copy of it he kept is from 2024"
+  },
+  "everytime-you-wink-at-me": {
+   "year": 2024,
+   "how": "its poem film was made in 2024"
+  },
+  "everywhere-i-turn": {
+   "year": 2021,
+   "how": "the draft in his writing library is dated 2021"
+  },
+  "falling-in-love": {
+   "year": 2022,
+   "how": "he posted it on Instagram in 2022"
+  },
+  "freedom-yet-unabridged": {
+   "year": 2020,
+   "how": "the draft in his writing library is dated 2020"
+  },
+  "hark-my-love": {
+   "year": 2024,
+   "how": "the draft in his writing library is dated 2024"
+  },
+  "have-you-ever-seen": {
+   "year": 2024,
+   "how": "the draft in his writing library is dated 2024"
+  },
+  "have-you-watched-creepers-creep": {
+   "year": 2024,
+   "how": "the draft in his writing library is dated 2024"
+  },
+  "hey-you-there-hey-you-here": {
+   "year": 2025,
+   "how": "in a dated workshop packet of his (2025)"
+  },
+  "hey-you-tree-there": {
+   "year": 2025,
+   "how": "in a dated class portfolio of his (2025)"
+  },
+  "i-feel-sad-about-endings": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "i-left-my-heart-at-home-today": {
+   "year": 2024,
+   "how": "in a dated collection of his poems (2024)"
+  },
+  "i-listen": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "i-saw-something-beautiful-today": {
+   "year": 2024,
+   "how": "its poem film was made in 2024"
+  },
+  "i-watch-my-hair": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "i-watched-a-butterfly-today": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "i-will-always-be-a-poet": {
+   "year": 2025,
+   "how": "in a dated workshop packet of his (2025)"
+  },
+  "in-my-heart-something-called-to-the-rain": {
+   "year": 2024,
+   "how": "its poem film was made in 2024"
+  },
+  "it-used-to-be-me": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "its-funny": {
+   "year": 2023,
+   "how": "he posted it on Instagram in 2023"
+  },
+  "kashmir": {
+   "year": 2021,
+   "how": "the draft in his writing library is dated 2021"
+  },
+  "large-objects": {
+   "year": 2025,
+   "how": "in a dated workshop packet of his (2025)"
+  },
+  "late-why-so-late": {
+   "year": 2019,
+   "how": "the draft in his writing library is dated 2019"
+  },
+  "let-tomorrow-come": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "london": {
+   "year": 2024,
+   "how": "in his MFA application portfolio (2024)"
+  },
+  "mama": {
+   "year": 2021,
+   "how": "the earliest copy of it he kept is from 2021"
+  },
+  "memories-of-tomorrow": {
+   "year": 2020,
+   "how": "the draft in his writing library is dated 2020"
+  },
+  "my-friend-who-died": {
+   "year": 2024,
+   "how": "in his MFA application portfolio (2024)"
+  },
+  "not-in-my-life": {
+   "year": 2017,
+   "how": "the draft in his writing library is dated 2017"
+  },
+  "oh-the-horror-i-say": {
+   "year": 2017,
+   "how": "the draft in his writing library is dated 2017"
+  },
+  "one-beautiful-moment": {
+   "year": 2017,
+   "how": "the draft in his writing library is dated 2017"
+  },
+  "one-in-community": {
+   "year": 2025,
+   "how": "in a dated workshop packet of his (2025)"
+  },
+  "out-of-many-one": {
+   "year": 2018,
+   "how": "the draft in his writing library is dated 2018"
+  },
+  "out-to-play-he-calls-them": {
+   "year": 2019,
+   "how": "the draft in his writing library is dated 2019"
+  },
+  "park": {
+   "year": 2024,
+   "how": "in his MFA application portfolio (2024)"
+  },
+  "platitudes-of-suffering": {
+   "year": 2024,
+   "how": "in his MFA application portfolio (2024)"
+  },
+  "sit-let-us-listen": {
+   "year": 2017,
+   "how": "the draft in his writing library is dated 2017"
+  },
+  "social-media-is-not-the-right-place-for-grief": {
+   "year": 2024,
+   "how": "the draft in his writing library is dated 2024"
+  },
+  "sometimes-curious-feel": {
+   "year": 2024,
+   "how": "in his MFA application portfolio (2024)"
+  },
+  "sometimes-i-feel-cold": {
+   "year": 2022,
+   "how": "he posted it on Instagram in 2022"
+  },
+  "sometimes-i-listen-to-these-poets": {
+   "year": 2022,
+   "how": "he posted it on Instagram in 2022"
+  },
+  "sometimes-quaver": {
+   "year": 2024,
+   "how": "in his MFA application portfolio (2024)"
+  },
+  "song-of-tomorrow": {
+   "year": 2020,
+   "how": "the earliest copy of a line of it he kept is from 2020"
+  },
+  "teental": {
+   "year": 2025,
+   "how": "in a dated class portfolio of his (2025)"
+  },
+  "the-light-sings": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "the-mist": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "there-comes-a-point": {
+   "year": 2020,
+   "how": "the draft in his writing library is dated 2020"
+  },
+  "there-is-a-soft-tingle": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "these-days-are-gone": {
+   "year": 2017,
+   "how": "the draft in his writing library is dated 2017"
+  },
+  "these-water-nymphs": {
+   "year": 2021,
+   "how": "the draft in his writing library is dated 2021"
+  },
+  "thrum-thrum": {
+   "year": 2024,
+   "how": "in a prize or journal submission of his, dated 2024"
+  },
+  "time-in-a-fig-grove": {
+   "year": 2021,
+   "how": "the draft in his writing library is dated 2021"
+  },
+  "to-be-alone": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "to-flutter": {
+   "year": 2022,
+   "how": "he posted it on Facebook in 2022"
+  },
+  "to-know-me": {
+   "year": 2020,
+   "how": "the draft in his writing library is dated 2020"
+  },
+  "to-touch-in-a-way": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "today-birds": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "today-i-saw-a-man-on-a-leash": {
+   "year": 2024,
+   "how": "the earliest copy of it he kept is from 2024"
+  },
+  "wedding-poem": {
+   "year": 2023,
+   "how": "a recording of him reading it is dated 2023"
+  },
+  "when-i-dance-with-you": {
+   "year": 2024,
+   "how": "the draft in his writing library is dated 2024"
+  },
+  "when-i-laugh": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "when-im-not-here": {
+   "year": 2023,
+   "how": "a recording of him reading it is dated 2023"
+  },
+  "when-you-watch-the-whales-from-shore": {
+   "year": 2020,
+   "how": "the draft in his writing library is dated 2020"
+  },
+  "when-you-were-young": {
+   "year": 2019,
+   "how": "the draft in his writing library is dated 2019"
+  },
+  "xoxo": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "i-came-out": {
+   "year": 2022,
+   "how": "in How the World Works (2022)"
+  },
+  "being-loved": {
+   "year": 2025,
+   "how": "in a dated class portfolio of his (2025)"
+  },
+  "animals-in-love": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "wrestle": {
+   "year": 2024,
+   "how": "in a dated workshop packet of his (2024)"
+  },
+  "bladder-bag": {
+   "year": 2025,
+   "how": "in a dated workshop packet of his (2025)"
+  },
+  "hey": {
+   "year": 2025,
+   "how": "in a dated workshop packet of his (2025)"
+  }
+ },
+ "undated": {
+  "glass-houses": "only a copy in his writing library made on a day 33 files arrived at once (2024-05-11), a migration date, not when it was written",
+  "guadalajara": "only a copy in his writing library made on a day 117 files arrived at once (2024-06-21)",
+  "how-can-you-just-be-gone": "only a copy in his writing library made on a day 10 files arrived at once (2024-11-13), among them poems already in the 2022 book",
+  "i-was-feeling-sorry-for-a-moth": "only a copy in his writing library made on a day 117 files arrived at once (2024-06-21)",
+  "oh-that-again": "a dated 2025 packet holds a revision, but a copy was already in his writing library on 2024-05-11 (a 33-file migration day), so 2025 is too late and the real year is unknown",
+  "the-sun-kissed-the-mountains": "only a copy in his writing library made on a day 117 files arrived at once (2024-06-21)",
+  "this-growing-older": "only a copy in his writing library made on a day 33 files arrived at once (2024-05-11)",
+  "to-see-such-beauty": "only a copy in his writing library made on a day 117 files arrived at once (2024-06-21)",
+  "today-i-write-about-red": "only a copy in his writing library made on a day 117 files arrived at once (2024-06-21)",
+  "today-if-there-is-tomorrow": "only a copy in his writing library made on a day 12 files arrived at once (2025-03-28), among them poems dated earlier elsewhere"
+ }
+}

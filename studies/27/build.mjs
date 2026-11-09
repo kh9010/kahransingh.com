@@ -123,8 +123,14 @@ const placeOf = new Map();
 for (const p of data.photos) { const k = p.caption.split(' — ')[0]; if (!placeOf.has(k)) placeOf.set(k, p); }
 const weeks = JSON.parse(read('lately/entries.json')).entries.map((e) => ({ y: e.title, t: `<a href="${e.link}">${esc(e.summary)}</a>`, week: e }));
 const howBook = { y: '2022', t: 'How the World Works, a first book of poems.' };
+// each poem's year, from evidence gathered by hand into poem-years.json (9 Nov: Kahran, "I thought things were broken up by
+// year"); the poems with none are one line, not a wall of titles. The build never reads the private sources themselves.
+const PY = JSON.parse(readFileSync(path.join(HERE, 'poem-years.json'), 'utf8'));
+for (const p of data.poems) if (!PY.poems[p.slug] === !PY.undated[p.slug]) throw new Error(`build: poem ${p.slug} is in neither or both of poem-years.json's poems and undated`);
+for (const s of [...Object.keys(PY.poems), ...Object.keys(PY.undated)]) if (!data.poems.some((p) => p.slug === s)) throw new Error(`build: poem-years.json names ${s}, not a poem in v2/data.json`);
+const dated = data.poems.filter((p) => PY.poems[p.slug]), undatedN = data.poems.length - dated.length;
 const runs = {
-  poems: [row('MFA candidate'), howBook, ...data.poems.map((p) => ({ poem: p }))],
+  poems: [row('MFA candidate'), howBook, ...dated.map((p) => ({ poem: p })), ...(undatedN ? [{ more: undatedN }] : [])],
   photographs: [...placeOf.keys()].map((k) => ({ place: k })),
   tools: [row('Building software'), ...weeks],
   companies: [row('Board of TomboyX'), row('Chief Revenue Officer'), row('Co-founded'), row('Advisor to Armoire'), row('General Partner'), { y: '2017–', t: cvLine('Portfolio includes Armoire, Humanly, and Kosha.') }, row('Vidyanext'), row('Aditi Technologies'), { y: '2012–15', t: cvLine('Clients included Dodge Data & Analytics (McGraw-Hill) and TUI Travel.') }, row('DataSphere'), { y: '2011–12', t: cvLine('Mobile product lead for a late-stage 300-person startup.') }, row('TravelPost'), row('Microsoft')],
@@ -147,7 +153,8 @@ const add = (u) => { if (units.some((x) => x.id === u.id)) throw new Error(`buil
 const rowSrc = (t) => SRC.rows.find((r) => plain(t).startsWith(r.start));
 const ownHref = (t) => /<a href="([^"]+)"/.exec(t)?.[1];
 const unitFor = (k, r) => {
-  if (r.poem) { const p = r.poem; return { id: `poem:${p.slug}`, k, text: p.title, html: esc(p.title), href: `/poems/${p.slug}.html`, how: 'the poem’s own page (v2/data.json)', lines: p.stanzas[0].split('\n').filter(Boolean).slice(0, 3) }; }
+  if (r.poem) { const p = r.poem; return { id: `poem:${p.slug}`, k, text: p.title, html: esc(p.title), href: `/poems/${p.slug}.html`, how: 'the poem’s own page (v2/data.json)', lines: p.stanzas[0].split('\n').filter(Boolean).slice(0, 3), written: PY.poems[p.slug] }; }
+  if (r.more) { const t = `and ${r.more} more poems`; return { id: 'more:poems', k, text: t, html: esc(t), href: '/poetry.html', how: 'the poems page, which holds every poem' }; }
   if (r.place) { const p = placeOf.get(r.place); return { id: `place:${slug(r.place)}`, k, text: r.place, html: esc(r.place), href: '/photography.html', how: `the photograph from there is on the photography page (v2/data.json, ${p.src})`, img: p.src, alt: p.alt }; }
   if (r.week) return { id: `week:${r.week.id.replace('record-', '')}`, k, y: r.y, date: r.week.date, text: r.week.summary, html: esc(r.week.summary), href: r.week.link, how: 'the week’s own page (lately/entries.json)' };
   if (r.talk) { const h = ownHref(r.t); const t = plain(r.t); return { id: `talk:${slug(t)}`, k, y: r.y, text: t, html: esc(t), href: h || SRC.rows.find((s) => t.startsWith(s.start))?.href || null, how: h ? 'the talk’s own video, linked from cv.html and speaking.html' : SRC.rows.find((s) => t.startsWith(s.start))?.how, why: h ? undefined : 'no video' }; }
@@ -224,12 +231,13 @@ for (const ids of byHref.values()) for (const a of ids) for (const b of ids) {
 
 // hand
 const match = (p) => { if (units.some((u) => u.id === p)) return [p]; const star = p.endsWith(':*'), hits = units.filter((u) => star ? u.id.startsWith(p.slice(0, -1)) : u.id === p || u.id.startsWith(p + '-')).map((u) => u.id); if (!hits.length || (!star && hits.length > 1)) throw new Error(`build: see names ${p} (${hits.length})`); return hits; };
-for (const [a, b, why] of SRC.see) { if (!why) throw new Error(`build: hand pair ${a} ${b} has no reason`); for (const x of match(a)) for (const y of match(b)) tie(x, y, 'hand', why.replace(/ \(cv\.html.*\)$/, '')); }
+for (const [a, b, why] of SRC.see) { if (!why) throw new Error(`build: hand pair ${a} ${b} has no reason`); if ([a, b].some((x) => PY.undated[x.replace(/^poem:/, '')])) continue; // a poem folded into the undated line has no fact to tie
+  for (const x of match(a)) for (const y of match(b)) tie(x, y, 'hand', why.replace(/ \(cv\.html.*\)$/, '')); }
 
 // photo: the photograph a poem's own page carries (og:image), when it is one of the site's captioned photographs
 const placeOfSrc = new Map(data.photos.map((p) => [p.src, p.caption.split(' — ')[0]]));
 const placeId = (k) => `place:${slug(k)}`;
-for (const p of data.poems) {
+for (const p of dated) {
   const og = /<meta property="og:image" content="https:\/\/kahransingh\.com([^"]+)"/.exec(read(`poems/${p.slug}.html`))?.[1];
   const k = og && placeOfSrc.get(og);
   if (k && byId[placeId(k)]) tie(`poem:${p.slug}`, placeId(k), 'photo', 'its photograph', 'poems with this photograph');
@@ -252,13 +260,19 @@ jobs.forEach((u, i) => { if (jobs[i + 1]) tie(u.id, jobs[i + 1].id, 'next', 'aft
 // theme: the exact set of themes poems/related.js gives a poem
 const themes = new Map([...read('poems/related.js').matchAll(/'([a-z0-9-]+)': \{ themes: \[([^\]]*)\]/g)].map((m) => [m[1], m[2].match(/[a-z]+/g).sort()]));
 const byTheme = new Map();
-for (const p of data.poems) { const t = themes.get(p.slug); if (t) { const k = t.join(' · '); byTheme.set(k, [...(byTheme.get(k) || []), `poem:${p.slug}`]); } }
+for (const p of dated) { const t = themes.get(p.slug); if (t) { const k = t.join(' · '); byTheme.set(k, [...(byTheme.get(k) || []), `poem:${p.slug}`]); } }
 for (const [k, ids] of byTheme) group(ids, 'theme', k);
 
 // year: facts that start in the same year, or are all now
 const byYear = new Map();
-for (const u of units) { if (u.id.startsWith('week:')) continue; const y = u.y === 'now' ? 'now' : startYear(u.y) || null; if (y) byYear.set(y, [...(byYear.get(y) || []), u.id]); }
-for (const [y, ids] of byYear) group(ids, 'year', String(y));
+for (const u of units) { if (u.id.startsWith('week:')) continue; const y = u.written ? u.written.year : u.y === 'now' ? 'now' : startYear(u.y) || null; if (y) byYear.set(y, [...(byYear.get(y) || []), u.id]); }
+// a year's tie holds when 16 or fewer facts share it; where the poems' years (poem-years.json) push a year past that, the
+// ledger's own facts keep the tie they had, and the poems of that year tie among themselves (again only if 16 or fewer)
+for (const [y, ids] of byYear) {
+  if (ids.length <= 16) { group(ids, 'year', String(y)); continue; }
+  group(ids.filter((id) => !id.startsWith('poem:')), 'year', String(y));
+  group(ids.filter((id) => id.startsWith('poem:')), 'year', String(y));
+}
 
 // making: a making and what is lifted inside it, or its few facts when nothing is
 for (const k of ORDER) {
@@ -281,7 +295,8 @@ const place = {};
 for (const u of units) {
   if (u.lift || isInside(u)) continue;
   if (u.id.startsWith('week:')) { const y = u.date.slice(0, 4); place[u.id] = { row: y === '2026' ? 'now' : y, how: `dated ${u.date} in lately/entries.json` }; continue; }
-  if (u.id.startsWith('poem:')) { place[u.id] = { row: 'now', how: 'no year on the poem’s page; one of the home’s poems now (v2/data.json)' }; continue; }
+  if (u.id.startsWith('poem:')) { place[u.id] = { row: rowOfY(String(u.written.year)), how: `${u.written.how} (studies/27/poem-years.json)` }; continue; }
+  if (u.id === 'more:poems') { place[u.id] = { row: 'now', how: `no evidence yet of the year these ${undatedN} were written (studies/27/poem-years.json, undated)` }; continue; }
   if (u.id.startsWith('place:')) { place[u.id] = { row: 'now', how: 'no year on the photograph; one of the home’s photographs now (v2/data.json)' }; continue; }
   const r = rowOfY(u.y);
   if (!r || !ROWS.includes(r)) throw new Error(`build: ${u.id} (${u.y}) has no row`);

@@ -539,6 +539,9 @@ checkNow("every name and year on a study is already on the site", () => {
   const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
   const dict = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
   let names = 0, years = 0;
+  // 27 (the About) also shows the year each poem was written by: a year and a short how, the only things its private
+  // evidence lets onto the page, reviewed and committed in studies/27/poem-years.json (9 Nov)
+  const poemYears = new Set(Object.values(JSON.parse(readFileSync(path.join(ROOT, "studies", "27", "poem-years.json"), "utf8")).poems).map((e) => String(e.year)));
   for (const n of SINCE06) {
     const main = /<main>([\s\S]*?)<\/main>/.exec(studyHtml(n))?.[1] || "";
     const text = main.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/g, " ");
@@ -549,7 +552,7 @@ checkNow("every name and year on a study is already on the site", () => {
       names++;
     }
     for (const m of text.matchAll(/\b(19|20)\d\d\b/g)) {
-      if (!corpus.includes(m[0])) throw new Error(`study ${n} says ${m[0]}, a year no public page carries`);
+      if (!corpus.includes(m[0]) && !(n === "27" && poemYears.has(m[0]))) throw new Error(`study ${n} says ${m[0]}, a year no public page carries`);
       years++;
     }
   }
@@ -611,7 +614,7 @@ checkNow("v2/about.html is his desk picks as a site page: full meta set, the nav
   return `${meta.length} page rules, ${pieces.length} picked lines verbatim, ${names} names and ${years} years against ${PUBLIC.length} public pages, ${links} internal links on disk, first About at /v1/about.html`;
 });
 
-checkNow("about.html is 27 a as a site page: every fact of 27's word for word in its year, readable without JS, full meta set, the nav, no switcher or tune, links resolve, and the stone's year facet opens it", () => {
+checkNow("about.html is 27 a as a site page: every fact of 27's word for word in its year, every poem in its evidenced year or in the one undated line and no row holding more than a third of the poems, readable without JS, full meta set, the nav, no switcher or tune, links resolve, and the stone's year facet opens it", () => {
   // Kahran picked 27 a on 8 Nov ("It's nice. It just feels nice. I think it's easy."); it became about.html on 9 Nov, built from
   // the study's committed page by `node studies/27/build.mjs --about` (about.html, and about.js = kin.js). Hand edits get overwritten.
   const h = readFileSync(path.join(ROOT, "about.html"), "utf8"), study = readFileSync(path.join(ROOT, "studies", "27", "index.html"), "utf8");
@@ -650,6 +653,23 @@ checkNow("about.html is 27 a as a site page: every fact of 27's word for word in
   if (rows.map((x) => x[2]).join() !== Y.rows.join()) throw new Error(`about.html's years are ${rows.map((x) => x[2]).join()}, 27's ${Y.rows.join()}`);
   const place = Object.fromEntries(Y.facts.map((f) => [f.id, f.row]));
   for (const [, , row, inner] of rows) for (const m of inner.matchAll(/data-id="([^"]+)"/g)) if (place[m[1]] !== row) throw new Error(`about.html: ${m[1]} sits in ${row}, 27 puts it in ${place[m[1]]}`);
+  // the poems (Kahran, 9 Nov: "I'm confused why all the poems were at the beginning. I thought things were broken up by year."):
+  // each in the year studies/27/poem-years.json evidences; the ones with no evidence one line in now, not a wall of titles
+  const PY = JSON.parse(readFileSync(path.join(ROOT, "studies", "27", "poem-years.json"), "utf8")), poems = JSON.parse(readFileSync(path.join(ROOT, "v2", "data.json"), "utf8")).poems;
+  const rowHas = Object.fromEntries(rows.map(([, , row, inner]) => [row, [...inner.matchAll(/data-id="([^"]+)"/g)].map((m) => m[1])]));
+  const where = (id) => Object.keys(rowHas).find((r) => rowHas[r].includes(id));
+  for (const p of poems) {
+    const e = PY.poems[p.slug], u = PY.undated[p.slug];
+    if (!e === !u) throw new Error(`poem ${p.slug} is in ${e ? "both" : "neither"} of poem-years.json's poems and undated`);
+    const at = where(`poem:${p.slug}`);
+    if (e && at !== (e.year >= 2026 ? "now" : String(e.year))) throw new Error(`about.html: ${p.slug} sits in ${at}; its evidence (${e.how}) says ${e.year}`);
+    if (u && at) throw new Error(`about.html: ${p.slug} has no evidenced year but sits in ${at} on its own`);
+  }
+  const nU = Object.keys(PY.undated).length;
+  if (nU && (where("more:poems") !== "now" || !main.includes(`<a class="u" href="/poetry.html">and ${nU} more poems</a>`))) throw new Error(`about.html: the ${nU} undated poems are not the one line "and ${nU} more poems" in now`);
+  const perRow = Object.entries(rowHas).map(([r, ids]) => [r, ids.filter((id) => id.startsWith("poem:")).length]).sort((a, b) => b[1] - a[1]), capP = Math.ceil(poems.length / 3);
+  if (rowHas.now.some((id) => id.startsWith("poem:"))) throw new Error("about.html: now holds poem titles; a poem goes in its year or in the undated line");
+  if (perRow[0][1] > capP) throw new Error(`about.html: ${perRow[0][0]} holds ${perRow[0][1]} poem titles, more than a third of the ${poems.length} poems`);
   // without JS: every fact's words are in the page's own markup
   const ENT = { amp: "&", middot: "·", rsquo: "’", mdash: "—", ndash: "–", nbsp: " ", rarr: "→", quot: '"' };
   const text = main.replace(/<img [^>]*alt="([^"]*)"[^>]*>/g, " $1 ").replace(/<[^>]+>/g, " ").replace(/&([a-z]+);/g, (m, e) => ENT[e] ?? m).replace(/\s+/g, " ");
@@ -665,7 +685,7 @@ checkNow("about.html is 27 a as a site page: every fact of 27's word for word in
   for (const m of h.matchAll(/"h":"(\/[^"#?]*)/g)) { let p = path.join(ROOT, m[1]); if (m[1].endsWith("/")) p = path.join(p, "index.html"); if (!existsSync(p)) throw new Error(`about.html: a fact opens ${m[1]}, not on disk`); links++; }
   const YEARS = /const YEARS = '([^']+)'/.exec(readFileSync(path.join(ROOT, "v3", "stone.js"), "utf8"))?.[1];
   if (YEARS !== "/about.html") throw new Error(`the stone's year facet opens ${YEARS}, not /about.html`);
-  return `${meta.length} page rules, ${L.facts.length} facts word for word in ${Y.rows.length} years, version a whole but for the flow link and the ideas count (${NUM[listed]} of ${NUM[nIdeas]}), ${L.facts.length - missing.length} readable without JS, ${links} internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html`;
+  return `${meta.length} page rules, ${L.facts.length} facts word for word in ${Y.rows.length} years, ${poems.length - nU} poems in their evidenced years (at most ${perRow[0][1]} in a row, in ${perRow[0][0]}) and ${nU} as one undated line, version a whole but for the flow link and the ideas count (${NUM[listed]} of ${NUM[nIdeas]}), ${L.facts.length - missing.length} readable without JS, ${links} internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html`;
 });
 
 /* Studies 14 on are canvas/script pieces (the stone, the crossing): a dial is
