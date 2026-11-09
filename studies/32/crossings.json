@@ -1,0 +1,2109 @@
+{
+ "made_by": "studies/32/build.mjs",
+ "from": [
+  "v2/data.json",
+  "photos/*.jpg EXIF DateTimeOriginal",
+  "poems/*.html og:image",
+  "v2/days.json",
+  "studies/27/years.json",
+  "studies/27/links.json"
+ ],
+ "rows": [
+  "now",
+  "2025",
+  "2024",
+  "2023",
+  "2022",
+  "2021",
+  "2020",
+  "2019",
+  "2018",
+  "2017",
+  "2016",
+  "2015",
+  "2014",
+  "2013",
+  "2012",
+  "2011",
+  "2010",
+  "2009",
+  "2008",
+  "2007",
+  "2006"
+ ],
+ "photos": [
+  {
+   "src": "/photos/roma-sidewalk.jpg",
+   "place": "Roma Norte, Mexico City",
+   "taken": "2026-03-11",
+   "y": 2026,
+   "row": "now",
+   "poem": "it-used-to-be-me",
+   "poemWhy": "the home, 16 Oct",
+   "poemSrc": "v2/days.json 2026-10-16",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/papel-picado.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "ariel",
+   "poemWhy": "the home, 4 Oct",
+   "poemSrc": "v2/days.json 2026-10-04",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/night-street.jpg",
+   "place": "Roma Norte, Mexico City",
+   "taken": "2026-03-11",
+   "y": 2026,
+   "row": "now",
+   "poem": "song-of-tomorrow",
+   "poemWhy": "the home, 17 Oct",
+   "poemSrc": "v2/days.json 2026-10-17",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/staircase.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "an-ode-to-aspens",
+   "poemWhy": "its page carries this photograph",
+   "poemSrc": "poems/an-ode-to-aspens.html og:image",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/cdmx-plaza.jpg",
+   "place": "Roma Norte, Mexico City",
+   "taken": "2026-03-11",
+   "y": 2026,
+   "row": "now",
+   "poem": "memories-of-tomorrow",
+   "poemWhy": "the home, 5 Nov",
+   "poemSrc": "v2/days.json 2026-11-05",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/alpine-lake.jpg",
+   "place": "Mt Rainier, Washington",
+   "taken": "2022-08-18",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/beach-solitude.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "falling-in-love",
+   "poemWhy": "the home, 2 Oct",
+   "poemSrc": "v2/days.json 2026-10-02",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/reed-corridor.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "to-know-me",
+   "poemWhy": "the home, 22 Oct",
+   "poemSrc": "v2/days.json 2026-10-22",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/buoys-wall.jpg",
+   "place": "Cape Cod",
+   "taken": "2024-07-04",
+   "y": 2024,
+   "row": "2024",
+   "poem": "and-now-that-we-walk",
+   "poemWhy": "the home, 25 Oct",
+   "poemSrc": "v2/days.json 2026-10-25",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/fireworks-water.jpg",
+   "place": "Cape Cod",
+   "taken": "2024-07-04",
+   "y": 2024,
+   "row": "2024",
+   "poem": "blood-oh-once-you-called",
+   "poemWhy": "the home, 6 Nov",
+   "poemSrc": "v2/days.json 2026-11-06",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/still-lake.jpg",
+   "place": "Yellowstone",
+   "taken": "2023-05-28",
+   "y": 2023,
+   "row": "2023",
+   "yearFacts": [],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/sayulita-staircase.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/concrete-museum.jpg",
+   "place": "Berlin",
+   "taken": "2024-10-28",
+   "y": 2024,
+   "row": "2024",
+   "poem": "wrestle",
+   "poemWhy": "its page carries this photograph",
+   "poemSrc": "poems/wrestle.html og:image",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/tree-tunnel.jpg",
+   "place": "Hawaii",
+   "taken": "2022-04-24",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/hawaii-landscape.jpg",
+   "place": "Hawaii",
+   "taken": "2022-04-05",
+   "y": 2022,
+   "row": "2022",
+   "poem": "guadalajara",
+   "poemWhy": "the home, 23 Sep",
+   "poemSrc": "v2/days.json 2026-09-23",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/lanterns.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "everywhere-i-turn",
+   "poemWhy": "its page carries this photograph",
+   "poemSrc": "poems/everywhere-i-turn.html og:image",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/taco-cart.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "california",
+   "poemWhy": "the home, 14 Oct",
+   "poemSrc": "v2/days.json 2026-10-14",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/night-market.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "when-i-dance-with-you",
+   "poemWhy": "the home, 30 Oct",
+   "poemSrc": "v2/days.json 2026-10-30",
+   "yearFacts": [
+    "row:mfa-candidate-in-writing-and",
+    "row:building-software-with-claude-most",
+    "row:learning-kathak-from-rachna-nivas"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line",
+    "row:board-of-tomboyx-led-the",
+    "row:chief-revenue-officer-at-klydo"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/misty-hillside.jpg",
+   "place": "Big Island, Hawaii",
+   "taken": "2022-04-09",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/kitchen-night.jpg",
+   "place": "Telluride, Colorado",
+   "taken": "2021-12-20",
+   "y": 2021,
+   "row": "2021",
+   "poem": "teental",
+   "poemWhy": "the home, 24 Oct",
+   "poemSrc": "v2/days.json 2026-10-24",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": [
+    {
+     "id": "row:eloped-with-gourav-in-telluride",
+     "why": "Telluride"
+    }
+   ]
+  },
+  {
+   "src": "/photos/restaurant-night.jpg",
+   "place": "Kerala",
+   "taken": "2021-01-25",
+   "y": 2021,
+   "row": "2021",
+   "poem": "anuraag-oh-anuraag",
+   "poemWhy": "the home, 27 Sep",
+   "poemSrc": "v2/days.json 2026-09-27",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/yosemite-trail.jpg",
+   "place": "Yosemite",
+   "taken": "2021-12-08",
+   "y": 2021,
+   "row": "2021",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/scooter-beach.jpg",
+   "place": "Goa",
+   "taken": "2021-09-04",
+   "y": 2021,
+   "row": "2021",
+   "poem": "have-you-watched-creepers-creep",
+   "poemWhy": "the home, 27 Oct",
+   "poemSrc": "v2/days.json 2026-10-27",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/yosemite-valley.jpg",
+   "place": "Yosemite",
+   "taken": "2021-12-08",
+   "y": 2021,
+   "row": "2021",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/beach-boardwalk.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "i-watched-a-butterfly-today",
+   "poemWhy": "the home, 26 Oct",
+   "poemSrc": "v2/days.json 2026-10-26",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/berlin-street.jpg",
+   "place": "Berlin",
+   "taken": "2023-10-01",
+   "y": 2023,
+   "row": "2023",
+   "poem": "sometimes-quaver",
+   "poemWhy": "the home, 18 Oct",
+   "poemSrc": "v2/days.json 2026-10-18",
+   "yearFacts": [],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/singapore-225bdfc9.jpg",
+   "place": "Singapore",
+   "taken": "2019-04-12",
+   "y": 2019,
+   "row": "2019",
+   "yearFacts": [
+    "row:advisor-to-armoire"
+   ],
+   "lanes": [
+    "row:vidyanext-bangalore-ceo-then-cmo",
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+   "place": "Sagrada Família, Barcelona",
+   "taken": "2019-04-21",
+   "y": 2019,
+   "row": "2019",
+   "yearFacts": [
+    "row:advisor-to-armoire"
+   ],
+   "lanes": [
+    "row:vidyanext-bangalore-ceo-then-cmo",
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/kodagu-india-346cc700.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-24",
+   "y": 2021,
+   "row": "2021",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/kodagu-india-033e7e3b.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-24",
+   "y": 2021,
+   "row": "2021",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/kodagu-india-124b384b.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-26",
+   "y": 2021,
+   "row": "2021",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/kodagu-india-68c68cb1.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-26",
+   "y": 2021,
+   "row": "2021",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/crested-butte-colorado-8ada8f57.jpg",
+   "place": "Crested Butte, Colorado",
+   "taken": "2022-02-11",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/crested-butte-colorado-e25ede7f.jpg",
+   "place": "Crested Butte, Colorado",
+   "taken": "2022-02-11",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/puako-hawaii-98409f6b.jpg",
+   "place": "Puako, Hawaiʻi",
+   "taken": "2022-04-05",
+   "y": 2022,
+   "row": "2022",
+   "poem": "i-will-always-be-a-poet",
+   "poemWhy": "the home, 12 Oct",
+   "poemSrc": "v2/days.json 2026-10-12",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+   "place": "Laupahoehoe, Hawaiʻi",
+   "taken": "2022-04-09",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/hilo-hawaii-3cb5d78d.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/hilo-hawaii-a09cc2ce.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/hilo-hawaii-fa94384a.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/hilo-hawaii-ea929e41.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022",
+   "poem": "today-if-there-is-tomorrow",
+   "poemWhy": "the home, 28 Sep",
+   "poemSrc": "v2/days.json 2026-09-28",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg",
+   "place": "Hawaiʻi Volcanoes National Park",
+   "taken": "2022-04-11",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/kaanapali-maui-2be2cfcb.jpg",
+   "place": "Kāʻanapali, Maui",
+   "taken": "2022-04-14",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022",
+   "poem": "when-you-were-young",
+   "poemWhy": "the home, 13 Oct",
+   "poemSrc": "v2/days.json 2026-10-13",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-d72b8203.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-5c7590f5.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-3d887df3.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-18",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-18",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/san-juan-islands-washington-657f1936.jpg",
+   "place": "San Juan Islands, Washington",
+   "taken": "2022-08-31",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/fire-island-new-york-72585dde.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "let-tomorrow-come",
+   "poemWhy": "the home, 4 Nov",
+   "poemSrc": "v2/days.json 2026-11-04",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/washington-dc-c631b9f2.jpg",
+   "place": "Washington, DC",
+   "taken": "2022-09-28",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/washington-dc-afd19b1c.jpg",
+   "place": "Washington, DC",
+   "taken": "2022-09-28",
+   "y": 2022,
+   "row": "2022",
+   "poem": "out-of-many-one",
+   "poemWhy": "the home, 23 Oct",
+   "poemSrc": "v2/days.json 2026-10-23",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/acadia-national-park-maine-9678573e.jpg",
+   "place": "Acadia National Park, Maine",
+   "taken": "2022-09-30",
+   "y": 2022,
+   "row": "2022",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+   "place": "Bar Harbor, Maine",
+   "taken": "2022-10-02",
+   "y": 2022,
+   "row": "2022",
+   "poem": "sometimes-curious-feel",
+   "poemWhy": "the home, 8 Oct",
+   "poemSrc": "v2/days.json 2026-10-08",
+   "yearFacts": [
+    "row:how-the-world-works-a",
+    "row:co-founded-joyus-studio-with",
+    "row:married-gourav-in-jaisalmer-four"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/casper-wyoming-02035a8d.jpg",
+   "place": "Casper, Wyoming",
+   "taken": "2023-05-27",
+   "y": 2023,
+   "row": "2023",
+   "yearFacts": [],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/casper-wyoming-cce8cbde.jpg",
+   "place": "Casper, Wyoming",
+   "taken": "2023-05-27",
+   "y": 2023,
+   "row": "2023",
+   "poem": "dear-bottle",
+   "poemWhy": "the home, 28 Oct",
+   "poemSrc": "v2/days.json 2026-10-28",
+   "yearFacts": [],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mexico-city-mexico-6eb743ec.jpg",
+   "place": "Mexico City, Mexico",
+   "taken": "2024-01-01",
+   "y": 2024,
+   "row": "2024",
+   "poem": "did-you-know",
+   "poemWhy": "the home, 31 Oct",
+   "poemSrc": "v2/days.json 2026-10-31",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/diamante-valley-costa-rica-3092189d.jpg",
+   "place": "Diamante Valley, Costa Rica",
+   "taken": "2024-03-14",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/diamante-valley-costa-rica-cbb914b4.jpg",
+   "place": "Diamante Valley, Costa Rica",
+   "taken": "2024-03-19",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/paro-bhutan-08988839.jpg",
+   "place": "Paro, Bhutan",
+   "taken": "2024-04-06",
+   "y": 2024,
+   "row": "2024",
+   "poem": "hark-my-love",
+   "poemWhy": "the home, 7 Oct",
+   "poemSrc": "v2/days.json 2026-10-07",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/paro-bhutan-6f8bbbbf.jpg",
+   "place": "Paro, Bhutan",
+   "taken": "2024-04-06",
+   "y": 2024,
+   "row": "2024",
+   "poem": "everyday-i-can-spend",
+   "poemWhy": "the home, 3 Nov",
+   "poemSrc": "v2/days.json 2026-11-03",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg",
+   "place": "Wangdue Phodrang, Bhutan",
+   "taken": "2024-04-11",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-f214fa8d.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-06",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-a90962e6.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-ee073946.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-4c281798.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "i-saw-something-beautiful-today",
+   "poemWhy": "the home, 20 Oct",
+   "poemSrc": "v2/days.json 2026-10-20",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-eee28b60.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "park",
+   "poemWhy": "the home, 19 Oct",
+   "poemSrc": "v2/days.json 2026-10-19",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-08da554d.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "everytime-you-wink-at-me",
+   "poemWhy": "the home, 29 Oct",
+   "poemSrc": "v2/days.json 2026-10-29",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-09009fdd.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "delicate-pieces-before-the-end",
+   "poemWhy": "the home, 10 Oct",
+   "poemSrc": "v2/days.json 2026-10-10",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/honshu-japan-0d03d128.jpg",
+   "place": "Honshu, Japan",
+   "taken": "2024-10-19",
+   "y": 2024,
+   "row": "2024",
+   "poem": "to-flutter",
+   "poemWhy": "the home, 7 Nov",
+   "poemSrc": "v2/days.json 2026-11-07",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/setonaikai-national-park-japan-64937bce.jpg",
+   "place": "Setonaikai National Park, Japan",
+   "taken": "2024-10-28",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/setonaikai-national-park-japan-4d3f9e95.jpg",
+   "place": "Setonaikai National Park, Japan",
+   "taken": "2024-10-28",
+   "y": 2024,
+   "row": "2024",
+   "yearFacts": [
+    "row:mentor-at-startout-the-line",
+    "row:poem-films-with-divya-tak",
+    "film:when-i-dance-with-you",
+    "film:everytime-you-wink-at-me",
+    "film:in-my-heart-something-called-to-the-rain",
+    "film:i-saw-something-beautiful-today"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire",
+    "row:co-founded-joyus-studio-with",
+    "row:mentor-at-startout-the-line"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/roppongi-tokyo-a5f50e72.jpg",
+   "place": "Roppongi, Tokyo",
+   "taken": "2019-01-09",
+   "y": 2019,
+   "row": "2019",
+   "poem": "sit-let-us-listen",
+   "poemWhy": "the home, 5 Oct",
+   "poemSrc": "v2/days.json 2026-10-05",
+   "yearFacts": [
+    "row:advisor-to-armoire"
+   ],
+   "lanes": [
+    "row:vidyanext-bangalore-ceo-then-cmo",
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/sayulita-mexico-25fbaafd.jpg",
+   "place": "Sayulita, Mexico",
+   "taken": "2019-01-04",
+   "y": 2019,
+   "row": "2019",
+   "poem": "oh-that-again",
+   "poemWhy": "the home, 1 Nov",
+   "poemSrc": "v2/days.json 2026-11-01",
+   "yearFacts": [
+    "row:advisor-to-armoire"
+   ],
+   "lanes": [
+    "row:vidyanext-bangalore-ceo-then-cmo",
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/sayulita-mexico-9d65e1b6.jpg",
+   "place": "Sayulita, Mexico",
+   "taken": "2019-01-04",
+   "y": 2019,
+   "row": "2019",
+   "poem": "out-to-play-he-calls-them",
+   "poemWhy": "the home, 2 Nov",
+   "poemSrc": "v2/days.json 2026-11-02",
+   "yearFacts": [
+    "row:advisor-to-armoire"
+   ],
+   "lanes": [
+    "row:vidyanext-bangalore-ceo-then-cmo",
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+   "place": "Mariposa Grove, Yosemite",
+   "taken": "2021-12-09",
+   "y": 2021,
+   "row": "2021",
+   "poem": "one-in-community",
+   "poemWhy": "the home, 15 Oct",
+   "poemSrc": "v2/days.json 2026-10-15",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  },
+  {
+   "src": "/photos/mariposa-grove-yosemite-7455e25e.jpg",
+   "place": "Mariposa Grove, Yosemite",
+   "taken": "2021-12-09",
+   "y": 2021,
+   "row": "2021",
+   "poem": "freedom-yet-unabridged",
+   "poemWhy": "the home, 21 Oct",
+   "poemSrc": "v2/days.json 2026-10-21",
+   "yearFacts": [
+    "row:eloped-with-gourav-in-telluride"
+   ],
+   "lanes": [
+    "row:general-partner-at-tres-monos",
+    "row:advisor-to-armoire"
+   ],
+   "names": []
+  }
+ ],
+ "poems": {
+  "a-conversation-among-birds": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "a-wedding-toast": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "an-ode-to-aspens": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "and-now-that-we-walk": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "anuraag-oh-anuraag": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "ariel": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "blood-oh-once-you-called": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "california": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "dear-bottle": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "delicate-pieces-before-the-end": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "did-you-know": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "do-you-miss-me": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "everyday-i-can-spend": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "everytime-you-wink-at-me": {
+   "film": "film:everytime-you-wink-at-me",
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "everywhere-i-turn": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "falling-in-love": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "freedom-yet-unabridged": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "glass-houses": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "guadalajara": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "hark-my-love": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "have-you-ever-seen": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "have-you-watched-creepers-creep": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "hey-you-there-hey-you-here": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "hey-you-tree-there": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "how-can-you-just-be-gone": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "i-feel-sad-about-endings": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "i-left-my-heart-at-home-today": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "i-listen": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "i-saw-something-beautiful-today": {
+   "film": "film:i-saw-something-beautiful-today",
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "i-was-feeling-sorry-for-a-moth": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "i-watch-my-hair": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "i-watched-a-butterfly-today": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "i-will-always-be-a-poet": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "in-my-heart-something-called-to-the-rain": {
+   "film": "film:in-my-heart-something-called-to-the-rain",
+   "photo": "/photos/lanterns.jpg"
+  },
+  "it-used-to-be-me": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "its-funny": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "kashmir": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "large-objects": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "late-why-so-late": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "let-tomorrow-come": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "london": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "mama": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "memories-of-tomorrow": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "my-friend-who-died": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "not-in-my-life": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "oh-that-again": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "oh-the-horror-i-say": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "one-beautiful-moment": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "one-in-community": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "out-of-many-one": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "out-to-play-he-calls-them": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "park": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "platitudes-of-suffering": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "sit-let-us-listen": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "social-media-is-not-the-right-place-for-grief": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "sometimes-curious-feel": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "sometimes-i-feel-cold": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "sometimes-i-listen-to-these-poets": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "sometimes-quaver": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "song-of-tomorrow": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "teental": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "the-light-sings": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "the-mist": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "the-sun-kissed-the-mountains": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "there-comes-a-point": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "there-is-a-soft-tingle": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "these-days-are-gone": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "these-water-nymphs": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "this-growing-older": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "thrum-thrum": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "time-in-a-fig-grove": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "to-be-alone": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "to-flutter": {
+   "film": null,
+   "photo": "/photos/staircase.jpg"
+  },
+  "to-know-me": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "to-see-such-beauty": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "to-touch-in-a-way": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "today-birds": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "today-i-saw-a-man-on-a-leash": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "today-i-write-about-red": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "today-if-there-is-tomorrow": {
+   "film": null,
+   "photo": "/photos/night-market.jpg"
+  },
+  "wedding-poem": {
+   "film": null,
+   "photo": "/photos/roma-sidewalk.jpg"
+  },
+  "when-i-dance-with-you": {
+   "film": "film:when-i-dance-with-you",
+   "photo": "/photos/staircase.jpg"
+  },
+  "when-i-laugh": {
+   "film": null,
+   "photo": "/photos/night-street.jpg"
+  },
+  "when-im-not-here": {
+   "film": null,
+   "photo": "/photos/cdmx-plaza.jpg"
+  },
+  "when-you-watch-the-whales-from-shore": {
+   "film": null,
+   "photo": "/photos/papel-picado.jpg"
+  },
+  "when-you-were-young": {
+   "film": null,
+   "photo": "/photos/lanterns.jpg"
+  },
+  "xoxo": {
+   "film": null,
+   "photo": "/photos/taco-cart.jpg"
+  },
+  "i-came-out": {
+   "film": null,
+   "photo": null
+  },
+  "being-loved": {
+   "film": null,
+   "photo": null
+  },
+  "animals-in-love": {
+   "film": null,
+   "photo": null
+  },
+  "wrestle": {
+   "film": null,
+   "photo": "/photos/concrete-museum.jpg"
+  },
+  "bladder-bag": {
+   "film": null,
+   "photo": null
+  },
+  "hey": {
+   "film": null,
+   "photo": null
+  }
+ },
+ "facts": {
+  "row:mfa-candidate-in-writing-and": {
+   "t": "MFA candidate in Writing and Poetics at the Jack Kerouac School, Naropa University.",
+   "y": "now",
+   "row": "now",
+   "k": "poems"
+  },
+  "row:building-software-with-claude-most": {
+   "t": "Building software with Claude most days: tools to support myself, worked out from what I already leave behind. The record is public.",
+   "y": "now",
+   "row": "now",
+   "k": "tools"
+  },
+  "row:learning-kathak-from-rachna-nivas": {
+   "t": "Learning Kathak from Rachna Nivas at the Kathak Legacy Project, New York.",
+   "y": "now",
+   "row": "now",
+   "k": "dance"
+  },
+  "row:general-partner-at-tres-monos": {
+   "t": "General Partner at Tres Monos Capital with Sweta Jagirdar and Sahil Sagar: early-stage, underrepresented founders.",
+   "y": "2017–",
+   "row": "2017",
+   "k": "companies"
+  },
+  "row:advisor-to-armoire": {
+   "t": "Advisor to Armoire.",
+   "y": "2019–",
+   "row": "2019",
+   "k": "companies"
+  },
+  "row:co-founded-joyus-studio-with": {
+   "t": "Co-founded Joyus Studio with Divya Tak: storytelling and experience design. A podcast, Thinking on Thinking. Comics about Mr Curl.",
+   "y": "2022–",
+   "row": "2022",
+   "k": "companies"
+  },
+  "row:mentor-at-startout-the-line": {
+   "t": "Mentor at StartOut. The Line Before, an interactive installation with Divya Tak, submitted to Science Gallery Bengaluru.",
+   "y": "2024–",
+   "row": "2024",
+   "k": "speaking"
+  },
+  "row:board-of-tomboyx-led-the": {
+   "t": "Board of TomboyX. Led the board through a recapitalization designed so employees’ equity was made right.",
+   "y": "2025–",
+   "row": "2025",
+   "k": "companies"
+  },
+  "row:chief-revenue-officer-at-klydo": {
+   "t": "Chief Revenue Officer at Klydo, a fashion platform built for India. Wound down in 2026.",
+   "y": "2025–26",
+   "row": "2025",
+   "k": "companies"
+  },
+  "row:how-the-world-works-a": {
+   "t": "How the World Works, a first book of poems.",
+   "y": "2022",
+   "row": "2022",
+   "k": "poems"
+  },
+  "row:married-gourav-in-jaisalmer-four": {
+   "t": "Married Gourav in Jaisalmer: four days at Suryagarh, 150 guests.",
+   "y": "2022",
+   "row": "2022",
+   "k": "years"
+  },
+  "row:poem-films-with-divya-tak": {
+   "t": "Poem Films with Divya Tak. Selected for SEEN V by Creativity Alive Boulder; shown at Boulder Public Library.",
+   "y": "2024",
+   "row": "2024",
+   "k": "films and installations"
+  },
+  "film:when-i-dance-with-you": {
+   "t": "When I Dance with You a sunset room · a city at night",
+   "y": "2024",
+   "row": "2024",
+   "k": "films and installations"
+  },
+  "film:everytime-you-wink-at-me": {
+   "t": "Every Time You Wink at Me an abstract swirl · a luminous figure",
+   "y": "2024",
+   "row": "2024",
+   "k": "films and installations"
+  },
+  "film:in-my-heart-something-called-to-the-rain": {
+   "t": "In My Heart Something Called to the Rain rain on still water · a rainy street",
+   "y": "2024",
+   "row": "2024",
+   "k": "films and installations"
+  },
+  "film:i-saw-something-beautiful-today": {
+   "t": "I Saw Something Beautiful Today a golden field · a figure in the dark",
+   "y": "2024",
+   "row": "2024",
+   "k": "films and installations"
+  },
+  "row:eloped-with-gourav-in-telluride": {
+   "t": "Eloped with Gourav in Telluride, in the snow, in Indian dress.",
+   "y": "2021",
+   "row": "2021",
+   "k": "years"
+  },
+  "row:vidyanext-bangalore-ceo-then-cmo": {
+   "t": "Vidyanext, Bangalore. CEO, then CMO and Head of Product. Took over after a leadership crisis; when it could not be saved, placed all 65+ people within two months.",
+   "y": "2015–19",
+   "row": "2015",
+   "k": "companies"
+  }
+ },
+ "rowsOf": {
+  "row:mfa-candidate-in-writing-and": "now",
+  "row:how-the-world-works-a": "2022",
+  "row:building-software-with-claude-most": "now",
+  "row:board-of-tomboyx-led-the": "2025",
+  "row:chief-revenue-officer-at-klydo": "2025",
+  "row:co-founded-joyus-studio-with": "2022",
+  "row:advisor-to-armoire": "2019",
+  "row:general-partner-at-tres-monos": "2017",
+  "row:portfolio-includes-armoire-humanly-and": "2017",
+  "row:vidyanext-bangalore-ceo-then-cmo": "2015",
+  "row:aditi-technologies-then-symphony-teleca": "2012",
+  "row:clients-included-dodge-data-analytics": "2012",
+  "row:datasphere-technologies-mobile-product-lead": "2011",
+  "row:mobile-product-lead-for-a": "2011",
+  "row:travelpost-first-intern-led-the": "2010",
+  "row:microsoft-program-manager-student-audience": "2009",
+  "row:a-panel-at-the-common": "2025",
+  "row:mentor-at-startout-the-line": "2024",
+  "talk:narrative-threads-weaving-voice-vision": "2025",
+  "talk:psychological-challenges-how-to-brace": "2025",
+  "talk:curating-your-story": "2025",
+  "talk:understanding-the-money-you-can": "2025",
+  "talk:know-your-investors-before-the": "2025",
+  "talk:10-tinkering-experiments-to-do": "2025",
+  "talk:advanced-prompting-controlling-style-tone": "2025",
+  "talk:prompting-how-to-talk-to": "2025",
+  "row:poem-films-with-divya-tak": "2024",
+  "film:when-i-dance-with-you": "2024",
+  "film:everytime-you-wink-at-me": "2024",
+  "film:in-my-heart-something-called-to-the-rain": "2024",
+  "film:i-saw-something-beautiful-today": "2024",
+  "row:learning-kathak-from-rachna-nivas": "now",
+  "row:married-gourav-in-jaisalmer-four": "2022",
+  "row:eloped-with-gourav-in-telluride": "2021",
+  "row:tufts-university-computer-science-and": "2006"
+ }
+}

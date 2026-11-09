@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study 34</title>
+<meta name="description" content="The line under his name opens the decision behind today's photograph and poem, and everything the site has read in the works, each piece labelled by what it did today.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+/* Study 34: 31 b with everything the site has analysed. why.js (31's, unchanged) works out the decision; body.js reads every
+   analysed piece and tests what each did today; ways.js shows it four ways behind ?w=: a ledger · b chain (default) ·
+   c every value · d the two. Everything else is Study 31 as it was: Study 24's walk, a world in the address is ?at=.
+   Study 24: the walk, assembled from his picks. Home is today's stone (20: photograph and poem broken across the
+   facets); press in (20 d); each world's poem arrives line by line, doors last (17 d); a door line crosses through
+   the gem (22 c); and on. ?vocab= picks which of 21's vocabularies chooses the doors and where they lead; ?name=
+   how much of the idea a visitor sees. One canvas draws every stone. Numbers live in defaults.json. */
+:root {
+  --ink-seam: #0d0c0b; --ink-on: #f3efe6; --ink-on2: #c9c3b6;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--ink-seam); color: var(--ink-on); }
+a { color: inherit; }
+#app { position: fixed; inset: 0; touch-action: none; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+#stone { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* the poem as read and tapped: the words are drawn on the stone, this layer holds their places */
+#read { position: absolute; inset: 0; pointer-events: none; }
+.verse { position: absolute; font: 300 18px/1.5 var(--serif); color: transparent; overflow: hidden; pointer-events: auto; touch-action: pan-y; user-select: text; -webkit-user-select: text; }
+.verse.gone { pointer-events: none !important; }
+.verse.scroll { overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.verse.scroll::-webkit-scrollbar { display: none; }
+.verse h2 { margin: 0 0 .7em; font: italic 400 1.22em/1.25 var(--serif); }
+.verse h2 a { text-decoration: none; }
+.verse .l { display: block; text-indent: -1em; padding-left: 1em; }
+.verse .gap { display: block; height: .7em; }
+.verse .door { text-decoration: none; pointer-events: none; outline: none; border-radius: 2px; }
+.verse .tag { font: 400 .62em/1 var(--sans); letter-spacing: .1em; margin-left: .7em; white-space: nowrap; }
+body[data-at="world"] .verse .l.shown .door { pointer-events: auto; cursor: pointer; }
+.verse .door:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
+.verse h2:not(.shown) a { pointer-events: none; }
+#idea { position: absolute; z-index: 5; margin: 0; transform: translate(-50%, -50%); opacity: 0; pointer-events: none; white-space: nowrap;
+  font: italic 300 clamp(22px, 2.6vw, 36px)/1.2 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.5), 0 2px 26px rgba(0,0,0,.85); }
+
+/* the mat: name, where he is, the way out */
+header { position: fixed; z-index: 9; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); max-width: 34ch; pointer-events: none; color: #ede7d9; }
+header h1 { margin: 0; font: 500 1.15rem/1 var(--sans); letter-spacing: .01em; }
+header h1 a { text-decoration: none; pointer-events: auto; }
+header p { margin: 10px 0 14px; font: italic 300 1.0625rem/1.4 var(--serif); opacity: .86; }
+header p:empty { display: none; }
+header nav { pointer-events: auto; display: flex; flex-wrap: wrap; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+header nav a { color: var(--ink-on2); text-decoration: none; transition: color .2s var(--ease); text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+header nav a:hover, header nav a:focus-visible { color: #fff; }
+.cap { position: fixed; z-index: 9; right: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); margin: 0; font: 400 .7rem/1.5 var(--sans); letter-spacing: .012em; color: var(--ink-on2); text-align: right; pointer-events: none; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.vs { position: fixed; top: 10px; right: 10px; z-index: 20; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; font: 400 .72rem/1 var(--sans); }
+.vs span { display: flex; gap: 2px; }
+.vs a { text-decoration: none; color: var(--ink-on2); padding: 5px 7px; border-radius: 6px; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.vs a[aria-current] { color: #ede7d9; background: rgba(127,127,127,.22); }
+@media (max-height: 560px) and (orientation: landscape) {
+  header { left: 16px; bottom: 14px; max-width: 42vw; }
+  header p { margin: 6px 0 8px; font-size: .9rem; }
+  .cap { left: 16px; right: auto; top: 40px; bottom: auto; text-align: left; max-width: 44vw; }
+  .vs { flex-direction: row; gap: 8px; top: 6px; }
+  .vs a { padding: 4px 5px; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  header { left: 16px; right: 16px; bottom: 16px; max-width: none; }
+  header p { margin: 6px 0 10px; font-size: .95rem; }
+  .cap { left: 16px; right: auto; top: 74px; bottom: auto; text-align: left; max-width: 70%; }
+}
+
+/* the line opens the decision */
+#where { pointer-events: auto; cursor: pointer; text-decoration: underline dotted rgba(237,231,217,.42) 1px; text-underline-offset: .28em; border-radius: 3px; transition: opacity .2s var(--ease); }
+#where:hover, #where:focus-visible { opacity: 1; text-decoration-color: rgba(237,231,217,.8); outline: none; }
+#where[aria-expanded="true"] { opacity: 1; text-decoration-style: solid; }
+#why-scrim { position: fixed; inset: 0; z-index: 7; background: rgba(13,12,11,var(--why-scrim, 0.46)); opacity: 0; pointer-events: none; transition: opacity calc(var(--why-ms, 380) * 1ms) var(--ease); }
+#why { --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; position: fixed; z-index: 10; left: clamp(16px, 3.4vw, 56px); bottom: calc(clamp(18px, 5vh, 56px) + var(--mat-h, 110px) + 12px);
+  width: min(calc(var(--why-width-px, 660) * 1px), calc(100vw - 32px)); max-height: min(var(--why-max-h, 68vh), calc(100vh - var(--mat-h, 110px) - 110px)); overflow: auto; overscroll-behavior: contain;
+  padding: 20px 22px 20px; border-radius: 6px; background: rgba(16,15,14,var(--why-glass, 0.84)); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 10px 40px rgba(0,0,0,.45);
+  font: 400 .78rem/1.45 var(--sans); color: var(--ink-on); opacity: 0; transform: translateY(10px); pointer-events: none; scrollbar-width: none; user-select: text; -webkit-user-select: text; font-variant-numeric: tabular-nums;
+  transition: opacity calc(var(--why-ms, 380) * 1ms) var(--ease), transform calc(var(--why-ms, 380) * 1ms) var(--ease); }
+#why::-webkit-scrollbar { display: none; }
+body.why #why { opacity: 1; transform: none; pointer-events: auto; }
+body.why #why-scrim { opacity: 1; pointer-events: auto; }
+body.why .cap { opacity: 0; } .cap { transition: opacity .3s var(--ease); }
+#why .why-x { position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; border: 0; border-radius: 50%; background: none; color: var(--ink-on2); font: 300 20px/1 var(--sans); cursor: pointer; }
+#why .why-x:hover, #why .why-x:focus-visible { color: #fff; background: rgba(127,127,127,.2); outline: none; }
+#why p { margin: 0; }
+.n { font-family: var(--mono); font-size: .96em; letter-spacing: -.01em; }
+.k-head { margin: 0 0 14px !important; font: 400 .66rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-on2); padding-right: 30px; }
+.k-lab { margin: 0 0 8px; font: 400 .64rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-on2); }
+.k-say { font: italic 300 1rem/1.45 var(--serif); margin: 0 0 14px !important; }
+.k-tot { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 12px 14px; margin: 0 0 18px; padding: 0 0 14px; border-bottom: 1px solid rgba(243,239,230,.12); }
+.k-tot div { display: flex; flex-direction: column-reverse; gap: 4px; }
+.k-tot dt { font: 400 .6rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-on2); }
+.k-tot dd { margin: 0; font: 300 1.45rem/1 var(--sans); }
+.k-tot dd .n { font: inherit; letter-spacing: -.02em; }
+.k-st { display: grid; grid-template-columns: 6.4em minmax(0, 1fr); gap: 0 14px; padding: 12px 0; border-top: 1px solid rgba(243,239,230,.12); }
+.k-st:first-of-type { border-top: 0; padding-top: 0; }
+.k-st .k-lab { margin: 3px 0 0; }
+.k-body { display: grid; gap: 5px; min-width: 0; }
+/* b: chain */
+.b-big { font: italic 300 1.2rem/1.3 var(--serif); }
+.b-ev { color: var(--ink-on); }
+.b-q { font: italic 300 .92rem/1.45 var(--serif); color: var(--ink-on2); }
+.b-src { margin: -3px 0 3px 7.2em !important; font: 400 .66rem/1.3 var(--mono); color: var(--ink-on2); }
+.b-g { display: grid; grid-template-columns: 6.6em 3.6em minmax(0, 1fr) 7.6em; gap: 10px; align-items: center; }
+.b-a { color: var(--ink-on2); }
+.b-w { font: italic 300 .9rem/1 var(--serif); }
+.b-tr { position: relative; height: 12px; }
+.b-tr::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(243,239,230,.24); }
+.b-tr i { position: absolute; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; }
+.b-day { width: 11px; height: 11px; border: 1.5px solid #f3efe6; background: rgba(16,15,14,.9); z-index: 2; }
+.b-ph { width: 6px; height: 6px; background: rgba(243,239,230,.55); }
+.b-po { width: 6px; height: 6px; border: 1px solid rgba(243,239,230,.55); }
+.b-pick { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; margin: 2px 0 8px; }
+.b-pick:last-child { margin-bottom: 0; }
+.b-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 3px; display: block; }
+.b-pt { display: grid; gap: 3px; grid-column: 2; }
+.b-pick:not(:has(.b-thumb)) .b-pt { grid-column: 1 / -1; }
+.b-name { font: italic 400 1.02rem/1.3 var(--serif); }
+.b-read { color: var(--ink-on2); font: italic 300 .88rem/1.35 var(--serif); }
+.b-m { font: 400 .68rem/1.4 var(--mono); color: var(--ink-on); }
+.b-key { display: flex; gap: 6px; align-items: center; color: var(--ink-on2); font-size: .66rem; margin-bottom: 2px !important; }
+.b-key i { position: static; display: inline-block; transform: none; border-radius: 50%; margin-left: 8px; }
+.b-key i:first-child { margin-left: 0; }
+.b-sig { display: grid; grid-template-columns: 6.6em 9.5em minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.b-v { font-family: var(--mono); font-size: .68rem; }
+.b-e { color: var(--ink-on2); font: italic 300 .9rem/1.3 var(--serif); }
+.b-e.b-moves { color: var(--ink-on); }
+.b-door { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; }
+.b-dp { font: italic 300 .95rem/1.3 var(--serif); }
+.b-dw { font: 400 .66rem/1.3 var(--mono); color: var(--ink-on2); text-align: right; }
+/* the pieces */
+.y { display: grid; gap: 2px; padding: 5px 0 6px; border-top: 1px solid rgba(243,239,230,.07); min-width: 0; }
+.y-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: baseline; }
+.y-lab { color: var(--ink-on); }
+.y-n, .y-v { font: 400 .7rem/1.3 var(--mono); color: var(--ink-on); text-align: right; }
+.y-v { text-align: left; font-family: var(--sans); font-size: .78rem; }
+.y-st { grid-column: 1 / -1; font: italic 300 .86rem/1.3 var(--serif); color: var(--ink-on2); }
+.y-st[data-status="moved"], .y-pg[data-status="moved"] .y-st { color: #e0b56a; }
+.y-st[data-status="stone"], .y-pg[data-status="stone"] .y-st { color: var(--ink-on); }
+.y[data-status="unused"] .y-lab, .y[data-status="unused"] .y-n { color: var(--ink-on2); }
+.y-parts { display: grid; gap: 1px; }
+.y-pg .y-st { display: inline; }
+.y-part { font: 400 .74rem/1.3 var(--sans); }
+.y-pl { display: block; font: 400 .74rem/1.4 var(--sans); }
+.y-pl .y-part .n { color: var(--ink-on2); }
+.t-w .y-top > .y-lab { white-space: nowrap; }
+.y-d { font: 400 .66rem/1.35 var(--mono); color: var(--ink-on2); }
+.a-sec { margin: 0 0 16px; }
+.a-h { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(243,239,230,.18); padding-bottom: 5px; }
+.a-sec[data-status="moved"] .a-h { color: #e0b56a; }
+.a-hn .n { font-size: 1rem; letter-spacing: 0; }
+.a-sec .y-st { display: none; }
+.a-pick { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; margin: 0 0 16px; }
+.v-sec { margin: 0 0 16px; }
+.v-sec[data-status="moved"] .a-h { color: #e0b56a; }
+.v-cv { display: block; margin: 0 0 6px; }
+.v-leg { display: flex; flex-wrap: wrap; gap: 2px 14px; font: 400 .64rem/1.4 var(--sans); color: var(--ink-on2); }
+.t-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin: 0 0 16px; }
+.t-w { min-width: 0; }
+.t-thumb { width: 72px; height: 72px; }
+.t-m { display: grid; grid-template-columns: 6.2em 2.6em minmax(0, 1fr); gap: 2px 8px; align-items: center; }
+.t-m .y-st { font-size: .76rem; margin: -2px 0 3px; }
+.t-q { font: italic 300 .9rem/1.35 var(--serif); quotes: '“' '”'; }
+.t-kin { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; width: 132px; margin-top: 3px; }
+.t-kin i { aspect-ratio: 1; background: rgba(243,239,230, calc(.04 + var(--l) * .9)); }
+.t-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; color: var(--ink-on2); }
+.t-line.t-on { color: var(--ink-on); }
+.t-line .b-dw { text-align: right; }
+@media (prefers-reduced-motion: reduce) { #why, #why-scrim { transition: none; } }
+@media (max-height: 560px) and (orientation: landscape) {
+  #why { left: auto; right: 10px; top: 34px; bottom: 10px; width: calc(100vw - 42vw - 40px); max-height: none; padding: 14px 16px; font-size: .72rem; }
+  .k-tot dd { font-size: 1.15rem; }
+  .k-st { grid-template-columns: 1fr; gap: 6px; }
+  .b-src { margin-left: 0 !important; }
+  .b-g { grid-template-columns: 6em 3.4em minmax(0, 1fr); } .b-w { display: none; }
+  .b-sig { grid-template-columns: 6em minmax(0, 1fr); }
+  .b-sig .b-e { grid-column: 1 / -1; margin-top: -4px; }
+  .t-two { grid-template-columns: 1fr; gap: 14px; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  #why { left: 10px; right: 10px; width: auto; top: 60px; max-height: none; bottom: calc(var(--mat-h, 110px) + 24px); padding: 16px 16px 16px; }
+  .k-st { grid-template-columns: 1fr; gap: 6px; }
+  .b-g { grid-template-columns: 6em 3.4em minmax(0, 1fr); }
+  .b-w { display: none; }
+  .b-sig { grid-template-columns: 6em minmax(0, 1fr); }
+  .b-sig .b-e { grid-column: 1 / -1; margin-top: -4px; }
+  .b-door { grid-template-columns: 1fr; gap: 0; }
+  .b-dw { text-align: left; }
+  .b-src { margin-left: 0 !important; }
+  .t-two { grid-template-columns: 1fr; gap: 14px; }
+  .k-tot { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="stone" aria-hidden="true"></canvas>
+  <div id="read"></div>
+  <p id="idea" aria-hidden="true"></p>
+  <header id="mat">
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where" role="button" tabindex="0" aria-expanded="false" aria-controls="why"></p>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a><a href="/#flow">tools</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+  <div id="why-scrim"></div>
+  <section id="why" aria-label="The decision behind today's pair" aria-hidden="true"><button class="why-x" type="button" aria-label="close">×</button><div class="why-body"></div></section>
+</div>
+<nav class="vs" aria-label="Study 34 switches">
+  <span><a href="?w=a" data-w="a">a ledger</a><a href="?w=b" data-w="b">b chain</a><a href="?w=c" data-w="c">c every value</a><a href="?w=d" data-w="d">d the two</a></span>
+</nav>
+<script src="tune.js"></script>
+<script src="today.js"></script>
+<script src="why.js"></script>
+<script src="body.js"></script>
+<script src="ways.js"></script>
+<script type="module">
+addEventListener('unhandledrejection', e => console.error('unhandled: ' + (e.reason && e.reason.stack || e.reason)))
+const Q = new URLSearchParams(location.search)
+const T = await window.S24T
+const num = (k, f) => { const x = parseFloat(T[k]); return Number.isFinite(x) ? x : f }
+const VOCABS = ['pairs', 'questions', 'nouns', 'his'], NAMES = ['never', 'crossing', 'door']
+const VOCAB = VOCABS.includes(Q.get('vocab')) ? Q.get('vocab') : VOCABS.includes(T['walk-vocab']) ? T['walk-vocab'] : 'his'
+const NAME = NAMES.includes(Q.get('name')) ? Q.get('name') : NAMES.includes(T['walk-name']) ? T['walk-name'] : 'crossing'
+const WAYS = S34W.WAYS, WAY = WAYS.includes(Q.get('w')) ? Q.get('w') : WAYS.includes(T['why-way']) ? T['why-way'] : 'b'
+const qs = (o = {}) => { const p = { w: WAY, ...o }; if (Q.has('vocab')) p.vocab = VOCAB; if (Q.has('name')) p.name = NAME; return '?' + new URLSearchParams(p).toString() }
+document.querySelectorAll('.vs a').forEach(a => { const w = a.dataset.w; a.href = qs({ w }); if (w === WAY) a.setAttribute('aria-current', 'true') })
+document.body.dataset.vocab = VOCAB; document.body.dataset.name = NAME
+
+const $ = s => document.querySelector(s)
+const app = $('#app'), cv = $('#stone'), g = cv.getContext('2d'), readEl = $('#read'), mat = $('#mat'), cap = $('#cap'), ideaEl = $('#idea')
+const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+let W = 0, H = 0, DPR = 1
+const phone = () => W < 640 && H > W * .9 // a phone held upright; a phone on its side is short, see low()
+const low = () => H < 560 && W > H
+function size() { W = innerWidth; H = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR) }
+size()
+await Promise.race([Promise.all(['300 18px Fraunces', 'italic 400 18px Fraunces', 'italic 300 30px Fraunces', '400 12px "Space Grotesk"'].map(f => document.fonts.load(f))), sleep(3000)]) // the poem is measured and drawn in its own face
+const [ctx, DJ] = await Promise.all([S14.load($('#where')), fetch('../21/doors.json').then(r => r.json())])
+const VOC = DJ.vocabs[VOCAB], data = ctx.data, stanzasOf = ctx.stanzasOf
+
+/* ---------- the why: the line opens the reasoning for today, the stone stays where it was ---------- */
+const whereEl = $('#where'), whyEl = $('#why'), whyBody = whyEl.querySelector('.why-body')
+if (!whereEl.textContent.trim()) whereEl.textContent = 'We can\u2019t see the sky right now.' // no reading: the line still opens the honest answer
+let whyOpen = false, whyModel = null, whyDrawn = false
+const whyReady = S34.explain({ ...ctx, how: ctx.how, doors: DJ }).then(m => (whyModel = m)).catch(e => { console.error('why: ' + (e && e.stack || e)); return null })
+const matH = () => document.documentElement.style.setProperty('--mat-h', mat.offsetHeight + 'px')
+async function openWhy() { if (whyOpen) return; whyOpen = true; matH()
+  const m = await whyReady; if (!m || !whyOpen) return
+  const doors = S24.at === 'stone' && S24.world && S24.world.slug === m.poem.slug ? S24.doors : null
+  if (!whyDrawn) { await S34B.build(m, ctx, DJ, doors); if (!whyOpen) return; S34W.draw(WAY, m, whyBody, { dotPx: num('why-dot-px', 3), doors }); whyDrawn = true; whyBody.dataset.drawn = 'yes' }
+  whyEl.setAttribute('aria-hidden', 'false'); whereEl.setAttribute('aria-expanded', 'true')
+  requestAnimationFrame(() => document.body.classList.add('why')) }
+function closeWhy() { if (!whyOpen) return; whyOpen = false
+  document.body.classList.remove('why'); whyEl.setAttribute('aria-hidden', 'true'); whereEl.setAttribute('aria-expanded', 'false'); whereEl.focus({ preventScroll: true }) }
+whereEl.addEventListener('click', e => { e.stopPropagation(); whyOpen ? closeWhy() : openWhy() })
+whereEl.addEventListener('keydown', e => { if (['Enter', ' '].includes(e.key)) { e.preventDefault(); e.stopPropagation(); whyOpen ? closeWhy() : openWhy() } })
+whyEl.querySelector('.why-x').addEventListener('click', closeWhy)
+$('#why-scrim').addEventListener('click', closeWhy)
+window.S34P = { get open() { return whyOpen }, get model() { return whyModel }, ready: whyReady, how: ctx.how, way: WAY, openWhy, closeWhy }
+
+
+/* ---------- small geometry ---------- */
+function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
+function hash(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0 }
+const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v
+const ss = (a, b, t) => clamp01((t - a) / (b - a))
+const io = t => t < .5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+function centroid(p) { let a = 0, x = 0, y = 0; for (let i = 0; i < p.length; i++) { const [x0, y0] = p[i], [x1, y1] = p[(i + 1) % p.length], c = x0 * y1 - x1 * y0; a += c; x += (x0 + x1) * c; y += (y0 + y1) * c } a *= .5; return a ? [x / (6 * a), y / (6 * a)] : p[0] || [0, 0] }
+const area2 = P => P.reduce((a, [x0, y0], i) => { const [x1, y1] = P[(i + 1) % P.length]; return a + x0 * y1 - x1 * y0 }, 0)
+const bbox = p => { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; for (const [x, y] of p) { if (x < x0) x0 = x; if (y < y0) y0 = y; if (x > x1) x1 = x; if (y > y1) y1 = y } return [x0, y0, x1, y1] }
+const meets = (b, [x, y, w, h], pad = 0) => b[2] > x - pad && b[0] < x + w + pad && b[3] > y - pad && b[1] < y + h + pad
+const inPoly = ([x, y], p) => { let c = false; for (let i = 0, j = p.length - 1; i < p.length; j = i++) { const [xi, yi] = p[i], [xj, yj] = p[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+function clipHalf(P, f) { const o = []
+  for (let k = 0; k < P.length; k++) { const a = P[k], b = P[(k + 1) % P.length], fa = f(a), fb = f(b)
+    if (fa <= 0) o.push(a)
+    if ((fa <= 0) !== (fb <= 0)) { const t = fa / (fa - fb); o.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]) } }
+  return o }
+const clean = P => P.filter((p, i) => { const q = P[(i + 1) % P.length]; return Math.hypot(p[0] - q[0], p[1] - q[1]) > .05 })
+function voronoi(S) { // 05 B's: the wind draws the facets out
+  const st = 1 + Math.min(num('wind', 8), 40) / 45, w = W / st, Tt = S.map(([x, y]) => [x / st, y])
+  return Tt.map((s, i) => { let P = [[0, 0], [w, 0], [w, H], [0, H]]
+    for (let j = 0; j < Tt.length && P.length; j++) { if (j === i) continue; const t = Tt[j], nx = t[0] - s[0], ny = t[1] - s[1]; if (!nx && !ny) continue
+      const mx = (s[0] + t[0]) / 2, my = (s[1] + t[1]) / 2; P = clipHalf(P, ([x, y]) => (x - mx) * nx + (y - my) * ny) }
+    return clean(P.map(([x, y]) => [x * st, y])) }) }
+function inset(P, s) { // a true offset of every edge, so the seam is the same width all round
+  const n = P.length; if (n < 3 || s <= 0) return P
+  const sg = area2(P) > 0 ? 1 : -1, c = centroid(P)
+  const L = P.map((a, i) => { const b = P[(i + 1) % n]; let dx = b[0] - a[0], dy = b[1] - a[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l; return { p: [a[0] - dy * sg * s, a[1] + dx * sg * s], d: [dx, dy] } })
+  const Qp = P.map((v, i) => { const A = L[(i - 1 + n) % n], B = L[i], den = A.d[0] * B.d[1] - A.d[1] * B.d[0]
+    if (Math.abs(den) < 1e-6) return B.p
+    const t = ((B.p[0] - A.p[0]) * B.d[1] - (B.p[1] - A.p[1]) * B.d[0]) / den, q = [A.p[0] + A.d[0] * t, A.p[1] + A.d[1] * t]
+    if (Math.hypot(q[0] - v[0], q[1] - v[1]) > s * 5) { const dx = c[0] - v[0], dy = c[1] - v[1], d = Math.hypot(dx, dy) || 1; return [v[0] + dx / d * s * 1.5, v[1] + dy / d * s * 1.5] }
+    return q })
+  return area2(Qp) * area2(P) > 0 ? Qp : [] }
+const mul = (A, B) => [A[0] * B[0] + A[2] * B[1], A[1] * B[0] + A[3] * B[1], A[0] * B[2] + A[2] * B[3], A[1] * B[2] + A[3] * B[3], A[0] * B[4] + A[2] * B[5] + A[4], A[1] * B[4] + A[3] * B[5] + A[5]]
+const tr = (x, y) => [1, 0, 0, 1, x, y], sc = (x, y = x) => [x, 0, 0, y, 0, 0]
+const about = ([cx, cy], ...ms) => [tr(cx, cy), ...ms, tr(-cx, -cy)].reduce(mul)
+
+/* ---------- the cut: 20's plant (a hero facet, two rings, the rest scattered), always the same count, so cuts morph cell for cell ---------- */
+function plant(key) {
+  const r = rng(hash(key + '|24|' + W)), count = Math.round(phone() ? num('facets-phone', 15) : num('facets-desk', 26)), min = Math.min(W, H), S = []
+  let loose = 1
+  const add = (x, y, gap) => { if (x < 2 || y < 2 || x > W - 2 || y > H - 2) return; if (S.some(([a, b]) => Math.hypot(a - x, b - y) < gap * loose)) return; S.push([x, y]) }
+  const hero = phone() ? [W * .5, H * .2] : [W * .36, H * .44], ax = phone() ? W * .36 : W * .17, ay = phone() ? H * .12 : H * .24
+  add(hero[0], hero[1], 0)
+  const n1 = phone() ? 6 : 8, rot = r() * Math.PI * 2
+  for (let k = 0; k < n1; k++) { const t = rot + k / n1 * Math.PI * 2 + (r() - .5) * .16; add(hero[0] + Math.cos(t) * ax, hero[1] + Math.sin(t) * ay, min * .1) }
+  for (let k = 0; k < n1 * 2; k++) { const t = rot + (k + .5) / (n1 * 2) * Math.PI * 2 + (r() - .5) * .3; add(hero[0] + Math.cos(t) * ax * 1.9, hero[1] + Math.sin(t) * ay * 1.9, min * .1) }
+  for (let k = 0; k < 900 && S.length < count; k++) add(r() * W, r() * H, min * .12)
+  while (S.length < count) { loose *= .8; for (let k = 0; k < 300 && S.length < count; k++) add(r() * W, r() * H, min * .12) }
+  return S.slice(0, count)
+}
+function match(A, B) { // B's order so B[out[i]] is A[i]'s partner; the hero keeps the hero
+  const n = A.length, out = [0], used = new Set([0]), taken = new Set([0]), pairs = []
+  for (let i = 1; i < n; i++) for (let j = 1; j < n; j++) pairs.push([Math.hypot(A[i][0] - B[j][0], A[i][1] - B[j][1]), i, j])
+  pairs.sort((p, q) => p[0] - q[0])
+  for (const [, i, j] of pairs) { if (used.has(i) || taken.has(j)) continue; out[i] = j; used.add(i); taken.add(j) }
+  return out }
+
+/* ---------- the worlds and their doors (the vocabulary chooses both) ---------- */
+const poemBy = s => data.poems.find(p => p.slug === s), photoBy = src => data.photos.find(p => p.src === src)
+const keyOf = w => w.poem.slug + '~' + w.photo.src.replace('/photos/', '')
+const pairOf = key => { const [s, f] = String(key || '').split('~'); const poem = poemBy(s), photo = photoBy('/photos/' + f); return poem && photo ? { poem, photo } : null }
+const placedCache = new Map()
+function placed(poem) { // the doors a poem can show: one per line, each phrase inside one line as written
+  if (placedCache.has(poem.slug)) return placedCache.get(poem.slug)
+  const list = VOC.poems[poem.slug] || [], used = new Set(), out = []
+  stanzasOf(poem).flat().forEach((line, li) => { const k = list.findIndex((d, k) => !used.has(k) && line.includes(d.phrase)); if (k >= 0) { used.add(k); out.push({ ...list[k], k, line }) } })
+  placedCache.set(poem.slug, out); return out }
+const good = slug => { const p = poemBy(slug); return !!p && placed(p).length >= 2 } // somewhere with a way on
+const wordOf = word => VOC.words.find(x => x.word === word) || { word, concepts: [], poems: [], photos: [] }
+function target(from, d, seen, taken) { // the door's idea, carried to a poem and a photograph that hold it and are not behind you
+  const Wd = wordOf(d.word), h = hash(from.poem.slug + '|' + d.word + '|' + VOCAB)
+  const near = VOC.words.filter(x => x !== Wd && x.concepts.some(c => Wd.concepts.includes(c)))
+  const free = s => good(s) && !seen.poems.has(s) && !taken.has(s) && s !== from.poem.slug
+  let how = 'word', ps = Wd.poems.filter(free)
+  if (!ps.length) { how = 'near'; ps = [...new Set(near.flatMap(x => x.poems))].filter(free) }
+  if (!ps.length) { how = 'any'; ps = data.poems.map(p => p.slug).filter(free) }
+  const pfree = s => photoBy(s) && !seen.photos.has(s) && s !== from.photo.src
+  let fs = Wd.photos.filter(pfree), phow = 'word'
+  if (!fs.length) { phow = 'near'; fs = [...new Set(near.flatMap(x => x.photos))].filter(pfree) }
+  if (!fs.length) { phow = 'any'; fs = data.photos.map(p => p.src).filter(pfree) }
+  const poem = poemBy(ps[h % ps.length]), photo = photoBy(fs[(h >>> 7) % fs.length])
+  return { poem, photo, how, phow } }
+function doorsFor(w, trail) {
+  const seen = { poems: new Set(trail.map(k => k.split('~')[0])), photos: new Set(trail.map(k => '/photos/' + k.split('~')[1])) }, taken = new Set()
+  let ds = placed(w.poem).map(d => { const to = target(w, d, seen, taken); taken.add(to.poem.slug); seen.photos.add(to.photo.src); return { ...d, to } })
+  return ds }
+
+/* ---------- photographs: covering the screen once, the shade under the poem laid into them ---------- */
+const raw = {}, prepared = new Map()
+const loadImg = src => raw[src] ||= new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src })
+function poemRect() { // 20's
+  if (phone()) { const top = Math.round(H * .34), bottom = H - mat.offsetHeight - 34; return [16, top, W - 32, Math.max(160, bottom - top)] }
+  if (low()) { const w = Math.min(440, W * .48), right = Math.max(16, W * .03), top = Math.round(H * .16); return [W - w - right, top, w, H - top - 14] } // on its side: the poem takes the right half, the mat keeps the left
+  const w = Math.min(440, W * .36), right = Math.max(32, W * .06), top = Math.round(H * .13); return [W - w - right, top, w, H * .74] }
+async function photo(p) {
+  const tag = `${p.src}@${cv.width}x${cv.height}`
+  if (prepared.has(tag)) return prepared.get(tag)
+  const im = await loadImg(p.src), c = document.createElement('canvas'); c.width = cv.width; c.height = cv.height
+  const x = c.getContext('2d'); x.fillStyle = '#24221f'; x.fillRect(0, 0, c.width, c.height); c.ok = false
+  if (im && im.naturalWidth) {
+    const a = im.naturalWidth / im.naturalHeight, b = c.width / c.height, [sw, sh] = a > b ? [im.naturalHeight * b, im.naturalHeight] : [im.naturalWidth, im.naturalWidth / b]
+    if (/Monochrome/.test(p.caption || '')) x.filter = 'grayscale(1) contrast(1.06) brightness(.94)'
+    x.drawImage(im, (im.naturalWidth - sw) / 2, (im.naturalHeight - sh) / 2, sw, sh, 0, 0, c.width, c.height); x.filter = 'none'; c.ok = true
+  }
+  const A = num('scrim-alpha', .72), s = (g0, stops) => { stops.forEach(([o, al]) => g0.addColorStop(o, `rgba(8,8,7,${al})`)); x.fillStyle = g0; x.fillRect(0, 0, c.width, c.height) }
+  x.setTransform(DPR, 0, 0, DPR, 0, 0)
+  if (phone()) s(x.createLinearGradient(0, H, 0, 0), [[0, A], [.48, A * .8], [.66, 0]])
+  else { s(x.createLinearGradient(W, 0, 0, 0), [[0, A], [.32, A * .7], [.52, 0]])
+    const L = W * Math.sin(.35) + H * Math.cos(.35); s(x.createLinearGradient(0, H, Math.sin(.35) * L, H - Math.cos(.35) * L), [[0, A * .9], [.38, 0]]) }
+  prepared.set(tag, c); if (prepared.size > 8) prepared.delete(prepared.keys().next().value)
+  return c }
+
+/* ---------- the poem: laid out in the page (to be read, selected, tapped), drawn on the stone in its own face ---------- */
+function verseEl(w, doors) {
+  const v = document.createElement('div'); v.className = 'verse'
+  const h = document.createElement('h2'), a = document.createElement('a'); a.href = '/poems/' + w.poem.slug + '.html'; a.textContent = w.poem.title; h.append(a); v.append(h)
+  let i = 0
+  stanzasOf(w.poem).forEach((st, si) => {
+    if (si) v.append(Object.assign(document.createElement('span'), { className: 'gap' }))
+    st.forEach(t => { const l = document.createElement('span'); l.className = 'l'; l.dataset.i = i++
+      const d = doors.find(d => d.line === t && !d.el)
+      if (d) { const at = t.indexOf(d.phrase), door = document.createElement('a')
+        door.className = 'door'; door.dataset.k = d.k; door.href = qs({ at: keyOf(d.to) }); door.textContent = d.phrase; d.el = door
+        l.dataset.door = ''; l.append(t.slice(0, at), door, t.slice(at + d.phrase.length))
+        if (NAME === 'door') l.append(Object.assign(document.createElement('span'), { className: 'tag', textContent: d.word })) }
+      else l.textContent = t
+      v.append(l) }) })
+  return v }
+function fit(v, w, h) { const max = num('poem-max-px', 18), min = num('poem-min-px', 13)
+  Object.assign(v.style, { width: w + 'px', height: 'auto' }); v.classList.remove('scroll')
+  let px = max; v.style.fontSize = px + 'px'
+  while (v.scrollHeight > h && px > min) { px = Math.max(min, px - .5); v.style.fontSize = px + 'px' }
+  v.style.height = Math.min(h, v.scrollHeight) + 'px'
+  if (v.scrollHeight > h + 1) { v.classList.add('scroll'); v.style.height = h + 'px' } }
+const metrics = new Map()
+function descent(font) { if (!metrics.has(font)) { g.save(); g.font = font; const m = g.measureText('Hg'); metrics.set(font, [m.fontBoundingBoxAscent || 14, m.fontBoundingBoxDescent || 4]); g.restore() } return metrics.get(font) }
+function lineCanvases(w) { // each line drawn once, in its face and shadow; the stone composites them as they arrive
+  const v = w.v, vr = v.getBoundingClientRect(), out = w.lines.map(() => ({ runs: [], unders: [] }))
+  for (const [li, el] of w.lines.entries()) {
+    const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
+    for (let n; (n = walk.nextNode());) {
+      const p = n.parentElement, cs = getComputedStyle(p), font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`, tag = !!p.closest('.tag'), door = p.closest('.door')
+      for (const m of n.data.matchAll(/\S+/g)) { const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length); const r = rg.getClientRects()[0]; if (!r) continue
+        const [, dsc] = descent(font); out[li].runs.push({ t: m[0], x: r.left - vr.left, y: r.bottom - vr.top + v.scrollTop - dsc, w: r.width, top: r.top - vr.top + v.scrollTop, bot: r.bottom - vr.top + v.scrollTop, font, tag, k: door ? door.dataset.k : null, ls: cs.letterSpacing }) } } }
+  for (const L of out) {
+    if (!L.runs.length) continue
+    const pad = 22, x0 = Math.min(...L.runs.map(r => r.x)) - pad, x1 = Math.max(...L.runs.map(r => r.x + r.w)) + pad, y0 = Math.min(...L.runs.map(r => r.top)) - pad, y1 = Math.max(...L.runs.map(r => r.bot)) + pad
+    const c = document.createElement('canvas'); c.width = Math.ceil((x1 - x0) * DPR); c.height = Math.ceil((y1 - y0) * DPR); const x = c.getContext('2d')
+    x.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR)
+    for (const [blur, al] of [[16, .7], [2, .35]]) { x.shadowColor = `rgba(0,0,0,${al})`; x.shadowBlur = blur * DPR; x.shadowOffsetY = DPR
+      for (const r of L.runs) { x.font = r.font; x.letterSpacing = r.ls === 'normal' ? '0px' : r.ls; x.globalAlpha = r.tag ? .6 : 1; x.fillStyle = r.tag ? '#c9c3b6' : '#f3efe6'; x.fillText(r.t, r.x, r.y) } }
+    Object.assign(L, { c, x0, y0, w: x1 - x0, h: y1 - y0 })
+    const rows = new Map(); for (const r of L.runs) if (r.k != null) { const key = r.k + '|' + Math.round(r.y); const o = rows.get(key); if (o) { o[0] = Math.min(o[0], r.x); o[1] = Math.max(o[1], r.x + r.w) } else rows.set(key, [r.x, r.x + r.w, r.y, r.k, parseFloat(r.font.split(' ')[2])]) }
+    L.unders = [...rows.values()] }
+  return out }
+function layoutPoem(w) {
+  w.v = verseEl(w, w.doors); readEl.append(w.v)
+  const R = poemRect(); Object.assign(w.v.style, { left: R[0] + 'px', top: R[1] + 'px' }); fit(w.v, R[2], R[3])
+  if (phone()) { R[1] = R[1] + R[3] - w.v.offsetHeight; w.v.style.top = R[1] + 'px' } // on the phone the poem sits down on the name, in the shade
+  const r = w.v.getBoundingClientRect(); w.R = [r.left, r.top, r.width, r.height]
+  w.lines = [w.v.querySelector('h2'), ...w.v.querySelectorAll('.l')]
+  w.doors = w.doors.filter(d => d.el) // only doors the page actually shows
+  w.lc = lineCanvases(w)
+  w.A = w.lines.map(() => 0); w.Tg = w.lines.map(() => 0); w.dirty = true; w.lit = null
+  w.text = document.createElement('canvas'); w.text.width = cv.width; w.text.height = cv.height
+  w.v.addEventListener('scroll', () => { w.dirty = true })
+  w.v.querySelectorAll('.door').forEach(a => { const on = k => () => { w.lit = k; w.dirty = true }
+    a.addEventListener('pointerenter', on(a.dataset.k)); a.addEventListener('pointerleave', on(null)); a.addEventListener('focus', on(a.dataset.k)); a.addEventListener('blur', on(null)) }) }
+function composite(w) {
+  const x = w.text.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, w.text.width, w.text.height)
+  const [rx, ry, rw, rh] = w.R, st = w.v.scrollTop, da = num('door-alpha', .3)
+  x.setTransform(DPR, 0, 0, DPR, 0, 0); x.beginPath(); x.rect(rx - 30, ry - 2, rw + 60, rh + 4); x.clip(); x.translate(rx, ry - st)
+  w.lc.forEach((L, i) => { const a = w.A[i]; if (a < .003 || !L.c) return; x.globalAlpha = a; x.drawImage(L.c, L.x0, L.y0, L.w, L.h)
+    if (w.mode !== 'world') return
+    for (const [u0, u1, y, k, px] of L.unders) { x.globalAlpha = a; x.strokeStyle = `rgba(243,239,230,${w.lit === k ? .85 : da})`; x.lineWidth = 1; x.beginPath(); x.moveTo(u0, y + px * .28); x.lineTo(u1, y + px * .28); x.stroke() } })
+  w.dirty = false }
+
+/* ---------- a world ---------- */
+let trail = []
+async function makeWorld(pair, mode, tr0) {
+  const w = { ...pair, key: keyOf(pair), mode }
+  w.trail = [...tr0, w.key]; w.doors = doorsFor(w, w.trail)
+  if (!w.doors.length) { const any = data.poems.filter(p => good(p.slug) && p.slug !== w.poem.slug)[hash(w.key) % 50]; w.doors = [] ; w.fallback = { poem: any, photo: data.photos[hash(w.key) % data.photos.length] } }
+  w.sites = plant(w.key); const r = rng(hash(w.key + '|n')); w.normals = w.sites.map(() => [(r() - .5) * .9, (r() - .5) * .9])
+  w.cells = voronoi(w.sites); w.cents = w.cells.map(centroid)
+  w.img = await photo(w.photo)
+  layoutPoem(w)
+  return w }
+function drop(w) { if (!w) return; w.run = -1; w.v.remove() }
+
+/* ---------- the arrival (17 d): the title, each plain line, a pause, the doors last; the whole capped, nothing counts ---------- */
+async function arrive(w, delay) {
+  const run = w.run = (w.run || 0) + 1, show = i => { w.Tg[i] = 1; w.lines[i].classList.add('shown') }
+  if (reduce()) { w.lines.forEach((_, i) => { show(i); w.A[i] = 1 }); w.dirty = true; w.arrived = true; return }
+  await sleep(delay); if (run !== w.run) return
+  show(0)
+  const idx = w.lines.map((_, i) => i).slice(1), plain = idx.filter(i => !('door' in w.lines[i].dataset)), doors = idx.filter(i => 'door' in w.lines[i].dataset)
+  const step = Math.min(num('line-ms', 320), num('arrive-cap-ms', 5200) / Math.max(1, idx.length))
+  for (const i of plain) { await sleep(step); if (run !== w.run) return; show(i) }
+  await sleep(num('door-pause-ms', 700)); if (run !== w.run) return
+  for (const i of doors) { await sleep(step); if (run !== w.run) return; show(i) }
+  w.arrived = true
+  warm(w) }
+function warm(w) { setTimeout(() => w.doors.forEach(d => photo(d.to.photo)), 300) } // the doors' worlds, ready before they are asked for
+
+/* ---------- drawing: one facet, clipped to its cut, its layers, the lamp on its own angle, its bevel ---------- */
+let Lx = innerWidth * .7, Ly = innerHeight * .2, Tx = Lx, Ty = Ly, lastMove = -1e9
+addEventListener('pointermove', e => { Tx = e.clientX; Ty = e.clientY; lastMove = performance.now() })
+function facet(P, c, n, layers, o = {}) {
+  const Qp = inset(P, num('seam-px', 2.2) / 2)
+  if (Qp.length < 3) return
+  g.save(); g.setTransform(DPR, 0, 0, DPR, 0, 0); if (o.m) g.transform(...o.m)
+  g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip()
+  const [x0, y0, x1, y1] = bbox(Qp), A = o.alpha ?? 1
+  for (const L of layers) { const a = (L.alpha ?? 1) * A; if (a <= .002 || !L.img) continue; g.globalAlpha = a
+    g.save(); if (L.m) g.transform(...L.m); g.drawImage(L.img, 0, 0, W, H); g.restore() }
+  g.globalAlpha = A
+  let dx = Lx - c[0], dy = Ly - c[1]; const Z = Math.max(W, H) * .55, d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
+  const nz = Math.sqrt(Math.max(0, 1 - n[0] ** 2 - n[1] ** 2)), k = clamp01((n[0] * dx + n[1] * dy + nz * Z / d - .55) / .45) * num('lamp', .75)
+  let ux = dx + n[0] * .6, uy = dy + n[1] * .6; const ul = Math.hypot(ux, uy) || 1; ux /= ul; uy /= ul
+  const R = Math.max(x1 - x0, y1 - y0) / 2 || 1, gr = g.createLinearGradient(c[0] + ux * R, c[1] + uy * R, c[0] - ux * R, c[1] - uy * R)
+  gr.addColorStop(0, `rgba(255,250,240,${.04 + k * .62})`); gr.addColorStop(.46, 'rgba(255,250,240,0)'); gr.addColorStop(1, `rgba(0,0,0,${.5 - k * .46})`)
+  g.globalCompositeOperation = 'soft-light'; g.fillStyle = gr; g.fillRect(x0, y0, x1 - x0, y1 - y0)
+  const gl = Math.max(0, 1 - Math.hypot(dx * .9 - n[0], dy * .9 - n[1]) * 2.2)
+  if (gl > .02) { g.globalCompositeOperation = 'screen'; const rg = g.createRadialGradient(Lx + n[0] * 120, Ly + n[1] * 120, 0, Lx + n[0] * 120, Ly + n[1] * 120, Math.max(W, H) * .22)
+    rg.addColorStop(0, `rgba(255,246,228,${gl * gl * .3})`); rg.addColorStop(1, 'rgba(255,246,228,0)'); g.fillStyle = rg; g.fillRect(x0, y0, x1 - x0, y1 - y0) }
+  g.globalCompositeOperation = 'source-over'
+  if (o.shade) { g.fillStyle = `rgba(0,0,0,${o.shade})`; g.fillRect(x0, y0, x1 - x0, y1 - y0) }
+  if (o.glow) { g.globalCompositeOperation = 'screen'; g.fillStyle = `rgba(255,248,232,${o.glow})`; g.fillRect(x0, y0, x1 - x0, y1 - y0); g.globalCompositeOperation = 'source-over' }
+  const bev = num('bevel', .6), sg = area2(Qp) > 0 ? 1 : -1
+  g.lineWidth = num('bevel-px', 1.4) * 2
+  for (let i = 0; i < Qp.length; i++) { const a = Qp[i], b = Qp[(i + 1) % Qp.length]; let ex = b[1] - a[1], ey = -(b[0] - a[0]); const el = Math.hypot(ex, ey); if (el < 1) continue
+    ex = ex / el * sg; ey = ey / el * sg; const f = ex * ux + ey * uy
+    g.strokeStyle = f > 0 ? `rgba(255,244,222,${bev * (.15 + .85 * k) * f})` : `rgba(0,0,0,${bev * .8 * -f})`
+    g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke() }
+  if (o.fire > .01) { g.globalCompositeOperation = 'screen' // light split at the facet's edge: spectral fringes, the only colour, and only while the light passes through; set inside the edge (22 c set them outside, past its own clip: that was the faintness)
+    ;[[255, 64, 40], [60, 255, 120], [70, 110, 255]].forEach(([rr, gg, bb], j) => { g.lineWidth = 1.6 - j * .3; g.strokeStyle = `rgba(${rr},${gg},${bb},${Math.min(1, o.fire) * .65})`
+      for (let i = 0; i < Qp.length; i++) { const a = Qp[i], b = Qp[(i + 1) % Qp.length]; let ex = -(b[1] - a[1]), ey = b[0] - a[0]; const el = Math.hypot(ex, ey); if (el < 1) continue
+        const s = (2 + j * 2.2) * sg; ex = ex / el * s; ey = ey / el * s; g.beginPath(); g.moveTo(a[0] + ex, a[1] + ey); g.lineTo(b[0] + ex, b[1] + ey); g.stroke() } })
+    g.globalCompositeOperation = 'source-over' }
+  g.restore() }
+const refr = () => num('refract-px', 5)
+const textLayer = (w, i, n, cell, alpha = 1) => meets(bbox(cell), w.R, 24) ? [{ img: w.text, alpha, m: tr(n[0] * refr(), n[1] * refr()) }] : [] // each facet holds the poem a little off, so it breaks at the seams
+function drawWorld(w, o = {}) { w.cells.forEach((P, i) => facet(P, w.cents[i], w.normals[i], [{ img: w.img }, ...textLayer(w, i, w.normals[i], P, o.text ?? 1)], o)) }
+function clear() { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1; g.fillStyle = '#0d0c0b'; g.fillRect(0, 0, W, H) }
+
+/* ---------- state ---------- */
+let cur = null, busy = false, pressing = null, crossing = null
+const at = s => { document.body.dataset.at = s }
+function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug }
+const live = () => [cur, pressing && pressing.next, crossing && crossing.next].filter(Boolean)
+
+/* d · pressing in (20 d): the stone gives under the finger, its seams open onto the world beneath; let go early and it comes back */
+function pressPose(p, d, gv) { const W0 = W, H0 = H, m = Math.min(W0, H0), sink = num('press-sink', .16), push = num('press-push-px', 28)
+  return p.old.cells.map((P, i) => { const c = p.old.cents[i], dx = c[0] - p.pt[0], dy = c[1] - p.pt[1], dist = Math.hypot(dx, dy) || 1, fall = Math.exp(-dist / (m * .55)), off = push * d * (.35 + fall)
+    return { m: mul(tr(dx / dist * off, dy / dist * off), about(c, sc((1 - sink * d * (.4 + fall)) * (1 - .45 * gv)))), shade: .42 * d * fall, alpha: 1 - Math.min(1, gv * (1.4 - fall * .6)) } }) }
+async function pressStart(pt) {
+  if (busy || !cur || cur.mode !== 'home') return
+  let best = cur.doors[0], bd = Infinity // the world beneath is the one behind the door line nearest the finger
+  for (const d of cur.doors) { const b = d.el.getBoundingClientRect(), dd = Math.hypot(b.left + b.width / 2 - pt[0], b.top + b.height / 2 - pt[1]); if (dd < bd) { bd = dd; best = d } }
+  const to = best ? best.to : cur.fallback
+  busy = true; at('entering'); S24.expect = keyOf(to); S24.word = best ? best.word : null
+  const p = pressing = { old: cur, pt, d: 0, gv: 0, t0: performance.now(), held: true, next: null }
+  p.ready = makeWorld(to, 'world', cur.trail).then(w => { p.next = w; return w })
+  if (reduce()) { const w = await p.ready; pressing = null; return calmTo(w) }
+  const ms = num('press-ms', 1100)
+  const step = () => { if (pressing !== p || !p.held) return; p.d = Math.min(1, (performance.now() - p.t0) / ms); if (p.d >= 1) giveWay(p); else requestAnimationFrame(step) }
+  requestAnimationFrame(step) }
+async function pressUp() {
+  const p = pressing; if (!p || !p.held) return; p.held = false
+  if (performance.now() - p.t0 < num('press-tap-ms', 260)) { const from = p.d, ms = num('press-ms', 1100) * (1 - from), t0 = performance.now()
+    await new Promise(r => { const f = () => { if (pressing !== p) return r(); p.d = from + (1 - from) * Math.min(1, (performance.now() - t0) / ms); if (p.d >= 1) r(); else requestAnimationFrame(f) }; requestAnimationFrame(f); setTimeout(r, ms + 400) })
+    return giveWay(p) }
+  const from = p.d, t0 = performance.now()
+  await new Promise(r => { const f = () => { p.d = from * (1 - Math.min(1, (performance.now() - t0) / 500)); if (p.d <= 0) r(); else requestAnimationFrame(f) }; requestAnimationFrame(f); setTimeout(r, 900) })
+  p.d = 0; await p.ready; drop(p.next); pressing = null; busy = false; at('stone'); S24.expect = null }
+async function giveWay(p) { if (p.gave) return; p.gave = true; p.held = false; p.d = 1
+  await p.ready
+  const ms = num('fall-ms', 900), t0 = performance.now()
+  await new Promise(r => { const f = () => { const u = Math.min(1, (performance.now() - t0) / ms); p.gv = u * u; if (u >= 1) r(); else requestAnimationFrame(f) }; requestAnimationFrame(f); setTimeout(r, ms + 400) })
+  pressing = null; landed(p.next, p.old, num('arrive-delay-ms', 500)) }
+function landed(next, old, delay) {
+  drop(old); show(next); busy = false; at('world'); next.mode = 'world'
+  history.pushState({ trail: next.trail }, '', qs({ at: next.key }))
+  S24.trail = next.trail.slice()
+  if (delay != null) arrive(next, delay) }
+
+/* c · through (22 c): the next world is first seen through the gem, each facet bending it its own way, light split at the edges;
+   then the facets come true, the pieces line up into one photograph, and the cut settles to the next world's */
+async function cross(d) {
+  if (busy || !cur || cur.mode !== 'world') return
+  busy = true; at('entering'); S24.expect = keyOf(d.to); S24.word = d.word
+  const old = cur, pt = (() => { const b = d.el.getBoundingClientRect(); return [b.left + b.width / 2, b.top + b.height / 2] })()
+  old.v.classList.add('gone'); old.run = -1
+  const next = await makeWorld(d.to, 'world', old.trail)
+  if (reduce()) return calmTo(next, d.word)
+  const ms = num('through-ms', 2700), r = rng(hash(old.key + next.key))
+  const C = crossing = { old, next, pt, ms, pair: match(old.sites, next.sites), rand: old.sites.map(() => r()), far: Math.max(...[[0, 0], [W, 0], [0, H], [W, H]].map(q => Math.hypot(q[0] - pt[0], q[1] - pt[1]))), t0: performance.now() }
+  named(d.word, ms, old.cents[0])
+  arrive(next, ms * num('through-arrive', .8))
+  await sleep(ms + 40)
+  if (crossing === C) crossing = null
+  landed(next, old) }
+const reach = (C, c) => Math.hypot(c[0] - C.pt[0], c[1] - C.pt[1]) / C.far
+function geo(C, s) { const key = Math.round(s * 400); if (C.geoKey === key) return C.geoV
+  const S = C.old.sites.map((a, i) => { const b = C.next.sites[C.pair[i]]; return [a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s] })
+  const N = C.old.normals.map((a, i) => { const b = C.next.normals[C.pair[i]]; return [a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s] })
+  const cells = voronoi(S); C.geoKey = key; return C.geoV = { cells, cents: cells.map(centroid), normals: N } }
+function drawThrough(C, t) {
+  const bend = num('through-bend', .35), fire = num('through-fire', .9), R = Math.min(W, H) * .5, G = geo(C, io(ss(.5, .95, t))), relax = 1 - io(ss(.42, .92, t)), fade = 1 - ss(0, .18, t)
+  G.cells.forEach((P, i) => { const c = G.cents[i], n = G.normals[i], st = reach(C, C.old.cents[i]) * .3, a = io(ss(st, st + .28, t)), k = relax * bend
+    const z = 1 + k * (.5 + C.rand[i] * .6), [b0, b1, b2, b3] = bbox(P), lim = (v, lo, hi) => Math.max(lo, Math.min(hi, v)) // the lens never pulls the picture off its own facet
+    const m = about(c, tr(lim(n[0] * k * R, b2 - c[0] - z * (W - c[0]), b0 - c[0] + z * c[0]), lim(n[1] * k * R, b3 - c[1] - z * (H - c[1]), b1 - c[1] + z * c[1])), sc(z))
+    facet(P, c, n, [{ img: C.old.img, alpha: 1 - a * (1 - relax * .25) }, { img: C.next.img, alpha: a, m }, ...textLayer(C.old, i, n, P, fade), ...textLayer(C.next, i, n, P)],
+      { glow: a * (1 - a) * 4 * .16, fire: fire * Math.min(1, a * 2) * relax }) }) }
+// the calm crossing: reduced motion's only move, a crossfade
+async function calmTo(next, word) {
+  busy = true; at('entering'); const old = cur, ms = num('calm-ms', 1100)
+  if (word) named(word, ms, old.cents[0])
+  arrive(next, 0)
+  crossing = { calm: true, old, next, ms, t0: performance.now() }; const C = crossing
+  await sleep(ms + 40); if (crossing === C) crossing = null
+  landed(next, old) }
+function named(word, ms, at0) { // how much of the idea a visitor sees: ?name=never | crossing (only while crossing) | door (beside each door line)
+  if (NAME !== 'crossing' || !word) return
+  ideaEl.textContent = word
+  const x = Math.max(120, Math.min(W - 120, phone() ? W / 2 : at0[0])), y = Math.max(80, Math.min(H - 160, phone() ? H * .22 : at0[1]))
+  Object.assign(ideaEl.style, { left: x + 'px', top: y + 'px' })
+  const A = num('idea-alpha', .82)
+  ideaEl.animate(reduce() ? [{ opacity: 0 }, { opacity: A, offset: .3 }, { opacity: A, offset: .7 }, { opacity: 0 }]
+    : [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.96)' }, { opacity: A, offset: .22 }, { opacity: A, offset: .62 }, { opacity: 0, transform: 'translate(-50%,-50%) scale(1.03)' }], { duration: ms, easing: 'cubic-bezier(.4,0,.2,1)' }) }
+
+/* ---------- the loop ---------- */
+let last = performance.now()
+function frame(now) {
+  const dt = Math.min(100, now - last); last = now
+  if (!reduce() && now - lastMove > 4000) { const a = now / 26000; Tx = W * (.5 + .38 * Math.cos(a)); Ty = H * (.42 + .3 * Math.sin(a * 1.3)) } // unattended, the sun walks
+  Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05
+  const k = 1 - Math.exp(-dt / Math.max(1, num('line-ms', 320) * .66))
+  for (const w of [...live(), crossing && crossing.old].filter(Boolean)) { w.A.forEach((a, i) => { const b = a + (w.Tg[i] - a) * k; if (Math.abs(b - a) > .001) { w.A[i] = Math.abs(w.Tg[i] - b) < .004 ? w.Tg[i] : b; w.dirty = true } }); if (w.dirty) composite(w) }
+  clear()
+  const C = crossing
+  if (pressing && pressing.d + pressing.gv > 0) { const p = pressing
+    if (p.next) drawWorld(p.next)
+    const pose = pressPose(p, io(p.d), p.gv)
+    p.old.cells.forEach((P, i) => facet(P, p.old.cents[i], p.old.normals[i], [{ img: p.old.img }, ...textLayer(p.old, i, p.old.normals[i], P, 1 - p.d)], pose[i])) }
+  else if (C && C.calm) { const t = io(clamp01((now - C.t0) / C.ms)); drawWorld(C.old, { text: 1 - t }); drawWorld(C.next, { alpha: t }) }
+  else if (C) drawThrough(C, clamp01((now - C.t0) / C.ms))
+  else if (cur) drawWorld(cur)
+  requestAnimationFrame(frame) }
+
+/* ---------- input ---------- */
+app.addEventListener('pointerdown', e => {
+  if (whyOpen) { if (!e.target.closest('#why,#where')) closeWhy(); return }
+  if (e.button > 0 || e.target.closest('header,a,button') || !cur || cur.mode !== 'home' || busy) return
+  pressStart([e.clientX, e.clientY]); try { app.setPointerCapture(e.pointerId) } catch {} })
+app.addEventListener('pointerup', () => pressUp()); app.addEventListener('pointercancel', () => pressUp())
+app.addEventListener('click', e => {
+  const a = e.target.closest('.verse .door'); if (!a) return
+  e.preventDefault(); if (busy || !cur || cur.mode !== 'world' || !a.closest('.l.shown')) return // mid-way, a second touch goes nowhere
+  const d = cur.doors.find(d => d.el === a); if (d) cross(d) })
+addEventListener('keydown', e => {
+  if (whyOpen) { if (e.key === 'Escape') { e.preventDefault(); closeWhy() } return }
+  if (!cur || cur.mode !== 'home' || busy || e.target.closest?.('a,button,input')) return
+  if (['Enter', ' '].includes(e.key)) { e.preventDefault(); pressStart([W / 2, H / 2]).then(() => pressUp()) } })
+addEventListener('popstate', () => location.reload())
+
+/* ---------- begin: today's stone, or the world in the address ---------- */
+window.S24 = { vocab: VOCAB, name: NAME, expect: null, word: null, trail: [],
+  get at() { return document.body.dataset.at }, get busy() { return busy }, get t() { return crossing && !crossing.calm ? clamp01((performance.now() - crossing.t0) / crossing.ms) : null },
+  get world() { return cur && { key: cur.key, slug: cur.poem.slug, title: cur.poem.title, photo: cur.photo.src, mode: cur.mode, imgOk: !!cur.img.ok, arrived: !!cur.arrived } },
+  get doors() { return cur ? cur.doors.map(d => ({ k: d.k, phrase: d.phrase, word: d.word, text: d.el.textContent, line: d.el.closest('.l').textContent, to: keyOf(d.to), how: d.to.how, phow: d.to.phow,
+    box: (() => { const b = d.el.getClientRects()[0] || d.el.getBoundingClientRect(); return [b.left, b.top, b.width, b.height] })() })) : [] },
+  get lines() { return cur ? cur.lines.slice(1).map((l, i) => ({ door: 'door' in l.dataset, shown: cur.Tg[i + 1] === 1, a: cur.A[i + 1] })) : [] },
+  get facets() { return cur ? cur.cells.filter(P => P.length > 2).length : 0 },
+  get broken() { return cur ? cur.cells.filter(P => P.length > 2 && meets(bbox(P), cur.R)).length : 0 },
+  read() { const w = 96, h = Math.round(96 * H / W), c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); x.drawImage(cv, 0, 0, w, h)
+    const p = x.getImageData(0, 0, w, h).data; let s = 0, dark = 0, n = w * h; for (let i = 0; i < p.length; i += 4) { const l = (p[i] * .2126 + p[i + 1] * .7152 + p[i + 2] * .0722) / 255; s += l; if (l < .06) dark++ } return { mean: s / n, bare: dark / n } } }
+const direct = pairOf(Q.get('at'))
+if (direct) { const tr0 = (history.state && history.state.trail || []).filter(k => k !== keyOf(direct)); const w = await makeWorld(direct, 'world', tr0); show(w); at('world'); S24.trail = w.trail.slice(); arrive(w, num('arrive-delay-ms', 500)) }
+else { const w = await makeWorld({ poem: ctx.poem, photo: ctx.photo }, 'home', []); show(w); at('stone'); S24.trail = w.trail.slice(); w.lines.forEach((l, i) => { w.Tg[i] = w.A[i] = 1; l.classList.add('shown') }); w.dirty = true; w.doors.forEach(d => photo(d.to.photo)) }
+requestAnimationFrame(frame)
+let rz = 0, lastWH = innerWidth + 'x' + innerHeight
+const rebuild = async () => { if (busy) return; size(); prepared.clear(); const o = cur, w = await makeWorld({ poem: o.poem, photo: o.photo }, o.mode, o.trail.slice(0, -1)); drop(o); show(w)
+  w.lines.forEach((l, i) => { w.Tg[i] = w.A[i] = 1; l.classList.add('shown') }); w.arrived = true; w.dirty = true }
+addEventListener('resize', () => { const wh = innerWidth + 'x' + innerHeight; if (wh === lastWH) return; lastWH = wh; clearTimeout(rz); rz = setTimeout(rebuild, 250) })
+document.addEventListener('s24:tune', rebuild)
+document.body.dataset.ready = 'yes'
+</script>
+</body>
+</html>
