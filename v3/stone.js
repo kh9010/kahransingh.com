@@ -125,7 +125,7 @@ function resolveLine() { // each reading out in turn, the sentence in halfway; t
   FS.line.phase = 'resolving'; document.body.dataset.line = 'read'
   left.forEach((x, k) => later(() => x.classList.add('out'), k * st))
   later(() => se.classList.add('on'), st * toks.length / 2)
-  later(() => { FS.line.phase = 'resolved'; document.body.dataset.line = 'done' }, st * left.length + num('line-out-ms', 900)) }
+  later(() => { FS.line.phase = 'resolved'; document.body.dataset.line = 'done'; groundT = 0 }, st * left.length + num('line-out-ms', 900)) }
 
 /* ---------- small geometry ---------- */
 function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
@@ -220,6 +220,7 @@ async function photo(p) {
 function verseEl(w, doors) {
   const v = document.createElement('div'); v.className = 'verse'
   const h = document.createElement('h2'), a = document.createElement('a'); a.href = '/poems/' + w.poem.slug + '.html'; a.textContent = w.poem.title; h.append(a); v.append(h)
+  a.addEventListener('click', () => track('poem_open', { poem: w.poem.slug, via: 'title' }))
   let i = 0
   stanzasOf(w.poem).forEach((st, si) => {
     if (si) v.append(Object.assign(document.createElement('span'), { className: 'gap' }))
@@ -248,13 +249,21 @@ function lineCanvases(w) { // each line drawn once, in its face and shadow; the 
   for (const [li, el] of w.lines.entries()) {
     const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
     for (let n; (n = walk.nextNode());) {
-      const p = n.parentElement, cs = getComputedStyle(p), font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`, tag = !!p.closest('.tag'), door = p.closest('.door')
+      const p = n.parentElement, cs = getComputedStyle(p), font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`, tag = !!p.closest('.tag'), door = p.closest('.door'), title = !!p.closest('h2')
       for (const m of n.data.matchAll(/\S+/g)) { const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length); const r = rg.getClientRects()[0]; if (!r) continue
-        const [, dsc] = descent(font); out[li].runs.push({ t: m[0], x: r.left - vr.left, y: r.bottom - vr.top + v.scrollTop - dsc, w: r.width, top: r.top - vr.top + v.scrollTop, bot: r.bottom - vr.top + v.scrollTop, font, tag, k: door ? door.dataset.k : null, ls: cs.letterSpacing }) } } }
+        const [, dsc] = descent(font); out[li].runs.push({ t: m[0], x: r.left - vr.left, y: r.bottom - vr.top + v.scrollTop - dsc, w: r.width, top: r.top - vr.top + v.scrollTop, bot: r.bottom - vr.top + v.scrollTop, font, tag, k: door ? door.dataset.k : title ? 'title' : null, ls: cs.letterSpacing }) } } }
   for (const L of out) {
     if (!L.runs.length) continue
     const pad = 22, x0 = Math.min(...L.runs.map(r => r.x)) - pad, x1 = Math.max(...L.runs.map(r => r.x + r.w)) + pad, y0 = Math.min(...L.runs.map(r => r.top)) - pad, y1 = Math.max(...L.runs.map(r => r.bot)) + pad
     const c = document.createElement('canvas'); c.width = Math.ceil((x1 - x0) * DPR); c.height = Math.ceil((y1 - y0) * DPR); const x = c.getContext('2d')
+    /* the line's own ground, on its own canvas: read off the photograph under the line (the shade under the poem included), only as dark as
+       its words need to read at AA, feathered so the lines' grounds run together as one quiet shade; nothing where the photograph is dark */
+    const ux0 = Math.min(...L.runs.map(r => r.x)), ux1 = Math.max(...L.runs.map(r => r.x + r.w)), uy0 = Math.min(...L.runs.map(r => r.top)), uy1 = Math.max(...L.runs.map(r => r.bot))
+    const ga = w.img ? groundFor([vr.left + ux0, vr.top + uy0 - v.scrollTop, ux1 - ux0, uy1 - uy0], w.img.getContext('2d', { willReadFrequently: true }), [[INK, 1]]) : 0
+    if (ga > 0) { const gc = document.createElement('canvas'); gc.width = c.width; gc.height = c.height; const gx = gc.getContext('2d'), f = num('line-feather-px', 8)
+      gx.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR); gx.filter = `blur(${f / 2 * DPR}px)`; gx.fillStyle = `rgba(${GROUND},${ga})`
+      gx.beginPath(); gx.roundRect(ux0 - f, uy0 - f / 2, ux1 - ux0 + f * 2, uy1 - uy0 + f, f); gx.fill(); L.g = gc }
+    L.ground = ga
     x.setTransform(DPR, 0, 0, DPR, -x0 * DPR, -y0 * DPR)
     for (const [blur, al] of [[16, .7], [2, .35]]) { x.shadowColor = `rgba(0,0,0,${al})`; x.shadowBlur = blur * DPR; x.shadowOffsetY = DPR
       for (const r of L.runs) { x.font = r.font; x.letterSpacing = r.ls === 'normal' ? '0px' : r.ls; x.globalAlpha = r.tag ? .6 : 1; x.fillStyle = r.tag ? '#c9c3b6' : '#f3efe6'; x.fillText(r.t, r.x, r.y) } }
@@ -284,9 +293,11 @@ function composite(w) {
   const x = w.text.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, w.text.width, w.text.height)
   const [rx, ry, rw, rh] = w.R, st = w.v.scrollTop, da = num('door-alpha', .3)
   x.setTransform(DPR, 0, 0, DPR, 0, 0); x.beginPath(); x.rect(rx - 30, ry - 2, rw + 60, rh + 4); x.clip(); x.translate(rx, ry - st)
-  w.lc.forEach((L, i) => { const a = w.A[i]; if (a < .003 || !L.c) return; x.globalAlpha = a; x.drawImage(L.c, L.x0, L.y0, L.w, L.h)
-    if (w.mode !== 'world') return
-    for (const [u0, u1, y, k, px] of L.unders) { x.globalAlpha = a; x.strokeStyle = `rgba(243,239,230,${w.lit === k ? .85 : da})`; x.lineWidth = 1; x.beginPath(); x.moveTo(u0, y + px * .28); x.lineTo(u1, y + px * .28); x.stroke() } })
+  w.lc.forEach((L, i) => { const a = w.A[i]; if (a < .003 || !L.c) return; x.globalAlpha = a; if (L.g) x.drawImage(L.g, L.x0, L.y0, L.w, L.h)
+    if (w.bare) return; x.drawImage(L.c, L.x0, L.y0, L.w, L.h)
+    for (const [u0, u1, y, k, px] of L.unders) { if (w.mode !== 'world' && k !== 'title') continue // the title is a way in at home too: to the whole poem
+      if (k === 'title') w.drewTitleUnder = a > .5
+      x.globalAlpha = a; x.strokeStyle = `rgba(243,239,230,${w.lit === k ? .85 : da})`; x.lineWidth = 1; x.beginPath(); x.moveTo(u0, y + px * .28); x.lineTo(u1, y + px * .28); x.stroke() } })
   w.dirty = false }
 
 /* ---------- a world ---------- */
@@ -303,7 +314,9 @@ async function makeWorld(pair, mode, tr0) {
     // never the photograph's lines), keeping the cut that holds the names nearest (by the line, then anywhere), and of those the one with the fewest dead facets.
     // On a phone, upright or on its side, the names' spot is found first and the poem yields to it (stands on it, or starts right of it), keeping at least
     // poem-least (else poem-least-tight) for itself: room is made by the poem, never by shrinking the names
-    const near = num('tools-near-px', 110), deadOf = () => drawn(w).filter(i => !touchAt(w, i, { first: true, all: true })).length, ids = () => drawn(w).map(i => ({ i }))
+    const near = num('tools-near-px', 110), ids = () => { const T = titleAt(w); return drawn(w).filter(i => !T || i !== T.i).map(i => ({ i })) } // the title's facet is the poem's, never the names'
+    // dead facets count twice and a split title once, so the title only breaks a tie (its own facet is never dead: it opens the poem)
+    const deadOf = () => { const T = titleAt(w); return drawn(w).filter(i => !(T && T.i === i) && !touchAt(w, i, { first: true, all: true })).length * 2 + (T && T.whole ? 0 : 1) }
     const gap = num('tools-poem-gap-px', 16), lowRight = Math.max(16, W * .03)
     const room = least => phone() ? { minTop: ceilOf(w) + least + gap } : { maxRight: W - lowRight - least - gap } // how far the names may push the poem: it keeps at least this much
     const yields = s => !s ? undefined : phone() ? { foot: s.box[1] - gap } : { left: Math.max(s.box[0] + s.box[2] + gap, W - lowRight - Math.min(440, W * .48)) }
@@ -321,8 +334,9 @@ async function makeWorld(pair, mode, tr0) {
       p = settle(p); const rank = rankOf(p)
       if (best && rank < best.rank) continue
       const dead = deadOf(); if (!best || rank > best.rank || dead < best.dead) best = { t, rank, dead }
-      if (best.rank === 5 && !best.dead) break }
+      if (best.rank === 5 && (!best.dead || best.dead === 1 && t >= num('title-tries', 48))) break }
     cut(best.t); settle(plan()); w.lc = lineCanvases(w); w.dirty = true }
+  if (!(titleAt(w) || {}).whole) settleTitle(w)
   fixedOf(w)
   w.lv = new Float32Array(w.cells.length)
   return w }
@@ -375,7 +389,7 @@ function facet(P, c, n, layers, o = {}) {
   if (o.under > .01) { const Ui = inset(Qp, 5); let bi = -1, by = -1e9 // a photo door's mark: the quiet underline of a door line, along the facet's lowest side
     for (let i = 0; i < Ui.length; i++) { const a = Ui[i], b = Ui[(i + 1) % Ui.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]), dy = Math.abs(b[1] - a[1]) / (l || 1); if (l < 18 || dy > .5 || Math.max(a[1], b[1]) > H - 8) continue; const y = (a[1] + b[1]) / 2; if (y > by) { by = y; bi = i } }
     if (bi >= 0) { const a = Ui[bi], b = Ui[(bi + 1) % Ui.length], t0 = .18, t1 = .82; g.lineWidth = lk; g.strokeStyle = `rgba(243,239,230,${o.under})`; g.beginPath(); g.moveTo(a[0] + (b[0] - a[0]) * t0, a[1] + (b[1] - a[1]) * t0); g.lineTo(a[0] + (b[0] - a[0]) * t1, a[1] + (b[1] - a[1]) * t1); g.stroke() } }
-  if (o.edge > .01) { g.lineWidth = 1.2 * lk; g.strokeStyle = `rgba(255,246,228,${o.edge})`; g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke() }
+  if (o.edge > .01) { g.lineWidth = (o.edgePx || 1.2) * lk; g.strokeStyle = `rgba(255,246,228,${o.edge})`; g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke() }
   if (o.fire > .01) { g.globalCompositeOperation = 'screen' // light split at the facet's edge: spectral fringes, the only colour, and only while the light passes through; set inside the edge (22 c set them outside, past its own clip: that was the faintness)
     ;[[255, 64, 40], [60, 255, 120], [70, 110, 255]].forEach(([rr, gg, bb], j) => { g.lineWidth = 1.6 - j * .3; g.strokeStyle = `rgba(${rr},${gg},${bb},${Math.min(1, o.fire) * .65})`
       for (let i = 0; i < Qp.length; i++) { const a = Qp[i], b = Qp[(i + 1) % Qp.length]; let ex = -(b[1] - a[1]), ey = b[0] - a[0]; const el = Math.hypot(ex, ey); if (el < 1) continue
@@ -387,10 +401,10 @@ const textLayer = (w, i, n, cell, alpha = 1) => meets(bbox(cell), w.R, 24) ? [{ 
 function drawWorld(w, o = {}) { const touched = w === cur && !crossing && !pressing && !o.plain
   w.cells.forEach((P, i) => { const base = [{ img: w.img }, ...textLayer(w, i, w.normals[i], P, o.text ?? 1)]
     const o2 = w.toolsI === i && !o.plain ? { ...o, edge: Math.max(o.edge || 0, num('tools-edge', .22)), glow: Math.max(o.glow || 0, num('tools-glow', 0)) } : o // the tools' facet: its rim drawn, a breath of light in it, so the names read as its own
-    if (!touched) return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o2), o2.m, o.alpha ?? 1)
+    if (!touched) { const o3 = titlePiece(w, i, o2, base); return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o3), o3.m, o.alpha ?? 1) }
     const G = FX.glimpse && FX.glimpse.w === w && FX.glimpse.i === i && FX.win ? FX.glimpse : null
     if (G) { const u = performance.now() - G.t0, ms = num('win-hold-ms', 3600); base.splice(1, 0, { img: G.img, alpha: reduce() ? 1 : Math.min(ss(0, 420, u), 1 - ss(ms - 600, ms, u)) * num('glimpse-alpha', 1), m: G.m }) }
-    const fx = { ...o2, ...fxOf(w, i) }; fx.glow = Math.max(fx.glow || 0, o2.glow || 0); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
+    const f0 = { ...o2, ...fxOf(w, i) }; f0.glow = Math.max(f0.glow || 0, o2.glow || 0); const fx = titlePiece(w, i, f0, base); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
 /* the ledger (39's): every facet drawn this frame, as drawn (its polygon after the seam and any transform), and how much of it is seen.
    The check reads it frame by frame: nothing may leave it, or join it, while it is seen */
 let ledger = { t: null, list: [] }
@@ -441,6 +455,28 @@ function facetsOf(w) { // each drawn facet as 33's cut describes it (its centre 
     const door = w.doors.findIndex(d => { const l = d.el.closest('.l'); return [...l.getClientRects()].some(r => { for (let a = 0; a <= 4; a++) for (let b = 0; b <= 1; b++) if (inPoly([r.left + r.width * a / 4, r.top + r.height * (.25 + b * .5)], P)) return true; return false }) })
     const near = ls.length ? ls.reduce((b, l) => Math.abs(l.y - w.cents[i][1]) < Math.abs(b.y - w.cents[i][1]) ? l : b, ls[0]) : null
     return S37.describe(fcs[i], R, { door: door >= 0 ? door : null, line: near ? near.k : null, c: fcs[i].centroid }) }) }
+/* ---------- the title's facet: the poem's own piece of the stone, and the way to the whole poem ---------- */
+const REACH = .45 // how far a facet's normal can lean (cutFor's (r - .5) * .9): each facet draws the poem at most REACH * refract-px off
+function titleAt(w) { // the drawn facet the title lies in (with the refraction's reach and a pixel to spare all round), and whether it lies there whole
+  const a = w.v && w.v.querySelector('h2 a'); if (!a) return null
+  const pad = refr() * REACH + 1, pts = []
+  for (const r of a.getClientRects()) for (let u = 0; u <= 6; u++) for (let v = 0; v <= 2; v++) pts.push([r.left - pad + (r.width + pad * 2) * u / 6, r.top - pad + (r.height + pad * 2) * v / 2])
+  let best = null
+  for (const i of drawn(w)) { const P = inset(w.cells[i], num('seam-px', 2.2) / 2); const n = pts.filter(p => inPoly(p, P)).length; if (n && (!best || n > best.n)) best = { i, n } }
+  return best && { i: best.i, whole: best.n === pts.length, share: best.n / pts.length } }
+function settleTitle(w) { // no cut holds the title whole: it moves along its own row, as little as it can, into the one facet that then holds it whole (as the tools' names are placed)
+  const h = w.v.querySelector('h2'), a = h && h.querySelector('a'); if (!a) return
+  const room = Math.floor(h.clientWidth - a.getBoundingClientRect().width) - 1; let at = null
+  for (let dx = 4; dx <= room && at == null; dx += 4) { h.style.paddingLeft = dx + 'px'; if ((titleAt(w) || {}).whole) at = dx }
+  h.style.paddingLeft = at == null ? '' : at + 'px'; if (at != null) { w.lc = lineCanvases(w); w.dirty = true } }
+function titleFacet(w) { const T = titleAt(w); if (!T) return null
+  return { ...T, href: '/poems/' + w.poem.slug + '.html', basis: { rule: 'the facet the title lies in', whole: T.whole, share: +T.share.toFixed(2), title: w.poem.title } } }
+/* a facet that is one thing to take: its ground toned down under the words on it, its rim drawn clear all round, brighter under a pointer.
+   The title's today; written so any facet that is one piece can be drawn so */
+const DARK = (() => { const c = document.createElement('canvas'); c.width = c.height = 1; const x = c.getContext('2d'); x.fillStyle = 'rgb(13,12,11)'; x.fillRect(0, 0, 1, 1); return c })()
+function piece(o, layers, lit, tone, edge) { layers.splice(1, 0, { img: DARK, alpha: tone }); return { ...o, edge: Math.max(o.edge || 0, lit ? Math.min(1, edge * num('piece-lit', 1.6)) : edge), edgePx: num('piece-edge-px', 1.4) } }
+function titlePiece(w, i, o, layers) { if (w.titleI !== i || o.plain) return o
+  const tone = num('title-tone', .3), o2 = piece(o, layers, FX.hover === i || FX.press === i, tone, num('title-edge', .55)); w.drewPiece = { i, tone, edge: o2.edge }; return o2 }
 /* ---------- the tools: which facet holds them, the six names on it, the idea a name opens ---------- */
 const namesEl = $('#names'), toolsEl = $('#tools')
 const rectOf = q => { const e = typeof q === 'string' ? document.querySelector(q) : q, r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height] }
@@ -513,22 +549,23 @@ addEventListener('pointerdown', e => { if (toolsOpen < 0 || e.target.closest('#t
 addEventListener('keydown', e => { if (e.key === 'Escape') closeTools() })
 /* the two facets placed by a reason of their own, before anything is dealt: the tools (40: nearest the where line) and the photograph's
    date (38 c: the facet where its month and year read clearest on the photograph itself). The tools keep theirs if both want the same one */
-function fixedOf(w) {
+function fixedOf(w) { // the title's facet first: it is wherever the poem put its title, so the tools and the date choose among the rest
   if (w.fixed) return w.fixed
-  const fs = facetsOf(w), tools = toolsFacet(w, fs), year = yearFacet(w, fs, tools)
-  w.toolsI = tools ? tools.i : -1; w.yearI = year ? year.i : -1
-  return w.fixed = { fs, tools, year } }
+  const fs = facetsOf(w), title = titleFacet(w), rest = fs.filter(f => !title || f.i !== title.i), tools = toolsFacet(w, rest), year = yearFacet(w, rest, tools)
+  w.titleI = title ? title.i : -1; w.toolsI = tools ? tools.i : -1; w.yearI = year ? year.i : -1
+  return w.fixed = { fs, tools, year, title } }
 function planOf(w) {
   if (w.plan) return w.plan
-  const { fs, tools, year } = fixedOf(w), plan = w.cells.map(() => null)
+  const { fs, tools, year, title } = fixedOf(w), plan = w.cells.map(() => null)
+  if (title) plan[title.i] = { kind: 'title', id: 'title', facet: fs.find(f => f.i === title.i), href: title.href, basis: title.basis, steps: [{ t: 'title' }] }
   if (tools) plan[tools.i] = { kind: 'tools', id: 'tools', facet: fs.find(f => f.i === tools.i), box: tools.box, basis: tools.basis, steps: [{ t: 'tools' }] }
   if (year) plan[year.i] = { kind: 'year', id: 'year', facet: fs.find(f => f.i === year.i), box: year.box, at: year.at, basis: year.basis, rec: year.rec, steps: [{ t: 'year' }] }
   if (!SEG) return plan // the rest is dealt when segments.json is here (segReady); until then only these two are known
-  const st = planStore(), key = planKey(w), fixed = p => p && (p.kind === 'tools' || p.kind === 'year')
+  const st = planStore(), key = planKey(w), fixed = p => p && (p.kind === 'tools' || p.kind === 'year' || p.kind === 'title')
   if (st[key] && st[key].length === w.cells.length && st[key].every((p, i) => fixed(plan[i]) ? true : !p || segBy(p.id))) { w.plan = st[key].map((p, i) => fixed(plan[i]) ? plan[i] : p && { ...p, seg: segBy(p.id) }); return w.plan } // the visit's plan, verbatim
   const world = { photo: w.photo.src, poem: w.poem.slug, trail: w.trail, doors: w.doors.map(d => ({ phrase: d.phrase, word: d.word, line: d.line })),
     taken: w.doors.map(d => d.to.photo.src), takenPoems: w.doors.map(d => d.to.poem.slug) } // the door lines' worlds are theirs: no facet promises one
-  const rest = fs.filter(f => f.i !== w.toolsI && f.i !== w.yearI) // the tools and the date take their facets first; the rest give his work
+  const rest = fs.filter(f => f.i !== w.toolsI && f.i !== w.yearI && f.i !== w.titleI) // the title, the tools and the date take their facets first; the rest give his work
   const dealt = S37.deal(world, rest, D37, Y)
   rest.forEach((f, k) => { const p = dealt[k]; if (p) plan[f.i] = { kind: p.seg.kind, id: p.seg.id, seg: p.seg, link: p.link, cls: p.cls, basis: p.basis, facet: f, to: p.to, steps: p.steps } })
   st[key] = plan.map(p => p && (fixed(p) ? { kind: p.kind } : { ...p, seg: undefined })); try { sessionStorage.setItem(PLAN, JSON.stringify(st)) } catch {}
@@ -632,8 +669,42 @@ function showWin(i, s) { const w = cur, p = planOf(w)[i] // the piece as written
   if (s.href) src.append(Object.assign(document.createElement('a'), { href: s.href, textContent: s.small })); else src.textContent = s.small
   backEl.append(src)
   if (p && typeof p.basis === 'string') backEl.append(Object.assign(document.createElement('small'), { className: 'basis', textContent: p.basis }))
-  placeWin(w, i)
+  placeWin(w, i); toneWin(false)
   FX.win = { w, i, t0: performance.now(), fact: { kind: s.t } } }
+/* the ground under a yield, read off the stone where it sits: the brightest of the pixels behind its words (all but the last few in a
+   thousand) is what each of its texts, in its own colour and strength, must read against at AA; the ground darkens only as far as that
+   needs, so over a dark facet there is none. Where the words sit is placeWin's; this only sets their ground, and steps the date or the
+   six names back while the words lie over them */
+const lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }, lumOfRGB = c => .2126 * lin(c[0]) + .7152 * lin(c[1]) + .0722 * lin(c[2])
+const ratio = (a, b) => { const x = lumOfRGB(a), y = lumOfRGB(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05) }
+const blend = (top, a, bot) => [0, 1, 2].map(j => top[j] * a + bot[j] * (1 - a))
+const rgbOf = s => { const v = (/rgba?\(([^)]+)\)/.exec(s) || [, '0 0 0'])[1].split(/[\s,/]+/).filter(Boolean).map(Number); return [v[0], v[1], v[2], v.length > 3 ? v[3] : 1] }
+const GROUND = [13, 12, 11], INK = [243, 239, 230] // --ink-seam, the stone's own dark; --ink-on, the poem's
+function groundFor(r, x, inks) { // how dark a ground under rect r (screen px) must be for every ink [colour, strength] to read at AA over what canvas x (the screen's size, at DPR) holds there
+  const k = x.canvas.width / W, x0 = Math.max(0, Math.floor(r[0] * k)), y0 = Math.max(0, Math.floor(r[1] * k)), x1 = Math.min(x.canvas.width, Math.ceil((r[0] + r[2]) * k)), y1 = Math.min(x.canvas.height, Math.ceil((r[1] + r[3]) * k))
+  if (x1 <= x0 || y1 <= y0 || !inks.length) return 0
+  const px = x.getImageData(x0, y0, x1 - x0, y1 - y0).data, L = []
+  for (let j = 0; j < px.length; j += 8) L.push([lumOfRGB([px[j], px[j + 1], px[j + 2]]), j])
+  L.sort((p, q) => p[0] - q[0]); const at = L[Math.min(L.length - 1, Math.floor(L.length * num('yield-quantile', .998)))][1], bg = [px[at], px[at + 1], px[at + 2]]
+  const reads = a0 => { const b = blend(GROUND, a0, bg); return inks.every(([c, op]) => ratio(blend(c, op, b), b) >= num('yield-aa', 4.8)) }
+  let a = 0; const max = num('yield-scrim-max', .9); while (a < max && !reads(a)) a = Math.min(max, a + .02); return a }
+function inksOf(el, upTo) { // each text under el that shows, in its own colour and the strength its ancestors leave it (up to upTo)
+  return [...el.querySelectorAll('*'), el].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.data.trim()) && e.getClientRects().length).map(e => { const c = rgbOf(getComputedStyle(e).color); let op = c[3]; for (let q = e; q && q !== upTo; q = q.parentElement) op *= +getComputedStyle(q).opacity; return [c, op] }).filter(([, op]) => op > .05) }
+const rectArr = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.width, b.height] }
+/* the labels that lie on the stone (the caption, the date, the six names, the name with the where line and the way out, the version tab):
+   each gets the same ground as a yield, read off the stone where it sits; again as the lamp walks */
+const LABELS = ['#cap', '#year', '#names', 'header', '.vs']
+function groundLabels() { if (!cur) return
+  for (const q of LABELS) { const e = $(q); if (!e) continue; const shown = !/^#(names|year)$/.test(q) || e.classList.contains('on'), inks = shown ? inksOf(e, e) : [], r = rectArr(e)
+    e.style.setProperty('--scrim', (r[2] > 0 && inks.length ? groundFor(r, g, inks) : 0).toFixed(2)) } }
+let groundT = 0
+function toneWin(raise) {
+  const r = backEl.getBoundingClientRect()
+  let a = groundFor([r.left, r.top, r.width, r.height], g, inksOf(backEl, backEl))
+  if (raise) a = Math.max(a, +backEl.style.getPropertyValue('--scrim') || 0)
+  backEl.style.setProperty('--scrim', a.toFixed(2))
+  const over = (box, q) => { if (!box.classList.contains('on')) return false; const b = q.getBoundingClientRect(); return b.width > 0 && r.left < b.right + 6 && r.right > b.left - 6 && r.top < b.bottom + 6 && r.bottom > b.top - 6 }
+  document.body.classList.toggle('yield-over-year', over(yearEl, yearA)); document.body.classList.toggle('yield-over-names', over(namesEl, namesEl)) }
 function placeWin(w, i) { // its words go where they are clear of the poem, the name and the caption, whatever their length: near the facet first,
   // then wider, then smaller, and at the last the largest clear band holds them, scrolling inside it; never over the poem
   const [x0, , x1] = bbox(w.cells[i]), c = w.cents[i], wide = low() ? Math.min(W * .46, 400) : phone() ? W - 32 : Math.min(420, W * .4)
@@ -654,7 +725,7 @@ function placeWin(w, i) { // its words go where they are clear of the poem, the 
   if (!best) best = [W / 2, 8, Math.max(24, H * .2)]
   backEl.classList.add('tight'); Object.assign(backEl.style, { maxWidth: wide + 'px', left: best[0] + 'px', maxHeight: best[2] + 'px', top: best[1] + best[2] / 2 + 'px' })
 }
-function hideWin() { FX.win = null; FX.glimpse = null; backEl.style.opacity = 0 }
+function hideWin() { FX.win = null; FX.glimpse = null; backEl.style.opacity = 0; document.body.classList.remove('yield-over-year', 'yield-over-names') }
 async function glimpse(w, i, st) { // another photograph or a film's still, seen through this one facet only; a photograph's answering region lies in it, the rest stays this photograph
   const p = photoBy(st.src) || { src: st.src, caption: '' }, [img] = await Promise.all([photo(p), st.src.startsWith('/photos/') ? regOf(st.src) : null]); if (cur !== w || !FX.win || FX.win.i !== i) return
   const R = REG[st.src], s = num('align-zoom', 1.5), [cx, cy] = w.cents[i]
@@ -668,6 +739,7 @@ async function facetTap(i) {
   if (!planOf(w0)[i] && !SEG) { await segReady(); if (cur !== w0) return }
   const w = cur, p = planOf(w)[i]; if (!p) return
   if (p.kind === 'tools') { pulse(i, .8, 500); track('tools_open', { idea: IDEAS[0].name, via: 'facet' }); return openTools(0) } // the facet itself opens the first idea; its names open their own
+  if (p.kind === 'title') { pulse(i, .8, 500); said(i, 'title', { href: p.href }); track('poem_open', { poem: w.poem.slug, via: 'facet' }); if (!HOME.dry) location.href = p.href; return } // the title's facet: the whole poem
   if (p.kind === 'year') { pulse(i, .8, 500); said(i, 'year', { taken: p.rec.taken }); return yearsOut('facet') } // the photograph's date: into its year in the About
   const s = nextStep(w, i), depth = depthOf(w, i); deepen(w, i)
   if (s.t !== 'move') { showWin(i, s); if (s.t === 'glimpse') glimpse(w, i, s); pulse(i, .8, 500); return said(i, s.t, { depth, key: S37.stepKey(s), text: s.big || s.lines.join(' / ') }) }
@@ -689,12 +761,14 @@ function fxOf(w, i) { const lv = w.lv ? w.lv[i] : 0, c = w.cents[i], o = { glow:
 function winFrame(now) { const v = FX.win; if (!v) return
   if (v.w !== cur) return hideWin()
   const u = now - v.t0, ms = num('win-hold-ms', 3600), e = reduce() ? (u < ms ? 1 : 0) : Math.min(ss(0, 260, u), 1 - ss(ms - 500, ms, u))
-  backEl.style.opacity = e; if (u > ms) hideWin() }
+  backEl.style.opacity = e; if (u > ms) return hideWin()
+  if (!v.toned && u > num('yield-retone-ms', 450)) { v.toned = true; toneWin(true) } } // the facet under it has lifted, and any other photograph has come into it: its ground read again
 
 /* ---------- state ---------- */
 let cur = null, busy = false, pressing = null, crossing = null, homeWin = -1
 const at = s => { document.body.dataset.at = s }
-function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug; document.body.dataset.photo = w.photo.src; closeTools(); showNames(w); showYear(w) }
+function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug; document.body.dataset.photo = w.photo.src; closeTools(); showNames(w); showYear(w)
+  groundT = 0 } // the labels' grounds are read again on the first frames this stone is drawn
 const live = () => [cur, pressing && pressing.next, crossing && crossing.next].filter(Boolean)
 
 /* pressing in (20 d): the stone gives under the finger, its seams open onto the world beneath; let go early and it comes back */
@@ -820,7 +894,8 @@ function frame(now) {
     const pose = pressPose(p, io(p.d), p.gv)
     ledger = { t: null, list: [] }; p.old.cells.forEach((P, i) => note('h' + i, facet(P, p.old.cents[i], p.old.normals[i], [{ img: p.old.img }, ...textLayer(p.old, i, p.old.normals[i], P, 1 - p.d)], pose[i]), pose[i].m, pose[i].alpha)) }
   else if (C) crossFrame(C)
-  else if (cur) { touchFrame(cur, now, dt); ledger = { t: null, list: [] }; drawWorld(cur); if (ends && !ends.after) ends.after = ledger.list }
+  else if (cur) { touchFrame(cur, now, dt); ledger = { t: null, list: [] }; drawWorld(cur); if (ends && !ends.after) ends.after = ledger.list
+    if (!busy && (groundT++ === 2 || groundT % Math.max(30, Math.round(num('label-ms', 2000) / 16.7)) === 0)) groundLabels() } // as the lamp walks, each label's ground follows what is under it
   winFrame(now)
   requestAnimationFrame(frame) }
 function touchFrame(w, now, dt) {
@@ -852,10 +927,11 @@ function route(x, y) {
   const i = facetAt(x, y); if (i >= 0) facetTap(i) }
 addEventListener('pointermove', e => {
   if (e.pointerType !== 'mouse' || !cur || busy) { FX.hover = -1; app.classList.remove('over'); return }
-  if (cur.mode !== 'world') { FX.hover = -1; return }
-  const d = doorAt(e.clientX, e.clientY), i = d || own(e.target) ? -1 : facetAt(e.clientX, e.clientY)
+  if (cur.mode !== 'world') { const i = e.target.closest?.('.verse h2 a') ? cur.titleI : facetAt(e.clientX, e.clientY); FX.hover = i >= 0 && i === cur.titleI && !doorAt(e.clientX, e.clientY, cur, true) ? i : -1; app.classList.toggle('over', FX.hover >= 0)
+    const k = FX.hover >= 0 ? 'title' : null; if (cur.lit !== k) { cur.lit = k; cur.dirty = true } return } // at home the stone is pressed into; only the title's facet is taken
+  const onTitle = !!e.target.closest?.('.verse h2 a'), d = doorAt(e.clientX, e.clientY), i = d ? -1 : onTitle ? cur.titleI : own(e.target) ? -1 : facetAt(e.clientX, e.clientY) // the title's words are its facet's
   FX.hover = i; app.classList.toggle('over', !!d || i >= 0)
-  const k = d ? d.k : null
+  const k = d ? d.k : i >= 0 && i === cur.titleI ? 'title' : null
   if (cur.lit !== k && (d || !e.target.closest('.door'))) { cur.lit = k; cur.dirty = true } })
 addEventListener('keydown', e => {
   if (whyOpen) { if (e.key === 'Escape') { e.preventDefault(); closeWhy() } return }
@@ -875,7 +951,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get drawn() { return cur ? drawn(cur) : [] },
   segReady: () => segReady(), get dealt() { return !!SEG },
   plan(i) { const p = cur && planOf(cur)[i]; if (!p) return null
-    if (p.kind === 'tools' || p.kind === 'year') return { kind: p.kind, id: p.id, basis: p.basis, facet: p.facet, box: p.box, at: p.at || null, taken: p.rec ? p.rec.taken : null }
+    if (p.kind === 'tools' || p.kind === 'year' || p.kind === 'title') return { kind: p.kind, id: p.id, basis: p.basis, facet: p.facet, box: p.box || null, at: p.at || null, taken: p.rec ? p.rec.taken : null, href: p.href || null }
     return { kind: p.kind, id: p.id, cls: p.cls, link: p.link, basis: p.basis, facet: p.facet, to: k2(p.to), poem: p.seg.poem || null, src: p.seg.img || null,
       steps: p.steps.map(st => ({ t: st.t, key: S37.stepKey(st), big: st.big || null, small: st.small || null, lines: st.lines || null, href: st.href || null, src: st.src || null, cell: st.cell ?? null, whole: !!st.whole, to: st.to ? k2(st.to) : null, poem: st.to ? st.to.poem : null })) } },
   get plans() { return cur ? planOf(cur).map((p, i) => p && this.plan(i)) : [] },
@@ -886,6 +962,15 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     showWin(i, st); const out = this.clash; hideWin(); return out },
   get clash() { if (!FX.win || !cur) return null; const b = backEl.getBoundingClientRect(), o = [cur.R, ...['#mat', '#cap'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left, r.top, r.width, r.height] })]; return b.top < 0 || b.left < 0 || b.bottom > H || b.right > W || o.some(([l, t, ww, hh]) => b.left < l + ww && b.right > l && b.top < t + hh && b.bottom > t) },
   depth(i) { return cur ? depthOf(cur, i) : 0 },
+  // a yield as a tap leaves it, at full strength and with any glimpse arrived: what the check reads the words against
+  async yieldAt(i, k) { const w = cur, p = w && planOf(w)[i], s = p && p.steps && p.steps[k]; if (!s || s.t === 'move') return null
+    hideWin(); showWin(i, s); if (s.t === 'glimpse') await glimpse(w, i, s); if (!FX.win || cur !== w) return null
+    FX.win.t0 = performance.now() - num('win-hold-ms', 3600) / 2; if (FX.glimpse) FX.glimpse.t0 = FX.win.t0; backEl.style.opacity = 1; this.draw()
+    FX.win.toned = true; toneWin(true)
+    return { i, k, t: s.t, text: backEl.textContent } },
+  draw(o = {}) { if (!cur) return; if (!!o.bare !== !!cur.bare) { cur.bare = !!o.bare; composite(cur) } clear(); ledger = { t: null, list: [] }; drawWorld(cur) }, // bare: the poem's words left off, their grounds kept (what the check reads them against)
+  groundLabels() { groundLabels() },
+  hideWin() { hideWin() },
   tapPoint(i) { return cur ? touchAt(cur, i) : null },
   async rest() { // every facet, as drawn now, against this photograph and against the one it leads to: the closer must be this one (pixels, not code)
     const w = cur, P = planOf(w), st = g.getImageData(0, 0, cv.width, cv.height).data, own = w.img.getContext('2d').getImageData(0, 0, cv.width, cv.height).data, other = {}
@@ -919,7 +1004,8 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     const fs = facetsOf(w)
     return { at: document.body.dataset.at, tools: k, plan: k >= 0 ? { box: pl[k].box, basis: pl[k].basis } : null, where, poem: w.R, mat: rectOf('#mat'), cap: rectOf('#cap'), vs: rectOf('.vs'),
       names: rectOf('#names'), namesAll: (() => { const r = namesEl.getBoundingClientRect(); let x1 = r.right, y1 = r.bottom; for (const b of namesEl.children) { const q = b.getBoundingClientRect(); x1 = Math.max(x1, q.right); y1 = Math.max(y1, q.bottom) } return [r.left, r.top, x1 - r.left, y1 - r.top] })(), namesOn: namesEl.classList.contains('on'), cells: w.cells.map(P => P.map(([x, y0]) => [+x.toFixed(2), +y0.toFixed(2)])), drawn: drawn(w),
-      fits: fs.map(f => ({ i: f.i, box: k >= 0 ? fitIn(w, f.i, stops, where) : null })),
+      fits: fs.filter(f => f.i !== w.titleI).map(f => ({ i: f.i, box: k >= 0 ? fitIn(w, f.i, stops, where) : null })), // the title's facet is the poem's, never the tools'
+      title: w.titleI, titleAt: titleAt(w), titleRects: [...w.v.querySelectorAll('h2 a')].flatMap(a => [...a.getClientRects()].map(r => [r.left, r.top, r.width, r.height])), titlePlan: w.titleI >= 0 ? pl[w.titleI] && { href: pl[w.titleI].href, basis: pl[w.titleI].basis } : null, titleHref: (w.v.querySelector('h2 a') || {}).href || null, titleRow: (h => h ? [h.getBoundingClientRect().left, h.getBoundingClientRect().right] : null)(w.v.querySelector('h2')), piece: w.drewPiece || null, titleUnder: !!w.drewTitleUnder,
       year: y, yearPlan: y >= 0 ? { at: pl[y].at, box: pl[y].box, basis: pl[y].basis } : null, yearBox: rectOf('#year a'), yearOn: yearEl.classList.contains('on'), yearText: yearA.textContent,
       kinds: pl.map(p => p ? p.kind : null), W, H } },
   get open() { return toolsOpen }, ideas: IDEAS,

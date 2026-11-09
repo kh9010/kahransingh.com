@@ -83,5 +83,21 @@
   "tools-poem-gap-px": "16",
   "poem-least-tight-px": "90",
   "poem-least-w-px": "320",
-  "poem-least-w-tight-px": "240"
+  "poem-least-w-tight-px": "240",
+  "yield-aa": "4.8",
+  "yield-quantile": "0.998",
+  "yield-scrim-max": "0.9",
+  "yield-feather-px": "14",
+  "yield-lh": "1.42",
+  "yield-small-em": "0.7",
+  "yield-basis-alpha": "0.86",
+  "title-tone": "0.3",
+  "title-edge": "0.55",
+  "piece-lit": "1.6",
+  "piece-edge-px": "1.4",
+  "title-tries": "48",
+  "yield-min-px": "11",
+  "yield-retone-ms": "450",
+  "label-ms": "2000",
+  "line-feather-px": "8"
 }

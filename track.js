@@ -28,12 +28,13 @@
  *   year_open      the year facet: the photograph to its year  { year, via: facet | date }
  *   line_open      the where line opens the chain behind it    { phase }
  *   crossing       a walk into another world                   { via: door | facet | press, depth }
+ *   poem_open      the whole poem, from its title or its facet { poem, via: title | facet }
  */
 (function () {
   function send(name, params) {
     try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch (e) {}
   }
-  var HOME_EVENTS = { tools_open: 1, year_open: 1, line_open: 1, crossing: 1 };
+  var HOME_EVENTS = { tools_open: 1, year_open: 1, line_open: 1, crossing: 1, poem_open: 1 };
   document.addEventListener('home:track', function (e) {
     var d = e.detail || {};
     if (HOME_EVENTS[d.name] === 1) send(d.name, d.params);
