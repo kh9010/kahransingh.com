@@ -203,14 +203,14 @@ A grounded, dense personal site: one photograph and one poem a day on the home, 
 PASS daily pick follows the weather, then the archive, then the date hash: 26 tests
 PASS place feed: 13 tests
 PASS adding photographs: 8 tests
-PASS About and Photos entry points: 7 tests
+PASS About and Photos entry points: 8 tests
 PASS Lately feed layer: 14 tests
 PASS pick.js agrees with daily_pick.py: all checks passed
 PASS the photography walk goes on under a resting pointer and holds under a moving one: 4 checks at 1200x800
 PASS the photograph never re-crops when the poem comes forward: 5 checks at 1200x800
-PASS no picture is ever stretched, on any of six screens: 12 page-and-screen checks; 1284 pictures measured, 0 off
+PASS no picture is ever stretched, on any of six screens: 12 page-and-screen checks; 1271 pictures measured, 0 off
 PASS studies are noindexed: 5 pages carry noindex, nofollow; robots.txt leaves them crawlable so the tag is read
-PASS the rail matches the studies: 13 study listed, opens on 13
+PASS the rail matches the studies: 40 study listed, opens on 40
 PASS study 03: the board holds every keep in his words, four directions, all noindexed and on the rail: 13 keeps on the board with their notes verbatim; 4 directions linked; 5 pages noindexed
 PASS no instruction text: 0 <p>; 18 words of chrome, all labels
 SKIP the pile is whole: studies/01/media is not on this machine (it lives in the MacBook worktree)
@@ -228,17 +228,20 @@ PASS study 12: the walk reads its numbers from the dials and pictures take their
 PASS study 13: the walk as a chain, each picture answering the one before, every step named or honestly left blank: 26 of 71 scored by the site, 45 by the study; colour 0.61 vs shuffle 2.33, 62/70 named; line 0.69 vs shuffle 1.02, 67/70 named; blend 0.66 vs shuffle 0.99, 69/70 named
 PASS study 13: the colour order favours mid-tone transitions and keeps the pale pictures together, against the weights it had before: now 34 mid-tone steps, 1 pale runs, 0 jumps, mean step L 3.0 C 2.3; before 13 mid-tone steps, 4 pale runs, 0 jumps, mean step L 7.3 C 4.7
 PASS study 13: the graph shows every picture once, placed by colour, with the walk through them, at 1280 and 390: 1280: 71 nodes, 80 edges, 3 lit on a tap; 390: 71 nodes, 80 edges, 3 lit on a tap; walk rules hold; no picture stretched at six screens
-PASS the rail matches the studies and opens on the newest: 19 studies (01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19), opens on 19
+PASS the rail matches the studies and opens on the newest: 40 studies (01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40), opens on 40
 PASS a study is a site page: noindex, title, description, the site nav with about current, and it reads without JS: 3 pages, 1042 words of static copy
-PASS no instruction text and nothing a mock would not carry: 14 pages, 0 hits
-PASS every name and year on a study is already on the site: 141 names and 34 years checked against 14 public pages
-PASS about.html is his desk picks as a site page: full meta set, the nav, only the pile and whispers as page JS, every name and year already public, links resolve: 18 page rules, 16 picked lines verbatim, 49 names and 11 years against 15 public pages, 21 internal links on disk, old About at /v1/about.html
-PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 193 dials across 12 studies, fallbacks match
-PASS every link out of a study resolves: 1020 internal targets exist on disk, 137 external left to the link audit
-PASS the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows: 31 checks, rendered at 1200x800 and 390x844
-PASS Right now: the tools line still opens the wall; each line after it opens a short note whose link lives in v2/right-now.json: 47 checks, rendered at 1200x800 and 390x844
+PASS no instruction text and nothing a mock would not carry: 35 pages, 0 hits
+PASS every name and year on a study is already on the site: 2540 names and 705 years checked against 15 public pages
+PASS v2/about.html is his desk picks as a site page: full meta set, the nav, only the pile and whispers as page JS, every name and year already public, links resolve: 18 page rules, 16 picked lines verbatim, 49 names and 11 years against 16 public pages, 22 internal links on disk, first About at /v1/about.html
+PASS about.html is 27 a as a site page: every fact of 27's word for word in its year, readable without JS, full meta set, the nav, no switcher or tune, links resolve, and the stone's year facet opens it: 18 page rules, 202 facts word for word in 21 years, 202 readable without JS, 372 internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html
+PASS tune: every dial lives in defaults.json and the CSS fallback equals it: 1011 dials across 33 studies, fallbacks match
+PASS every link out of a study resolves: 3364 internal targets exist on disk, 506 external left to the link audit
+PASS no study reaches a poem that is off the site: 14125 poem references in 69 study data files, all pages on the site
+PASS the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows (the wall's home, /v2/): 31 checks, rendered at 1200x800 and 390x844
+PASS Right now (on /v2/ only): the tools line still opens the wall; each line after it opens a short note whose link lives in v2/right-now.json: 47 checks, rendered at 1200x800 and 390x844
+PASS the home is the stone: every facet yields and nothing lies over the poem, the crossing lands on the next masses cut, the line and the chain recounted, the tools and the years reached: 197 checks in 14 loads at 1440x900, 390x844, 844x390: every facet yields (112 drawn), 560 worst-case words placed clear, 5 crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the tools and the years reached; first screen on a phone 211 KB gzipped + the photograph 970 KB (258s)
 PASS idea details: coverage, audited graph, public provenance: idea coverage: 6 ideas, 26 explained tools; audited graph: 5 data arrows, 20 surface feeds; public provenance: 26 tools with repository sources
-PASS every page carries the Analytics tag, and track.js still finds what it counts: 145 pages tagged, 30 exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home, both Abouts, the photography page and every poem
+PASS every page carries the Analytics tag, and track.js still finds what it counts: 143 pages tagged, 60 exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home (the stone and /v2/), the three Abouts, the photography page and every poem
 ```
 
 ## Research already captured
