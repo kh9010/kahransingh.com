@@ -15,7 +15,8 @@
 //       come back and light where the chain reads them; 34: every count, measure, reading and label in the chain recounted in Node;
 //     every drawn facet yields (one the tools, one the date, the rest his work, verbatim, its basis recounted at the region it sits on);
 //     words of any length at any facet keep clear of the poem, the name and the caption (30's and 37's worst case);
-//     40: the six names on the facet nearest the where line, every idea and tool reached, IDEAS verbatim;
+//     40: the six names WHOLLY inside the facet nearest the where line that can hold them (every photograph x two poems x five screens,
+//       fresh and crossed, besides the live loads), every idea and tool reached, IDEAS verbatim;
 //     38 c: the date is the photograph's own, in a facet where it reads clear, and flies the photograph into its year in the About;
 //     39: a crossing through a door line (and, at 1440, a facet's last tap) walked frame by frame lands on the next photograph's masses cut
 //       as 33 counts it; reduced motion crossfades and no facet moves;
@@ -620,8 +621,13 @@ try {
   const gap = (a, b) => Math.hypot(Math.max(0, b[0] - (a[0] + a[2]), a[0] - (b[0] + b[2])), Math.max(0, b[1] - (a[1] + a[3]), a[1] - (b[1] + b[3])))
   const share = (box, P) => { let n = 0, t = 0; for (let a = 0; a <= 4; a++) for (let b = 0; b <= 2; b++) { t++; if (inPoly([box[0] + box[2] * a / 4, box[1] + box[3] * b / 2], P)) n++ } return n / t }
   const centre = r => [r[0] + r[2] / 2, r[1] + r[3] / 2]
+  // wholly inside: every corner and every point of the box's edge (each 4px) inside the raw cell and a seam's width from its every side, measured here, not with the page's inset
+  const seam = Number(DEF['seam-px'])
+  const edgeD = ([x, y], P) => { let d = Infinity; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [ax, ay] = P[j], [bx, by] = P[i], vx = bx - ax, vy = by - ay, l2 = vx * vx + vy * vy || 1, t = Math.max(0, Math.min(1, ((x - ax) * vx + (y - ay) * vy) / l2)); d = Math.min(d, Math.hypot(x - ax - t * vx, y - ay - t * vy)) } return d }
+  const ring = b => { const pts = [], n = k => Math.max(2, Math.ceil(k / 4)); for (let a = 0; a <= n(b[2]); a++) { const x = b[0] + b[2] * a / n(b[2]); pts.push([x, b[1]], [x, b[1] + b[3]]) } for (let a = 0; a <= n(b[3]); a++) { const y = b[1] + b[3] * a / n(b[3]); pts.push([b[0], y], [b[0] + b[2], y]) } return pts }
+  const wholly = (b, P) => P.length > 2 && ring(b).every(p => inPoly(p, P) && edgeD(p, P) >= seam - .01)
   const r1 = a => a.map(v => Math.round(v))
-  const defaults = DEF, IDEAS = HOME_IDEAS, WORDS = new Set(IDEAS.flatMap(I => [I.name, I.line, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary])), BY = 110
+  const defaults = DEF, IDEAS = HOME_IDEAS, WORDS = new Set(IDEAS.flatMap(I => [I.name, I.line, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary])), BY = Number(DEF['tools-near-px'])
 
   // what the page dealt and drew, held to 37's rules, each facet's region recounted from regions.json at the centre the page cut
   const drawnHold = async label => {
@@ -750,6 +756,27 @@ try {
   const openWhy = async () => { await tapEl('#where'); await waitFor(() => cdp.eval(`document.body.classList.contains('why') && +getComputedStyle(document.getElementById('why')).opacity > .98 && document.querySelector('.why-body').dataset.drawn === 'yes'`), 'the chain opens', 120) }
   const scrimPt = vp => cdp.eval(`(() => { for (const [x, y] of [[${vp.w} - 20, ${vp.h} * .4], [20, 20], [${vp.w} * .5, 40], [${vp.w} - 20, ${vp.h} - 20], [${vp.w} * .5, ${vp.h} * .5]]) { const e = document.elementFromPoint(x, y); if (e && e.id === 'why-scrim') return [x, y] } return null })()`)
 
+  /* the six names sit WHOLLY inside one facet (Kahran, 9 Nov: "are tools just randomly floating what is that"): every photograph, each with two
+     poems (every live poem in turn), at five screens, as a visit makes the world and as a crossing does (HOME.plant: makeWorld itself, off
+     screen); every corner and every point of the names' edge inside the facet's cut, a seam's width in, and clear of the poem, the name,
+     the caption, the switch and the where line. SWEEP=0 skips it, SWEEP=only stops after it */
+  if (process.env.SWEEP !== '0') {
+    const SW = [[390, 844, true], [375, 667, true], [430, 932, true], [844, 390, true], [1440, 900, false]]
+    const poems = DATA.poems.filter(p => live.has(p.slug)), photos = DATA.photos.filter(p => REGIONS[p.src])
+    const keys = photos.flatMap((p, k) => [0, 46].map(o => poems[(k * 7 + o) % poems.length].slug + '~' + p.src.replace('/photos/', '')))
+    const bad = [], seen = { n: 0, dots: 0, recut: 0, far: 0, slow: 0 }, ts = Date.now()
+    for (const [w, h, mobile] of SW) {
+      await view({ id: 'sweep', w, h, mobile }); await open('')
+      for (const key of keys) for (const crossed of [false, true]) {
+        const trail = crossed ? [keys[(keys.indexOf(key) + 1) % keys.length]] : [], t1 = Date.now(), r = await cdp.eval(`HOME.plant(${JSON.stringify(key)}, ${JSON.stringify(trail)})`); seen.n++; seen.slow = Math.max(seen.slow, Date.now() - t1)
+        const tag = `${w}x${h} ${crossed ? 'crossed into' : 'fresh'} ${key}`
+        if (!r || r.tools < 0 || !r.box) { bad.push(`${tag}: no facet holds the names`); continue }
+        if (r.dots) seen.dots++; if (r.cutT) seen.recut++; if (r.basis.d > BY) seen.far++
+        const P = r.cells[r.tools], b = r.box.slice(0, 4), hit = [['poem', r.poem], ['name', r.mat], ['caption', r.cap], ['switch', r.vs], ['where line', r.where]].filter(([, o]) => o[2] > 0 && meet(b, o)).map(([k]) => k)
+        if (!r.drawn.includes(r.tools) || !wholly(b, P) || hit.length || b[0] < 0 || b[1] < 0 || b[0] + b[2] > w || b[1] + b[3] > h) bad.push(`${tag}: ${!wholly(b, P) ? 'over a seam' : ''}${hit.length ? ' on the ' + hit.join(', ') : ''} ${r1(b)}`) } }
+    check(!bad.length, `the six names sit wholly inside one facet, a seam's width in, clear of the poem, the name, the caption, the switch and the where line: ${keys.length} worlds (all ${photos.length} photographs, ${new Set(keys.map(k => k.split('~')[0])).size} poems) x ${SW.length} screens x fresh and crossed = ${seen.n} placements; ${seen.recut} on a cut re-seeded to hold them, ${seen.dots} as the six dots where no cut holds a name whole; ${seen.far} farther than ${BY}px from the line, none nearer could hold them; slowest world made in ${seen.slow}ms (${Math.round((Date.now() - ts) / 1000)}s)`, `${bad.length} wrong: ${bad.slice(0, 8).join(' | ')}`)
+    if (process.env.SWEEP === 'only') { console.log(bad.join('\n')); throw new Error('SWEEP=only: stopped after the sweep') } }
+
   for (const vp of VIEWPORTS) {
     await view(vp); await reduceMotion(false); errors.length = 0; const tag = `${vp.w}x${vp.h}`
     const first = await open('')
@@ -806,12 +833,11 @@ try {
       /* the one facet, and the names on it */
       check(s.tools >= 0 && s.namesOn && s.kinds.filter(k => k === 'tools').length === 1, `${label}: one facet holds the six names`, `facet ${s.tools}, on ${s.namesOn}`)
       if (s.tools < 0) continue
-      const box = s.plan.box, nm = s.names
-      check(Math.abs(nm[0] - box[0]) < 1.5 && Math.abs(nm[1] - box[1]) < 1.5 && nm[2] <= box[2] + 1.5 && nm[3] <= box[3] + 1.5, `${label}: the names are where the plan put them`, `${r1(nm)} vs ${r1(box)}`)
-      const need = Math.max(Number(defaults['tools-inside-last']), Math.min(Number(defaults['tools-inside']), s.plan.basis.inside ?? 1))
-      check(inPoly(centre(nm), P) && share(nm, P) >= need - .01 && need >= Number(defaults['tools-inside-last']), `${label}: the names sit on their facet (centre in the cut, ${Math.round(share(nm, P) * 100)}% inside${need < Number(defaults['tools-inside']) ? ', leaning over a seam to stay by the line' : ''})`, `${Math.round(share(nm, P) * 100)}% < ${need}`)
-      const hit = [['poem', s.poem], ['name', s.mat], ['caption', s.cap], ['switch', s.vs]].filter(([, r]) => r[2] > 0 && meet(nm, r)).map(([k]) => k)
-      check(!hit.length && nm[0] >= 0 && nm[1] >= 0 && nm[0] + nm[2] <= s.W && nm[1] + nm[3] <= s.H, `${label}: the names keep clear of the poem, the name, the caption and the switch`, hit.join(', '))
+      const box = s.plan.box, nm = s.namesAll // every name to its last letter, not only the row they wrap in
+      check(Math.abs(nm[0] - box[0]) < 1.5 && Math.abs(nm[1] - box[1]) < 1.5 && Math.abs(nm[2] - box[2]) < 1.5 && Math.abs(nm[3] - box[3]) < 1.5, `${label}: the names are where the plan put them, at the size it measured`, `${r1(nm)} vs ${r1(box)}`)
+      check(wholly(nm, P), `${label}: the names sit wholly inside their facet, a seam's width in at every corner and edge`, `${r1(nm)} in facet ${s.tools}`)
+      const hit = [['poem', s.poem], ['name', s.mat], ['caption', s.cap], ['switch', s.vs], ['where line', s.where]].filter(([, r]) => r[2] > 0 && meet(nm, r)).map(([k]) => k)
+      check(!hit.length && nm[0] >= 0 && nm[1] >= 0 && nm[0] + nm[2] <= s.W && nm[1] + nm[3] <= s.H, `${label}: the names keep clear of the poem, the name, the caption, the switch and the where line`, hit.join(', '))
       /* the basis, recounted */
       const fits = s.fits.filter(f => f.box), lies = fits.filter(f => meet(f.box, s.poem) || meet(f.box, s.mat) || !inPoly(centre(f.box), s.cells[f.i]))
       const d = fits.map(f => ({ i: f.i, d: gap(f.box, s.where) })).sort((a, b) => a.d - b.d), mine = gap(box, s.where)
