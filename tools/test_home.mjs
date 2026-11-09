@@ -795,7 +795,7 @@ try {
     const near = corners.length ? Math.min(...corners.map(c => distEdge(c, P))) : 0
     // where it is not whole, the claim is that nowhere along its row could any facet hold it: recounted on every drawn facet
     let could = null; if (out.length && s.titleRects.length === 1 && s.titleRow) { const [, ty, tw, th] = s.titleRects[0]
-      for (const i of s.drawn) for (let x = s.titleRow[0]; x + tw <= s.titleRow[1] && could == null; x += 4) { const cs = [[x, ty], [x + tw, ty], [x, ty + th], [x + tw, ty + th], [x + tw / 2, ty + th / 2]]; if (cs.every(c => inPoly(c, s.cells[i]) && distEdge(c, s.cells[i]) >= clearPx + 3)) could = [i, Math.round(x)] } }
+      for (const i of s.drawn.filter(i => i !== s.tools)) for (let x = s.titleRow[0]; x + tw <= s.titleRow[1] && could == null; x += 4) { const cs = [[x, ty], [x + tw, ty], [x, ty + th], [x + tw, ty + th], [x + tw / 2, ty + th / 2]]; if (cs.every(c => inPoly(c, s.cells[i]) && distEdge(c, s.cells[i]) >= clearPx + 3)) could = [i, Math.round(x)] } }
     const whole = !out.length, honest = whole || (s.titleRects.length === 1 && could == null && s.titlePlan && s.titlePlan.basis.whole === false)
     if (!whole) titleSplit.push(label)
     check(s.title >= 0 && s.title !== s.tools && s.title !== s.year && corners.length && honest && !into.length && s.titlePlan && s.titlePlan.href === href && (s.titleHref || '').endsWith(href),
@@ -865,6 +865,7 @@ try {
     for (const wk of [null, home[0]]) {
       const label = `${tag} ${wk ? 'world ' + wk : 'home'}`
       if (wk) await open('?w=' + encodeURIComponent(wk))
+      await cdp.eval('HOME.hideWin()') // the yield an earlier tap left (it holds a few seconds, and the names step back while it lies over them)
       const s = await cdp.eval('HOME.state'), P = s.cells[s.tools] || []
       /* the one facet, and the names on it */
       check(s.tools >= 0 && s.namesOn && s.kinds.filter(k => k === 'tools').length === 1, `${label}: one facet holds the six names`, `facet ${s.tools}, on ${s.namesOn}`)
@@ -1005,7 +1006,7 @@ try {
     for (const [s, vp] of SIZES.entries()) { await view(vp); await reduceMotion(false); errors.length = 0
       for (const [j, key] of worlds.entries()) { if (!at(key, j, s)) continue; seen++; await open('?w=' + encodeURIComponent(key))
         const r = await cdp.eval(`(async () => { HOME.still = true; const measure = ${MEASURE}, frame = () => new Promise(r => requestAnimationFrame(() => r())), wait = ms => new Promise(r => setTimeout(r, ms))
-          while (!HOME.world.arrived) await wait(100); await wait(900); HOME.groundLabels(); // the poem arrived whole first await frame(); await frame(); await wait(700) // the lamp held still and settled; the labels' grounds read as the page's own re-read does, their fade done
+          while (!HOME.world.arrived) await wait(100); await wait(2000); HOME.groundLabels(); // the poem arrived whole first, the lamp come to rest await frame(); await frame(); await wait(700) // the lamp held still and settled; the labels' grounds read as the page's own re-read does, their fade done
           const rest = measure(['.verse', '.cap', '#year', '#names', 'header', '.vs'])
           const b = document.querySelector('#names.on button'); let tools = {}; if (b) { b.click(); await wait(450); tools = measure(['#tools']); dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(100) }
           const ys = []; for (const [i, p] of HOME.plans.entries()) { if (!p || !p.steps) continue

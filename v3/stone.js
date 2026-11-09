@@ -314,7 +314,7 @@ async function makeWorld(pair, mode, tr0) {
     // never the photograph's lines), keeping the cut that holds the names nearest (by the line, then anywhere), and of those the one with the fewest dead facets.
     // On a phone, upright or on its side, the names' spot is found first and the poem yields to it (stands on it, or starts right of it), keeping at least
     // poem-least (else poem-least-tight) for itself: room is made by the poem, never by shrinking the names
-    const near = num('tools-near-px', 110), ids = () => { const T = titleAt(w); return drawn(w).filter(i => !T || i !== T.i).map(i => ({ i })) } // the title's facet is the poem's, never the names'
+    const near = num('tools-near-px', 110), ids = () => drawn(w).map(i => ({ i }))
     // dead facets count twice and a split title once, so the title only breaks a tie (its own facet is never dead: it opens the poem)
     const deadOf = () => { const T = titleAt(w); return drawn(w).filter(i => !(T && T.i === i) && !touchAt(w, i, { first: true, all: true })).length * 2 + (T && T.whole ? 0 : 1) }
     const gap = num('tools-poem-gap-px', 16), lowRight = Math.max(16, W * .03)
@@ -457,19 +457,19 @@ function facetsOf(w) { // each drawn facet as 33's cut describes it (its centre 
     return S37.describe(fcs[i], R, { door: door >= 0 ? door : null, line: near ? near.k : null, c: fcs[i].centroid }) }) }
 /* ---------- the title's facet: the poem's own piece of the stone, and the way to the whole poem ---------- */
 const REACH = .45 // how far a facet's normal can lean (cutFor's (r - .5) * .9): each facet draws the poem at most REACH * refract-px off
-function titleAt(w) { // the drawn facet the title lies in (with the refraction's reach and a pixel to spare all round), and whether it lies there whole
+function titleAt(w, skip = -1) { // the drawn facet the title lies in (with the refraction's reach and a pixel to spare all round), and whether it lies there whole; never facet skip (the names')
   const a = w.v && w.v.querySelector('h2 a'); if (!a) return null
   const pad = refr() * REACH + 1, pts = []
   for (const r of a.getClientRects()) for (let u = 0; u <= 6; u++) for (let v = 0; v <= 2; v++) pts.push([r.left - pad + (r.width + pad * 2) * u / 6, r.top - pad + (r.height + pad * 2) * v / 2])
   let best = null
-  for (const i of drawn(w)) { const P = inset(w.cells[i], num('seam-px', 2.2) / 2); const n = pts.filter(p => inPoly(p, P)).length; if (n && (!best || n > best.n)) best = { i, n } }
+  for (const i of drawn(w)) { if (i === skip) continue; const P = inset(w.cells[i], num('seam-px', 2.2) / 2); const n = pts.filter(p => inPoly(p, P)).length; if (n && (!best || n > best.n)) best = { i, n } }
   return best && { i: best.i, whole: best.n === pts.length, share: best.n / pts.length } }
 function settleTitle(w) { // no cut holds the title whole: it moves along its own row, as little as it can, into the one facet that then holds it whole (as the tools' names are placed)
   const h = w.v.querySelector('h2'), a = h && h.querySelector('a'); if (!a) return
   const room = Math.floor(h.clientWidth - a.getBoundingClientRect().width) - 1; let at = null
   for (let dx = 4; dx <= room && at == null; dx += 4) { h.style.paddingLeft = dx + 'px'; if ((titleAt(w) || {}).whole) at = dx }
   h.style.paddingLeft = at == null ? '' : at + 'px'; if (at != null) { w.lc = lineCanvases(w); w.dirty = true } }
-function titleFacet(w) { const T = titleAt(w); if (!T) return null
+function titleFacet(w, skip) { const T = titleAt(w, skip); if (!T) return null
   return { ...T, href: '/poems/' + w.poem.slug + '.html', basis: { rule: 'the facet the title lies in', whole: T.whole, share: +T.share.toFixed(2), title: w.poem.title } } }
 /* a facet that is one thing to take: its ground toned down under the words on it, its rim drawn clear all round, brighter under a pointer.
    The title's today; written so any facet that is one piece can be drawn so */
@@ -549,9 +549,9 @@ addEventListener('pointerdown', e => { if (toolsOpen < 0 || e.target.closest('#t
 addEventListener('keydown', e => { if (e.key === 'Escape') closeTools() })
 /* the two facets placed by a reason of their own, before anything is dealt: the tools (40: nearest the where line) and the photograph's
    date (38 c: the facet where its month and year read clearest on the photograph itself). The tools keep theirs if both want the same one */
-function fixedOf(w) { // the title's facet first: it is wherever the poem put its title, so the tools and the date choose among the rest
+function fixedOf(w) { // the names first (their facet is what the cut was kept for), then the title's: the facet holding most of the title that is not the names'; the date among the rest
   if (w.fixed) return w.fixed
-  const fs = facetsOf(w), title = titleFacet(w), rest = fs.filter(f => !title || f.i !== title.i), tools = toolsFacet(w, rest), year = yearFacet(w, rest, tools)
+  const fs = facetsOf(w), tools = toolsFacet(w, fs), title = titleFacet(w, tools ? tools.i : -1), rest = fs.filter(f => !title || f.i !== title.i), year = yearFacet(w, rest, tools)
   w.titleI = title ? title.i : -1; w.toolsI = tools ? tools.i : -1; w.yearI = year ? year.i : -1
   return w.fixed = { fs, tools, year, title } }
 function planOf(w) {
@@ -913,7 +913,7 @@ let last = performance.now()
 function frame(now) {
   const dt = Math.min(100, now - last); last = now
   if (!reduce() && now - lastMove > 4000 && !HOME.still) { const a = now / 26000; Tx = W * (.5 + .38 * Math.cos(a)); Ty = H * (.42 + .3 * Math.sin(a * 1.3)) } // unattended, the sun walks
-  Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05; if (HOME.still) { Lx = Tx; Ly = Ty } // held still (the check's), the lamp is where it rests
+  Lx += (Tx - Lx) * .05; Ly += (Ty - Ly) * .05
   const k = 1 - Math.exp(-dt / Math.max(1, num('line-ms', 320) * .66))
   for (const w of [...live(), crossing && crossing.old].filter(Boolean)) { w.A.forEach((a, i) => { const b = a + (w.Tg[i] - a) * k; if (Math.abs(b - a) > .001) { w.A[i] = Math.abs(w.Tg[i] - b) < .004 ? w.Tg[i] : b; w.dirty = true } })
     if (w.lc) for (const L of w.lc) if (L.gt != null && Math.abs(L.gt - L.ga) > .002) { L.ga += (L.gt - L.ga) * k; w.dirty = true } // a line's ground follows the lamp, never jumps
@@ -1035,8 +1035,8 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     const fs = facetsOf(w)
     return { at: document.body.dataset.at, tools: k, plan: k >= 0 ? { box: pl[k].box, basis: pl[k].basis } : null, where, poem: w.R, mat: rectOf('#mat'), cap: rectOf('#cap'), vs: rectOf('.vs'),
       names: rectOf('#names'), namesAll: (() => { const r = namesEl.getBoundingClientRect(); let x1 = r.right, y1 = r.bottom; for (const b of namesEl.children) { const q = b.getBoundingClientRect(); x1 = Math.max(x1, q.right); y1 = Math.max(y1, q.bottom) } return [r.left, r.top, x1 - r.left, y1 - r.top] })(), namesOn: namesEl.classList.contains('on'), cells: w.cells.map(P => P.map(([x, y0]) => [+x.toFixed(2), +y0.toFixed(2)])), drawn: drawn(w),
-      fits: fs.filter(f => f.i !== w.titleI).map(f => ({ i: f.i, box: k >= 0 ? fitIn(w, f.i, stops, where) : null })), // the title's facet is the poem's, never the tools'
-      title: w.titleI, titleAt: titleAt(w), titleRects: [...w.v.querySelectorAll('h2 a')].flatMap(a => [...a.getClientRects()].map(r => [r.left, r.top, r.width, r.height])), titlePlan: w.titleI >= 0 ? pl[w.titleI] && { href: pl[w.titleI].href, basis: pl[w.titleI].basis } : null, titleHref: (w.v.querySelector('h2 a') || {}).href || null, titleRow: (h => h ? [h.getBoundingClientRect().left, h.getBoundingClientRect().right] : null)(w.v.querySelector('h2')), piece: w.drewPiece || null, titleUnder: !!w.drewTitleUnder,
+      fits: fs.map(f => ({ i: f.i, box: k >= 0 ? fitIn(w, f.i, stops, where) : null })),
+      title: w.titleI, titleAt: titleAt(w, w.toolsI), titleRects: [...w.v.querySelectorAll('h2 a')].flatMap(a => [...a.getClientRects()].map(r => [r.left, r.top, r.width, r.height])), titlePlan: w.titleI >= 0 ? pl[w.titleI] && { href: pl[w.titleI].href, basis: pl[w.titleI].basis } : null, titleHref: (w.v.querySelector('h2 a') || {}).href || null, titleRow: (h => h ? [h.getBoundingClientRect().left, h.getBoundingClientRect().right] : null)(w.v.querySelector('h2')), piece: w.drewPiece || null, titleUnder: !!w.drewTitleUnder,
       year: y, yearPlan: y >= 0 ? { at: pl[y].at, box: pl[y].box, basis: pl[y].basis } : null, yearBox: rectOf('#year a'), yearOn: yearEl.classList.contains('on'), yearText: yearA.textContent,
       kinds: pl.map(p => p ? p.kind : null), W, H } },
   get open() { return toolsOpen }, ideas: IDEAS,
