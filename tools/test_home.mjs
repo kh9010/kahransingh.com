@@ -764,17 +764,20 @@ try {
     const SW = [[390, 844, true], [375, 667, true], [430, 932, true], [844, 390, true], [1440, 900, false]]
     const poems = DATA.poems.filter(p => live.has(p.slug)), photos = DATA.photos.filter(p => REGIONS[p.src])
     const keys = photos.flatMap((p, k) => [0, 46].map(o => poems[(k * 7 + o) % poems.length].slug + '~' + p.src.replace('/photos/', '')))
-    const bad = [], seen = { n: 0, dots: 0, recut: 0, far: 0, slow: 0 }, ts = Date.now()
+    const bad = [], seen = { n: 0, recut: 0, far: 0, slow: 0, scroll: 0, farAt: {} }, ts = Date.now()
     for (const [w, h, mobile] of SW) {
       await view({ id: 'sweep', w, h, mobile }); await open('')
       for (const key of keys) for (const crossed of [false, true]) {
         const trail = crossed ? [keys[(keys.indexOf(key) + 1) % keys.length]] : [], t1 = Date.now(), r = await cdp.eval(`HOME.plant(${JSON.stringify(key)}, ${JSON.stringify(trail)})`); seen.n++; seen.slow = Math.max(seen.slow, Date.now() - t1)
         const tag = `${w}x${h} ${crossed ? 'crossed into' : 'fresh'} ${key}`
         if (!r || r.tools < 0 || !r.box) { bad.push(`${tag}: no facet holds the names`); continue }
-        if (r.dots) seen.dots++; if (r.cutT) seen.recut++; if (r.basis.d > BY) seen.far++
+        if (r.cutT) seen.recut++; if (r.basis.d > BY) { seen.far++; seen.farAt[w + 'x' + h] = (seen.farAt[w + 'x' + h] || 0) + 1 } if (r.scroll) seen.scroll++
+        if (/dots/.test(r.box[5] || '') || !(r.box[2] > 60)) bad.push(`${tag}: the names are not words (${r.box[5]})`)
+        if (r.half) bad.push(`${tag}: the poem's box cuts ${r.half} line(s) in half`)
+        { const ph = [['caption', r.cap], ['switch', r.vs]].filter(([, o]) => o[2] > 0 && meet(r.poem, o)).map(([k]) => k); if (ph.length || r.poem[1] < 0 || r.poem[1] + r.poem[3] > h + .5) bad.push(`${tag}: the poem ${ph.length ? 'is on the ' + ph.join(', ') : 'leaves the screen'}`) }
         const P = r.cells[r.tools], b = r.box.slice(0, 4), hit = [['poem', r.poem], ['name', r.mat], ['caption', r.cap], ['switch', r.vs], ['where line', r.where]].filter(([, o]) => o[2] > 0 && meet(b, o)).map(([k]) => k)
         if (!r.drawn.includes(r.tools) || !wholly(b, P) || hit.length || b[0] < 0 || b[1] < 0 || b[0] + b[2] > w || b[1] + b[3] > h) bad.push(`${tag}: ${!wholly(b, P) ? 'over a seam' : ''}${hit.length ? ' on the ' + hit.join(', ') : ''} ${r1(b)}`) } }
-    check(!bad.length, `the six names sit wholly inside one facet, a seam's width in, clear of the poem, the name, the caption, the switch and the where line: ${keys.length} worlds (all ${photos.length} photographs, ${new Set(keys.map(k => k.split('~')[0])).size} poems) x ${SW.length} screens x fresh and crossed = ${seen.n} placements; ${seen.recut} on a cut re-seeded to hold them, ${seen.dots} as the six dots where no cut holds a name whole; ${seen.far} farther than ${BY}px from the line, none nearer could hold them; slowest world made in ${seen.slow}ms (${Math.round((Date.now() - ts) / 1000)}s)`, `${bad.length} wrong: ${bad.slice(0, 8).join(' | ')}`)
+    check(!bad.length, `the six names sit wholly inside one facet as words, a seam's width in, clear of the poem, the name, the caption, the switch and the where line; the poem clear of the caption and the switch, never a half line: ${keys.length} worlds (all ${photos.length} photographs, ${new Set(keys.map(k => k.split('~')[0])).size} poems) x ${SW.length} screens x fresh and crossed = ${seen.n} placements, every one as words; ${seen.recut} on a cut re-seeded to hold them; ${seen.far} farther than ${BY}px from the line, none nearer could hold them (${Object.entries(seen.farAt).map(([k, v]) => k + ' ' + v).join(', ') || 'none'}); ${seen.scroll} poems shown in whole lines, the rest a scroll; slowest world made in ${seen.slow}ms (${Math.round((Date.now() - ts) / 1000)}s)`, `${bad.length} wrong: ${bad.slice(0, 8).join(' | ')}`)
     if (process.env.SWEEP === 'only') { console.log(bad.join('\n')); throw new Error('SWEEP=only: stopped after the sweep') } }
 
   for (const vp of VIEWPORTS) {
