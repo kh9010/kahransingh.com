@@ -691,11 +691,12 @@ function groundFor(r, x, inks) { // how dark a ground under rect r (screen px) m
 function inksOf(el, upTo) { // each text under el that shows, in its own colour and the strength its ancestors leave it (up to upTo)
   return [...el.querySelectorAll('*'), el].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.data.trim()) && e.getClientRects().length).map(e => { const c = rgbOf(getComputedStyle(e).color); let op = c[3]; for (let q = e; q && q !== upTo; q = q.parentElement) op *= +getComputedStyle(q).opacity; return [c, op] }).filter(([, op]) => op > .05) }
 const rectArr = e => { const b = e.getBoundingClientRect(); return [b.left, b.top, b.width, b.height] }
+const unionRect = e => { let [l, t, w0, h0] = rectArr(e), r = l + w0, b = t + h0; for (const c of e.querySelectorAll('*')) { const q = c.getBoundingClientRect(); if (!q.width) continue; l = Math.min(l, q.left); t = Math.min(t, q.top); r = Math.max(r, q.right); b = Math.max(b, q.bottom) } return [l, t, r - l, b - t] } // a label and everything in it, even what runs past its box
 /* the labels that lie on the stone (the caption, the date, the six names, the name with the where line and the way out, the version tab):
    each gets the same ground as a yield, read off the stone where it sits; again as the lamp walks */
 const LABELS = ['#cap', '#year', '#names', 'header', '.vs']
 function groundLabels() { if (!cur) return
-  for (const q of LABELS) { const e = $(q); if (!e) continue; const shown = !/^#(names|year)$/.test(q) || e.classList.contains('on'), inks = shown ? inksOf(e, e) : [], r = rectArr(e)
+  for (const q of LABELS) { const e = $(q); if (!e) continue; const shown = !/^#(names|year)$/.test(q) || e.classList.contains('on'), inks = shown ? inksOf(e, e) : [], r = unionRect(e)
     e.style.setProperty('--scrim', (r[2] > 0 && inks.length ? groundFor(r, g, inks) : 0).toFixed(2)) } }
 let groundT = 0
 function toneWin(raise) {

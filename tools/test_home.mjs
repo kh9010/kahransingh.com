@@ -962,7 +962,7 @@ try {
      at five sizes in turn (CONTRAST=all: every world at every size): at rest the poem and its title, the caption, the date, the six names, the
      name, the where line, the way out and the version tab; an idea open; and every facet's every tap that says something (a glimpse arrived).
      Each text, in its own colour and strength, against the pixels behind its words (the stone as drawn without the poem's words, under any
-     ground laid for them) keeps WCAG AA, 4.5:1, for 98% of them; 11px and up; a yield's and the poem's lines 1.35 apart and up. Measured off the
+     ground laid for them; the poem off the facets' faces, as a seam's stroke is drawn over its words) keeps WCAG AA, 4.5:1, for 98% of them; 11px and up; a yield's and the poem's lines 1.35 apart and up. Measured off the
      canvas and the CSS, not off the page's own sums */
   const MEASURE = String.raw`(sels) => { HOME.draw({ bare: true })
   const cv = document.getElementById('stone'), g = cv.getContext('2d', { willReadFrequently: true }), k = cv.width / innerWidth, de = document.documentElement
@@ -970,6 +970,12 @@ try {
   const lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }, Y = c => .2126 * lin(c[0]) + .7152 * lin(c[1]) + .0722 * lin(c[2])
   const over = (top, a, bot) => [0, 1, 2].map(j => top[j] * a + bot[j] * (1 - a))
   const GROUPS = [['#back', 'yield'], ['#tools', 'tools'], ['.verse h2', 'title'], ['.verse', 'poem'], ['.cap', 'caption'], ['#year', 'date'], ['#names', 'names'], ['header h1', 'name'], ['#where', 'where'], ['header nav', 'nav'], ['.vs', 'switch']]
+  /* the seams: on the stone a seam's stroke is drawn over the poem's words, cutting them, so no word reads there; the poem is read off the
+     facets' faces only (3.5px clear of every edge the page drew this frame, from its ledger) */
+  const mask = document.createElement('canvas'); mask.width = cv.width; mask.height = cv.height; const mx = mask.getContext('2d', { willReadFrequently: true }); mx.setTransform(k, 0, 0, k, 0, 0)
+  mx.fillStyle = '#fff'; mx.strokeStyle = '#000'; mx.lineWidth = 7; mx.lineJoin = 'round'
+  for (const e of HOME.ledger.list) if (e.Q && e.seen > .5) { mx.beginPath(); e.Q.forEach(([x, y], i) => i ? mx.lineTo(x, y) : mx.moveTo(x, y)); mx.closePath(); mx.fill() }
+  for (const e of HOME.ledger.list) if (e.Q && e.seen > .5) { mx.beginPath(); e.Q.forEach(([x, y], i) => i ? mx.lineTo(x, y) : mx.moveTo(x, y)); mx.closePath(); mx.stroke() }
   const out = {}
   for (const sel of sels) for (const root of document.querySelectorAll(sel)) { const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
     for (let n; (n = tw.nextNode());) { if (!n.data.trim()) continue
@@ -982,8 +988,8 @@ try {
       if (op < .05) continue
       const r = document.createRange(); r.selectNodeContents(n); const cons = []
       for (const q of r.getClientRects()) { const x0 = Math.max(0, Math.floor(Math.max(q.left, clip[0]) * k)), y0 = Math.max(0, Math.floor(Math.max(q.top, clip[1]) * k)), x1 = Math.min(cv.width, Math.ceil(Math.min(q.right, clip[2]) * k)), y1 = Math.min(cv.height, Math.ceil(Math.min(q.bottom, clip[3]) * k)); if (x1 <= x0 || y1 <= y0) continue
-        const px = g.getImageData(x0, y0, x1 - x0, y1 - y0).data
-        for (let i = 0; i < px.length; i += 8) { let bg = [px[i], px[i + 1], px[i + 2]]; for (const b of bgs) bg = over(b, b[3], bg); const tx = over(col, op, bg), a = Y(tx), c = Y(bg); cons.push((Math.max(a, c) + .05) / (Math.min(a, c) + .05)) } }
+        const px = g.getImageData(x0, y0, x1 - x0, y1 - y0).data, face = canvasText ? mx.getImageData(x0, y0, x1 - x0, y1 - y0).data : null
+        for (let i = 0; i < px.length; i += 8) { if (face && face[i] < 128) continue; let bg = [px[i], px[i + 1], px[i + 2]]; for (const b of bgs) bg = over(b, b[3], bg); const tx = over(col, op, bg), a = Y(tx), c = Y(bg); cons.push((Math.max(a, c) + .05) / (Math.min(a, c) + .05)) } }
       if (!cons.length) continue; cons.sort((a, c) => a - c)
       const p02 = +cons[Math.floor(cons.length * .02)].toFixed(2), o = out[group] ||= { n: 0, p02: 99, px: 99, lh: 99, text: '' }
       o.n++; const px = parseFloat(cs.fontSize), lh = parseFloat(cs.lineHeight) / px || 1.2
@@ -999,7 +1005,7 @@ try {
     for (const [s, vp] of SIZES.entries()) { await view(vp); await reduceMotion(false); errors.length = 0
       for (const [j, key] of worlds.entries()) { if (!at(key, j, s)) continue; seen++; await open('?w=' + encodeURIComponent(key))
         const r = await cdp.eval(`(async () => { HOME.still = true; const measure = ${MEASURE}, frame = () => new Promise(r => requestAnimationFrame(() => r())), wait = ms => new Promise(r => setTimeout(r, ms))
-          await frame(); await frame(); HOME.groundLabels(); await wait(700) // the lamp held still; the labels' grounds read as the page reads them, and their fade done
+          await wait(900); HOME.groundLabels(); await frame(); await frame(); await wait(700) // the lamp held still and settled; the labels' grounds read as the page's own re-read does, their fade done
           const rest = measure(['.verse', '.cap', '#year', '#names', 'header', '.vs'])
           const b = document.querySelector('#names.on button'); let tools = {}; if (b) { b.click(); await wait(450); tools = measure(['#tools']); dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' })); await wait(100) }
           const ys = []; for (const [i, p] of HOME.plans.entries()) { if (!p || !p.steps) continue
