@@ -65,6 +65,13 @@ body[data-at="world"] #names.on, body[data-at="stone"] #names.on { opacity: 1; p
   color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.7), 0 1px 12px rgba(0,0,0,.8); }
 #names button::before, #tools nav button::before { content: ''; display: inline-block; width: .55em; height: .55em; margin-right: .5em; border-radius: 50%; background: var(--hue, var(--ink-on2)); vertical-align: .08em; }
 #names button:hover, #names button:focus-visible { color: #fff; }
+#names.col { flex-direction: column; align-items: flex-start; } /* one name a line, for a slim facet */
+#names.tight button { letter-spacing: calc(var(--tools-tight-track, .04) * 1em); }
+#names.dots { gap: 0; } /* the last shape: the six hues alone, each its idea's button, a finger's width apart */
+#names.dots button { font-size: 0; line-height: 0; padding: calc(var(--tools-dot-hit-px, 18) * .5px); }
+#names.dots.three { max-width: calc((var(--tools-dot-px, 8) + var(--tools-dot-hit-px, 18)) * 3px); }
+#names.dots.col { flex-direction: column; }
+#names.dots button::before { width: calc(var(--tools-dot-px, 8) * 1px); height: calc(var(--tools-dot-px, 8) * 1px); margin: 0; vertical-align: 0; }
 #names button:focus-visible, #tools button:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
 #tools { position: fixed; z-index: 8; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: none; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease);
   padding: 14px 16px; border-radius: 6px; background: rgba(13,12,11,var(--tools-ground, .82)); color: var(--ink-on); }
