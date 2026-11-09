@@ -860,6 +860,24 @@
         "wind_kmh": 20.7,
         "cloud_pct": 33
       }
+    },
+    "2026-11-08": {
+      "poem": "platitudes-of-suffering",
+      "photo": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.4133237875220501,
+        "warmth": 0.6,
+        "wet": 0.0,
+        "stillness": 0.4425,
+        "season": 0.12849953752797533,
+        "inside": 0.8,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 16.0,
+        "wind_kmh": 22.3,
+        "cloud_pct": 50
+      }
     }
   }
 }
