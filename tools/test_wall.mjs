@@ -2,10 +2,11 @@
 // test_wall.mjs — the wall of ideas says what Kahran decided it says.
 //
 // Pins (Kahran, 2026-10-27): six ideas, Home the sixth; every idea has parts;
-// the <noscript> copy in index.html says the same lines as IDEAS; the system is
+// the <noscript> copy in v2/index.html (the wall's home, at /v2/ since the stone
+// took / on 2026-11-09) says the same lines as IDEAS; the system is
 // never called "day-flow" anywhere a visitor can read on the wall or the flow
 // view; the flow view's tables only name ideas and surfaces that exist. Then it
-// renders / with #flow in headless Chrome at 1200x800 and 390x844 and checks
+// renders /v2/ with #flow in headless Chrome at 1200x800 and 390x844 and checks
 // six tiles land, none overflows its box, and the rendered text is clean.
 //
 // Run: node tools/test_wall.mjs [--shots DIR]   (exits non-zero on any failure)
@@ -61,7 +62,7 @@ function literal(src, name) {
 const homeJs = readFileSync(path.join(ROOT, "v2/home.js"), "utf8");
 const flowJs = readFileSync(path.join(ROOT, "v2/flow.js"), "utf8");
 const css = readFileSync(path.join(ROOT, "v2/home.css"), "utf8");
-const indexHtml = readFileSync(path.join(ROOT, "index.html"), "utf8");
+const indexHtml = readFileSync(path.join(ROOT, "v2/index.html"), "utf8");
 const contextHtml = readFileSync(path.join(ROOT, "context/index.html"), "utf8");
 
 const IDEAS = literal(homeJs, "IDEAS");
@@ -176,7 +177,7 @@ async function shot(cdp, file) {
 }
 
 try {
-  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/index.html`).then((r) => r.ok), "static server");
+  await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/v2/index.html`).then((r) => r.ok), "static server");
   const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDP_PORT}/json`).then((r) => r.json()), "devtools");
   const ws = new WebSocket(targets.find((t) => t.type === "page").webSocketDebuggerUrl);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
@@ -185,7 +186,7 @@ try {
 
   for (const [w, h, mobile, tag] of [[1200, 800, false, "1200"], [390, 844, true, "390"]]) {
     await cdp.send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: mobile ? 2 : 1, mobile });
-    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/` });
+    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/v2/` });
     await waitFor(() => cdp.evaluate("document.querySelectorAll('#wall-block .tile').length === 6 && document.fonts.status === 'loaded'"), "six tiles " + tag);
     await sleep(600);
     if (mobile) await cdp.evaluate("document.querySelector('.tools-layer').scrollIntoView(); true");

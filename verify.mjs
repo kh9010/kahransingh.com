@@ -370,7 +370,7 @@ check('study 10: Keeping track is a mechanism page like /context/: same meta set
   assert.equal(h2s.length, 4, 'the study holds the four tools it was cut against')
   const text = plain(/<body>([\s\S]*)<\/body>/.exec(s10)[1])
   for (const place of ['New York', 'Bangalore', 'Seattle', 'Manhattan', 'Provincetown', 'Jaisalmer', 'Telluride', 'Boulder']) assert(!text.includes(place), 'never a location: ' + place)
-  const PUBLIC = ['index.html', 'context/index.html', 'about.html', 'cv.html', 'v2/home.js'].map(f => read(path.join(ROOT, f))).join(' ').replace(/<[^>]+>/g, ' ').toLowerCase()
+  const PUBLIC = ['index.html', 'v2/index.html', 'context/index.html', 'about.html', 'cv.html', 'v2/home.js'].map(f => read(path.join(ROOT, f))).join(' ').replace(/<[^>]+>/g, ' ').toLowerCase()
   const dict = new Set(read('/usr/share/dict/words').split('\n').map(w => w.toLowerCase()))
   let names = 0
   for (const m of text.matchAll(/\b([A-Z][A-Za-z]+)\b/g)) { const w = m[1].toLowerCase(); if (dict.has(w) || dict.has(w.replace(/s$/, ''))) continue; assert(PUBLIC.includes(m[1].toLowerCase()), `names "${m[1]}", which no public page does`); names++ }
@@ -535,7 +535,7 @@ checkNow("no instruction text and nothing a mock would not carry", () => {
 
 checkNow("every name and year on a study is already on the site", () => {
   // Public-safe by construction: a study may only say what the public pages already say.
-  const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v1/index.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
+  const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v2/index.html", "v1/index.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
   const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
   const dict = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
   let names = 0, years = 0;
@@ -584,7 +584,7 @@ checkNow("about.html is his desk picks as a site page: full meta set, the nav, o
   const mainText = plain(main);
   for (const p of pieces) if (!mainText.includes(p)) throw new Error(`about.html drops the picked line "${p.slice(0, 50)}…"`);
   // Public-safe by construction, as for the studies: the old About counts as public, the new one does not vouch for itself.
-  const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v1/index.html", "v1/about.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
+  const PUBLIC = ["cv.html", "projects.html", "working-with-me.html", "speaking.html", "archive.html", "poetry.html", "photography.html", "index.html", "v2/index.html", "v1/index.html", "v1/about.html", "wedding-celebration.html", "elopement/index.html", "context/index.html", "v2/home.js", "v2/data.json"];
   const corpus = PUBLIC.map((f) => readFileSync(path.join(ROOT, f), "utf8")).join(" ").replace(/<[^>]+>/g, " ").toLowerCase();
   const dict = new Set(readFileSync("/usr/share/dict/words", "utf8").split("\n").map((w) => w.toLowerCase()));
   const text = main.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/g, " ");
@@ -691,18 +691,24 @@ checkNow("no study reaches a poem that is off the site", () => {
   return `${n} poem references in ${files} study data files, all pages on the site`;
 });
 
-checkNow("the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows", () => {
+checkNow("the wall is six ideas with Home the sixth, the noscript copy agrees, and the system's working name never shows (the wall's home, /v2/)", () => {
   const r = run("node", ["tools/test_wall.mjs"], ROOT);
   const oks = (r.out.match(/^ok /gm) || []).length;
   if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
   return `${oks} checks, rendered at 1200x800 and 390x844`;
 });
 
-checkNow("Right now: the tools line still opens the wall; each line after it opens a short note whose link lives in v2/right-now.json", () => {
+checkNow("Right now (on /v2/ only): the tools line still opens the wall; each line after it opens a short note whose link lives in v2/right-now.json", () => {
   const r = run("node", ["tools/test_right_now.mjs"], ROOT);
   const oks = (r.out.match(/^ok /gm) || []).length;
   if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).join(" | ") || r.out.trim());
   return `${oks} checks, rendered at 1200x800 and 390x844`;
+});
+
+checkNow("the home is the stone: every facet yields and nothing lies over the poem, the crossing lands on the next masses cut, the line and the chain recounted, the tools and the years reached", () => {
+  const r = run("node", ["tools/test_home.mjs"], ROOT);
+  if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).slice(0, 4).join(" | ") || r.out.trim().split("\n").slice(-4).join(" | "));
+  return r.out.trim().split("\n").filter((l) => l.startsWith("PASS the home")).map((l) => l.replace(/^PASS the home: /, "")).join("; ");
 });
 
 checkNow("idea details: coverage, audited graph, public provenance", () => {
@@ -738,17 +744,18 @@ checkNow("every page carries the Analytics tag, and track.js still finds what it
   const has = (f, needle, what) => { if (!readFileSync(path.join(ROOT, f), "utf8").includes(needle)) throw new Error(`${f} no longer has ${what}, which track.js counts`); };
   has("v2/home.js", "'idea-trigger'", "the tile button .idea-trigger");
   has("v2/home.js", "'idea-detail ", "the panel .idea-detail");
-  has("index.html", 'id="doing-tools"', "the flow view's line #doing-tools");
-  has("index.html", 'class="doing-item" data-line=', "the Right now notes .doing-item[data-line]");
+  has("v2/index.html", 'id="doing-tools"', "the flow view's line #doing-tools");
+  has("v2/index.html", 'class="doing-item" data-line=', "the Right now notes .doing-item[data-line]");
+  has("v3/stone.js", "new CustomEvent('home:track'", "the stone's home:track events");
   has("about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("v1/about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("poems/related.js", "'stanza explore-slide'", "the related poems .explore-slide");
   has("photography.html", 'id="lightbox"', "the lightbox #lightbox");
   has("photography.html", 'id="lightbox-img"', "the lightbox picture #lightbox-img");
   has("photography.html", "lightbox.classList.add('active')", "the lightbox's open state .active");
-  for (const f of ["index.html", "about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
+  for (const f of ["index.html", "v2/index.html", "about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
   has("poems/related.js", "s.src = '/track.js'", "the line that loads /track.js on every poem");
-  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home, both Abouts, the photography page and every poem`;
+  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home (the stone and /v2/), both Abouts, the photography page and every poem`;
 });
 
 process.exit(0)
