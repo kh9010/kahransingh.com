@@ -2,7 +2,9 @@
      the stone over the day's photograph, cut by its masses (33; cut.js) · the poem broken across it, door lines arriving in line order (28)
      the walk between worlds through door lines and facet doors (24, 28) · the grow crossing, re-cut to the next photograph's masses (39; cross.js),
      a crossfade under reduced motion · every facet gives a piece of his work by its shape (37 ?y=shape; segs.js, segments.json)
-     the six ideas and their tools in the facet nearest the where line (40; IDEAS read live from /v2/home.js)
+     the six ideas each behind the facet its meaning puts it on, nothing named at rest, only a breath of its hue (41 b); a tap opens the idea
+       at work on this world first (here.js, every fact live), then the general from IDEAS (read live from /v2/home.js), then why that facet;
+       a further tap on the facet opens its next tool (42 a). Six hidden buttons, one per idea, are the way in without a pointer
      the where line arriving as 35 ?a=line, and opening 34 b's chain, joined as 36 c (moment.js, why.js, body.js, ways.js)
      the photograph's own facet holding its EXIF month and year, the way into the About's years (38 ?d=c; 27 a)
    Every number is a dial in /v3/defaults.json. HOME (at the end) is what tools/test_home.mjs reads. */
@@ -158,7 +160,7 @@ function cutFor(w, t) { // t only re-seeds where the filling sites fall, never t
   const count = Math.round(phone() ? num('facets-phone', 15) : low() ? num('facets-low', 15) : num('facets-desk', 26))
   const K = S33Cut.cut({ R: REG[w.photo.src] || null, W, H, count, logic: 'masses', wind: num('wind', 8), seed: w.key + (t ? '|' + t : ''), moment: null,
     dials: { share: num('cut-share', .75), gap: num('cut-gap', .03), spacing: num('cut-spacing', .16), fillGap: num('cut-fill-gap', .13), lineMin: num('cut-line-min', .25) } })
-  w.cut = K; w.cutT = t || 0; w.sites = K.sites; const r2 = rng(hash(w.key + '|n' + (t || ''))); w.normals = w.sites.map(() => [(r2() - .5) * .9, (r2() - .5) * .9])
+  w.cut = K; w.cutT = t || 0; w.fixed = null; w.sites = K.sites; const r2 = rng(hash(w.key + '|n' + (t || ''))); w.normals = w.sites.map(() => [(r2() - .5) * .9, (r2() - .5) * .9])
   w.cells = voronoi(w.sites); w.cents = w.cells.map(centroid); w.frags = null; w.plan = null }
 
 /* ---------- the worlds and their doors (the vocabulary chooses both) ---------- */
@@ -194,9 +196,9 @@ function doorsFor(w, trail) {
 /* ---------- photographs: covering the screen once, the shade under the poem laid into them ---------- */
 const raw = {}, prepared = new Map()
 const loadImg = src => raw[src] ||= new Promise(res => { const im = new Image(); im.decoding = 'async'; im.onload = () => res(im); im.onerror = () => res(null); im.src = src })
-function poemRect(at = {}) { // 20's, yielding to the names: on a phone it stands on them (at.foot) or, where they sit above it, hangs under them (at.head); on its side it starts right of them (at.left)
-  if (phone()) { const bottom = at.foot ?? (at.head != null ? H - mat.offsetHeight - 34 : H - mat.offsetHeight - 34 - namesRoom()), top = at.head ?? Math.min(Math.round(H * .34), bottom - 160); return [16, top, W - 32, bottom - top] }
-  if (low()) { const right = Math.max(16, W * .03), w = Math.min(440, W * .48, at.left != null ? W - right - at.left : 1e9), top = Math.round(H * .16); return [W - w - right, top, w, H - top - 14] } // on its side: the poem takes the right half, the mat keeps the left
+function poemRect() { // 20's, as it was before the names needed room: on a phone it stands on the where line, in the shade; on its side it takes the right half
+  if (phone()) { const bottom = H - mat.offsetHeight - num('poem-foot-px', 34), top = Math.min(Math.round(H * .34), bottom - 160); return [16, top, W - 32, bottom - top] }
+  if (low()) { const right = Math.max(16, W * .03), w = Math.min(440, W * .48), top = Math.round(H * .16); return [W - w - right, top, w, H - top - 14] } // on its side: the poem takes the right half, the mat keeps the left
   const w = Math.min(440, W * .36), right = Math.max(32, W * .06), top = Math.round(H * .13); return [W - w - right, top, w, H * .74] }
 async function photo(p) {
   const tag = `${p.src}@${cv.width}x${cv.height}`
@@ -262,11 +264,11 @@ function lineCanvases(w) { // each line drawn once, in its face and shadow; the 
     const rows = new Map(); for (const r of L.runs) if (r.k != null) { const key = r.k + '|' + Math.round(r.y); const o = rows.get(key); if (o) { o[0] = Math.min(o[0], r.x); o[1] = Math.max(o[1], r.x + r.w) } else rows.set(key, [r.x, r.x + r.w, r.y, r.k, parseFloat(r.font.split(' ')[2])]) }
     L.unders = [...rows.values()] }
   return out }
-function placePoem(w, at) { // where the poem sits; on a phone, if it cannot fit at its smallest size it rises to just under the caption first
-  const R = poemRect(at), ceil = phone() ? ceilOf(w) : 0; if (R[1] < ceil) { R[3] -= ceil - R[1]; R[1] = ceil } // never up onto the caption
+function placePoem(w) { // where the poem sits; on a phone, if it cannot fit at its smallest size it rises to just under the caption first
+  const R = poemRect(), ceil = phone() ? ceilOf(w) : 0; if (R[1] < ceil) { R[3] -= ceil - R[1]; R[1] = ceil } // never up onto the caption
   Object.assign(w.v.style, { left: R[0] + 'px', top: R[1] + 'px' }); fit(w.v, R[2], R[3])
-  if (phone() && w.v.classList.contains('scroll') && !(at && at.head != null)) { const top = ceil; if (top < R[1]) { /* never past names above it */ R[3] += R[1] - top; R[1] = top; w.v.style.top = R[1] + 'px'; fit(w.v, R[2], R[3]) } }
-  if (phone()) { R[1] = R[1] + R[3] - w.v.offsetHeight; w.v.style.top = R[1] + 'px' } // on the phone the poem sits down on the names, in the shade
+  if (phone() && w.v.classList.contains('scroll')) { const top = ceil; if (top < R[1]) { R[3] += R[1] - top; R[1] = top; w.v.style.top = R[1] + 'px'; fit(w.v, R[2], R[3]) } }
+  if (phone()) { R[1] = R[1] + R[3] - w.v.offsetHeight; w.v.style.top = R[1] + 'px' } // on the phone the poem sits down on the where line, in the shade
   const r = w.v.getBoundingClientRect(); w.R = [r.left, r.top, r.width, r.height] }
 const ceilOf = w => { const c = capFor(w), v = rectOf('.vs'); return Math.max(c[1] + c[3], v[1] + v[3]) + num('poem-rise-gap-px', 16) } // the highest a phone's poem may rise: under the caption and the switch
 function layoutPoem(w) {
@@ -299,30 +301,15 @@ async function makeWorld(pair, mode, tr0) {
   cutFor(w)
   w.img = img
   layoutPoem(w)
-  { // no dead facet, and the six names whole in a facet by the where line: a cut that fails either is cut again (the filling sites re-seeded, the same way each time,
-    // never the photograph's lines), keeping the cut that holds the names nearest (by the line, then anywhere), and of those the one with the fewest dead facets.
-    // On a phone, upright or on its side, the names' spot is found first and the poem yields to it (stands on it, or starts right of it), keeping at least
-    // poem-least (else poem-least-tight) for itself: room is made by the poem, never by shrinking the names
-    const near = num('tools-near-px', 110), deadOf = () => drawn(w).filter(i => !touchAt(w, i, { first: true, all: true })).length, ids = () => drawn(w).map(i => ({ i }))
-    const gap = num('tools-poem-gap-px', 16), lowRight = Math.max(16, W * .03)
-    const room = least => phone() ? { minTop: ceilOf(w) + least + gap } : { maxRight: W - lowRight - least - gap } // how far the names may push the poem: it keeps at least this much
-    const yields = s => !s ? undefined : phone() ? { foot: s.box[1] - gap } : { left: Math.max(s.box[0] + s.box[2] + gap, W - lowRight - Math.min(440, W * .48)) }
-    const plan = () => { if (!phone() && !low()) return { s: toolsFacet(w, ids()), roomy: true }
-      const stops = [rectOf('#mat'), capFor(w), rectOf('.vs')], [a0, a1] = phone() ? [num('poem-least-px', 180), num('poem-least-tight-px', 90)] : [num('poem-least-w-px', 320), num('poem-least-w-tight-px', 240)]
-      let s = toolsFacet(w, ids(), { stops, ...room(a0) }), roomy = !!s; if (!s) s = toolsFacet(w, ids(), { stops, ...room(a1) })
-      if (!s && phone()) { const h = toolsFacet(w, ids(), { stops, minTop: ceilOf(w), maxBottom: H - mat.offsetHeight - 34 - a1 - gap }) // no room by the line: the names take the nearest facet that holds them above the poem, and the poem sits between them and the mat
-        if (h) return { s: h, roomy: false, at: { head: h.box[1] + h.box[3] + gap }, place: true, over: true } }
-      return { s, roomy, at: yields(s), place: true } }
-    const rankOf = p => !p.s ? 0 : p.over ? 1 : (p.s.basis.d <= near ? 3 : 1) + (p.roomy ? 2 : 1) // near and roomy, near and tight, far and roomy, then far: tight, or the names over the poem
+  { // no dead facet, and room for the six ideas: a cut is cut again (the filling sites re-seeded, the same way each time, never the photograph's lines)
+    // until at least seven of its facets may hold an idea (six, and the date's), keeping of those the cut with the fewest dead facets
+    const deadOf = () => drawn(w).filter(i => !touchAt(w, i, { first: true, all: true })).length
     let best = null, at = -1
     const cut = t => { if (at !== t) { cutFor(w, t); at = t } }
-    const settle = p => { if (!p.place) return p; placePoem(w, p.at); return p.s ? p : { s: toolsFacet(w, ids()), roomy: true } } // the poem where this cut's names want it; no spot: the poem where it was, any facet that holds them
-    for (let t = 0; t <= num('recut-tries', 64); t++) { cut(t); let p = plan(); if (best && rankOf(p) < best.rank) continue
-      p = settle(p); const rank = rankOf(p)
-      if (best && rank < best.rank) continue
-      const dead = deadOf(); if (!best || rank > best.rank || dead < best.dead) best = { t, rank, dead }
-      if (best.rank === 5 && !best.dead) break }
-    cut(best.t); settle(plan()); w.lc = lineCanvases(w); w.dirty = true }
+    for (let t = 0; t <= num('recut-tries', 64); t++) { cut(t); const room = Math.min(7, legalOf(w).length), dead = deadOf()
+      if (!best || room > best.room || (room === best.room && dead < best.dead)) best = { t, room, dead }
+      if (best.room >= 7 && !best.dead) break }
+    cut(best.t); w.lc = lineCanvases(w); w.dirty = true }
   fixedOf(w)
   w.lv = new Float32Array(w.cells.length)
   return w }
@@ -351,8 +338,8 @@ function facet(P, c, n, layers, o = {}) {
   g.save(); g.setTransform(DPR, 0, 0, DPR, 0, 0); if (o.m) g.transform(...o.m)
   g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.clip()
   const [x0, y0, x1, y1] = bbox(Qp), A = o.alpha ?? 1
-  for (const L of layers) { const a = (L.alpha ?? 1) * A; if (a <= .002 || !L.img) continue; g.globalAlpha = a
-    g.save(); if (L.m) g.transform(...L.m); g.drawImage(L.img, 0, 0, W, H); g.restore() }
+  layers.forEach((L, li) => { const a = (L.alpha ?? 1) * A; if (a > .002 && L.img) { g.globalAlpha = a; g.save(); if (L.m) g.transform(...L.m); g.drawImage(L.img, 0, 0, W, H); g.restore() }
+    if (li === 0 && o.wash && o.wash.a > .005) { g.globalCompositeOperation = 'color'; g.globalAlpha = A * o.wash.a; g.fillStyle = o.wash.hue; g.fillRect(x0, y0, x1 - x0, y1 - y0); g.globalCompositeOperation = 'source-over' } }) // the idea's hue through the photograph in this facet, its light kept; the poem's words over it keep theirs
   g.globalAlpha = A
   let dx = Lx - c[0], dy = Ly - c[1]; const Z = Math.max(W, H) * .55, d = Math.hypot(dx, dy, Z); dx /= d; dy /= d
   const nz = Math.sqrt(Math.max(0, 1 - n[0] ** 2 - n[1] ** 2)), k = clamp01((n[0] * dx + n[1] * dy + nz * Z / d - .55) / .45) * num('lamp', .75)
@@ -375,6 +362,7 @@ function facet(P, c, n, layers, o = {}) {
   if (o.under > .01) { const Ui = inset(Qp, 5); let bi = -1, by = -1e9 // a photo door's mark: the quiet underline of a door line, along the facet's lowest side
     for (let i = 0; i < Ui.length; i++) { const a = Ui[i], b = Ui[(i + 1) % Ui.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]), dy = Math.abs(b[1] - a[1]) / (l || 1); if (l < 18 || dy > .5 || Math.max(a[1], b[1]) > H - 8) continue; const y = (a[1] + b[1]) / 2; if (y > by) { by = y; bi = i } }
     if (bi >= 0) { const a = Ui[bi], b = Ui[(bi + 1) % Ui.length], t0 = .18, t1 = .82; g.lineWidth = lk; g.strokeStyle = `rgba(243,239,230,${o.under})`; g.beginPath(); g.moveTo(a[0] + (b[0] - a[0]) * t0, a[1] + (b[1] - a[1]) * t0); g.lineTo(a[0] + (b[0] - a[0]) * t1, a[1] + (b[1] - a[1]) * t1); g.stroke() } }
+  if (o.thread && o.thread.a > .005) { const Ti = inset(Qp, o.thread.px * .5 + .6); if (Ti.length > 2) { g.globalAlpha = A * o.thread.a; g.lineWidth = o.thread.px * lk; g.strokeStyle = o.thread.hue; g.beginPath(); Ti.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke(); g.globalAlpha = A } } // a ring round the rim: the facet whose idea's key has the focus
   if (o.edge > .01) { g.lineWidth = 1.2 * lk; g.strokeStyle = `rgba(255,246,228,${o.edge})`; g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke() }
   if (o.fire > .01) { g.globalCompositeOperation = 'screen' // light split at the facet's edge: spectral fringes, the only colour, and only while the light passes through; set inside the edge (22 c set them outside, past its own clip: that was the faintness)
     ;[[255, 64, 40], [60, 255, 120], [70, 110, 255]].forEach(([rr, gg, bb], j) => { g.lineWidth = 1.6 - j * .3; g.strokeStyle = `rgba(${rr},${gg},${bb},${Math.min(1, o.fire) * .65})`
@@ -386,7 +374,7 @@ const refr = () => num('refract-px', 5)
 const textLayer = (w, i, n, cell, alpha = 1) => meets(bbox(cell), w.R, 24) ? [{ img: w.text, alpha, m: tr(n[0] * refr(), n[1] * refr()) }] : [] // each facet holds the poem a little off, so it breaks at the seams
 function drawWorld(w, o = {}) { const touched = w === cur && !crossing && !pressing && !o.plain
   w.cells.forEach((P, i) => { const base = [{ img: w.img }, ...textLayer(w, i, w.normals[i], P, o.text ?? 1)]
-    const o2 = w.toolsI === i && !o.plain ? { ...o, edge: Math.max(o.edge || 0, num('tools-edge', .22)), glow: Math.max(o.glow || 0, num('tools-glow', 0)) } : o // the tools' facet: its rim drawn, a breath of light in it, so the names read as its own
+    const k = w.ideaAt ? w.ideaAt.get(i) : undefined, o2 = k != null && !o.plain ? markOf(w, i, k, o) : o // a facet that holds an idea: its mark, nothing written
     if (!touched) return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o2), o2.m, o.alpha ?? 1)
     const G = FX.glimpse && FX.glimpse.w === w && FX.glimpse.i === i && FX.win ? FX.glimpse : null
     if (G) { const u = performance.now() - G.t0, ms = num('win-hold-ms', 3600); base.splice(1, 0, { img: G.img, alpha: reduce() ? 1 : Math.min(ss(0, 420, u), 1 - ss(ms - 600, ms, u)) * num('glimpse-alpha', 1), m: G.m }) }
@@ -406,7 +394,7 @@ const drawn = w => w.cells.map((P, i) => P.length > 2 && inset(P, num('seam-px',
 function touchAt(w, i, o = {}) { // a place a finger can land on facet i that is the facet's: not a door line's row (all of them, o.all), not on or a finger's width from a link
   const P = inset(w.cells[i], 5); if (P.length < 3) return null
   const m = navigator.maxTouchPoints > 0 ? 26 : 4, step = o.first ? 8 : 4, rect = e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom] }
-  const links = [...document.querySelectorAll('#mat a, .vs a'), ...w.v.querySelectorAll('h2 a, .door')].map(rect), sw = [] // the switch and the door words too: the browser gives a finger near a link to the link
+  const links = [...document.querySelectorAll('#mat a, #where, .vs a'), ...w.v.querySelectorAll('h2 a, .door')].map(rect), sw = o.avoid || [] // the where line is one too: a tap there opens the chain, not the facet
   const [x0, y0, x1, y1] = bbox(P), c = w.cents[i]; let best = null, bd = Infinity
   for (let y = Math.ceil(y0); y <= y1; y += step) for (let x = Math.ceil(x0); x <= x1; x += step) {
     if (x < 1 || y < 1 || x > W - 1 || y > H - 1 || !inPoly([x, y], P) || doorAt(x, y, w, o.all)) continue
@@ -428,7 +416,7 @@ function pulse(i, amp = 1.4, ms = 650) { FX.pulses.push({ i, amp, ms, t0: perfor
 function breathe(w) { if (!reduce()) w.breath0 = performance.now() + num('breath-delay-ms', 400) }
 
 /* ---------- Study 37's one question: every facet gives a segment of his work, linked by something real to where it sits ---------- */
-const PLAN = 'home-plan' // a facet's segment is dealt once and kept for the visit: the same facet, the same piece, the same depth
+const PLAN = 'home-plan-2' // (was home-plan, before the ideas took six facets and the cut its own re-seeds: a plan kept from then is for another cut) a facet's segment is dealt once and kept for the visit: the same facet, the same piece, the same depth
 const planStore = () => { try { return JSON.parse(sessionStorage.getItem(PLAN)) || {} } catch { return {} } }
 const planKey = w => [Y, W, H, w.key].join('|')
 const D37 = { SEG: null, data, VOC, KIN, stanzasOf } // filled when segments.json arrives; the wall's sentences are the tools facet's now, whole
@@ -441,94 +429,141 @@ function facetsOf(w) { // each drawn facet as 33's cut describes it (its centre 
     const door = w.doors.findIndex(d => { const l = d.el.closest('.l'); return [...l.getClientRects()].some(r => { for (let a = 0; a <= 4; a++) for (let b = 0; b <= 1; b++) if (inPoly([r.left + r.width * a / 4, r.top + r.height * (.25 + b * .5)], P)) return true; return false }) })
     const near = ls.length ? ls.reduce((b, l) => Math.abs(l.y - w.cents[i][1]) < Math.abs(b.y - w.cents[i][1]) ? l : b, ls[0]) : null
     return S37.describe(fcs[i], R, { door: door >= 0 ? door : null, line: near ? near.k : null, c: fcs[i].centroid }) }) }
-/* ---------- the tools: which facet holds them, the six names on it, the idea a name opens ---------- */
-const namesEl = $('#names'), toolsEl = $('#tools')
+/* ---------- the six ideas BEHIND six facets, never on screen at rest; which facet holds which, and why (41 b, by meaning) ---------- */
+const toolsEl = $('#tools')
 const rectOf = q => { const e = typeof q === 'string' ? document.querySelector(q) : q, r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height] }
 const meet = (a, b, pad = 0) => a[0] < b[0] + b[2] + pad && a[0] + a[2] + pad > b[0] && a[1] < b[1] + b[3] + pad && a[1] + a[3] + pad > b[1]
 const gapOf = (a, b) => Math.hypot(Math.max(0, b[0] - (a[0] + a[2]), a[0] - (b[0] + b[2])), Math.max(0, b[1] - (a[1] + a[3]), a[1] - (b[1] + b[3]))) // edge to edge, 0 when they touch
 function whereRect() { const r = rectOf('#where'); return r[3] > 0 ? r : rectOf('#mat h1') } // the line that says where he is and the sky; before it is written, the name it sits under
-const boxes = new Map()
-const namesRoom = () => { const b = namesBoxes().find(b => b[0] <= W - 32) || namesBoxes().at(-1); return b[1] + num('tools-room-px', 34) } // on a phone the poem sits on the where line; it stands up by the names' height, so they can sit beside the line there too
-const FORMS = [[2.6], [1.6], [1], [.8], [.64], [0, 'col'], [0, 'col tight']] // one long row, then two, then wrapped narrower; then one name a line, then the same tracked tighter, for a slim facet
-function namesBoxes() { // the six names in every shape they can take, each measured to its last letter (a name never wraps, so it can be wider than the measure); sized once per screen
-  if (!namesEl.children.length) IDEAS.forEach((I, k) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = I.name; b.title = I.line; b.setAttribute('aria-label', I.name); b.dataset.k = k; b.style.setProperty('--hue', HUE[I.hue] || ''); namesEl.append(b) })
-  const key = W + 'x' + H; if (boxes.has(key)) return boxes.get(key)
-  const m0 = phone() ? num('tools-measure-phone-px', 190) : num('tools-measure-px', 250), keep = [namesEl.style.maxWidth, namesEl.classList.contains('col'), namesEl.classList.contains('tight')], out = []
-  for (const [k, form = ''] of FORMS) { formNames(k ? Math.round(m0 * k) : 0, form); const r = namesEl.getBoundingClientRect(); let x1 = r.right, y1 = r.bottom
-    for (const b of namesEl.children) { const q = b.getBoundingClientRect(); x1 = Math.max(x1, q.right); y1 = Math.max(y1, q.bottom) }
-    out.push([Math.ceil(x1 - r.left), Math.ceil(y1 - r.top), k ? Math.round(m0 * k) : 0, form]) }
-  namesEl.style.maxWidth = keep[0]; namesEl.classList.toggle('col', keep[1]); namesEl.classList.toggle('tight', keep[2]); boxes.set(key, out); return out }
-function formNames(mw, form) { namesEl.style.maxWidth = mw ? mw + 'px' : ''; for (const c of ['col', 'tight']) namesEl.classList.toggle(c, (form || '').split(' ').includes(c)) }
-const edgeD = ([x, y], P) => { let d = Infinity; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [ax, ay] = P[j], [bx, by] = P[i], vx = bx - ax, vy = by - ay, l2 = vx * vx + vy * vy || 1, t = Math.max(0, Math.min(1, ((x - ax) * vx + (y - ay) * vy) / l2)); d = Math.min(d, Math.hypot(x - ax - t * vx, y - ay - t * vy)) } return d }
-const ringOf = (x, y, bw, bh) => { const pts = [], nx = Math.max(2, Math.ceil(bw / 8)), ny = Math.max(2, Math.ceil(bh / 8)); for (let a = 0; a <= nx; a++) pts.push([x + bw * a / nx, y], [x + bw * a / nx, y + bh]); for (let a = 1; a < ny; a++) pts.push([x, y + bh * a / ny], [x + bw, y + bh * a / ny]); return pts }
-function fitIn(w, i, stops, to, minTop = 0, maxRight = 1e9, maxBottom = 1e9) { // where the names can sit WHOLLY on facet i (Kahran, 9 Nov: never over a seam): every corner and every point of their edge inside its cut, a seam's width and a breath in,
-  // clear of the poem, the name, the caption and the switch; in whichever shape lets them sit nearest the where line, then flush with it, then nearest the facet's centre
-  const cell = w.cells[i], inn = num('seam-px', 2.2) + num('tools-pad-px', 8), P = inset(cell, inn); if (P.length < 3) return null
-  const [x0, y0, x1, y1] = bbox(P), c = w.cents[i]; let best = null, bd = Infinity
-  for (const [bw, bh, mw, form] of namesBoxes()) if (bw <= x1 - x0 && bh <= y1 - y0)
-    for (let y = Math.max(y0, minTop); y + bh <= Math.min(y1, maxBottom); y += 4) for (let x = x0; x + bw <= Math.min(x1, maxRight); x += 4) {
-      if (x < 8 || y < 8 || x + bw > W - 8 || y + bh > H - 8) continue
-      const g0 = gapOf([x, y, bw, bh], to), d = g0 * 1e4 + bh * 20 + Math.abs(x - to[0]) * 10 + Math.hypot(x + bw / 2 - c[0], y + bh / 2 - c[1]); if (d >= bd) continue
-      if (![[x, y], [x + bw, y], [x, y + bh], [x + bw, y + bh]].every(p => inPoly(p, P)) || stops.some(o => meet([x, y, bw, bh], o, 10))) continue
-      if (!ringOf(x, y, bw, bh).every(p => inPoly(p, cell) && edgeD(p, cell) >= inn - .5)) continue // against the cut itself, not only its inset (a sharp corner's inset is pulled in short)
-      bd = d; best = [Math.round(x), Math.round(y), bw, bh, mw, form] }
-  return best }
 function capFor(w) { const was = cap.textContent; cap.textContent = w.photo.caption || ''; const r = rectOf('#cap'); cap.textContent = was; return r } // this world's caption, where it will sit (a world is planned before it is shown)
-const stopsOf = w => [w.R, rectOf('#mat'), capFor(w), rectOf('.vs')]
-function toolsFacet(w, fs, o = {}) { // the facet nearest the where line that can hold the names whole (a door line over it still opens its door: the names are their own buttons)
-  const where = whereRect(), stops = o.stops || stopsOf(w)
-  const cand = fs.map(f => { const box = fitIn(w, f.i, stops, where, o.minTop || 0, o.maxRight ?? 1e9, o.maxBottom ?? 1e9); return box && { i: f.i, box, d: +gapOf(box, where).toFixed(1) } }).filter(Boolean).sort((a, b) => a.d - b.d)
-  if (!cand.length) return null
-  const [c0, c1] = cand
-  return { i: c0.i, box: c0.box, basis: { rule: 'nearest the where line, wholly inside', where, d: c0.d, next: c1 ? { i: c1.i, d: c1.d } : null, holds: cand.length, of: fs.length } } }
-let toolsOpen = -1
-function showNames(w) { const p = planOf(w).find(p => p && p.kind === 'tools')
-  namesBoxes(); namesEl.classList.toggle('on', !!p && toolsOpen < 0)
-  if (p) { formNames(p.box[4], p.box[5]); Object.assign(namesEl.style, { left: p.box[0] + 'px', top: p.box[1] + 'px' }) } }
+const whereWords = () => (FS.line ? FS.line.sentence : whereEl.textContent).trim()
+function reachOf(P, r) { // how far a facet's own cut is from a thing on the stone: 0 when it holds the thing's centre or touches it, else edge to edge
+  if (inPoly([r[0] + r[2] / 2, r[1] + r[3] / 2], P)) return 0
+  let d = Infinity; for (let i = 0; i < P.length; i++) { const a = P[i], b = P[(i + 1) % P.length], n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 4))
+    for (let s = 0; s <= n; s++) d = Math.min(d, gapOf([a[0] + (b[0] - a[0]) * s / n, a[1] + (b[1] - a[1]) * s / n, 0, 0], r)) }
+  return d }
+const seamWith = (P, Q) => P.filter(p => Q.some(q => Math.hypot(p[0] - q[0], p[1] - q[1]) < 1.5)).length >= 2 // two facets share a seam: two corners in common
+function hitsOf(w, rects) { const out = new Set() // the facet a run of words sits in: the one under its middle (each line of it, if it wraps)
+  for (const r of rects) { const p = [r.left + r.width / 2, r.top + r.height / 2]; for (const i of drawn(w)) if (inPoly(p, w.cells[i])) out.add(i) }
+  return out }
+function barred(w) { // the facets no idea may take: the title's (it is a link to the poem) and each door's, the facet its words sit in (a crossing leaves from there)
+  return { title: hitsOf(w, [...w.v.querySelector('h2 a').getClientRects()]), doors: hitsOf(w, w.doors.flatMap(d => [...d.el.getClientRects()])) } }
+function legalOf(w, yearI = -1) { const { title, doors } = barred(w) // and a finger must be able to land on it, clear of every door row and link
+  return drawn(w).filter(i => i !== yearI && !title.has(i) && !doors.has(i) && touchAt(w, i, { first: true, all: true })) }
+/* b's table: each idea and the thing on the stone it answers to, chosen in this order, each the nearest free facet to its thing.
+   Keyed by name: re-cut IDEAS and check.mjs says which idea has no reason */
+const MEANING = [
+  ['Context', w => ({ r: whereRect(), said: d => `nearest ‘${whereWords()}’ · the place and the sky it states are what this idea gathers` })],
+  ['Topically suggesting', w => ({ r: rectOf(w.v.querySelector('h2')), said: d => `nearest the title, ‘${w.poem.title}’ · today’s poem is the suggestion this moment made` })],
+  ['Home', w => ({ r: rectOf('#mat h1'), said: d => `nearest his name · this page is one of the things the home runs` })],
+  ['Keeping track', w => ({ year: true, said: (d, nb, lab, none) => none ? `nearest the caption, the photograph’s place · the record is kept by where and when` : nb ? `beside the date, ${lab} · a seam shared with it · the record is kept by when` : `nearest the date, ${lab} · the record is kept by when` })],
+  ['Staying up to date', w => ({ r: rectOf('.vs'), said: d => `nearest v3 · v2 · v1 · the site kept current, its earlier versions still open` })],
+  ['Self-healing', w => ({ watch: true, said: (n, d) => n ? `sharing a seam with ${n} of the five it watches · they are kept running from here` : `nearest the middle of the five it watches · they are kept running from here` })]]
+function assign(w, legal, yearI) { // the six ideas, each { k, i, d, basis }, in IDEAS' order (41 b, by meaning); null if this cut cannot seat them all
+  if (legal.length < IDEAS.length) return null
+  const out = new Array(IDEAS.length).fill(null), free = new Set(legal), yr = recOf(w.photo.src), lab = yr ? dateLabel(yr) : 'unknown'
+  for (const [name, f] of MEANING) { const k = IDEAS.findIndex(I => I.name === name); if (k < 0) continue; const m = f(w)
+    if (m.watch) continue
+    let pick
+    if (m.year) { const Y0 = yearI >= 0 ? w.cells[yearI] : null, yb = yearI >= 0 ? (() => { const c = w.cents[yearI]; return [c[0], c[1], 0, 0] })() : capFor(w)
+      const c = [...free].map(i => ({ i, nb: !!Y0 && seamWith(w.cells[i], Y0), d: reachOf(w.cells[i], yb) })).sort((a, b) => b.nb - a.nb || a.d - b.d || a.i - b.i)[0]
+      if (c) pick = { i: c.i, d: c.d, basis: m.said(c.d, c.nb, lab, !Y0) } } // no date on this stone: the caption, which names the photograph's place
+    else { const c = [...free].map(i => ({ i, d: reachOf(w.cells[i], m.r) })).sort((a, b) => a.d - b.d || a.i - b.i)[0]; if (c) pick = { i: c.i, d: c.d, basis: m.said(c.d) } }
+    if (!pick) return null; free.delete(pick.i); out[k] = { k, i: pick.i, d: +pick.d.toFixed(1), basis: pick.basis } }
+  for (const [name, f] of MEANING) { const k = IDEAS.findIndex(I => I.name === name); if (k < 0) continue; const m = f(w); if (!m.watch) continue
+    const five = out.filter(Boolean).map(x => x.i), mid = five.reduce((s, i) => [s[0] + w.cents[i][0] / five.length, s[1] + w.cents[i][1] / five.length], [0, 0])
+    const c = [...free].map(i => ({ i, n: five.filter(j => seamWith(w.cells[i], w.cells[j])).length, d: Math.hypot(w.cents[i][0] - mid[0], w.cents[i][1] - mid[1]) })).sort((a, b) => b.n - a.n || a.d - b.d || a.i - b.i)[0]
+    if (!c) return null; free.delete(c.i); out[k] = { k, i: c.i, d: +c.d.toFixed(1), n: c.n, basis: m.said(c.n, c.d) } }
+  return out.every(Boolean) ? out : null }
+function markOf(w, i, k, o) { // how a holding facet reads as different at rest, without a word: a breath of its idea's hue through the facet (41 b);
+  // its key focused from the keyboard, a ring round its rim, so the eye finds the facet the key opens
+  const hue = HUE[IDEAS[k].hue] || 'rgb(243,239,230)', open = toolsOpen === k && toolsAt === i && w === cur
+  return { ...o, wash: { hue, a: num('idea-wash', .2) + (open ? num('idea-open-lift', .2) : 0) }, thread: keyAt === k && w === cur ? { hue: 'rgb(243,239,230)', a: num('focus-ring-alpha', .95), px: num('focus-ring-px', 2.5) } : null } }
+let toolsOpen = -1, toolsAt = -1, keyAt = -1
 function toolsBand(w) { // the clear band for an idea: away from the poem and the name; the caption steps aside while it is open
   const R = w.R, m = rectOf('#mat'), v = rectOf('.vs'), pad = 16, cands = []
   if (phone()) cands.push([pad, v[1] + v[3] + 6, W - pad * 2, R[1] - 12 - (v[1] + v[3] + 6)])
   else { const left = Math.max(16, Math.min(56, W * .034)), top = low() ? 12 : Math.max(48, H * .07)
     cands.push([left, top, Math.min(low() ? 9999 : num('tools-band-px', 440), R[0] - 24 - left), m[1] - 14 - top]) }
   const b = cands[0]; return [b[0], b[1], Math.max(0, b[2]), Math.max(0, b[3])] }
-function openTools(k) { const w = cur, I = IDEAS[k]; if (!w || !I) return
-  toolsOpen = k; toolsEl.textContent = ''; document.body.classList.add('tools-open')
-  const nav = document.createElement('nav'); IDEAS.forEach((J, j) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = J.name; b.dataset.k = j; b.style.setProperty('--hue', HUE[J.hue] || ''); if (j === k) b.setAttribute('aria-current', 'true'); nav.append(b) })
-  const h = document.createElement('h2'); if (I.href) h.append(Object.assign(document.createElement('a'), { href: I.href, textContent: I.name })); else h.textContent = I.name
-  const d = I.detail || {}, ul = document.createElement('ul')
-  I.parts.forEach((part, j) => { const li = document.createElement('li'), b = document.createElement('button'), q = document.createElement('p')
-    b.type = 'button'; b.textContent = part; b.dataset.part = j; b.setAttribute('aria-expanded', 'false'); q.textContent = (d.tools || [])[j] || ''; q.hidden = true; li.append(b, q); ul.append(li) })
-  toolsEl.append(nav, h); if (d.intro) toolsEl.append(Object.assign(document.createElement('p'), { textContent: d.intro })); toolsEl.append(ul)
-  if (d.boundary) toolsEl.append(Object.assign(document.createElement('p'), { className: 'boundary', textContent: d.boundary }))
-  const [l, t, bw, bh] = toolsBand(w); Object.assign(toolsEl.style, { left: l + 'px', top: t + 'px', width: bw + 'px', maxHeight: bh + 'px' }); toolsEl.scrollTop = 0
-  if (!phone()) Object.assign(toolsEl.style, { top: '', bottom: H - t - bh + 'px' }) // it rises from the name and the where line, where the names were, and grows upward as tools open
+/* ---------- what opens (42 a). First and largest, the idea at work on this world (/v3/here.js, every fact live); beneath, smaller, how it
+   works generally (IDEAS' intro, tools and boundary, read from /v2/home.js); the one quiet line that says why this facet. here.js and what it
+   reads are fetched once the stone is up, never for the first screen; if any of it fails, the panel opens with the general alone ---------- */
+let hereGo = null, openedAt = 0
+const hereReady = () => hereGo ||= Promise.all([script('/v3/here.js').then(() => S42.load()), whyReady()]).catch(e => { console.error('here: ' + (e && e.stack || e)); return null })
+const readAt = () => { try { const c = JSON.parse(sessionStorage.getItem('kahranWeatherCache')); return c && typeof c.at === 'number' ? c.at : null } catch { return null } } // weather.js's own note of when it read the sky
+async function hereFor(photo, poem, mode) { const ok = await hereReady(); if (!ok || !window.S42) return {} // nothing of this world to say: the general alone
+  try { return S42.say(S42.facts({ photo, poem, mode, ctx, model: whyModel, stepOf: window.S34 ? S34.stepOf : null, where: whereWords(), readAt: readAt(), XJ, IDEAS, src: await S42.load() })) }
+  catch (e) { console.error('here: ' + (e && e.stack || e)); return {} } }
+const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e }
+function snap() { // the panel shows whole lines: where its room ends inside a line, it ends at the line before, and scrolls for the rest
+  const t = toolsEl, room = parseFloat(t.dataset.room || '0'); if (!room) return
+  t.style.maxHeight = room + 'px'; if (t.scrollHeight <= room + 1) return
+  const top = t.getBoundingClientRect().top, pad = parseFloat(getComputedStyle(t).paddingBottom) || 0, lines = []
+  const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) { const r = document.createRange(); r.selectNodeContents(n); for (const q of r.getClientRects()) if (q.height) lines.push(q.bottom - top + t.scrollTop) } else n.childNodes.forEach(walk) }
+  t.querySelectorAll(':scope > *:not([hidden])').forEach(c => { if (c.offsetParent !== null) walk(c) })
+  const fit = lines.filter(b => b <= room - pad).sort((a, b) => b - a)[0]; if (fit) t.style.maxHeight = Math.ceil(fit) + 'px' } // the edge on a line's foot: the next line starts below it, none is cut
+function toolItem(I, j, open) { const li = mk('li'), b = mk('button', null, I.parts[j]), q = mk('p', null, (I.detail.tools || [])[j] || '')
+  b.type = 'button'; b.dataset.part = j; b.setAttribute('aria-expanded', String(!!open)); q.hidden = !open; li.append(b, q); return li }
+function fill(k, said) { // lays the panel for idea k: this world's sentences (none yet, or none to say), the basis line, the general
+  const I = IDEAS[k], d = I.detail || {}, p = cur && planOf(cur)[toolsAt], t = toolsEl
+  t.textContent = ''
+  const h = mk('h2'); if (I.href) h.append(Object.assign(mk('a', null, I.name), { href: I.href })); else h.textContent = I.name
+  const basis = p && p.basis ? mk('small', 'basis', p.basis) : null, gen = mk('div', 'gen'), L = said ? said[I.name] || [] : []
+  t.append(h)
+  if (L.length) t.append(mk('p', 'here', L.map(x => x.s).join(' '))); if (basis) t.append(basis)
+  gen.append(mk('p', 'intro', d.intro || '')); const ul = mk('ul'); I.parts.forEach((_, j) => ul.append(toolItem(I, j, false))); gen.append(ul)
+  if (d.boundary) gen.append(mk('p', 'boundary', d.boundary))
+  t.append(gen)
+  t.dataset.ready = said ? 'yes' : 'no'; snap() }
+function openTools(k, i) { const w = cur, I = IDEAS[k]; if (!w || !I) return
+  openedAt = performance.now()
+  toolsOpen = k; toolsAt = i; keysOpen(); document.body.classList.add('tools-open'); toolsEl.style.setProperty('--hue', HUE[I.hue] || ''); toolsEl.textContent = ''
+  const [l, t, bw, bh] = toolsBand(w); Object.assign(toolsEl.style, { left: l + 'px', top: t + 'px', width: bw + 'px', maxHeight: bh + 'px' }); toolsEl.dataset.room = bh
+  if (!phone()) Object.assign(toolsEl.style, { top: '', bottom: H - t - bh + 'px' }) // it rises from the name and the where line, and grows upward as tools open
   else toolsEl.style.bottom = ''
-  toolsEl.classList.add('on'); namesEl.classList.remove('on'); said(-1, 'tools', { idea: I.name }) }
-function closeTools() { if (toolsOpen < 0) return; toolsOpen = -1; toolsEl.classList.remove('on'); document.body.classList.remove('tools-open'); if (cur) showNames(cur) }
-namesEl.addEventListener('click', e => { const b = e.target.closest('button'); if (b && !busy) { track('tools_open', { idea: IDEAS[+b.dataset.k].name, via: 'name' }); openTools(+b.dataset.k) } })
-toolsEl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return
-  if (b.dataset.k != null) { if (+b.dataset.k === toolsOpen) return closeTools(); track('tools_open', { idea: IDEAS[+b.dataset.k].name, via: 'idea' }); return openTools(+b.dataset.k) }
-  const q = b.nextElementSibling, open = q.hidden; q.hidden = !open; b.setAttribute('aria-expanded', String(open)) })
-addEventListener('pointerdown', e => { if (toolsOpen < 0 || e.target.closest('#tools, #names')) return; e.stopImmediatePropagation(); closeTools() }, true) // with an idea open, a touch elsewhere only closes it
-addEventListener('keydown', e => { if (e.key === 'Escape') closeTools() })
-/* the two facets placed by a reason of their own, before anything is dealt: the tools (40: nearest the where line) and the photograph's
-   date (38 c: the facet where its month and year read clearest on the photograph itself). The tools keep theirs if both want the same one */
+  fill(k, w.said || null); toolsEl.scrollTop = 0
+  toolsEl.classList.add('on'); said(i, 'idea', { idea: I.name, k })
+  if (!w.said) hereFor(w.photo, w.poem, w.mode).then(S => { w.said = S; if (cur === w && toolsOpen === k && toolsAt === i) { fill(k, S); toolsEl.scrollTop = 0 } }) }
+function closeTools() { if (toolsOpen < 0) return; toolsOpen = -1; toolsAt = -1; keysOpen(); toolsEl.classList.remove('on'); document.body.classList.remove('tools-open') }
+/* the way in without a pointer (the canvas is hidden from assistive tech): six buttons, one per idea in IDEAS' order, named for it and never
+   shown; focusing one rings its facet, Enter or Space opens it, Escape closes it and gives the focus back */
+const keysEl = $('#keys')
+IDEAS.forEach((I, k) => { const b = mk('button'); b.type = 'button'; b.dataset.k = k; b.setAttribute('aria-label', I.name); b.setAttribute('aria-controls', 'tools'); b.setAttribute('aria-expanded', 'false')
+  b.addEventListener('focus', () => { keyAt = k }); b.addEventListener('blur', () => { if (keyAt === k) keyAt = -1 })
+  b.addEventListener('click', () => { const x = cur && !busy && fixedOf(cur).ideas.find(x => x.k === k); if (!x) return
+    if (toolsOpen === k) return closeTools(); track('tools_open', { idea: I.name, via: 'key' }); openTools(k, x.i) })
+  keysEl.append(b) })
+function keysOpen() { for (const b of keysEl.children) b.setAttribute('aria-expanded', String(+b.dataset.k === toolsOpen)) }
+const toolSet = (b, open) => { b.nextElementSibling.hidden = !open; b.setAttribute('aria-expanded', String(open)); snap() }
+function deeper() { // the idea's own facet again: its next tool opens, in the table's order; past the last, the facet has given all it holds and closes
+  const i = toolsAt; pulse(i, .8, 500); openedAt = performance.now() // the click this touch sends next must not land on what it lays open
+  const b = [...toolsEl.querySelectorAll('li > button')].find(b => b.getAttribute('aria-expanded') === 'false')
+  if (!b) { said(i, 'closed', { idea: IDEAS[toolsOpen].name }); return closeTools() }
+  toolSet(b, true); b.parentElement.scrollIntoView({ block: 'nearest' }); said(i, 'tool', { idea: IDEAS[toolsOpen].name, part: +b.dataset.part }) }
+toolsEl.addEventListener('click', e => { const b = e.target.closest('li > button'); if (b && performance.now() - openedAt > 400) toolSet(b, b.getAttribute('aria-expanded') !== 'true') }) // not the click a touch on the facet sends after it, landing on the panel that touch just opened
+addEventListener('pointerdown', e => { if (toolsOpen < 0 || e.target.closest('#tools')) return; e.stopImmediatePropagation() // with an idea open, a touch elsewhere only closes it; its own facet goes deeper
+  if (cur && !e.target.closest('a, button, header') && facetAt(e.clientX, e.clientY) === toolsAt && !doorAt(e.clientX, e.clientY, cur, true)) return deeper()
+  closeTools() }, true)
+addEventListener('keydown', e => { if (e.key !== 'Escape' || toolsOpen < 0) return; const k = toolsOpen; closeTools(); if (e.target.closest?.('#keys, #tools')) keysEl.children[k].focus({ preventScroll: true }) })
+/* the facets placed by a reason of their own, before anything is dealt: the photograph's date (38 c: the facet where its month and year
+   read clearest on the photograph itself), then the six ideas by 41 b's rule, never on the date's, the title's or a door's facet (the facet its words lie on) */
 function fixedOf(w) {
   if (w.fixed) return w.fixed
-  const fs = facetsOf(w), tools = toolsFacet(w, fs), year = yearFacet(w, fs, tools)
-  w.toolsI = tools ? tools.i : -1; w.yearI = year ? year.i : -1
-  return w.fixed = { fs, tools, year } }
+  const fs = facetsOf(w), year = yearFacet(w, fs, null), yearI = year ? year.i : -1, legal = legalOf(w, yearI), ideas = assign(w, legal, yearI) || []
+  w.yearI = yearI; w.ideaAt = new Map(ideas.map(x => [x.i, x.k]))
+  return w.fixed = { fs, year, ideas, legal } }
 function planOf(w) {
   if (w.plan) return w.plan
-  const { fs, tools, year } = fixedOf(w), plan = w.cells.map(() => null)
-  if (tools) plan[tools.i] = { kind: 'tools', id: 'tools', facet: fs.find(f => f.i === tools.i), box: tools.box, basis: tools.basis, steps: [{ t: 'tools' }] }
+  const { fs, year, ideas } = fixedOf(w), plan = w.cells.map(() => null)
+  for (const x of ideas) plan[x.i] = { kind: 'idea', id: 'idea:' + x.k, k: x.k, facet: fs.find(f => f.i === x.i), basis: x.basis, d: x.d, steps: [{ t: 'idea' }] }
   if (year) plan[year.i] = { kind: 'year', id: 'year', facet: fs.find(f => f.i === year.i), box: year.box, at: year.at, basis: year.basis, rec: year.rec, steps: [{ t: 'year' }] }
-  if (!SEG) return plan // the rest is dealt when segments.json is here (segReady); until then only these two are known
-  const st = planStore(), key = planKey(w), fixed = p => p && (p.kind === 'tools' || p.kind === 'year')
+  if (!SEG) return plan // the rest is dealt when segments.json is here (segReady); until then only these are known
+  const st = planStore(), key = planKey(w), fixed = p => p && (p.kind === 'idea' || p.kind === 'year')
   if (st[key] && st[key].length === w.cells.length && st[key].every((p, i) => fixed(plan[i]) ? true : !p || segBy(p.id))) { w.plan = st[key].map((p, i) => fixed(plan[i]) ? plan[i] : p && { ...p, seg: segBy(p.id) }); return w.plan } // the visit's plan, verbatim
   const world = { photo: w.photo.src, poem: w.poem.slug, trail: w.trail, doors: w.doors.map(d => ({ phrase: d.phrase, word: d.word, line: d.line })),
     taken: w.doors.map(d => d.to.photo.src), takenPoems: w.doors.map(d => d.to.poem.slug) } // the door lines' worlds are theirs: no facet promises one
-  const rest = fs.filter(f => f.i !== w.toolsI && f.i !== w.yearI) // the tools and the date take their facets first; the rest give his work
+  const rest = fs.filter(f => !w.ideaAt.has(f.i) && f.i !== w.yearI) // the ideas and the date take their facets first; the rest give his work
   const dealt = S37.deal(world, rest, D37, Y)
   rest.forEach((f, k) => { const p = dealt[k]; if (p) plan[f.i] = { kind: p.seg.kind, id: p.seg.id, seg: p.seg, link: p.link, cls: p.cls, basis: p.basis, facet: f, to: p.to, steps: p.steps } })
   st[key] = plan.map(p => p && (fixed(p) ? { kind: p.kind } : { ...p, seg: undefined })); try { sessionStorage.setItem(PLAN, JSON.stringify(st)) } catch {}
@@ -617,10 +652,10 @@ async function yearsBack() {
   try { const from = rectIn(lift.querySelector('img')); placeEl(phEl, from); phEl.hidden = false; lift.style.visibility = 'hidden'
     at(cur && cur.mode === 'home' ? 'stone' : 'world')
     await flyRect(from, { x: 0, y: 0, w: W, h: H }, num('fly-ms', 1100))
-    phEl.hidden = true; cleanAbout(aboutF.contentDocument); lift = null; if (cur) { showNames(cur); showYear(cur) } } finally { yearsBusy = false } }
+    phEl.hidden = true; cleanAbout(aboutF.contentDocument); lift = null; if (cur) showYear(cur) } finally { yearsBusy = false } }
 yearA.addEventListener('click', e => { e.preventDefault(); if (!busy && cur) yearsOut('date') })
 yearA.addEventListener('pointerenter', () => aboutFrame()) // a pointer on its way to the date: the About starts loading
-const DEPTH = 's40-depth', depthStore = () => { try { return JSON.parse(sessionStorage.getItem(DEPTH)) || {} } catch { return {} } }
+const DEPTH = 'home-depth-2', depthStore = () => { try { return JSON.parse(sessionStorage.getItem(DEPTH)) || {} } catch { return {} } }
 const depthOf = (w, i) => depthStore()[planKey(w) + '#' + i] || 0
 const deepen = (w, i) => { const s = depthStore(); s[planKey(w) + '#' + i] = depthOf(w, i) + 1; try { sessionStorage.setItem(DEPTH, JSON.stringify(s)) } catch {} }
 const nextStep = (w, i) => { const p = planOf(w)[i]; if (!p) return null; return p.steps[Math.min(depthOf(w, i), p.steps.length - 1)] }
@@ -667,7 +702,7 @@ async function facetTap(i) {
   const w0 = cur; if (!w0) return
   if (!planOf(w0)[i] && !SEG) { await segReady(); if (cur !== w0) return }
   const w = cur, p = planOf(w)[i]; if (!p) return
-  if (p.kind === 'tools') { pulse(i, .8, 500); track('tools_open', { idea: IDEAS[0].name, via: 'facet' }); return openTools(0) } // the facet itself opens the first idea; its names open their own
+  if (p.kind === 'idea') { pulse(i, .8, 500); track('tools_open', { idea: IDEAS[p.k].name, via: 'facet' }); return openTools(p.k, i) } // the facet opens the idea it holds
   if (p.kind === 'year') { pulse(i, .8, 500); said(i, 'year', { taken: p.rec.taken }); return yearsOut('facet') } // the photograph's date: into its year in the About
   const s = nextStep(w, i), depth = depthOf(w, i); deepen(w, i)
   if (s.t !== 'move') { showWin(i, s); if (s.t === 'glimpse') glimpse(w, i, s); pulse(i, .8, 500); return said(i, s.t, { depth, key: S37.stepKey(s), text: s.big || s.lines.join(' / ') }) }
@@ -682,6 +717,7 @@ function liftOf(w, i, now) { let t = 0
     if (u > 0 && u < 1) t = Math.max(t, Math.sin(u * Math.PI) * num('breath', .8)); if (now - w.breath0 > num('breath-ms', 1400) * 1.5 + 600) w.breath0 = 0 }
   for (const p of FX.pulses) if (p.i === i) { const u = (now - p.t0) / p.ms; if (u > 0 && u < 1) t = Math.max(t, Math.sin(u * Math.PI) * p.amp) }
   if (FX.win && FX.win.w === w && FX.win.i === i) t = Math.max(t, .5)
+  if (toolsOpen >= 0 && toolsAt === i && w === cur) t = Math.max(t, .5) // the facet whose idea is open stays lifted while it is
   return t }
 function fxOf(w, i) { const lv = w.lv ? w.lv[i] : 0, c = w.cents[i], o = { glow: .05 * Math.max(0, lv), shade: .1 * Math.max(0, -lv) }, s = 1 + .018 * lv
   if (s !== 1) o.m = about(c, sc(s))
@@ -694,7 +730,7 @@ function winFrame(now) { const v = FX.win; if (!v) return
 /* ---------- state ---------- */
 let cur = null, busy = false, pressing = null, crossing = null, homeWin = -1
 const at = s => { document.body.dataset.at = s }
-function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug; document.body.dataset.photo = w.photo.src; closeTools(); showNames(w); showYear(w) }
+function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug; document.body.dataset.photo = w.photo.src; closeTools(); showYear(w) }
 const live = () => [cur, pressing && pressing.next, crossing && crossing.next].filter(Boolean)
 
 /* pressing in (20 d): the stone gives under the finger, its seams open onto the world beneath; let go early and it comes back */
@@ -875,7 +911,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get drawn() { return cur ? drawn(cur) : [] },
   segReady: () => segReady(), get dealt() { return !!SEG },
   plan(i) { const p = cur && planOf(cur)[i]; if (!p) return null
-    if (p.kind === 'tools' || p.kind === 'year') return { kind: p.kind, id: p.id, basis: p.basis, facet: p.facet, box: p.box, at: p.at || null, taken: p.rec ? p.rec.taken : null }
+    if (p.kind === 'idea' || p.kind === 'year') return { kind: p.kind, id: p.id, k: p.k ?? null, basis: p.basis, facet: p.facet, box: p.box || null, at: p.at || null, taken: p.rec ? p.rec.taken : null }
     return { kind: p.kind, id: p.id, cls: p.cls, link: p.link, basis: p.basis, facet: p.facet, to: k2(p.to), poem: p.seg.poem || null, src: p.seg.img || null,
       steps: p.steps.map(st => ({ t: st.t, key: S37.stepKey(st), big: st.big || null, small: st.small || null, lines: st.lines || null, href: st.href || null, src: st.src || null, cell: st.cell ?? null, whole: !!st.whole, to: st.to ? k2(st.to) : null, poem: st.to ? st.to.poem : null })) } },
   get plans() { return cur ? planOf(cur).map((p, i) => p && this.plan(i)) : [] },
@@ -891,7 +927,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     const w = cur, P = planOf(w), st = g.getImageData(0, 0, cv.width, cv.height).data, own = w.img.getContext('2d').getImageData(0, 0, cv.width, cv.height).data, other = {}
     const foreign = async p => { const src = p && p.to && photoBy(p.to.photo) ? p.to.photo : (w.doors[0] ? w.doors[0].to.photo.src : data.photos.find(q => q.src !== w.photo.src).src)
       return other[src] ||= (await photo(photoBy(src))).getContext('2d').getImageData(0, 0, cv.width, cv.height).data }
-    const skip = [w.R && [w.R[0] - 30, w.R[1] - 20, w.R[2] + 60, w.R[3] + 40], ...['#mat', '#cap', '.vs', '#back', '#year', '#names'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left - 10, r.top - 10, r.width + 20, r.height + 20] })].filter(Boolean)
+    const skip = [w.R && [w.R[0] - 30, w.R[1] - 20, w.R[2] + 60, w.R[3] + 40], ...['#mat', '#cap', '.vs', '#back', '#year', '#tools'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left - 10, r.top - 10, r.width + 20, r.height + 20] })].filter(Boolean)
     const fit = (s, o2) => { const n = s.length; let ms = 0, mo = 0; for (let k = 0; k < n; k++) { ms += s[k]; mo += o2[k] } ms /= n; mo /= n; let so = 0, oo = 0; for (let k = 0; k < n; k++) { so += (s[k] - ms) * (o2[k] - mo); oo += (o2[k] - mo) ** 2 }
       const b = oo ? so / oo : 0; let e = 0; for (let k = 0; k < n; k++) e += Math.abs(s[k] - ms - b * (o2[k] - mo)); return e / n } // what is left after the best light (a scale and a shift): the lamp changes light, never content
     const out = []
@@ -914,21 +950,43 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get crop() { const c = cur && cur.img; return c && c.crop && { shown: c.crop[0] / c.crop[1], file: c.crop[2] / c.crop[3], screen: cv.width / cv.height } }, // cover: a crop of the file in the screen's own shape, never a stretch
   read() { const w = 96, h = Math.round(96 * H / W), c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); x.drawImage(cv, 0, 0, w, h)
     const p = x.getImageData(0, 0, w, h).data; let s = 0, dark = 0, n = w * h; for (let i = 0; i < p.length; i += 4) { const l = (p[i] * .2126 + p[i + 1] * .7152 + p[i + 2] * .0722) / 255; s += l; if (l < .06) dark++ } return { mean: s / n, bare: dark / n } },
-  // the tools facet, the facets that could have held it, and the surfaces it must keep clear of (40's)
-  get state() { const w = cur; if (!w) return null; const pl = planOf(w), k = pl.findIndex(p => p && p.kind === 'tools'), y = pl.findIndex(p => p && p.kind === 'year'), stops = stopsOf(w), where = whereRect()
-    const fs = facetsOf(w)
-    return { at: document.body.dataset.at, tools: k, plan: k >= 0 ? { box: pl[k].box, basis: pl[k].basis } : null, where, poem: w.R, mat: rectOf('#mat'), cap: rectOf('#cap'), vs: rectOf('.vs'),
-      names: rectOf('#names'), namesAll: (() => { const r = namesEl.getBoundingClientRect(); let x1 = r.right, y1 = r.bottom; for (const b of namesEl.children) { const q = b.getBoundingClientRect(); x1 = Math.max(x1, q.right); y1 = Math.max(y1, q.bottom) } return [r.left, r.top, x1 - r.left, y1 - r.top] })(), namesOn: namesEl.classList.contains('on'), cells: w.cells.map(P => P.map(([x, y0]) => [+x.toFixed(2), +y0.toFixed(2)])), drawn: drawn(w),
-      fits: fs.map(f => ({ i: f.i, box: k >= 0 ? fitIn(w, f.i, stops, where) : null })),
-      year: y, yearPlan: y >= 0 ? { at: pl[y].at, box: pl[y].box, basis: pl[y].basis } : null, yearBox: rectOf('#year a'), yearOn: yearEl.classList.contains('on'), yearText: yearA.textContent,
-      kinds: pl.map(p => p ? p.kind : null), W, H } },
-  get open() { return toolsOpen }, ideas: IDEAS,
-  async plant(key, trail = []) { // a world made exactly as a visit or a crossing makes it (fresh: no trail; crossed: the trail it came by), off screen, its tools facet read, then let go
-    const pair = pairOf(key); if (!pair) return null; const w = await makeWorld(pair, 'world', trail), { tools } = fixedOf(w)
-    const out = { key: w.key, tools: w.toolsI, cutT: w.cutT, box: tools ? tools.box : null, basis: tools ? tools.basis : null, cells: w.cells.map(P => P.map(([x, y]) => [+x.toFixed(2), +y.toFixed(2)])), drawn: drawn(w),
-      poem: w.R, mat: rectOf('#mat'), cap: capFor(w), vs: rectOf('.vs'), where: whereRect(), W, H, scroll: w.v.classList.contains('scroll'),
+  // the six ideas' facets, the facets that could have held them, those barred and why, and the surfaces they keep clear of
+  get state() { const w = cur; if (!w) return null; const pl = planOf(w), { ideas, legal } = fixedOf(w), b = barred(w), y = w.yearI
+    return { at: document.body.dataset.at, ideas: ideas.map(x => ({ ...x, name: IDEAS[x.k].name })), legal, title: [...b.title], doors: [...b.doors], year: y,
+      yearPlan: y >= 0 ? { at: pl[y].at, box: pl[y].box, basis: pl[y].basis } : null, yearBox: rectOf('#year a'), yearOn: yearEl.classList.contains('on'), yearText: yearA.textContent,
+      where: whereRect(), whereWords: whereWords(), poem: w.R, mat: rectOf('#mat'), name: rectOf('#mat h1'), titleBox: rectOf(w.v.querySelector('h2')), cap: rectOf('#cap'), vs: rectOf('.vs'),
+      cells: w.cells.map(P => P.map(([x, y0]) => [+x.toFixed(2), +y0.toFixed(2)])), cents: w.cents.map(c => c.map(v => +v.toFixed(2))), drawn: drawn(w),
+      kinds: pl.map(p => p ? p.kind : null), open: toolsOpen, openAt: toolsAt, W, H } },
+  marks() { const w = cur; return w ? drawn(w).map(i => { const k = w.ideaAt.get(i); if (k == null) return null; const m = markOf(w, i, k, {}); return { i, k, thread: m.thread ? m.thread.a : 0, wash: m.wash ? m.wash.a : 0 } }).filter(Boolean) : [] },
+  tapIdea(k, clear) { const w = cur, x = w && fixedOf(w).ideas.find(x => x.k === k), t = toolsEl.getBoundingClientRect() // clear: a place on its facet the open panel does not cover
+    return x ? { i: x.i, pt: touchAt(w, x.i, clear && toolsOpen >= 0 ? { all: true, avoid: [[t.left - 8, t.top - 8, t.right + 8, t.bottom + 8]] } : { all: true }) } : null }, // clear of every door row, as a press on the stone reads them
+  get open() { return toolsOpen }, get openAt() { return toolsAt }, get keyAt() { return keyAt }, ideas: IDEAS,
+  // 42: this world's sentences as the panel writes them, and the same for any world by its key (the sweep), and the facts behind them
+  async hereFor(key) { const pair = key ? pairOf(key) : cur; if (!pair) return null; const mode = key ? (keyOf(pair) === keyOf(ctx) ? 'home' : 'world') : cur.mode
+    return hereFor(pair.photo, pair.poem, mode) },
+  async factsFor(key) { const pair = key ? pairOf(key) : cur; await hereReady(); return S42.facts({ photo: pair.photo, poem: pair.poem, mode: key ? 'world' : cur.mode, ctx, model: whyModel, stepOf: window.S34 ? S34.stepOf : null, where: whereWords(), readAt: readAt(), XJ, IDEAS, src: await S42.load() }) },
+  get hereReadyNow() { return toolsEl.dataset.ready === 'yes' }, get todayKey() { return keyOf(ctx) },
+  async plant(key, trail = []) { // a world made exactly as a visit or a crossing makes it (fresh: no trail; crossed: the trail it came by), off screen; its six read, then let go
+    const pair = pairOf(key); if (!pair) return null; const w = await makeWorld(pair, 'world', trail), { legal } = fixedOf(w), b = barred(w)
+    const out = { key: w.key, cutT: w.cutT, legal, title: [...b.title], doors: [...b.doors], year: w.yearI, drawn: drawn(w), W, H,
+      cells: w.cells, cents: w.cents, // full precision: the check recounts at the same .5 px boundaries the page rounds at
+      where: whereRect(), whereWords: whereWords(), name: rectOf('#mat h1'), titleBox: rectOf(w.v.querySelector('h2')), vs: rectOf('.vs'), cap: capFor(w), poemTitle: w.poem.title, titleRects: [...w.v.querySelector('h2 a').getClientRects()].map(r => [r.left, r.top, r.width, r.height]), doorRects: w.doors.flatMap(d => [...d.el.getClientRects()].map(r => [r.left, r.top, r.width, r.height])), touch: Object.fromEntries(drawn(w).map(i => [i, !!touchAt(w, i, { first: true, all: true })])), date: recOf(w.photo.src) ? dateLabel(recOf(w.photo.src)) : null,
+      ideas: assign(w, legal, w.yearI), poem: w.R, scroll: w.v.classList.contains('scroll'),
       half: (() => { const R = w.v.getBoundingClientRect(); return [...w.v.querySelectorAll(':scope > h2, :scope > .l')].filter(k => { const r = k.getBoundingClientRect(); return r.top < R.bottom - 1 && r.bottom > R.bottom + 1 }).length })() } // lines the poem's box cuts through
+    { const r = toolsBand(w) // the panel at its full height, where an idea opens
+      out.covered = (out.ideas || []).filter(x => x && !touchAt(w, x.i, { all: true, avoid: [[r[0] - 8, r[1] - 8, r[0] + r[2] + 8, r[1] + r[3] + 8]] })).map(x => x.k) }
     drop(w); return out },
+  async washOf(key) { // how much each idea's hue changes its facet at rest: the world drawn with its washes and without, ΔE76 over each facet's pixels (B13, a report)
+    const pair = pairOf(key); if (!pair) return null; const w = await makeWorld(pair, 'world', []), { ideas } = fixedOf(w), was = T['idea-wash']
+    const grab = () => { clear(); drawWorld(w, { text: 0 }); return g.getImageData(0, 0, cv.width, cv.height).data }
+    const on = grab(); T['idea-wash'] = 0; const off = grab(); T['idea-wash'] = was
+    const lab = (d, k) => { const f = v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }, [r, gg, b] = [f(d[k]), f(d[k + 1]), f(d[k + 2])]
+      const h = t => t > .008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116, X = h((r * .4124 + gg * .3576 + b * .1805) / .95047), Y = h(r * .2126 + gg * .7152 + b * .0722), Z = h((r * .0193 + gg * .1192 + b * .9505) / 1.08883)
+      return [116 * Y - 16, 500 * (X - Y), 200 * (Y - Z)] }
+    const out = ideas.map(x => { const Q = inset(w.cells[x.i], 4), [x0, y0, x1, y1] = bbox(Q); let s = 0, n = 0
+      for (let y = Math.ceil(y0); y < y1; y += 3) for (let xx = Math.ceil(x0); xx < x1; xx += 3) { if (!inPoly([xx, y], Q)) continue; const k = (Math.round(y * DPR) * cv.width + Math.round(xx * DPR)) * 4, a = lab(on, k), b = lab(off, k); s += Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]); n++ }
+      return { k: x.k, dE: n ? +(s / n).toFixed(2) : 0 } })
+    drop(w); if (cur) cur.dirty = true; return out },
   // 35's line and 36 c's join with 34's chain
   get phase() { return FS.line ? FS.line.phase : 'none' }, get whyOpen() { return whyOpen }, get model() { return whyModel }, whyReady: () => whyReady(), how: ctx.how, openWhy, closeWhy, join, JN,
   get first() { return JSON.parse(JSON.stringify({ line: FS.line })) },
@@ -951,4 +1009,4 @@ HOME.firstLoad = ['/', ...performance.getEntriesByType('resource').filter(e => e
 document.body.dataset.ready = 'yes'
 // after the first screen: what the facets deal from, then the chain behind the line
 requestAnimationFrame(() => setTimeout(() => segReady().then(() => { if (cur && !busy) { cur.plan = null; planOf(cur) } }), 0))
-setTimeout(() => whyReady(), num('why-idle-ms', 4000))
+setTimeout(() => hereReady(), num('why-idle-ms', 4000)) // and what an idea's facet says of this world, which reads that chain's model

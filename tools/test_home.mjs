@@ -13,10 +13,13 @@
 //     the stone is pick.js's pair; the first screen loads without segments.json or more than one photograph's regions;
 //     35 line: its readings are the sky's own and resolve into weather.js's sentence; 36 c: tapping it opens 34 b's chain, the readings
 //       come back and light where the chain reads them; 34: every count, measure, reading and label in the chain recounted in Node;
-//     every drawn facet yields (one the tools, one the date, the rest his work, verbatim, its basis recounted at the region it sits on);
+//     every drawn facet yields (six the ideas, one the date, the rest his work, verbatim, its basis recounted at the region it sits on);
 //     words of any length at any facet keep clear of the poem, the name and the caption (30's and 37's worst case);
-//     40: the six names WHOLLY inside the facet nearest the where line that can hold them (every photograph x two poems x five screens,
-//       fresh and crossed, besides the live loads), every idea and tool reached, IDEAS verbatim;
+//     41 b, 42 a: each of the six ideas behind the facet its meaning puts it on, nothing named at rest, only its hue (154 worlds x five screens,
+//       fresh and crossed, recounted); a tap opens this world first and largest, every sentence recounted here word for word for 158 worlds and
+//       under every state a visitor can reach (daytime, no sky, the archive's day, where he is unknown, a source that failed, another time
+//       zone), the general read live from IDEAS (a mark only the served home.js carries), the basis line, whole lines, on screen, clear of the
+//       mat and the switch, AA against the real pixels; the six hidden keys: Tab, a ring on the facet, Enter or Space, Escape;
 //     38 c: the date is the photograph's own, in a facet where it reads clear, and flies the photograph into its year in the About;
 //     39: a crossing through a door line (and, at 1440, a facet's last tap) walked frame by frame lands on the next photograph's masses cut
 //       as 33 counts it; reduced motion crossfades and no facet moves;
@@ -80,7 +83,15 @@ const plain = h => h.replace(/<[^>]+>/g, '').replace(/&middot;/g, '·').replace(
   const listed = names.filter(n => new RegExp('\\*\\s+' + n + '\\s').test(head)), set = Object.keys(vm.runInNewContext('(' + /var HOME_EVENTS = (\{[^}]*\})/.exec(trackJs)[1] + ')'))
   const sent = [...new Set([...stoneJs.matchAll(/\btrack\('([a-z_]+)'/g)].map(m => m[1]))]
   check(listed.length === names.length && JSON.stringify(set.sort()) === JSON.stringify([...names].sort()) && JSON.stringify(sent.sort()) === JSON.stringify([...names].sort()),
-    `track.js lists the stone's ${names.length} events at its top and passes on only those; the stone sends exactly them`, JSON.stringify({ listed, set, sent })) }
+    `track.js lists the stone's ${names.length} events at its top and passes on only those; the stone sends exactly them`, JSON.stringify({ listed, set, sent }))
+  const via = [...new Set([...stoneJs.matchAll(/track\('tools_open', \{[^}]*via: '([a-z]+)'/g)].map(m => m[1]))].sort(), doc = (/\*\s+tools_open\s.*via: ([a-z |]+) \}/.exec(head) || [])[1]
+  check(!!doc && JSON.stringify(doc.split('|').map(x => x.trim()).sort()) === JSON.stringify(via), `track.js documents tools_open's via as the stone sends it: ${via.join(' | ')}`, JSON.stringify({ doc, via })) }
+{ // 41 b and 42 a, in the files: the names that stood by the line are gone; every idea has its reason; IDEAS is read, never copied; here.js is not first-screen weight
+  const hereJs = read('v3/here.js'), table = /const MEANING = \[([\s\S]*?)\]\]\n/.exec(stoneJs)?.[1] || '', named = [...table.matchAll(/^\s*\['([^']+)'/gm)].map(m => m[1])
+  const W24 = HOME_IDEAS.flatMap(I => [I.name, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary]).filter(t => t.length > 24), copied = W24.filter(t => [page, stoneJs, stoneCss, hereJs, JSON.stringify(DEF)].some(f => f.includes(t)))
+  check(!/id="names"|#names|namesEl|showNames|namesBoxes/.test(page + stoneJs + stoneCss) && named.length === 6 && HOME_IDEAS.every(I => named.includes(I.name)) && !/\$\{px\(|' px'|" px"/.test(stoneJs) && !copied.length,
+    'the six names by the where line are gone from the page, its script and its styles; 41 b gives every idea in IDEAS its reason and no other; no basis carries a pixel count; IDEAS is read live, none of its words copied', [named.join(','), ...copied.map(t => t.slice(0, 40))].join(' | '))
+  check(!/here\.js/.test(page) && /script\('\/v3\/here\.js'\)/.test(stoneJs) && /setTimeout\(\(\) => hereReady\(\), num\('why-idle-ms'/.test(stoneJs), 'here.js and what it reads are not on the first screen: the stone asks for them once it is up (why-idle-ms), or on the first tap') }
 { const body = page.slice(page.indexOf('<body>'), page.indexOf('<script', page.indexOf('<body>'))).replace(/<noscript>[\s\S]*?<\/noscript>/g, '').replace(/<!--[\s\S]*?-->/g, '')
   const words = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
   check(words === 'kahran singh about photos poems × v3 v2 v1', 'no instruction text: the page\'s own words are the name, the way out, the close mark and the version tab', words)
@@ -540,6 +551,108 @@ const SYSTEM = /\b(day-?flow|pick\.js|weather\.js|home\.js|body\.js|open-?meteo|
   return { AX, READING, DAYS, PS, QS, PLACE, PICK_SRC, WEATHER_SRC, pickJS, truthFor, bodyTruth, I21, KIN26, BLACK, WORKS, SYSTEM, setAsked: v => { ASKED = v }, setDay: (p, q) => { DAY_PHOTO = p; DAY_POEM = q } }
 })()
 
+/* ---------- 42 a, in node: what each idea's facet says of this world, written again here in this check's own words from the committed files and
+   the pinned moment (clock, sky, which of the page's sources reached it), to be compared with the page word for word ---------- */
+const P42 = (() => {
+  const { PS, QS, PICK_SRC } = P36, PLACE0 = J('v2/place.json'), PY0 = J('v3/poem-years.json'), DAYS0 = J('v2/days.json').days, WALL = J('tools/wall-map.json')
+  const REL0 = (() => { const c = { window: { location: { pathname: '/' } }, document: { createElement: () => ({}), head: { appendChild() {} }, querySelector: () => null } }
+    const R = read('poems/related.js'); vm.runInNewContext(R.slice(0, R.indexOf('\n(function', R.indexOf('const themeLabels'))) + '\n;globalThis.__P = poemData; globalThis.__L = themeLabels', c); return { P: c.__P, L: c.__L } })()
+  const PHRASE = (() => { const c = {}; vm.runInNewContext(/function phraseFor[\s\S]*?\n {2}\}/.exec(read('v2/weather.js'))[0] + ';globalThis.f = phraseFor', c); return c.f })()
+  const STEP = (() => { const w = {}; vm.runInNewContext(read('v3/why.js'), { window: w, fetch: () => {}, document: {} }); return w.S34.stepOf })()
+  const FREEZE = /Each night at (\d{1,2}:\d\d)/.exec(read('tools/daily_pick.py'))[1], ZONE = /timeZone: '([A-Za-z_/]+)'/.exec(read('v3/today.js'))[1]
+  const NOV = /NOVELTY_DAYS\s*=\s*\{\s*poem:\s*(\d+),\s*photo:\s*(\d+)\s*\}/.exec(PICK_SRC), PEN = +/NOVELTY_PENALTY\s*=\s*(-?[\d.]+)/.exec(PICK_SRC)[1]
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  const ISOD = /^\d{4}-\d\d-\d\d$/
+  const homeFns = (() => { const t = read('v2/home.js'), g = (a, b) => t.slice(t.indexOf(a), t.indexOf(b, t.indexOf(a))); return new Function(g('function cyrb53', '/* ----------------------------------------------------------- the poem') + g('function norm', '/* ---------------------------------------------------------- the render') + '; return { photoFor, poemFor }')() })()
+  const shift = (iso, d) => new Date(Date.parse(iso + 'T00:00:00Z') + d * 864e5).toISOString().slice(0, 10)
+  // pick.js's formula, run here: closeness by its weights, the place lift, the novelty penalty, the date's tiebreak
+  function ranks(iso, R, days) { const K = P36.pickJS(R, { days }), T = K.__test, day = T.dayVectorFromCurrent(iso, R, R.lat), real = Object.keys(days).filter(d => ISOD.test(d))
+    const rk = (kind, items, kf, sc, win) => { const cut = shift(iso, -win), recent = new Set(real.filter(d => d >= cut && d < iso).map(d => days[d][kind]))
+      return items.map((it, i) => { const key = it[kf], e = kind === 'photo' ? (sc.photos[key] || {}) : null, bonus = e ? T.placeBonus(e.place, R.lat, R.lon) : 0
+        return { i, key, it, km: e && e.place && e.place.lat != null ? T.haversineKm(R.lat, R.lon, e.place.lat, e.place.lon) : null, v: T.itemVector(sc, key), score: -T.weightedDistance(day, T.itemVector(sc, key)) + bonus + (recent.has(key) ? PEN : 0) + T.tiebreak(iso, key) } })
+        .sort((a, b) => b.score - a.score || a.i - b.i).map((x, r) => ({ ...x, rank: r + 1 })) }
+    const Z = { light: 0, warmth: 0, wet: 0, stillness: 0, season: 0, inside: 0, mood: 0 }, W8 = Object.fromEntries(Object.keys(Z).map(a => [a, T.weightedDistance({ ...Z, [a]: 1 }, Z) ** 2]))
+    return { day, W8, photos: rk('photo', DATA.photos, 'src', PS, +NOV[2]), poems: rk('poem', DATA.poems, 'slug', QS, +NOV[1]) } }
+  // today's pair as the page resolves it: the live pick, else the day the archive kept, else the date's hash
+  function today(iso, R, days) { if (R) { const k = ranks(iso, R, days); return { photo: k.photos[0].key, poem: k.poems[0].key, how: 'live' } }
+    if (days[iso]) return { photo: days[iso].photo, poem: days[iso].poem, how: 'frozen' }
+    return { photo: DATA.photos[homeFns.photoFor(iso, DATA.photos.length)].src, poem: DATA.poems[homeFns.poemFor(iso, DATA.poems.length)].slug, how: 'hash' } }
+  const clockIn = (ms, tz) => { const p = {}; new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date(ms)).forEach(x => p[x.type] = x.value)
+    const h = +p.hour % 24; return `${h % 12 || 12}:${p.minute} ${h < 12 ? 'am' : 'pm'}` }
+  const offsetMs = (iso, tz) => { const n = /GMT([+-]\d+)?(?::(\d+))?/.exec(new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'shortOffset' }).format(new Date(iso + 'T12:00:00Z'))); return n && n[1] ? (Math.sign(+n[1]) || 1) * (Math.abs(+n[1]) * 60 + +(n[2] || 0)) * 6e4 : 0 }
+  /* one world, one moment. m: { src, slug, mode, iso, R (the sky's reading, or null), readAt, gone (a Set of the paths that did not load), place (place.json as served, or null) } */
+  function expected(m) {
+    const gone = m.gone || new Set(), days = m.days || DAYS0, iso = m.iso, now0 = iso.slice(0, 4), R = m.R
+    const PY = gone.has('/v3/poem-years.json') ? null : PY0, REL = gone.has('/poems/related.js') ? null : (m.rel || REL0), place = gone.has('/v2/place.json') ? null : (m.place === undefined ? PLACE0 : m.place)
+    const dayOf = d => `${+d.slice(8, 10)} ${MONTHS[+d.slice(5, 7) - 1]}${d.slice(0, 4) === now0 ? '' : ' ' + d.slice(0, 4)}`
+    const listOf = L => L.length === 1 ? dayOf(L[0]) : L.length === 2 ? `${dayOf(L[0])} and ${dayOf(L[1])}` : `${L.length} days, last ${dayOf(L.at(-1))}`
+    const photo = DATA.photos.find(p => p.src === m.src), poem = DATA.poems.find(p => p.slug === m.slug), rec = XJ.photos.find(p => p.src === m.src)
+    const placeP = rec ? rec.place : photo.caption.split(' — ')[0], camera = photo.caption.split(' — ')[1] || null, mon = rec ? MONTHS[+rec.taken.slice(5, 7) - 1] : null, yr = rec ? +rec.taken.slice(0, 4) : null
+    const T = `“${poem.title}”`, night = !!R && R.is_day === 0, Now = night ? 'Tonight' : 'Today', now = night ? 'tonight' : 'today'
+    const py = PY && PY.poems[m.slug], undated = PY && PY.undated[m.slug] ? Object.keys(PY.undated).length : 0
+    const city = R ? R.place : place ? place.place : undefined, phrase = R ? PHRASE(R.weather_code, R.is_day !== 0) : null
+    const tp = today(iso, R, days), how = tp.how, K = R ? ranks(iso, R, days) : null, Pk = K && K.photos.find(x => x.key === m.src), Qk = K && K.poems.find(x => x.key === m.slug)
+    const real = Object.keys(days).filter(d => ISOD.test(d)).sort(), written = place && place.updated ? dayOf(place.updated) : null
+    const out = {}
+    // Context
+    const kept = py ? `The earliest copy he kept of ${T} is from ${py.year}` : undated ? `No copy of ${T} can yet be dated` : ''
+    const made = [mon && `in ${mon} ${yr}`, camera && `on a ${camera}`].filter(Boolean).join(' '), is = `his photograph is from ${placeP}${made ? ', made ' + made : ''}`
+    out['Context'] = [kept ? `${kept}; t${is}.` : `T${is}.`]
+    const km = Pk && Pk.km != null ? `, ${Math.round(Pk.km).toLocaleString('en-US')} km away` : ''
+    if (R && city) out['Context'].push(`${Now} he is in ${city}${km}${phrase ? `, where ${phrase} at ${Math.round(R.temperature_2m)} °C` : `, at ${Math.round(R.temperature_2m)} °C`}.`)
+    else if (city) out['Context'].push(`He is in ${city}; the sky there could not be read.`)
+    else if (city === null) out['Context'].push('Where he is goes unsaid: it is not known with enough confidence.')
+    // Topically suggesting
+    const pickRec = XJ.photos.find(p => p.src === tp.photo), pickTitle = DATA.poems.find(p => p.slug === tp.poem).title, mine = m.mode === 'home', tail = mine ? '' : `: ${pickRec.place} with “${pickTitle}”`
+    const ts = out['Topically suggesting'] = []
+    if (how === 'live') { const near = key => { const v = (key.startsWith('/') ? Pk : Qk).v; return ['light', 'warmth', 'wet', 'stillness', 'season', 'inside'].reduce((b, a) => K.W8[a] * (K.day[a] - v[a]) ** 2 < K.W8[b] * (K.day[b] - v[b]) ** 2 ? a : b, 'light') }
+      const noun = a => ({ light: 'light', warmth: 'warmth', wet: K.day.wet >= .5 ? 'wet' : 'dryness', stillness: 'stillness', season: 'the time of year', inside: K.day.inside >= .5 ? 'being out of doors' : 'shelter' })[a]
+      const [l, wa, we, st] = ['light', 'warmth', 'wet', 'stillness'].map(a => STEP(a, K.day[a]))
+      ts.push(`${Now}’s sky reads ${l}, ${wa}, ${we} and ${st}; ${T} answers it most in ${noun(near(m.slug))}, this photograph in ${noun(near(m.src))}.`)
+      const sp = tp.photo === m.src, sq = tp.poem === m.slug
+      ts.push(mine ? `Of ${DATA.poems.length} poems it came first ${now}.` : `Of ${DATA.poems.length} poems it stands ${Qk.rank}${Qk.rank % 100 >= 11 && Qk.rank % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' })[Qk.rank % 10] || 'th'} ${now}${sp && sq ? '' : `; the home itself pairs ${sp ? 'this photograph' : pickRec.place} with ${sq ? 'this poem' : `“${pickTitle}”`}`}.`) }
+    else if (how === 'frozen') ts.push(`Today’s pair is the one the archive kept for ${dayOf(iso)}, chosen from that day’s whole sky${tail}.`)
+    else ts.push(`No reading of the sky reached this page, so today’s pair falls to the date itself${tail}.`)
+    if (REL && REL.P[m.slug]) { const th = REL.P[m.slug].themes, labels = th.map(t => REL.L[t] || t), kin = Object.entries(REL.P).filter(([s, e]) => s !== m.slug && e.themes.some(t => th.includes(t))).length
+      if (kin) ts.push(`Its page offers three of the ${kin} other poems that also hold ${labels.length === 1 ? labels[0] : labels.slice(0, -1).join(', ') + ' or ' + labels.at(-1)}.`) }
+    // Keeping track
+    const sameMonth = rec ? XJ.photos.filter(p => p.taken.slice(0, 7) === rec.taken.slice(0, 7)).length : 0
+    const ph = !rec ? 'undated' : sameMonth > 1 ? `one of ${sameMonth} he made in ${mon} ${yr}` : `the only one he made in ${mon} ${yr}`, row = rec && String(rec.row) !== String(yr) ? `, kept in the About under ${rec.row}` : ''
+    const poemIs = py ? `${T} is one of the ${Object.values(PY.poems).filter(e => e.year === py.year).length} poems he kept from ${py.year}` : undated ? `${T} is one of the ${undated} poems no copy yet dates` : ''
+    out['Keeping track'] = [poemIs ? `${poemIs}, this photograph ${ph}${row}.` : `This photograph is ${ph}${row}.`]
+    const ps = real.filter(d => days[d].photo === m.src), qs = real.filter(d => days[d].poem === m.slug)
+    const shown = ps.length && qs.length ? `this photograph stood on the home on ${listOf(ps)}, ${T} on ${listOf(qs)}` : ps.length ? `this photograph stood on the home on ${listOf(ps)}` : qs.length ? `${T} stood on the home on ${listOf(qs)}` : 'neither has yet stood on the home'
+    if (real.length) out['Keeping track'].push(`The archive holds ${real.length} day${real.length === 1 ? '' : 's'} since ${dayOf(real[0])}; ${shown}.`)
+    // Staying up to date
+    const up = out['Staying up to date'] = []
+    if (R && city) up.push(`The sky was read ${m.readAt ? 'at ' + clockIn(m.readAt, R.tz) : 'as this page opened'}${written ? `, and where he is was last set on ${written}` : ''}.`)
+    else if (written) up.push(`Where he is was last set on ${written}${city ? '; the sky could not be read' : city === null ? ', with no city this page may name' : ''}.`)
+    else if (city) up.push(`The sky over ${city} could not be read.`)
+    const fz = !gone.has('/v2/pick.js') && !gone.has('/v3/today.js') && R ? clockIn(Date.parse(`${iso}T${FREEZE.padStart(5, '0')}:00Z`) - offsetMs(iso, ZONE), R.tz) : null
+    up.push(how === 'live' ? (days[iso] ? 'Today’s pair follows the sky; the archive already holds this day, and once it has passed it replays exactly as kept.' : `Today’s pair follows the sky until ${fz ? fz + ', when ' : ''}the archive freezes it; after that the day replays exactly as kept.`)
+      : how === 'frozen' ? 'Today’s pair is already frozen in the archive and replays exactly as kept.' : 'With no reading, today’s pair falls to the date, the same on every visit.')
+    // Self-healing
+    const two = !gone.has('/v2/flow.js') && WALL.parts['This page'].filter(r => /publish/.test(r)).length === 2, last = real.length ? dayOf(real.at(-1)) : null
+    out['Self-healing'] = two ? ['Two jobs keep this page right, one noting where he is and one keeping each day’s pair, and both are watched for going quiet.',
+      written && last ? `The first last checked in on ${written}, the second on ${last}.` : written ? `The first last checked in on ${written}.` : last ? `The second last checked in on ${last}.` : ''].filter(Boolean)
+      : [[written && `Where he is was last set on ${written}`, last && `${written ? 'the' : 'The'} archive last kept ${last}`].filter(Boolean).join('; ')].filter(Boolean).map(s => s + '.')
+    // Home
+    const Hm = HOME_IDEAS.find(I => I.name === 'Home'), at = Hm.parts.indexOf('This page'), dec = place && place.lat != null ? Math.max(...[place.lat, place.lon].map(v => (String(v).split('.')[1] || '').length)) : null
+    out['Home'] = [`This page is the ${at === Hm.parts.length - 1 ? 'last' : ['first', 'second', 'third', 'fourth', 'fifth'][at]} of the ${['none', 'one', 'two', 'three', 'four', 'five', 'six'][Hm.parts.length]} surfaces Home looks after; ${now} it carries a photograph from ${placeP}${/,/.test(placeP) ? ',' : ''} and ${T}.`]
+    const KMW = { 1: 'about ten kilometres', 2: 'about a kilometre', 3: 'about a hundred metres' }
+    if (city && KMW[dec]) out['Home'].push(`His city shows under his name only when it is known with confidence, and never more closely than ${KMW[dec]}.`)
+    else if (city === null) out['Home'].push(`Where he is goes unsaid ${now}: it is not known with confidence.`)
+    return out }
+  const NAMES = HOME_IDEAS.map(I => I.name)
+  const differ = (got, want) => NAMES.flatMap(n => { const g = (got && got[n] || []).map(x => x.s).join(' '), w = (want[n] || []).join(' '); return g === w ? [] : [`${n}: page “${g}” vs recount “${w}”`] })
+  // the words a sentence may hold in capitals: the data's own names, and a sentence's first word
+  const KNOWN = [...XJ.photos.map(p => p.place), ...DATA.poems.map(p => p.title), ...DATA.photos.map(p => p.caption.split(' — ')[1]).filter(Boolean), ...MONTHS, ...NAMES, ...HOME_IDEAS.flatMap(I => I.parts), PLACE0.place, 'About'].filter(Boolean).sort((a, b) => b.length - a.length)
+  const unaccounted = s => { let t = s; for (const k of KNOWN) t = t.split(k).join(' '); return [...t.matchAll(/(?<![.;:]\s|^)\b([A-Z][a-z’']+)/g)].map(x => x[1]) }
+  const PRIVATE = /raw\W?(db|store)|day[\s-]?flow|e-?mail|voice note|whatsapp|message|granola|hermes|kmini|\bthe mini\b|sync\/|pending-work|\.txt\b|~\//i
+  const BROKEN = /\bnull\b|\bundefined\b|\bNaN\b|“\s*”|‘\s*’|  |,,|, ,|\s[,.;:]|\.\.|^\s|\s$|\[object|Infinity/ // a sentence that is not whole
+  return { expected, today, ranks, differ, unaccounted, PRIVATE, BROKEN, NAMES, DAYS0, PY0, REL0, PLACE0, clockIn }
+})()
+
 /* ---------- in Chrome ---------- */
 const VIEWPORTS = [{ id: 'desk', w: 1440, h: 900, mobile: false }, { id: 'phone', w: 390, h: 844, mobile: true }, { id: 'side', w: 844, h: 390, mobile: true }]
   .filter(v => !process.env.ONLY_VP || process.env.ONLY_VP.split(',').includes(v.id))
@@ -558,9 +671,27 @@ const shell = findShell()
 if (!shell) { console.error('no chrome-headless-shell under ~/.cache/puppeteer'); process.exit(2) }
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.txt': 'text/plain', '.woff2': 'font/woff2' }
 const gz = new Map(), gzOf = f => gz.get(f) ?? (gz.set(f, /\.(jpe?g|png|webp|woff2)$/i.test(f) ? statSync(f).size : zlib.gzipSync(readFileSync(f), { level: 9 }).length), gz.get(f))
+/* what the server says, beyond the files: IDEAS' intros and boundaries carry an invisible mark (U+200B), so a general part the panel
+   copied rather than read shows unmarked (42's trick); GONE holds paths that fail (a source that did not load); OVER replaces a file's bytes
+   for one state; MUTATE (never committed, to watch a check go red) changes only the served bytes:
+     fact    = a this-world sentence takes another world's photograph record     copy  = Context's general intro written in, not read
+     shown   = an idea's name visible at rest                                    keys  = the six hidden buttons gone
+     null    = the guard on a fact that may not load taken away (last set on)     names = the old names code path back (a #names row) */
+const MARK = '\u200b', MUT = process.env.MUTATE || '', GONE = new Set(), OVER = new Map(), MUTHIT = new Set()
+const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, 'utf8'); const was = s
+  if (u === '/v2/home.js') s = s.replace(/("intro": ")|("boundary": ")/g, m => m + MARK)
+  if (MUT === 'fact' && u === '/v3/here.js') s = s.replace('const rec = XJ.photos.find(p => p.src === photo.src) || null', 'const rec = XJ.photos[(XJ.photos.findIndex(p => p.src === photo.src) + 1) % XJ.photos.length]')
+  if (MUT === 'copy' && u === '/v3/stone.js') s = s.replace("gen.append(mk('p', 'intro', d.intro || ''))", `gen.append(mk('p', 'intro', I.name === 'Context' ? ${JSON.stringify(HOME_IDEAS[0].detail.intro)} : d.intro || ''))`)
+  if (MUT === 'shown' && u === '/v3/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('p'); n.style.cssText = 'position:fixed;left:20px;top:140px;z-index:6;font:400 11px/2 sans-serif;color:#fff'; n.textContent = IDEAS[2].name; document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
+  if (MUT === 'keys' && u === '/v3/stone.js') s = s.replace('  keysEl.append(b) })', '  })')
+  if (MUT === 'null' && u === '/v3/here.js') s = s.replace("${S.written ? `, and where he is was last set on ${S.written}` : ''}.`", ", and where he is was last set on ${S.written}.`") // the guard on a fact that may not have loaded, gone
+  if (MUT === 'names' && u === '/v3/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('div'); n.id = 'names'; n.className = 'on'; n.style.cssText = 'position:fixed;left:16px;bottom:150px;z-index:6;display:flex;gap:12px;font:400 11px/2 sans-serif;color:#f3efe6;text-transform:uppercase'; IDEAS.forEach((I, k) => { const b = document.createElement('button'); b.textContent = I.name; b.dataset.k = k; n.append(b) }); document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
+  if (s !== was && u !== '/v2/home.js') MUTHIT.add(MUT); return s }
 const server = http.createServer((req, res) => { try { const u = decodeURIComponent(new URL(req.url, 'http://x').pathname), f = path.join(ROOT, path.normalize(u.endsWith('/') ? u + 'index.html' : u))
-  if (!f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); return res.end() }
-  res.writeHead(200, { 'content-type': TYPES[path.extname(f).toLowerCase()] || 'application/octet-stream', 'cache-control': 'no-store' }); createReadStream(f).pipe(res) } catch { res.writeHead(500); res.end() } })
+  if (GONE.has(u) || !f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); return res.end() }
+  res.writeHead(200, { 'content-type': TYPES[path.extname(f).toLowerCase()] || 'application/octet-stream', 'cache-control': 'no-store' })
+  if (u === '/v2/home.js' || OVER.has(u) || (MUT && /^\/v3\/(here|stone)\.js$/.test(u))) return res.end(served(u, f))
+  createReadStream(f).pipe(res) } catch { res.writeHead(500); res.end() } })
 await new Promise(r => server.listen(0, '127.0.0.1', r))
 const HTTP = server.address().port, CDPP = await freePort(), PROFILE = mkdtempSync(path.join(os.tmpdir(), 'home-'))
 const chrome = spawn(shell, ['--headless', '--use-mock-keychain', '--password-store=basic', '--no-first-run', `--user-data-dir=${PROFILE}`, `--remote-debugging-port=${CDPP}`, 'about:blank'], { stdio: 'ignore' })
@@ -579,14 +710,17 @@ try {
     if (msg.method === 'Runtime.exceptionThrown') errors.push(msg.params.exceptionDetails.exception?.description || msg.params.exceptionDetails.text)
     if (msg.method === 'Runtime.consoleAPICalled' && msg.params.type === 'error') errors.push(msg.params.args.map(a => a.value ?? a.description).join(' '))
     if (msg.method === 'Log.entryAdded' && msg.params.entry.level === 'error' && (msg.params.entry.url || '').startsWith(BASE)) errors.push(msg.params.entry.text + ' ' + msg.params.entry.url)
-    if (msg.method === 'Fetch.requestPaused') { P36.setAsked(new URL(msg.params.request.url).searchParams.get('current'))
-      cdp.send('Fetch.fulfillRequest', { requestId: msg.params.requestId, responseCode: 200, responseHeaders: cors, body: b64(SKY) }).catch(() => {}) } }
+    if (msg.method === 'Fetch.requestPaused') { P36.setAsked(new URL(msg.params.request.url).searchParams.get('current')) // SKY null: the sky cannot be read
+      cdp.send('Fetch.fulfillRequest', SKY ? { requestId: msg.params.requestId, responseCode: 200, responseHeaders: cors, body: b64(SKY) } : { requestId: msg.params.requestId, responseCode: 503, responseHeaders: cors, body: b64('') }).catch(() => {}) } }
   await cdp.send('Page.enable'); await cdp.send('Runtime.enable'); await cdp.send('Log.enable')
   // pinned: the clock (4:50 pm New York, 8 Nov 2026, the minute 36's real sky was read) and that sky, so a run tomorrow sees what a run today saw
   const PIN = Date.UTC(2026, 10, 8, 21, 50)
   await cdp.send('Emulation.setTimezoneOverride', { timezoneId: 'America/New_York' })
-  await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: `(() => { const R = Date, real0 = R.now(), pin = ${PIN}; const now = () => pin + (R.now() - real0)
-    class D extends R { constructor(...a) { if (a.length) super(...a); else super(now()) } static now() { return now() } }; globalThis.Date = D; try { sessionStorage.clear() } catch {} })()` })
+  let pinId = null
+  const setPin = async ms => { if (pinId) await cdp.send('Page.removeScriptToEvaluateOnNewDocument', { identifier: pinId })
+    pinId = (await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source: `(() => { const R = Date, real0 = R.now(), pin = ${ms}; const now = () => pin + (R.now() - real0)
+    class D extends R { constructor(...a) { if (a.length) super(...a); else super(now()) } static now() { return now() } }; globalThis.Date = D; try { sessionStorage.clear() } catch {} })()` })).identifier }
+  await setPin(PIN)
   await cdp.send('Fetch.enable', { patterns: [{ urlPattern: '*api.open-meteo.com*' }] })
 
   let VP = VIEWPORTS[0]
@@ -605,8 +739,6 @@ try {
   const tap = async ([x, y]) => { await tapAt(x, y); await sleep(120) } // 40's
   const reach = sel => cdp.eval(`(() => { const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return null; e.scrollIntoView({ block: 'nearest' }); const r = e.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2
     const top = document.elementFromPoint(x, y); return top && (top === e || e.contains(top)) && r.width > 0 && x > 0 && y > 0 && x < innerWidth && y < innerHeight ? [x, y] : null })()`)
-  const shown = () => cdp.eval(`(() => { const out = []; const walk = n => { if (n.nodeType === 3) { const t = n.textContent.replace(/\\s+/g, ' ').trim(); const p = n.parentElement; if (t && p.getClientRects().length && !p.closest('[hidden]') && getComputedStyle(p).visibility !== 'hidden') out.push(t) } else n.childNodes.forEach(walk) }
-    walk(document.querySelector('#tools')); return out })()`)
   const tapFacet = async i => { const pt = await cdp.eval(`HOME.tapPoint(${i})`); if (!pt) return null; await tapAt(pt[0], pt[1]); return pt }
   const nextSeq = seq0 => waitFor(() => cdp.eval(`HOME.seq > ${seq0} && HOME.last`), 'a facet answer', 60, 30).catch(() => null)
   const watchArrival = async label => { let bad = null, last = null
@@ -627,20 +759,20 @@ try {
   const ring = b => { const pts = [], n = k => Math.max(2, Math.ceil(k / 4)); for (let a = 0; a <= n(b[2]); a++) { const x = b[0] + b[2] * a / n(b[2]); pts.push([x, b[1]], [x, b[1] + b[3]]) } for (let a = 0; a <= n(b[3]); a++) { const y = b[1] + b[3] * a / n(b[3]); pts.push([b[0], y], [b[0] + b[2], y]) } return pts }
   const wholly = (b, P) => P.length > 2 && ring(b).every(p => inPoly(p, P) && edgeD(p, P) >= seam - .01)
   const r1 = a => a.map(v => Math.round(v))
-  const defaults = DEF, IDEAS = HOME_IDEAS, WORDS = new Set(IDEAS.flatMap(I => [I.name, I.line, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary])), BY = Number(DEF['tools-near-px'])
+  const defaults = DEF, IDEAS = HOME_IDEAS
 
   // what the page dealt and drew, held to 37's rules, each facet's region recounted from regions.json at the centre the page cut
   const drawnHold = async label => {
     const ids = await cdp.eval('HOME.drawn'), plans = await cdp.eval('HOME.plans'), w0 = await cdp.eval('HOME.world0'), bad = [], world = { photo: w0.photo, poem: w0.poem, doors: w0.doors }
-    const plan = [], facets = [], kinds = { tools: 0, year: 0, work: 0 }
+    const plan = [], facets = [], kinds = { idea: 0, year: 0, work: 0 }
     for (const i of ids) { const p = plans[i]; if (!p) { bad.push(`facet ${i} yields nothing`); continue } drawnN++
-      if (p.kind === 'tools' || p.kind === 'year') { kinds[p.kind]++; continue } kinds.work++
+      if (p.kind === 'idea' || p.kind === 'year') { kinds[p.kind]++; continue } kinds.work++
       const g = P37.regionAt(w0.photo, p.facet.c, w0.W, w0.H); if (!g || g.tone !== p.facet.tone || g.side !== p.facet.side || Math.abs(g.sal - p.facet.sal) > .002 || Math.abs(g.edges - p.facet.edges) > .002) bad.push(`#${i}: its region is not what regions.json holds at its centre`)
       const seg = P37.segBy[p.id]; if (!seg) { bad.push(`#${i}: ${p.id} is not a segment`); continue }
       plan.push({ seg, link: p.link, cls: p.cls, basis: p.basis, to: { photo: '/photos/' + p.to.split('~')[1], poem: p.to.split('~')[0] }, steps: p.steps.map(st => ({ ...st, to: st.to ? { photo: '/photos/' + st.to.split('~')[1], poem: st.to.split('~')[0] } : undefined })) }); facets.push(p.facet) }
     plan.forEach(p => p.steps.forEach(st => { if (st.t !== 'move') delete st.to }))
     P37.plansHold(world, plan, facets, 'shape', label, bad)
-    check(!bad.length && kinds.tools === 1 && kinds.year === 1, `${label}: every one of ${ids.length} facets yields: the tools, the photograph's date, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
+    check(!bad.length && kinds.idea === 6 && kinds.year === 1, `${label}: every one of ${ids.length} facets yields: six ideas, the photograph's date, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
     return plans }
   const probeHold = async label => { const ids = await cdp.eval('HOME.drawn'), bad = []
     for (const i of ids) for (const [n, lines] of [[60, 0], [220, 0], [480, 0], [200, 6], [1400, 0]]) { probes++; if (await cdp.eval(`HOME.probe(${i}, ${n}, ${lines})`)) bad.push(`#${i} at ${n}${lines ? ' in ' + lines + ' lines' : ''}`) }
@@ -756,28 +888,163 @@ try {
   const openWhy = async () => { await tapEl('#where'); await waitFor(() => cdp.eval(`document.body.classList.contains('why') && +getComputedStyle(document.getElementById('why')).opacity > .98 && document.querySelector('.why-body').dataset.drawn === 'yes'`), 'the chain opens', 120) }
   const scrimPt = vp => cdp.eval(`(() => { for (const [x, y] of [[${vp.w} - 20, ${vp.h} * .4], [20, 20], [${vp.w} * .5, 40], [${vp.w} - 20, ${vp.h} - 20], [${vp.w} * .5, ${vp.h} * .5]]) { const e = document.elementFromPoint(x, y); if (e && e.id === 'why-scrim') return [x, y] } return null })()`)
 
-  /* the six names sit WHOLLY inside one facet (Kahran, 9 Nov: "are tools just randomly floating what is that"): every photograph, each with two
-     poems (every live poem in turn), at five screens, as a visit makes the world and as a crossing does (HOME.plant: makeWorld itself, off
-     screen); every corner and every point of the names' edge inside the facet's cut, a seam's width in, and clear of the poem, the name,
-     the caption, the switch and the where line. SWEEP=0 skips it, SWEEP=only stops after it */
+  /* 41 b / 42 a readers, shared by the live loads and the states below */
+  const IDEAS42 = HOME_IDEAS
+  const key = async (k, extra = {}) => { const map = { Enter: [13, '\r'], ' ': [32, ' '], Escape: [27, ''], Tab: [9, ''] }, [code, text] = map[k]
+    await cdp.send('Input.dispatchKeyEvent', { type: text ? 'keyDown' : 'rawKeyDown', key: k, code: k === ' ' ? 'Space' : k, windowsVirtualKeyCode: code, text: text || undefined, ...extra })
+    await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: k, code: k === ' ' ? 'Space' : k, windowsVirtualKeyCode: code, ...extra }); await sleep(120) }
+  // what a sighted visitor reads at rest: every visible text, title and label, except the six keys' labels, which are proved hidden instead
+  const restText = () => cdp.eval(`(() => { const out = []; const walk = n => { if (n.nodeType === 3) { const t = n.textContent.replace(/\\s+/g, ' ').trim(), p = n.parentElement
+      if (t && p.getClientRects().length && !p.closest('[hidden], noscript, #why') && getComputedStyle(p).visibility !== 'hidden' && (() => { for (let e = p; e; e = e.parentElement) if (+getComputedStyle(e).opacity < .02) return false; return true })()) out.push(t) } else n.childNodes.forEach(walk) }
+    walk(document.body); document.querySelectorAll('[title], [aria-label]').forEach(e => { if (!e.closest('#keys')) out.push(e.getAttribute('title') || '', e.getAttribute('aria-label') || '') }); return out.join(' | ') })()`)
+  const rested = async label => {
+    const rest = await restText(), shownN = IDEAS42.map(I => I.name).filter(n => new RegExp('(^|[^a-z])' + n.replace(/ /g, '\\s+') + '([^a-z]|$)', 'i').test(rest))
+    const ks = await cdp.eval(`[...document.querySelectorAll('#keys button')].map(b => { const r = b.getBoundingClientRect(), cs = getComputedStyle(b); return { name: b.getAttribute('aria-label'), w: r.width, h: r.height, text: b.textContent, clip: cs.clipPath, exp: b.getAttribute('aria-expanded'), ctl: b.getAttribute('aria-controls'), tab: b.tabIndex } })`)
+    check(!shownN.length && ks.length === 6 && ks.map(x => x.name).join('|') === IDEAS42.map(I => I.name).join('|') && ks.every(x => x.w <= 1 && x.h <= 1 && !x.text && /inset\(50%\)/.test(x.clip) && x.exp === 'false' && x.ctl === 'tools' && x.tab === 0),
+      `${label}: at rest no idea's name is visible, in a title or a label; the six keys carry them, in IDEAS' order, focusable, taking no room and showing nothing`, shownN.join(', ') || JSON.stringify(ks).slice(0, 200))
+    const marks = await cdp.eval('HOME.marks()')
+    check(marks.length === 6 && marks.every(m => m.wash > .05 && !m.thread), `${label}: at rest six facets carry a breath of their idea's hue, nothing more`, JSON.stringify(marks)) }
+  const panelNow = () => cdp.eval(`(() => { const t = document.querySelector('#tools'), r = t.getBoundingClientRect(), vis = e => !!e && e.getClientRects().length > 0 && !e.closest('[hidden]')
+    const kids = [...t.children].filter(vis).map(e => e.tagName + (e.className ? '.' + e.className.replace(/ /g, '.') : '')), gen = t.querySelector('.gen'), fs = e => parseFloat(getComputedStyle(e).fontSize)
+    const lines = []; const walk = n => { if (n.nodeType === 3 && n.textContent.trim() && vis(n.parentElement)) { const q = document.createRange(); q.selectNodeContents(n); for (const b of q.getClientRects()) if (b.height) lines.push([b.top, b.bottom]) } else n.childNodes.forEach(walk) }; walk(t)
+    return { box: [r.left, r.top, r.width, r.height], kids, h2: t.querySelector('h2').textContent, href: t.querySelector('h2 a')?.getAttribute('href') ?? null, text: t.innerText,
+      here: [...t.querySelectorAll('p.here')].filter(vis).map(p => p.textContent), hereBig: Math.min(...[...t.querySelectorAll('p.here')].filter(vis).map(fs), 99), genMax: Math.max(...[...t.querySelectorAll('.gen p, .gen li button')].filter(vis).map(fs), 0),
+      genHidden: !gen || !vis(gen), intro: gen?.querySelector('p.intro')?.textContent ?? null, boundary: gen?.querySelector('p.boundary')?.textContent ?? null,
+      parts: [...t.querySelectorAll('li > button')].map(b => b.textContent), sents: [...t.querySelectorAll('li > p')].map(p => p.textContent),
+      basis: t.querySelector('.basis')?.textContent ?? null, cut: lines.filter(([a, b]) => a < r.bottom - 1 && b > r.bottom + 1).length } })()`)
+  const panelWrong = (I, st, W0, plan) => { const out = []
+    if (st.h2 !== I.name || st.href !== (I.href || null)) out.push(`${I.name}: not its name`)
+    if (st.parts.join('|') !== I.parts.join('|') || st.sents.join('|') !== I.detail.tools.join('|') || st.intro !== MARK + I.detail.intro || st.boundary !== MARK + I.detail.boundary || st.genHidden)
+      out.push(`${I.name}: the general is not IDEAS' own words, read live (intro “${(st.intro || '').slice(0, 40)}”, ${st.intro && st.intro[0] === MARK ? 'marked' : 'no mark: a copy'})`)
+    if (plan && (st.basis !== plan.basis || / px\b/.test(st.basis || ''))) out.push(`${I.name}: basis “${st.basis}” vs plan “${plan.basis}”`)
+    if (st.here.join(' ') !== W0.join(' ')) out.push(`${I.name}: this world says “${st.here.join(' ').slice(0, 120)}”, the recount “${W0.join(' ').slice(0, 120)}”`)
+    if (W0.length && st.kids[1] !== 'P.here') out.push(`${I.name}: this world is not first under the name (${st.kids.slice(0, 3)})`)
+    if (W0.length && !(st.hereBig > st.genMax)) out.push(`${I.name}: this world (${st.hereBig}px) is not larger than the general (${st.genMax}px)`)
+    if (/\bnull\b|\bundefined\b|\bNaN\b/.test(st.text)) out.push(`${I.name}: the panel shows a missing value`)
+    if (st.cut) out.push(`${I.name}: ${st.cut} line(s) cut at the panel's edge`)
+    return out }
+  const panelClash = (name, tb, s) => { const out = [], where = s.where, nav = s.nav || null
+    for (const [n, r] of [['poem', s.poem], ['name', s.name], ['where line', where], ['mat (name, where line, nav)', s.mat], ['switch', s.vs]]) if (r && r[2] > 0 && meet(tb, r)) out.push(`${name} over the ${n}`)
+    if (tb[0] < 0 || tb[1] < 0 || tb[0] + tb[2] > s.W + .5 || tb[1] + tb[3] > s.H + .5) out.push(`${name} off the screen`); return out }
+  const contrast = () => cdp.eval(`(() => { const t = document.querySelector('#tools'), r = t.getBoundingClientRect(), cv = document.getElementById('stone'), d = devicePixelRatio, x = cv.getContext('2d')
+    const img = x.getImageData(Math.max(0, Math.floor(r.left * d)), Math.max(0, Math.floor(r.top * d)), Math.max(1, Math.floor(r.width * d)), Math.max(1, Math.floor(r.height * d))).data
+    const bg = getComputedStyle(t).backgroundColor.match(/[\\d.]+/g).map(Number), A = bg[3] ?? 1
+    const lin = v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }, Lof = c => .2126 * lin(c[0]) + .7152 * lin(c[1]) + .0722 * lin(c[2])
+    const grounds = []; for (let k = 0; k < img.length; k += 4 * 7) grounds.push([0, 1, 2].map(j => bg[j] * A + img[k + j] * (1 - A)))
+    const texts = [...t.querySelectorAll('h2, p, li > button, .basis')].filter(e => e.getClientRects().length && !e.closest('[hidden]')).map(e => { const cs = getComputedStyle(e), m = cs.color.match(/[\\d.]+/g).map(Number); let op = 1; for (let n = e; n && n !== t.parentElement; n = n.parentElement) op *= +getComputedStyle(n).opacity; return { sel: e.tagName + (e.className ? '.' + e.className : ''), c: m, a: (m[3] ?? 1) * op } })
+    let worst = { r: 99 }
+    for (const T of texts) for (const G of grounds) { const fg = [0, 1, 2].map(j => T.c[j] * T.a + G[j] * (1 - T.a)), L1 = Lof(fg), L2 = Lof(G), ratio = (Math.max(L1, L2) + .05) / (Math.min(L1, L2) + .05); if (ratio < worst.r) worst = { r: ratio, sel: T.sel } }
+    return { r: +worst.r.toFixed(2), sel: worst.sel } })()`)
+  // B8: the six keys. Tab reaches each in order; focus rings its facet (pixels, not code); Enter or Space opens its own idea; Escape closes it and gives focus back
+  const keyboard = async label => { await park(); await cdp.eval('HOME.still = true; document.activeElement && document.activeElement.blur && document.activeElement.blur()'); await sleep(900)
+    const order = []; for (let n = 0; n < 40 && order.length < 6; n++) { await key('Tab'); const a = await cdp.eval(`(() => { const e = document.activeElement; return e && e.closest && e.closest('#keys') ? +e.dataset.k : null })()`); if (a != null && !order.includes(a)) order.push(a) }
+    check(order.join() === '0,1,2,3,4,5', `${label} B8: Tab reaches all six keys, in IDEAS' order`, order.join())
+    const ideas = (await cdp.eval('HOME.state')).ideas, bad = [], rings = []
+    for (const [k, I] of IDEAS42.entries()) { const x = ideas.find(q => q.k === k)
+      await cdp.eval('document.activeElement && document.activeElement.blur && document.activeElement.blur()'); await sleep(250); await cdp.eval(`(() => { const c = document.getElementById('stone'); window.__a = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; return 1 })()`)
+      await cdp.eval(`document.querySelector('#keys button[data-k="${k}"]').focus()`); await sleep(250)
+      const r = await cdp.eval(`(() => { const c = document.getElementById('stone'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data, a = window.__a, P = HOME.state.cells[${x.i}], dpr = c.width / innerWidth
+        const inP = ([x, y], Q) => { let q = false; for (let i = 0, j = Q.length - 1; i < Q.length; j = i++) { const [xi, yi] = Q[i], [xj, yj] = Q[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) q = !q } return q }
+        let inside = 0, outside = 0; for (let k = 0; k < d.length; k += 4) { const dd = Math.abs(d[k] - a[k]) + Math.abs(d[k + 1] - a[k + 1]) + Math.abs(d[k + 2] - a[k + 2]); if (dd < 60) continue; const p = [((k >> 2) % c.width) / dpr, Math.floor((k >> 2) / c.width) / dpr]; inP(p, P) ? inside++ : outside++ }
+        return { inside, outside, keyAt: HOME.keyAt } })()`)
+      rings.push(r.inside); if (!(r.keyAt === k && r.inside > 200 && r.outside < r.inside * .05)) bad.push(`${I.name}: focus drew ${r.inside} changed pixels in its facet, ${r.outside} outside (keyAt ${r.keyAt})`)
+      if (k === 0 && label.includes('home')) await shot(`focus-ring-${label.split(' ')[0]}.png`)
+      await key(k % 2 ? ' ' : 'Enter')
+      const st = await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.openAt === ${x.i} && document.querySelector('#tools').classList.contains('on') && ({ h2: document.querySelector('#tools h2').textContent, exp: [...document.querySelectorAll('#keys button')].map(b => b.getAttribute('aria-expanded')) })`), 'key ' + I.name, 40, 50).catch(() => null)
+      if (!st || st.h2 !== I.name || st.exp.join() !== IDEAS42.map((_, j) => String(j === k)).join()) bad.push(`${I.name}: ${k % 2 ? 'Space' : 'Enter'} did not open it (${JSON.stringify(st)})`)
+      await key('Escape'); const back = await cdp.eval(`({ open: HOME.open, focus: document.activeElement === document.querySelector('#keys button[data-k="${k}"]'), exp: document.querySelector('#keys button[data-k="${k}"]').getAttribute('aria-expanded') })`)
+      if (back.open !== -1 || !back.focus || back.exp !== 'false') bad.push(`${I.name}: Escape ${back.open !== -1 ? 'left it open' : 'did not give the focus back'}`) }
+    await cdp.eval('document.activeElement && document.activeElement.blur && document.activeElement.blur(); HOME.still = false')
+    check(!bad.length, `${label} B8: each key's focus draws a ring on its own facet (${Math.min(...rings)} to ${Math.max(...rings)} pixels changed, none elsewhere to speak of), Enter or Space opens its own idea with aria-expanded true, Escape closes it and gives the focus back`, bad.slice(0, 3).join(' | ')) }
+
+  /* 42 a, the texts: every this-world sentence of every world (today's pair, all 77 photographs with two poems each, and the worlds holding the
+     rarer forms: an undated poem, a poem of one theme, a photograph and a poem shown on the home once, twice and three or more times), as the
+     live page writes them, against this check's own recount, word for word; none names a private channel, the system, or anyone */
+  const readAtOf = () => cdp.eval(`(() => { try { return JSON.parse(sessionStorage.getItem('kahranWeatherCache')).at } catch { return null } })()`)
+  const kp = (photo, slug) => slug + '~' + photo.replace('/photos/', '')
+  const POEMS42 = DATA.poems.filter(p => live.has(p.slug)), PHOTOS42 = DATA.photos.filter(p => REGIONS[p.src])
+  const KEYS = PHOTOS42.flatMap((p, k) => [0, 46].map(o => POEMS42[(k * 7 + o) % POEMS42.length].slug + '~' + p.src.replace('/photos/', '')))
+  const RARE = (() => { const D = P42.DAYS0, real = Object.keys(D).filter(d => /^\d{4}-/.test(d)), n = (f, v) => real.filter(d => D[d][f] === v).length, out = {}
+    const ph = c => PHOTOS42.find(p => c(n('photo', p.src))), po = c => POEMS42.find(p => c(n('poem', p.slug)))
+    const P1 = ph(x => x === 1), P2 = ph(x => x === 2), P3 = ph(x => x >= 3), Q1 = po(x => x === 1), Q2 = po(x => x === 2), Q3 = po(x => x >= 3), U = POEMS42.find(p => P42.PY0.undated[p.slug]), O = POEMS42.find(p => P42.REL0.P[p.slug] && P42.REL0.P[p.slug].themes.length === 1)
+    for (const [k, p, q] of [['an undated poem', P1, U], ['a poem of one theme', P2, O], ['shown once', P1, Q1], ['shown twice', P2, Q2], ['shown three or more times', P3, Q3]]) if (p && q) out[k] = kp(p.src, q.slug)
+    return out })()
+  const M0 = { iso: '2026-11-08', R: P36.READING }, SAID = {}
+  { await view({ id: 'texts', w: 390, h: 844, mobile: true }); await open('')
+    const today = await cdp.eval('HOME.todayKey'), at = await readAtOf(), tp = P42.today(M0.iso, M0.R, P42.DAYS0), bad = [], priv = [], caps = []
+    check(today === kp(tp.photo, tp.poem) && tp.how === 'live', `42 a: the page's pair today is the one pick.js picks in the recount here (${today})`)
+    const all = [today, ...KEYS, ...Object.values(RARE)]
+    for (const key of all) { const [slug, f] = key.split('~'), got = await cdp.eval(`HOME.hereFor(${JSON.stringify(key)})`), want = P42.expected({ ...M0, readAt: at, src: '/photos/' + f, slug, mode: key === today ? 'home' : 'world' })
+      bad.push(...P42.differ(got, want).map(b => key + ' ' + b))
+      for (const n of P42.NAMES) for (const x of got[n] || []) { if (P42.PRIVATE.test(x.s)) priv.push(`${key} ${n}: “${P42.PRIVATE.exec(x.s)[0]}”`); const u = P42.unaccounted(x.s); if (u.length) caps.push(`${key} ${n}: ${u.join(', ')}`) }
+      if (key === today) SAID['today'] = got; for (const [k, v] of Object.entries(RARE)) if (v === key) SAID[k + ' (' + key + ')'] = got }
+    check(!bad.length, `42 a: every this-world sentence equals the recount here, word for word: ${all.length} worlds (today's pair, ${KEYS.length} worlds, ${Object.keys(RARE).length} holding the rarer forms: ${Object.keys(RARE).join(', ')}) x six ideas`, `${bad.length} differ: ` + bad.slice(0, 3).join(' | '))
+    check(!priv.length, '42 a: no this-world sentence names a private channel, the system or a private place', priv.slice(0, 3).join(' | '))
+    check(!caps.length, '42 a: no this-world sentence holds a capitalised word the data does not account for (no person is named)', caps.slice(0, 3).join(' | '))
+    /* B4: every fact that can be missing, missing (one at a time and all at once), in every one of the three ways today's pair is chosen,
+       for every world: no sentence holds null, undefined, NaN, an empty quote, a doubled space or comma, or loses its capital or its stop */
+    const ns = await cdp.eval(`(async () => { const keys = ${JSON.stringify([today, ...KEYS])}, BROKEN = new RegExp(${JSON.stringify(P42.BROKEN.source)}), bad = []; let says = 0
+      const knock = [['written', F => { F.sky.written = null }], ['last', F => { F.archive.last = null }], ['since', F => { F.archive.since = null; F.archive.days = 0 }], ['freeze', F => { F.archive.freeze = null; F.archive.hasToday = false }],
+        ['publishers', F => { F.publishers = null }], ['years', F => { F.poem.year = null; F.poem.undated = 0 }], ['undated', F => { F.poem.year = null }], ['themes', F => { F.themes = null }],
+        ['place unknown', F => { F.sky.place = null; F.sky.read = false }], ['place unsaid', F => { F.sky.place = undefined; F.sky.read = false }], ['sky unread', F => { F.sky.read = false }], ['no phrase', F => { F.sky.phrase = null }],
+        ['no temperature', F => { F.sky.temp = null }], ['readAt', F => { F.sky.readAt = null }], ['ranked', F => { F.pick.ranked = false }], ['km', F => { F.km = null }], ['home', F => { F.home = null }],
+        ['camera', F => { F.photo.camera = null }], ['month', F => { F.photo.month = null; F.photo.year = null }], ['decimals', F => { F.sky.decimals = null }], ['shown', F => { F.photo.shown = []; F.poem.shown = [] }]]
+      for (const key of keys) { const F0 = await HOME.factsFor(key)
+        for (const how of ['live', 'frozen', 'hash']) for (const set of [[], ...knock.map(k => [k]), knock]) { const F = structuredClone(F0); F.how = how; set.forEach(([, f]) => f(F)); says++
+          const tag = key + ' ' + how + (set.length ? ' without ' + (set === knock ? 'any' : set[0][0]) : '')
+          let S; try { S = S42.say(F) } catch (e) { bad.push(tag + ': threw ' + e.message); continue }
+          for (const [n, L] of Object.entries(S)) for (const x of L) if (typeof x.s !== 'string' || BROKEN.test(x.s) || !/^[A-Z“]/.test(x.s) || !/\\.$/.test(x.s)) bad.push(tag + ' ' + n + ': “' + x.s + '”')
+          if (F.sky.read && F.sky.place && Object.values(S).flat().some(x => /could not be read/.test(x.s))) bad.push(tag + ': says the sky could not be read when it was') } }
+      return { bad: bad.slice(0, 8), n: bad.length, says, worlds: keys.length, states: 3 * (knock.length + 2) } })()`)
+    check(!ns.n, `B4: no sentence is ever broken or false for a fact that did not load: ${ns.worlds} worlds x ${ns.states} states (three ways the pair is chosen x every fact missing, alone and all together) = ${ns.says.toLocaleString('en-US')} writings, none holding null, undefined, NaN, an empty quote or a doubled space or comma; the sky is said unread only when it was not read`, `${ns.n} wrong: ${ns.bad.join(' | ')}`) }
+
+  /* 41 b's placement on the live stone: every world at five screens, fresh and crossed (HOME.plant: makeWorld itself, off screen); six ideas
+     behind six distinct legal facets (never the title's, a door's or the date's, each with a place for a finger), as the rule says, recounted
+     here, each basis line word for word with no pixel count; the poem clear of the caption and the switch, never a half line.
+     Reported, not ruled (B13): where an open panel would cover the whole of its own idea's facet. SWEEP=0 skips it, SWEEP=only stops after it */
+  const inPolyN = ([x, y], P) => { let c = false; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [xi, yi] = P[i], [xj, yj] = P[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+  const gapR = (a, b) => Math.hypot(Math.max(0, b[0] - (a[0] + a[2]), a[0] - (b[0] + b[2])), Math.max(0, b[1] - (a[1] + a[3]), a[1] - (b[1] + b[3])))
+  const reachN = (P, r) => { if (inPolyN([r[0] + r[2] / 2, r[1] + r[3] / 2], P)) return 0; let d = Infinity
+    for (let i = 0; i < P.length; i++) { const a = P[i], b = P[(i + 1) % P.length], n = Math.max(1, Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1]) / 4))
+      for (let s = 0; s <= n; s++) d = Math.min(d, gapR([a[0] + (b[0] - a[0]) * s / n, a[1] + (b[1] - a[1]) * s / n, 0, 0], r)) } return d }
+  const seamN = (P, Q) => P.filter(p => Q.some(q => Math.hypot(p[0] - q[0], p[1] - q[1]) < 1.5)).length >= 2
+  const hitN = (rs, cells, drawn) => { const out = new Set(); for (const b of rs) { const p = [b[0] + b[2] / 2, b[1] + b[3] / 2]; for (const i of drawn) if (inPolyN(p, cells[i])) out.add(i) } return out }
+  function rule41(r) { const NAMES = P42.NAMES, C = r.cells, ct = r.cents, free = new Set(r.legal), out = [], take = (name, i, basis) => { free.delete(i); out[NAMES.indexOf(name)] = { k: NAMES.indexOf(name), i, basis } }
+    const nearest = rect => [...free].map(i => ({ i, d: reachN(C[i], rect) })).sort((a, b) => a.d - b.d || a.i - b.i)[0]
+    let x = nearest(r.where); take('Context', x.i, `nearest ‘${r.whereWords}’ · the place and the sky it states are what this idea gathers`)
+    x = nearest(r.titleBox); take('Topically suggesting', x.i, `nearest the title, ‘${r.poemTitle}’ · today’s poem is the suggestion this moment made`)
+    x = nearest(r.name); take('Home', x.i, 'nearest his name · this page is one of the things the home runs')
+    { const Y = r.year >= 0 ? C[r.year] : null, yc = Y ? [ct[r.year][0], ct[r.year][1], 0, 0] : r.cap, y = [...free].map(i => ({ i, nb: !!Y && seamN(C[i], Y), d: reachN(C[i], yc) })).sort((a, b) => b.nb - a.nb || a.d - b.d || a.i - b.i)[0]
+      take('Keeping track', y.i, !Y ? 'nearest the caption, the photograph’s place · the record is kept by where and when' : y.nb ? `beside the date, ${r.date} · a seam shared with it · the record is kept by when` : `nearest the date, ${r.date} · the record is kept by when`) }
+    x = nearest(r.vs); take('Staying up to date', x.i, 'nearest v3 · v2 · v1 · the site kept current, its earlier versions still open')
+    { const five = out.filter(Boolean).map(o => o.i), mid = five.reduce((s, i) => [s[0] + ct[i][0] / 5, s[1] + ct[i][1] / 5], [0, 0])
+      const y = [...free].map(i => ({ i, n: five.filter(j => seamN(C[i], C[j])).length, d: Math.hypot(ct[i][0] - mid[0], ct[i][1] - mid[1]) })).sort((a, b) => b.n - a.n || a.d - b.d || a.i - b.i)[0]
+      take('Self-healing', y.i, y.n ? `sharing a seam with ${y.n} of the five it watches · they are kept running from here` : 'nearest the middle of the five it watches · they are kept running from here') }
+    return out }
   if (process.env.SWEEP !== '0') {
-    const SW = [[390, 844, true], [375, 667, true], [430, 932, true], [844, 390, true], [1440, 900, false]]
-    const poems = DATA.poems.filter(p => live.has(p.slug)), photos = DATA.photos.filter(p => REGIONS[p.src])
-    const keys = photos.flatMap((p, k) => [0, 46].map(o => poems[(k * 7 + o) % poems.length].slug + '~' + p.src.replace('/photos/', '')))
-    const bad = [], seen = { n: 0, recut: 0, far: 0, slow: 0, scroll: 0, farAt: {} }, ts = Date.now()
-    for (const [w, h, mobile] of SW) {
-      await view({ id: 'sweep', w, h, mobile }); await open('')
-      for (const key of keys) for (const crossed of [false, true]) {
-        const trail = crossed ? [keys[(keys.indexOf(key) + 1) % keys.length]] : [], t1 = Date.now(), r = await cdp.eval(`HOME.plant(${JSON.stringify(key)}, ${JSON.stringify(trail)})`); seen.n++; seen.slow = Math.max(seen.slow, Date.now() - t1)
+    const SW = [[390, 844, true], [375, 667, true], [430, 932, true], [844, 390, true], [1440, 900, false]], bad = [], seen = { n: 0, recut: 0, slow: 0, scroll: 0, covered: 0, coveredIdeas: 0, coveredAt: {} }, ts = Date.now()
+    for (const [w, h, mobile] of SW) { await view({ id: 'sweep', w, h, mobile }); await open('')
+      for (const key of KEYS) for (const crossed of [false, true]) {
+        const trail = crossed ? [KEYS[(KEYS.indexOf(key) + 1) % KEYS.length]] : [], t1 = Date.now(), r = await cdp.eval(`HOME.plant(${JSON.stringify(key)}, ${JSON.stringify(trail)})`); seen.n++; seen.slow = Math.max(seen.slow, Date.now() - t1)
         const tag = `${w}x${h} ${crossed ? 'crossed into' : 'fresh'} ${key}`
-        if (!r || r.tools < 0 || !r.box) { bad.push(`${tag}: no facet holds the names`); continue }
-        if (r.cutT) seen.recut++; if (r.basis.d > BY) { seen.far++; seen.farAt[w + 'x' + h] = (seen.farAt[w + 'x' + h] || 0) + 1 } if (r.scroll) seen.scroll++
-        if (/dots/.test(r.box[5] || '') || !(r.box[2] > 60)) bad.push(`${tag}: the names are not words (${r.box[5]})`)
+        if (!r) { bad.push(`${tag}: no world`); continue } if (r.cutT) seen.recut++; if (r.scroll) seen.scroll++
         if (r.half) bad.push(`${tag}: the poem's box cuts ${r.half} line(s) in half`)
         { const ph = [['caption', r.cap], ['switch', r.vs]].filter(([, o]) => o[2] > 0 && meet(r.poem, o)).map(([k]) => k); if (ph.length || r.poem[1] < 0 || r.poem[1] + r.poem[3] > h + .5) bad.push(`${tag}: the poem ${ph.length ? 'is on the ' + ph.join(', ') : 'leaves the screen'}`) }
-        const P = r.cells[r.tools], b = r.box.slice(0, 4), hit = [['poem', r.poem], ['name', r.mat], ['caption', r.cap], ['switch', r.vs], ['where line', r.where]].filter(([, o]) => o[2] > 0 && meet(b, o)).map(([k]) => k)
-        if (!r.drawn.includes(r.tools) || !wholly(b, P) || hit.length || b[0] < 0 || b[1] < 0 || b[0] + b[2] > w || b[1] + b[3] > h) bad.push(`${tag}: ${!wholly(b, P) ? 'over a seam' : ''}${hit.length ? ' on the ' + hit.join(', ') : ''} ${r1(b)}`) } }
-    check(!bad.length, `the six names sit wholly inside one facet as words, a seam's width in, clear of the poem, the name, the caption, the switch and the where line; the poem clear of the caption and the switch, never a half line: ${keys.length} worlds (all ${photos.length} photographs, ${new Set(keys.map(k => k.split('~')[0])).size} poems) x ${SW.length} screens x fresh and crossed = ${seen.n} placements, every one as words; ${seen.recut} on a cut re-seeded to hold them; ${seen.far} farther than ${BY}px from the line, none nearer could hold them (${Object.entries(seen.farAt).map(([k, v]) => k + ' ' + v).join(', ') || 'none'}); ${seen.scroll} poems shown in whole lines, the rest a scroll; slowest world made in ${seen.slow}ms (${Math.round((Date.now() - ts) / 1000)}s)`, `${bad.length} wrong: ${bad.slice(0, 8).join(' | ')}`)
+        const got = r.ideas, title = hitN(r.titleRects, r.cells, r.drawn), doors = hitN(r.doorRects, r.cells, r.drawn)
+        if (!got || got.length !== 6 || got.some(x => !x)) { bad.push(`${tag}: not six ideas`); continue }
+        if (new Set(got.map(x => x.i)).size !== 6) bad.push(`${tag}: two ideas share a facet`)
+        for (const x of got) { const why = [!r.drawn.includes(x.i) && 'not drawn', title.has(x.i) && 'the title\'s', doors.has(x.i) && 'a door\'s', x.i === r.year && 'the date\'s', !r.touch[x.i] && 'no place for a finger'].filter(Boolean)
+          if (why.length) bad.push(`${tag}: ${P42.NAMES[x.k]} behind facet ${x.i}, ${why.join(', ')}`) }
+        const want = rule41(r)
+        for (const [k, x] of got.entries()) { if (!want[k] || want[k].i !== x.i) bad.push(`${tag}: ${P42.NAMES[k]} behind ${x.i}, the rule says ${want[k] && want[k].i}`)
+          else if (want[k].basis !== x.basis || / px\b/.test(x.basis)) bad.push(`${tag}: ${P42.NAMES[k]}'s basis says “${x.basis}”, the recount “${want[k].basis}”`) }
+        if (r.covered.length) { seen.covered++; seen.coveredIdeas += r.covered.length; seen.coveredAt[w + 'x' + h] = (seen.coveredAt[w + 'x' + h] || 0) + 1 } } }
+    check(!bad.length, `41 b's placement holds on the live stone: six ideas behind six distinct legal facets, as the rule says, recounted, each basis line word for word with no pixel count; the poem clear of the caption and the switch, never a half line: ${KEYS.length} worlds x ${SW.length} screens x fresh and crossed = ${seen.n} placements; ${seen.recut} on a re-seeded cut; ${seen.scroll} poems shown in whole lines, the rest a scroll; slowest world made in ${seen.slow}ms (${Math.round((Date.now() - ts) / 1000)}s)`, `${bad.length} wrong: ${bad.slice(0, 6).join(' | ')}`)
+    console.log(`note B13: in ${seen.covered} of ${seen.n} placements the open panel, at its full height, covers the whole of its own idea's facet (${seen.coveredIdeas} idea-facets; ${Object.entries(seen.coveredAt).map(([k, v]) => k + ' ' + v).join(', ') || 'none'}); there the next tool is in the panel`)
+    { await view({ id: 'wash', w: 390, h: 844, mobile: true }); await open(''); const ws = []
+      for (const key of [await cdp.eval('HOME.todayKey'), ...KEYS]) { const r = await cdp.eval(`HOME.washOf(${JSON.stringify(key)})`); if (r) ws.push(...r.map(x => ({ key, ...x }))) }
+      ws.sort((a, b) => a.dE - b.dE); const per = new Map(); for (const x of ws) per.set(x.key, Math.max(per.get(x.key) ?? 0, x.dE)); const worlds = [...per].sort((a, b) => a[1] - b[1])
+      console.log(`note B13: the hue wash at rest (390x844, ΔE76 between each idea's facet with its wash and without, mean over its pixels): faintest facet ${ws[0].dE.toFixed(1)} (${P42.NAMES[ws[0].k]}, ${ws[0].key}), median facet ${ws[ws.length >> 1].dE.toFixed(1)}; the faintest world's most visible facet ${worlds[0][1].toFixed(1)} (${worlds[0][0]}); ${ws.filter(x => x.dE < 2.3).length} of ${ws.length} facets under 2.3, the just-noticeable difference`) }
     if (process.env.SWEEP === 'only') { console.log(bad.join('\n')); throw new Error('SWEEP=only: stopped after the sweep') } }
 
   for (const vp of VIEWPORTS) {
@@ -789,8 +1056,9 @@ try {
     { const paths = first.map(f => f[0]), regs = paths.filter(u => u.startsWith('/v3/regions/')), photos = paths.filter(u => u.startsWith('/photos/'))
       const total = first.reduce((s, f) => s + f[2], 0), pic = first.filter(f => f[0].startsWith('/photos/')).reduce((s, f) => s + f[2], 0)
       if (vp.id === 'phone') weight = { total, pic, files: first.length, rest: total - pic }
-      check(!paths.includes('/v3/segments.json') && !paths.some(u => /regions\.json$/.test(u)) && regs.length === 1 && photos.length === 1 && total - pic < 300 * 1024,
-        `${tag}: the first screen is quick: ${first.length} files, ${Math.round((total - pic) / 1024)} KB gzipped before the photograph's ${Math.round(pic / 1024)} KB; one photograph and its regions, no segments.json`, JSON.stringify({ regs, photos, kb: Math.round((total - pic) / 1024) })) }
+      const late = ['/v3/here.js', '/poems/related.js', '/v2/flow.js', '/v3/poem-years.json', '/v3/why.js', '/v3/body.js'].filter(u => paths.includes(u))
+      check(!paths.includes('/v3/segments.json') && !paths.some(u => /regions\.json$/.test(u)) && regs.length === 1 && photos.length === 1 && !late.length && total - pic < 300 * 1024,
+        `${tag}: the first screen is quick: ${first.length} files, ${Math.round((total - pic) / 1024)} KB gzipped before the photograph's ${Math.round(pic / 1024)} KB; one photograph and its regions, no segments.json, nothing an idea's facet or the chain reads`, JSON.stringify({ regs, photos, kb: Math.round((total - pic) / 1024) })) }
     await shot(`home-${vp.id}.png`)
     { const c = await cdp.eval('HOME.crop')
       check(c && Math.abs(c.shown - c.screen) / c.screen < .01, `${tag}: the photograph covers the screen as a crop in the screen's own shape, never stretched (file ${c && c.file.toFixed(2)}, shown ${c && c.shown.toFixed(2)})`, JSON.stringify(c)) }
@@ -807,7 +1075,7 @@ try {
     // the facets
     const plans = await drawnHold(`${tag} home`)
     await probeHold(`${tag} home`)
-    { const pl = plans.findIndex(p => p && p.kind !== 'tools' && p.kind !== 'year'), seq0 = await cdp.eval('HOME.seq')
+    { const pl = plans.findIndex(p => p && p.kind !== 'idea' && p.kind !== 'year'), seq0 = await cdp.eval('HOME.seq')
       if (pl >= 0) { await cdp.eval('HOME.dry = true'); await tapFacet(pl); const last = await nextSeq(seq0); await sleep(400); const s = await cdp.eval('({ at: HOME.at, busy: HOME.busy, win: HOME.win, clash: HOME.clash })')
         check(last && last.i === pl && s.at === 'stone' && !s.busy && s.win && s.win.text && !s.clash, `${tag} home: a facet gives its piece, clear of the poem, and the stone stays`, JSON.stringify({ last, s }))
         await shot(`home-yield-${vp.id}.png`); await cdp.eval('HOME.dry = false') } }
@@ -815,9 +1083,9 @@ try {
     // 38 c: the date facet, and the flight into the years
     { const s = await cdp.eval('HOME.state'), w = await cdp.eval('HOME.world'), rec = XJ.photos.find(p => p.src === w.photo), d = taken(path.join(ROOT, w.photo)), want = MON[+d.slice(5, 7) - 1] + ' ' + d.slice(0, 4)
       const P = s.cells[s.year] || [], b = s.yearBox, corners = [[b[0], b[1]], [b[0] + b[2], b[1]], [b[0], b[1] + b[3]], [b[0] + b[2], b[1] + b[3]]]
-      const hit = [['poem', s.poem], ['name', s.mat], ['caption', s.cap], ['tab', s.vs], ['six names', s.names]].filter(([, r]) => r[2] > 0 && meet(b, r)).map(([k]) => k)
-      check(s.year >= 0 && s.year !== s.tools && s.yearOn && s.yearText === want && corners.every(c => inPoly(c, P)) && !hit.length && s.yearPlan.basis.taken === d,
-        `${tag}: the photograph's own facet holds its EXIF month and year (${want}), inside the facet, clear of the poem, the name, the caption, the tab and the six names, not the tools' facet`, JSON.stringify({ year: s.year, tools: s.tools, text: s.yearText, hit, corners: corners.map(c => inPoly(c, P)) }))
+      const hit = [['poem', s.poem], ['name', s.mat], ['caption', s.cap], ['tab', s.vs]].filter(([, r]) => r[2] > 0 && meet(b, r)).map(([k]) => k)
+      check(s.year >= 0 && !s.ideas.some(x => x.i === s.year) && s.yearOn && s.yearText === want && corners.every(c => inPoly(c, P)) && !hit.length && s.yearPlan.basis.taken === d,
+        `${tag}: the photograph's own facet holds its EXIF month and year (${want}), inside the facet, clear of the poem, the name, the caption and the tab, no idea's facet`, JSON.stringify({ year: s.year, ideas: s.ideas.map(x => x.i), text: s.yearText, hit, corners: corners.map(c => inPoly(c, P)) }))
       if (vp.id !== 'side') {
         const key0 = w.key, pt = await reach('#year a'); if (pt) await tap(pt)
         const ab = await waitFor(() => cdp.eval(`HOME.about && HOME.about.at === 'about' && HOME.about.lift && !HOME.busy && HOME.about`), 'the years', 200).catch(() => null)
@@ -827,63 +1095,55 @@ try {
         await cdp.eval('history.back()'); const back = await waitFor(() => cdp.eval(`HOME.at === 'stone' && document.getElementById('ph').hidden && HOME.world.key`), 'home again', 100).catch(() => null)
         check(back === key0, `${tag}: the browser's back brings it home to the same stone`, String(back)) } }
 
-    // 40: the tools under the facet nearest the where line, here and in a world behind a door
+    // 41 b and 42 a on the live page: nothing named at rest; each idea's facet opens this world first and largest, the general beneath, read live
     const home = await cdp.eval('HOME.doors.map(d => d.to)')
     for (const wk of [null, home[0]]) {
       const label = `${tag} ${wk ? 'world ' + wk : 'home'}`
       if (wk) await open('?w=' + encodeURIComponent(wk))
-      const s = await cdp.eval('HOME.state'), P = s.cells[s.tools] || []
-      /* the one facet, and the names on it */
-      check(s.tools >= 0 && s.namesOn && s.kinds.filter(k => k === 'tools').length === 1, `${label}: one facet holds the six names`, `facet ${s.tools}, on ${s.namesOn}`)
-      if (s.tools < 0) continue
-      const box = s.plan.box, nm = s.namesAll // every name to its last letter, not only the row they wrap in
-      check(Math.abs(nm[0] - box[0]) < 1.5 && Math.abs(nm[1] - box[1]) < 1.5 && Math.abs(nm[2] - box[2]) < 1.5 && Math.abs(nm[3] - box[3]) < 1.5, `${label}: the names are where the plan put them, at the size it measured`, `${r1(nm)} vs ${r1(box)}`)
-      check(wholly(nm, P), `${label}: the names sit wholly inside their facet, a seam's width in at every corner and edge`, `${r1(nm)} in facet ${s.tools}`)
-      const hit = [['poem', s.poem], ['name', s.mat], ['caption', s.cap], ['switch', s.vs], ['where line', s.where]].filter(([, r]) => r[2] > 0 && meet(nm, r)).map(([k]) => k)
-      check(!hit.length && nm[0] >= 0 && nm[1] >= 0 && nm[0] + nm[2] <= s.W && nm[1] + nm[3] <= s.H, `${label}: the names keep clear of the poem, the name, the caption, the switch and the where line`, hit.join(', '))
-      /* the basis, recounted */
-      const fits = s.fits.filter(f => f.box), lies = fits.filter(f => meet(f.box, s.poem) || meet(f.box, s.mat) || !inPoly(centre(f.box), s.cells[f.i]))
-      const d = fits.map(f => ({ i: f.i, d: gap(f.box, s.where) })).sort((a, b) => a.d - b.d), mine = gap(box, s.where)
-      check(!lies.length && d.length && fits.some(f => f.i === s.tools) && mine <= d[0].d + .5 && Math.abs(mine - s.plan.basis.d) < .6,
-        `${label}: basis recounted: of ${fits.length} facets that could hold them, facet ${s.tools} is nearest the where line (${mine.toFixed(1)}px${d.find(x => x.i !== s.tools) ? ', next ' + d.find(x => x.i !== s.tools).d.toFixed(1) + 'px' : ''})`,
-        `nearest ${d[0]?.i} at ${d[0]?.d.toFixed(1)}, recorded ${s.plan.basis.d}, false fits ${lies.map(f => f.i)}`)
-      check(mine <= BY, `${label}: the names read as the where line's own: within ${BY}px of it`, `${mine.toFixed(1)}px`)
-      await shot(`tools-${vp.id}-${wk ? 'world' : 'home'}.png`)
-      /* every idea and every tool, reached */
-      let missed = [], wrong = [], extra = new Set(), clash = []
-      for (const [k, I] of IDEAS.entries()) {
-        const pt = await reach(`#names button[data-k="${k}"]`); if (!pt) { missed.push(I.name); continue }
-        await tap(pt)
-        const st = await waitFor(() => cdp.eval(`HOME.open === ${k} && document.querySelector('#tools').classList.contains('on') && (() => { const r = document.querySelector('#tools').getBoundingClientRect(); return { box: [r.left, r.top, r.width, r.height], h2: document.querySelector('#tools h2').textContent, href: document.querySelector('#tools h2 a')?.getAttribute('href') ?? null } })()`), 'idea ' + I.name, 30, 50).catch(() => null)
-        if (!st) { missed.push(I.name); continue }
-        await sleep(350)
-        if (st.h2 !== I.name || st.href !== (I.href || null)) wrong.push(`${I.name}: heading ${st.h2} ${st.href}`)
-        const tb = st.box; for (const [n, r] of [['poem', s.poem], ['name', s.mat], ['switch', s.vs]]) if (meet(tb, r)) clash.push(`${I.name} over the ${n}`)
-        if (tb[0] < 0 || tb[1] < 0 || tb[0] + tb[2] > s.W + .5 || tb[1] + tb[3] > s.H + .5) clash.push(`${I.name} off the screen`)
-        for (const [j, part] of I.parts.entries()) {
-          const bp = await reach(`#tools li:nth-child(${j + 1}) button`); if (!bp) { missed.push(`${I.name} / ${part}`); continue }
-          const name = await cdp.eval(`document.querySelector('#tools li:nth-child(${j + 1}) button').textContent`); if (name !== part) wrong.push(`${part} named ${name}`)
-          await tap(bp)
-          const said = await cdp.eval(`(() => { const p = document.querySelector('#tools li:nth-child(${j + 1}) p'); return !p.hidden && p.getClientRects().length ? p.textContent : null })()`)
-          if (said !== I.detail.tools[j]) wrong.push(`${I.name} / ${part}: ${said === null ? 'did not open' : 'says ' + said.slice(0, 40)}`)
-          if (k === 0 && j === 0 && !wk) await shot(`tools-${vp.id}-open.png`) }
-        for (const t of await shown()) if (!WORDS.has(t)) extra.add(t)
-        const whole = await cdp.eval(`document.querySelector('#tools').innerText`); if (!whole.includes(I.detail.intro) || !whole.includes(I.detail.boundary)) wrong.push(`${I.name}: intro or boundary missing`)
-        // a touch elsewhere closes it, and goes nowhere
+      const s = await cdp.eval('HOME.state'), wkey = await cdp.eval('HOME.world.key')
+      const want = P42.expected({ ...M0, readAt: await readAtOf(), src: '/photos/' + wkey.split('~')[1], slug: wkey.split('~')[0], mode: wk ? 'world' : 'home' })
+      check(s.ideas.length === 6 && new Set(s.ideas.map(x => x.i)).size === 6 && s.kinds.filter(k => k === 'idea').length === 6 && !s.ideas.some(x => x.i === s.year), `${label}: six facets hold the six ideas, none the date's`, JSON.stringify(s.ideas.map(x => x.i)))
+      await rested(label)
+      const wrong = [], clash = [], aa = [], covered = []
+      for (const [k, I] of IDEAS42.entries()) {
+        const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { wrong.push(`${I.name}: no place to tap`); continue }
+        await tap(at.pt)
+        const ok = await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.openAt === ${at.i} && HOME.hereReadyNow`), 'idea ' + I.name, 250, 60).catch(() => null)
+        if (!ok) { wrong.push(`${I.name}: its facet ${at.i} did not open it with this world's words`); await key('Escape'); continue }
+        await sleep(380)
+        const st = await panelNow()
+        wrong.push(...panelWrong(I, st, want[I.name] || [], s.ideas.find(x => x.k === k)))
+        clash.push(...panelClash(I.name, st.box, s))
+        const c = await contrast(); aa.push(c.r); if (c.r < 4.5) wrong.push(`${I.name}: ${c.sel} reads ${c.r}:1 against the stone under it`)
+        if (!wk && vp.id !== 'side') await shot(`idea-${vp.id}-${I.name.toLowerCase().replace(/ /g, '-')}.png`)
+        // the same facet again opens its first tool
+        const at2 = await cdp.eval(`HOME.tapIdea(${k}, true)`)
+        if (at2 && at2.pt) { await tap(at2.pt); await sleep(200)
+          const two = await cdp.eval(`({ open: HOME.open, opened: [...document.querySelectorAll('#tools li > button[aria-expanded="true"]')].map(b => b.textContent) })`)
+          if (!(two.open === k && two.opened.join('|') === I.parts[0])) wrong.push(`${I.name}: a second tap on its facet did not open its first tool (${JSON.stringify(two)})`) }
+        else covered.push(I.name)
         const at0 = await cdp.eval('HOME.at + "|" + HOME.world.key')
-        const away = [Math.round(s.W / 2), Math.round(s.H * .04)].map((v, i) => i ? Math.max(v, 4) : v)
-        const free = await cdp.eval(`(() => { const r = document.querySelector('#tools').getBoundingClientRect(), pts = [[${away}], [innerWidth - 8, innerHeight / 2], [8, innerHeight / 2], [innerWidth / 2, innerHeight - 6]]
-          return pts.find(([x, y]) => (x < r.left || x > r.right || y < r.top || y > r.bottom) && !document.elementFromPoint(x, y).closest('a, button, .verse')) || null })()`)
+        const free = await cdp.eval(`(() => { const r = document.querySelector('#tools').getBoundingClientRect(), mine = ${at.i}, cs = HOME.state.cells, inP = ([x, y], P) => { let c = false; for (let i = 0, j = P.length - 1; i < P.length; j = i++) { const [xi, yi] = P[i], [xj, yj] = P[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c } return c }
+          for (const [x, y] of [[innerWidth / 2, 6], [innerWidth - 8, innerHeight / 2], [8, innerHeight / 2], [innerWidth / 2, innerHeight - 6], [innerWidth - 8, 8], [8, 8]]) if ((x < r.left || x > r.right || y < r.top || y > r.bottom) && !document.elementFromPoint(x, y).closest('a, button, .verse') && !inP([x, y], cs[mine])) return [x, y]; return null })()`)
         if (free) { await tap(free); await sleep(250)
           const after = await cdp.eval('({ open: HOME.open, at: HOME.at + "|" + HOME.world.key, busy: HOME.busy })')
           if (after.open !== -1 || after.at !== at0 || after.busy) wrong.push(`${I.name}: a touch elsewhere ${after.open !== -1 ? 'left it open' : 'moved the stone to ' + after.at}`) }
-        else { await cdp.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Escape', code: 'Escape', windowsVirtualKeyCode: 27 }); await sleep(150) } }
-      check(!missed.length, `${label}: all 6 ideas and all ${IDEAS.reduce((n, I) => n + I.parts.length, 0)} tools reached, each the topmost thing where it sits`, missed.join(', '))
-      check(!wrong.length, `${label}: each opens in its own words (name, page, intro, every tool's sentence, boundary); a touch elsewhere only closes it`, wrong.slice(0, 3).join(' | '))
-      check(!extra.size, `${label}: nothing shows that is not IDEAS verbatim`, [...extra].slice(0, 3).join(' | '))
-      check(!clash.length, `${label}: an open idea keeps clear of the poem, the name and the switch, on the screen`, clash.slice(0, 3).join(', '))
-      const txt = await cdp.eval('document.body.innerText + " " + [...document.querySelectorAll("#names button")].map(b => b.title).join(" ")')
+        else await key('Escape') }
+      check(!wrong.length, `${label}: each facet opens its own idea: this world first and largest, word for word as recounted, the general beneath read live (marked), the basis line, whole lines; the next tap opens its first tool; a touch elsewhere only closes it; AA against the pixels under it (worst ${Math.min(...aa).toFixed(1)}:1)`, wrong.slice(0, 3).join(' | '))
+      if (covered.length) console.log(`note ${label}: the open panel covers the whole of ${covered.join(', ')}'s facet; deeper is in the panel`)
+      check(!clash.length, `${label}: an open idea keeps clear of the poem, the name, the where line, the nav and the switch, on the screen`, clash.slice(0, 3).join(', '))
+      const txt = await cdp.eval('document.body.innerText + " " + [...document.querySelectorAll("#keys button")].map(b => b.getAttribute("aria-label")).join(" ")')
       check(!BANNED.test(txt), `${label}: the system's working name never shows`)
+      if (!wk) await keyboard(label)
+      if (wk && vp.id === 'desk') { // B9: a crossing with an idea open closes it, and what opens next is the new world's
+        await cdp.eval(`document.querySelector('#keys button[data-k="0"]').focus()`); await key('Enter'); await waitFor(() => cdp.eval('HOME.open === 0 && HOME.hereReadyNow'), 'Context open', 100)
+        const from = await cdp.eval('HOME.world.key'); await cdp.eval(`(() => { const d = [...document.querySelectorAll('.verse .l.shown .door')][0]; d.focus(); d.click() })()`)
+        await waitFor(() => cdp.eval(`HOME.at === 'world' && !HOME.busy && HOME.world.key !== ${JSON.stringify(from)} && HOME.world.arrived`), 'crossed', 200)
+        const after = await cdp.eval(`({ open: HOME.open, on: document.querySelector('#tools').classList.contains('on'), exp: [...document.querySelectorAll('#keys button')].map(b => b.getAttribute('aria-expanded')).join(''), key: HOME.world.key })`)
+        await cdp.eval(`document.querySelector('#keys button[data-k="0"]').focus()`); await key('Enter'); await waitFor(() => cdp.eval('HOME.open === 0 && HOME.hereReadyNow'), 'Context open again', 100); await sleep(300)
+        const st = await panelNow(), w2 = P42.expected({ ...M0, readAt: await readAtOf(), src: '/photos/' + after.key.split('~')[1], slug: after.key.split('~')[0], mode: 'world' })
+        check(after.open === -1 && !after.on && after.exp === 'falsefalsefalsefalsefalsefalse' && st.here.join(' ') === w2['Context'].join(' '), `${label}: crossing with an idea open closes it; opened again, it speaks of the new world (${after.key})`, JSON.stringify({ after, here: st.here }))
+        await key('Escape') }
     }
 
     // 34 b, opened from the line (36 c): every number recounted, every label re-run
@@ -918,16 +1178,77 @@ try {
       await drawnHold(`${tag} after crossing`) }
 
     // the rendered page: no system name, no instruction, nothing counts down
-    { const t = await cdp.eval(`document.body.innerText + ' ' + [...document.querySelectorAll('#names button')].map(b => b.title).join(' ')`)
+    { const t = await cdp.eval(`document.body.innerText + ' ' + [...document.querySelectorAll('#keys button')].map(b => b.getAttribute('aria-label')).join(' ')`)
       const tm = await cdp.eval(`(() => { const text = document.body.innerText.replace(document.getElementById('where').innerText, ''); return /\\b\\d{1,2}:\\d{2}\\b|\\b\\d+\\s?(s|sec|secs|seconds)\\b/i.test(text) || !!document.querySelector('progress,[role=timer]') })()`)
       check(!BANNED.test(t) && !/\b(click|tap|hover|scroll|swipe|press|touch) (here|to|on)\b/i.test(t) && !tm, `${tag}: the system's working name never shows, no instruction, nothing counts down`) }
     check(!errors.length, `${tag}: no console errors`, errors.slice(0, 3).join(' | '))
   }
 
+  /* B: every state a real visitor can reach, each pinned (the clock, the sky, the time zone, which sources load), at 390x844: today's pair as the
+     page resolves it, its six this-world texts word for word against the recount, each idea's panel opened (the general always there, read
+     live, nothing missing said); the texts are printed for the record. The first screen's are B1 */
+  { const sky = (o, cur = {}) => { const j = JSON.parse(FIXTURE); Object.assign(j.current, cur); return JSON.stringify(j) }
+    const relWithout = slug => { const R = read('poems/related.js'), at = R.indexOf(`'${slug}':`) >= 0 ? R.indexOf(`'${slug}':`) : R.indexOf(`"${slug}":`), end = R.indexOf('\n', at); return R.slice(0, at) + R.slice(end + 1) }
+    const REPEAT = (() => { const D = JSON.parse(JSON.stringify(P42.DAYS0)), real = Object.keys(D).filter(d => /^\d{4}-/.test(d)), n = f => v => real.filter(d => D[d][f] === v).length
+      const X = PHOTOS42.find(p => n('photo')(p.src) === 2).src, Y = POEMS42.find(p => n('poem')(p.slug) === 1).slug
+      D['2025-03-14'] = { ...D[real[0]], photo: X, poem: Y }; return { days: D, key: kp(X, Y) } })()
+    const N9 = Date.UTC(2026, 10, 10, 1, 40), UNKNOWN = { place: null, lat: null, lon: null, tz: null, updated: '2026-11-09' }
+    const STATES = [
+      { id: 'first', what: 'B1 the first screen: 8 Nov, 4:50 pm, the sky as it was read (after dark, clear, 12.9 °C)', pin: PIN, sky: FIXTURE, iso: '2026-11-08' },
+      { id: 'day', what: 'B2 daytime: 8 Nov, 1:10 pm, the same sky by day', pin: Date.UTC(2026, 10, 8, 18, 10), sky: sky(FIXTURE, { is_day: 1, time: '2026-11-08T13:00' }), iso: '2026-11-08' },
+      { id: 'unheld', what: 'B2 a day the archive does not yet hold: 9 Nov, 8:40 pm', pin: N9, sky: FIXTURE, iso: '2026-11-09' },
+      { id: 'frozen', what: 'B3 no sky, on a day the archive already holds (8 Nov after it froze)', pin: PIN, sky: null, iso: '2026-11-08' },
+      { id: 'hash', what: 'B3 no sky, on a day the archive does not hold (9 Nov)', pin: N9, sky: null, iso: '2026-11-09' },
+      { id: 'unknown', what: 'B4 where he is not known with confidence (place.json says no city)', pin: PIN, sky: FIXTURE, iso: '2026-11-08', over: { '/v2/place.json': JSON.stringify(UNKNOWN) }, place: UNKNOWN },
+      { id: 'gone', what: 'B4 the poems\' years, related.js and flow.js fail to load', pin: PIN, sky: FIXTURE, iso: '2026-11-08', gone: ['/v3/poem-years.json', '/poems/related.js', '/v2/flow.js'] },
+      { id: 'nohere', what: 'B4 here.js itself fails to load', pin: PIN, sky: FIXTURE, iso: '2026-11-08', gone: ['/v3/here.js'], none: true },
+      { id: 'repeat', what: 'B5, B7 a photograph shown three times and a poem twice, the archive reaching back into 2025 (a served days.json)', pin: PIN, sky: FIXTURE, iso: '2026-11-08', days: REPEAT.days, world: REPEAT.key },
+      { id: 'norel', what: 'B5 today\'s poem missing from related.js', pin: PIN, sky: FIXTURE, iso: '2026-11-08', rel: true },
+      { id: 'london', what: 'B6 a visitor in Europe/London', pin: PIN, sky: FIXTURE, iso: '2026-11-08', tz: 'Europe/London', same: 'first' },
+      { id: 'kolkata', what: 'B6 a visitor in Asia/Kolkata', pin: PIN, sky: FIXTURE, iso: '2026-11-08', tz: 'Asia/Kolkata', same: 'first' }]
+    const got0 = {}, bad = []
+    await view({ id: 'states', w: 390, h: 844, mobile: true })
+    for (const S of STATES) {
+      await setPin(S.pin); SKY = S.sky; GONE.clear(); (S.gone || []).forEach(u => GONE.add(u)); OVER.clear(); for (const [u, b] of Object.entries(S.over || {})) OVER.set(u, b); if (S.days) OVER.set('/v2/days.json', JSON.stringify({ ...J('v2/days.json'), days: S.days }))
+      const R = S.sky && !(S.place && S.place.place === null) ? (S.id === 'day' ? { ...P36.READING, is_day: 1 } : P36.READING) : null, t = P42.today(S.iso, R, S.days || P42.DAYS0) // no city: no sky is asked for
+      let rel = null; if (S.rel) { const slug = t.poem; OVER.set('/poems/related.js', relWithout(slug)); rel = { P: Object.fromEntries(Object.entries(P42.REL0.P).filter(([k]) => k !== slug)), L: P42.REL0.L } }
+      await cdp.send('Emulation.setTimezoneOverride', { timezoneId: S.tz || 'America/New_York' }); errors.length = 0
+      await open('')
+      const today = await cdp.eval('HOME.todayKey'), how = await cdp.eval('HOME.how'), where = await cdp.eval('document.getElementById("where").innerText.trim()')
+      if (today !== kp(t.photo, t.poem) || how !== t.how) bad.push(`${S.id}: the pair is ${today} (${how}), the recount ${kp(t.photo, t.poem)} (${t.how})`)
+      await cdp.eval('HOME.whyReady()'); const said = await cdp.eval('HOME.hereFor()'); got0[S.id] = said
+      const want = S.none ? {} : P42.expected({ iso: S.iso, R, readAt: await readAtOf(), src: t.photo, slug: t.poem, mode: 'home', gone: new Set(S.gone || []), place: S.place, rel, days: S.days })
+      if (S.world) { const g2 = await cdp.eval(`HOME.hereFor(${JSON.stringify(S.world)})`), w2 = P42.expected({ iso: S.iso, R, readAt: await readAtOf(), src: '/photos/' + S.world.split('~')[1], slug: S.world.split('~')[0], mode: 'world', days: S.days })
+        bad.push(...P42.differ(g2, w2).map(b => `${S.id} ${S.world}: ${b}`)); console.log(`\n== ${S.what}: the world ${S.world}`); for (const n of P42.NAMES) console.log(`  ${n}: ${(g2[n] || []).map(x => x.s).join(' ')}`) }
+      if (S.none) { if (Object.keys(said || {}).length) bad.push(`${S.id}: here.js did not load, yet the page wrote ${JSON.stringify(said).slice(0, 80)}`) }
+      else bad.push(...P42.differ(said, want).map(b => `${S.id}: ${b}`))
+      if (S.same && P42.differ(said, Object.fromEntries(Object.entries(got0[S.same]).map(([k, L]) => [k, L.map(x => x.s)]))).length) bad.push(`${S.id}: the texts differ from New York's: ${P42.differ(said, Object.fromEntries(Object.entries(got0[S.same]).map(([k, L]) => [k, L.map(x => x.s)])))[0]}`)
+      const s = await cdp.eval('HOME.state')
+      for (const [k, I] of IDEAS42.entries()) { const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { bad.push(`${S.id} ${I.name}: no place to tap`); continue }
+        await tap(at.pt); const ok = await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 250, 60).catch(() => null)
+        if (!ok) { bad.push(`${S.id} ${I.name}: did not open`); await key('Escape'); continue } await sleep(350)
+        const st = await panelNow(); bad.push(...panelWrong(I, st, S.none ? [] : (want[I.name] || []), s.ideas.find(x => x.k === k)).map(b => `${S.id} ${b}`), ...panelClash(I.name, st.box, s).map(b => `${S.id} ${b}`))
+        if (k === 0 && !S.same) await shot(`state-${S.id}-context.png`)
+        await key('Escape') }
+      if (S.id === 'first') await shot('state-first-rest.png')
+      const errs = errors.filter(e => !(S.gone || []).some(u => e.includes(u)) && !/the server responded with a status of 404|here: /.test(e)); if (errs.length) bad.push(`${S.id}: console errors: ${errs.slice(0, 2).join(' | ')}`)
+      console.log(`\n== ${S.what} — ${today} (${how}); the where line: “${where}”`); for (const n of P42.NAMES) console.log(`  ${n}: ${(said && said[n] || []).map(x => x.s).join(' ') || '(nothing of this world: the general alone)'}`) }
+    check(!bad.length, `B1–B6: in ${STATES.length} states (the first screen, daytime, a day the archive does not hold, no sky on a held and an unheld day, where he is unknown, three sources failing, here.js failing, the poem missing from related.js, London and Kolkata) today's pair is resolved as the recount says and its six texts are the recount's word for word; every panel opens with the general read live, nothing missing said, clear of the mat and the switch; another time zone reads exactly as New York`, bad.slice(0, 4).join(' | '))
+    await setPin(PIN); SKY = FIXTURE; GONE.clear(); OVER.clear(); await cdp.send('Emulation.setTimezoneOverride', { timezoneId: 'America/New_York' })
+    // B9: a short phone, and a phone on its side: the open panel never covers the where line, the nav or the switch, and stays on screen
+    for (const v of [{ id: 'short', w: 375, h: 667, mobile: true }, { id: 'side', w: 844, h: 390, mobile: true }]) { await view(v); await open(''); const s = await cdp.eval('HOME.state'), clash = []
+      for (const [k, I] of IDEAS42.entries()) { const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { clash.push(I.name + ': no place to tap'); continue } await tap(at.pt)
+        if (!(await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 250, 60).catch(() => null))) { clash.push(I.name + ': did not open'); continue } await sleep(350)
+        const st = await panelNow(); clash.push(...panelClash(I.name, st.box, s)); if (st.cut) clash.push(`${I.name}: a line cut at the edge`); await key('Escape') }
+      check(!clash.length, `B9 ${v.w}x${v.h}: every open idea keeps clear of the where line, the nav, the name, the poem and the switch, on screen, in whole lines`, clash.slice(0, 3).join(', ')) } }
+
   // reduced motion: the poem is there at once, a facet still answers, a crossing is a crossfade where no facet moves
   if (VIEWPORTS.some(v => v.id === 'desk')) { await view(VIEWPORTS.find(v => v.id === 'desk')); await reduceMotion(true); errors.length = 0
-    await open(''); const key = (await cdp.eval('HOME.doors'))[0].to; await open('?w=' + encodeURIComponent(key)); await waitFor(() => cdp.eval('HOME.world.arrived'), 'arrival', 200)
+    await open(''); const dk = (await cdp.eval('HOME.doors'))[0].to; await open('?w=' + encodeURIComponent(dk)); await waitFor(() => cdp.eval('HOME.world.arrived'), 'arrival', 200)
     check(await cdp.eval('HOME.lines.every(l => l.shown)'), 'reduced motion: the poem is there at once')
+    { const at = await cdp.eval('HOME.tapIdea(0)'); if (at && at.pt) await tap(at.pt); const ok = await waitFor(() => cdp.eval('HOME.open === 0 && HOME.hereReadyNow && +getComputedStyle(document.querySelector("#tools")).opacity > .98'), 'idea', 250, 60).catch(() => null)
+      const st = ok && await panelNow(), wk = await cdp.eval('HOME.world.key'), W0 = P42.expected({ ...M0, readAt: await readAtOf(), src: '/photos/' + wk.split('~')[1], slug: wk.split('~')[0], mode: 'world' })
+      check(!!ok && st.here.join(' ') === W0['Context'].join(' '), 'reduced motion: an idea opens on its facet, this world first, word for word', JSON.stringify(st && st.here)); await key('Escape') }
     await crossOnce('reduced motion door line', 'door', 'cross-calm')
     check(!errors.length, 'reduced motion: no console errors', errors.slice(0, 3).join(' | '))
     await reduceMotion(false) }
@@ -935,5 +1256,5 @@ try {
 
 { const gone = [...P37.reached].filter(x => !live.has(x)); check(P37.reached.size > 0 && !gone.length, `every poem a segment shows or a facet reaches (${P37.reached.size}) is live`, gone.join(', ')) }
 const w8 = weight ? `; first screen on a phone ${Math.round(weight.rest / 1024)} KB gzipped + the photograph ${Math.round(weight.pic / 1024)} KB` : ''
-console.log(failures ? `FAIL the home: ${failures} of ${oks + failures} checks failed` : `PASS the home: ${oks} checks in ${loads} loads at ${VIEWPORTS.map(v => v.w + 'x' + v.h).join(', ')}: every facet yields (${drawnN} drawn), ${probes} worst-case words placed clear, ${crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the tools and the years reached${w8} (${Math.round((Date.now() - t0) / 1000)}s)`)
+console.log(failures ? `FAIL the home: ${failures} of ${oks + failures} checks failed` : `PASS the home: ${oks} checks in ${loads} loads at ${VIEWPORTS.map(v => v.w + 'x' + v.h).join(', ')}: every facet yields (${drawnN} drawn), ${probes} worst-case words placed clear, ${crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached${w8} (${Math.round((Date.now() - t0) / 1000)}s)`)
 cleanup(); process.exit(failures ? 1 : 0)

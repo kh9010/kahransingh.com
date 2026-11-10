@@ -24,7 +24,7 @@
  * The stone on the home (/v3/stone.js) is drawn on a canvas, so there is no
  * markup to read: it says what opened as a `home:track` event, and only the
  * names below are passed on.
- *   tools_open     one of the six ideas, from the tools facet  { idea, via: facet | name | idea }
+ *   tools_open     one of the six ideas, from its facet        { idea, via: facet | key }
  *   year_open      the year facet: the photograph to its year  { year, via: facet | date }
  *   line_open      the where line opens the chain behind it    { phase }
  *   crossing       a walk into another world                   { via: door | facet | press, depth }

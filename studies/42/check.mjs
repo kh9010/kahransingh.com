@@ -111,7 +111,7 @@ function expected(src, slug, mode, readAt) {
   const phrase = PHRASE(READING.weather_code, READING.is_day !== 0), temp = Math.round(READING.temperature_2m), P = RANK.photos.find(x => x.key === src), Q = RANK.poems.find(x => x.key === slug)
   const km = P.km != null ? Math.round(P.km) : null, comma = /,/.test(place) ? ',' : ''
   const out = {}, W8 = Object.fromEntries(['light', 'warmth', 'wet', 'stillness', 'season', 'inside', 'mood'].map(a => [a, T0.weightedDistance({ ...ZERO, [a]: 1 }, ZERO) ** 2]))
-  out['Context'] = [[`${py ? `The earliest copy he kept of ${T} is from ${py.year}` : `No copy of ${T} can yet be dated`}; this photograph was made at ${place}${comma} in ${month} ${year}, on a ${camera}.`, 'boundary'],
+  out['Context'] = [[`${py ? `The earliest copy he kept of ${T} is from ${py.year}` : `No copy of ${T} can yet be dated`}; this photograph is from ${place}, made in ${month} ${year} on a ${camera}.`, 'boundary'],
     [`${Now} he is in ${READING.place}${km != null ? `, ${km.toLocaleString('en-US')} km away` : ''}, where ${phrase} at ${temp} °C.`, 'Where I am']]
   // what each answers to most: the measure, mood aside, where its own reading lies nearest tonight's, by pick.js's weights
   const near = key => { const v = T0.itemVector(key.startsWith('/') ? PS : QS, key); return ['light', 'warmth', 'wet', 'stillness', 'season', 'inside'].reduce((b, a) => W8[a] * (RANK.day[a] - v[a]) ** 2 < W8[b] * (RANK.day[b] - v[b]) ** 2 ? a : b, 'light') }
@@ -129,7 +129,7 @@ function expected(src, slug, mode, readAt) {
   out['Keeping track'] = [`${T} is one of the ${py ? Object.values(PY.poems).filter(e => e.year === py.year).length + ' poems he kept from ' + py.year : Object.keys(PY.undated).length + ' poems no copy yet dates'}, this photograph ${sameMonth > 1 ? `one of ${sameMonth} he made` : 'the only one he made'} in ${month} ${year}${String(rec.row) !== String(year) ? `, kept in the About under ${rec.row}` : ''}.`,
     `The archive holds ${realDays.length} days since ${dayW(realDays[0])}; ${shown}.`].map(s => [s, 'intro'])
   out['Staying up to date'] = [`The sky was read at ${clockOf(readAt)}, and where he is was last set on ${dayW(PLACE.updated)}.`,
-    hasToday ? 'Today’s pair follows the sky; the archive already holds this day, and once it has passed it replays exactly as kept.' : `Today’s pair follows the sky until ${FREEZE}, when the archive freezes it; after that the day replays exactly as kept.`].map(s => [s, 'intro'])
+    hasToday ? 'Today’s pair follows the sky; the archive already holds this day, and once it has passed it replays exactly as kept.' : `Today’s pair follows the sky until ${clockOf(Date.parse(`${ISO}T${FREEZE.padStart(5, '0')}:00-05:00`))}, when the archive freezes it; after that the day replays exactly as kept.`].map(s => [s, 'intro'])
   const pubs = WALL.parts['This page'].filter(r => /publish/.test(r)).length // the two jobs behind this page, from the map of what runs behind each part
   if (pubs !== 2) throw new Error('This page no longer has two publishing jobs in tools/wall-map.json: the Self-healing sentence must change')
   out['Self-healing'] = [['Two jobs keep this page right, one noting where he is and one keeping each day’s pair, and both are watched for going quiet.', 'Samwise'],
