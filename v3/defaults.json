@@ -76,5 +76,17 @@
   "here-rem": "1.06",
   "general-rem": "0.84",
   "focus-ring-px": "2.5",
-  "focus-ring-alpha": "0.95"
+  "focus-ring-alpha": "0.95",
+  "title-tone": "0.3",
+  "title-edge": "0.55",
+  "piece-lit": "1.6",
+  "piece-edge-px": "1.4",
+  "ground-aa": "4.8",
+  "ground-quantile": "0.995",
+  "ground-max": "0.9",
+  "ground-feather-px": "8",
+  "ground-ms": "1000",
+  "ground-ease-ms": "160",
+  "text-min-px": "11",
+  "word-shift": "0.6"
 }

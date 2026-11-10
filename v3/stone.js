@@ -94,7 +94,7 @@ const inView = t => { const a = t.getBoundingClientRect(), b = whyEl.getBounding
 function unresolve() { // the sentence turns back into the readings it was made of, in the line's own order and pace
   hush(); const { se } = LN.L, st = num('line-stagger-ms', 110); FS.line.phase = 'returning'; document.body.dataset.line = 'read'
   se.classList.remove('on'); tokEls().forEach((x, k) => later(() => x.classList.remove('out'), k * st))
-  later(() => { FS.line.phase = 'read' }, st * tokEls().length + num('line-out-ms', 900)) }
+  later(() => { FS.line.phase = 'read'; groundSoon() }, st * tokEls().length + num('line-out-ms', 900)) }
 async function join() { // the line is the way into the chain
   const ph = FS.line ? FS.line.phase : 'none'
   JN.taps.push(ph); JN.opens++; track('line_open', { phase: ph })
@@ -127,7 +127,7 @@ function resolveLine() { // each reading out in turn, the sentence in halfway; t
   FS.line.phase = 'resolving'; document.body.dataset.line = 'read'
   left.forEach((x, k) => later(() => x.classList.add('out'), k * st))
   later(() => se.classList.add('on'), st * toks.length / 2)
-  later(() => { FS.line.phase = 'resolved'; document.body.dataset.line = 'done' }, st * left.length + num('line-out-ms', 900)) }
+  later(() => { FS.line.phase = 'resolved'; document.body.dataset.line = 'done'; groundSoon() }, st * left.length + num('line-out-ms', 900)) }
 
 /* ---------- small geometry ---------- */
 function rng(seed) { let s = seed >>> 0 || 1; return () => (s = Math.imul(s ^ s >>> 15, 2246822507) + 0x9e3779b9 >>> 0, ((s ^ s >>> 13) >>> 0) / 4294967296) }
@@ -222,6 +222,7 @@ async function photo(p) {
 function verseEl(w, doors) {
   const v = document.createElement('div'); v.className = 'verse'
   const h = document.createElement('h2'), a = document.createElement('a'); a.href = '/poems/' + w.poem.slug + '.html'; a.textContent = w.poem.title; h.append(a); v.append(h)
+  a.addEventListener('click', () => track('poem_open', { poem: w.poem.slug, via: 'title' })) // the title is the way to the whole poem
   let i = 0
   stanzasOf(w.poem).forEach((st, si) => {
     if (si) v.append(Object.assign(document.createElement('span'), { className: 'gap' }))
@@ -250,9 +251,9 @@ function lineCanvases(w) { // each line drawn once, in its face and shadow; the 
   for (const [li, el] of w.lines.entries()) {
     const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT)
     for (let n; (n = walk.nextNode());) {
-      const p = n.parentElement, cs = getComputedStyle(p), font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`, tag = !!p.closest('.tag'), door = p.closest('.door')
+      const p = n.parentElement, cs = getComputedStyle(p), font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`, tag = !!p.closest('.tag'), door = p.closest('.door'), title = !!p.closest('h2')
       for (const m of n.data.matchAll(/\S+/g)) { const rg = document.createRange(); rg.setStart(n, m.index); rg.setEnd(n, m.index + m[0].length); const r = rg.getClientRects()[0]; if (!r) continue
-        const [, dsc] = descent(font); out[li].runs.push({ t: m[0], x: r.left - vr.left, y: r.bottom - vr.top + v.scrollTop - dsc, w: r.width, top: r.top - vr.top + v.scrollTop, bot: r.bottom - vr.top + v.scrollTop, font, tag, k: door ? door.dataset.k : null, ls: cs.letterSpacing }) } } }
+        const [, dsc] = descent(font); out[li].runs.push({ t: m[0], x: r.left - vr.left, y: r.bottom - vr.top + v.scrollTop - dsc, w: r.width, top: r.top - vr.top + v.scrollTop, bot: r.bottom - vr.top + v.scrollTop, font, tag, k: door ? door.dataset.k : title ? 'title' : null, ls: cs.letterSpacing }) } } }
   for (const L of out) {
     if (!L.runs.length) continue
     const pad = 22, x0 = Math.min(...L.runs.map(r => r.x)) - pad, x1 = Math.max(...L.runs.map(r => r.x + r.w)) + pad, y0 = Math.min(...L.runs.map(r => r.top)) - pad, y1 = Math.max(...L.runs.map(r => r.bot)) + pad
@@ -287,8 +288,9 @@ function composite(w) {
   const [rx, ry, rw, rh] = w.R, st = w.v.scrollTop, da = num('door-alpha', .3)
   x.setTransform(DPR, 0, 0, DPR, 0, 0); x.beginPath(); x.rect(rx - 30, ry - 2, rw + 60, rh + 4); x.clip(); x.translate(rx, ry - st)
   w.lc.forEach((L, i) => { const a = w.A[i]; if (a < .003 || !L.c) return; x.globalAlpha = a; x.drawImage(L.c, L.x0, L.y0, L.w, L.h)
-    if (w.mode !== 'world') return
-    for (const [u0, u1, y, k, px] of L.unders) { x.globalAlpha = a; x.strokeStyle = `rgba(243,239,230,${w.lit === k ? .85 : da})`; x.lineWidth = 1; x.beginPath(); x.moveTo(u0, y + px * .28); x.lineTo(u1, y + px * .28); x.stroke() } })
+    for (const [u0, u1, y, k, px] of L.unders) { if (w.mode !== 'world' && k !== 'title') continue // the title is a way on at home too: to the whole poem
+      if (k === 'title') w.drewTitleUnder = a > .5
+      x.globalAlpha = a; x.strokeStyle = `rgba(243,239,230,${w.lit === k ? .85 : da})`; x.lineWidth = 1; x.beginPath(); x.moveTo(u0, y + px * .28); x.lineTo(u1, y + px * .28); x.stroke() } })
   w.dirty = false }
 
 /* ---------- a world ---------- */
@@ -357,13 +359,13 @@ function facet(P, c, n, layers, o = {}) {
   g.lineWidth = num('bevel-px', 1.4) * 2 * lk
   for (let i = 0; i < Qp.length; i++) { const a = Qp[i], b = Qp[(i + 1) % Qp.length]; let ex = b[1] - a[1], ey = -(b[0] - a[0]); const el = Math.hypot(ex, ey); if (el < 1) continue
     ex = ex / el * sg; ey = ey / el * sg; const f = ex * ux + ey * uy
-    g.strokeStyle = f > 0 ? `rgba(255,244,222,${bev * (.15 + .85 * k) * f})` : `rgba(0,0,0,${bev * .8 * -f})`
+    g.strokeStyle = TINT ? '#f0f' : f > 0 ? `rgba(255,244,222,${bev * (.15 + .85 * k) * f})` : `rgba(0,0,0,${bev * .8 * -f})`
     g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke() }
   if (o.under > .01) { const Ui = inset(Qp, 5); let bi = -1, by = -1e9 // a photo door's mark: the quiet underline of a door line, along the facet's lowest side
     for (let i = 0; i < Ui.length; i++) { const a = Ui[i], b = Ui[(i + 1) % Ui.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]), dy = Math.abs(b[1] - a[1]) / (l || 1); if (l < 18 || dy > .5 || Math.max(a[1], b[1]) > H - 8) continue; const y = (a[1] + b[1]) / 2; if (y > by) { by = y; bi = i } }
     if (bi >= 0) { const a = Ui[bi], b = Ui[(bi + 1) % Ui.length], t0 = .18, t1 = .82; g.lineWidth = lk; g.strokeStyle = `rgba(243,239,230,${o.under})`; g.beginPath(); g.moveTo(a[0] + (b[0] - a[0]) * t0, a[1] + (b[1] - a[1]) * t0); g.lineTo(a[0] + (b[0] - a[0]) * t1, a[1] + (b[1] - a[1]) * t1); g.stroke() } }
   if (o.thread && o.thread.a > .005) { const Ti = inset(Qp, o.thread.px * .5 + .6); if (Ti.length > 2) { g.globalAlpha = A * o.thread.a; g.lineWidth = o.thread.px * lk; g.strokeStyle = o.thread.hue; g.beginPath(); Ti.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke(); g.globalAlpha = A } } // a ring round the rim: the facet whose idea's key has the focus
-  if (o.edge > .01) { g.lineWidth = 1.2 * lk; g.strokeStyle = `rgba(255,246,228,${o.edge})`; g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke() }
+  if (o.edge > .01) { g.lineWidth = (o.edgePx || 1.2) * lk; g.strokeStyle = `rgba(255,246,228,${o.edge})`; g.beginPath(); Qp.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y)); g.closePath(); g.stroke() }
   if (o.fire > .01) { g.globalCompositeOperation = 'screen' // light split at the facet's edge: spectral fringes, the only colour, and only while the light passes through; set inside the edge (22 c set them outside, past its own clip: that was the faintness)
     ;[[255, 64, 40], [60, 255, 120], [70, 110, 255]].forEach(([rr, gg, bb], j) => { g.lineWidth = 1.6 - j * .3; g.strokeStyle = `rgba(${rr},${gg},${bb},${Math.min(1, o.fire) * .65})`
       for (let i = 0; i < Qp.length; i++) { const a = Qp[i], b = Qp[(i + 1) % Qp.length]; let ex = -(b[1] - a[1]), ey = b[0] - a[0]; const el = Math.hypot(ex, ey); if (el < 1) continue
@@ -372,13 +374,102 @@ function facet(P, c, n, layers, o = {}) {
   g.restore(); return Qp }
 const refr = () => num('refract-px', 5)
 const textLayer = (w, i, n, cell, alpha = 1) => meets(bbox(cell), w.R, 24) ? [{ img: w.text, alpha, m: tr(n[0] * refr(), n[1] * refr()) }] : [] // each facet holds the poem a little off, so it breaks at the seams
+/* the poem's words at rest: laid over the stone whole, each word as the facet under it holds it, a little off (the title as one piece, as its
+   own facet holds it), so the poem still breaks from facet to facet but a seam passes behind a word and never eats a letter (9 Nov: a seam
+   through the title read "thrum thrum" as "thrun thrum"; the crossing still breaks the words at the seams, as 39 drew it). Each word may be
+   drawn in its own share of the line: from the middle of the space before it to the middle of the space after, between the rows above and below */
+function chunksOf(w) {
+  if (w.chunks && w.chunksLc === w.lc) return w.chunks
+  const runs = w.lc.flatMap((L, li) => L.runs.map(r => ({ ...r, li }))), rows = new Map()
+  for (const r of runs.sort((a, b) => a.top - b.top)) { const c = (r.top + r.bot) / 2, o = [...rows.values()].find(o => c > o.top && c < o.bot) // one row: the words whose middles lie within it (a door phrase can sit a pixel off its line)
+    if (o) { o.top = Math.min(o.top, r.top); o.bot = Math.max(o.bot, r.bot); o.runs.push(r) } else rows.set(rows.size, { top: r.top, bot: r.bot, runs: [r] }) }
+  const R = [...rows.values()].sort((a, b) => a.top - b.top), out = [], m = 24
+  R.forEach((row, j) => { const y0 = j ? (R[j - 1].bot + row.top) / 2 : row.top - m, y1 = j < R.length - 1 ? (row.bot + R[j + 1].top) / 2 : row.bot + m
+    const rs = row.runs.sort((a, b) => a.x - b.x)
+    rs.forEach((r, k) => out.push({ r, li: r.li, title: r.k === 'title', x0: k ? (rs[k - 1].x + rs[k - 1].w + r.x) / 2 : r.x - m, x1: k < rs.length - 1 ? (r.x + r.w + rs[k + 1].x) / 2 : r.x + r.w + m, y0, y1, i: -1 })) })
+  w.chunkSt = null; w.chunksLc = w.lc; return w.chunks = out }
+function wordsAt(w) { // each word's facet (where its middle lies) and the shift that facet gives it, again whenever the poem scrolls
+  const ch = chunksOf(w), st = w.v.scrollTop; if (w.chunkSt === st && w.chunkCut === w.cells && w.chunkT === w.titleI) return ch
+  const [rx, ry] = w.R, ds = drawn(w)
+  for (const c of ch) { const p = [rx + c.r.x + c.r.w / 2, ry - st + (c.r.top + c.r.bot) / 2]; c.i = c.title && w.titleI >= 0 ? w.titleI : ds.find(i => inPoly(p, w.cells[i])) ?? -1
+    const n = c.i >= 0 ? w.normals[c.i] : [0, 0]; c.d = [0, Math.round(n[1] * refr() * num('word-shift', .6) * DPR) / DPR] } // up or down only, and less than the stone's own: the spaces between words keep their width; by whole pixels, so a word is copied, never resampled
+  w.chunkSt = st; w.chunkCut = w.cells; w.chunkT = w.titleI; return ch }
+function words(w, o = {}) { if (!w.text || !w.lc) return
+  const ch = wordsAt(w), [rx, ry] = w.R, st = w.v.scrollTop
+  drawGrounds(w); if (o.bare) return // bare: the stone and its grounds, as the words are read against
+  const by = new Map(); for (const c of ch) { const k = c.d[0] + ',' + c.d[1]; if (!by.has(k)) by.set(k, { d: c.d, cs: [] }); by.get(k).cs.push(c) }
+  g.save(); g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1
+  for (const { d, cs } of by.values()) { g.save(); g.beginPath(); for (const c of cs) g.rect(rx + c.x0 + d[0], ry - st + c.y0 + d[1], c.x1 - c.x0, c.y1 - c.y0); g.clip(); g.drawImage(w.text, d[0], d[1], W, H); g.restore() }
+  g.restore() }
+
+/* the grounds: under each text on the stone that would not read at AA over what is drawn there (the lamp, a glimpse, a lifted facet included),
+   the lightest shade that makes it read, feathered so it is no box; none where it reads already. Read off the stone before the words, every
+   ground-ms and whenever what shows changes, and eased, never jumping; not while a key's ring is on a facet (it is gone in a moment) */
+const GROUND = [13, 12, 11], INK = [243, 239, 230] // --ink-seam, the stone's own dark; --ink-on, the poem's
+const lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }, lumRGB = c => .2126 * lin(c[0]) + .7152 * lin(c[1]) + .0722 * lin(c[2])
+const ratio = (a, b) => { const x = lumRGB(a), y = lumRGB(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05) }
+const blend = (top, a, bot) => [0, 1, 2].map(j => top[j] * a + bot[j] * (1 - a))
+const rgbOf = s => { const v = (/rgba?\(([^)]+)\)/.exec(s) || [, '0 0 0'])[1].split(/[\s,/]+/).filter(Boolean).map(Number); return [v[0], v[1], v[2], v.length > 3 ? v[3] : 1] }
+const opOf = e => { let op = 1; for (let q = e; q && q !== document.body; q = q.parentElement) op *= +getComputedStyle(q).opacity; return op }
+const GR = { t: -1e9, due: true, snap: false, list: new Map() }
+const groundSoon = () => { GR.due = true }
+const LABELS = [['cap', '#cap', 1], ['year', '#year', 1], ['name', 'header h1 a'], ['where', '#where'], ['nav', 'header nav'], ['vs', '.vs'], ['back', '#back', 1]] // [key, the text, its opacity when shown, where it comes and goes]
+function groundTargets(w) { const out = [], [rx, ry, rw, rh] = w.R, st = w.v.scrollTop
+  const lines = new Map(); for (const c of wordsAt(w)) { const y = ry - st + c.r.top + c.d[1]; if (y > ry + rh || y + c.r.bot - c.r.top < ry) continue
+    if (!lines.has(c.li)) lines.set(c.li, []); lines.get(c.li).push([rx + c.r.x + c.d[0], y, c.r.w, c.r.bot - c.r.top]) }
+  for (const [li, rects] of lines) out.push({ key: 'l' + li, rects, parts: rects.map(r => [[r], [[INK, 1]]]), fade: () => w.A[li] }) // each word must read, not the line on average
+  for (const [key, q, shown] of LABELS) { const e = $(q); if (!e) continue; const rects = [], parts = [], own = () => +getComputedStyle(e).opacity, rest = shown ?? own(), up = opOf(e) / (own() || 1)
+    const tw = document.createTreeWalker(e, NodeFilter.SHOW_TEXT); for (let n; (n = tw.nextNode());) { if (!n.data.trim()) continue
+      const p = n.parentElement, c = rgbOf(getComputedStyle(p).color); let op = up * rest; for (let x = p; x && x !== e; x = x.parentElement) op *= +getComputedStyle(x).opacity
+      if (op * c[3] < .5 || p.closest('.out')) continue // a text on its way out (35's readings fading into the sentence) is not read; the sentence it becomes is
+      const rg = document.createRange(); rg.selectNodeContents(n); const rs = [...rg.getClientRects()].filter(b => b.width > 0).map(b => [b.left, b.top, b.width, b.height]); rects.push(...rs); parts.push([rs, [[c, c[3] * op]]]) }
+    if (rects.length) out.push({ key, rects, parts, fade: () => own() / (rest || 1) }) }
+  return out }
+function needOf(rects, inks, d) { // how dark a ground under these rects must be for every ink to read at AA over all but the brightest few of the pixels there (d: the stone as read)
+  const px = [], q = num('ground-quantile', .99)
+  for (const [x, y, ww, hh] of rects) { const x0 = Math.max(0, Math.floor(x * DPR)), y0 = Math.max(0, Math.floor(y * DPR)), x1 = Math.min(cv.width, Math.ceil((x + ww) * DPR)), y1 = Math.min(cv.height, Math.ceil((y + hh) * DPR))
+    for (let yy = y0; yy < y1; yy++) for (let xx = x0; xx < x1; xx += 2) { const j = (yy * cv.width + xx) * 4; px.push([lumRGB([d[j], d[j + 1], d[j + 2]]), d[j], d[j + 1], d[j + 2]]) } }
+  if (!px.length) return 0
+  px.sort((a, b) => a[0] - b[0]); const bg = px[Math.min(px.length - 1, Math.floor(px.length * q))].slice(1), aa = num('ground-aa', 4.8), max = num('ground-max', .9)
+  const reads = a => { const b = blend(GROUND, a, bg); return inks.every(([c, op]) => ratio(blend(c, op, b), b) >= aa) }
+  let a = 0; while (a < max && !reads(a)) a = Math.min(max, a + .02); return a }
+function spriteOf(rects) { // the shade itself: the text's boxes widened and blurred, so it is full strength under every word and fades out past them
+  const f = num('ground-feather-px', 8), m = f * 2.6, b = rects.reduce((o, [x, y, ww, hh]) => [Math.min(o[0], x), Math.min(o[1], y), Math.max(o[2], x + ww), Math.max(o[3], y + hh)], [1e9, 1e9, -1e9, -1e9])
+  const c = document.createElement('canvas'); c.width = Math.ceil((b[2] - b[0] + m * 2) * DPR); c.height = Math.ceil((b[3] - b[1] + m * 2) * DPR); const x = c.getContext('2d')
+  x.setTransform(DPR, 0, 0, DPR, (m - b[0]) * DPR, (m - b[1]) * DPR); x.filter = `blur(${f / 2 * DPR}px)`; x.fillStyle = `rgb(${GROUND})`
+  for (const [rx0, ry0, ww, hh] of rects) { x.beginPath(); x.roundRect(rx0 - f * 1.5, ry0 - f * 1.5, ww + f * 3, hh + f * 3, f); x.fill() }
+  return { c, at: [(b[0] - m) * DPR, (b[1] - m) * DPR] } }
+function groundRead(w) { const seen = new Set(), d = g.getImageData(0, 0, cv.width, cv.height).data // one read of the stone, every ground from it
+  for (const T of groundTargets(w)) { seen.add(T.key); const t = Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d))), sig = T.rects.map(r => r.map(v => Math.round(v)).join(',')).join(';'), G = GR.list.get(T.key) || { a: 0 }
+    G.t = t; G.fade = T.fade; if (G.sig !== sig) { G.sig = sig; G.sprite = t > 0 || G.a > .004 ? spriteOf(T.rects) : null; G.rects = T.rects } else if (!G.sprite && t > 0) G.sprite = spriteOf(T.rects)
+    if (GR.snap) G.a = t; GR.list.set(T.key, G) }
+  for (const [k, G] of GR.list) if (!seen.has(k)) { G.t = 0; if (GR.snap) G.a = 0 }
+  GR.due = false; GR.snap = false }
+function drawGrounds(w) { g.save(); g.setTransform(1, 0, 0, 1, 0, 0)
+  for (const G of GR.list.values()) { const a = G.a * (G.fade ? G.fade() : 1); if (a < .004 || !G.sprite) continue; g.globalAlpha = Math.min(1, a); g.drawImage(G.sprite.c, G.sprite.at[0], G.sprite.at[1]) }
+  g.restore() }
+function groundEase(dt) { const k = 1 - Math.exp(-dt / num('ground-ease-ms', 160)); for (const G of GR.list.values()) if (Math.abs(G.t - G.a) > .002) G.a += (G.t - G.a) * k; else G.a = G.t }
+
+/* ---------- the title's facet: the poem's own piece of the stone, and the way to the whole poem ---------- */
+function titleFacet(w, skip) { // of the facets the title lies in (barred to the ideas), the one holding most of it that is not the date's
+  const a = w.v && w.v.querySelector('h2 a'); if (!a) return null
+  const cand = [...barred(w).title].filter(i => i !== skip), pts = []; if (!cand.length) return null
+  for (const r of a.getClientRects()) for (let u = 0; u <= 6; u++) for (let v = 0; v <= 2; v++) pts.push([r.left + r.width * u / 6, r.top + r.height * v / 2])
+  const [i, n] = cand.map(i => [i, pts.filter(p => inPoly(p, w.cells[i])).length]).sort((x, y) => y[1] - x[1] || x[0] - y[0])[0]
+  return { i, href: '/poems/' + w.poem.slug + '.html', basis: { rule: 'the facet the title lies in', share: +(n / pts.length).toFixed(2), title: w.poem.title } } }
+/* a facet that is one thing to take: its ground toned down under the title, its rim drawn clear all round, brighter under a pointer */
+const DARK = (() => { const c = document.createElement('canvas'); c.width = c.height = 1; const x = c.getContext('2d'); x.fillStyle = 'rgb(13,12,11)'; x.fillRect(0, 0, 1, 1); return c })()
+function titlePiece(w, i, o, layers) { if (w.titleI !== i || o.plain) return o
+  const tone = num('title-tone', .3), edge = num('title-edge', .55), lit = FX.hover === i || FX.press === i; layers.splice(1, 0, { img: DARK, alpha: tone })
+  const o2 = { ...o, edge: Math.max(o.edge || 0, lit ? Math.min(1, edge * num('piece-lit', 1.6)) : edge), edgePx: num('piece-edge-px', 1.4) }; w.drewPiece = { i, tone, edge: o2.edge }; return o2 }
 function drawWorld(w, o = {}) { const touched = w === cur && !crossing && !pressing && !o.plain
-  w.cells.forEach((P, i) => { const base = [{ img: w.img }, ...textLayer(w, i, w.normals[i], P, o.text ?? 1)]
+  w.drewPiece = null
+  w.cells.forEach((P, i) => { const base = [{ img: w.img }] // the poem's words are laid over the stone afterwards, whole (words below)
     const k = w.ideaAt ? w.ideaAt.get(i) : undefined, o2 = k != null && !o.plain ? markOf(w, i, k, o) : o // a facet that holds an idea: its mark, nothing written
-    if (!touched) return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o2), o2.m, o.alpha ?? 1)
+    if (!touched) { const o3 = titlePiece(w, i, o2, base); return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o3), o3.m, o.alpha ?? 1) }
     const G = FX.glimpse && FX.glimpse.w === w && FX.glimpse.i === i && FX.win ? FX.glimpse : null
     if (G) { const u = performance.now() - G.t0, ms = num('win-hold-ms', 3600); base.splice(1, 0, { img: G.img, alpha: reduce() ? 1 : Math.min(ss(0, 420, u), 1 - ss(ms - 600, ms, u)) * num('glimpse-alpha', 1), m: G.m }) }
-    const fx = { ...o2, ...fxOf(w, i) }; fx.glow = Math.max(fx.glow || 0, o2.glow || 0); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
+    const f0 = { ...o2, ...fxOf(w, i) }; f0.glow = Math.max(f0.glow || 0, o2.glow || 0); const fx = titlePiece(w, i, f0, base); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
 /* the ledger (39's): every facet drawn this frame, as drawn (its polygon after the seam and any transform), and how much of it is seen.
    The check reads it frame by frame: nothing may leave it, or join it, while it is seen */
 let ledger = { t: null, list: [] }
@@ -386,7 +477,8 @@ function note(id, Qp, m, seen) { const e = { id, seen: +(+seen).toFixed(4), area
   if (Qp) { const M = m || [1, 0, 0, 1, 0, 0], Q = Qp.map(([x, y]) => [M[0] * x + M[2] * y + M[4], M[1] * x + M[3] * y + M[5]]), A = Math.abs(area2(Q)) / 2
     Object.assign(e, { area: +A.toFixed(1), c: centroid(Q).map(v => +v.toFixed(2)), Q: Q.map(q => [+q[0].toFixed(2), +q[1].toFixed(2)]) }) }
   ledger.list.push(e) }
-function clear() { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1; g.fillStyle = '#0d0c0b'; g.fillRect(0, 0, W, H) }
+function clear() { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1; g.fillStyle = TINT ? '#f0f' : '#0d0c0b'; g.fillRect(0, 0, W, H) }
+let TINT = false // the check's: the seams drawn in a colour no photograph has, to see whether any reaches into a word
 
 /* ---------- the facets, touched ---------- */
 const FX = { hover: -1, press: -1, pulses: [], win: null, glimpse: null, seq: 0, last: null }
@@ -551,19 +643,21 @@ addEventListener('keydown', e => { if (e.key !== 'Escape' || toolsOpen < 0) retu
 function fixedOf(w) {
   if (w.fixed) return w.fixed
   const fs = facetsOf(w), year = yearFacet(w, fs, null), yearI = year ? year.i : -1, legal = legalOf(w, yearI), ideas = assign(w, legal, yearI) || []
-  w.yearI = yearI; w.ideaAt = new Map(ideas.map(x => [x.i, x.k]))
-  return w.fixed = { fs, year, ideas, legal } }
+  const title = titleFacet(w, yearI) // the title's own facet, among those no idea may take
+  w.yearI = yearI; w.titleI = title ? title.i : -1; w.ideaAt = new Map(ideas.map(x => [x.i, x.k])); w.chunkSt = null
+  return w.fixed = { fs, year, ideas, legal, title } }
 function planOf(w) {
   if (w.plan) return w.plan
-  const { fs, year, ideas } = fixedOf(w), plan = w.cells.map(() => null)
+  const { fs, year, ideas, title } = fixedOf(w), plan = w.cells.map(() => null)
+  if (title) plan[title.i] = { kind: 'title', id: 'title', facet: fs.find(f => f.i === title.i), href: title.href, basis: title.basis, steps: [{ t: 'title' }] }
   for (const x of ideas) plan[x.i] = { kind: 'idea', id: 'idea:' + x.k, k: x.k, facet: fs.find(f => f.i === x.i), basis: x.basis, d: x.d, steps: [{ t: 'idea' }] }
   if (year) plan[year.i] = { kind: 'year', id: 'year', facet: fs.find(f => f.i === year.i), box: year.box, at: year.at, basis: year.basis, rec: year.rec, steps: [{ t: 'year' }] }
   if (!SEG) return plan // the rest is dealt when segments.json is here (segReady); until then only these are known
-  const st = planStore(), key = planKey(w), fixed = p => p && (p.kind === 'idea' || p.kind === 'year')
+  const st = planStore(), key = planKey(w), fixed = p => p && (p.kind === 'idea' || p.kind === 'year' || p.kind === 'title')
   if (st[key] && st[key].length === w.cells.length && st[key].every((p, i) => fixed(plan[i]) ? true : !p || segBy(p.id))) { w.plan = st[key].map((p, i) => fixed(plan[i]) ? plan[i] : p && { ...p, seg: segBy(p.id) }); return w.plan } // the visit's plan, verbatim
   const world = { photo: w.photo.src, poem: w.poem.slug, trail: w.trail, doors: w.doors.map(d => ({ phrase: d.phrase, word: d.word, line: d.line })),
     taken: w.doors.map(d => d.to.photo.src), takenPoems: w.doors.map(d => d.to.poem.slug) } // the door lines' worlds are theirs: no facet promises one
-  const rest = fs.filter(f => !w.ideaAt.has(f.i) && f.i !== w.yearI) // the ideas and the date take their facets first; the rest give his work
+  const rest = fs.filter(f => !w.ideaAt.has(f.i) && f.i !== w.yearI && f.i !== w.titleI) // the ideas, the date and the title take their facets first; the rest give his work
   const dealt = S37.deal(world, rest, D37, Y)
   rest.forEach((f, k) => { const p = dealt[k]; if (p) plan[f.i] = { kind: p.seg.kind, id: p.seg.id, seg: p.seg, link: p.link, cls: p.cls, basis: p.basis, facet: f, to: p.to, steps: p.steps } })
   st[key] = plan.map(p => p && (fixed(p) ? { kind: p.kind } : { ...p, seg: undefined })); try { sessionStorage.setItem(PLAN, JSON.stringify(st)) } catch {}
@@ -667,7 +761,7 @@ function showWin(i, s) { const w = cur, p = planOf(w)[i] // the piece as written
   if (s.href) src.append(Object.assign(document.createElement('a'), { href: s.href, textContent: s.small })); else src.textContent = s.small
   backEl.append(src)
   if (p && typeof p.basis === 'string') backEl.append(Object.assign(document.createElement('small'), { className: 'basis', textContent: p.basis }))
-  placeWin(w, i)
+  placeWin(w, i); groundSoon()
   FX.win = { w, i, t0: performance.now(), fact: { kind: s.t } } }
 function placeWin(w, i) { // its words go where they are clear of the poem, the name and the caption, whatever their length: near the facet first,
   // then wider, then smaller, and at the last the largest clear band holds them, scrolling inside it; never over the poem
@@ -695,7 +789,7 @@ async function glimpse(w, i, st) { // another photograph or a film's still, seen
   const R = REG[st.src], s = num('align-zoom', 1.5), [cx, cy] = w.cents[i]
   const r = st.cell != null && R && !st.whole ? S33Cut.cover(R, W, H).to((st.cell % 6 + .5) / 6, (Math.floor(st.cell / 6) + .5) / 4) : null
   const m = r ? [s, 0, 0, s, cx - s * Math.max(cx / s, Math.min(W - (W - cx) / s, r[0])), cy - s * Math.max(cy / s, Math.min(H - (H - cy) / s, r[1]))] : [1, 0, 0, 1, 0, 0]
-  FX.glimpse = { w, i, img, m, src: st.src, t0: FX.win.t0 } }
+  FX.glimpse = { w, i, img, m, src: st.src, t0: FX.win.t0 }; setTimeout(groundSoon, 450) } // the other photograph come into the facet
 
 const pairTo = to => ({ poem: poemBy(to.poem), photo: photoBy(to.photo) })
 async function facetTap(i) {
@@ -703,6 +797,7 @@ async function facetTap(i) {
   if (!planOf(w0)[i] && !SEG) { await segReady(); if (cur !== w0) return }
   const w = cur, p = planOf(w)[i]; if (!p) return
   if (p.kind === 'idea') { pulse(i, .8, 500); track('tools_open', { idea: IDEAS[p.k].name, via: 'facet' }); return openTools(p.k, i) } // the facet opens the idea it holds
+  if (p.kind === 'title') { pulse(i, .8, 500); said(i, 'title', { href: p.href }); track('poem_open', { poem: w.poem.slug, via: 'facet' }); if (!HOME.dry) location.href = p.href; return } // the title's facet: the whole poem
   if (p.kind === 'year') { pulse(i, .8, 500); said(i, 'year', { taken: p.rec.taken }); return yearsOut('facet') } // the photograph's date: into its year in the About
   const s = nextStep(w, i), depth = depthOf(w, i); deepen(w, i)
   if (s.t !== 'move') { showWin(i, s); if (s.t === 'glimpse') glimpse(w, i, s); pulse(i, .8, 500); return said(i, s.t, { depth, key: S37.stepKey(s), text: s.big || s.lines.join(' / ') }) }
@@ -730,7 +825,7 @@ function winFrame(now) { const v = FX.win; if (!v) return
 /* ---------- state ---------- */
 let cur = null, busy = false, pressing = null, crossing = null, homeWin = -1
 const at = s => { document.body.dataset.at = s }
-function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug; document.body.dataset.photo = w.photo.src; closeTools(); showYear(w) }
+function show(w) { cur = w; cap.textContent = w.photo.caption || ''; document.body.dataset.poem = w.poem.slug; document.body.dataset.photo = w.photo.src; closeTools(); showYear(w); groundSoon() }
 const live = () => [cur, pressing && pressing.next, crossing && crossing.next].filter(Boolean)
 
 /* pressing in (20 d): the stone gives under the finger, its seams open onto the world beneath; let go early and it comes back */
@@ -856,7 +951,9 @@ function frame(now) {
     const pose = pressPose(p, io(p.d), p.gv)
     ledger = { t: null, list: [] }; p.old.cells.forEach((P, i) => note('h' + i, facet(P, p.old.cents[i], p.old.normals[i], [{ img: p.old.img }, ...textLayer(p.old, i, p.old.normals[i], P, 1 - p.d)], pose[i]), pose[i].m, pose[i].alpha)) }
   else if (C) crossFrame(C)
-  else if (cur) { touchFrame(cur, now, dt); ledger = { t: null, list: [] }; drawWorld(cur); if (ends && !ends.after) ends.after = ledger.list }
+  else if (cur) { touchFrame(cur, now, dt); ledger = { t: null, list: [] }; drawWorld(cur); if (ends && !ends.after) ends.after = ledger.list
+    if (!busy && cur.lc && keyAt < 0 && (GR.due || now - GR.t > num('ground-ms', 1000))) { GR.t = now; groundRead(cur) } // read off the stone as it is drawn now, before the grounds and the words
+    groundEase(dt); words(cur) }
   winFrame(now)
   requestAnimationFrame(frame) }
 function touchFrame(w, now, dt) {
@@ -888,10 +985,11 @@ function route(x, y) {
   const i = facetAt(x, y); if (i >= 0) facetTap(i) }
 addEventListener('pointermove', e => {
   if (e.pointerType !== 'mouse' || !cur || busy) { FX.hover = -1; app.classList.remove('over'); return }
-  if (cur.mode !== 'world') { FX.hover = -1; return }
-  const d = doorAt(e.clientX, e.clientY), i = d || own(e.target) ? -1 : facetAt(e.clientX, e.clientY)
+  if (cur.mode !== 'world') { const i = e.target.closest?.('.verse h2 a') ? cur.titleI : facetAt(e.clientX, e.clientY); FX.hover = i >= 0 && i === cur.titleI && !doorAt(e.clientX, e.clientY, cur, true) ? i : -1; app.classList.toggle('over', FX.hover >= 0)
+    const k = FX.hover >= 0 ? 'title' : null; if (cur.lit !== k) { cur.lit = k; cur.dirty = true } return } // at home the stone is pressed into; the title's facet is the one taken as it is
+  const onTitle = !!e.target.closest?.('.verse h2 a'), d = doorAt(e.clientX, e.clientY), i = d ? -1 : onTitle ? cur.titleI : own(e.target) ? -1 : facetAt(e.clientX, e.clientY) // the title's words are its facet's
   FX.hover = i; app.classList.toggle('over', !!d || i >= 0)
-  const k = d ? d.k : null
+  const k = d ? d.k : i >= 0 && i === cur.titleI ? 'title' : null
   if (cur.lit !== k && (d || !e.target.closest('.door'))) { cur.lit = k; cur.dirty = true } })
 addEventListener('keydown', e => {
   if (whyOpen) { if (e.key === 'Escape') { e.preventDefault(); closeWhy() } return }
@@ -911,7 +1009,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get drawn() { return cur ? drawn(cur) : [] },
   segReady: () => segReady(), get dealt() { return !!SEG },
   plan(i) { const p = cur && planOf(cur)[i]; if (!p) return null
-    if (p.kind === 'idea' || p.kind === 'year') return { kind: p.kind, id: p.id, k: p.k ?? null, basis: p.basis, facet: p.facet, box: p.box || null, at: p.at || null, taken: p.rec ? p.rec.taken : null }
+    if (p.kind === 'idea' || p.kind === 'year' || p.kind === 'title') return { kind: p.kind, id: p.id, k: p.k ?? null, basis: p.basis, facet: p.facet, box: p.box || null, at: p.at || null, taken: p.rec ? p.rec.taken : null, href: p.href || null }
     return { kind: p.kind, id: p.id, cls: p.cls, link: p.link, basis: p.basis, facet: p.facet, to: k2(p.to), poem: p.seg.poem || null, src: p.seg.img || null,
       steps: p.steps.map(st => ({ t: st.t, key: S37.stepKey(st), big: st.big || null, small: st.small || null, lines: st.lines || null, href: st.href || null, src: st.src || null, cell: st.cell ?? null, whole: !!st.whole, to: st.to ? k2(st.to) : null, poem: st.to ? st.to.poem : null })) } },
   get plans() { return cur ? planOf(cur).map((p, i) => p && this.plan(i)) : [] },
@@ -922,6 +1020,19 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     showWin(i, st); const out = this.clash; hideWin(); return out },
   get clash() { if (!FX.win || !cur) return null; const b = backEl.getBoundingClientRect(), o = [cur.R, ...['#mat', '#cap'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left, r.top, r.width, r.height] })]; return b.top < 0 || b.left < 0 || b.bottom > H || b.right > W || o.some(([l, t, ww, hh]) => b.left < l + ww && b.right > l && b.top < t + hh && b.bottom > t) },
   depth(i) { return cur ? depthOf(cur, i) : 0 },
+  // the readings' own: the stone drawn now (bare: without the poem's words, its grounds kept; tint: the seams in a colour no photograph has)
+  draw(o = {}) { if (!cur) return; TINT = !!o.tint; clear(); ledger = { t: null, list: [] }; drawWorld(cur); words(cur, o); TINT = false },
+  async ground() { GR.due = true; GR.snap = true; for (let k = 0; k < 3; k++) await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0))) }, // read again now, settled at once
+  get grounds() { return [...GR.list].map(([k, G]) => ({ k, a: +G.a.toFixed(3), t: +G.t.toFixed(3), shown: +(G.a * (G.fade ? G.fade() : 1)).toFixed(3) })) },
+  get text() { return cur && cur.text }, // the poem's words as composited, before they are laid on the stone (the check's: where a letter's ink is)
+  get words() { const w = cur; if (!w || !w.lc) return []; const [rx, ry] = w.R, st = w.v.scrollTop
+    return wordsAt(w).map(c => ({ t: c.r.t, li: c.li, title: c.title, i: c.i, d: c.d, font: c.r.font, ls: c.r.ls, x: rx + c.r.x, base: ry - st + c.r.y, box: [rx + c.r.x, ry - st + c.r.top, c.r.w, c.r.bot - c.r.top], shown: w.A[c.li] > .5 && ry - st + c.r.top >= ry - 1 && ry - st + c.r.bot <= ry + w.R[3] + 1 })) },
+  // a yield as a tap leaves it, at full strength, any glimpse arrived
+  async yieldAt(i, k) { const w = cur, p = w && planOf(w)[i], s = p && p.steps && p.steps[k]; if (!s || s.t === 'move') return null
+    hideWin(); showWin(i, s); if (s.t === 'glimpse') await glimpse(w, i, s); if (!FX.win || cur !== w) return null
+    FX.win.t0 = performance.now() - num('win-hold-ms', 3600) / 2; if (FX.glimpse) FX.glimpse.t0 = FX.win.t0; backEl.style.opacity = 1
+    return { i, k, t: s.t, text: backEl.textContent } },
+  hideWin() { hideWin() },
   tapPoint(i) { return cur ? touchAt(cur, i) : null },
   async rest() { // every facet, as drawn now, against this photograph and against the one it leads to: the closer must be this one (pixels, not code)
     const w = cur, P = planOf(w), st = g.getImageData(0, 0, cv.width, cv.height).data, own = w.img.getContext('2d').getImageData(0, 0, cv.width, cv.height).data, other = {}
@@ -956,7 +1067,9 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
       yearPlan: y >= 0 ? { at: pl[y].at, box: pl[y].box, basis: pl[y].basis } : null, yearBox: rectOf('#year a'), yearOn: yearEl.classList.contains('on'), yearText: yearA.textContent,
       where: whereRect(), whereWords: whereWords(), poem: w.R, mat: rectOf('#mat'), name: rectOf('#mat h1'), titleBox: rectOf(w.v.querySelector('h2')), cap: rectOf('#cap'), vs: rectOf('.vs'),
       cells: w.cells.map(P => P.map(([x, y0]) => [+x.toFixed(2), +y0.toFixed(2)])), cents: w.cents.map(c => c.map(v => +v.toFixed(2))), drawn: drawn(w),
-      kinds: pl.map(p => p ? p.kind : null), open: toolsOpen, openAt: toolsAt, W, H } },
+      kinds: pl.map(p => p ? p.kind : null), open: toolsOpen, openAt: toolsAt, W, H,
+      title: w.titleI, titlePlan: w.titleI >= 0 && pl[w.titleI] ? { href: pl[w.titleI].href, basis: pl[w.titleI].basis } : null, titleRects: [...w.v.querySelector('h2 a').getClientRects()].map(r => [r.left, r.top, r.width, r.height]),
+      titleHref: w.v.querySelector('h2 a').getAttribute('href'), verse: rectOf(w.v), piece: w.drewPiece && w.drewPiece.i === w.titleI ? w.drewPiece : null, titleUnder: !!w.drewTitleUnder } },
   marks() { const w = cur; return w ? drawn(w).map(i => { const k = w.ideaAt.get(i); if (k == null) return null; const m = markOf(w, i, k, {}); return { i, k, thread: m.thread ? m.thread.a : 0, wash: m.wash ? m.wash.a : 0 } }).filter(Boolean) : [] },
   tapIdea(k, clear) { const w = cur, x = w && fixedOf(w).ideas.find(x => x.k === k), t = toolsEl.getBoundingClientRect() // clear: a place on its facet the open panel does not cover
     return x ? { i: x.i, pt: touchAt(w, x.i, clear && toolsOpen >= 0 ? { all: true, avoid: [[t.left - 8, t.top - 8, t.right + 8, t.bottom + 8]] } : { all: true }) } : null }, // clear of every door row, as a press on the stone reads them
