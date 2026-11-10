@@ -23,6 +23,12 @@
 //     38 c: the date is the photograph's own, in a facet where it reads clear, and flies the photograph into its year in the About;
 //     39: a crossing through a door line (and, at 1440, a facet's last tap) walked frame by frame lands on the next photograph's masses cut
 //       as 33 counts it; reduced motion crossfades and no facet moves;
+//     the title (9 Nov): its own facet, drawn as one piece, the title underlined where main lays it; a tap on the title or on its facet opens
+//       the whole poem (poem_open, via title | facet); no seam eats a letter of it (nor of the poem): the seams drawn in a colour no photograph
+//       has, none shows inside a letter;
+//     the home reads (9 Nov): every text at rest, with each facet tapped, with each idea open and with the chain open, against the canvas
+//       pixels behind it (the stone without the poem's words, any ground and panel included): WCAG AA for 98% of them, 11px and up (the chain's
+//       sizes are its own: reported);
 //     no system name, no instruction, nothing counts down, no console error.
 // Run: node tools/test_home.mjs [--shots DIR]   (ONLY_VP=desk,phone,side · PAIRS=26 · STATIC=0 to narrow). Non-zero exit on any failure.
 import { spawn, spawnSync } from 'node:child_process'
@@ -79,13 +85,15 @@ const plain = h => h.replace(/<[^>]+>/g, '').replace(/&middot;/g, '·').replace(
   const img = /<img src="([^"]+)" alt="([^"]*)"/.exec(nos), ph = img && DATA.photos.find(p => p.src === img[1])
   check(!!poem && live.has(slug) && JSON.stringify(shownLines) === JSON.stringify(stanzasOf(poem).flat().map(l => l.trim()).filter(Boolean)) && !!ph && ph.alt === img[2] && existsSync(path.join(ROOT, img[1])),
     `without script a photograph and a poem of the site's own, word for word (${slug}, ${img && img[1]})`, JSON.stringify(shownLines)) }
-{ const head = trackJs.slice(0, trackJs.indexOf('*/')), names = ['tools_open', 'year_open', 'line_open', 'crossing']
+{ const head = trackJs.slice(0, trackJs.indexOf('*/')), names = ['tools_open', 'year_open', 'line_open', 'crossing', 'poem_open']
   const listed = names.filter(n => new RegExp('\\*\\s+' + n + '\\s').test(head)), set = Object.keys(vm.runInNewContext('(' + /var HOME_EVENTS = (\{[^}]*\})/.exec(trackJs)[1] + ')'))
   const sent = [...new Set([...stoneJs.matchAll(/\btrack\('([a-z_]+)'/g)].map(m => m[1]))]
   check(listed.length === names.length && JSON.stringify(set.sort()) === JSON.stringify([...names].sort()) && JSON.stringify(sent.sort()) === JSON.stringify([...names].sort()),
     `track.js lists the stone's ${names.length} events at its top and passes on only those; the stone sends exactly them`, JSON.stringify({ listed, set, sent }))
   const via = [...new Set([...stoneJs.matchAll(/track\('tools_open', \{[^}]*via: '([a-z]+)'/g)].map(m => m[1]))].sort(), doc = (/\*\s+tools_open\s.*via: ([a-z |]+) \}/.exec(head) || [])[1]
-  check(!!doc && JSON.stringify(doc.split('|').map(x => x.trim()).sort()) === JSON.stringify(via), `track.js documents tools_open's via as the stone sends it: ${via.join(' | ')}`, JSON.stringify({ doc, via })) }
+  check(!!doc && JSON.stringify(doc.split('|').map(x => x.trim()).sort()) === JSON.stringify(via), `track.js documents tools_open's via as the stone sends it: ${via.join(' | ')}`, JSON.stringify({ doc, via }))
+  const pvia = [...new Set([...stoneJs.matchAll(/track\('poem_open', \{[^}]*via: '([a-z]+)'/g)].map(m => m[1]))].sort(), pdoc = (/\*\s+poem_open\s.*via: ([a-z |]+) \}/.exec(head) || [])[1]
+  check(!!pdoc && JSON.stringify(pdoc.split('|').map(x => x.trim()).sort()) === JSON.stringify(pvia) && pvia.join() === 'facet,title', `track.js documents poem_open's via as the stone sends it: ${pvia.join(' | ')}`, JSON.stringify({ pdoc, pvia })) }
 { // 41 b and 42 a, in the files: the names that stood by the line are gone; every idea has its reason; IDEAS is read, never copied; here.js is not first-screen weight
   const hereJs = read('v3/here.js'), table = /const MEANING = \[([\s\S]*?)\]\]\n/.exec(stoneJs)?.[1] || '', named = [...table.matchAll(/^\s*\['([^']+)'/gm)].map(m => m[1])
   const W24 = HOME_IDEAS.flatMap(I => [I.name, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary]).filter(t => t.length > 24), copied = W24.filter(t => [page, stoneJs, stoneCss, hereJs, JSON.stringify(DEF)].some(f => f.includes(t)))
@@ -676,7 +684,10 @@ const gz = new Map(), gzOf = f => gz.get(f) ?? (gz.set(f, /\.(jpe?g|png|webp|wof
    for one state; MUTATE (never committed, to watch a check go red) changes only the served bytes:
      fact    = a this-world sentence takes another world's photograph record     copy  = Context's general intro written in, not read
      shown   = an idea's name visible at rest                                    keys  = the six hidden buttons gone
-     null    = the guard on a fact that may not load taken away (last set on)     names = the old names code path back (a #names row) */
+     null    = the guard on a fact that may not load taken away (last set on)     names = the old names code path back (a #names row)
+     ground  = the caption's ground never laid                                    moved = the title moved 20px along its row
+     event   = a tap on the title sent under another name                         piece = the title's facet not drawn as its own piece
+     seam    = the poem's words drawn inside each facet again, as before 9 Nov, where the seams cut them */
 const MARK = '\u200b', MUT = process.env.MUTATE || '', GONE = new Set(), OVER = new Map(), MUTHIT = new Set()
 const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, 'utf8'); const was = s
   if (u === '/v2/home.js') s = s.replace(/("intro": ")|("boundary": ")/g, m => m + MARK)
@@ -686,6 +697,11 @@ const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, '
   if (MUT === 'keys' && u === '/v3/stone.js') s = s.replace('  keysEl.append(b) })', '  })')
   if (MUT === 'null' && u === '/v3/here.js') s = s.replace("${S.written ? `, and where he is was last set on ${S.written}` : ''}.`", ", and where he is was last set on ${S.written}.`") // the guard on a fact that may not have loaded, gone
   if (MUT === 'names' && u === '/v3/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('div'); n.id = 'names'; n.className = 'on'; n.style.cssText = 'position:fixed;left:16px;bottom:150px;z-index:6;display:flex;gap:12px;font:400 11px/2 sans-serif;color:#f3efe6;text-transform:uppercase'; IDEAS.forEach((I, k) => { const b = document.createElement('button'); b.textContent = I.name; b.dataset.k = k; n.append(b) }); document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
+  if (MUT === 'ground' && u === '/v3/stone.js') s = s.replace('const t = Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d)))', "const t = T.key === 'cap' ? 0 : Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d)))")
+  if (MUT === 'moved' && u === '/v3/stone.js') s = s.replace("h.append(a); v.append(h)", "h.append(a); v.append(h); h.style.paddingLeft = '20px'")
+  if (MUT === 'event' && u === '/v3/stone.js') s = s.replace("track('poem_open', { poem: w.poem.slug, via: 'title' })", "track('poem_opened', { poem: w.poem.slug, via: 'title' })")
+  if (MUT === 'piece' && u === '/v3/stone.js') s = s.replace('function titlePiece(w, i, o, layers) { if (w.titleI !== i || o.plain) return o', 'function titlePiece(w, i, o, layers) { return o')
+  if (MUT === 'seam' && u === '/v3/stone.js') s = s.replace('const base = [{ img: w.img }] //', 'const base = [{ img: w.img }, ...textLayer(w, i, w.normals[i], P)] //').replace('drawGrounds(w); if (o.bare) return', 'drawGrounds(w); return')
   if (s !== was && u !== '/v2/home.js') MUTHIT.add(MUT); return s }
 const server = http.createServer((req, res) => { try { const u = decodeURIComponent(new URL(req.url, 'http://x').pathname), f = path.join(ROOT, path.normalize(u.endsWith('/') ? u + 'index.html' : u))
   if (GONE.has(u) || !f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); return res.end() }
@@ -697,7 +713,7 @@ const HTTP = server.address().port, CDPP = await freePort(), PROFILE = mkdtempSy
 const chrome = spawn(shell, ['--headless', '--use-mock-keychain', '--password-store=basic', '--no-first-run', `--user-data-dir=${PROFILE}`, `--remote-debugging-port=${CDPP}`, 'about:blank'], { stdio: 'ignore' })
 const cleanup = () => { try { chrome.kill() } catch {} try { server.close() } catch {} try { rmSync(PROFILE, { recursive: true, force: true }) } catch {} }
 process.on('exit', cleanup)
-const BASE = `http://127.0.0.1:${HTTP}`, errors = []
+const BASE = `http://127.0.0.1:${HTTP}`, errors = [], tracked = [], READS = { all: [], worst: {} }
 let loads = 0, taps = 0, crossings = 0, probes = 0, drawnN = 0, weight = null
 
 try {
@@ -709,6 +725,7 @@ try {
   cdp.on = msg => {
     if (msg.method === 'Runtime.exceptionThrown') errors.push(msg.params.exceptionDetails.exception?.description || msg.params.exceptionDetails.text)
     if (msg.method === 'Runtime.consoleAPICalled' && msg.params.type === 'error') errors.push(msg.params.args.map(a => a.value ?? a.description).join(' '))
+    if (msg.method === 'Runtime.consoleAPICalled' && msg.params.type === 'log' && /^TRACK /.test(msg.params.args[0]?.value || '')) tracked.push(JSON.parse(msg.params.args[0].value.slice(6))) // what the page sent, across its unload
     if (msg.method === 'Log.entryAdded' && msg.params.entry.level === 'error' && (msg.params.entry.url || '').startsWith(BASE)) errors.push(msg.params.entry.text + ' ' + msg.params.entry.url)
     if (msg.method === 'Fetch.requestPaused') { P36.setAsked(new URL(msg.params.request.url).searchParams.get('current')) // SKY null: the sky cannot be read
       cdp.send('Fetch.fulfillRequest', SKY ? { requestId: msg.params.requestId, responseCode: 200, responseHeaders: cors, body: b64(SKY) } : { requestId: msg.params.requestId, responseCode: 503, responseHeaders: cors, body: b64('') }).catch(() => {}) } }
@@ -764,15 +781,15 @@ try {
   // what the page dealt and drew, held to 37's rules, each facet's region recounted from regions.json at the centre the page cut
   const drawnHold = async label => {
     const ids = await cdp.eval('HOME.drawn'), plans = await cdp.eval('HOME.plans'), w0 = await cdp.eval('HOME.world0'), bad = [], world = { photo: w0.photo, poem: w0.poem, doors: w0.doors }
-    const plan = [], facets = [], kinds = { idea: 0, year: 0, work: 0 }
+    const plan = [], facets = [], kinds = { idea: 0, year: 0, title: 0, work: 0 }
     for (const i of ids) { const p = plans[i]; if (!p) { bad.push(`facet ${i} yields nothing`); continue } drawnN++
-      if (p.kind === 'idea' || p.kind === 'year') { kinds[p.kind]++; continue } kinds.work++
+      if (p.kind === 'idea' || p.kind === 'year' || p.kind === 'title') { kinds[p.kind]++; continue } kinds.work++
       const g = P37.regionAt(w0.photo, p.facet.c, w0.W, w0.H); if (!g || g.tone !== p.facet.tone || g.side !== p.facet.side || Math.abs(g.sal - p.facet.sal) > .002 || Math.abs(g.edges - p.facet.edges) > .002) bad.push(`#${i}: its region is not what regions.json holds at its centre`)
       const seg = P37.segBy[p.id]; if (!seg) { bad.push(`#${i}: ${p.id} is not a segment`); continue }
       plan.push({ seg, link: p.link, cls: p.cls, basis: p.basis, to: { photo: '/photos/' + p.to.split('~')[1], poem: p.to.split('~')[0] }, steps: p.steps.map(st => ({ ...st, to: st.to ? { photo: '/photos/' + st.to.split('~')[1], poem: st.to.split('~')[0] } : undefined })) }); facets.push(p.facet) }
     plan.forEach(p => p.steps.forEach(st => { if (st.t !== 'move') delete st.to }))
     P37.plansHold(world, plan, facets, 'shape', label, bad)
-    check(!bad.length && kinds.idea === 6 && kinds.year === 1, `${label}: every one of ${ids.length} facets yields: six ideas, the photograph's date, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
+    check(!bad.length && kinds.idea === 6 && kinds.year === 1 && kinds.title === 1, `${label}: every one of ${ids.length} facets yields: six ideas, the photograph's date, the poem's title, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
     return plans }
   const probeHold = async label => { const ids = await cdp.eval('HOME.drawn'), bad = []
     for (const i of ids) for (const [n, lines] of [[60, 0], [220, 0], [480, 0], [200, 6], [1400, 0]]) { probes++; if (await cdp.eval(`HOME.probe(${i}, ${n}, ${lines})`)) bad.push(`#${i} at ${n}${lines ? ' in ' + lines + ' lines' : ''}`) }
@@ -1047,6 +1064,87 @@ try {
       console.log(`note B13: the hue wash at rest (390x844, ΔE76 between each idea's facet with its wash and without, mean over its pixels): faintest facet ${ws[0].dE.toFixed(1)} (${P42.NAMES[ws[0].k]}, ${ws[0].key}), median facet ${ws[ws.length >> 1].dE.toFixed(1)}; the faintest world's most visible facet ${worlds[0][1].toFixed(1)} (${worlds[0][0]}); ${ws.filter(x => x.dE < 2.3).length} of ${ws.length} facets under 2.3, the just-noticeable difference`) }
     if (process.env.SWEEP === 'only') { console.log(bad.join('\n')); throw new Error('SWEEP=only: stopped after the sweep') } }
 
+  /* the title (9 Nov): its own facet, drawn as one piece, underlined where main lays it; a tap on the title or its facet opens the whole poem */
+  const titleHold = async label => {
+    const s = await cdp.eval('HOME.state'), w = await cdp.eval('HOME.world'), href = `/poems/${w.slug}.html`, P = s.cells[s.title] || []
+    const ctr = r => [r[0] + r[2] / 2, r[1] + r[3] / 2], holds = s.titleRects.some(r => inPoly(ctr(r), P))
+    check(s.title >= 0 && holds && !s.ideas.some(x => x.i === s.title) && s.title !== s.year && s.kinds[s.title] === 'title' && s.titlePlan && s.titlePlan.href === href && s.titleHref === href,
+      `${label}: the title has a facet of its own (${s.title}), one it lies in, no idea's and not the date's, and it leads to ${href}`, JSON.stringify({ title: s.title, holds, ideas: s.ideas.map(x => x.i), year: s.year, plan: s.titlePlan, href: s.titleHref }))
+    check(!!s.piece && s.piece.i === s.title && s.piece.tone >= Number(DEF['title-tone']) && s.piece.edge >= Number(DEF['title-edge']) && s.titleUnder,
+      `${label}: the title's facet is drawn as one piece (its ground toned ${DEF['title-tone']}, its rim ${DEF['title-edge']}) and the title is underlined as every way on is`, JSON.stringify({ piece: s.piece, under: s.titleUnder }))
+    /* where main lays it: the title is the verse's first line, at its very corner (h2 margin 0 above, no indent), and drawn on the stone where
+       the page holds it, only ever moved up or down by its facet, within word-shift x refract-px x the reach of a facet's lean (.45) */
+    const ws = (await cdp.eval('HOME.words')).filter(x => x.title), reach = Number(DEF['refract-px']) * Number(DEF['word-shift']) * .45 + .01, t0 = s.titleRects[0]
+    const atCorner = !!t0 && Math.abs(t0[0] - s.verse[0]) < .5 && Math.abs(t0[1] - s.verse[1]) < 3 && Math.abs(s.titleBox[0] - s.verse[0]) < .5 && Math.abs(s.titleBox[1] - s.verse[1]) < .5
+    const drawnAt = ws.length > 0 && ws.every(x => x.d[0] === 0 && Math.abs(x.d[1]) <= reach && s.titleRects.some(r => x.box[0] >= r[0] - .5 && x.box[0] + x.box[2] <= r[0] + r[2] + .5))
+    check(atCorner && drawnAt, `${label}: the title sits where main lays it, at the poem's top left corner (${r1(t0 || [])}), and is drawn there, off by at most ${reach.toFixed(2)}px up or down`, JSON.stringify({ t0, verse: s.verse, box: s.titleBox, ws: ws.map(x => [x.t, r1(x.box), x.d]) })) }
+  /* no seam eats a letter: the stone drawn twice, its seams the second time in a colour no photograph has; inside each word's letters (the
+     solid ink of the page's own composited words, where the page lays that word) not one pixel may show the seam's colour */
+  const seamEats = () => cdp.eval(`(() => { const cv = document.getElementById('stone'), g = cv.getContext('2d'), d = cv.width / innerWidth, T = HOME.text.getContext('2d').getImageData(0, 0, cv.width, cv.height).data
+    HOME.draw(); const A = g.getImageData(0, 0, cv.width, cv.height).data; HOME.draw({ tint: true }); const B = g.getImageData(0, 0, cv.width, cv.height).data; HOME.draw()
+    const out = { title: [], poem: [], words: 0, cores: 0 }
+    for (const w of HOME.words) { if (!w.shown) continue; out.words++; let core = 0, hit = 0
+      const dx = Math.round(w.d[0] * d), dy = Math.round(w.d[1] * d), x0 = Math.floor(w.box[0] * d), y0 = Math.floor(w.box[1] * d), x1 = Math.ceil((w.box[0] + w.box[2]) * d), y1 = Math.ceil((w.box[1] + w.box[3]) * d)
+      for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) { const k = (y * cv.width + x) * 4; if (T[k + 3] < 250) continue; const X = x + dx, Y = y + dy; if (X < 0 || Y < 0 || X >= cv.width || Y >= cv.height) continue
+        core++; const j = (Y * cv.width + X) * 4; if (Math.abs(A[j] - B[j]) + Math.abs(A[j + 1] - B[j + 1]) + Math.abs(A[j + 2] - B[j + 2]) > 40) hit++ }
+      out.cores += core; if (hit) out[w.title ? 'title' : 'poem'].push(w.t + ' (' + hit + ' of ' + core + ')') }
+    return out })()`)
+  const seamHold = async label => { const r = await seamEats()
+    check(r.words > 0 && r.cores > 200 && !r.title.length, `${label}: no seam eats a letter of the title: the seams drawn in a colour no photograph has, none shows inside its letters`, r.title.slice(0, 4).join(', '))
+    check(r.words > 0 && !r.poem.length, `${label}: nor of the poem: none of the seams shows inside a letter of its ${r.words} words on screen (${r.cores.toLocaleString('en-US')} letter pixels read)`, r.poem.slice(0, 4).join(', ')) }
+  /* the taps: on the title's words, then on its facet away from them; each opens the whole poem, sent as poem_open with its own via */
+  const titleTaps = async label => { const w = await cdp.eval('HOME.world'), href = `/poems/${w.slug}.html`, out = []
+    for (const via of ['title', 'facet']) { await open(''); await cdp.eval(`document.addEventListener('home:track', e => console.log('TRACK ' + JSON.stringify(e.detail)))`); tracked.length = 0
+      const pt = via === 'title' ? await reach('.verse h2 a') : await cdp.eval(`HOME.tapPoint(HOME.state.title)`); if (!pt) { out.push(via + ': no place to tap'); continue }
+      await tapAt(pt[0], pt[1])
+      const at = await waitFor(() => cdp.eval(`location.pathname !== '/' && document.readyState !== 'loading' && location.pathname`), 'the poem', 100).catch(() => null)
+      const ev = tracked.find(e => e.name === 'poem_open' && e.params && e.params.via === via && e.params.poem === w.slug)
+      if (at !== href || !ev) out.push(`${via}: went to ${at}, sent ${JSON.stringify(tracked)}`) }
+    await open('')
+    check(!out.length, `${label}: a tap on the title, or on its facet away from its words, opens the whole poem (${href}), sent as poem_open via title and via facet`, out.join(' | ')) }
+  /* the home reads: every text, in its own colour and strength, against the canvas pixels behind it (the stone without the poem's words, any
+     ground included) and any panel or scrim between: WCAG AA (4.5:1) for 98% of them; 11px and up (the chain's sizes are its own, reported) */
+  const MEASURE = String.raw`(sels) => { HOME.draw({ bare: true })
+    const cv = document.getElementById('stone'), g = cv.getContext('2d'), k = cv.width / innerWidth
+    const rgba = s => { const m = /rgba?\(([^)]+)\)/.exec(s); if (!m) return [0, 0, 0, 0]; const v = m[1].split(/[ ,/]+/).filter(Boolean).map(Number); return [v[0], v[1], v[2], v.length > 3 ? v[3] : 1] }
+    const lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }, Y = c => .2126 * lin(c[0]) + .7152 * lin(c[1]) + .0722 * lin(c[2]), over = (top, a, bot) => [0, 1, 2].map(j => top[j] * a + bot[j] * (1 - a))
+    const why = document.body.classList.contains('why'), sc = document.getElementById('why-scrim'), scrim = rgba(getComputedStyle(sc).backgroundColor), sop = +getComputedStyle(sc).opacity
+    const out = {}, add = (group, label, rects, col, op, bgs, under, px) => { const cons = []
+      for (const q of rects) { const x0 = Math.max(0, Math.floor(q[0] * k)), y0 = Math.max(0, Math.floor(q[1] * k)), x1 = Math.min(cv.width, Math.ceil((q[0] + q[2]) * k)), y1 = Math.min(cv.height, Math.ceil((q[1] + q[3]) * k)); if (x1 <= x0 || y1 <= y0) continue
+        const d = g.getImageData(x0, y0, x1 - x0, y1 - y0).data
+        for (let i = 0; i < d.length; i += 8) { let bg = [d[i], d[i + 1], d[i + 2]]; if (under && why) bg = over(scrim, scrim[3] * sop, bg); for (const b of bgs) bg = over(b, b[3], bg); const a = Y(over(col, op, bg)), c = Y(bg); cons.push((Math.max(a, c) + .05) / (Math.min(a, c) + .05)) } }
+      if (!cons.length) return; cons.sort((a, c) => a - c); const p02 = +cons[Math.floor(cons.length * .02)].toFixed(2), o = out[group] ||= { n: 0, p02: 99, px: 99, text: '' }
+      o.n++; if (p02 < o.p02) { o.p02 = p02; o.text = label.slice(0, 30) } o.px = Math.min(o.px, px) }
+    if (sels.includes('.verse')) for (const w of HOME.words) if (w.shown) add(w.title ? 'title' : 'poem', w.t, [[w.box[0] + w.d[0], w.box[1] + w.d[1], w.box[2], w.box[3]]], [243, 239, 230], 1, [], true, parseFloat(w.font.split(' ')[2]))
+    for (const [q, group] of [['#back', 'yield'], ['#tools', 'idea'], ['#why', 'chain'], ['.cap', 'caption'], ['#year', 'date'], ['header h1', 'name'], ['#where', 'where'], ['header nav', 'nav'], ['.vs', 'switch']]) { if (!sels.includes(q)) continue
+      const root = document.querySelector(q), tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+      for (let n; (n = tw.nextNode());) { if (!n.data.trim()) continue; const el = n.parentElement, cs = getComputedStyle(el); if (cs.visibility === 'hidden' || el.closest('[hidden]')) continue
+        let col = rgba(cs.color), op = col[3], bgs = [], clip = [0, 0, innerWidth, innerHeight]
+        for (let e = el; e && e !== document.body; e = e.parentElement) { const s = getComputedStyle(e); op *= +s.opacity; const b = rgba(s.backgroundColor); if (b[3] > 0) bgs.unshift(b)
+          if (s.overflowY !== 'visible' || s.overflowX !== 'visible') { const r = e.getBoundingClientRect(); clip = [Math.max(clip[0], r.left), Math.max(clip[1], r.top), Math.min(clip[2], r.right), Math.min(clip[3], r.bottom)] } }
+        if (op < .05) continue
+        const r = document.createRange(); r.selectNodeContents(n); const rs = [...r.getClientRects()].map(q => { const l = Math.max(q.left, clip[0]), t = Math.max(q.top, clip[1]); return [l, t, Math.min(q.right, clip[2]) - l, Math.min(q.bottom, clip[3]) - t] }).filter(q => q[2] > 0 && q[3] > 0)
+        add(group, n.data.trim(), rs, col, op, bgs, q === '#back', parseFloat(cs.fontSize)) } }
+    HOME.draw(); return out }`
+  const reads = async label => { const bad = [], seen = new Set(), worst = READS.worst
+    const note = (where, m) => { for (const [k, o] of Object.entries(m)) { seen.add(k); if (!worst[k] || o.p02 < worst[k].p02) worst[k] = { ...o, where: label + ' ' + where }
+      if (o.p02 < 4.5) bad.push(`${where} ${k}: ${o.p02}:1 "${o.text}"`); if (o.px < 11 && k !== 'chain') bad.push(`${where} ${k}: ${o.px}px`) } }
+    const measure = sels => cdp.eval(`(${MEASURE})(${JSON.stringify(sels)})`), STONE = ['.verse', '.cap', '#year', 'header h1', '#where', 'header nav', '.vs']
+    await open(''); await settled(); await park(); await cdp.eval('HOME.still = true'); await sleep(300); await cdp.eval('HOME.ground()')
+    note('at rest', await measure(STONE))
+    let taps = 0; const plans = await cdp.eval('HOME.plans')
+    for (const [i, p] of plans.entries()) { if (!p || !p.steps || p.kind === 'title') continue
+      for (const [k, st] of p.steps.entries()) { if (st.t === 'move' || st.t === 'idea' || st.t === 'year') continue
+        if (!(await cdp.eval(`HOME.yieldAt(${i}, ${k})`))) continue; taps++; await cdp.eval('HOME.ground()'); note(`facet ${i} tapped (${k + 1})`, await measure([...STONE, '#back'])) } }
+    await cdp.eval('HOME.hideWin()')
+    for (const [k] of IDEAS42.entries()) { await cdp.eval(`document.querySelector('#keys button[data-k="${k}"]').click()`); await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 100, 60); await sleep(400); await cdp.eval('HOME.ground()')
+      note(`idea ${k} open`, await measure(['.verse', '#tools', 'header h1', '#where', 'header nav', '.vs'])); await key('Escape') }
+    await cdp.eval('HOME.openWhy()'); await sleep(D('why-ms') + 400); note('the chain open', await measure(['#why', 'header h1', 'header nav', '.vs'])); await cdp.eval('HOME.closeWhy()'); await sleep(300)
+    await cdp.eval('HOME.still = false')
+    const want = ['poem', 'title', 'caption', 'date', 'name', 'where', 'nav', 'switch', 'yield', 'idea', 'chain'], missing = want.filter(k => !seen.has(k))
+    READS.all.push(label + ' ' + taps + ' taps')
+    check(!bad.length && !missing.length, `${label}: the home reads: every text at rest, with each of ${taps} facets' pieces shown, with each idea open and with the chain open keeps AA against the pixels behind it (98% of them), 11px and up`, bad.slice(0, 5).join(' | ') || 'not measured: ' + missing.join(', ')) }
+
   for (const vp of VIEWPORTS) {
     await view(vp); await reduceMotion(false); errors.length = 0; const tag = `${vp.w}x${vp.h}`
     const first = await open('')
@@ -1075,7 +1173,7 @@ try {
     // the facets
     const plans = await drawnHold(`${tag} home`)
     await probeHold(`${tag} home`)
-    { const pl = plans.findIndex(p => p && p.kind !== 'idea' && p.kind !== 'year'), seq0 = await cdp.eval('HOME.seq')
+    { const pl = plans.findIndex(p => p && p.kind !== 'idea' && p.kind !== 'year' && p.kind !== 'title'), seq0 = await cdp.eval('HOME.seq')
       if (pl >= 0) { await cdp.eval('HOME.dry = true'); await tapFacet(pl); const last = await nextSeq(seq0); await sleep(400); const s = await cdp.eval('({ at: HOME.at, busy: HOME.busy, win: HOME.win, clash: HOME.clash })')
         check(last && last.i === pl && s.at === 'stone' && !s.busy && s.win && s.win.text && !s.clash, `${tag} home: a facet gives its piece, clear of the poem, and the stone stays`, JSON.stringify({ last, s }))
         await shot(`home-yield-${vp.id}.png`); await cdp.eval('HOME.dry = false') } }
@@ -1145,6 +1243,13 @@ try {
         check(after.open === -1 && !after.on && after.exp === 'falsefalsefalsefalsefalsefalse' && st.here.join(' ') === w2['Context'].join(' '), `${label}: crossing with an idea open closes it; opened again, it speaks of the new world (${after.key})`, JSON.stringify({ after, here: st.here }))
         await key('Escape') }
     }
+
+    // the title, and the home read
+    { await open(''); await settled(); await park(); await cdp.eval('HOME.still = true'); await sleep(400)
+      await titleHold(`${tag} home`); await seamHold(`${tag} home`); await cdp.eval('HOME.still = false')
+      if (vp.id === 'desk') { await open('?w=' + encodeURIComponent(home[0])); await waitFor(() => cdp.eval('HOME.world.arrived'), 'arrival', 200); await park(); await cdp.eval('HOME.still = true'); await sleep(400)
+        await titleHold(`${tag} world ${home[0]}`); await seamHold(`${tag} world ${home[0]}`); await cdp.eval('HOME.still = false') }
+      await reads(tag); await titleTaps(`${tag} home`) }
 
     // 34 b, opened from the line (36 c): every number recounted, every label re-run
     { await open(''); await settled(); const L = `${tag} 34 b`
@@ -1256,5 +1361,6 @@ try {
 
 { const gone = [...P37.reached].filter(x => !live.has(x)); check(P37.reached.size > 0 && !gone.length, `every poem a segment shows or a facet reaches (${P37.reached.size}) is live`, gone.join(', ')) }
 const w8 = weight ? `; first screen on a phone ${Math.round(weight.rest / 1024)} KB gzipped + the photograph ${Math.round(weight.pic / 1024)} KB` : ''
+for (const [k, o] of Object.entries(READS.worst)) console.log(`     reads, worst ${k}: ${o.p02}:1, ${o.px}px, at ${o.where} "${o.text}"`)
 console.log(failures ? `FAIL the home: ${failures} of ${oks + failures} checks failed` : `PASS the home: ${oks} checks in ${loads} loads at ${VIEWPORTS.map(v => v.w + 'x' + v.h).join(', ')}: every facet yields (${drawnN} drawn), ${probes} worst-case words placed clear, ${crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached${w8} (${Math.round((Date.now() - t0) / 1000)}s)`)
 cleanup(); process.exit(failures ? 1 : 0)
