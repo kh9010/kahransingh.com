@@ -878,6 +878,24 @@
         "wind_kmh": 22.3,
         "cloud_pct": 50
       }
+    },
+    "2026-11-09": {
+      "poem": "sometimes-i-listen-to-these-poets",
+      "photo": "/photos/provincetown-massachusetts-f214fa8d.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.42825975958632584,
+        "warmth": 0.5742857142857143,
+        "wet": 0.0,
+        "stillness": 0.25250000000000006,
+        "season": 0.12279807945362642,
+        "inside": 0.7871428571428571,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 15.1,
+        "wind_kmh": 29.9,
+        "cloud_pct": 27
+      }
     }
   }
 }
