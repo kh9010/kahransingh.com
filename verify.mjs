@@ -783,7 +783,7 @@ checkNow("Right now (on /v2/ only): the tools line still opens the wall; each li
   return `${oks} checks, rendered at 1200x800 and 390x844`;
 });
 
-checkNow("the home is the stone: every facet yields and nothing lies over the poem, the crossing lands on the next masses cut, the line and the chain recounted, the tools and the years reached", () => {
+checkNow("the home is the stone: every facet yields and nothing lies over the poem, the crossing lands on the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached", () => {
   const r = run("node", ["tools/test_home.mjs"], ROOT);
   if (!r.ok) throw new Error(r.out.trim().split("\n").filter((l) => l.startsWith("FAIL")).slice(0, 4).join(" | ") || r.out.trim().split("\n").slice(-4).join(" | "));
   return r.out.trim().split("\n").filter((l) => l.startsWith("PASS the home")).map((l) => l.replace(/^PASS the home: /, "")).join("; ");

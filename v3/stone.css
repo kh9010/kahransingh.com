@@ -1,4 +1,4 @@
-/* v3, the home: the stone (Studies 33, 37, 39, 40) with 35's line and 34's chain (36 c) and the year facet (38 c).
+/* v3, the home: the stone (Studies 33, 37, 39, 41 b, 42 a) with 35's line and 34's chain (36 c) and the year facet (38 c).
    Copied from the studies' own styles; numbers that are dials come from /v3/defaults.json as CSS variables. */
 :root {
   --ink-seam: #0d0c0b; --ink-on: #f3efe6; --ink-on2: #c9c3b6;
@@ -58,23 +58,14 @@ header nav a:hover, header nav a:focus-visible { color: #fff; }
 .vs a:hover, .vs a:focus-visible { color: #fff; }
 .vs [aria-current] { color: #ede7d9; font-weight: 500; }
 .vs > * + *::before { content: '\00b7'; margin-right: .45rem; color: rgba(201,195,182,.5); }
-/* the tools: six names on their facet, and the idea they open */
-#names { position: fixed; z-index: 6; display: flex; flex-wrap: wrap; gap: 0 calc(var(--tools-gap-px, 12) * 1px); opacity: 0; pointer-events: none; transition: opacity .5s var(--ease); }
-body[data-at="world"] #names.on, body[data-at="stone"] #names.on { opacity: 1; pointer-events: auto; }
-#names button, #tools nav button { all: unset; cursor: pointer; font: 400 calc(var(--tools-name-px, 11) * 1px)/2 var(--sans); letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
-  color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.7), 0 1px 12px rgba(0,0,0,.8); }
-#names button::before, #tools nav button::before { content: ''; display: inline-block; width: .55em; height: .55em; margin-right: .5em; border-radius: 50%; background: var(--hue, var(--ink-on2)); vertical-align: .08em; }
-#names button:hover, #names button:focus-visible { color: #fff; }
-#names.col { flex-direction: column; align-items: flex-start; } /* one name a line, for a slim facet */
-#names.tight button { letter-spacing: calc(var(--tools-tight-track, .04) * 1em); }
-#names button:focus-visible, #tools button:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
+/* an idea, opened from the facet that holds it (41 b, 42 a): its name, this world first, why this facet, then its sentence, tools and boundary */
+#tools button:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
+/* the way in without a pointer: one button per idea, named for it, never shown (focus rings its facet on the stone) */
+#keys button { position: fixed; left: 0; top: 0; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 #tools { position: fixed; z-index: 8; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: none; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease);
   padding: 14px 16px; border-radius: 6px; background: rgba(13,12,11,var(--tools-ground, .82)); color: var(--ink-on); }
 #tools::-webkit-scrollbar { display: none; }
 #tools.on { opacity: 1; pointer-events: auto; }
-#tools nav { display: flex; flex-wrap: wrap; gap: 0 12px; margin-bottom: 8px; }
-#tools nav button { color: var(--ink-on2); text-shadow: none; }
-#tools nav button[aria-current] { color: var(--ink-on); }
 #tools h2 { margin: 4px 0 8px; font: italic 400 1.3rem/1.25 var(--serif); }
 #tools h2 a { text-decoration: none; border-bottom: 1px solid rgba(243,239,230,.45); }
 #tools p { margin: 0 0 10px; font: 300 .95rem/1.5 var(--serif); }
@@ -84,7 +75,13 @@ body[data-at="world"] #names.on, body[data-at="stone"] #names.on { opacity: 1; p
 #tools li button[aria-expanded="false"] { color: var(--ink-on2); }
 #tools li p { margin: 0 0 9px; font-size: .9rem; }
 #tools li p[hidden] { display: none; }
+#tools { border-left: 2px solid var(--hue, var(--ink-on2)); }
+#tools .basis { display: block; margin: -2px 0 10px; font: 400 .7rem/1.4 var(--sans); letter-spacing: .04em; color: var(--ink-on2); opacity: var(--basis-alpha, 0.9); }
 #tools .boundary { margin: 6px 0 0; font-style: italic; color: var(--ink-on2); }
+#tools p.here { margin: 0 0 10px; font: 300 calc(var(--here-rem, 1.06) * 1rem)/1.5 var(--serif); color: var(--ink-on); }
+#tools .gen { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(243,239,230,.14); }
+#tools .gen p, #tools .gen li p { font-size: calc(var(--general-rem, 0.84) * 1rem); color: var(--ink-on2); }
+#tools .gen li button { font-size: .74rem; }
 body.tools-open .cap { opacity: 0; }
 @media (max-height: 560px) and (orientation: landscape) {
   header { left: 16px; bottom: 14px; max-width: 42vw; }
@@ -247,7 +244,6 @@ body.why .cap { opacity: 0; } .cap { transition: opacity .3s var(--ease); }
 #year a::after { content: ''; position: absolute; left: 50%; top: 50%; width: max(100% + 12px, calc(var(--hit-px, 44) * 1px)); height: calc(var(--hit-px, 44) * 1px); transform: translate(-50%, -50%); }
 #year a:hover, #year a:focus-visible { text-decoration-color: rgba(243,239,230,.85); outline: none; }
 body.why #year, body.tools-open #year, body[data-at="entering"] #year { opacity: 0; pointer-events: none; }
-body.why #names, body[data-at="entering"] #names { opacity: 0 !important; pointer-events: none !important; }
 #about { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; z-index: 30; background: #fafaf8; opacity: 0; pointer-events: none; transition: opacity .28s var(--ease); }
 body[data-at="about"] #about { opacity: 1; pointer-events: auto; }
 #ph { position: fixed; z-index: 31; left: 0; top: 0; width: 100vw; height: 100vh; object-fit: cover; display: block; will-change: left, top, width, height; }

@@ -2,7 +2,8 @@
 // v3/build.mjs: the home's own copies of the studies it was assembled from (versions share no files).
 // Scripts are copied byte for byte; data are copied, except regions.json, which is split into one small file per photograph
 // so a visit loads only the photographs it shows. body.js reads its sources from /v3/body/ instead of four study folders
-// (its one changed line, SOURCES below). `node v3/build.mjs --check` exits 1 if any copy differs from what this would write;
+// (its one changed line, SOURCES below); here.js (42's, what an idea's facet says of this world) reads the poems' years from /v3/poem-years.json
+// instead of 27's folder. `node v3/build.mjs --check` exits 1 if any copy differs from what this would write;
 // tools/test_home.mjs runs it, so a study rebuilt without the home rebuilt goes red.
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync, rmSync } from 'node:fs'
 import path from 'node:path'
@@ -24,12 +25,14 @@ copy('studies/36/today.js', 'v3/today.js')
 copy('studies/36/moment.js', 'v3/moment.js')
 copy('studies/36/why.js', 'v3/why.js')
 copy('studies/36/ways.js', 'v3/ways.js')
+{ let h = read('studies/42/here.js'); const [from, to] = ['/studies/27/poem-years.json', '/v3/poem-years.json']; if (!h.includes(`'${from}'`)) throw new Error('here.js no longer reads ' + from); out.set('v3/here.js', h.replace(`'${from}'`, `'${to}'`)) }
 { let b = read('studies/36/body.js'); for (const [from, to] of SOURCES) { if (!b.includes(`'${from}'`)) throw new Error('body.js no longer reads ' + from); b = b.replace(`'${from}'`, `'${to}'`) } out.set('v3/body.js', b) }
 // data
 copy('studies/21/doors.json', 'v3/doors.json')
 copy('studies/26/kin.json', 'v3/kin.json')
 copy('studies/37/segments.json', 'v3/segments.json')
 copy('studies/38/crossings.json', 'v3/crossings.json')
+copy('studies/27/poem-years.json', 'v3/poem-years.json')
 copy('studies/21/ideas.json', 'v3/body/ideas.json')
 copy('studies/21/readings.txt', 'v3/body/readings.txt')
 copy('studies/15/doors.json', 'v3/body/doors15.json')
