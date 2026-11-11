@@ -7,6 +7,8 @@
        a further tap on the facet opens its next tool (42 a). Six hidden buttons, one per idea, are the way in without a pointer
      the where line arriving as 35 ?a=line, and opening 34 b's chain, joined as 36 c (moment.js, why.js, body.js, ways.js)
      the photograph's own facet holding its EXIF month and year, the way into the About's years (38 ?d=c; 27 a)
+     on a phone (upright or on its side), whatever a tap opens is one card cut like a facet of the stone, turning over out of the facet that
+       gave it, and closing four ways (43 c; a crossfade under reduced motion)
    Every number is a dial in /v3/defaults.json. HOME (at the end) is what tools/test_home.mjs reads. */
 addEventListener('unhandledrejection', e => console.error('unhandled: ' + (e.reason && e.reason.stack || e.reason)))
 if (location.hash === '#flow') location.replace('/v2/#flow') // the wall's flow view lives on at /v2/; old links to it still land
@@ -60,15 +62,16 @@ const script = src => new Promise((res, rej) => { const el = document.createElem
 const whyReady = () => whyGo ||= script('/v3/why.js').then(() => script('/v3/body.js')).then(() => script('/v3/ways.js'))
   .then(() => S34.explain({ ...ctx, how: ctx.how, doors: DJ })).then(m => (whyModel = m)).catch(e => { console.error('why: ' + (e && e.stack || e)); return null })
 const matH = () => document.documentElement.style.setProperty('--mat-h', mat.offsetHeight + 'px')
-async function openWhy() { if (whyOpen) return true; whyOpen = true; matH(); closeTools()
+async function openWhy() { if (whyOpen) return true; if (cardMode()) cardRoom(); whyOpen = true; matH(); closeTools()
   const m = await whyReady(); if (!m || !whyOpen) return false
   const doors = cur && cur.mode === 'home' && cur.poem.slug === m.poem.slug ? HOME.doors : null
   if (!whyDrawn) { await S34B.build(m, ctx, DJ, doors); if (!whyOpen) return false; S34W.draw('b', m, whyBody, { dotPx: num('why-dot-px', 3), doors }); whyDrawn = true; whyBody.dataset.drawn = 'yes' }
   whyEl.setAttribute('aria-hidden', 'false'); whereEl.setAttribute('aria-expanded', 'true')
+  if (cardMode()) { cardOpen('chain', -1, whyEl); document.body.classList.add('why'); return whyOpen } // 43 c: on a phone the chain is the card (no scrim: the card is its own ground)
   await new Promise(r => requestAnimationFrame(() => { document.body.classList.add('why'); r() })); return whyOpen }
 function closeWhy() { if (!whyOpen) return; whyOpen = false
   document.body.classList.remove('why'); whyEl.setAttribute('aria-hidden', 'true'); whereEl.setAttribute('aria-expanded', 'false'); whereEl.focus({ preventScroll: true })
-  JN.closes++; if (LN.L && FS.line.phase !== 'resolved') resolveLine() } // c: closing, the readings fade into the sentence again
+  JN.closes++; if (LN.L && FS.line.phase !== 'resolved') resolveLine(); cardShut('chain') } // c: closing, the readings fade into the sentence again
 whereEl.addEventListener('click', e => { e.stopPropagation(); whyOpen ? closeWhy() : join() })
 whereEl.addEventListener('keydown', e => { if (['Enter', ' '].includes(e.key)) { e.preventDefault(); e.stopPropagation(); whyOpen ? closeWhy() : join() } })
 whyEl.querySelector('.why-x').addEventListener('click', closeWhy)
@@ -90,7 +93,7 @@ function targetOf(k) { const q = TO[k]; if (!whyDrawn || !q) return null
 function echo(k) { const t = targetOf(k); if (!t) return null
   t.classList.add('lit'); t.classList.add('echo'); setTimeout(() => t.classList.remove('echo'), num('echo-ms', 1400))
   JN.echoed.push({ k, reading: FS.line.readings[k], text: t.textContent.trim(), seen: inView(t) }); return t }
-const inView = t => { const a = t.getBoundingClientRect(), b = whyEl.getBoundingClientRect(); return a.height > 0 && a.top >= b.top - 1 && a.bottom <= b.bottom + 1 }
+const inView = t => { const a = t.getBoundingClientRect(), b = whyEl.getBoundingClientRect(); /* in the card, #why is the card's own scroller */ return a.height > 0 && a.top >= b.top - 1 && a.bottom <= b.bottom + 1 }
 function unresolve() { // the sentence turns back into the readings it was made of, in the line's own order and pace
   hush(); const { se } = LN.L, st = num('line-stagger-ms', 110); FS.line.phase = 'returning'; document.body.dataset.line = 'read'
   se.classList.remove('on'); tokEls().forEach((x, k) => later(() => x.classList.remove('out'), k * st))
@@ -468,8 +471,8 @@ function drawWorld(w, o = {}) { const touched = w === cur && !crossing && !press
     const k = w.ideaAt ? w.ideaAt.get(i) : undefined, o2 = k != null && !o.plain ? markOf(w, i, k, o) : o // a facet that holds an idea: its mark, nothing written
     if (!touched) { const o3 = titlePiece(w, i, o2, base); return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o3), o3.m, o.alpha ?? 1) }
     const G = FX.glimpse && FX.glimpse.w === w && FX.glimpse.i === i && FX.win ? FX.glimpse : null
-    if (G) { const u = performance.now() - G.t0, ms = num('win-hold-ms', 3600); base.splice(1, 0, { img: G.img, alpha: reduce() ? 1 : Math.min(ss(0, 420, u), 1 - ss(ms - 600, ms, u)) * num('glimpse-alpha', 1), m: G.m }) }
-    const f0 = { ...o2, ...fxOf(w, i) }; f0.glow = Math.max(f0.glow || 0, o2.glow || 0); const fx = titlePiece(w, i, f0, base); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
+    if (G) { const u = performance.now() - G.t0, ms = num('win-hold-ms', 3600); base.splice(1, 0, { img: G.img, alpha: reduce() ? 1 : Math.min(ss(0, 420, u), FX.win.card ? 1 : 1 - ss(ms - 600, ms, u)) * num('glimpse-alpha', 1), m: G.m }) }
+    const f0 = { ...o2, ...fxOf(w, i) }; f0.glow = Math.max(f0.glow || 0, o2.glow || 0); if (CARD.open && CARD.i === i) { f0.edge = Math.max(f0.edge || 0, num('card-lit-edge', 0.9)); f0.edgePx = num('piece-edge-px', 1.4) * 1.5; f0.glow = Math.max(f0.glow || 0, num('card-lit-glow', 0.1)) } /* 43: the facet that is speaking, lit */ const fx = titlePiece(w, i, f0, base); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
 /* the ledger (39's): every facet drawn this frame, as drawn (its polygon after the seam and any transform), and how much of it is seen.
    The check reads it frame by frame: nothing may leave it, or join it, while it is seen */
 let ledger = { t: null, list: [] }
@@ -589,6 +592,7 @@ async function hereFor(photo, poem, mode) { const ok = await hereReady(); if (!o
   catch (e) { console.error('here: ' + (e && e.stack || e)); return {} } }
 const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e }
 function snap() { // the panel shows whole lines: where its room ends inside a line, it ends at the line before, and scrolls for the rest
+  if (cardMode()) { cardSnap(); return cardMore() } // 43 c: the card's room ends on a whole line, and its own cut says there is more
   const t = toolsEl, room = parseFloat(t.dataset.room || '0'); if (!room) return
   t.style.maxHeight = room + 'px'; if (t.scrollHeight <= room + 1) return
   const top = t.getBoundingClientRect().top, pad = parseFloat(getComputedStyle(t).paddingBottom) || 0, lines = []
@@ -609,6 +613,7 @@ function fill(k, said) { // lays the panel for idea k: this world's sentences (n
   t.append(gen)
   t.dataset.ready = said ? 'yes' : 'no'; snap() }
 function openTools(k, i) { const w = cur, I = IDEAS[k]; if (!w || !I) return
+  if (cardMode()) cardRoom()
   openedAt = performance.now()
   toolsOpen = k; toolsAt = i; keysOpen(); document.body.classList.add('tools-open'); toolsEl.style.setProperty('--hue', HUE[I.hue] || ''); toolsEl.textContent = ''
   const [l, t, bw, bh] = toolsBand(w); Object.assign(toolsEl.style, { left: l + 'px', top: t + 'px', width: bw + 'px', maxHeight: bh + 'px' }); toolsEl.dataset.room = bh
@@ -616,8 +621,9 @@ function openTools(k, i) { const w = cur, I = IDEAS[k]; if (!w || !I) return
   else toolsEl.style.bottom = ''
   fill(k, w.said || null); toolsEl.scrollTop = 0
   toolsEl.classList.add('on'); said(i, 'idea', { idea: I.name, k })
+  if (cardMode()) cardOpen('idea', i, toolsEl, { hue: HUE[I.hue] }) // 43: on a phone the idea is the card
   if (!w.said) hereFor(w.photo, w.poem, w.mode).then(S => { w.said = S; if (cur === w && toolsOpen === k && toolsAt === i) { fill(k, S); toolsEl.scrollTop = 0 } }) }
-function closeTools() { if (toolsOpen < 0) return; toolsOpen = -1; toolsAt = -1; keysOpen(); toolsEl.classList.remove('on'); document.body.classList.remove('tools-open') }
+function closeTools() { if (toolsOpen < 0) return; toolsOpen = -1; toolsAt = -1; keysOpen(); toolsEl.classList.remove('on'); document.body.classList.remove('tools-open'); cardShut('idea') }
 /* the way in without a pointer (the canvas is hidden from assistive tech): six buttons, one per idea in IDEAS' order, named for it and never
    shown; focusing one rings its facet, Enter or Space opens it, Escape closes it and gives the focus back */
 const keysEl = $('#keys')
@@ -634,10 +640,10 @@ function deeper() { // the idea's own facet again: its next tool opens, in the t
   if (!b) { said(i, 'closed', { idea: IDEAS[toolsOpen].name }); return closeTools() }
   toolSet(b, true); b.parentElement.scrollIntoView({ block: 'nearest' }); said(i, 'tool', { idea: IDEAS[toolsOpen].name, part: +b.dataset.part }) }
 toolsEl.addEventListener('click', e => { const b = e.target.closest('li > button'); if (b && performance.now() - openedAt > 400) toolSet(b, b.getAttribute('aria-expanded') !== 'true') }) // not the click a touch on the facet sends after it, landing on the panel that touch just opened
-addEventListener('pointerdown', e => { if (toolsOpen < 0 || e.target.closest('#tools')) return; e.stopImmediatePropagation() // with an idea open, a touch elsewhere only closes it; its own facet goes deeper
+addEventListener('pointerdown', e => { if (cardMode() || toolsOpen < 0 || e.target.closest('#tools')) return; e.stopImmediatePropagation() // with an idea open, a touch elsewhere only closes it; its own facet goes deeper
   if (cur && !e.target.closest('a, button, header') && facetAt(e.clientX, e.clientY) === toolsAt && !doorAt(e.clientX, e.clientY, cur, true)) return deeper()
   closeTools() }, true)
-addEventListener('keydown', e => { if (e.key !== 'Escape' || toolsOpen < 0) return; const k = toolsOpen; closeTools(); if (e.target.closest?.('#keys, #tools')) keysEl.children[k].focus({ preventScroll: true }) })
+addEventListener('keydown', e => { if (e.key !== 'Escape' || toolsOpen < 0 || cardMode()) return; const k = toolsOpen; closeTools(); if (e.target.closest?.('#keys, #tools')) keysEl.children[k].focus({ preventScroll: true }) })
 /* the facets placed by a reason of their own, before anything is dealt: the photograph's date (38 c: the facet where its month and year
    read clearest on the photograph itself), then the six ideas by 41 b's rule, never on the date's, the title's or a door's facet (the facet its words lie on) */
 function fixedOf(w) {
@@ -754,6 +760,7 @@ const depthOf = (w, i) => depthStore()[planKey(w) + '#' + i] || 0
 const deepen = (w, i) => { const s = depthStore(); s[planKey(w) + '#' + i] = depthOf(w, i) + 1; try { sessionStorage.setItem(DEPTH, JSON.stringify(s)) } catch {} }
 const nextStep = (w, i) => { const p = planOf(w)[i]; if (!p) return null; return p.steps[Math.min(depthOf(w, i), p.steps.length - 1)] }
 function showWin(i, s) { const w = cur, p = planOf(w)[i] // the piece as written, where it is from, and why it is here: nothing else
+  if (cardMode()) return pieceCard(i, s, p) // 43: on a phone the piece is the card, the same words
   backEl.textContent = ''; backEl.classList.toggle('on', !!s.href)
   if (s.t === 'lines') { const q = document.createElement('span'); q.className = 'lines'; s.lines.forEach(l => q.append(Object.assign(document.createElement('span'), { textContent: l }))); backEl.append(q) }
   else backEl.append(Object.assign(document.createElement('span'), { className: s.t === 'say' ? 'say' : 'named', textContent: s.big }))
@@ -783,7 +790,7 @@ function placeWin(w, i) { // its words go where they are clear of the poem, the 
   if (!best) best = [W / 2, 8, Math.max(24, H * .2)]
   backEl.classList.add('tight'); Object.assign(backEl.style, { maxWidth: wide + 'px', left: best[0] + 'px', maxHeight: best[2] + 'px', top: best[1] + best[2] / 2 + 'px' })
 }
-function hideWin() { FX.win = null; FX.glimpse = null; backEl.style.opacity = 0 }
+function hideWin() { FX.win = null; FX.glimpse = null; backEl.style.opacity = 0; cardShut('piece') }
 async function glimpse(w, i, st) { // another photograph or a film's still, seen through this one facet only; a photograph's answering region lies in it, the rest stays this photograph
   const p = photoBy(st.src) || { src: st.src, caption: '' }, [img] = await Promise.all([photo(p), st.src.startsWith('/photos/') ? regOf(st.src) : null]); if (cur !== w || !FX.win || FX.win.i !== i) return
   const R = REG[st.src], s = num('align-zoom', 1.5), [cx, cy] = w.cents[i]
@@ -813,14 +820,200 @@ function liftOf(w, i, now) { let t = 0
   for (const p of FX.pulses) if (p.i === i) { const u = (now - p.t0) / p.ms; if (u > 0 && u < 1) t = Math.max(t, Math.sin(u * Math.PI) * p.amp) }
   if (FX.win && FX.win.w === w && FX.win.i === i) t = Math.max(t, .5)
   if (toolsOpen >= 0 && toolsAt === i && w === cur) t = Math.max(t, .5) // the facet whose idea is open stays lifted while it is
+  if (CARD.open && CARD.i === i && w === cur) t = Math.max(t, .5) // 43: and the facet whose card is open
   return t }
 function fxOf(w, i) { const lv = w.lv ? w.lv[i] : 0, c = w.cents[i], o = { glow: .05 * Math.max(0, lv), shade: .1 * Math.max(0, -lv) }, s = 1 + .018 * lv
   if (s !== 1) o.m = about(c, sc(s))
   return o }
 function winFrame(now) { const v = FX.win; if (!v) return
+  if (v.card) { if (v.w !== cur) hideWin(); return } // 43: a piece in the card stays until it is closed
   if (v.w !== cur) return hideWin()
   const u = now - v.t0, ms = num('win-hold-ms', 3600), e = reduce() ? (u < ms ? 1 : 0) : Math.min(ss(0, 260, u), 1 - ss(ms - 500, ms, u))
   backEl.style.opacity = e; if (u > ms) hideWin() }
+
+/* ---------- 43 c: the opened facet. On a phone (upright or on its side) a piece, an idea and the chain all open as one card cut like a facet
+   of this stone, turning over out of the facet that gave it, and close four ways: its close mark, a tap on the stone outside it, Escape, the
+   same facet (or line) again. Under reduced motion it crossfades. One change from 43 c: where it scrolls, its words end on a whole line ---------- */
+const cardMode = () => phone() || low()
+document.querySelector('#tools').after(Object.assign(document.createElement('div'), { id: 'piece' }), Object.assign(document.createElement('div'), { id: 'card', innerHTML: '<canvas class="face" aria-hidden="true"></canvas><div class="card-slot"></div><svg class="cut" aria-hidden="true"></svg><button class="card-x" type="button" aria-label="close">×</button>' }))
+$('#piece').setAttribute('aria-live', 'polite'); $('#card').setAttribute('aria-hidden', 'true') // made here, not in the page: only a phone ever opens one
+const cardEl = $('#card'), cardSvg = cardEl.querySelector('svg.cut'), cardFace = cardEl.querySelector('canvas.face'), cardSlot = cardEl.querySelector('.card-slot'), cardX = cardEl.querySelector('.card-x'), pieceEl = $('#piece')
+const SVGNS = 'http://www.w3.org/2000/svg'
+const shifted = () => [cv, readEl, mat, cap] // what steps aside with the stone: #app itself stays put, so a touch anywhere still lands in it
+const CARD = { open: false, kind: null, i: -1, el: null, ph: null, back: null, geo: null, anim: null, phase: null, openedAt: 0, opens: 0, closes: [], t: 0 }
+const deg2 = a => a * Math.PI / 180
+function edgesOf(P) { return P.map((a, i) => { const b = P[(i + 1) % P.length], dx = b[0] - a[0], dy = b[1] - a[1]; return { a, b, len: Math.hypot(dx, dy), ang: ((Math.atan2(dy, dx) * 180 / Math.PI) + 360) % 180 } }).filter(e => e.len > 6) }
+function cutAngles(P) { // the card's corners are sheared at the angles of the facet it came from: its edge nearest each diagonal, kept within reach of it
+  const E = edgesOf(P), near = t => E.length ? E.reduce((b, e) => Math.abs(e.ang - t) < Math.abs(b.ang - t) ? e : b, E[0]).ang : t
+  const lo = num('card-cut-min-deg', 30), hi = num('card-cut-max-deg', 60), fold = a => Math.min(hi, Math.max(lo, a > 90 ? 180 - a : a))
+  return { slash: fold(near(135)), back: fold(near(45)) } } // slash: the "/" corners (top left, bottom right); back: the "\" corners
+function resample(P, n) { // a closed polygon as n points evenly along its outline, from its top-left-most corner, clockwise on screen
+  let Q = P.slice(); if (area2(Q) < 0) Q.reverse()
+  const s0 = Q.reduce((b, p, i) => p[0] + p[1] < Q[b][0] + Q[b][1] ? i : b, 0); Q = [...Q.slice(s0), ...Q.slice(0, s0)]
+  const L = Q.map((a, i) => Math.hypot(Q[(i + 1) % Q.length][0] - a[0], Q[(i + 1) % Q.length][1] - a[1])), tot = L.reduce((a, b) => a + b, 0) || 1, out = []
+  for (let k = 0, i = 0, acc = 0; k < n; k++) { const d = k * tot / n; while (i < Q.length - 1 && acc + L[i] < d) { acc += L[i]; i++ }
+    const a = Q[i], b = Q[(i + 1) % Q.length], u = L[i] ? (d - acc) / L[i] : 0; out.push([a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]) }
+  return out }
+const polyCss = P => 'polygon(' + P.map(([x, y]) => `${x.toFixed(2)}px ${y.toFixed(2)}px`).join(', ') + ')'
+const polyPts = P => P.map(([x, y]) => x.toFixed(2) + ',' + y.toFixed(2)).join(' ')
+function hueOfFacet(w, i) { // a piece's facet has no idea's hue: its own, the photograph's mean colour there
+  if (i < 0 || !w.img) return 'rgb(201,195,182)'; const [x0, y0, x1, y1] = bbox(w.cells[i]), x = w.img.getContext('2d', { willReadFrequently: true })
+  const sx = Math.max(0, Math.floor(x0 * DPR)), sy = Math.max(0, Math.floor(y0 * DPR)), sw = Math.max(1, Math.min(cv.width - sx, Math.ceil((x1 - x0) * DPR))), sh = Math.max(1, Math.min(cv.height - sy, Math.ceil((y1 - y0) * DPR)))
+  const d = x.getImageData(sx, sy, sw, sh).data; let r = 0, gg = 0, b = 0, n = 0; for (let k = 0; k < d.length; k += 4 * 7) { r += d[k]; gg += d[k + 1]; b += d[k + 2]; n++ }
+  const m = Math.max(r, gg, b) / n || 1, lift = 200 / m; return `rgb(${Math.min(255, r / n * lift) | 0},${Math.min(255, gg / n * lift) | 0},${Math.min(255, b / n * lift) | 0})` }
+const HUECV = document.createElement('canvas').getContext('2d')
+const toRgb = c => { HUECV.fillStyle = '#000'; HUECV.fillStyle = c; const h = HUECV.fillStyle; return /^#/.test(h) ? [1, 3, 5].map(k => parseInt(h.slice(k, k + 2), 16)) : rgbOf(h) }
+function groundOf(hue) { const c = toRgb(hue), k = num('card-tint', 0.14), a = num('card-ground-alpha', 1), m = blend(c, k, GROUND).map(v => Math.round(v))
+  CARD.groundRgb = m; CARD.xfRgb = blend([255, 246, 228], num('card-x-tone', 0.07), m).map(v => Math.round(v))
+  return `linear-gradient(160deg, rgba(255,248,236,${num('card-sheen', 0.05)}), rgba(255,248,236,0) 42%), rgba(${m.join(',')},${a})` }
+function srcPoly(kind, i) { // where the card comes from, on the stone at rest: the facet, or for the chain the line that opens it
+  if (kind === 'chain' || i < 0) { const r = whereEl.getBoundingClientRect(); return [[r.left, r.top], [r.right, r.top], [r.right, r.bottom], [r.left, r.bottom]] }
+  const Q = inset(cur.cells[i], num('seam-px', 2.2) / 2); return Q.length > 2 ? Q : cur.cells[i] }
+function cardShape(w, h, P, more) { // the card's own cut, in its own coordinates; and its close mark's small facet
+  const A = cutAngles(P), c = num('card-cut-px', 22), xw = num('card-x-px', 72), d = more ? num('card-more-px', 12) : 0, foot = h - num('card-more-px', 12)
+  const tl = [c * Math.cos(deg2(A.slash)) * 1.3, c * Math.sin(deg2(A.slash)) * 1.3], br = tl, tr = 7, bl = [c * Math.cos(deg2(A.back)) * 1.3, c * Math.sin(deg2(A.back)) * 1.3]
+  const xh = xw * Math.tan(deg2(Math.max(num('card-x-min-deg', 38), Math.min(58, A.back))))
+  const poly = [[tl[0], 0], [w - tr, 0], [w, tr], [w, foot - br[1]], [w - br[0], foot], [w / 2, foot + d], [bl[0], foot], [0, foot - bl[1]], [0, tl[1]]]
+  const xf = [[w - xw, 0], [w, 0], [w, xh]] // the close mark's facet: the corner cut off by a seam at the facet's own angle
+  return { poly, xf, top: 0, foot, xw, xh } }
+function uncovered(P, rect, shift) { // how much of the facet a finger can still reach beside the card: points inside it, on screen, not under the card
+  const Q = inset(P, 8); if (Q.length < 3) return 0; const [x0, y0, x1, y1] = bbox(Q); let n = 0
+  for (let y = Math.ceil(y0); y <= y1; y += 6) for (let x = Math.ceil(x0); x <= x1; x += 6) { if (!inPoly([x, y], Q)) continue; const X = x + shift[0], Y = y + shift[1]
+    if (X < 4 || Y < 4 || X > W - 4 || Y > H - 4) continue; if (X > rect[0] - 6 && X < rect[0] + rect[2] + 6 && Y > rect[1] - 6 && Y < rect[1] + rect[3] + 6) continue; n++ }
+  return n }
+function cardPlace(kind, i, natural) { // where the card sits, how big, and how far the stone steps aside so the facet that spoke stays in view
+  const P = srcPoly(kind, i), m = num('card-margin-px', 12), vsB = rectOf('.vs'), mat = rectOf('#mat'), need = num('card-reach-pts', 40)
+  let rect, shift = [0, 0]
+  const port = !low(), band = port ? [m, vsB[1] + vsB[3] + 8, W - m * 2, (H - mat[3] - num('card-mat-gap-px', 16) - 16) - (vsB[1] + vsB[3] + 8)] : [m, Math.max(34, vsB[1] + vsB[3] + 6), W - m * 2, H - Math.max(34, vsB[1] + vsB[3] + 6) - m]
+  const cw = port ? band[2] : Math.min(num('card-side-max-px', 470), Math.round(W * .54)), hMax = Math.round(band[3] * (port ? num('card-max', 0.74) : 1)), h = Math.min(hMax, Math.max(num('card-min-px', 120), natural))
+  const cands = []
+  if (port) for (let y = band[1]; y <= band[1] + band[3] - h + .5; y += 8) cands.push([band[0], y, cw, h])
+  else for (const x of [m, W - cw - m]) for (let y = band[1]; y <= band[1] + band[3] - h + .5; y += 8) cands.push([x, y, cw, h])
+  if (!cands.length) cands.push([band[0], band[1], cw, Math.min(h, band[3])])
+  const c = centroid(P), dist = r => Math.hypot(r[0] + r[2] / 2 - c[0], r[1] + r[3] / 2 - c[1])
+  const scored = cands.map(r => ({ r, u: Math.min(need * 3, uncovered(P, r, [0, 0])), d: dist(r) })).sort((a, b) => b.u - a.u || a.d - b.d)
+  rect = scored[0].r
+  if (kind !== 'chain' && scored[0].u < need) { // the card would hide the facet that spoke: the stone steps aside, away from the card, just far enough
+    const away = port ? [0, rect[1] + rect[3] / 2 < c[1] ? 1 : -1] : [rect[0] + rect[2] / 2 < c[0] ? 1 : -1, 0]
+    for (let s = 8; s < (port ? H : W) * .7; s += 8) { const sh = [away[0] * s, away[1] * s]; if (uncovered(P, rect, sh) >= need) { shift = sh; break } } }
+  return { rect, shift, P } }
+function cardRoom() { if (CARD.open) cardClose('another'); cardFinish() } // one open at a time: opening another closes the first
+function cardOpen(kind, i, el, o = {}) {
+  cardFinish(); if (CARD.open) cardClose('another'); cardFinish()
+  const w = cur; CARD.back = document.activeElement && document.activeElement !== document.body && !cardEl.contains(document.activeElement) ? document.activeElement : null
+  Object.assign(CARD, { open: true, kind, i, el, phase: 'opening', openedAt: performance.now(), how: null }); CARD.opens++
+  CARD.ph = document.createComment('card'); el.before(CARD.ph); cardSlot.append(el); el.tabIndex = -1
+  const hue = o.hue || (kind === 'chain' ? 'rgb(201,195,182)' : hueOfFacet(w, i)); CARD.hue = hue
+  // the card's room for words, measured at its width before it is placed
+  const pad = num('card-pad-px', 18)
+  const port = !low(), cw0 = port ? W - num('card-margin-px', 12) * 2 : Math.min(num('card-side-max-px', 470), Math.round(W * .54))
+  Object.assign(cardEl.style, { width: cw0 + 'px', height: '60px', transform: 'none', clipPath: 'none', opacity: '0' }); cardEl.classList.add('on', 'measure')
+  setInsets(cw0, 60, { top: 0, foot: 60 }, kind) // a short card: the scroller's height is then its words'
+  const natural = el.scrollHeight + pad * 2 + num('card-more-px', 12)
+  cardEl.classList.remove('measure')
+  const { rect, shift, P } = cardPlace(kind, i, natural)
+  const [x, y, cw, ch] = rect, shape = cardShape(cw, ch, P, false)
+  CARD.geo = { x, y, w: cw, h: ch, shift, P, shape, way: reduce() ? 'fade' : 'c' }
+  Object.assign(cardEl.style, { left: x + 'px', top: y + 'px', width: cw + 'px', height: ch + 'px', background: groundOf(hue) })
+  setInsets(cw, ch, shape, kind)
+  drawCut(shape, cw, ch, false)
+  // the face: the facet's own pixels, at the card's size, for the moment it is still the facet, turning over
+  cardFace.width = Math.round(cw * DPR); cardFace.height = Math.round(ch * DPR); const fx = cardFace.getContext('2d'), [bx0, by0, bx1, by1] = bbox(P)
+  fx.clearRect(0, 0, cardFace.width, cardFace.height); try { fx.drawImage(cv, bx0 * DPR, by0 * DPR, Math.max(1, (bx1 - bx0) * DPR), Math.max(1, (by1 - by0) * DPR), 0, 0, cardFace.width, cardFace.height) } catch {}
+  const loc = P.map(([px, py]) => [(px - bx0) / Math.max(1, bx1 - bx0) * cw, (py - by0) / Math.max(1, by1 - by0) * ch])
+  CARD.geo.src = { box: [bx0, by0, bx1 - bx0, by1 - by0], loc: resample(loc, 48), card: resample(shape.poly, 48), axis: (() => { const E = edgesOf(P), e = E.reduce((b, e) => e.len > b.len ? e : b, E[0] || { a: [0, 0], b: [1, 0], len: 1 }); return [(e.b[0] - e.a[0]) / e.len, (e.b[1] - e.a[1]) / e.len] })() }
+  document.body.classList.add('card-open'); document.body.dataset.card = kind; cardEl.setAttribute('aria-hidden', 'false')
+  el.scrollTop = 0; cardSnap(); cardMore()
+  el.focus({ preventScroll: true }) // focus goes into the card
+  cardRun(1) }
+function setInsets(cw, ch, shape, kind) { const pad = num('card-pad-px', 18), s = cardEl.style
+  const top = pad * .8, foot = shape.foot ?? ch, right = pad * .7, bottom = Math.max(pad * .6, ch - foot + pad * .6)
+  s.setProperty('--ci-l', pad + 'px'); s.setProperty('--ci-r', right + 'px'); s.setProperty('--ci-t', top + 'px'); s.setProperty('--ci-b', bottom + 'px'); if (CARD.geo) CARD.geo.bottom = bottom
+  const xw = shape.xw || num('card-x-px', 72), xh = shape.xh || xw
+  s.setProperty('--cx-w', Math.max(0, xw - right + 4) + 'px'); s.setProperty('--cx-h', Math.max(0, xh - top + 4) + 'px') }
+function cardSnap() { // the one change from 43 c: where the words scroll, the card's room ends on a line's foot, so no line is sliced at the foot (snap()'s rule)
+  const el = CARD.el, G = CARD.geo; if (!el || !G || G.bottom == null) return; if (CARD.anim && CARD.anim.dir > 0) { G.snapDue = true; return } // measured once it has settled, never mid-turn
+  G.snapDue = false; cardEl.style.setProperty('--ci-b', G.bottom + 'px')
+  if (el.scrollHeight <= el.clientHeight + 1) return
+  const top = el.getBoundingClientRect().top, room = el.clientHeight, feet = []
+  const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) { const r = document.createRange(); r.selectNodeContents(n); for (const q of r.getClientRects()) if (q.height) feet.push([q.top - top + el.scrollTop, q.bottom - top + el.scrollTop]) } else n.childNodes.forEach(walk) }
+  walk(el); const fit = feet.filter(([, b]) => b <= room).map(([, b]) => b).sort((a, b) => b - a)[0]
+  if (fit) cardEl.style.setProperty('--ci-b', G.bottom + (room - Math.ceil(fit)) + 'px') } // the scroller's own edge on that foot: the next line starts below it
+function drawCut(shape, cw, ch) { // the rim (the title's piece's line), the hue's thread inside it, and the close mark's facet with its seam
+  cardSvg.setAttribute('viewBox', `0 0 ${cw} ${ch}`); cardSvg.textContent = ''
+  const el = (tag, at) => { const e = document.createElementNS(SVGNS, tag); for (const [k, v] of Object.entries(at)) e.setAttribute(k, v); cardSvg.append(e); return e }
+  const ep = num('piece-edge-px', 1.4)
+  const th = inset(shape.poly, 5); if (th.length > 2) el('polygon', { class: 'thread', points: polyPts(th), fill: 'none', stroke: CARD.hue, 'stroke-opacity': num('card-thread', 0.5), 'stroke-width': 1 }) // the hue's thread, under the close mark's facet
+  el('polygon', { class: 'xf', points: polyPts(shape.xf), fill: `rgb(${(CARD.xfRgb || [30, 28, 26]).join(',')})` }) // its own small facet, solid: words scrolling under it go under it
+  el('line', { class: 'seam', x1: shape.xf[0][0], y1: shape.xf[0][1], x2: shape.xf[2][0], y2: shape.xf[2][1], stroke: '#0d0c0b', 'stroke-width': num('seam-px', 2.2) })
+  el('line', { class: 'bevel', x1: shape.xf[0][0] + 1, y1: shape.xf[0][1] + 1.4, x2: shape.xf[2][0] - .6, y2: shape.xf[2][1] + 1.4, stroke: `rgba(255,244,222,${num('card-rim', 0.5) * .5})`, 'stroke-width': 1 })
+  el('polygon', { class: 'rim', points: polyPts(shape.poly), fill: 'none', stroke: `rgba(255,246,228,${num('card-rim', 0.5)})`, 'stroke-width': ep * 2, 'vector-effect': 'non-scaling-stroke' })
+  const [p, q, r] = shape.xf, la = Math.hypot(q[0] - r[0], q[1] - r[1]), lb = Math.hypot(p[0] - r[0], p[1] - r[1]), lc = Math.hypot(p[0] - q[0], p[1] - q[1]), sum = la + lb + lc // the mark at the heart of its facet (the incentre), clear of its seam
+  const c = [(la * p[0] + lb * q[0] + lc * r[0]) / sum, (la * p[1] + lb * q[1] + lc * r[1]) / sum]; Object.assign(cardX.style, { left: c[0] - 22 + 'px', top: c[1] - 22 + 'px' }) }
+function cardMore() { // the cut itself says there is more: while words lie below the card's foot, the foot comes to a point
+  if (!CARD.open || !CARD.geo) return; const el = CARD.el, G = CARD.geo, more = el.scrollHeight - el.clientHeight - el.scrollTop > 2
+  if (G.more === more && G.drawn) return; G.more = more; G.drawn = true
+  const shape = cardShape(G.w, G.h, G.P, more); G.shape = shape; drawCut(shape, G.w, G.h)
+  if (CARD.phase === 'open') cardEl.style.clipPath = polyCss(shape.poly) }
+function cardPose(t) { // the card at t of its opening: 0 is the facet it came from, 1 the card (it turns over; under reduced motion it fades)
+  const G = CARD.geo; if (!G) return; CARD.t = t; const e = io(clamp01(t)), way = G.way, s = cardEl.style
+  const sx = G.shift[0] * (way === 'fade' ? (t > 0 ? 1 : 0) : e), sy = G.shift[1] * (way === 'fade' ? (t > 0 ? 1 : 0) : e)
+  const tf = sx || sy ? `translate(${sx.toFixed(2)}px, ${sy.toFixed(2)}px)` : ''; for (const e of shifted()) e.style.transform = tf; CARD.shiftNow = [sx, sy]
+  const content = v => { cardSlot.style.opacity = v; cardSvg.style.opacity = v; cardX.style.opacity = v }
+  if (way === 'fade') { s.transform = 'none'; s.opacity = clamp01(t); s.clipPath = polyCss(G.shape.poly); cardFace.style.opacity = 0; content(1); return }
+  s.opacity = 1
+  const [bx, by, bw, bh] = G.src.box, f = [bx + sx, by + sy, Math.max(1, bw), Math.max(1, bh)]
+  const X = lerp(f[0], G.x, e), Y = lerp(f[1], G.y, e), SX = lerp(f[2], G.w, e) / G.w, SY = lerp(f[3], G.h, e) / G.h
+  const base = `translate(${(X - G.x).toFixed(2)}px, ${(Y - G.y).toFixed(2)}px) scale(${SX.toFixed(4)}, ${SY.toFixed(4)})`
+  // the facet turns on its long axis; past the edge-on moment its back, the card, faces you
+  const ang = 180 * e, [ax, ay] = G.src.axis, back = ang > 90, rot = back ? ang - 180 : ang
+  s.transform = `${base} translate(${G.w / 2}px, ${G.h / 2}px) perspective(${num('card-perspective-px', 900)}px) rotate3d(${ax.toFixed(4)}, ${ay.toFixed(4)}, 0, ${rot.toFixed(2)}deg) translate(${-G.w / 2}px, ${-G.h / 2}px)`
+  s.clipPath = polyCss(back ? (t >= 1 ? G.shape.poly : G.src.card) : G.src.loc); cardFace.style.opacity = back ? 0 : 1; content(back ? ss(.55, .8, t) : 0) }
+function cardRun(dir) { // one motion, its own clock (HOME.cardClock holds it still for the check)
+  const ms = num(reduce() ? 'card-fade-ms' : 'card-turn-ms', 680) * (dir < 0 ? num('card-close-k', 0.8) : 1)
+  const A = CARD.anim = { dir, t0: performance.now(), ms, done: null }; A.done = new Promise(r => { A.end = r })
+  const step = () => { if (CARD.anim !== A) return A.end()
+    const u = HOME.cardClock != null ? clamp01(HOME.cardClock) : clamp01((performance.now() - A.t0) / Math.max(1, ms)), t = dir > 0 ? u : 1 - u
+    cardPose(t)
+    if (HOME.cardClock == null && u >= 1) return cardSettle(A)
+    requestAnimationFrame(step) }
+  cardPose(dir > 0 ? 0 : 1); requestAnimationFrame(step); return A.done }
+function cardSettle(A) { if (CARD.anim !== A) return; CARD.anim = null
+  if (A.dir > 0) { CARD.phase = 'open'; cardEl.style.transform = 'none'; cardEl.style.clipPath = polyCss(CARD.geo.shape.poly); cardSnap(); cardMore() } else cardGone()
+  A.end() }
+function cardFinish() { const A = CARD.anim; if (!A) return; CARD.anim = null; if (A.dir > 0) { cardPose(1); CARD.phase = 'open'; cardSnap(); cardMore() } else cardGone(); A.end() }
+function cardGone() { // closed: the words go home, the stone comes back to rest exactly as it was
+  if (CARD.el && CARD.ph) { CARD.ph.replaceWith(CARD.el); CARD.el.removeAttribute('tabindex') }
+  CARD.el = null; CARD.ph = null; CARD.geo = null; CARD.phase = null; CARD.kind = null; CARD.i = -1; CARD.shiftNow = [0, 0]
+  cardEl.classList.remove('on', 'closing'); cardEl.setAttribute('aria-hidden', 'true'); for (const k of ['left', 'top', 'width', 'height', 'transform', 'clipPath', 'opacity', 'background']) cardEl.style[k] = ''
+  cardSvg.textContent = ''; cardSlot.style.opacity = ''; for (const e of shifted()) e.style.transform = ''
+  delete document.body.dataset.card; document.body.classList.remove('card-open'); groundSoon(); if (cur) cur.dirty = true }
+function cardShut(kind) { // the visual close; the state was already closed by closeTools, closeWhy or hideWin
+  if (!CARD.open || CARD.kind !== kind) return; CARD.open = false; CARD.phase = 'closing'; cardEl.classList.add('closing') /* a touch while it closes goes to the stone */; CARD.closes.push({ kind, how: CARD.how || 'other' })
+  const back = CARD.back; CARD.back = null
+  if (back && back.isConnected && back !== document.body) back.focus({ preventScroll: true }); else if (cardEl.contains(document.activeElement)) document.activeElement.blur() // focus returns to where it came from
+  cardFinish(); if (!CARD.geo) return cardGone(); cardRun(-1) }
+function cardClose(how) { if (!CARD.open) return; CARD.how = how; const k = CARD.kind
+  if (k === 'idea') closeTools(); else if (k === 'chain') closeWhy(); else hideWin() }
+function pieceCard(i, s, p) { // the piece as the live home writes it: the words, where they are from (a link when they have a page), why here
+  cardRoom(); const w = cur; pieceEl.textContent = ''
+  if (s.t === 'lines') { const q = mk('span', 'lines'); s.lines.forEach(l => q.append(mk('span', null, l))); pieceEl.append(q) }
+  else pieceEl.append(mk('span', s.t === 'say' ? 'say' : 'named', s.big))
+  const src = mk('small', 'src'); if (s.href) src.append(Object.assign(mk('a', null, s.small), { href: s.href })); else src.textContent = s.small
+  pieceEl.append(src); if (p && typeof p.basis === 'string') pieceEl.append(mk('small', 'basis', p.basis))
+  FX.win = { w, i, t0: performance.now(), fact: { kind: s.t }, card: true }; groundSoon()
+  cardOpen('piece', i, pieceEl) }
+cardX.addEventListener('click', e => { e.stopPropagation(); if (performance.now() - CARD.openedAt < 400) return; cardClose('mark') })
+cardEl.addEventListener('click', e => { if (performance.now() - CARD.openedAt < 400 && e.target !== cardX) { e.preventDefault(); e.stopPropagation() } }, true) // not the click a touch on the facet sends after it, landing on what it just opened
+cardEl.addEventListener('scroll', () => cardMore(), true)
+addEventListener('mousedown', e => { if (CARD.open && performance.now() - CARD.openedAt < 500 && !e.target.closest('#card')) e.preventDefault() }, true) // the touch that opened it does not take the focus back out
+addEventListener('pointerdown', e => { if (!CARD.open && CARD.anim) cardFinish() // a touch while a card closes: it is closed now, and the stone back where the touch lands
+  if (!CARD.open || e.target.closest('#card')) return; if (!e.target.closest('a, button, [role="button"]')) e.preventDefault() // with a card open, a touch on the stone only closes it; the same facet (or the line, for the chain) closes it too
+  if (CARD.kind === 'chain' && e.target.closest('#where')) { CARD.how = 'facet'; return } // the line opens and closes its chain, as on the live home
+  e.stopImmediatePropagation(); const [sx, sy] = CARD.shiftNow || [0, 0]
+  const i = cur && !e.target.closest('a, button, header') ? facetAt(e.clientX - sx, e.clientY - sy) : -1
+  cardClose(i >= 0 && i === CARD.i ? 'facet' : 'outside') }, true)
+addEventListener('keydown', e => { if (!CARD.open || e.key !== 'Escape') return; e.preventDefault(); e.stopImmediatePropagation(); cardClose('escape') }, true)
 
 /* ---------- state ---------- */
 let cur = null, busy = false, pressing = null, crossing = null, homeWin = -1
@@ -1005,7 +1198,7 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get ledger() { return ledger }, get ends() { return ends },
   async step(t) { HOME.clock = t; for (let k = 0; k < 6; k++) { await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0))); if (ledger.t === Math.min(1, Math.max(0, t)) || !crossing) break } return { t: ledger.t, x: ledger.x, list: ledger.list } },
   get last() { return FX.last }, get seq() { return FX.seq },
-  get win() { return FX.win && { i: FX.win.i, text: backEl.textContent, kind: FX.win.fact.kind, opacity: +backEl.style.opacity } },
+  get win() { return FX.win && { i: FX.win.i, text: (FX.win.card ? pieceEl : backEl).textContent, kind: FX.win.fact.kind, opacity: FX.win.card ? 1 : +backEl.style.opacity, card: !!FX.win.card } }, // 43 c: on a phone the piece is in the card
   get drawn() { return cur ? drawn(cur) : [] },
   segReady: () => segReady(), get dealt() { return !!SEG },
   plan(i) { const p = cur && planOf(cur)[i]; if (!p) return null
@@ -1030,8 +1223,8 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   // a yield as a tap leaves it, at full strength, any glimpse arrived
   async yieldAt(i, k) { const w = cur, p = w && planOf(w)[i], s = p && p.steps && p.steps[k]; if (!s || s.t === 'move') return null
     hideWin(); showWin(i, s); if (s.t === 'glimpse') await glimpse(w, i, s); if (!FX.win || cur !== w) return null
-    FX.win.t0 = performance.now() - num('win-hold-ms', 3600) / 2; if (FX.glimpse) FX.glimpse.t0 = FX.win.t0; backEl.style.opacity = 1
-    return { i, k, t: s.t, text: backEl.textContent } },
+    FX.win.t0 = performance.now() - num('win-hold-ms', 3600) / 2; if (FX.glimpse) FX.glimpse.t0 = FX.win.t0; if (FX.win.card) cardFinish(); else backEl.style.opacity = 1
+    return { i, k, t: s.t, text: (FX.win.card ? pieceEl : backEl).textContent } },
   hideWin() { hideWin() },
   tapPoint(i) { return cur ? touchAt(cur, i) : null },
   async rest() { // every facet, as drawn now, against this photograph and against the one it leads to: the closer must be this one (pixels, not code)
@@ -1107,6 +1300,39 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
     ops: tokEls().map(x => +getComputedStyle(x).opacity), sop: +getComputedStyle(L.se).opacity } : null },
   // the year facet's flight
   yearsOut, yearsBack, get about() { return aboutF && { src: aboutF.getAttribute('src'), lift: !!lift, at: document.body.dataset.at, row: lift ? lift.closest('.yr').dataset.y : null } } }
+/* 43 c: what tools/test_home.mjs reads of the card */
+HOME.cardClock = null
+Object.defineProperty(HOME, 'card', { get() { const G = CARD.geo, el = CARD.el
+  return { open: CARD.open, kind: CARD.kind, i: CARD.i, phase: CARD.phase, t: CARD.t, opens: CARD.opens, closes: CARD.closes.slice(), mode: cardMode(), motion: G ? G.way : null,
+    rect: G ? [G.x, G.y, G.w, G.h] : null, poly: G ? G.shape.poly.map(([x, y]) => [G.x + x, G.y + y]) : null, xf: G ? G.shape.xf.map(([x, y]) => [G.x + x, G.y + y]) : null, shift: CARD.shiftNow || [0, 0],
+    more: G ? !!G.more : null, scroll: el ? { top: el.scrollTop, height: el.scrollHeight, client: el.clientHeight, width: el.scrollWidth, cw: el.clientWidth } : null,
+    focusIn: cardEl.contains(document.activeElement), el: el ? el.id : null, transform: cardEl.style.transform || 'none', opacity: +(cardEl.style.opacity || 1), on: cardEl.classList.contains('on'),
+    appShift: cv.style.transform || '', ground: cardEl.style.background || '' } } })
+HOME.cardPoint = () => { // a place a finger can land on the open card's facet, beside the card, on screen
+  if (!CARD.open || !CARD.geo || CARD.i < 0 || !cur) return null; const G = CARD.geo, [sx, sy] = CARD.shiftNow || [0, 0]
+  const pt = touchAt(cur, CARD.i, { all: true, avoid: [[G.x - sx - 10, G.y - sy - 10, G.x + G.w - sx + 10, G.y + G.h - sy + 10]] })
+  if (!pt) return null; const X = pt[0] + sx, Y = pt[1] + sy; return X > 2 && Y > 2 && X < W - 2 && Y < H - 2 ? [X, Y] : null }
+HOME.lamp = (x, y) => { Lx = Tx = x; Ly = Ty = y; lastMove = performance.now() + 1e9; if (cur) cur.dirty = true } // the light held still, for comparing frames
+HOME.finishCard = () => cardFinish()
+HOME.cardTexts = () => { // every text in the open card: where it shows (inside the card's scroller), its ink, its size, and whether it is body text
+  const el = CARD.el; if (!el) return []; const sr = el.getBoundingClientRect(), out = [], kind = CARD.kind
+  const zoomOf = e => { let z = 1; for (let q = e; q && q.nodeType === 1; q = q.parentElement) z *= parseFloat(getComputedStyle(q).zoom) || 1; return z }
+  const baseOf = kind === 'chain' ? parseFloat(getComputedStyle(el.querySelector('.why-body') || el).fontSize) : 0
+  const isBody = p => kind === 'piece' ? !!p.closest('.say, .named, .lines') : kind === 'idea' ? !!p.closest('p.here, .gen p') : !!p.closest('.k-say, .b-big, .b-q, .b-e, .b-name, .b-read, .b-dp, .b-ev, .t-q, .y-st') || parseFloat(getComputedStyle(p).fontSize) === baseOf
+  const add = (n, p, clip) => { const cs = getComputedStyle(p), rg = document.createRange(); rg.selectNodeContents(n)
+    const rs = [...rg.getClientRects()].filter(r => r.width > .5 && r.height > .5).map(r => { const l = Math.max(r.left, clip.left), t = Math.max(r.top, clip.top), rr = Math.min(r.right, clip.right), b = Math.min(r.bottom, clip.bottom); return rr - l > .5 && b - t > .5 ? [l, t, rr - l, b - t] : null }).filter(Boolean)
+    if (rs.length) out.push({ t: n.data.trim().slice(0, 70), rects: rs, color: rgbOf(cs.color), op: opOf(p), px: parseFloat(cs.fontSize), z: zoomOf(p), body: isBody(p), cls: String(p.className || p.tagName) }) }
+  const walk = n => { if (n.nodeType === 3) { if (!n.data.trim()) return; const p = n.parentElement; if (p.closest('[hidden]') || getComputedStyle(p).visibility === 'hidden' || getComputedStyle(p).display === 'none') return; add(n, p, sr) } else n.childNodes.forEach(walk) }
+  walk(el); add(cardX.firstChild, cardX, cardEl.getBoundingClientRect()); return out }
+HOME.outsidePoint = () => { // a place on the stone a finger can tap that is not the card, not the facet that spoke, not the mat, the switch or the caption
+  if (!CARD.open || !CARD.geo || !cur) return null; const G = CARD.geo, [sx, sy] = CARD.shiftNow || [0, 0], keep = ['#mat', '.vs', '#cap', '#where'].map(q => rectOf(q))
+  let best = null, bd = -1
+  for (let y = 24; y < H - 24; y += 10) for (let x = 24; x < W - 24; x += 10) {
+    if (x > G.x - 16 && x < G.x + G.w + 16 && y > G.y - 16 && y < G.y + G.h + 16) continue
+    if (keep.some(r => x > r[0] - 12 && x < r[0] + r[2] + 12 && y > r[1] - 12 && y < r[1] + r[3] + 12)) continue
+    const i = facetAt(x - sx, y - sy); if (i < 0 || i === CARD.i) continue
+    const d = Math.hypot(x - (G.x + G.w / 2), y - (G.y + G.h / 2)); if (d > bd) { bd = d; best = [x, y] } }
+  return best }
 const direct = pairOf(Q.get('w')), hs = history.state || {}
 let first = null
 if (direct) { const tr0 = (hs.trail || []).filter(k => k !== keyOf(direct)); const w = await makeWorld({ ...direct, word: hs.word || null, from: hs.from || null }, 'world', tr0); show(w); at('world'); HOME.trail = w.trail.slice(); runLine(null); arrive(w, num('arrive-delay-ms', 500)) }
