@@ -262,3 +262,43 @@ body[data-at="about"] .vs { display: none; }
 .plain .wall-plain b { font-weight: 500; margin-right: .5em; }
 .plain nav { display: flex; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
 .plain nav a { color: var(--ink-on2); text-decoration: none; }
+/* ---------- 43 c: the opened facet. On a phone a piece, an idea and the chain each open as one card cut like a facet of this stone (made by stone.js) ---------- */
+#piece { display: none; }
+#card { position: fixed; left: 0; top: 0; width: 0; height: 0; z-index: 12; visibility: hidden; pointer-events: none; transform-origin: 0 0; color: var(--ink-on);
+  background: rgb(19,17,15); backface-visibility: visible; }
+#card.on { visibility: visible; pointer-events: auto; }
+#card.measure { visibility: hidden; pointer-events: none; }
+
+#card .face { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; pointer-events: none; }
+#card svg.cut { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+#card .card-slot { position: absolute; inset: 0; z-index: 1; }
+#card .card-x { position: absolute; z-index: 3; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--ink-on); font: 300 24px/1 var(--sans); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+#card .card-x:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: -6px; }
+.card-slot > #tools, .card-slot > #why, .card-slot > #piece { position: absolute !important; left: var(--ci-l) !important; top: var(--ci-t) !important; right: var(--ci-r) !important; bottom: var(--ci-b) !important;
+  width: auto !important; height: auto !important; max-height: none !important; margin: 0 !important; padding: 0 6px 6px 0 !important; display: block; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
+  background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  opacity: 1 !important; transform: none !important; pointer-events: auto !important; transition: none !important; scrollbar-width: none; outline: none; user-select: text; -webkit-user-select: text; }
+.card-slot > *::-webkit-scrollbar { display: none; }
+.card-slot > *::before { content: ''; float: right; width: var(--cx-w, 40px); height: var(--cx-h, 40px); shape-outside: polygon(0 0, 100% 0, 100% 100%); } /* the words keep clear of the close mark's facet */
+/* the piece: his words, where they are from, why here */
+.card-slot > #piece { font: italic 300 calc(var(--card-piece-px, 19) * 1px)/1.45 var(--serif); color: var(--ink-on); }
+#piece .say { font-style: normal; }
+#piece .lines span { display: block; }
+#piece .lines span + span { margin-top: .2em; }
+#piece small { display: block; margin-top: .9em; font: 400 calc(var(--card-small-px, 13) * 1px)/1.4 var(--sans); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-on2); }
+#piece small.basis { margin-top: .5em; letter-spacing: .03em; text-transform: none; opacity: var(--basis-alpha, 0.9); }
+#piece small.src a { text-decoration: none; border-bottom: 1px solid rgba(201,195,182,.5); }
+/* the idea: this world first and largest, the basis, the general beneath; read at a phone's size */
+.card-slot > #tools h2 { margin: 0 0 10px; font-size: calc(var(--card-title-px, 24) * 1px); }
+.card-slot > #tools p.here { font-size: calc(var(--card-here-px, 18) * 1px); }
+.card-slot > #tools .basis { font-size: calc(var(--card-small-px, 13) * 1px); }
+.card-slot > #tools .gen p, .card-slot > #tools .gen li p { font-size: calc(var(--card-body-px, 16) * 1px); }
+.card-slot > #tools li button, .card-slot > #tools .gen li button { font-size: calc(var(--card-label-px, 14) * 1px); padding: 11px 0; }
+/* the chain: its own layout, at a size a phone reads */
+.card-slot > #why .why-body { zoom: var(--card-chain-zoom, 1.336); }
+.card-slot > #why .why-x { display: none; }
+.card-slot > #why { font-size: .78rem; } /* on its side the chain keeps the size it has upright */
+body.card-open #year { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { #card { transition: none; } }
+body.card-open #why-scrim { opacity: 0; pointer-events: none; } /* the card is its own ground: no scrim behind the chain */
+#card.closing, #card.closing .card-slot > *, #card.closing .card-x { pointer-events: none !important; } /* a touch while it closes goes to the stone */
