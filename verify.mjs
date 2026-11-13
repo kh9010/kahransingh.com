@@ -690,14 +690,14 @@ checkNow("about.html is 27 a as a site page: every fact of 27's word for word in
 
 /* Studies 14 on are canvas/script pieces (the stone, the crossing): a dial is
    read by CSS (its fallback must equal defaults.json) or by script (the key
-   quoted in one of the study's own .html/.js files). Every dial is read
+   quoted in one of the study's own .html/.js/.css files). Every dial is read
    somewhere; the study loads tune.js. 06–13 keep the CSS-only rule above. */
 function scriptDials(n) {
   const dir = path.join(ROOT, "studies", n);
   const f = path.join(dir, "defaults.json");
   if (!existsSync(f)) throw new Error(`study ${n} has no defaults.json`);
   const d = JSON.parse(readFileSync(f, "utf8"));
-  const src = readdirSync(dir).filter((x) => /\.(html|js|mjs)$/.test(x) && x !== "check.mjs" && x !== "tune.js")
+  const src = readdirSync(dir).filter((x) => /\.(html|js|mjs|css)$/.test(x) && x !== "check.mjs" && x !== "tune.js")
     .map((x) => readFileSync(path.join(dir, x), "utf8")).join("\n");
   const css = new Map([...src.matchAll(/var\(--([a-z0-9-]+),\s*([^)]+)\)/g)].map((m) => [m[1], m[2].trim()]));
   for (const [k, v] of Object.entries(d)) {
