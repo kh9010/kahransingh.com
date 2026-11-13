@@ -1,0 +1,307 @@
+/* v3, the home: the stone (Studies 33, 37, 39, 41 b, 42 a) with 35's line and 34's chain (36 c) and the year facet (38 c).
+   Copied from the studies' own styles; numbers that are dials come from /v3/defaults.json as CSS variables. */
+:root {
+  --ink-seam: #0d0c0b; --ink-on: #f3efe6; --ink-on2: #c9c3b6;
+  --sans: 'Space Grotesk', -apple-system, sans-serif; --serif: 'Fraunces', Georgia, serif;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--ink-seam); color: var(--ink-on); }
+a { color: inherit; }
+#app { position: fixed; inset: 0; touch-action: none; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+#stone { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+/* the poem as read and tapped: the words are drawn on the stone, this layer holds their places */
+#read { position: absolute; inset: 0; pointer-events: none; }
+.verse { position: absolute; font: 300 18px/1.5 var(--serif); color: transparent; overflow: hidden; pointer-events: auto; touch-action: pan-y; user-select: text; -webkit-user-select: text; }
+.verse.gone { pointer-events: none !important; }
+.verse.scroll { overflow: auto; overscroll-behavior: contain; scrollbar-width: none; }
+.verse.scroll::-webkit-scrollbar { display: none; }
+.verse h2 { margin: 0 0 .7em; font: italic 400 1.22em/1.25 var(--serif); }
+.verse h2 a { text-decoration: none; }
+.verse .l { display: block; text-indent: -1em; padding-left: 1em; }
+.verse .gap { display: block; height: .7em; }
+.verse .door { text-decoration: none; pointer-events: none; outline: none; border-radius: 2px; }
+.verse .tag { font: 400 .62em/1 var(--sans); letter-spacing: .1em; margin-left: .7em; white-space: nowrap; }
+body[data-at="world"] .verse .l.shown .door { pointer-events: auto; cursor: pointer; }
+.verse .door:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
+.verse h2:not(.shown) a { pointer-events: none; }
+body[data-at="world"] #app.over, body[data-at="stone"] #app.over { cursor: pointer; }
+body[data-at="world"] #app.over .verse .l:not([data-door]) { cursor: pointer; }
+#back { position: absolute; z-index: 4; margin: 0; transform: translate(-50%, -50%); text-align: center; opacity: 0; pointer-events: none;
+  font: italic 300 1.0625rem/1.3 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.6), 0 2px 18px rgba(0,0,0,.9); }
+#back.on { pointer-events: auto; }
+#back a { text-decoration: none; border-bottom: 1px solid rgba(243,239,230,.45); }
+#back small { display: block; margin-top: .45em; font: 400 max(.62em, calc(var(--text-min-px, 11) * 1px))/1.3 var(--sans); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-on2); }
+#back.tight { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; pointer-events: auto; }
+#back small.basis { margin-top: .35em; letter-spacing: .06em; text-transform: none; opacity: .72; }
+#back small.src a { text-decoration: none; border-bottom: 1px solid rgba(201,195,182,.5); pointer-events: auto; }
+#back .say { font-style: normal; }
+#back .lines span { display: block; }
+#back .lines span + span { margin-top: .15em; }
+#idea { position: absolute; z-index: 5; margin: 0; transform: translate(-50%, -50%); opacity: 0; pointer-events: none; white-space: nowrap;
+  font: italic 300 clamp(22px, 2.6vw, 36px)/1.2 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.5), 0 2px 26px rgba(0,0,0,.85); }
+
+/* the mat: name, where he is, the way out */
+header { position: fixed; z-index: 9; left: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); max-width: 34ch; pointer-events: none; color: #ede7d9; }
+header h1 { margin: 0; font: 500 1.15rem/1 var(--sans); letter-spacing: .01em; }
+header h1 a { text-decoration: none; pointer-events: auto; }
+header p { margin: 10px 0 14px; font: italic 300 1.0625rem/1.4 var(--serif); opacity: .86; }
+header p:empty { display: none; }
+header nav { pointer-events: auto; display: flex; flex-wrap: wrap; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+header nav a { color: var(--ink-on2); text-decoration: none; transition: color .2s var(--ease); text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+header nav a:hover, header nav a:focus-visible { color: #fff; }
+.cap { position: fixed; z-index: 9; right: clamp(16px, 3.4vw, 56px); bottom: clamp(18px, 5vh, 56px); margin: 0; font: 400 .7rem/1.5 var(--sans); letter-spacing: .012em; color: var(--ink-on2); text-align: right; pointer-events: none; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+/* the version tab: the study switch's corner, the same three entries as /v2/ and /v1/ */
+.vs { position: fixed; top: 10px; right: 10px; z-index: 20; display: flex; align-items: center; gap: .45rem; font: 400 .72rem/1 var(--sans); color: var(--ink-on2); text-shadow: 0 1px 6px rgba(0,0,0,.6); padding: 5px 7px; }
+.vs a { text-decoration: none; color: var(--ink-on2); }
+.vs a:hover, .vs a:focus-visible { color: #fff; }
+.vs [aria-current] { color: #ede7d9; font-weight: 500; }
+.vs > * + *::before { content: '\00b7'; margin-right: .45rem; color: rgba(201,195,182,.5); }
+/* an idea, opened from the facet that holds it (41 b, 42 a): its name, this world first, why this facet, then its sentence, tools and boundary */
+#tools button:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: 3px; }
+/* the way in without a pointer: one button per idea, named for it, never shown (focus rings its facet on the stone) */
+#keys button { position: fixed; left: 0; top: 0; width: 1px; height: 1px; padding: 0; margin: -1px; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+#tools { position: fixed; z-index: 8; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: none; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease);
+  padding: 14px 16px; border-radius: 6px; background: rgba(13,12,11,var(--tools-ground, .82)); color: var(--ink-on); }
+#tools::-webkit-scrollbar { display: none; }
+#tools.on { opacity: 1; pointer-events: auto; }
+#tools h2 { margin: 4px 0 8px; font: italic 400 1.3rem/1.25 var(--serif); }
+#tools h2 a { text-decoration: none; border-bottom: 1px solid rgba(243,239,230,.45); }
+#tools p { margin: 0 0 10px; font: 300 .95rem/1.5 var(--serif); }
+#tools ul { list-style: none; margin: 0 0 10px; padding: 0; }
+#tools li { border-top: 1px solid rgba(243,239,230,.14); }
+#tools li button { all: unset; cursor: pointer; display: block; width: 100%; padding: 7px 0; font: 500 .78rem/1.35 var(--sans); letter-spacing: .02em; color: var(--ink-on); }
+#tools li button[aria-expanded="false"] { color: var(--ink-on2); }
+#tools li p { margin: 0 0 9px; font-size: .9rem; }
+#tools li p[hidden] { display: none; }
+#tools { border-left: 2px solid var(--hue, var(--ink-on2)); }
+#tools .basis { display: block; margin: -2px 0 10px; font: 400 .7rem/1.4 var(--sans); letter-spacing: .04em; color: var(--ink-on2); opacity: var(--basis-alpha, 0.9); }
+#tools .boundary { margin: 6px 0 0; font-style: italic; color: var(--ink-on2); }
+#tools p.here { margin: 0 0 10px; font: 300 calc(var(--here-rem, 1.06) * 1rem)/1.5 var(--serif); color: var(--ink-on); }
+#tools .gen { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(243,239,230,.14); }
+#tools .gen p, #tools .gen li p { font-size: calc(var(--general-rem, 0.84) * 1rem); color: var(--ink-on2); }
+#tools .gen li button { font-size: .74rem; }
+body.tools-open .cap { opacity: 0; }
+@media (max-height: 560px) and (orientation: landscape) {
+  header { left: 16px; bottom: 14px; max-width: 42vw; }
+  header p { margin: 6px 0 8px; font-size: .9rem; }
+  .cap { left: 16px; right: auto; top: 40px; bottom: auto; text-align: left; max-width: 44vw; }
+  .vs { top: 4px; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  header { left: 16px; right: 16px; bottom: 16px; max-width: none; }
+  header p { margin: 6px 0 10px; font-size: .95rem; }
+  .cap { left: 16px; right: auto; top: 74px; bottom: auto; text-align: left; max-width: 70%; }
+}
+
+/* 35 line: the readings the pick read, resolving into the sentence */
+#where { display: grid; }
+#where > span { grid-area: 1 / 1; }
+#where .rd { font: 400 .74rem/1.9 var(--sans); font-style: normal; letter-spacing: .04em; color: var(--ink-on2); font-variant-numeric: tabular-nums; }
+#where .rd i { font-style: normal; white-space: nowrap; transition: opacity calc(var(--line-out-ms, 900) * 1ms) var(--ease), filter calc(var(--line-out-ms, 900) * 1ms) var(--ease); }
+#where .rd i.out { opacity: 0; filter: blur(3px); }
+#where .sent { opacity: 0; transition: opacity calc(var(--line-out-ms, 900) * 1ms) var(--ease); }
+#where .sent.on { opacity: 1; }
+body[data-a="line"]:not([data-line]) #where { visibility: hidden; }
+/* the line opens the decision */
+#where { pointer-events: auto; cursor: pointer; text-decoration: underline dotted rgba(237,231,217,.42) 1px; text-underline-offset: .28em; border-radius: 3px; transition: opacity .2s var(--ease); }
+#where:hover, #where:focus-visible { opacity: 1; text-decoration-color: rgba(237,231,217,.8); outline: none; }
+#where[aria-expanded="true"] { opacity: 1; text-decoration-style: solid; }
+#why-scrim { position: fixed; inset: 0; z-index: 7; background: rgba(13,12,11,var(--why-scrim, 0.46)); opacity: 0; pointer-events: none; transition: opacity calc(var(--why-ms, 380) * 1ms) var(--ease); }
+#why { --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; position: fixed; z-index: 10; left: clamp(16px, 3.4vw, 56px); bottom: calc(clamp(18px, 5vh, 56px) + var(--mat-h, 110px) + 12px);
+  width: min(calc(var(--why-width-px, 660) * 1px), calc(100vw - 32px)); max-height: min(var(--why-max-h, 68vh), calc(100vh - var(--mat-h, 110px) - 110px)); overflow: auto; overscroll-behavior: contain;
+  padding: 20px 22px 20px; border-radius: 6px; background: rgba(16,15,14,var(--why-glass, 0.84)); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 10px 40px rgba(0,0,0,.45);
+  font: 400 .78rem/1.45 var(--sans); color: var(--ink-on); opacity: 0; transform: translateY(10px); pointer-events: none; scrollbar-width: none; user-select: text; -webkit-user-select: text; font-variant-numeric: tabular-nums;
+  transition: opacity calc(var(--why-ms, 380) * 1ms) var(--ease), transform calc(var(--why-ms, 380) * 1ms) var(--ease); }
+#why::-webkit-scrollbar { display: none; }
+body.why #why { opacity: 1; transform: none; pointer-events: auto; }
+body.why #why-scrim { opacity: 1; pointer-events: auto; }
+body.why .cap { opacity: 0; } .cap { transition: opacity .3s var(--ease); }
+#why .why-x { position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; border: 0; border-radius: 50%; background: none; color: var(--ink-on2); font: 300 20px/1 var(--sans); cursor: pointer; }
+#why .why-x:hover, #why .why-x:focus-visible { color: #fff; background: rgba(127,127,127,.2); outline: none; }
+#why p { margin: 0; }
+.n { font-family: var(--mono); font-size: .96em; letter-spacing: -.01em; }
+.k-head { margin: 0 0 14px !important; font: 400 .66rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-on2); padding-right: 30px; }
+.k-lab { margin: 0 0 8px; font: 400 .64rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-on2); }
+.k-say { font: italic 300 1rem/1.45 var(--serif); margin: 0 0 14px !important; }
+.k-tot { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 12px 14px; margin: 0 0 18px; padding: 0 0 14px; border-bottom: 1px solid rgba(243,239,230,.12); }
+.k-tot div { display: flex; flex-direction: column-reverse; gap: 4px; }
+.k-tot dt { font: 400 .6rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-on2); }
+.k-tot dd { margin: 0; font: 300 1.45rem/1 var(--sans); }
+.k-tot dd .n { font: inherit; letter-spacing: -.02em; }
+.k-st { display: grid; grid-template-columns: 6.4em minmax(0, 1fr); gap: 0 14px; padding: 12px 0; border-top: 1px solid rgba(243,239,230,.12); }
+.k-st:first-of-type { border-top: 0; padding-top: 0; }
+.k-st .k-lab { margin: 3px 0 0; }
+.k-body { display: grid; gap: 5px; min-width: 0; }
+/* b: chain */
+.b-big { font: italic 300 1.2rem/1.3 var(--serif); }
+.b-ev { color: var(--ink-on); }
+.b-q { font: italic 300 .92rem/1.45 var(--serif); color: var(--ink-on2); }
+.b-src { margin: -3px 0 3px 7.2em !important; font: 400 .66rem/1.3 var(--mono); color: var(--ink-on2); }
+.b-g { display: grid; grid-template-columns: 6.6em 3.6em minmax(0, 1fr) 7.6em; gap: 10px; align-items: center; }
+.b-a { color: var(--ink-on2); }
+.b-w { font: italic 300 .9rem/1 var(--serif); }
+.b-tr { position: relative; height: 12px; }
+.b-tr::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: rgba(243,239,230,.24); }
+.b-tr i { position: absolute; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; }
+.b-day { width: 11px; height: 11px; border: 1.5px solid #f3efe6; background: rgba(16,15,14,.9); z-index: 2; }
+.b-ph { width: 6px; height: 6px; background: rgba(243,239,230,.55); }
+.b-po { width: 6px; height: 6px; border: 1px solid rgba(243,239,230,.55); }
+.b-pick { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: start; margin: 2px 0 8px; }
+.b-pick:last-child { margin-bottom: 0; }
+.b-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 3px; display: block; }
+.b-pt { display: grid; gap: 3px; grid-column: 2; }
+.b-pick:not(:has(.b-thumb)) .b-pt { grid-column: 1 / -1; }
+.b-name { font: italic 400 1.02rem/1.3 var(--serif); }
+.b-read { color: var(--ink-on2); font: italic 300 .88rem/1.35 var(--serif); }
+.b-m { font: 400 .68rem/1.4 var(--mono); color: var(--ink-on); }
+.b-key { display: flex; gap: 6px; align-items: center; color: var(--ink-on2); font-size: .66rem; margin-bottom: 2px !important; }
+.b-key i { position: static; display: inline-block; transform: none; border-radius: 50%; margin-left: 8px; }
+.b-key i:first-child { margin-left: 0; }
+.b-sig { display: grid; grid-template-columns: 6.6em 9.5em minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.b-v { font-family: var(--mono); font-size: .68rem; }
+.b-e { color: var(--ink-on2); font: italic 300 .9rem/1.3 var(--serif); }
+.b-e.b-moves { color: var(--ink-on); }
+.b-door { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; }
+.b-dp { font: italic 300 .95rem/1.3 var(--serif); }
+.b-dw { font: 400 .66rem/1.3 var(--mono); color: var(--ink-on2); text-align: right; }
+/* the pieces */
+.y { display: grid; gap: 2px; padding: 5px 0 6px; border-top: 1px solid rgba(243,239,230,.07); min-width: 0; }
+.y-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: baseline; }
+.y-lab { color: var(--ink-on); }
+.y-n, .y-v { font: 400 .7rem/1.3 var(--mono); color: var(--ink-on); text-align: right; }
+.y-v { text-align: left; font-family: var(--sans); font-size: .78rem; }
+.y-st { grid-column: 1 / -1; font: italic 300 .86rem/1.3 var(--serif); color: var(--ink-on2); }
+.y-st[data-status="moved"], .y-pg[data-status="moved"] .y-st { color: #e0b56a; }
+.y-st[data-status="stone"], .y-pg[data-status="stone"] .y-st { color: var(--ink-on); }
+.y[data-status="unused"] .y-lab, .y[data-status="unused"] .y-n { color: var(--ink-on2); }
+.y-parts { display: grid; gap: 1px; }
+.y-pg .y-st { display: inline; }
+.y-part { font: 400 .74rem/1.3 var(--sans); }
+.y-pl { display: block; font: 400 .74rem/1.4 var(--sans); }
+.y-pl .y-part .n { color: var(--ink-on2); }
+.t-w .y-top > .y-lab { white-space: nowrap; }
+.y-d { font: 400 .66rem/1.35 var(--mono); color: var(--ink-on2); }
+.a-sec { margin: 0 0 16px; }
+.a-h { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(243,239,230,.18); padding-bottom: 5px; }
+.a-sec[data-status="moved"] .a-h { color: #e0b56a; }
+.a-hn .n { font-size: 1rem; letter-spacing: 0; }
+.a-sec .y-st { display: none; }
+.a-pick { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; margin: 0 0 16px; }
+.v-sec { margin: 0 0 16px; }
+.v-sec[data-status="moved"] .a-h { color: #e0b56a; }
+.v-cv { display: block; margin: 0 0 6px; }
+.v-leg { display: flex; flex-wrap: wrap; gap: 2px 14px; font: 400 .64rem/1.4 var(--sans); color: var(--ink-on2); }
+.t-two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; margin: 0 0 16px; }
+.t-w { min-width: 0; }
+.t-thumb { width: 72px; height: 72px; }
+.t-m { display: grid; grid-template-columns: 6.2em 2.6em minmax(0, 1fr); gap: 2px 8px; align-items: center; }
+.t-m .y-st { font-size: .76rem; margin: -2px 0 3px; }
+.t-q { font: italic 300 .9rem/1.35 var(--serif); quotes: '“' '”'; }
+.t-kin { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; width: 132px; margin-top: 3px; }
+.t-kin i { aspect-ratio: 1; background: rgba(243,239,230, calc(.04 + var(--l) * .9)); }
+.t-line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; color: var(--ink-on2); }
+.t-line.t-on { color: var(--ink-on); }
+.t-line .b-dw { text-align: right; }
+@media (prefers-reduced-motion: reduce) { #why, #why-scrim { transition: none; } }
+@media (max-height: 560px) and (orientation: landscape) {
+  #why { left: auto; right: 10px; top: 34px; bottom: 10px; width: calc(100vw - 42vw - 40px); max-height: none; padding: 14px 16px; font-size: .72rem; }
+  .k-tot dd { font-size: 1.15rem; }
+  .k-st { grid-template-columns: 1fr; gap: 6px; }
+  .b-src { margin-left: 0 !important; }
+  .b-g { grid-template-columns: 6em 3.4em minmax(0, 1fr); } .b-w { display: none; }
+  .b-sig { grid-template-columns: 6em minmax(0, 1fr); }
+  .b-sig .b-e { grid-column: 1 / -1; margin-top: -4px; }
+  .t-two { grid-template-columns: 1fr; gap: 14px; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  #why { left: 10px; right: 10px; width: auto; top: 60px; max-height: none; bottom: calc(var(--mat-h, 110px) + 24px); padding: 16px 16px 16px; }
+  .k-st { grid-template-columns: 1fr; gap: 6px; }
+  .b-g { grid-template-columns: 6em 3.4em minmax(0, 1fr); }
+  .b-w { display: none; }
+  .b-sig { grid-template-columns: 6em minmax(0, 1fr); }
+  .b-sig .b-e { grid-column: 1 / -1; margin-top: -4px; }
+  .b-door { grid-template-columns: 1fr; gap: 0; }
+  .b-dw { text-align: left; }
+  .b-src { margin-left: 0 !important; }
+  .t-two { grid-template-columns: 1fr; gap: 14px; }
+  .k-tot { grid-template-columns: repeat(3, 1fr); }
+}
+/* 36 c: where the line meets the chain */
+#where { text-decoration: none; } /* 34's dotted underline moves onto the line's own words, so the spaces between faded readings carry none */
+#where:not(:has(> span)), #where .sent, #where .rd i { text-decoration: underline dotted rgba(237,231,217,.42) 1px; text-underline-offset: .28em; }
+#where:is(:hover, :focus-visible):not(:has(> span)), #where:is(:hover, :focus-visible) :is(.sent, .rd i) { text-decoration-color: rgba(237,231,217,.8); }
+#where[aria-expanded="true"]:not(:has(> span)), #where[aria-expanded="true"] :is(.sent, .rd i) { text-decoration-style: solid; }
+#why .lit { border-radius: 2px; transition: background-color calc(var(--echo-ms, 1400) * 1ms) var(--ease), box-shadow calc(var(--echo-ms, 1400) * 1ms) var(--ease), color calc(var(--echo-ms, 1400) * 1ms) var(--ease); }
+#why .lit.echo { background-color: rgba(243,239,230,.2); box-shadow: 0 0 0 3px rgba(243,239,230,.2); color: #fff; transition-duration: .18s; }
+
+/* 38 c: the photograph's own facet carries its month and year; the facet is the way to the years (27 a) */
+#year { position: fixed; z-index: 6; margin: 0; transform: translate(-50%, -50%); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .5s var(--ease);
+  font: italic 300 1.0625rem/1.2 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.55), 0 2px 18px rgba(0,0,0,.7); }
+#year.on { opacity: 1; pointer-events: auto; }
+#year a { position: relative; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .28em; text-decoration-color: rgba(243,239,230,var(--door-alpha, 0.3)); }
+#year a::after { content: ''; position: absolute; left: 50%; top: 50%; width: max(100% + 12px, calc(var(--hit-px, 44) * 1px)); height: calc(var(--hit-px, 44) * 1px); transform: translate(-50%, -50%); }
+#year a:hover, #year a:focus-visible { text-decoration-color: rgba(243,239,230,.85); outline: none; }
+body.why #year, body.tools-open #year, body[data-at="entering"] #year { opacity: 0; pointer-events: none; }
+#about { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; z-index: 30; background: #fafaf8; opacity: 0; pointer-events: none; transition: opacity .28s var(--ease); }
+body[data-at="about"] #about { opacity: 1; pointer-events: auto; }
+#ph { position: fixed; z-index: 31; left: 0; top: 0; width: 100vw; height: 100vh; object-fit: cover; display: block; will-change: left, top, width, height; }
+#ph[hidden] { display: none; }
+body[data-at="about"] .vs { display: none; }
+@media (prefers-reduced-motion: reduce) { #year, #about { transition: none; } }
+/* without script: the photograph, the poem and the six ideas, plain */
+.plain { position: relative; z-index: 1; height: 100%; overflow: auto; padding: clamp(16px, 4vw, 56px); background: var(--ink-seam); color: var(--ink-on); }
+.plain img { display: block; width: 100%; max-width: 960px; height: auto; margin: 0 0 24px; }
+.plain h1 { margin: 0 0 18px; font: 500 1.15rem/1 var(--sans); }
+.plain h1 a { text-decoration: none; }
+.plain .poem { margin: 0 0 28px; max-width: 34em; font: 300 1.0625rem/1.5 var(--serif); }
+.plain .poem h2 { margin: 0 0 .6em; font: italic 400 1.3rem/1.25 var(--serif); }
+.plain .poem p { margin: 0 0 .7em; }
+.plain .wall-plain { list-style: none; margin: 0 0 24px; padding: 0; font: 400 .9rem/1.6 var(--sans); }
+.plain .wall-plain b { font-weight: 500; margin-right: .5em; }
+.plain nav { display: flex; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
+.plain nav a { color: var(--ink-on2); text-decoration: none; }
+/* ---------- 43 c: the opened facet. On a phone a piece, an idea and the chain each open as one card cut like a facet of this stone (made by stone.js) ---------- */
+#piece { display: none; }
+#card { position: fixed; left: 0; top: 0; width: 0; height: 0; z-index: 12; visibility: hidden; pointer-events: none; transform-origin: 0 0; color: var(--ink-on);
+  background: rgb(19,17,15); backface-visibility: visible; }
+#card.on { visibility: visible; pointer-events: auto; }
+#card.measure { visibility: hidden; pointer-events: none; }
+
+#card .face { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; pointer-events: none; }
+#card svg.cut { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+#card .card-slot { position: absolute; inset: 0; z-index: 1; }
+#card .card-x { position: absolute; z-index: 3; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--ink-on); font: 300 24px/1 var(--sans); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+#card .card-x:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: -6px; }
+.card-slot > #tools, .card-slot > #why, .card-slot > #piece { position: absolute !important; left: var(--ci-l) !important; top: var(--ci-t) !important; right: var(--ci-r) !important; bottom: var(--ci-b) !important;
+  width: auto !important; height: auto !important; max-height: none !important; margin: 0 !important; padding: 0 6px 6px 0 !important; display: block; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
+  background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  opacity: 1 !important; transform: none !important; pointer-events: auto !important; transition: none !important; scrollbar-width: none; outline: none; user-select: text; -webkit-user-select: text; }
+.card-slot > *::-webkit-scrollbar { display: none; }
+.card-slot > *::before { content: ''; float: right; width: var(--cx-w, 40px); height: var(--cx-h, 40px); shape-outside: polygon(0 0, 100% 0, 100% 100%); } /* the words keep clear of the close mark's facet */
+/* the piece: his words, where they are from, why here */
+.card-slot > #piece { font: italic 300 calc(var(--card-piece-px, 19) * 1px)/1.45 var(--serif); color: var(--ink-on); }
+#piece .say { font-style: normal; }
+#piece .lines span { display: block; }
+#piece .lines span + span { margin-top: .2em; }
+#piece small { display: block; margin-top: .9em; font: 400 calc(var(--card-small-px, 13) * 1px)/1.4 var(--sans); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-on2); }
+#piece small.basis { margin-top: .5em; letter-spacing: .03em; text-transform: none; opacity: var(--basis-alpha, 0.9); }
+#piece small.src a { text-decoration: none; border-bottom: 1px solid rgba(201,195,182,.5); }
+/* the idea: this world first and largest, the basis, the general beneath; read at a phone's size */
+.card-slot > #tools h2 { margin: 0 0 10px; font-size: calc(var(--card-title-px, 24) * 1px); }
+.card-slot > #tools p.here { font-size: calc(var(--card-here-px, 18) * 1px); }
+.card-slot > #tools .basis { font-size: calc(var(--card-small-px, 13) * 1px); }
+.card-slot > #tools .gen p, .card-slot > #tools .gen li p { font-size: calc(var(--card-body-px, 16) * 1px); }
+.card-slot > #tools li button, .card-slot > #tools .gen li button { font-size: calc(var(--card-label-px, 14) * 1px); padding: 11px 0; }
+/* the chain: its own layout, at a size a phone reads */
+.card-slot > #why .why-body { zoom: var(--card-chain-zoom, 1.336); }
+.card-slot > #why .why-x { display: none; }
+.card-slot > #why { font-size: .78rem; } /* on its side the chain keeps the size it has upright */
+body.card-open #year { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { #card { transition: none; } }
+body.card-open #why-scrim { opacity: 0; pointer-events: none; } /* the card is its own ground: no scrim behind the chain */
+#card.closing, #card.closing .card-slot > *, #card.closing .card-x { pointer-events: none !important; } /* a touch while it closes goes to the stone */
+/* ---------- 44: the card says there is more (drawn by ./stone.js into the card's cut; a's small facet is also a button) ---------- */
+#card .card-more { position: absolute; z-index: 3; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+#card .card-more:focus-visible { outline: 1.5px solid var(--ink-on); outline-offset: -3px; }
