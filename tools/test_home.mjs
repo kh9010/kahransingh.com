@@ -717,7 +717,7 @@ const gz = new Map(), gzOf = f => gz.get(f) ?? (gz.set(f, /\.(jpe?g|png|webp|wof
      cdesk   = the card on a desktop too
    the doors (12 Nov), each against its own check in doorsHold or restSame:
      dwait   = a door facet's first tap only answers (it no longer crosses)          dwrong = it crosses to another facet's pair
-     dpiece  = the tap crosses but writes its piece onto the page as it goes          drest  = the rest state changed (the title's tone .3 -> .36)
+     dpiece  = the tap crosses but writes its piece onto the page as it goes          drest  = the rest state changed (the title's tone .3 -> .36; run with REST_REF=d25ea66)
      dhold   = a tap at home told from a hold by when its handler ran, not by its events' times (a world being made held the page up: the
                press came back instead of crossing, as it did before 12 Nov's fix) */
 const MARK = '\u200b', MUT = process.env.MUTATE || '', GONE = new Set(), OVER = new Map(), MUTHIT = new Set()
@@ -1323,14 +1323,15 @@ try {
     check(ids.length > 0 && !wrong.length && !lands.length, `${label}: each of ${ids.length} facets of his work, tapped once from rest, crosses at once to exactly its plan's pair`, [...wrong, ...lands].slice(0, 4).join(' | '))
     check(ids.length > 0 && !shown.length, `${label}: and nothing of its piece is on the page, at the tap or through the crossing (no piece, no card, no text beyond the home's own)`, shown.slice(0, 4).join(' | '))
     await arrive() }
-  /* and nothing at rest changed: the home at rest is d25ea66's (the home the day of the ruling, its pieces still on), pixel for pixel. When the
-     rest state is changed on purpose, move REST_REF to the commit before that change */
-  const REST_REF = process.env.REST_REF || 'd25ea66'
+  /* and nothing at rest changed: with REST_REF=<commit> the home at rest is that commit's, pixel for pixel (REST_REF=d25ea66 is the home the
+     day of the ruling, its pieces still on: passed 12 Nov, and red under MUTATE=drest). It reads the old home from git history, which a clean
+     copy does not have and which stops being the right answer the day rest changes on purpose, so it is asked for, not standing */
+  const REST_REF = process.env.REST_REF || ''
   const refBytes = Object.fromEntries([['/', 'index.html'], ['/v3/stone.js', 'v3/stone.js'], ['/v3/stone.css', 'v3/stone.css'], ['/v3/defaults.json', 'v3/defaults.json']]
-    .map(([u, f]) => { const r = spawnSync('git', ['show', REST_REF + ':' + f], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 }); return [u, r.status === 0 ? r.stdout : null] }))
+    .map(([u, f]) => { const r = REST_REF ? spawnSync('git', ['show', REST_REF + ':' + f], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 }) : { status: 1 }; return [u, r.status === 0 ? r.stdout : null] }))
   const restShot = async () => { await settled(); await park(); await cdp.eval('HOME.still = true; document.activeElement && document.activeElement.blur && document.activeElement.blur()')
     await cdp.eval('HOME.lamp(innerWidth * .7, innerHeight * .2)'); await sleep(1300); await cdp.eval('HOME.ground()'); await sleep(250); return shotNow() }
-  const restSame = async tag => { if (Object.values(refBytes).some(v => v == null)) return check(false, `${tag}: ${REST_REF}'s home, to compare the rest state against`)
+  const restSame = async tag => { if (!REST_REF) return; if (Object.values(refBytes).some(v => v == null)) return check(false, `${tag}: ${REST_REF}'s home, to compare the rest state against`)
     for (const [u, b] of Object.entries(refBytes)) OVER.set(u, b); REFLOAD = true
     try { await open(''); var A = await restShot() } finally { for (const u of Object.keys(refBytes)) OVER.delete(u); REFLOAD = false }
     await open(''); const B = await restShot(), d = pixDiff(A, B, VP.w)
