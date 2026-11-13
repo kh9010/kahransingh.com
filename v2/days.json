@@ -932,6 +932,24 @@
         "wind_kmh": 12.0,
         "cloud_pct": 29
       }
+    },
+    "2026-11-12": {
+      "poem": "in-my-heart-something-called-to-the-rain",
+      "photo": "/photos/kodagu-india-033e7e3b.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.5914285714285714,
+        "wet": 1.0,
+        "stillness": 0.38749999999999996,
+        "season": 0.10637000890415388,
+        "inside": 0.2957142857142857,
+        "mood": 0.5,
+        "weather_code": 63,
+        "tmax": 15.7,
+        "wind_kmh": 24.5,
+        "cloud_pct": 83
+      }
     }
   }
 }
