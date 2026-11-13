@@ -16,13 +16,17 @@
 // piece's deployed rail lists.
 //
 // Run: node tools/test_right_now.mjs [--shots DIR]   (exits non-zero on any failure)
-// Needs: python3 (static server) and Chrome for Testing's headless shell in
+// Every wait is on a condition with one deadline (WAIT_MS, default 60000), never
+// a fixed sleep, so it holds under load (several runs at once, a busy verify).
+// Ports come from the server and Chrome themselves (port 0), Chrome gets its own
+// profile, and analytics is blocked so a test run is never counted as a visit.
+// Needs: Chrome for Testing's headless shell in
 // ~/.cache/puppeteer (any version).
 
 import { spawn } from "node:child_process";
-import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
+import http from "node:http";
+import { readFileSync, readdirSync, existsSync, writeFileSync, mkdtempSync, rmSync, statSync, readFile } from "node:fs";
 import { fileURLToPath } from "node:url";
-import net from "node:net";
 import os from "node:os";
 import path from "node:path";
 
@@ -122,6 +126,7 @@ for (const l of rnLines.filter((l) => l.href)) {
 /* ------------------------------------------------------------- rendered -- */
 
 function findShell() {
+  if (process.env.CHROME) return process.env.CHROME;
   const base = path.join(os.homedir(), ".cache/puppeteer/chrome-headless-shell");
   if (!existsSync(base)) return null;
   for (const v of readdirSync(base).sort().reverse()) {
@@ -130,17 +135,25 @@ function findShell() {
   }
   return null;
 }
-function freePort() {
-  return new Promise((res, rej) => {
-    const s = net.createServer();
-    s.once("error", rej);
-    s.listen(0, "127.0.0.1", () => { const p = s.address().port; s.close(() => res(p)); });
-  });
-}
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-async function waitFor(fn, label, tries = 100) {
-  for (let i = 0; i < tries; i++) { try { const v = await fn(); if (v) return v; } catch {} await sleep(100); }
-  throw new Error("timed out waiting for " + label);
+const WAIT_MS = Number(process.env.WAIT_MS) || 60000;
+// Poll a condition until it holds or the deadline passes; the error says what it last saw.
+async function waitFor(fn, label, ms = WAIT_MS) {
+  const end = Date.now() + ms; let last;
+  for (;;) {
+    try { const v = await fn(); if (v) return v; last = v; } catch (e) { last = "threw: " + e.message; }
+    if (Date.now() > end) throw new Error(`timed out after ${ms} ms waiting for ${label} (last: ${JSON.stringify(last)})`);
+    await sleep(50);
+  }
+}
+// Read a port a child process prints once it is listening (port 0: the OS picks a free one, no race).
+function portFrom(child, stream, re, label) {
+  return new Promise((res, rej) => {
+    let buf = "";
+    const t = setTimeout(() => rej(new Error(`${label} did not start within ${WAIT_MS} ms: ${buf.slice(-300)}`)), WAIT_MS);
+    child[stream].on("data", (d) => { buf += d; const m = buf.match(re); if (m) { clearTimeout(t); res(Number(m[1])); } });
+    child.once("exit", (c) => { clearTimeout(t); rej(new Error(`${label} exited (${c}): ${buf.slice(-300)}`)); });
+  });
 }
 class CDP {
   constructor(ws) { this.ws = ws; this.id = 0; this.pending = new Map();
@@ -157,16 +170,49 @@ class CDP {
     return r.result.value;
   }
 }
+// Navigate and wait for the NEW document's load event: the old page is marked
+// first, so a check can never pass on the page that was there before.
+async function go(cdp, url) {
+  await cdp.evaluate("window.__harnessOld = true").catch(() => {});
+  await cdp.send("Page.navigate", { url });
+  await waitFor(() => cdp.evaluate("!window.__harnessOld && document.readyState === 'complete'"), "load " + url);
+}
+// Wait until a layout snapshot (a JSON string from the page) reads the same three times running.
+async function settled(cdp, expr, label) {
+  let prev = null, same = 0;
+  await waitFor(async () => { const v = await cdp.evaluate(expr); same = v === prev ? same + 1 : 0; prev = v; return same >= 2; }, label);
+}
+
+// The site, served in-process. (python3 -m http.server listens with a backlog
+// of 5: under load Chrome's burst of picture requests overflowed it and came
+// back ERR_CONNECTION_RESET, and those pictures silently went unmeasured.)
+const TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json",
+  ".css": "text/css", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp",
+  ".gif": "image/gif", ".avif": "image/avif", ".mp4": "video/mp4", ".webm": "video/webm", ".woff2": "font/woff2", ".txt": "text/plain" };
+function serve(root) {
+  const s = http.createServer((req, res) => {
+    let p = decodeURIComponent(new URL(req.url, "http://x").pathname);
+    let f = path.join(root, p);
+    if (!f.startsWith(root)) { res.writeHead(403); return res.end(); }
+    try { if (statSync(f).isDirectory()) f = path.join(f, "index.html"); } catch {}
+    readFile(f, (err, body) => {
+      if (err) { res.writeHead(404); return res.end("not found"); }
+      res.writeHead(200, { "Content-Type": TYPES[path.extname(f).toLowerCase()] || "application/octet-stream", "Cache-Control": "no-store" });
+      res.end(body);
+    });
+  });
+  return new Promise((res) => s.listen(0, "127.0.0.1", () => res(s)));
+}
 
 const shell = findShell();
 if (!shell) { console.error("no chrome-headless-shell under ~/.cache/puppeteer"); process.exit(2); }
-const HTTP_PORT = await freePort(), CDP_PORT = await freePort();
-const server = spawn("python3", ["-m", "http.server", String(HTTP_PORT), "--bind", "127.0.0.1"], { cwd: ROOT, stdio: "ignore" });
+const profile = mkdtempSync(path.join(os.tmpdir(), "ks-right-now-"));
+const server = await serve(ROOT);
 const chrome = spawn(shell, [
   "--headless", "--use-mock-keychain", "--password-store=basic", "--no-first-run",
-  "--hide-scrollbars", `--remote-debugging-port=${CDP_PORT}`, "about:blank",
-], { stdio: "ignore" });
-const cleanup = () => { try { chrome.kill(); } catch {} try { server.kill(); } catch {} };
+  `--user-data-dir=${profile}`, "--hide-scrollbars", "--remote-debugging-port=0", "about:blank",
+], { stdio: ["ignore", "ignore", "pipe"] });
+const cleanup = () => { try { chrome.kill(); } catch {} try { server.close(); server.closeAllConnections(); } catch {} try { rmSync(profile, { recursive: true, force: true }); } catch {} };
 process.on("exit", cleanup);
 
 async function shot(cdp, file) {
@@ -176,20 +222,30 @@ async function shot(cdp, file) {
 }
 
 try {
+  const HTTP_PORT = server.address().port;
+  const CDP_PORT = await portFrom(chrome, "stderr", /DevTools listening on ws:\/\/[^:]+:(\d+)\//, "Chrome");
   await waitFor(() => fetch(`http://127.0.0.1:${HTTP_PORT}/v2/index.html`).then((r) => r.ok), "static server");
-  const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDP_PORT}/json`).then((r) => r.json()), "devtools");
+  const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDP_PORT}/json`).then((r) => r.json()).then((t) => t.find((x) => x.type === "page") && t), "devtools");
   const ws = new WebSocket(targets.find((t) => t.type === "page").webSocketDebuggerUrl);
   await new Promise((res, rej) => { ws.onopen = res; ws.onerror = rej; });
   const cdp = new CDP(ws);
   await cdp.send("Page.enable");
+  await cdp.send("Network.enable");
+  await cdp.send("Network.setBlockedURLs", { urls: ["*googletagmanager.com*", "*google-analytics.com*"] });
+  // what the checks read; once it stops moving, the page has drawn
+  const LAYOUT = `JSON.stringify(['.doing-list', '#poem-hold', '#poem-body', '#poem-label', '#photo'].map((q) => {
+    const e = document.querySelector(q); if (!e) return null; const r = e.getBoundingClientRect();
+    return [r.left, r.top, r.width, r.height].map(Math.round); }).concat([scrollY, innerWidth, innerHeight]))`;
+  const NOTE_STILL = (id) => `(() => { const n = document.querySelector('[data-line="${id}"] .doing-note');
+    return n.getAnimations().every((a) => a.playState === 'finished'); })()`;
 
   for (const [w, h, mobile, tag] of [[1200, 800, false, "1200"], [390, 844, true, "390"]]) {
     await cdp.send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: mobile ? 2 : 1, mobile });
-    await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/v2/` });
-    await waitFor(() => cdp.evaluate("document.querySelectorAll('#wall-block .tile').length === 6 && document.fonts.status === 'loaded' && document.getElementById('photo').complete && document.getElementById('photo').naturalWidth > 0"), "six tiles and the photograph " + tag, 200);
-    await sleep(700);
+    await go(cdp, `http://127.0.0.1:${HTTP_PORT}/v2/`);
+    await waitFor(() => cdp.evaluate("document.querySelectorAll('#wall-block .tile').length === 6 && document.fonts.status === 'loaded' && document.getElementById('photo').complete && document.getElementById('photo').naturalWidth > 0 && document.getElementById('poem-body').children.length > 0"), "six tiles, the photograph and the poem " + tag);
+    await settled(cdp, LAYOUT, "the page to stop moving " + tag);
     await shot(cdp, `now-${tag}.png`);
-    if (mobile) { await cdp.evaluate("document.querySelector('.doing').scrollIntoView({block: 'start'}); true"); await sleep(250); await shot(cdp, `now-${tag}-band.png`); }
+    if (mobile) { await cdp.evaluate("document.querySelector('.doing').scrollIntoView({block: 'start'}); true"); await settled(cdp, LAYOUT, "the scroll " + tag); await shot(cdp, `now-${tag}-band.png`); }
 
     const r = await cdp.evaluate(`(() => {
       const lines = [...document.querySelectorAll('.doing-list .doing-bullet')];
@@ -223,7 +279,8 @@ try {
         const c = await cdp.evaluate(`(() => { const r = document.querySelector('[data-line="${id}"] .doing-bullet').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()`);
         await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: c.x, y: c.y, pointerType: "mouse" });
       }
-      await sleep(250);
+      // the note opens on the event; wait for it (and its short fade-in) rather than a fixed time
+      await waitFor(() => cdp.evaluate(`(() => { const n = ${NOTE(id)}; return n.shown && n.expanded; })() && ${NOTE_STILL(id)}`), `${id} note to open at ${tag}`).catch(() => null);
       const n = await cdp.evaluate(NOTE(id));
       check(n.shown && n.expanded, `${id}: ${mobile ? "a tap" : "hover"} shows the note at ${tag}`);
       check(n.inside, `${id}: the note stays in the window at ${tag}`, JSON.stringify(n.rect));
@@ -232,7 +289,7 @@ try {
       await shot(cdp, id === ids[0] ? `notes-${tag}.png` : `notes-${tag}-${id}.png`);
       if (mobile) await cdp.evaluate(`document.querySelector('[data-line="${id}"] .doing-bullet').click(); true`);
       else await cdp.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 5, y: h - 5, pointerType: "mouse" });
-      await sleep(200);
+      await waitFor(() => cdp.evaluate(`(() => { const n = ${NOTE(id)}; return !n.shown && !n.expanded; })()`), `${id} note to close at ${tag}`).catch(() => null);
       const gone = await cdp.evaluate(NOTE(id));
       check(!gone.shown && !gone.expanded, `${id}: ${mobile ? "a second tap" : "moving off"} puts it away at ${tag}`);
     }
@@ -240,13 +297,12 @@ try {
     // the tools line opens the wall, and a second click puts it away
     await cdp.evaluate("document.getElementById('doing-tools').click(); true");
     const opened = await waitFor(() => cdp.evaluate(`(() => {
-      const b = document.getElementById('doing-tools');
-      return document.querySelector('.tools-layer').classList.contains('is-landed') && b.getAttribute('aria-expanded') === 'true';
+      const b = document.getElementById('doing-tools'), l = document.querySelector('.tools-layer').classList;
+      return l.contains('is-landed') && !l.contains('is-flying') && b.getAttribute('aria-expanded') === 'true';
     })()`), "wall opens " + tag).catch(() => false);
     check(opened === true, `the tools line opens the wall at ${tag}`);
-    await sleep(1500);
     if (mobile) await cdp.evaluate("document.querySelector('.doing').scrollIntoView({block: 'start'}); true");
-    await sleep(250);
+    if (SHOTS) await settled(cdp, LAYOUT, "the open wall " + tag);
     await shot(cdp, `now-${tag}-open.png`);
     await cdp.evaluate("document.getElementById('doing-tools').click(); true");
     const closed = await waitFor(() => cdp.evaluate(
@@ -264,7 +320,7 @@ try {
     requestId: msg.params.requestId, responseCode: 200,
     responseHeaders: [{ name: "Content-Type", value: "application/json" }],
     body: Buffer.from(JSON.stringify(swapped)).toString("base64") }); };
-  await cdp.send("Page.navigate", { url: `http://127.0.0.1:${HTTP_PORT}/v2/` });
+  await go(cdp, `http://127.0.0.1:${HTTP_PORT}/v2/`);
   await waitFor(() => cdp.evaluate("document.documentElement.getAttribute('data-right-now') === 'ready'"), "swapped right-now.json");
   const sw = await cdp.evaluate(SLOTS);
   check(swapped.lines.every((l) => { const s = sw[l.id]; return s && (l.href ? s.link === l.href && !s.soon : s.link === null && s.soon); }),
