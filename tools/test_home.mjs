@@ -13,20 +13,22 @@
 //     the stone is pick.js's pair; the first screen loads without segments.json or more than one photograph's regions;
 //     35 line: its readings are the sky's own and resolve into weather.js's sentence; 36 c: tapping it opens 34 b's chain, the readings
 //       come back and light where the chain reads them; 34: every count, measure, reading and label in the chain recounted in Node;
-//     every drawn facet yields (six the ideas, one the date, the rest his work, verbatim, its basis recounted at the region it sits on);
-//     words of any length at any facet keep clear of the poem, the name and the caption (30's and 37's worst case);
+//     every drawn facet yields (six the ideas, one the date, one the title, the rest a door chosen by a piece of his work, the piece verbatim
+//       in its source, its basis recounted at the region it sits on);
+//     the doors (12 Nov): every facet that is not an idea, the title or the date, tapped once from rest, crosses to exactly its plan's pair,
+//       and nothing of its piece is on the page, before or through the crossing; the rest state is d25ea66's, pixel for pixel;
 //     41 b, 42 a: each of the six ideas behind the facet its meaning puts it on, nothing named at rest, only its hue (154 worlds x five screens,
 //       fresh and crossed, recounted); a tap opens this world first and largest, every sentence recounted here word for word for 158 worlds and
 //       under every state a visitor can reach (daytime, no sky, the archive's day, where he is unknown, a source that failed, another time
 //       zone), the general read live from IDEAS (a mark only the served home.js carries), the basis line, whole lines, on screen, clear of the
 //       mat and the switch, AA against the real pixels; the six hidden keys: Tab, a ring on the facet, Enter or Space, Escape;
 //     38 c: the date is the photograph's own, in a facet where it reads clear, and flies the photograph into its year in the About;
-//     39: a crossing through a door line (and, at 1440, a facet's last tap) walked frame by frame lands on the next photograph's masses cut
+//     39: a crossing through a door line (and, at 1440, a facet's one tap) walked frame by frame lands on the next photograph's masses cut
 //       as 33 counts it; reduced motion crossfades and no facet moves;
 //     the title (9 Nov): its own facet, drawn as one piece, the title underlined where main lays it; a tap on the title or on its facet opens
 //       the whole poem (poem_open, via title | facet); no seam eats a letter of it (nor of the poem): the seams drawn in a colour no photograph
 //       has, none shows inside a letter;
-//     the home reads (9 Nov): every text at rest, with each facet tapped, with each idea open and with the chain open, against the canvas
+//     the home reads (9 Nov): every text at rest, with each idea open and with the chain open, against the canvas
 //       pixels behind it (the stone without the poem's words, any ground and panel included): WCAG AA for 98% of them, 11px and up (the chain's
 //       sizes are its own: reported);
 //     no system name, no instruction, nothing counts down, no console error.
@@ -276,6 +278,7 @@ function plansHold(world, plan, facets, y, tag, bad) { // the rules every dealt 
     if (p.to.photo === world.photo) say(`#${i}: leads back to this photograph`)
     for (const s of [p.seg.poem, p.to.poem].filter(Boolean)) { reached.add(s); if (!live.has(s)) say(`#${i}: reaches ${s}, not a live poem`) }
     if (!data.photos.some(q => q.src === p.to.photo)) say(`#${i}: leads to ${p.to.photo}, not a photograph on the site`)
+    if (!p.to.poem || !live.has(p.to.poem)) say(`#${i}: leads to no live poem (${p.to.poem}): a dead door`) // 12 Nov: the move is all a facet does
     const r = recount(world, facets[i], p.seg, p.link, p.cls); basesN++; if (r) say(`#${i} ${p.seg.id}: ${r}`)
     const c = commentary(p.basis, world, p.seg); if (c) say(`#${i} commentary: ${c}`)
     const keys = p.steps.map(S37.stepKey); stepsN += p.steps.length
@@ -711,10 +714,18 @@ const gz = new Map(), gzOf = f => gz.get(f) ?? (gz.set(f, /\.(jpe?g|png|webp|wof
      cline   = the room not ended on a whole line (no snap)             cmore  = the foot never points       cclose = Escape ignored
      cfocus  = the focus not given back                                  crest  = the stone left 3px off      cevent = tools_open without its via
      cone    = two cards at once                                         cturn  = it grows but never turns    creduce = it turns under reduced motion
-     cdesk   = the card on a desktop too */
+     cdesk   = the card on a desktop too
+   the doors (12 Nov), each against its own check in doorsHold or restSame:
+     dwait   = a door facet's first tap only answers (it no longer crosses)          dwrong = it crosses to another facet's pair
+     dpiece  = the tap crosses but writes its piece onto the page as it goes          drest  = the rest state changed (the title's tone .3 -> .36)
+     dhold   = a tap at home told from a hold by when its handler ran, not by its events' times (a world being made held the page up: the
+               press came back instead of crossing, as it did before 12 Nov's fix) */
 const MARK = '\u200b', MUT = process.env.MUTATE || '', GONE = new Set(), OVER = new Map(), MUTHIT = new Set()
+let REFLOAD = false // serving d25ea66's home (restSame's reference): no mutation reaches it
 const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, 'utf8'); const was = s
   if (u === '/v2/home.js') s = s.replace(/("intro": ")|("boundary": ")/g, m => m + MARK)
+  if (REFLOAD) return s
+  if (MUT === 'dhold' && u === '/v3/stone.js') s = s.replace("  if (up - p.down < num('press-tap-ms', 260)) {", "  if (performance.now() - p.t0 < num('press-tap-ms', 260)) {")
   if (MUT === 'fact' && u === '/v3/here.js') s = s.replace('const rec = XJ.photos.find(p => p.src === photo.src) || null', 'const rec = XJ.photos[(XJ.photos.findIndex(p => p.src === photo.src) + 1) % XJ.photos.length]')
   if (MUT === 'copy' && u === '/v3/stone.js') s = s.replace("gen.append(mk('p', 'intro', d.intro || ''))", `gen.append(mk('p', 'intro', I.name === 'Context' ? ${JSON.stringify(HOME_IDEAS[0].detail.intro)} : d.intro || ''))`)
   if (MUT === 'shown' && u === '/v3/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('p'); n.style.cssText = 'position:fixed;left:20px;top:140px;z-index:6;font:400 11px/2 sans-serif;color:#fff'; n.textContent = IDEAS[2].name; document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
@@ -739,6 +750,10 @@ const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, '
   if (MUT === 'cturn' && u === '/v3/stone.js') s = s.replace("perspective(${num('card-perspective-px', 900)}px) rotate3d(", "perspective(${num('card-perspective-px', 900)}px) translate3d(")
   if (MUT === 'creduce' && u === '/v3/stone.js') s = s.replace("way: reduce() ? 'fade' : 'c' }", "way: 'c' }")
   if (MUT === 'cdesk' && u === '/v3/stone.js') s = s.replace('const cardMode = () => phone() || low()', 'const cardMode = () => true')
+  if (MUT === 'dwait' && u === '/v3/stone.js') s = s.replace("else if (pl && nextStep(cur, ci).t !== 'move') { homeWin = ci;", "else if (pl) { homeWin = ci;").replace("  said(i, 'move', { to: s.to.poem", "  if (s) return said(i, 'wait'); said(i, 'move', { to: s.to.poem")
+  if (MUT === 'dwrong' && u === '/v3/stone.js') s = s.replace("const nextStep = (w, i) => { const p = planOf(w)[i]; return p ? p.steps[p.steps.length - 1] : null }", "const nextStep = (w, i) => { const p = planOf(w)[i]; if (!p || !p.to) return p ? p.steps.at(-1) : null; const o = planOf(w).filter(q => q && q.to && q !== p); return o.length ? o[0].steps.at(-1) : p.steps.at(-1) }")
+  if (MUT === 'dpiece' && u === '/v3/stone.js') s = s.replace("const nextStep = (w, i) => { const p = planOf(w)[i]; return", "const nextStep = (w, i) => { const p = planOf(w)[i]; if (p && p.to) { const f = p.steps[0], e = document.getElementById('piece') || document.body.appendChild(Object.assign(document.createElement('p'), { id: 'piece' })); e.textContent = f.big || f.lines.join(' ') } return")
+  if (MUT === 'drest' && u === '/v3/defaults.json') s = s.replace('"title-tone": "0.3"', '"title-tone": "0.36"')
   if (s !== was && u !== '/v2/home.js') MUTHIT.add(MUT); return s }
 const server = http.createServer((req, res) => { try { const u = decodeURIComponent(new URL(req.url, 'http://x').pathname), f = path.join(ROOT, path.normalize(u.endsWith('/') ? u + 'index.html' : u))
   if (GONE.has(u) || !f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); return res.end() }
@@ -751,7 +766,7 @@ const chrome = spawn(shell, ['--headless', '--use-mock-keychain', '--password-st
 const cleanup = () => { try { chrome.kill() } catch {} try { server.close() } catch {} try { rmSync(PROFILE, { recursive: true, force: true }) } catch {} }
 process.on('exit', cleanup)
 const BASE = `http://127.0.0.1:${HTTP}`, errors = [], tracked = [], READS = { all: [], worst: {} }
-let loads = 0, taps = 0, crossings = 0, probes = 0, drawnN = 0, weight = null
+let loads = 0, taps = 0, crossings = 0, doorsN = 0, drawnN = 0, weight = null
 
 try {
   const targets = await waitFor(() => fetch(`http://127.0.0.1:${CDPP}/json`).then(r => r.json()), 'devtools')
@@ -826,11 +841,8 @@ try {
       plan.push({ seg, link: p.link, cls: p.cls, basis: p.basis, to: { photo: '/photos/' + p.to.split('~')[1], poem: p.to.split('~')[0] }, steps: p.steps.map(st => ({ ...st, to: st.to ? { photo: '/photos/' + st.to.split('~')[1], poem: st.to.split('~')[0] } : undefined })) }); facets.push(p.facet) }
     plan.forEach(p => p.steps.forEach(st => { if (st.t !== 'move') delete st.to }))
     P37.plansHold(world, plan, facets, 'shape', label, bad)
-    check(!bad.length && kinds.idea === 6 && kinds.year === 1 && kinds.title === 1, `${label}: every one of ${ids.length} facets yields: six ideas, the photograph's date, the poem's title, and ${kinds.work} pieces of his work, verbatim, each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
+    check(!bad.length && kinds.idea === 6 && kinds.year === 1 && kinds.title === 1, `${label}: every one of ${ids.length} facets yields: six ideas, the photograph's date, the poem's title, and ${kinds.work} doors, each chosen by a piece of his work (the piece verbatim in its source, never shown), each basis recounted, none shared, no commentary`, bad.slice(0, 5).join(' | ') || JSON.stringify(kinds))
     return plans }
-  const probeHold = async label => { const ids = await cdp.eval('HOME.drawn'), bad = []
-    for (const i of ids) for (const [n, lines] of [[60, 0], [220, 0], [480, 0], [200, 6], [1400, 0]]) { probes++; if (await cdp.eval(`HOME.probe(${i}, ${n}, ${lines})`)) bad.push(`#${i} at ${n}${lines ? ' in ' + lines + ' lines' : ''}`) }
-    check(!bad.length, `${label}: words of any length, at any facet, keep clear of the poem, the name and the caption (${ids.length * 5} placed, worst case)`, bad.slice(0, 6).join(' | ')) }
 
   /* 39's: the stone now, recounted with 33's method; a crossing walked frame by frame */
   const masses = async label => {
@@ -847,9 +859,8 @@ try {
     await restLedger(); const from = await cdp.eval('HOME.world.key'), x = await cdp.eval(`matchMedia('(prefers-reduced-motion: reduce)').matches ? 'calm' : 'grow'`)
     let pt
     if (how === 'door') { const d = await cdp.eval('HOME.doors.find(d => d.box[1] > 0 && d.box[1] + d.box[3] < innerHeight)'); if (!d) { check(false, `${label}: a door line on screen`); return false } pt = [d.box[0] + d.box[2] / 2, d.box[1] + d.box[3] / 2] }
-    else { const ps = await cdp.eval('HOME.plans'), i = ps.findIndex((p, j) => p && p.steps && p.steps.length > 1); if (i < 0) { check(false, `${label}: a facet with a move`); return false }
-      for (let k = 0; k < ps[i].steps.length - 1; k++) { const seq0 = await cdp.eval('HOME.seq'); await tapFacet(i); await nextSeq(seq0); await sleep(200) }
-      await cdp.eval('HOME.still = true'); await sleep(300); pt = await cdp.eval(`HOME.tapPoint(${i})`) }
+    else { const ps = await cdp.eval('HOME.plans'), i = ps.findIndex(p => p && p.to); if (i < 0) { check(false, `${label}: a facet with a move`); return false }
+      await cdp.eval('HOME.still = true'); await sleep(300); pt = await cdp.eval(`HOME.tapPoint(${i})`) } // 12 Nov: its one tap crosses
     await cdp.eval('HOME.clock = 0')
     await tapAt(...pt); crossings++
     await waitFor(() => cdp.eval(`!!HOME.crossing && HOME.crossing.from === ${JSON.stringify(from)} && HOME.t !== null`), label + ' crossing', 150)
@@ -865,7 +876,7 @@ try {
     if (x === 'calm') { const at = new Map(), moved = new Set()
       for (const F of r.frames) for (const e of F.list) { if (!e.c || e.area <= 0) continue; const p = at.get(e.id); if (!p) at.set(e.id, e.c); else if (Math.hypot(p[0] - e.c[0], p[1] - e.c[1]) > .5) moved.add(e.id) }
       check(info.x === 'calm' && !moved.size, `${label}: reduced motion takes the calm crossing and no facet moves in any of ${r.frames.length} frames`, info.x + ' ' + [...moved].slice(0, 5).join(', ')) }
-    check(info.x === x && !r.bad.length && !ends.length, `${label}: ${info.x} from ${how === 'door' ? 'a door line' : 'a facet\'s last tap'}, every facet accounted in every frame (fastest step ${r.biggest.toFixed(2)}x, ${r.fine} cut finer), starts on the stone at rest and lands on the next exactly`, [...ends, ...r.bad].slice(0, 4).join(' | '))
+    check(info.x === x && !r.bad.length && !ends.length, `${label}: ${info.x} from ${how === 'door' ? 'a door line' : 'a facet\'s one tap'}, every facet accounted in every frame (fastest step ${r.biggest.toFixed(2)}x, ${r.fine} cut finer), starts on the stone at rest and lands on the next exactly`, [...ends, ...r.bad].slice(0, 4).join(' | '))
     await masses(label)
     await cdp.eval('HOME.still = false')
     return r }
@@ -1153,7 +1164,7 @@ try {
       if (!cons.length) return; cons.sort((a, c) => a - c); const p02 = +cons[Math.floor(cons.length * .02)].toFixed(2), o = out[group] ||= { n: 0, p02: 99, px: 99, text: '' }
       o.n++; if (p02 < o.p02) { o.p02 = p02; o.text = label.slice(0, 30) } o.px = Math.min(o.px, px) }
     if (sels.includes('.verse')) for (const w of HOME.words) if (w.shown) add(w.title ? 'title' : 'poem', w.t, [[w.box[0] + w.d[0], w.box[1] + w.d[1], w.box[2], w.box[3]]], [243, 239, 230], 1, [], true, parseFloat(w.font.split(' ')[2]))
-    for (const [q, group] of [['#back', 'yield'], ['#piece', 'yield'], ['#tools', 'idea'], ['#why', 'chain'], ['.cap', 'caption'], ['#year', 'date'], ['header h1', 'name'], ['#where', 'where'], ['header nav', 'nav'], ['.vs', 'switch']]) { if (!sels.includes(q)) continue
+    for (const [q, group] of [['#tools', 'idea'], ['#why', 'chain'], ['.cap', 'caption'], ['#year', 'date'], ['header h1', 'name'], ['#where', 'where'], ['header nav', 'nav'], ['.vs', 'switch']]) { if (!sels.includes(q)) continue
       const root = document.querySelector(q), tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
       for (let n; (n = tw.nextNode());) { if (!n.data.trim()) continue; const el = n.parentElement, cs = getComputedStyle(el); if (cs.visibility === 'hidden' || el.closest('[hidden]')) continue
         let col = rgba(cs.color), op = col[3], bgs = [], clip = [0, 0, innerWidth, innerHeight]
@@ -1161,7 +1172,7 @@ try {
           if (s.overflowY !== 'visible' || s.overflowX !== 'visible') { const r = e.getBoundingClientRect(); clip = [Math.max(clip[0], r.left), Math.max(clip[1], r.top), Math.min(clip[2], r.right), Math.min(clip[3], r.bottom)] } }
         if (op < .05) continue
         const r = document.createRange(); r.selectNodeContents(n); const rs = [...r.getClientRects()].map(q => { const l = Math.max(q.left, clip[0]), t = Math.max(q.top, clip[1]); return [l, t, Math.min(q.right, clip[2]) - l, Math.min(q.bottom, clip[3]) - t] }).filter(q => q[2] > 0 && q[3] > 0)
-        add(group, n.data.trim(), rs, col, op, bgs, q === '#back', parseFloat(cs.fontSize)) } }
+        add(group, n.data.trim(), rs, col, op, bgs, false, parseFloat(cs.fontSize)) } }
     HOME.draw(); return out }`
   const reads = async label => { const bad = [], seen = new Set(), worst = READS.worst
     const note = (where, m) => { for (const [k, o] of Object.entries(m)) { seen.add(k); if (!worst[k] || o.p02 < worst[k].p02) worst[k] = { ...o, where: label + ' ' + where }
@@ -1169,18 +1180,13 @@ try {
     const measure = sels => cdp.eval(`(${MEASURE})(${JSON.stringify(sels)})`), STONE = ['.verse', '.cap', '#year', 'header h1', '#where', 'header nav', '.vs']
     await open(''); await settled(); await park(); await cdp.eval('HOME.still = true'); await sleep(300); await cdp.eval('HOME.ground()')
     note('at rest', await measure(STONE))
-    let taps = 0; const plans = await cdp.eval('HOME.plans')
-    for (const [i, p] of plans.entries()) { if (!p || !p.steps || p.kind === 'title') continue
-      for (const [k, st] of p.steps.entries()) { if (st.t === 'move' || st.t === 'idea' || st.t === 'year') continue
-        if (!(await cdp.eval(`HOME.yieldAt(${i}, ${k})`))) continue; taps++; await cdp.eval('HOME.ground()'); note(`facet ${i} tapped (${k + 1})`, await measure(VP.mobile ? ['#piece'] : [...STONE, '#back'])) } } // 43 c: on a phone the piece is in the card, on its own ground; the stone may have stepped aside under it, so its labels are read at rest
-    await cdp.eval('HOME.hideWin()')
     for (const [k] of IDEAS42.entries()) { await cdp.eval(`document.querySelector('#keys button[data-k="${k}"]').click()`); await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 100, 60); await sleep(400); await cdp.eval('HOME.finishCard()'); await cdp.eval('HOME.ground()')
       note(`idea ${k} open`, await measure(VP.mobile ? ['#tools'] : ['.verse', '#tools', 'header h1', '#where', 'header nav', '.vs'])); await key('Escape') }
     await cdp.eval('HOME.openWhy()'); await sleep(D('why-ms') + 400); await cdp.eval('HOME.finishCard()'); note('the chain open', await measure(VP.mobile ? ['#why'] : ['#why', 'header h1', 'header nav', '.vs'])); await cdp.eval('HOME.closeWhy()'); await sleep(300)
     await cdp.eval('HOME.still = false')
-    const want = ['poem', 'title', 'caption', 'date', 'name', 'where', 'nav', 'switch', 'yield', 'idea', 'chain'], missing = want.filter(k => !seen.has(k))
-    READS.all.push(label + ' ' + taps + ' taps')
-    check(!bad.length && !missing.length, `${label}: the home reads: every text at rest, with each of ${taps} facets' pieces shown, with each idea open and with the chain open keeps AA against the pixels behind it (98% of them), 11px and up`, bad.slice(0, 5).join(' | ') || 'not measured: ' + missing.join(', ')) }
+    const want = ['poem', 'title', 'caption', 'date', 'name', 'where', 'nav', 'switch', 'idea', 'chain'], missing = want.filter(k => !seen.has(k))
+    READS.all.push(label)
+    check(!bad.length && !missing.length, `${label}: the home reads: every text at rest, with each idea open and with the chain open keeps AA against the pixels behind it (98% of them), 11px and up`, bad.slice(0, 5).join(' | ') || 'not measured: ' + missing.join(', ')) }
 
   /* 43 c (11 Nov): on a phone whatever a tap opens is one card cut like a facet, turning over out of the facet that gave it. Carried from
      studies/43/check.mjs: it opens from a real touch; every text in it reads at AA against the rendered pixels behind it (a screenshot with the
@@ -1200,8 +1206,6 @@ try {
   const focusName = () => cdp.eval(`(() => { const a = document.activeElement; return !a || a === document.body ? 'body' : a.id ? '#' + a.id : a.closest('#keys') ? 'key ' + a.dataset.k : a.tagName.toLowerCase() })()`)
   const tracks = () => cdp.eval('window.__T || []')
   const opener = async (kind, k) => {
-    if (kind === 'piece') { const L = await cdp.eval(`(() => { const out = []; HOME.plans.forEach((p, i) => { if (!p || ['idea', 'year', 'title'].includes(p.kind) || !p.steps) return
-      const s = p.steps[Math.min(HOME.depth(i), p.steps.length - 1)]; if (!s || s.t === 'move') return; const pt = HOME.tapPoint(i); if (pt) out.push({ i, pt, t: s.t }) }); return out })()`); if (!L.length) throw new Error('no piece facet'); return L[0] }
     if (kind === 'idea') return cdp.eval(`HOME.tapIdea(${k})`)
     return { pt: await cdp.eval(`(() => { const r = document.querySelector('#where').getBoundingClientRect(); return [r.left + Math.min(60, r.width / 2), r.top + r.height / 2] })()`), i: -1 } }
   const openCard = async (kind, label, k) => { const o = await opener(kind, k), n0 = (await tracks()).length, seq0 = await cdp.eval('HOME.seq'); await tap(o.pt); await cardSettle(label); return { o, c: await cardNow(), n0, seq0 } }
@@ -1244,19 +1248,18 @@ try {
     await cdp.eval(`window.__T = []; document.addEventListener('home:track', e => window.__T.push(JSON.parse(JSON.stringify(e.detail))))`)
     const ideaK = HOME_IDEAS.findIndex(I => I.name === 'Context'), side = VP.id === 'side'
     await shot(`card-${VP.id}-rest.png`)
-    for (const kind of ['piece', 'idea', 'chain']) {
+    for (const kind of ['idea', 'chain']) { // 12 Nov: no piece card; a facet of his work crosses (doorsHold)
       const label = `${tag} 43 c ${kind}`, before = await restPic()
       if (kind === 'idea') { await cdp.eval('HOME.cardClock = 0.4'); const o = await opener('idea', ideaK); await tap(o.pt); await waitFor(() => cdp.eval('HOME.card.open && Math.abs(HOME.card.t - .4) < .01'), 'mid-turn'); await sleep(200)
         const m = await cardNow(); check(m.motion === 'c' && /rotate3d/.test(m.transform), `${label}: part way, the facet is turning over (${m.transform.slice(0, 60)}…)`, m.transform)
         await shot(`card-${VP.id}-turn.png`); await cdp.eval('HOME.cardClock = null'); await cardSettle(label); await key('Escape'); await cardSettle(label, false); await cdp.eval('document.activeElement && document.activeElement.blur()'); await restPic() }
       const { o, c, n0, seq0 } = await openCard(kind, label, ideaK)
-      const single = await cdp.eval(`document.querySelectorAll('#card.on').length === 1 && !!document.querySelector('.card-slot > #${kind === 'idea' ? 'tools' : kind === 'chain' ? 'why' : 'piece'}') && +getComputedStyle(document.querySelector('#back')).opacity === 0`)
+      const single = await cdp.eval(`document.querySelectorAll('#card.on').length === 1 && !!document.querySelector('.card-slot > #${kind === 'idea' ? 'tools' : 'why'}') && !document.querySelector('#piece, #back')`)
       check(c.open && c.kind === kind && c.on && c.mode && single && c.poly.every(([x, y]) => x >= -1 && y >= -1 && x <= VP.w + 1 && y <= VP.h + 1), `${label}: a touch opens it as one card, wholly on screen`, JSON.stringify({ open: c.open, kind: c.kind, single }))
       check(c.focusIn, `${label}: focus goes into the card`, await focusName())
       const T = await tracks(), t = T[T.length - 1]
       if (kind === 'idea') check(T.length === n0 + 1 && t.name === 'tools_open' && t.params.idea === 'Context' && t.params.via === 'facet' && Object.keys(t.params).length === 2, `${label}: tools_open { idea, via: facet }, as before`, JSON.stringify(t))
       if (kind === 'chain') check(T.length === n0 + 1 && t.name === 'line_open' && 'phase' in t.params && Object.keys(t.params).length === 1, `${label}: line_open { phase }, as before`, JSON.stringify(t))
-      if (kind === 'piece') { const l = await cdp.eval('HOME.last'); check(T.length === n0 && l && l.seq === seq0 + 1 && l.i === o.i && l.kind === o.t, `${label}: the piece is said as before (${o.t}); a piece sends no event, as before`, JSON.stringify(l)) }
       if (kind === 'chain') await sleep(3200) // the readings it lights as it opens (36 c's echo) have faded
       await shot(`card-${VP.id}-${kind}.png`)
       await readCard(label); await reachCard(label)
@@ -1286,12 +1289,53 @@ try {
         const m = await cardNow(); check(m.motion === 'fade' && m.transform === 'none' && m.opacity > .3 && m.opacity < .7, `${label}: half way it is a crossfade (opacity ${m.opacity}, nothing turns)`, JSON.stringify({ motion: m.motion, transform: m.transform, opacity: m.opacity }))
         await cdp.eval('HOME.cardClock = null'); await cardSettle(label); await key('Escape'); await cardSettle(label, false); sameRest(before, await restPic(), `${label} after Escape`); await reduceMotion(false) } }
     await cdp.eval('HOME.still = false') }
-  /* and at 1440x900, nothing of the card: the idea's panel, the floating piece and the chain as they were */
+  /* and at 1440x900, nothing of the card: the idea's panel and the chain as they were (the floating piece retired 12 Nov) */
   const deskNoCard = async tag => { await open(''); await cdp.eval('HOME.whyReady().then(() => HOME.hereFor()).then(() => true)'); const out = []
     const at = await cdp.eval('HOME.tapIdea(0)'); await tap(at.pt); await sleep(500); out.push(await cdp.eval(`({ idea: document.querySelector('#tools').classList.contains('on') && document.querySelector('#tools').parentElement === document.body, card: !!document.querySelector('#card.on') })`)); await key('Escape')
-    const P = await opener('piece'); await tap(P.pt); await sleep(600); out.push(await cdp.eval(`({ piece: +document.querySelector('#back').style.opacity > .5, card: !!document.querySelector('#card.on') })`))
     await tapEl('#where'); await waitFor(() => cdp.eval(`document.body.classList.contains('why')`), 'the chain', 100); await sleep(500); out.push(await cdp.eval(`({ chain: document.querySelector('#why').parentElement.id === 'app', card: !!document.querySelector('#card.on') })`))
-    check(out.every(o => !o.card && (o.idea ?? o.piece ?? o.chain)), `${tag}: on a desktop nothing opens as a card: the idea's panel, the floating piece and the chain are as they were`, JSON.stringify(out)) }
+    check(out.length === 2 && out.every(o => !o.card && (o.idea ?? o.chain)), `${tag}: on a desktop nothing opens as a card: the idea's panel and the chain are as they were`, JSON.stringify(out)) }
+  /* 12 Nov, the doors (Kahran: "I want the facets to just take you to other poems … The cards can just be the context cards"). Every facet
+     that is not an idea, the title or the date, tapped once from rest, crosses at once to exactly its plan's pair: the first state after the
+     tap is the crossing, expecting that pair, and it lands there. And nothing of its piece is on the page, at the tap or through the
+     crossing: no #piece or #back, no card open, and no text anywhere outside the parts the home always has (the poem, the mat, the caption,
+     the date, the switch, the chain, the idea panel, the keys). The glimpse needs no reader of its own: drawWorld paints one only at rest,
+     and the door leaves rest at once */
+  const PIECE = `(() => { const KNOWN = '#read, #mat, #cap, #year, .vs, #why, #tools, #keys, #idea, noscript, script, style', out = [], on = !!document.querySelector('#card.on')
+    const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); for (let n; (n = tw.nextNode());) { if (!n.data.trim()) continue; const p = n.parentElement; if (p.closest(KNOWN) || (!on && p.closest('#card'))) continue; out.push(n.data.trim().slice(0, 40)) }
+    const c = HOME.card; return { foreign: out, card: !!(c.open || c.kind || on), el: !!document.querySelector('#piece, #back'), at: HOME.at, busy: HOME.busy, expect: HOME.expect, key: HOME.world && HOME.world.key } })()`
+  const doorsHold = async (label, plans, q = '') => {
+    const ids = plans.map((p, i) => p && p.to ? i : -1).filter(i => i >= 0), wrong = [], shown = [], lands = []; let shotDone = false
+    const arrive = async () => { await open(q); if (q) await waitFor(() => cdp.eval('HOME.world.arrived'), 'arrival', 200) }
+    for (const i of ids) { const want = plans[i].to; await arrive(); await park()
+      const pt = await cdp.eval(`HOME.tapPoint(${i}, true)`); if (!pt) { wrong.push(`#${i}: no place to tap clear of the door lines: a dead facet`); continue } // a door line's row is its door's, at home too
+      const from = await cdp.eval('HOME.world.key'), t0 = Date.now(); await tapAt(pt[0], pt[1]); doorsN++
+      let first = null, last = null, bad = null
+      while (Date.now() - t0 < 25000) { const s = await cdp.eval(PIECE); last = s
+        if (!bad && (s.foreign.length || s.card || s.el)) bad = s
+        if (!first && s.busy) first = { ...s, ms: Date.now() - t0 }
+        if (first && !shotDone && SHOTS && Date.now() - t0 > first.ms + 700) { shotDone = true; await shot(`door-${VP.id}-mid.png`) }
+        if (!s.busy && s.at === 'world' && s.key !== from) break
+        if (!first && Date.now() - t0 > 1500) break
+        await sleep(40) }
+      if (!first || first.expect !== want || first.ms > 1200) wrong.push(`#${i}: ${first ? 'crossed toward ' + first.expect + ' after ' + first.ms + 'ms' : 'did not cross'}, its pair ${want}`)
+      else if (!last || last.key !== want) lands.push(`#${i}: ${last && last.busy ? 'still crossing after 25s' : 'came to rest on ' + (last && last.key + ' (' + last.at + ')')}, its pair ${want}`)
+      if (bad) shown.push(`#${i}: ${bad.el ? 'a piece element' : bad.card ? 'a card' : 'text “' + bad.foreign[0] + '”'}`) }
+    check(ids.length > 0 && !wrong.length && !lands.length, `${label}: each of ${ids.length} facets of his work, tapped once from rest, crosses at once to exactly its plan's pair`, [...wrong, ...lands].slice(0, 4).join(' | '))
+    check(ids.length > 0 && !shown.length, `${label}: and nothing of its piece is on the page, at the tap or through the crossing (no piece, no card, no text beyond the home's own)`, shown.slice(0, 4).join(' | '))
+    await arrive() }
+  /* and nothing at rest changed: the home at rest is d25ea66's (the home the day of the ruling, its pieces still on), pixel for pixel. When the
+     rest state is changed on purpose, move REST_REF to the commit before that change */
+  const REST_REF = process.env.REST_REF || 'd25ea66'
+  const refBytes = Object.fromEntries([['/', 'index.html'], ['/v3/stone.js', 'v3/stone.js'], ['/v3/stone.css', 'v3/stone.css'], ['/v3/defaults.json', 'v3/defaults.json']]
+    .map(([u, f]) => { const r = spawnSync('git', ['show', REST_REF + ':' + f], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 }); return [u, r.status === 0 ? r.stdout : null] }))
+  const restShot = async () => { await settled(); await park(); await cdp.eval('HOME.still = true; document.activeElement && document.activeElement.blur && document.activeElement.blur()')
+    await cdp.eval('HOME.lamp(innerWidth * .7, innerHeight * .2)'); await sleep(1300); await cdp.eval('HOME.ground()'); await sleep(250); return shotNow() }
+  const restSame = async tag => { if (Object.values(refBytes).some(v => v == null)) return check(false, `${tag}: ${REST_REF}'s home, to compare the rest state against`)
+    for (const [u, b] of Object.entries(refBytes)) OVER.set(u, b); REFLOAD = true
+    try { await open(''); var A = await restShot() } finally { for (const u of Object.keys(refBytes)) OVER.delete(u); REFLOAD = false }
+    await open(''); const B = await restShot(), d = pixDiff(A, B, VP.w)
+    check(d.n <= 40, `${tag}: at rest the home is ${REST_REF}'s, pixel for pixel (nothing at rest changed with the doors)`, `${d.n} pixels differ (max ${d.max}), first at ${d.first}`)
+    await cdp.eval('HOME.still = false') }
   for (const vp of VIEWPORTS) {
     await view(vp); await reduceMotion(false); errors.length = 0; const tag = `${vp.w}x${vp.h}`
     if (process.env.CARDS === 'only') { if (vp.mobile) await cardHold(tag); else await deskNoCard(tag); continue } // a narrow run: the card's checks alone
@@ -1320,12 +1364,8 @@ try {
 
     // the facets
     const plans = await drawnHold(`${tag} home`)
-    if (!vp.mobile) await probeHold(`${tag} home`) // 43 c: on a phone a piece opens in the card, over the poem by design; its own checks are cardHold's
-    { const pl = plans.findIndex(p => p && p.kind !== 'idea' && p.kind !== 'year' && p.kind !== 'title'), seq0 = await cdp.eval('HOME.seq')
-      if (pl >= 0) { await cdp.eval('HOME.dry = true'); await tapFacet(pl); const last = await nextSeq(seq0); await sleep(400); const s = await cdp.eval('({ at: HOME.at, busy: HOME.busy, win: HOME.win, clash: HOME.clash })')
-        check(last && last.i === pl && s.at === 'stone' && !s.busy && s.win && s.win.text && (vp.mobile ? s.win.card : !s.clash), `${tag} home: a facet gives its piece, ${vp.mobile ? 'in the card (43 c)' : 'clear of the poem'}, and the stone stays`, JSON.stringify({ last, s }))
-        await shot(`home-yield-${vp.id}.png`); await cdp.eval('HOME.dry = false')
-        if (vp.mobile) { await key('Escape'); await cardSettle('the piece', false).catch(() => null) } } } // 43 c: on a phone a piece stays until it is closed
+    await doorsHold(`${tag} home`, plans) // 12 Nov: each facet of his work is a door, and nothing of its piece shows
+    await restSame(tag)
 
     // 38 c: the date facet, and the flight into the years
     { const s = await cdp.eval('HOME.state'), w = await cdp.eval('HOME.world'), rec = XJ.photos.find(p => p.src === w.photo), d = taken(path.join(ROOT, w.photo)), want = MON[+d.slice(5, 7) - 1] + ' ' + d.slice(0, 4)
@@ -1432,7 +1472,7 @@ try {
       await masses(`${tag} a world`)
       { await park(); await cdp.eval('HOME.still = true'); await sleep(500); const r = await cdp.eval('HOME.rest()'), bad = r.filter(x => !(x.own < x.other || x.own < .02))
         check(r.length >= 4 && !bad.length, `${tag}: at rest all ${r.length} sampled facets read as this photograph`, bad.slice(0, 4).map(x => `#${x.i} ${x.own} vs ${x.other}`).join(' | ')); await cdp.eval('HOME.still = false') }
-      if (!vp.mobile) await probeHold(`${tag} a world`)
+      if (vp.id === 'desk') await doorsHold(`${tag} a world`, await cdp.eval('HOME.plans'), '?w=' + encodeURIComponent(home[0])) // the same door from a world (facetTap's cross); the phones take it from home
       await crossOnce(`${tag} door line`, 'door', `cross-${vp.id}-door`)
       if (vp.id === 'desk') await crossOnce(`${tag} facet`, 'facet', `cross-${vp.id}-facet`)
       await drawnHold(`${tag} after crossing`) }
@@ -1518,5 +1558,5 @@ try {
 { const gone = [...P37.reached].filter(x => !live.has(x)); check(P37.reached.size > 0 && !gone.length, `every poem a segment shows or a facet reaches (${P37.reached.size}) is live`, gone.join(', ')) }
 const w8 = weight ? `; first screen on a phone ${Math.round(weight.rest / 1024)} KB gzipped + the photograph ${Math.round(weight.pic / 1024)} KB` : ''
 for (const [k, o] of Object.entries(READS.worst)) console.log(`     reads, worst ${k}: ${o.p02}:1, ${o.px}px, at ${o.where} "${o.text}"`)
-console.log(failures ? `FAIL the home: ${failures} of ${oks + failures} checks failed` : `PASS the home: ${oks} checks in ${loads} loads at ${VIEWPORTS.map(v => v.w + 'x' + v.h).join(', ')}: every facet yields (${drawnN} drawn), ${probes} worst-case words placed clear, ${crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached${w8} (${Math.round((Date.now() - t0) / 1000)}s)`)
+console.log(failures ? `FAIL the home: ${failures} of ${oks + failures} checks failed` : `PASS the home: ${oks} checks in ${loads} loads at ${VIEWPORTS.map(v => v.w + 'x' + v.h).join(', ')}: every facet yields (${drawnN} drawn), ${doorsN} door facets tapped once and crossed to their pair with nothing of a piece shown, ${crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached${w8} (${Math.round((Date.now() - t0) / 1000)}s)`)
 cleanup(); process.exit(failures ? 1 : 0)

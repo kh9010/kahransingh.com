@@ -28,17 +28,6 @@ body[data-at="world"] .verse .l.shown .door { pointer-events: auto; cursor: poin
 .verse h2:not(.shown) a { pointer-events: none; }
 body[data-at="world"] #app.over, body[data-at="stone"] #app.over { cursor: pointer; }
 body[data-at="world"] #app.over .verse .l:not([data-door]) { cursor: pointer; }
-#back { position: absolute; z-index: 4; margin: 0; transform: translate(-50%, -50%); text-align: center; opacity: 0; pointer-events: none;
-  font: italic 300 1.0625rem/1.3 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.6), 0 2px 18px rgba(0,0,0,.9); }
-#back.on { pointer-events: auto; }
-#back a { text-decoration: none; border-bottom: 1px solid rgba(243,239,230,.45); }
-#back small { display: block; margin-top: .45em; font: 400 max(.62em, calc(var(--text-min-px, 11) * 1px))/1.3 var(--sans); font-style: normal; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-on2); }
-#back.tight { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; pointer-events: auto; }
-#back small.basis { margin-top: .35em; letter-spacing: .06em; text-transform: none; opacity: .72; }
-#back small.src a { text-decoration: none; border-bottom: 1px solid rgba(201,195,182,.5); pointer-events: auto; }
-#back .say { font-style: normal; }
-#back .lines span { display: block; }
-#back .lines span + span { margin-top: .15em; }
 #idea { position: absolute; z-index: 5; margin: 0; transform: translate(-50%, -50%); opacity: 0; pointer-events: none; white-space: nowrap;
   font: italic 300 clamp(22px, 2.6vw, 36px)/1.2 var(--serif); color: var(--ink-on); text-shadow: 0 1px 2px rgba(0,0,0,.5), 0 2px 26px rgba(0,0,0,.85); }
 
@@ -262,8 +251,7 @@ body[data-at="about"] .vs { display: none; }
 .plain .wall-plain b { font-weight: 500; margin-right: .5em; }
 .plain nav { display: flex; gap: 18px; font: 400 .72rem/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; }
 .plain nav a { color: var(--ink-on2); text-decoration: none; }
-/* ---------- 43 c: the opened facet. On a phone a piece, an idea and the chain each open as one card cut like a facet of this stone (made by stone.js) ---------- */
-#piece { display: none; }
+/* ---------- 43 c: the opened facet. On a phone an idea and the chain each open as one card cut like a facet of this stone (made by stone.js) ---------- */
 #card { position: fixed; left: 0; top: 0; width: 0; height: 0; z-index: 12; visibility: hidden; pointer-events: none; transform-origin: 0 0; color: var(--ink-on);
   background: rgb(19,17,15); backface-visibility: visible; }
 #card.on { visibility: visible; pointer-events: auto; }
@@ -274,20 +262,12 @@ body[data-at="about"] .vs { display: none; }
 #card .card-slot { position: absolute; inset: 0; z-index: 1; }
 #card .card-x { position: absolute; z-index: 3; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; color: var(--ink-on); font: 300 24px/1 var(--sans); cursor: pointer; -webkit-tap-highlight-color: transparent; }
 #card .card-x:focus-visible { outline: 1px solid rgba(243,239,230,.7); outline-offset: -6px; }
-.card-slot > #tools, .card-slot > #why, .card-slot > #piece { position: absolute !important; left: var(--ci-l) !important; top: var(--ci-t) !important; right: var(--ci-r) !important; bottom: var(--ci-b) !important;
+.card-slot > #tools, .card-slot > #why { position: absolute !important; left: var(--ci-l) !important; top: var(--ci-t) !important; right: var(--ci-r) !important; bottom: var(--ci-b) !important;
   width: auto !important; height: auto !important; max-height: none !important; margin: 0 !important; padding: 0 6px 6px 0 !important; display: block; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;
   background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
   opacity: 1 !important; transform: none !important; pointer-events: auto !important; transition: none !important; scrollbar-width: none; outline: none; user-select: text; -webkit-user-select: text; }
 .card-slot > *::-webkit-scrollbar { display: none; }
 .card-slot > *::before { content: ''; float: right; width: var(--cx-w, 40px); height: var(--cx-h, 40px); shape-outside: polygon(0 0, 100% 0, 100% 100%); } /* the words keep clear of the close mark's facet */
-/* the piece: his words, where they are from, why here */
-.card-slot > #piece { font: italic 300 calc(var(--card-piece-px, 19) * 1px)/1.45 var(--serif); color: var(--ink-on); }
-#piece .say { font-style: normal; }
-#piece .lines span { display: block; }
-#piece .lines span + span { margin-top: .2em; }
-#piece small { display: block; margin-top: .9em; font: 400 calc(var(--card-small-px, 13) * 1px)/1.4 var(--sans); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-on2); }
-#piece small.basis { margin-top: .5em; letter-spacing: .03em; text-transform: none; opacity: var(--basis-alpha, 0.9); }
-#piece small.src a { text-decoration: none; border-bottom: 1px solid rgba(201,195,182,.5); }
 /* the idea: this world first and largest, the basis, the general beneath; read at a phone's size */
 .card-slot > #tools h2 { margin: 0 0 10px; font-size: calc(var(--card-title-px, 24) * 1px); }
 .card-slot > #tools p.here { font-size: calc(var(--card-here-px, 18) * 1px); }

@@ -1,14 +1,15 @@
 /* v3/stone.js, the home (live since Kahran's call of 8 Nov: "lets plan on 2"). Assembled from the studies he picked, their code carried over:
      the stone over the day's photograph, cut by its masses (33; cut.js) · the poem broken across it, door lines arriving in line order (28)
      the walk between worlds through door lines and facet doors (24, 28) · the grow crossing, re-cut to the next photograph's masses (39; cross.js),
-     a crossfade under reduced motion · every facet gives a piece of his work by its shape (37 ?y=shape; segs.js, segments.json)
+     a crossfade under reduced motion · every other facet a door to another poem and photograph, the one the piece of his work dealt to it
+       by its shape leads to (37 ?y=shape; segs.js, segments.json); the piece itself is never shown (Kahran, 12 Nov: "the cards can just be the context cards")
      the six ideas each behind the facet its meaning puts it on, nothing named at rest, only a breath of its hue (41 b); a tap opens the idea
        at work on this world first (here.js, every fact live), then the general from IDEAS (read live from /v2/home.js), then why that facet;
        a further tap on the facet opens its next tool (42 a). Six hidden buttons, one per idea, are the way in without a pointer
      the where line arriving as 35 ?a=line, and opening 34 b's chain, joined as 36 c (moment.js, why.js, body.js, ways.js)
      the photograph's own facet holding its EXIF month and year, the way into the About's years (38 ?d=c; 27 a)
-     on a phone (upright or on its side), whatever a tap opens is one card cut like a facet of the stone, turning over out of the facet that
-       gave it, and closing four ways (43 c; a crossfade under reduced motion)
+     on a phone (upright or on its side), an idea or the chain opens as one card cut like a facet of the stone, turning over out of the facet
+       that gave it, and closing four ways (43 c; a crossfade under reduced motion)
    Every number is a dial in /v3/defaults.json. HOME (at the end) is what tools/test_home.mjs reads. */
 addEventListener('unhandledrejection', e => console.error('unhandled: ' + (e.reason && e.reason.stack || e.reason)))
 if (location.hash === '#flow') location.replace('/v2/#flow') // the wall's flow view lives on at /v2/; old links to it still land
@@ -26,7 +27,7 @@ document.body.dataset.a = 'line'
 const track = (name, params = {}) => document.dispatchEvent(new CustomEvent('home:track', { detail: { name, params } })) // track.js counts it
 
 const $ = s => document.querySelector(s)
-const app = $('#app'), cv = $('#stone'), g = cv.getContext('2d'), readEl = $('#read'), mat = $('#mat'), cap = $('#cap'), ideaEl = $('#idea'), backEl = $('#back')
+const app = $('#app'), cv = $('#stone'), g = cv.getContext('2d'), readEl = $('#read'), mat = $('#mat'), cap = $('#cap'), ideaEl = $('#idea')
 const reduce = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 let W = 0, H = 0, DPR = 1
@@ -405,7 +406,7 @@ function words(w, o = {}) { if (!w.text || !w.lc) return
   for (const { d, cs } of by.values()) { g.save(); g.beginPath(); for (const c of cs) g.rect(rx + c.x0 + d[0], ry - st + c.y0 + d[1], c.x1 - c.x0, c.y1 - c.y0); g.clip(); g.drawImage(w.text, d[0], d[1], W, H); g.restore() }
   g.restore() }
 
-/* the grounds: under each text on the stone that would not read at AA over what is drawn there (the lamp, a glimpse, a lifted facet included),
+/* the grounds: under each text on the stone that would not read at AA over what is drawn there (the lamp and a lifted facet included),
    the lightest shade that makes it read, feathered so it is no box; none where it reads already. Read off the stone before the words, every
    ground-ms and whenever what shows changes, and eased, never jumping; not while a key's ring is on a facet (it is gone in a moment) */
 const GROUND = [13, 12, 11], INK = [243, 239, 230] // --ink-seam, the stone's own dark; --ink-on, the poem's
@@ -416,7 +417,7 @@ const rgbOf = s => { const v = (/rgba?\(([^)]+)\)/.exec(s) || [, '0 0 0'])[1].sp
 const opOf = e => { let op = 1; for (let q = e; q && q !== document.body; q = q.parentElement) op *= +getComputedStyle(q).opacity; return op }
 const GR = { t: -1e9, due: true, snap: false, list: new Map() }
 const groundSoon = () => { GR.due = true }
-const LABELS = [['cap', '#cap', 1], ['year', '#year', 1], ['name', 'header h1 a'], ['where', '#where'], ['nav', 'header nav'], ['vs', '.vs'], ['back', '#back', 1]] // [key, the text, its opacity when shown, where it comes and goes]
+const LABELS = [['cap', '#cap', 1], ['year', '#year', 1], ['name', 'header h1 a'], ['where', '#where'], ['nav', 'header nav'], ['vs', '.vs']] // [key, the text, its opacity when shown, where it comes and goes]
 function groundTargets(w) { const out = [], [rx, ry, rw, rh] = w.R, st = w.v.scrollTop
   const lines = new Map(); for (const c of wordsAt(w)) { const y = ry - st + c.r.top + c.d[1]; if (y > ry + rh || y + c.r.bot - c.r.top < ry) continue
     if (!lines.has(c.li)) lines.set(c.li, []); lines.get(c.li).push([rx + c.r.x + c.d[0], y, c.r.w, c.r.bot - c.r.top]) }
@@ -470,8 +471,6 @@ function drawWorld(w, o = {}) { const touched = w === cur && !crossing && !press
   w.cells.forEach((P, i) => { const base = [{ img: w.img }] // the poem's words are laid over the stone afterwards, whole (words below)
     const k = w.ideaAt ? w.ideaAt.get(i) : undefined, o2 = k != null && !o.plain ? markOf(w, i, k, o) : o // a facet that holds an idea: its mark, nothing written
     if (!touched) { const o3 = titlePiece(w, i, o2, base); return note('r' + i, facet(P, w.cents[i], w.normals[i], base, o3), o3.m, o.alpha ?? 1) }
-    const G = FX.glimpse && FX.glimpse.w === w && FX.glimpse.i === i && FX.win ? FX.glimpse : null
-    if (G) { const u = performance.now() - G.t0, ms = num('win-hold-ms', 3600); base.splice(1, 0, { img: G.img, alpha: reduce() ? 1 : Math.min(ss(0, 420, u), FX.win.card ? 1 : 1 - ss(ms - 600, ms, u)) * num('glimpse-alpha', 1), m: G.m }) }
     const f0 = { ...o2, ...fxOf(w, i) }; f0.glow = Math.max(f0.glow || 0, o2.glow || 0); if (CARD.open && CARD.i === i) { f0.edge = Math.max(f0.edge || 0, num('card-lit-edge', 0.9)); f0.edgePx = num('piece-edge-px', 1.4) * 1.5; f0.glow = Math.max(f0.glow || 0, num('card-lit-glow', 0.1)) } /* 43: the facet that is speaking, lit */ const fx = titlePiece(w, i, f0, base); note('r' + i, facet(P, w.cents[i], w.normals[i], base, fx), fx.m, 1) }) } // at rest and touched alike, every facet holds this photograph: nothing is swapped in
 /* the ledger (39's): every facet drawn this frame, as drawn (its polygon after the seam and any transform), and how much of it is seen.
    The check reads it frame by frame: nothing may leave it, or join it, while it is seen */
@@ -484,7 +483,7 @@ function clear() { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.globalAlpha = 1; g.fi
 let TINT = false // the check's: the seams drawn in a colour no photograph has, to see whether any reaches into a word
 
 /* ---------- the facets, touched ---------- */
-const FX = { hover: -1, press: -1, pulses: [], win: null, glimpse: null, seq: 0, last: null }
+const FX = { hover: -1, press: -1, pulses: [], seq: 0, last: null }
 const drawn = w => w.cells.map((P, i) => P.length > 2 && inset(P, num('seam-px', 2.2) / 2).length > 2 ? i : -1).filter(i => i >= 0)
 function touchAt(w, i, o = {}) { // a place a finger can land on facet i that is the facet's: not a door line's row (all of them, o.all), not on or a finger's width from a link
   const P = inset(w.cells[i], 5); if (P.length < 3) return null
@@ -510,8 +509,9 @@ const said = (i, kind, more = {}) => { FX.seq++; FX.last = { i, kind, seq: FX.se
 function pulse(i, amp = 1.4, ms = 650) { FX.pulses.push({ i, amp, ms, t0: performance.now() }) }
 function breathe(w) { if (!reduce()) w.breath0 = performance.now() + num('breath-delay-ms', 400) }
 
-/* ---------- Study 37's one question: every facet gives a segment of his work, linked by something real to where it sits ---------- */
-const PLAN = 'home-plan-2' // (was home-plan, before the ideas took six facets and the cut its own re-seeds: a plan kept from then is for another cut) a facet's segment is dealt once and kept for the visit: the same facet, the same piece, the same depth
+/* ---------- Study 37's one question: every facet is dealt a segment of his work, linked by something real to where it sits; since 12 Nov the
+   segment is never shown, only where it leads (its move: a poem and a photograph that hold what it holds) ---------- */
+const PLAN = 'home-plan-2' // (was home-plan, before the ideas took six facets and the cut its own re-seeds: a plan kept from then is for another cut) a facet's segment is dealt once and kept for the visit: the same facet, the same door
 const planStore = () => { try { return JSON.parse(sessionStorage.getItem(PLAN)) || {} } catch { return {} } }
 const planKey = w => [Y, W, H, w.key].join('|')
 const D37 = { SEG: null, data, VOC, KIN, stanzasOf } // filled when segments.json arrives; the wall's sentences are the tools facet's now, whole
@@ -726,7 +726,7 @@ function cleanAbout(fd) { fd.querySelectorAll('[data-home]').forEach(n => n.remo
   fd.querySelectorAll('.yr[data-home-was="empty"]').forEach(n => { n.classList.add('empty'); const yl = n.querySelector('.yl'); if (yl) yl.textContent = ''; delete n.dataset.homeWas }) }
 async function yearsOut(via) {
   if (yearsBusy || busy || !cur) return; const w = cur, rec = recOf(w.photo.src); if (!rec) return
-  yearsBusy = true; busy = true; track('year_open', { year: rec.row, via }); closeTools(); hideWin()
+  yearsBusy = true; busy = true; track('year_open', { year: rec.row, via }); closeTools()
   try {
     const f = await aboutFrame(), fd = f.contentDocument, row = fd && rowIn(fd, rec.row)
     if (!row) { location.href = YEARS; return } // a page there without the years: open it as it is
@@ -755,48 +755,9 @@ async function yearsBack() {
     phEl.hidden = true; cleanAbout(aboutF.contentDocument); lift = null; if (cur) showYear(cur) } finally { yearsBusy = false } }
 yearA.addEventListener('click', e => { e.preventDefault(); if (!busy && cur) yearsOut('date') })
 yearA.addEventListener('pointerenter', () => aboutFrame()) // a pointer on its way to the date: the About starts loading
-const DEPTH = 'home-depth-2', depthStore = () => { try { return JSON.parse(sessionStorage.getItem(DEPTH)) || {} } catch { return {} } }
-const depthOf = (w, i) => depthStore()[planKey(w) + '#' + i] || 0
-const deepen = (w, i) => { const s = depthStore(); s[planKey(w) + '#' + i] = depthOf(w, i) + 1; try { sessionStorage.setItem(DEPTH, JSON.stringify(s)) } catch {} }
-const nextStep = (w, i) => { const p = planOf(w)[i]; if (!p) return null; return p.steps[Math.min(depthOf(w, i), p.steps.length - 1)] }
-function showWin(i, s) { const w = cur, p = planOf(w)[i] // the piece as written, where it is from, and why it is here: nothing else
-  if (cardMode()) return pieceCard(i, s, p) // 43: on a phone the piece is the card, the same words
-  backEl.textContent = ''; backEl.classList.toggle('on', !!s.href)
-  if (s.t === 'lines') { const q = document.createElement('span'); q.className = 'lines'; s.lines.forEach(l => q.append(Object.assign(document.createElement('span'), { textContent: l }))); backEl.append(q) }
-  else backEl.append(Object.assign(document.createElement('span'), { className: s.t === 'say' ? 'say' : 'named', textContent: s.big }))
-  const src = document.createElement('small'); src.className = 'src'
-  if (s.href) src.append(Object.assign(document.createElement('a'), { href: s.href, textContent: s.small })); else src.textContent = s.small
-  backEl.append(src)
-  if (p && typeof p.basis === 'string') backEl.append(Object.assign(document.createElement('small'), { className: 'basis', textContent: p.basis }))
-  placeWin(w, i); groundSoon()
-  FX.win = { w, i, t0: performance.now(), fact: { kind: s.t } } }
-function placeWin(w, i) { // its words go where they are clear of the poem, the name and the caption, whatever their length: near the facet first,
-  // then wider, then smaller, and at the last the largest clear band holds them, scrolling inside it; never over the poem
-  const [x0, , x1] = bbox(w.cells[i]), c = w.cents[i], wide = low() ? Math.min(W * .46, 400) : phone() ? W - 32 : Math.min(420, W * .4)
-  const stops = [w.R, ...['#cap', '#mat', '.vs'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left, r.top, r.width, r.height] })]
-  const hits = (l, t, ww, hh) => stops.some(o => l < o[0] + o[2] && l + ww > o[0] && t < o[1] + o[3] && t + hh > o[1])
-  const xsFor = mw => [c[0], W * .5, W * .3, W * .25, W * .7].map(x => Math.max(mw / 2 + 12, Math.min(W - mw / 2 - 12, x)))
-  backEl.classList.remove('tight'); Object.assign(backEl.style, { maxHeight: '', fontSize: '' })
-  const mw0 = low() ? wide : Math.max(160, Math.min(phone() ? W - 48 : 320, Math.max(220, (x1 - x0) * 1.1)))
-  for (const [mw, k] of [[mw0, 1], [wide, 1], [wide, .88], [wide, .76], [wide, .66]]) {
-    backEl.style.fontSize = k === 1 ? '' : k * 1.0625 + 'rem'
-    for (const x of xsFor(mw)) { Object.assign(backEl.style, { maxWidth: mw + 'px', width: 'max-content', left: x + 'px', top: c[1] + 'px' })
-      const bw = backEl.offsetWidth, bh = backEl.offsetHeight, tries = [c[1]]; for (let d = 12; d < H; d += 12) tries.push(c[1] - d, c[1] + d)
-      const y = tries.find(y => y - bh / 2 > 8 && y + bh / 2 < H - 8 && !hits(x - bw / 2 - 6, y - bh / 2 - 6, bw + 12, bh + 12)); if (y != null) { backEl.style.top = y + 'px'; return } } }
-  // the last resort: the tallest clear band at full width, the words scrolling inside it
-  let best = null
-  for (const x of xsFor(wide)) { const l = x - wide / 2 - 6, ww = wide + 12, cuts = [8, H - 8, ...stops.filter(o => l < o[0] + o[2] && l + ww > o[0]).flatMap(o => [o[1], o[1] + o[3]])].sort((a, b) => a - b)
-    for (let k = 0; k < cuts.length - 1; k++) { const t = cuts[k] + 6, bt = cuts[k + 1] - 6; if (bt - t > 24 && !hits(l, t, ww, bt - t) && (!best || bt - t > best[2])) best = [x, t, bt - t] } }
-  if (!best) best = [W / 2, 8, Math.max(24, H * .2)]
-  backEl.classList.add('tight'); Object.assign(backEl.style, { maxWidth: wide + 'px', left: best[0] + 'px', maxHeight: best[2] + 'px', top: best[1] + best[2] / 2 + 'px' })
-}
-function hideWin() { FX.win = null; FX.glimpse = null; backEl.style.opacity = 0; cardShut('piece') }
-async function glimpse(w, i, st) { // another photograph or a film's still, seen through this one facet only; a photograph's answering region lies in it, the rest stays this photograph
-  const p = photoBy(st.src) || { src: st.src, caption: '' }, [img] = await Promise.all([photo(p), st.src.startsWith('/photos/') ? regOf(st.src) : null]); if (cur !== w || !FX.win || FX.win.i !== i) return
-  const R = REG[st.src], s = num('align-zoom', 1.5), [cx, cy] = w.cents[i]
-  const r = st.cell != null && R && !st.whole ? S33Cut.cover(R, W, H).to((st.cell % 6 + .5) / 6, (Math.floor(st.cell / 6) + .5) / 4) : null
-  const m = r ? [s, 0, 0, s, cx - s * Math.max(cx / s, Math.min(W - (W - cx) / s, r[0])), cy - s * Math.max(cy / s, Math.min(H - (H - cy) / s, r[1]))] : [1, 0, 0, 1, 0, 0]
-  FX.glimpse = { w, i, img, m, src: st.src, t0: FX.win.t0 }; setTimeout(groundSoon, 450) } // the other photograph come into the facet
+/* 12 Nov (Kahran: "I want the facets to just take you to other poems"): a facet of his work no longer unfolds its piece tap by tap (37's steps,
+   the floating words, 43 c's piece card); its one step is the move its piece promised, the same crossing that step always made */
+const nextStep = (w, i) => { const p = planOf(w)[i]; return p ? p.steps[p.steps.length - 1] : null }
 
 const pairTo = to => ({ poem: poemBy(to.poem), photo: photoBy(to.photo) })
 async function facetTap(i) {
@@ -806,9 +767,8 @@ async function facetTap(i) {
   if (p.kind === 'idea') { pulse(i, .8, 500); track('tools_open', { idea: IDEAS[p.k].name, via: 'facet' }); return openTools(p.k, i) } // the facet opens the idea it holds
   if (p.kind === 'title') { pulse(i, .8, 500); said(i, 'title', { href: p.href }); track('poem_open', { poem: w.poem.slug, via: 'facet' }); if (!HOME.dry) location.href = p.href; return } // the title's facet: the whole poem
   if (p.kind === 'year') { pulse(i, .8, 500); said(i, 'year', { taken: p.rec.taken }); return yearsOut('facet') } // the photograph's date: into its year in the About
-  const s = nextStep(w, i), depth = depthOf(w, i); deepen(w, i)
-  if (s.t !== 'move') { showWin(i, s); if (s.t === 'glimpse') glimpse(w, i, s); pulse(i, .8, 500); return said(i, s.t, { depth, key: S37.stepKey(s), text: s.big || s.lines.join(' / ') }) }
-  said(i, 'move', { depth, to: s.to.poem + '~' + s.to.photo.replace('/photos/', ''), key: S37.stepKey(s) }); pulse(i, 1, 500); if (HOME.dry) return
+  const s = nextStep(w, i) // any other facet: straight to where its piece leads
+  said(i, 'move', { to: s.to.poem + '~' + s.to.photo.replace('/photos/', ''), key: S37.stepKey(s) }); pulse(i, 1, 500); if (HOME.dry) return
   return cross({ to: pairTo(s.to), word: null, phrase: null }, w.cents[i], i) }
 
 /* the response to a hand stays small and keeps the photograph: a lift under the pointer, a sink under a press, a breath after each arrival */
@@ -818,26 +778,19 @@ function liftOf(w, i, now) { let t = 0
   if (w.breath0 && !reduce() && !HOME.still) { const st = Math.hypot(w.cents[i][0] - w.cents[0][0], w.cents[i][1] - w.cents[0][1]) / Math.max(W, H), u = (now - w.breath0 - st * num('breath-ms', 1400)) / 520
     if (u > 0 && u < 1) t = Math.max(t, Math.sin(u * Math.PI) * num('breath', .8)); if (now - w.breath0 > num('breath-ms', 1400) * 1.5 + 600) w.breath0 = 0 }
   for (const p of FX.pulses) if (p.i === i) { const u = (now - p.t0) / p.ms; if (u > 0 && u < 1) t = Math.max(t, Math.sin(u * Math.PI) * p.amp) }
-  if (FX.win && FX.win.w === w && FX.win.i === i) t = Math.max(t, .5)
   if (toolsOpen >= 0 && toolsAt === i && w === cur) t = Math.max(t, .5) // the facet whose idea is open stays lifted while it is
   if (CARD.open && CARD.i === i && w === cur) t = Math.max(t, .5) // 43: and the facet whose card is open
   return t }
 function fxOf(w, i) { const lv = w.lv ? w.lv[i] : 0, c = w.cents[i], o = { glow: .05 * Math.max(0, lv), shade: .1 * Math.max(0, -lv) }, s = 1 + .018 * lv
   if (s !== 1) o.m = about(c, sc(s))
   return o }
-function winFrame(now) { const v = FX.win; if (!v) return
-  if (v.card) { if (v.w !== cur) hideWin(); return } // 43: a piece in the card stays until it is closed
-  if (v.w !== cur) return hideWin()
-  const u = now - v.t0, ms = num('win-hold-ms', 3600), e = reduce() ? (u < ms ? 1 : 0) : Math.min(ss(0, 260, u), 1 - ss(ms - 500, ms, u))
-  backEl.style.opacity = e; if (u > ms) hideWin() }
-
-/* ---------- 43 c: the opened facet. On a phone (upright or on its side) a piece, an idea and the chain all open as one card cut like a facet
+/* ---------- 43 c: the opened facet. On a phone (upright or on its side) an idea and the chain open as one card cut like a facet
    of this stone, turning over out of the facet that gave it, and close four ways: its close mark, a tap on the stone outside it, Escape, the
    same facet (or line) again. Under reduced motion it crossfades. One change from 43 c: where it scrolls, its words end on a whole line ---------- */
 const cardMode = () => phone() || low()
-document.querySelector('#tools').after(Object.assign(document.createElement('div'), { id: 'piece' }), Object.assign(document.createElement('div'), { id: 'card', innerHTML: '<canvas class="face" aria-hidden="true"></canvas><div class="card-slot"></div><svg class="cut" aria-hidden="true"></svg><button class="card-x" type="button" aria-label="close">×</button>' }))
-$('#piece').setAttribute('aria-live', 'polite'); $('#card').setAttribute('aria-hidden', 'true') // made here, not in the page: only a phone ever opens one
-const cardEl = $('#card'), cardSvg = cardEl.querySelector('svg.cut'), cardFace = cardEl.querySelector('canvas.face'), cardSlot = cardEl.querySelector('.card-slot'), cardX = cardEl.querySelector('.card-x'), pieceEl = $('#piece')
+document.querySelector('#tools').after(Object.assign(document.createElement('div'), { id: 'card', innerHTML: '<canvas class="face" aria-hidden="true"></canvas><div class="card-slot"></div><svg class="cut" aria-hidden="true"></svg><button class="card-x" type="button" aria-label="close">×</button>' }))
+$('#card').setAttribute('aria-hidden', 'true') // made here, not in the page: only a phone ever opens one
+const cardEl = $('#card'), cardSvg = cardEl.querySelector('svg.cut'), cardFace = cardEl.querySelector('canvas.face'), cardSlot = cardEl.querySelector('.card-slot'), cardX = cardEl.querySelector('.card-x')
 const SVGNS = 'http://www.w3.org/2000/svg'
 const shifted = () => [cv, readEl, mat, cap] // what steps aside with the stone: #app itself stays put, so a touch anywhere still lands in it
 const CARD = { open: false, kind: null, i: -1, el: null, ph: null, back: null, geo: null, anim: null, phase: null, openedAt: 0, opens: 0, closes: [], t: 0 }
@@ -856,11 +809,6 @@ function resample(P, n) { // a closed polygon as n points evenly along its outli
   return out }
 const polyCss = P => 'polygon(' + P.map(([x, y]) => `${x.toFixed(2)}px ${y.toFixed(2)}px`).join(', ') + ')'
 const polyPts = P => P.map(([x, y]) => x.toFixed(2) + ',' + y.toFixed(2)).join(' ')
-function hueOfFacet(w, i) { // a piece's facet has no idea's hue: its own, the photograph's mean colour there
-  if (i < 0 || !w.img) return 'rgb(201,195,182)'; const [x0, y0, x1, y1] = bbox(w.cells[i]), x = w.img.getContext('2d', { willReadFrequently: true })
-  const sx = Math.max(0, Math.floor(x0 * DPR)), sy = Math.max(0, Math.floor(y0 * DPR)), sw = Math.max(1, Math.min(cv.width - sx, Math.ceil((x1 - x0) * DPR))), sh = Math.max(1, Math.min(cv.height - sy, Math.ceil((y1 - y0) * DPR)))
-  const d = x.getImageData(sx, sy, sw, sh).data; let r = 0, gg = 0, b = 0, n = 0; for (let k = 0; k < d.length; k += 4 * 7) { r += d[k]; gg += d[k + 1]; b += d[k + 2]; n++ }
-  const m = Math.max(r, gg, b) / n || 1, lift = 200 / m; return `rgb(${Math.min(255, r / n * lift) | 0},${Math.min(255, gg / n * lift) | 0},${Math.min(255, b / n * lift) | 0})` }
 const HUECV = document.createElement('canvas').getContext('2d')
 const toRgb = c => { HUECV.fillStyle = '#000'; HUECV.fillStyle = c; const h = HUECV.fillStyle; return /^#/.test(h) ? [1, 3, 5].map(k => parseInt(h.slice(k, k + 2), 16)) : rgbOf(h) }
 function groundOf(hue) { const c = toRgb(hue), k = num('card-tint', 0.14), a = num('card-ground-alpha', 1), m = blend(c, k, GROUND).map(v => Math.round(v))
@@ -903,7 +851,7 @@ function cardOpen(kind, i, el, o = {}) {
   const w = cur; CARD.back = document.activeElement && document.activeElement !== document.body && !cardEl.contains(document.activeElement) ? document.activeElement : null
   Object.assign(CARD, { open: true, kind, i, el, phase: 'opening', openedAt: performance.now(), how: null }); CARD.opens++
   CARD.ph = document.createComment('card'); el.before(CARD.ph); cardSlot.append(el); el.tabIndex = -1
-  const hue = o.hue || (kind === 'chain' ? 'rgb(201,195,182)' : hueOfFacet(w, i)); CARD.hue = hue
+  const hue = o.hue || 'rgb(201,195,182)'; CARD.hue = hue // an idea's own hue; the chain's, the stone's warm grey
   // the card's room for words, measured at its width before it is placed
   const pad = num('card-pad-px', 18)
   const port = !low(), cw0 = port ? W - num('card-margin-px', 12) * 2 : Math.min(num('card-side-max-px', 470), Math.round(W * .54))
@@ -988,21 +936,13 @@ function cardGone() { // closed: the words go home, the stone comes back to rest
   cardEl.classList.remove('on', 'closing'); cardEl.setAttribute('aria-hidden', 'true'); for (const k of ['left', 'top', 'width', 'height', 'transform', 'clipPath', 'opacity', 'background']) cardEl.style[k] = ''
   cardSvg.textContent = ''; cardSlot.style.opacity = ''; for (const e of shifted()) e.style.transform = ''
   delete document.body.dataset.card; document.body.classList.remove('card-open'); groundSoon(); if (cur) cur.dirty = true }
-function cardShut(kind) { // the visual close; the state was already closed by closeTools, closeWhy or hideWin
+function cardShut(kind) { // the visual close; the state was already closed by closeTools or closeWhy
   if (!CARD.open || CARD.kind !== kind) return; CARD.open = false; CARD.phase = 'closing'; cardEl.classList.add('closing') /* a touch while it closes goes to the stone */; CARD.closes.push({ kind, how: CARD.how || 'other' })
   const back = CARD.back; CARD.back = null
   if (back && back.isConnected && back !== document.body) back.focus({ preventScroll: true }); else if (cardEl.contains(document.activeElement)) document.activeElement.blur() // focus returns to where it came from
   cardFinish(); if (!CARD.geo) return cardGone(); cardRun(-1) }
 function cardClose(how) { if (!CARD.open) return; CARD.how = how; const k = CARD.kind
-  if (k === 'idea') closeTools(); else if (k === 'chain') closeWhy(); else hideWin() }
-function pieceCard(i, s, p) { // the piece as the live home writes it: the words, where they are from (a link when they have a page), why here
-  cardRoom(); const w = cur; pieceEl.textContent = ''
-  if (s.t === 'lines') { const q = mk('span', 'lines'); s.lines.forEach(l => q.append(mk('span', null, l))); pieceEl.append(q) }
-  else pieceEl.append(mk('span', s.t === 'say' ? 'say' : 'named', s.big))
-  const src = mk('small', 'src'); if (s.href) src.append(Object.assign(mk('a', null, s.small), { href: s.href })); else src.textContent = s.small
-  pieceEl.append(src); if (p && typeof p.basis === 'string') pieceEl.append(mk('small', 'basis', p.basis))
-  FX.win = { w, i, t0: performance.now(), fact: { kind: s.t }, card: true }; groundSoon()
-  cardOpen('piece', i, pieceEl) }
+  if (k === 'idea') closeTools(); else closeWhy() }
 cardX.addEventListener('click', e => { e.stopPropagation(); if (performance.now() - CARD.openedAt < 400) return; cardClose('mark') })
 cardEl.addEventListener('click', e => { if (performance.now() - CARD.openedAt < 400 && e.target !== cardX) { e.preventDefault(); e.stopPropagation() } }, true) // not the click a touch on the facet sends after it, landing on what it just opened
 cardEl.addEventListener('scroll', () => cardMore(), true)
@@ -1026,31 +966,31 @@ function pressPose(p, d, gv) { const W0 = W, H0 = H, m = Math.min(W0, H0), sink 
   return p.old.cells.map((P, i) => { const c = p.old.cents[i], dx = c[0] - p.pt[0], dy = c[1] - p.pt[1], dist = Math.hypot(dx, dy) || 1, fall = Math.exp(-dist / (m * .55)), off = push * d * (.35 + fall)
     return { m: mul(tr(dx / dist * off, dy / dist * off), about(c, sc((1 - sink * d * (.4 + fall)) * (1 - .45 * gv)))), shade: .42 * d * fall, alpha: 1 - Math.min(1, gv * (1.4 - fall * .6)) } }) }
 let pressGo = null
-async function pressStart(pt) {
+async function pressStart(pt, down = performance.now()) { // down: when the finger landed (the event's own time)
   if (busy || !cur || cur.mode !== 'home') return
   const hd = doorAt(pt[0], pt[1], cur, true), ci = facetAt(pt[0], pt[1])
-  if (!hd && ci >= 0 && !SEG && !planOf(cur)[ci]) await segReady() // the first second: the facets' pieces are still on their way
+  if (!hd && ci >= 0 && !SEG && !planOf(cur)[ci]) await segReady() // the first second: where the facets lead is still on its way
   if (busy || !cur || cur.mode !== 'home') return
   const pl = ci >= 0 ? planOf(cur)[ci] : null
   let to, word = null
   if (hd) { to = hd.to; word = hd.word } // a door line: its door
-  else if (pl && nextStep(cur, ci).t !== 'move') { homeWin = ci; FX.press = ci; return } // a yield: it says its piece on the way up
-  else if (pl) { const st = nextStep(cur, ci), depth = depthOf(cur, ci); deepen(cur, ci); to = pairTo(st.to); said(ci, 'move', { depth, to: keyOf(to), key: S37.stepKey(st) }) } // its move: where that facet goes
+  else if (pl && nextStep(cur, ci).t !== 'move') { homeWin = ci; FX.press = ci; return } // an idea, the title, the date: it answers on the way up
+  else if (pl) { const st = nextStep(cur, ci); to = pairTo(st.to); said(ci, 'move', { to: keyOf(to), key: S37.stepKey(st) }) } // any other facet: pressed into where its piece leads
   else { let best = cur.doors[0], bd = Infinity // elsewhere: the world behind the door line nearest the finger
     for (const d of cur.doors) { const b = d.el.getBoundingClientRect(), dd = Math.hypot(b.left + b.width / 2 - pt[0], b.top + b.height / 2 - pt[1]); if (dd < bd) { bd = dd; best = d } }
     to = best ? best.to : cur.fallback; word = best ? best.word : null }
   busy = true; at('entering'); HOME.expect = keyOf(to); HOME.word = word
-  const p = pressing = { old: cur, pt, d: 0, gv: 0, t0: performance.now(), held: true, next: null }
+  const p = pressing = { old: cur, pt, d: 0, gv: 0, t0: performance.now(), down, held: true, next: null }
   p.ready = makeWorld({ ...to, word, from: { phrase: hd ? hd.phrase : null, title: cur.poem.title }, via: 'press' }, 'world', cur.trail).then(w => { p.next = w; return w })
   if (reduce()) { const w = await p.ready; pressing = null; return calmTo(w) }
   const ms = num('press-ms', 1100)
   const step = () => { if (pressing !== p || !p.held) return; p.d = Math.min(1, (performance.now() - p.t0) / ms); if (p.d >= 1) giveWay(p); else requestAnimationFrame(step) }
   requestAnimationFrame(step) }
-async function pressUp() {
+async function pressUp(up = performance.now()) { // a tap or a hold is told by the events' own times: a world being made can hold the page up past press-tap-ms between them (12 Nov)
   if (pressGo) await pressGo
   if (homeWin >= 0) { const i = homeWin; homeWin = -1; FX.press = -1; return facetTap(i) }
   const p = pressing; if (!p || !p.held) return; p.held = false
-  if (performance.now() - p.t0 < num('press-tap-ms', 260)) { const from = p.d, ms = num('press-ms', 1100) * (1 - from), t0 = performance.now()
+  if (up - p.down < num('press-tap-ms', 260)) { const from = p.d, ms = num('press-ms', 1100) * (1 - from), t0 = performance.now()
     await new Promise(r => { const f = () => { if (pressing !== p) return r(); p.d = from + (1 - from) * Math.min(1, (performance.now() - t0) / ms); if (p.d >= 1) r(); else requestAnimationFrame(f) }; requestAnimationFrame(f); setTimeout(r, ms + 400) })
     return giveWay(p) }
   const from = p.d, t0 = performance.now()
@@ -1084,7 +1024,7 @@ async function cross(d, pt0, fi) {
   if (busy || !cur || cur.mode !== 'world') return
   busy = true; at('entering'); HOME.expect = keyOf(d.to); HOME.word = d.word
   const old = cur, pt = pt0 || (() => { const b = d.el.getBoundingClientRect(); return [b.left + b.width / 2, b.top + b.height / 2] })()
-  hideWin(); FX.hover = FX.press = -1
+  FX.hover = FX.press = -1
   old.v.classList.add('gone'); old.run = -1
   const next = await makeWorld({ ...d.to, word: d.word || null, from: { phrase: d.phrase || null, title: old.poem.title }, via: fi != null ? 'facet' : 'door' }, 'world', old.trail)
   const x = reduce() ? 'calm' : X, origin = fi != null ? old.cents[fi] : pt
@@ -1147,7 +1087,6 @@ function frame(now) {
   else if (cur) { touchFrame(cur, now, dt); ledger = { t: null, list: [] }; drawWorld(cur); if (ends && !ends.after) ends.after = ledger.list
     if (!busy && cur.lc && keyAt < 0 && (GR.due || now - GR.t > num('ground-ms', 1000))) { GR.t = now; groundRead(cur) } // read off the stone as it is drawn now, before the grounds and the words
     groundEase(dt); words(cur) }
-  winFrame(now)
   requestAnimationFrame(frame) }
 function touchFrame(w, now, dt) {
   const k = 1 - Math.exp(-dt / 90); for (let i = 0; i < w.lv.length; i++) w.lv[i] += (liftOf(w, i, now) - w.lv[i]) * k
@@ -1157,8 +1096,8 @@ function touchFrame(w, now, dt) {
 app.addEventListener('pointerdown', e => {
   if (whyOpen) { if (!e.target.closest('#why,#where')) closeWhy(); return } // 34: the stone around the panel closes it
   if (e.button > 0 || e.target.closest('header,a,button') || !cur || cur.mode !== 'home' || busy) return
-  pressGo = pressStart([e.clientX, e.clientY]); try { app.setPointerCapture(e.pointerId) } catch {} })
-app.addEventListener('pointerup', () => pressUp()); app.addEventListener('pointercancel', () => { homeWin = -1; FX.press = -1; pressUp() })
+  pressGo = pressStart([e.clientX, e.clientY], e.timeStamp); try { app.setPointerCapture(e.pointerId) } catch {} })
+app.addEventListener('pointerup', e => pressUp(e.timeStamp)); app.addEventListener('pointercancel', () => { homeWin = -1; FX.press = -1; pressUp() })
 app.addEventListener('click', e => { // doors are links for keys and for reading; a pointer is routed on its way up, below
   const a = e.target.closest('.verse .door'); if (!a) return
   e.preventDefault(); if (e.detail !== 0 || busy || !cur || cur.mode !== 'world') return // mid-way, a second touch goes nowhere
@@ -1198,7 +1137,6 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get ledger() { return ledger }, get ends() { return ends },
   async step(t) { HOME.clock = t; for (let k = 0; k < 6; k++) { await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0))); if (ledger.t === Math.min(1, Math.max(0, t)) || !crossing) break } return { t: ledger.t, x: ledger.x, list: ledger.list } },
   get last() { return FX.last }, get seq() { return FX.seq },
-  get win() { return FX.win && { i: FX.win.i, text: (FX.win.card ? pieceEl : backEl).textContent, kind: FX.win.fact.kind, opacity: FX.win.card ? 1 : +backEl.style.opacity, card: !!FX.win.card } }, // 43 c: on a phone the piece is in the card
   get drawn() { return cur ? drawn(cur) : [] },
   segReady: () => segReady(), get dealt() { return !!SEG },
   plan(i) { const p = cur && planOf(cur)[i]; if (!p) return null
@@ -1207,12 +1145,6 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
       steps: p.steps.map(st => ({ t: st.t, key: S37.stepKey(st), big: st.big || null, small: st.small || null, lines: st.lines || null, href: st.href || null, src: st.src || null, cell: st.cell ?? null, whole: !!st.whole, to: st.to ? k2(st.to) : null, poem: st.to ? st.to.poem : null })) } },
   get plans() { return cur ? planOf(cur).map((p, i) => p && this.plan(i)) : [] },
   get world0() { return cur && { photo: cur.photo.src, poem: cur.poem.slug, trail: cur.trail, doors: cur.doors.map(d => ({ phrase: d.phrase, word: d.word, line: d.line, to: keyOf(d.to) })), W, H } },
-  get glimpse() { return FX.glimpse && { i: FX.glimpse.i, src: FX.glimpse.src } },
-  probe(i, n, lines) { const w = cur; if (!w) return null; const txt = 'measured '.repeat(Math.ceil(n / 9)).slice(0, n) // the worst case, not today's words
-    const st = lines ? { t: 'lines', lines: Array.from({ length: lines }, (_, k) => txt.slice(0, Math.max(12, n / lines | 0)) + k), small: txt.slice(0, 60) } : { t: 'say', big: txt, small: txt.slice(0, Math.min(140, n)) }
-    showWin(i, st); const out = this.clash; hideWin(); return out },
-  get clash() { if (!FX.win || !cur) return null; const b = backEl.getBoundingClientRect(), o = [cur.R, ...['#mat', '#cap'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left, r.top, r.width, r.height] })]; return b.top < 0 || b.left < 0 || b.bottom > H || b.right > W || o.some(([l, t, ww, hh]) => b.left < l + ww && b.right > l && b.top < t + hh && b.bottom > t) },
-  depth(i) { return cur ? depthOf(cur, i) : 0 },
   // the readings' own: the stone drawn now (bare: without the poem's words, its grounds kept; tint: the seams in a colour no photograph has)
   draw(o = {}) { if (!cur) return; TINT = !!o.tint; clear(); ledger = { t: null, list: [] }; drawWorld(cur); words(cur, o); TINT = false },
   async ground() { GR.due = true; GR.snap = true; for (let k = 0; k < 3; k++) await new Promise(r => requestAnimationFrame(() => setTimeout(r, 0))) }, // read again now, settled at once
@@ -1220,18 +1152,12 @@ window.HOME = { expect: null, word: null, trail: [], dry: false, still: false, c
   get text() { return cur && cur.text }, // the poem's words as composited, before they are laid on the stone (the check's: where a letter's ink is)
   get words() { const w = cur; if (!w || !w.lc) return []; const [rx, ry] = w.R, st = w.v.scrollTop
     return wordsAt(w).map(c => ({ t: c.r.t, li: c.li, title: c.title, i: c.i, d: c.d, font: c.r.font, ls: c.r.ls, x: rx + c.r.x, base: ry - st + c.r.y, box: [rx + c.r.x, ry - st + c.r.top, c.r.w, c.r.bot - c.r.top], shown: w.A[c.li] > .5 && ry - st + c.r.top >= ry - 1 && ry - st + c.r.bot <= ry + w.R[3] + 1 })) },
-  // a yield as a tap leaves it, at full strength, any glimpse arrived
-  async yieldAt(i, k) { const w = cur, p = w && planOf(w)[i], s = p && p.steps && p.steps[k]; if (!s || s.t === 'move') return null
-    hideWin(); showWin(i, s); if (s.t === 'glimpse') await glimpse(w, i, s); if (!FX.win || cur !== w) return null
-    FX.win.t0 = performance.now() - num('win-hold-ms', 3600) / 2; if (FX.glimpse) FX.glimpse.t0 = FX.win.t0; if (FX.win.card) cardFinish(); else backEl.style.opacity = 1
-    return { i, k, t: s.t, text: (FX.win.card ? pieceEl : backEl).textContent } },
-  hideWin() { hideWin() },
-  tapPoint(i) { return cur ? touchAt(cur, i) : null },
+  tapPoint(i, all) { return cur ? touchAt(cur, i, all ? { all: true } : {}) : null }, // all: clear of every door row, as a press at home reads them
   async rest() { // every facet, as drawn now, against this photograph and against the one it leads to: the closer must be this one (pixels, not code)
     const w = cur, P = planOf(w), st = g.getImageData(0, 0, cv.width, cv.height).data, own = w.img.getContext('2d').getImageData(0, 0, cv.width, cv.height).data, other = {}
     const foreign = async p => { const src = p && p.to && photoBy(p.to.photo) ? p.to.photo : (w.doors[0] ? w.doors[0].to.photo.src : data.photos.find(q => q.src !== w.photo.src).src)
       return other[src] ||= (await photo(photoBy(src))).getContext('2d').getImageData(0, 0, cv.width, cv.height).data }
-    const skip = [w.R && [w.R[0] - 30, w.R[1] - 20, w.R[2] + 60, w.R[3] + 40], ...['#mat', '#cap', '.vs', '#back', '#year', '#tools'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left - 10, r.top - 10, r.width + 20, r.height + 20] })].filter(Boolean)
+    const skip = [w.R && [w.R[0] - 30, w.R[1] - 20, w.R[2] + 60, w.R[3] + 40], ...['#mat', '#cap', '.vs', '#year', '#tools'].map(q => { const r = document.querySelector(q).getBoundingClientRect(); return [r.left - 10, r.top - 10, r.width + 20, r.height + 20] })].filter(Boolean)
     const fit = (s, o2) => { const n = s.length; let ms = 0, mo = 0; for (let k = 0; k < n; k++) { ms += s[k]; mo += o2[k] } ms /= n; mo /= n; let so = 0, oo = 0; for (let k = 0; k < n; k++) { so += (s[k] - ms) * (o2[k] - mo); oo += (o2[k] - mo) ** 2 }
       const b = oo ? so / oo : 0; let e = 0; for (let k = 0; k < n; k++) e += Math.abs(s[k] - ms - b * (o2[k] - mo)); return e / n } // what is left after the best light (a scale and a shift): the lamp changes light, never content
     const out = []
@@ -1318,7 +1244,7 @@ HOME.cardTexts = () => { // every text in the open card: where it shows (inside 
   const el = CARD.el; if (!el) return []; const sr = el.getBoundingClientRect(), out = [], kind = CARD.kind
   const zoomOf = e => { let z = 1; for (let q = e; q && q.nodeType === 1; q = q.parentElement) z *= parseFloat(getComputedStyle(q).zoom) || 1; return z }
   const baseOf = kind === 'chain' ? parseFloat(getComputedStyle(el.querySelector('.why-body') || el).fontSize) : 0
-  const isBody = p => kind === 'piece' ? !!p.closest('.say, .named, .lines') : kind === 'idea' ? !!p.closest('p.here, .gen p') : !!p.closest('.k-say, .b-big, .b-q, .b-e, .b-name, .b-read, .b-dp, .b-ev, .t-q, .y-st') || parseFloat(getComputedStyle(p).fontSize) === baseOf
+  const isBody = p => kind === 'idea' ? !!p.closest('p.here, .gen p') : !!p.closest('.k-say, .b-big, .b-q, .b-e, .b-name, .b-read, .b-dp, .b-ev, .t-q, .y-st') || parseFloat(getComputedStyle(p).fontSize) === baseOf
   const add = (n, p, clip) => { const cs = getComputedStyle(p), rg = document.createRange(); rg.selectNodeContents(n)
     const rs = [...rg.getClientRects()].filter(r => r.width > .5 && r.height > .5).map(r => { const l = Math.max(r.left, clip.left), t = Math.max(r.top, clip.top), rr = Math.min(r.right, clip.right), b = Math.min(r.bottom, clip.bottom); return rr - l > .5 && b - t > .5 ? [l, t, rr - l, b - t] : null }).filter(Boolean)
     if (rs.length) out.push({ t: n.data.trim().slice(0, 70), rects: rs, color: rgbOf(cs.color), op: opOf(p), px: parseFloat(cs.fontSize), z: zoomOf(p), body: isBody(p), cls: String(p.className || p.tagName) }) }
