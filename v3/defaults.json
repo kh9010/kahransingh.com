@@ -115,5 +115,12 @@
   "card-small-px": "13",
   "card-chain-zoom": "1.336",
   "card-x-min-deg": "38",
-  "card-lit-glow": "0.1"
+  "card-lit-glow": "0.1",
+  "cue-contrast": "3.6",
+  "cue-a-w-px": "26",
+  "cue-a-h-px": "14",
+  "cue-a-lift": "0.35",
+  "cue-a-ridge": "0.35",
+  "cue-a-hit-up-px": "32",
+  "cue-d-ms": "900"
 }

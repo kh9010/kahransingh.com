@@ -719,7 +719,13 @@ const gz = new Map(), gzOf = f => gz.get(f) ?? (gz.set(f, /\.(jpe?g|png|webp|wof
      dwait   = a door facet's first tap only answers (it no longer crosses)          dwrong = it crosses to another facet's pair
      dpiece  = the tap crosses but writes its piece onto the page as it goes          drest  = the rest state changed (the title's tone .3 -> .36; run with REST_REF=d25ea66)
      dhold   = a tap at home told from a hold by when its handler ran, not by its events' times (a world being made held the page up: the
-               press came back instead of crossing, as it did before 12 Nov's fix) */
+               press came back instead of crossing, as it did before 12 Nov's fix)
+   44 a with d (13 Nov), each against its own check in cueHold or deskNoCard:
+     qnone   = the point never a facet              qfaint = the facet in the ground's own colour      qsmall = its button 26px
+     qlabel  = its button unnamed                   qwords = a word in its button                      qpage  = a press lands 9px into a line
+     qkey    = no way in by keyboard (no Tab stop, no Page Down)                                       qend   = the cue left at the end
+     qfits   = a cue when everything fits           qlift  = the words never lift                      qback  = the lift ends where it peaked
+     qtwice  = a re-snap lifts them again           qreduce = they lift under reduced motion           qdesk  = the card, and its cue, on a desktop */
 const MARK = '\u200b', MUT = process.env.MUTATE || '', GONE = new Set(), OVER = new Map(), MUTHIT = new Set()
 let REFLOAD = false // serving d25ea66's home (restSame's reference): no mutation reaches it
 const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, 'utf8'); const was = s
@@ -754,6 +760,20 @@ const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, '
   if (MUT === 'dwrong' && u === '/v3/stone.js') s = s.replace("const nextStep = (w, i) => { const p = planOf(w)[i]; return p ? p.steps[p.steps.length - 1] : null }", "const nextStep = (w, i) => { const p = planOf(w)[i]; if (!p || !p.to) return p ? p.steps.at(-1) : null; const o = planOf(w).filter(q => q && q.to && q !== p); return o.length ? o[0].steps.at(-1) : p.steps.at(-1) }")
   if (MUT === 'dpiece' && u === '/v3/stone.js') s = s.replace("const nextStep = (w, i) => { const p = planOf(w)[i]; return", "const nextStep = (w, i) => { const p = planOf(w)[i]; if (p && p.to) { const f = p.steps[0], e = document.getElementById('piece') || document.body.appendChild(Object.assign(document.createElement('p'), { id: 'piece' })); e.textContent = f.big || f.lines.join(' ') } return")
   if (MUT === 'drest' && u === '/v3/defaults.json') s = s.replace('"title-tone": "0.3"', '"title-tone": "0.36"')
+  if (MUT === 'qnone' && u === '/v3/stone.js') s = s.replace('if (!more) return hideBtn() //', 'if (true) return hideBtn() //')
+  if (MUT === 'qfaint' && u === '/v3/stone.js') s = s.replace('function cueInk(k0) {', 'function cueInk(k0) { return (CARD.groundRgb || GROUND).map(v => Math.round(v * 1.3 + 3));')
+  if (MUT === 'qsmall' && u === '/v3/stone.css') s = s.replace('#card .card-more { position: absolute; z-index: 3; width: 44px; height: 44px;', '#card .card-more { position: absolute; z-index: 3; width: 26px; height: 26px;')
+  if (MUT === 'qlabel' && u === '/v3/stone.js') s = s.replace('<button class="card-more" type="button" aria-label="next lines" hidden>', '<button class="card-more" type="button" hidden>')
+  if (MUT === 'qwords' && u === '/v3/stone.js') s = s.replace('aria-label="next lines" hidden></button>', 'aria-label="next lines" hidden>more</button>')
+  if (MUT === 'qpage' && u === '/v3/stone.js') s = s.replace('let top = Math.floor(next[0])', 'let top = Math.floor(next[0]) + 9')
+  if (MUT === 'qkey' && u === '/v3/stone.js') s = s.replace('<button class="card-more" type="button"', '<button class="card-more" tabindex="-1" type="button"').replace("if (e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey))", 'if (false)')
+  if (MUT === 'qend' && u === '/v3/stone.js') s = s.replace('if (!more) return hideBtn() //', 'if (!more && el.scrollTop === 0) return hideBtn() //')
+  if (MUT === 'qfits' && u === '/v3/stone.js') s = s.replace('if (!more) return hideBtn() //', 'if (!more && el.scrollTop > 0) return hideBtn() //')
+  if (MUT === 'qlift' && u === '/v3/stone.js') s = s.replace('if (reduce() || !CARD.open || !CARD.el || !CARD.cue || CARD.cue.lift) return', 'if (true) return')
+  if (MUT === 'qback' && u === '/v3/stone.js') s = s.replace('el.scrollTop = 0; L.done = true; cueRaf = 0; return', 'el.scrollTop = L.peak; L.done = true; cueRaf = 0; return')
+  if (MUT === 'qtwice' && u === '/v3/stone.js') s = s.replace("G.snapDue = false; cardEl.style.setProperty('--ci-b', G.bottom + 'px');", "G.snapDue = false; if (CARD.phase === 'open' && CARD.cue && CARD.cue.lift && CARD.cue.lift.done) { CARD.cue.lift = null; setTimeout(cueLift, 0) } cardEl.style.setProperty('--ci-b', G.bottom + 'px');")
+  if (MUT === 'qreduce' && u === '/v3/stone.js') s = s.replace('if (reduce() || !CARD.open || !CARD.el || !CARD.cue || CARD.cue.lift) return', 'if (!CARD.open || !CARD.el || !CARD.cue || CARD.cue.lift) return')
+  if (MUT === 'qdesk' && u === '/v3/stone.js') s = s.replace('const cardMode = () => phone() || low()', 'const cardMode = () => true')
   if (s !== was && u !== '/v2/home.js') MUTHIT.add(MUT); return s }
 const server = http.createServer((req, res) => { try { const u = decodeURIComponent(new URL(req.url, 'http://x').pathname), f = path.join(ROOT, path.normalize(u.endsWith('/') ? u + 'index.html' : u))
   if (GONE.has(u) || !f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); return res.end() }
@@ -955,7 +975,7 @@ try {
 
   /* 41 b / 42 a readers, shared by the live loads and the states below */
   const IDEAS42 = HOME_IDEAS
-  const key = async (k, extra = {}) => { const map = { Enter: [13, '\r'], ' ': [32, ' '], Escape: [27, ''], Tab: [9, ''] }, [code, text] = map[k]
+  const key = async (k, extra = {}) => { const map = { Enter: [13, '\r'], ' ': [32, ' '], Escape: [27, ''], Tab: [9, ''], PageDown: [34, ''] }, [code, text] = map[k]
     await cdp.send('Input.dispatchKeyEvent', { type: text ? 'keyDown' : 'rawKeyDown', key: k, code: k === ' ' ? 'Space' : k, windowsVirtualKeyCode: code, text: text || undefined, ...extra })
     await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: k, code: k === ' ' ? 'Space' : k, windowsVirtualKeyCode: code, ...extra }); await sleep(120) }
   // what a sighted visitor reads at rest: every visible text, title and label, except the six keys' labels, which are proved hidden instead
@@ -1180,9 +1200,9 @@ try {
     const measure = sels => cdp.eval(`(${MEASURE})(${JSON.stringify(sels)})`), STONE = ['.verse', '.cap', '#year', 'header h1', '#where', 'header nav', '.vs']
     await open(''); await settled(); await park(); await cdp.eval('HOME.still = true'); await sleep(300); await cdp.eval('HOME.ground()')
     note('at rest', await measure(STONE))
-    for (const [k] of IDEAS42.entries()) { await cdp.eval(`document.querySelector('#keys button[data-k="${k}"]').click()`); await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 100, 60); await sleep(400); await cdp.eval('HOME.finishCard()'); await cdp.eval('HOME.ground()')
+    for (const [k] of IDEAS42.entries()) { await cdp.eval(`document.querySelector('#keys button[data-k="${k}"]').click()`); await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 100, 60); await sleep(400); await cdp.eval('HOME.finishCard(); HOME.cardResnap()'); await cdp.eval('HOME.ground()')
       note(`idea ${k} open`, await measure(VP.mobile ? ['#tools'] : ['.verse', '#tools', 'header h1', '#where', 'header nav', '.vs'])); await key('Escape') }
-    await cdp.eval('HOME.openWhy()'); await sleep(D('why-ms') + 400); await cdp.eval('HOME.finishCard()'); note('the chain open', await measure(VP.mobile ? ['#why'] : ['#why', 'header h1', 'header nav', '.vs'])); await cdp.eval('HOME.closeWhy()'); await sleep(300)
+    await cdp.eval('HOME.openWhy()'); await sleep(D('why-ms') + 400); await cdp.eval('HOME.finishCard(); HOME.cardResnap()'); note('the chain open', await measure(VP.mobile ? ['#why'] : ['#why', 'header h1', 'header nav', '.vs'])); await cdp.eval('HOME.closeWhy()'); await sleep(300)
     await cdp.eval('HOME.still = false')
     const want = ['poem', 'title', 'caption', 'date', 'name', 'where', 'nav', 'switch', 'idea', 'chain'], missing = want.filter(k => !seen.has(k))
     READS.all.push(label)
@@ -1208,7 +1228,8 @@ try {
   const opener = async (kind, k) => {
     if (kind === 'idea') return cdp.eval(`HOME.tapIdea(${k})`)
     return { pt: await cdp.eval(`(() => { const r = document.querySelector('#where').getBoundingClientRect(); return [r.left + Math.min(60, r.width / 2), r.top + r.height / 2] })()`), i: -1 } }
-  const openCard = async (kind, label, k) => { const o = await opener(kind, k), n0 = (await tracks()).length, seq0 = await cdp.eval('HOME.seq'); await tap(o.pt); await cardSettle(label); return { o, c: await cardNow(), n0, seq0 } }
+  const openCard = async (kind, label, k) => { const o = await opener(kind, k), n0 = (await tracks()).length, seq0 = await cdp.eval('HOME.seq'); await tap(o.pt); await cardSettle(label); await liftDone(); return { o, c: await cardNow(), n0, seq0 } }
+  const liftDone = () => waitFor(async () => { const c = await cardNow(); return !c.cue || !c.cue.lift || c.cue.lift.done }, 'the lift to end', 60) // 44 d: the words settle back before anything is read
   const readCard = async label => {
     await cdp.eval('HOME.lamp(innerWidth * .7, innerHeight * .2)'); await sleep(300)
     const T = await cdp.eval('HOME.cardTexts()')
@@ -1288,12 +1309,94 @@ try {
         await cdp.eval('HOME.cardClock = 0.5'); const o = await opener('idea', ideaK); await tap(o.pt); await waitFor(() => cdp.eval('HOME.card.open && Math.abs(HOME.card.t - .5) < .01'), 'half way')
         const m = await cardNow(); check(m.motion === 'fade' && m.transform === 'none' && m.opacity > .3 && m.opacity < .7, `${label}: half way it is a crossfade (opacity ${m.opacity}, nothing turns)`, JSON.stringify({ motion: m.motion, transform: m.transform, opacity: m.opacity }))
         await cdp.eval('HOME.cardClock = null'); await cardSettle(label); await key('Escape'); await cardSettle(label, false); sameRest(before, await restPic(), `${label} after Escape`); await reduceMotion(false) } }
-    await cdp.eval('HOME.still = false') }
+    await cdp.eval('HOME.still = false')
+    await cueHold(tag) }
+  /* 44 a with d (13 Nov, Kahran: "i think i like something a and d"): the card says there is more. Carried from studies/44/check.mjs, run on
+     both phone screens for each of the six ideas and the chain:
+       qfacet  while words lie below the room, the point is a facet: drawn, standing at cue-contrast or better against the card's ground (its
+               ink computed, and its rendered pixels over plain ground, the cue shown then hidden), its button at least 44px and labelled
+       qpage   one press on it (and, for Context and the chain, its key by Shift+Tab then Enter, and Page Down in the card) turns exactly one
+               whole-line screenful: the first line not wholly seen becomes the top, no line cut at the top or the foot; at the end no cue
+       qfits   with everything in view (the words cut short after it opened), no cue and no button
+       qlift   as it settles open the words lift once (by the hidden next line) and come back to the start; a re-snap does not lift them again;
+               under reduced motion they never lift
+       qwords  no words in the cue: the button's only name is its screen-reader label, no text in the cut (and at 1440x900 none of it: deskNoCard) */
+  const scroller = `document.querySelector('.card-slot > *')`
+  const cueState = () => cdp.eval(`(() => { const e = ${scroller}, c = HOME.card, g = document.querySelector('#card g.cue'), b = document.querySelector('#card .card-more'), r = b.getBoundingClientRect()
+    const r0 = e.getBoundingClientRect().top, wk = document.createTreeWalker(e, NodeFilter.SHOW_TEXT); let last = 0; for (let n; (n = wk.nextNode());) if (n.data.trim()) { const q = document.createRange(); q.selectNodeContents(n); for (const x of q.getClientRects()) if (x.height) last = Math.max(last, x.bottom - r0 + e.scrollTop) }
+    return { top: e.scrollTop, more: last - e.scrollTop - e.clientHeight > 1, cue: c.cue, drawn: g ? g.querySelectorAll('.cue-facet').length : 0, btn: !b.hidden && b.getClientRects().length > 0, bw: r.width, bh: r.height,
+      label: b.getAttribute('aria-label') || '', btext: b.textContent, gtext: g ? g.textContent + g.querySelectorAll('text').length : '' } })()`)
+  const wholeLines = () => cdp.eval(`(() => { const e = ${scroller}, top = e.getBoundingClientRect().top, st = e.scrollTop, room = e.clientHeight, L = []
+    const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) { const r = document.createRange(); r.selectNodeContents(n); for (const q of r.getClientRects()) if (q.height) L.push([q.top - top + st, q.bottom - top + st]) } else n.childNodes.forEach(walk) }
+    walk(e); const vis = L.filter(([t, b]) => b > st + .5 && t < st + room - .5)
+    return { st, room, sliced: vis.filter(([t, b]) => t < st - 1 || b > st + room + 1).length, first: vis.length ? Math.min(...vis.map(([t]) => t)) : null, firstUnseen: (L.filter(([t, b]) => b > st + room + .5).sort((a, b) => a[0] - b[0])[0] || [null])[0] } })()`)
+  const quietTop = async () => { let last = null; for (let i = 0; i < 40; i++) { const t = await cdp.eval(`${scroller}.scrollTop`); if (t === last) return t; last = t; await sleep(90) } return last }
+  const cuePixels = async () => { // the cue's own pixels against the card's ground: the frame with it, the frame without it
+    await cdp.eval('HOME.lamp(innerWidth * .7, innerHeight * .2)'); await sleep(300); const A = await shotNow()
+    await cdp.eval(`(() => { const s = document.createElement('style'); s.id = 'hide44'; s.textContent = '#card g.cue { visibility: hidden !important; }'; document.head.append(s) })()`); await sleep(120)
+    const B = await shotNow(); await cdp.eval(`document.getElementById('hide44').remove()`); await sleep(80)
+    const c = await cardNow(), gr = (/rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)/.exec(c.ground.split('),').pop()) || []).slice(1).map(Number), [x, y, w, h] = c.rect, s = A.w / VP.w, R = []
+    for (let py = Math.max(0, Math.floor(y * s)); py < Math.min(A.h, Math.ceil((y + h) * s)); py++) for (let px = Math.max(0, Math.floor(x * s)); px < Math.min(A.w, Math.ceil((x + w) * s)); px++) {
+      const k = (py * A.w + px) * 4, a = [A.d[k], A.d[k + 1], A.d[k + 2]], b = [B.d[k], B.d[k + 1], B.d[k + 2]]
+      if (Math.max(...a.map((v, j) => Math.abs(v - b[j]))) <= 2) continue // not the cue
+      if (gr.length === 3 && pRatio(b, gr) > 1.15) continue // over words or the rim: only its pixels over plain ground are measured
+      R.push(pRatio(a, gr.length === 3 ? gr : b)) }
+    R.sort((p, q) => p - q); return { n: R.length, p90: R.length ? R[Math.floor(R.length * .9)] : 0, gr } }
+  const CUE = { cards: 0, pages: 0, lifts: 0, worst: 99 }
+  const cueHold = async tag => {
+    const need = Number(DEF['cue-contrast']), side = VP.id === 'side'
+    await reduceMotion(false); await open(''); await cdp.eval('HOME.whyReady().then(() => HOME.hereFor()).then(() => true)'); await settled(); await cdp.eval('HOME.still = true; document.activeElement && document.activeElement.blur()'); await sleep(300)
+    const kinds = [...HOME_IDEAS.map((I, k) => ['idea', k, I.name]), ['chain', -1, 'the chain']]
+    for (const [kind, k, name] of kinds) {
+      const label = `${tag} 44 ${name}`, full = name === 'Context' || kind === 'chain', lifts0 = await cdp.eval('HOME.cueLifts || 0')
+      const o = await opener(kind, k); if (!o || !o.pt) { check(false, `${label}: a place to open it`); continue }
+      await tap(o.pt); await cardSettle(label); if (kind === 'chain') await sleep(3200); await liftDone(); CUE.cards++
+      const c0 = await cardNow(), s0 = await cueState(), scrolls = s0.more, L = c0.cue && c0.cue.lift
+      // qlift: once on open, back at the start
+      check(scrolls ? !!L && L.peak >= 8 && L.done === true && c0.scroll.top === 0 && (await cdp.eval('HOME.cueLifts || 0')) - lifts0 === 1 : !L, `${label}: ${scrolls ? `as it opened the words lifted once (${L && L.peak}px, the hidden next line) and came back to the start` : 'everything in view: the words did not lift'}`, JSON.stringify({ scrolls, lift: L, top: c0.scroll.top }))
+      if (L) CUE.lifts++
+      await cdp.eval('HOME.cardResnap()'); await sleep(1300); const c1 = await cardNow()
+      check((await cdp.eval('HOME.cueLifts || 0')) - lifts0 === (scrolls ? 1 : 0) && c1.scroll.top === 0, `${label}: a re-snap does not lift the words again`, JSON.stringify({ lifts: (await cdp.eval('HOME.cueLifts || 0')) - lifts0, top: c1.scroll.top }))
+      // qwords
+      check(!s0.btext.trim() && !s0.gtext.replace(/0$/, '').trim() && s0.gtext.endsWith('0') && /\S/.test(s0.label), `${label}: no words in the cue: its button is named for a screen reader only (“${s0.label}”)`, JSON.stringify({ text: s0.btext, cut: s0.gtext, label: s0.label }))
+      // qfacet
+      if (scrolls) { const ink = c0.cue && c0.cue.ink, P = await cuePixels(), inkR = ink && P.gr.length === 3 ? pRatio(ink, P.gr) : 0; CUE.worst = Math.min(CUE.worst, P.p90)
+        check(s0.cue && s0.cue.shown && s0.drawn === 1 && s0.btn && s0.bw >= 44 && s0.bh >= 44 && /\S/.test(s0.label), `${label}: words lie below: the point is a facet, its button ${s0.bw}x${s0.bh}px and labelled`, JSON.stringify({ shown: s0.cue && s0.cue.shown, drawn: s0.drawn, btn: s0.btn, w: s0.bw, h: s0.bh, label: s0.label }))
+        check(inkR >= need - .005 && P.n >= 20 && P.p90 >= need - .05, `${label}: the facet stands against the card's ground at ${need}:1 or better (its ink ${inkR.toFixed(2)}:1; rendered, ${P.p90.toFixed(2)}:1 at the 90th percentile of ${P.n} pixels over plain ground)`, `ink ${inkR.toFixed(2)}, pixels ${P.p90.toFixed(2)} of ${P.n}`)
+        if (kind === 'idea' && k === HOME_IDEAS.findIndex(I => I.name === 'Context') && !side) await shot('cue-phone-top.png') }
+      else check(!s0.btn && !s0.drawn, `${label}: everything in view: no cue, no button`, JSON.stringify(s0))
+      // qpage
+      if (scrolls) for (const via of full ? ['tap', 'key', 'pagedown'] : ['tap']) {
+        await cdp.eval('HOME.cardResnap()'); await sleep(200); let ok = true, why = '', n = 0
+        for (; n < 30; n++) { const a = await cueState(); if (!a.more) break; const w0 = await wholeLines(); CUE.pages++
+          if (via === 'tap') { const b = await cdp.eval(`(() => { const r = document.querySelector('#card .card-more').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2] })()`); await tap(b) }
+          else if (via === 'key') { await cdp.eval(`${scroller}.focus({ preventScroll: true })`); await key('Tab', { modifiers: 8 }); const f = await cdp.eval('document.activeElement && document.activeElement.className'); if (f !== 'card-more') { ok = false; why = 'Shift+Tab from the card lands on ' + f; break } await key('Enter') }
+          else { await cdp.eval(`${scroller}.focus({ preventScroll: true })`); await key('PageDown') }
+          await sleep(150); await quietTop(); const w1 = await wholeLines()
+          if (n === 0 && via === 'tap' && kind === 'idea' && k === HOME_IDEAS.findIndex(I => I.name === 'Context') && !side) await shot('cue-phone-page.png')
+          if (w1.st <= w0.st + 1) { ok = false; why = `page ${n + 1}: did not move (${w0.st} → ${w1.st})`; break }
+          if (w1.sliced) { ok = false; why = `page ${n + 1}: ${w1.sliced} line(s) cut at the top or the foot`; break }
+          if (w0.firstUnseen == null || Math.abs(w1.first - w0.firstUnseen) > 1.5) { ok = false; why = `page ${n + 1}: the new top ${w1.first} is not the first line not wholly seen before (${w0.firstUnseen})`; break } }
+        const e = await cueState(), pe = e.more ? null : await cuePixels()
+        check(ok && n > 0 && !e.more && !e.btn && !e.drawn && pe.n === 0, `${label}: ${via === 'tap' ? 'a press on its facet' : via === 'key' ? 'its key (Shift+Tab, Enter)' : 'Page Down in the card'} turns one whole-line screenful at a time to the end (${n}), and there the cue is gone`, why || JSON.stringify({ n, more: e.more, btn: e.btn, drawn: e.drawn, pixels: pe && pe.n })) }
+      // qfits: the words cut short, everything in view
+      if (scrolls) { await cdp.eval(`(() => { const e = ${scroller}; e.scrollTop = 0; window.__cut44 = []; const w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT), T = []; for (let n; (n = w.nextNode());) if (n.data.trim()) T.push(n)
+          for (const n of T.reverse().slice(0, -1)) { if (e.scrollHeight <= e.clientHeight - 4) break; window.__cut44.push([n, n.data]); n.data = '' }
+          [...e.querySelectorAll('svg, canvas, img')].forEach(n => { if (e.scrollHeight > e.clientHeight - 4) { window.__cut44.push([n, null, n.style.display]); n.style.display = 'none' } }) })()`)
+        await cdp.eval('HOME.cardResnap()'); await sleep(200); const f = await cueState()
+        check(!f.more && !f.btn && !f.drawn && !(f.cue && f.cue.shown), `${label}: everything in view: no cue and no button`, JSON.stringify({ more: f.more, btn: f.btn, drawn: f.drawn })) }
+      await key('Escape'); await cardSettle(label, false); await cdp.eval(`(window.__cut44 || []).forEach(([n, d, v]) => d == null ? (n.style.display = v) : (n.data = d)); window.__cut44 = []; document.activeElement && document.activeElement.blur()`) }
+    { const label = `${tag} 44 reduced motion`; await reduceMotion(true); await open(''); await cdp.eval('HOME.still = true'); const lifts0 = await cdp.eval('HOME.cueLifts || 0'), ideaK = HOME_IDEAS.findIndex(I => I.name === 'Context')
+      const o = await opener('idea', ideaK); await tap(o.pt); await cardSettle(label); await sleep(1300); const c = await cardNow(), s = await cueState()
+      check(s.more && !(c.cue && c.cue.lift) && (await cdp.eval('HOME.cueLifts || 0')) === lifts0 && c.scroll.top === 0 && s.btn, `${label}: the words never lift; the facet is there`, JSON.stringify({ more: s.more, lift: c.cue && c.cue.lift, top: c.scroll.top, btn: s.btn }))
+      await key('Escape'); await cardSettle(label, false); await reduceMotion(false); await cdp.eval('HOME.still = false') } }
   /* and at 1440x900, nothing of the card: the idea's panel and the chain as they were (the floating piece retired 12 Nov) */
   const deskNoCard = async tag => { await open(''); await cdp.eval('HOME.whyReady().then(() => HOME.hereFor()).then(() => true)'); const out = []
     const at = await cdp.eval('HOME.tapIdea(0)'); await tap(at.pt); await sleep(500); out.push(await cdp.eval(`({ idea: document.querySelector('#tools').classList.contains('on') && document.querySelector('#tools').parentElement === document.body, card: !!document.querySelector('#card.on') })`)); await key('Escape')
     await tapEl('#where'); await waitFor(() => cdp.eval(`document.body.classList.contains('why')`), 'the chain', 100); await sleep(500); out.push(await cdp.eval(`({ chain: document.querySelector('#why').parentElement.id === 'app', card: !!document.querySelector('#card.on') })`))
-    check(out.length === 2 && out.every(o => !o.card && (o.idea ?? o.chain)), `${tag}: on a desktop nothing opens as a card: the idea's panel and the chain are as they were`, JSON.stringify(out)) }
+    check(out.length === 2 && out.every(o => !o.card && (o.idea ?? o.chain)), `${tag}: on a desktop nothing opens as a card: the idea's panel and the chain are as they were`, JSON.stringify(out))
+    const q = await cdp.eval(`({ btn: (() => { const b = document.querySelector('#card .card-more'); return !!b && !b.hidden && b.getClientRects().length > 0 })(), cue: document.querySelectorAll('#card g.cue *').length, state: HOME.card.cue, lifts: HOME.cueLifts || 0 })`)
+    check(!q.btn && !q.cue && !q.state && !q.lifts, `${tag}: and none of 44's cue: no facet, no button, no lift`, JSON.stringify(q)) }
   /* 12 Nov, the doors (Kahran: "I want the facets to just take you to other poems … The cards can just be the context cards"). Every facet
      that is not an idea, the title or the date, tapped once from rest, crosses at once to exactly its plan's pair: the first state after the
      tap is the crossing, expecting that pair, and it lands there. And nothing of its piece is on the page, at the tap or through the
@@ -1398,7 +1501,7 @@ try {
         await tap(at.pt)
         const ok = await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.openAt === ${at.i} && HOME.hereReadyNow`), 'idea ' + I.name, 250, 60).catch(() => null)
         if (!ok) { wrong.push(`${I.name}: its facet ${at.i} did not open it with this world's words`); await key('Escape'); continue }
-        await sleep(380); if (vp.mobile) await cdp.eval('HOME.finishCard()')
+        await sleep(380); if (vp.mobile) await cdp.eval('HOME.finishCard(); HOME.cardResnap()')
         const st = await panelNow()
         wrong.push(...panelWrong(I, st, want[I.name] || [], s.ideas.find(x => x.k === k)))
         if (!vp.mobile) { clash.push(...panelClash(I.name, st.box, s)) // 43 c: on a phone the idea is the card, which lies over the poem by design; its placement, contrast and closing are cardHold's
@@ -1446,7 +1549,7 @@ try {
 
     // 34 b, opened from the line (36 c): every number recounted, every label re-run
     { await open(''); await settled(); const L = `${tag} 34 b`
-      await openWhy(); await sleep(D('why-ms') + 200); await cdp.eval('HOME.finishCard()')
+      await openWhy(); await sleep(D('why-ms') + 200); await cdp.eval('HOME.finishCard(); HOME.cardResnap()')
       const s = await panel()
       const truth = truthFor(s.model.iso, READING, DAYS); truth.N.skyFields = (s.model.fields || []).length
       P36.setDay(truth.photos[0], truth.poems[0])
@@ -1527,7 +1630,7 @@ try {
       const s = await cdp.eval('HOME.state')
       for (const [k, I] of IDEAS42.entries()) { const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { bad.push(`${S.id} ${I.name}: no place to tap`); continue }
         await tap(at.pt); const ok = await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 250, 60).catch(() => null)
-        if (!ok) { bad.push(`${S.id} ${I.name}: did not open`); await key('Escape'); continue } await sleep(350); await cdp.eval('HOME.finishCard()')
+        if (!ok) { bad.push(`${S.id} ${I.name}: did not open`); await key('Escape'); continue } await sleep(350); await cdp.eval('HOME.finishCard(); HOME.cardResnap()')
         const st = await panelNow(); bad.push(...panelWrong(I, st, S.none ? [] : (want[I.name] || []), s.ideas.find(x => x.k === k)).map(b => `${S.id} ${b}`)) // 43 c: these are phones; the card's placement is cardHold's
         if (k === 0 && !S.same) await shot(`state-${S.id}-context.png`)
         await key('Escape') }
@@ -1540,7 +1643,7 @@ try {
     for (const v of [{ id: 'short', w: 375, h: 667, mobile: true }, { id: 'side', w: 844, h: 390, mobile: true }]) { await view(v); await open(''); const s = await cdp.eval('HOME.state'), clash = []
       for (const [k, I] of IDEAS42.entries()) { const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { clash.push(I.name + ': no place to tap'); continue } await tap(at.pt)
         if (!(await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 250, 60).catch(() => null))) { clash.push(I.name + ': did not open'); continue } await sleep(350)
-        await cdp.eval('HOME.finishCard()'); const st = await panelNow(), c = await cdp.eval('HOME.card') // 43 c: on a phone the idea is the card: on screen, its words in whole lines
+        await cdp.eval('HOME.finishCard(); HOME.cardResnap()'); const st = await panelNow(), c = await cdp.eval('HOME.card') // 43 c: on a phone the idea is the card: on screen, its words in whole lines
         if (!c.open || !c.poly.every(([x, y]) => x >= -1 && y >= -1 && x <= v.w + 1 && y <= v.h + 1)) clash.push(`${I.name}: the card is not wholly on screen`); if (st.cut) clash.push(`${I.name}: a line cut at the edge`); await key('Escape'); await cardSettle(I.name, false).catch(() => null) }
       check(!clash.length, `B9 ${v.w}x${v.h}: every open idea opens as the card, wholly on screen, its words in whole lines`, clash.slice(0, 3).join(', ')) } }
 

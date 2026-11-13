@@ -9,7 +9,8 @@
      the where line arriving as 35 ?a=line, and opening 34 b's chain, joined as 36 c (moment.js, why.js, body.js, ways.js)
      the photograph's own facet holding its EXIF month and year, the way into the About's years (38 ?d=c; 27 a)
      on a phone (upright or on its side), an idea or the chain opens as one card cut like a facet of the stone, turning over out of the facet
-       that gave it, and closing four ways (43 c; a crossfade under reduced motion)
+       that gave it, and closing four ways (43 c; a crossfade under reduced motion); while it holds more than fits, its point is a facet that turns
+       one whole-line screenful, and as it opens the words lift once by the hidden next line (44 a with d)
    Every number is a dial in /v3/defaults.json. HOME (at the end) is what tools/test_home.mjs reads. */
 addEventListener('unhandledrejection', e => console.error('unhandled: ' + (e.reason && e.reason.stack || e.reason)))
 if (location.hash === '#flow') location.replace('/v2/#flow') // the wall's flow view lives on at /v2/; old links to it still land
@@ -788,9 +789,9 @@ function fxOf(w, i) { const lv = w.lv ? w.lv[i] : 0, c = w.cents[i], o = { glow:
    of this stone, turning over out of the facet that gave it, and close four ways: its close mark, a tap on the stone outside it, Escape, the
    same facet (or line) again. Under reduced motion it crossfades. One change from 43 c: where it scrolls, its words end on a whole line ---------- */
 const cardMode = () => phone() || low()
-document.querySelector('#tools').after(Object.assign(document.createElement('div'), { id: 'card', innerHTML: '<canvas class="face" aria-hidden="true"></canvas><div class="card-slot"></div><svg class="cut" aria-hidden="true"></svg><button class="card-x" type="button" aria-label="close">×</button>' }))
+document.querySelector('#tools').after(Object.assign(document.createElement('div'), { id: 'card', innerHTML: '<canvas class="face" aria-hidden="true"></canvas><button class="card-more" type="button" aria-label="next lines" hidden></button><div class="card-slot"></div><svg class="cut" aria-hidden="true"></svg><button class="card-x" type="button" aria-label="close">×</button>' }))
 $('#card').setAttribute('aria-hidden', 'true') // made here, not in the page: only a phone ever opens one
-const cardEl = $('#card'), cardSvg = cardEl.querySelector('svg.cut'), cardFace = cardEl.querySelector('canvas.face'), cardSlot = cardEl.querySelector('.card-slot'), cardX = cardEl.querySelector('.card-x')
+const cardEl = $('#card'), cardSvg = cardEl.querySelector('svg.cut'), cardFace = cardEl.querySelector('canvas.face'), cardSlot = cardEl.querySelector('.card-slot'), cardX = cardEl.querySelector('.card-x'), cardMoreBtn = cardEl.querySelector('.card-more')
 const SVGNS = 'http://www.w3.org/2000/svg'
 const shifted = () => [cv, readEl, mat, cap] // what steps aside with the stone: #app itself stays put, so a touch anywhere still lands in it
 const CARD = { open: false, kind: null, i: -1, el: null, ph: null, back: null, geo: null, anim: null, phase: null, openedAt: 0, opens: 0, closes: [], t: 0 }
@@ -881,7 +882,7 @@ function setInsets(cw, ch, shape, kind) { const pad = num('card-pad-px', 18), s 
   s.setProperty('--cx-w', Math.max(0, xw - right + 4) + 'px'); s.setProperty('--cx-h', Math.max(0, xh - top + 4) + 'px') }
 function cardSnap() { // the one change from 43 c: where the words scroll, the card's room ends on a line's foot, so no line is sliced at the foot (snap()'s rule)
   const el = CARD.el, G = CARD.geo; if (!el || !G || G.bottom == null) return; if (CARD.anim && CARD.anim.dir > 0) { G.snapDue = true; return } // measured once it has settled, never mid-turn
-  G.snapDue = false; cardEl.style.setProperty('--ci-b', G.bottom + 'px')
+  G.snapDue = false; cardEl.style.setProperty('--ci-b', G.bottom + 'px'); el.style.removeProperty('padding-bottom')
   if (el.scrollHeight <= el.clientHeight + 1) return
   const top = el.getBoundingClientRect().top, room = el.clientHeight, feet = []
   const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) { const r = document.createRange(); r.selectNodeContents(n); for (const q of r.getClientRects()) if (q.height) feet.push([q.top - top + el.scrollTop, q.bottom - top + el.scrollTop]) } else n.childNodes.forEach(walk) }
@@ -900,9 +901,63 @@ function drawCut(shape, cw, ch) { // the rim (the title's piece's line), the hue
   const c = [(la * p[0] + lb * q[0] + lc * r[0]) / sum, (la * p[1] + lb * q[1] + lc * r[1]) / sum]; Object.assign(cardX.style, { left: c[0] - 22 + 'px', top: c[1] - 22 + 'px' }) }
 function cardMore() { // the cut itself says there is more: while words lie below the card's foot, the foot comes to a point
   if (!CARD.open || !CARD.geo) return; const el = CARD.el, G = CARD.geo, more = el.scrollHeight - el.clientHeight - el.scrollTop > 2
-  if (G.more === more && G.drawn) return; G.more = more; G.drawn = true
-  const shape = cardShape(G.w, G.h, G.P, more); G.shape = shape; drawCut(shape, G.w, G.h)
-  if (CARD.phase === 'open') cardEl.style.clipPath = polyCss(shape.poly) }
+  if (G.more !== more || !G.drawn) { G.more = more; G.drawn = true
+    const shape = cardShape(G.w, G.h, G.P, more); G.shape = shape; drawCut(shape, G.w, G.h)
+    if (CARD.phase === 'open') cardEl.style.clipPath = polyCss(shape.poly) }
+  cardCue() }
+/* ---------- 44 a with d (Kahran, 13 Nov: "i think i like something a and d"): the card says there is more. a: the point is a facet, a small
+   facet of its own at the pointed foot, lit in the facet's hue, and a 44px button over it that turns one whole-line screenful (a touch, its
+   key, Page Down or Space in the card); it reads the real scroll state, shows only while words lie below and is gone at the end. d: once, as
+   the card settles open, the words lift by the hidden next line and settle back; none under reduced motion, a touch or a wheel stops it.
+   While the lift runs the cut and the facet hold as they were at its start (the scroll listener waits for it), so nothing else moves ---------- */
+const LIGHT = [255, 246, 228]
+function cueInk(k0) { const h = toRgb(CARD.hue || 'rgb(201,195,182)'), gr = CARD.groundRgb || GROUND, min = num('cue-contrast', 3.6); let k = k0, c = blend(LIGHT, k, h)
+  while (ratio(c, gr) < min && k < 1) { k = Math.min(1, k + .02); c = blend(LIGHT, k, h) } return c.map(v => Math.round(v)) }
+function cueLines(el) { // every line of words in the scroller, [top, bottom] in its own scrolled coordinates
+  const top = el.getBoundingClientRect().top, out = []
+  const walk = n => { if (n.nodeType === 3 && n.textContent.trim()) { const r = document.createRange(); r.selectNodeContents(n); for (const q of r.getClientRects()) if (q.height) out.push([q.top - top + el.scrollTop, q.bottom - top + el.scrollTop]) } else n.childNodes.forEach(walk) }
+  walk(el); return out.sort((a, b) => a[0] - b[0]) }
+function cardCue() {
+  let gq = cardSvg.querySelector('g.cue'); if (!gq) { gq = document.createElementNS(SVGNS, 'g'); gq.setAttribute('class', 'cue'); cardSvg.append(gq) } gq.textContent = ''
+  const G = CARD.geo, el = CARD.el, hideBtn = () => { if (document.activeElement === cardMoreBtn && el) el.focus({ preventScroll: true }); cardMoreBtn.hidden = true }
+  if (!CARD.open || !G || !el || !cardMode()) { hideBtn(); return }
+  const L = cueLines(el), last = L.reduce((m, [, b]) => Math.max(m, b), 0) // more means words below the room, not a margin's pixels
+  const below = Math.max(0, last - el.scrollTop - el.clientHeight), more = below > 1
+  const lift = CARD.cue && CARD.cue.lift; CARD.cue = { more, below: Math.round(below), shown: false, lift }
+  const add = (tag, at) => { const e = document.createElementNS(SVGNS, tag); for (const [k, v] of Object.entries(at)) e.setAttribute(k, v); gq.append(e); return e }
+  const foot = G.shape.foot, w = G.w, d = num('card-more-px', 12)
+  if (!more) return hideBtn() // the point, a facet of its own: a kite whose lowest corner is the card's point, its two upper edges seams, a ridge to the point
+  const kw = num('cue-a-w-px', 22), kh = num('cue-a-h-px', 12), cx = w / 2, ink = cueInk(num('cue-a-lift', 0.35))
+  const K = [[cx - kw, foot], [cx, foot - kh], [cx + kw, foot], [cx, foot + d]]
+  add('polygon', { class: 'cue-facet', points: polyPts(K), fill: `rgb(${ink.join(',')})` })
+  add('polyline', { class: 'cue-seam', points: polyPts([K[0], K[1], K[2]]), fill: 'none', stroke: '#0d0c0b', 'stroke-width': num('seam-px', 2.2), 'stroke-linejoin': 'miter' })
+  add('line', { class: 'cue-ridge', x1: cx, y1: foot - kh + 2, x2: cx, y2: foot + d, stroke: `rgba(${blend(GROUND, num('cue-a-ridge', 0.35), ink).map(v => Math.round(v)).join(',')},1)`, 'stroke-width': 1 })
+  Object.assign(cardMoreBtn.style, { left: cx - 22 + 'px', top: foot - num('cue-a-hit-up-px', 32) + 'px' }); cardMoreBtn.hidden = CARD.phase !== 'open'
+  CARD.cue.shown = true; CARD.cue.ink = ink }
+let cueRaf = 0
+function cueStop() { const was = cueRaf; if (cueRaf) cancelAnimationFrame(cueRaf); cueRaf = 0; if (CARD.cue && CARD.cue.lift && !CARD.cue.lift.done) CARD.cue.lift.done = 'stopped'; if (was) cardMore() }
+function cueLift() { // d: once, as the card settles, the words rise by the height of the hidden next line and settle back; then nothing moves
+  if (reduce() || !CARD.open || !CARD.el || !CARD.cue || CARD.cue.lift) return
+  const el = CARD.el, room = el.clientHeight, below = el.scrollHeight - room - el.scrollTop; if (below <= 2 || el.scrollTop > 0) return
+  const next = cueLines(el).find(([, b]) => b > room + .5); if (!next) return
+  const r = Math.min(below, Math.ceil(next[1] - room) + 2), ms = num('cue-d-ms', 900), t0 = performance.now(), L = CARD.cue.lift = { r, peak: 0, done: false, n: (HOME.cueLifts = (HOME.cueLifts || 0) + 1) }
+  const step = () => { if (CARD.el !== el || L.done) return; const u = HOME.cueClock != null ? clamp01(HOME.cueClock) : clamp01((performance.now() - t0) / ms)
+    const y = Math.round(r * Math.sin(Math.PI * (u < .4 ? io(u / .4) * .5 : .5 + io((u - .4) / .6) * .5))); el.scrollTop = y; L.peak = Math.max(L.peak, y)
+    if (u >= 1 && HOME.cueClock == null) { el.scrollTop = 0; L.done = true; cueRaf = 0; return } cueRaf = requestAnimationFrame(step) }
+  cueRaf = requestAnimationFrame(step) }
+function cuePage() { // a: one whole-line screenful on: the first line not wholly seen becomes the top, and the room ends on a whole line again
+  const el = CARD.el, G = CARD.geo; if (!el || !G || !CARD.open) return
+  cueStop(); el.style.removeProperty('padding-bottom'); cardEl.style.setProperty('--ci-b', G.bottom + 'px')
+  const room = el.clientHeight, st = el.scrollTop, L = cueLines(el), next = L.find(([, b]) => b > st + room + .5); if (!next) return
+  let top = Math.floor(next[0])
+  const fit = L.filter(([t, b]) => t >= top - .5 && b <= top + room).map(([, b]) => b).sort((a, b) => b - a)[0]
+  if (fit && L.some(([t, b]) => t >= top - .5 && b > top + room)) cardEl.style.setProperty('--ci-b', G.bottom + (room - Math.ceil(fit - top)) + 'px') // the room ends on a whole line
+  const max = el.scrollHeight - el.clientHeight; if (top > max) el.style.setProperty('padding-bottom', 6 + Math.ceil(top - max) + 'px', 'important') // the last screenful still starts on a whole line
+  el.scrollTo({ top, behavior: reduce() ? 'auto' : 'smooth' }); CARD.paged = (CARD.paged || 0) + 1 }
+cardMoreBtn.addEventListener('click', e => { e.stopPropagation(); cuePage() })
+cardEl.addEventListener('keydown', e => { if (!CARD.open || !CARD.el || e.target !== CARD.el) return
+  if (e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) { if (!(CARD.cue && CARD.cue.more)) return; e.preventDefault(); cuePage() } })
+cardEl.addEventListener('pointerdown', () => cueStop(), true); cardEl.addEventListener('wheel', () => cueStop(), { passive: true, capture: true })
 function cardPose(t) { // the card at t of its opening: 0 is the facet it came from, 1 the card (it turns over; under reduced motion it fades)
   const G = CARD.geo; if (!G) return; CARD.t = t; const e = io(clamp01(t)), way = G.way, s = cardEl.style
   const sx = G.shift[0] * (way === 'fade' ? (t > 0 ? 1 : 0) : e), sy = G.shift[1] * (way === 'fade' ? (t > 0 ? 1 : 0) : e)
@@ -927,10 +982,11 @@ function cardRun(dir) { // one motion, its own clock (HOME.cardClock holds it st
     requestAnimationFrame(step) }
   cardPose(dir > 0 ? 0 : 1); requestAnimationFrame(step); return A.done }
 function cardSettle(A) { if (CARD.anim !== A) return; CARD.anim = null
-  if (A.dir > 0) { CARD.phase = 'open'; cardEl.style.transform = 'none'; cardEl.style.clipPath = polyCss(CARD.geo.shape.poly); cardSnap(); cardMore() } else cardGone()
+  if (A.dir > 0) { CARD.phase = 'open'; cardEl.style.transform = 'none'; cardEl.style.clipPath = polyCss(CARD.geo.shape.poly); cardSnap(); cardMore(); cueLift() } else cardGone()
   A.end() }
-function cardFinish() { const A = CARD.anim; if (!A) return; CARD.anim = null; if (A.dir > 0) { cardPose(1); CARD.phase = 'open'; cardSnap(); cardMore() } else cardGone(); A.end() }
+function cardFinish() { const A = CARD.anim; if (!A) return; CARD.anim = null; if (A.dir > 0) { cardPose(1); CARD.phase = 'open'; cardSnap(); cardMore(); cueLift() } else cardGone(); A.end() }
 function cardGone() { // closed: the words go home, the stone comes back to rest exactly as it was
+  cueStop(); if (CARD.el) CARD.el.style.removeProperty('padding-bottom'); cardMoreBtn.hidden = true; CARD.cue = null
   if (CARD.el && CARD.ph) { CARD.ph.replaceWith(CARD.el); CARD.el.removeAttribute('tabindex') }
   CARD.el = null; CARD.ph = null; CARD.geo = null; CARD.phase = null; CARD.kind = null; CARD.i = -1; CARD.shiftNow = [0, 0]
   cardEl.classList.remove('on', 'closing'); cardEl.setAttribute('aria-hidden', 'true'); for (const k of ['left', 'top', 'width', 'height', 'transform', 'clipPath', 'opacity', 'background']) cardEl.style[k] = ''
@@ -945,7 +1001,7 @@ function cardClose(how) { if (!CARD.open) return; CARD.how = how; const k = CARD
   if (k === 'idea') closeTools(); else closeWhy() }
 cardX.addEventListener('click', e => { e.stopPropagation(); if (performance.now() - CARD.openedAt < 400) return; cardClose('mark') })
 cardEl.addEventListener('click', e => { if (performance.now() - CARD.openedAt < 400 && e.target !== cardX) { e.preventDefault(); e.stopPropagation() } }, true) // not the click a touch on the facet sends after it, landing on what it just opened
-cardEl.addEventListener('scroll', () => cardMore(), true)
+cardEl.addEventListener('scroll', () => { if (!cueRaf) cardMore() }, true) // 44 d: not while the words lift
 addEventListener('mousedown', e => { if (CARD.open && performance.now() - CARD.openedAt < 500 && !e.target.closest('#card')) e.preventDefault() }, true) // the touch that opened it does not take the focus back out
 addEventListener('pointerdown', e => { if (!CARD.open && CARD.anim) cardFinish() // a touch while a card closes: it is closed now, and the stone back where the touch lands
   if (!CARD.open || e.target.closest('#card')) return; if (!e.target.closest('a, button, [role="button"]')) e.preventDefault() // with a card open, a touch on the stone only closes it; the same facet (or the line, for the chain) closes it too
@@ -1233,7 +1289,8 @@ Object.defineProperty(HOME, 'card', { get() { const G = CARD.geo, el = CARD.el
     rect: G ? [G.x, G.y, G.w, G.h] : null, poly: G ? G.shape.poly.map(([x, y]) => [G.x + x, G.y + y]) : null, xf: G ? G.shape.xf.map(([x, y]) => [G.x + x, G.y + y]) : null, shift: CARD.shiftNow || [0, 0],
     more: G ? !!G.more : null, scroll: el ? { top: el.scrollTop, height: el.scrollHeight, client: el.clientHeight, width: el.scrollWidth, cw: el.clientWidth } : null,
     focusIn: cardEl.contains(document.activeElement), el: el ? el.id : null, transform: cardEl.style.transform || 'none', opacity: +(cardEl.style.opacity || 1), on: cardEl.classList.contains('on'),
-    appShift: cv.style.transform || '', ground: cardEl.style.background || '' } } })
+    appShift: cv.style.transform || '', ground: cardEl.style.background || '', cue: CARD.cue ? { ...CARD.cue } : null, paged: CARD.paged || 0 } } })
+HOME.cardResnap = () => { if (CARD.el) { cueStop(); CARD.el.scrollTop = 0; cardSnap(); if (CARD.geo) CARD.geo.drawn = false; cardMore() } } // 44: the card back at its start, as it opened (for the check)
 HOME.cardPoint = () => { // a place a finger can land on the open card's facet, beside the card, on screen
   if (!CARD.open || !CARD.geo || CARD.i < 0 || !cur) return null; const G = CARD.geo, [sx, sy] = CARD.shiftNow || [0, 0]
   const pt = touchAt(cur, CARD.i, { all: true, avoid: [[G.x - sx - 10, G.y - sy - 10, G.x + G.w - sx + 10, G.y + G.h - sy + 10]] })
