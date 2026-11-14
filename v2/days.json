@@ -950,6 +950,24 @@
         "wind_kmh": 24.5,
         "cloud_pct": 83
       }
+    },
+    "2026-11-13": {
+      "poem": "i-listen",
+      "photo": "/photos/kodagu-india-346cc700.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.0,
+        "warmth": 0.3914285714285714,
+        "wet": 0.6,
+        "stillness": 0.4375,
+        "season": 0.10112482147700341,
+        "inside": 0.3957142857142857,
+        "mood": 0.5,
+        "weather_code": 71,
+        "tmax": 8.7,
+        "wind_kmh": 22.5,
+        "cloud_pct": 100
+      }
     }
   }
 }
