@@ -968,6 +968,24 @@
         "wind_kmh": 22.5,
         "cloud_pct": 100
       }
+    },
+    "2026-11-14": {
+      "poem": "thrum-thrum",
+      "photo": "/photos/washington-dc-c631b9f2.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.029737319017634,
+        "warmth": 0.34,
+        "wet": 0.0,
+        "stillness": 0.48750000000000004,
+        "season": 0.09599766763246231,
+        "inside": 0.67,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 6.9,
+        "wind_kmh": 20.5,
+        "cloud_pct": 74
+      }
     }
   }
 }
