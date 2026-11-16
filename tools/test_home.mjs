@@ -30,7 +30,7 @@
 //       pixels behind it (the stone without the poem's words, any ground and panel included): WCAG AA for 98% of them, 11px and up (the chain's
 //       sizes are its own: reported);
 //     no system name, no instruction, nothing counts down, no console error.
-// Run: node tools/test_home.mjs [--shots DIR]   (ONLY_VP=desk,phone,side · PAIRS=26 · STATIC=0 · CARDS=only (43 c's card alone) to narrow). Non-zero exit on any failure.
+// Run: node tools/test_home.mjs [--shots DIR]   (five slices at once, about 3½ minutes; NO_SHARD=1 for one process · PART=sweep|desk|phone|side|states for one slice · ONLY_VP=desk,phone,side · PAIRS=26 · STATIC=0 · CARDS=only (43 c's card alone) to narrow). Non-zero exit on any failure.
 import { spawn, spawnSync } from 'node:child_process'
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync, statSync, createReadStream, mkdtempSync, rmSync } from 'node:fs'
 import http from 'node:http'
@@ -43,6 +43,30 @@ import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.resolve(HERE, '..')
+
+/* The Chrome phase is one long walk of real-time animations (about 13 minutes in one page), so run its five independent slices as five
+   processes at once, each its own server, Chrome and profile, and merge what they print. PART picks a slice (see ALL_VP below); with no PART
+   and none of the narrowing switches this process is the parent: it starts the slices, prints each ok / FAIL line once (the node phase runs in
+   every slice, so its lines repeat), counts them, and prints the one PASS or FAIL line. NO_SHARD=1 runs it all in one process, as before. */
+const ALL_SIZES = '1440x900, 390x844, 844x390'
+const NARROW = ['ONLY_VP', 'SWEEP', 'CARDS', 'STATIC', 'PAIRS', 'NO_SHARD'].some(k => process.env[k] !== undefined)
+if (!process.env.PART && !NARROW) {
+  const PARTS = ['phone', 'side', 'desk', 'sweep', 'states'], T0 = Date.now(), outs = {}, codes = {}
+  await Promise.all(PARTS.map((part, i) => new Promise(done => { setTimeout(() => { // staggered: each finds its own free devtools port
+    const kid = spawn(process.execPath, [fileURLToPath(import.meta.url), ...process.argv.slice(2)], { env: { ...process.env, PART: part, QUIET: '' }, stdio: ['ignore', 'pipe', 'pipe'] })
+    let o = ''; kid.stdout.on('data', d => { o += d }); kid.stderr.on('data', d => { o += d })
+    kid.on('exit', c => { outs[part] = o; codes[part] = c; done() }) }, i * 700) })))
+  const seen = new Set(), counts = { loads: 0, drawn: 0, probes: 0, crossings: 0 }; let oks = 0, fails = 0, weight8 = ''
+  for (const part of PARTS) for (const line of outs[part].split('\n')) {
+    const m = line.match(/^@@SHARD (.*)$/); if (m) { const c = JSON.parse(m[1]); for (const k of Object.keys(counts)) counts[k] += c[k]; if (c.w8) weight8 = c.w8; continue }
+    if (/^(PASS|FAIL) the home: /.test(line) || !line.trim()) continue
+    const once = /^(ok|FAIL) /.test(line) || /^(note|     )/.test(line); if (once) { if (seen.has(line)) continue; seen.add(line) }
+    if (line.startsWith('ok ')) { oks++; if (process.env.QUIET) continue } else if (line.startsWith('FAIL ')) fails++
+    console.log(line) }
+  for (const part of PARTS) if (codes[part] !== 0 && !outs[part].includes('FAIL ')) { fails++; console.log(`FAIL the ${part} slice exited ${codes[part]} without a result: ${outs[part].slice(-300)}`) }
+  console.log(fails ? `FAIL the home: ${fails} of ${oks + fails} checks failed` : `PASS the home: ${oks} checks in ${counts.loads} loads at ${ALL_SIZES}: every facet yields (${counts.drawn} drawn), ${counts.probes} worst-case words placed clear, ${counts.crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached${weight8} (${Math.round((Date.now() - T0) / 1000)}s, five slices at once)`)
+  process.exit(fails ? 1 : 0)
+}
 /* 43 c's pixels: Chrome's screenshots decoded here (8-bit RGB or RGBA, not interlaced), contrast by WCAG, and two shots compared */
 function png(buf) {
   let p = 8, w = 0, h = 0, ct = 0; const idat = []
@@ -680,8 +704,11 @@ const P42 = (() => {
 })()
 
 /* ---------- in Chrome ---------- */
-const VIEWPORTS = [{ id: 'desk', w: 1440, h: 900, mobile: false }, { id: 'phone', w: 390, h: 844, mobile: true }, { id: 'side', w: 844, h: 390, mobile: true }]
-  .filter(v => !process.env.ONLY_VP || process.env.ONLY_VP.split(',').includes(v.id))
+const ALL_VP = [{ id: 'desk', w: 1440, h: 900, mobile: false }, { id: 'phone', w: 390, h: 844, mobile: true }, { id: 'side', w: 844, h: 390, mobile: true }]
+// PART (set by the parent below, or by hand) runs one slice of the Chrome phase: sweep (the texts, 41 b's placement, the wash), desk | phone | side
+// (that size's whole walk), states (B1-B9 and reduced motion). Unset, everything runs. The node phase above runs in every slice.
+const PART = process.env.PART ? process.env.PART.split(',') : null, want = k => !PART || PART.includes(k)
+const VIEWPORTS = ALL_VP.filter(v => (!process.env.ONLY_VP || process.env.ONLY_VP.split(',').includes(v.id)) && want(v.id))
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const freePort = () => new Promise(r => { const s = net.createServer(); s.listen(0, '127.0.0.1', () => { const p = s.address().port; s.close(() => r(p)) }) })
 async function waitFor(fn, label, tries = 200, every = 100) { for (let i = 0; i < tries; i++) { try { const v = await fn(); if (v) return v } catch {} await sleep(every) } throw new Error('timed out waiting for ' + label) }
@@ -1024,7 +1051,7 @@ try {
     for (const [k, p, q] of [['an undated poem', P1, U], ['a poem of one theme', P2, O], ['shown once', P1, Q1], ['shown twice', P2, Q2], ['shown three or more times', P3, Q3]]) if (p && q) out[k] = kp(p.src, q.slug)
     return out })()
   const M0 = { iso: '2026-11-08', R: P36.READING }, SAID = {}
-  if (process.env.CARDS !== 'only') { await view({ id: 'texts', w: 390, h: 844, mobile: true }); await open('')
+  if (process.env.CARDS !== 'only' && want('sweep')) { await view({ id: 'texts', w: 390, h: 844, mobile: true }); await open('')
     const today = await cdp.eval('HOME.todayKey'), at = await readAtOf(), tp = P42.today(M0.iso, M0.R, P42.DAYS0), bad = [], priv = [], caps = []
     check(today === kp(tp.photo, tp.poem) && tp.how === 'live', `42 a: the page's pair today is the one pick.js picks in the recount here (${today})`)
     const all = [today, ...KEYS, ...Object.values(RARE)]
@@ -1075,7 +1102,7 @@ try {
       const y = [...free].map(i => ({ i, n: five.filter(j => seamN(C[i], C[j])).length, d: Math.hypot(ct[i][0] - mid[0], ct[i][1] - mid[1]) })).sort((a, b) => b.n - a.n || a.d - b.d || a.i - b.i)[0]
       take('Self-healing', y.i, y.n ? `sharing a seam with ${y.n} of the five it watches · they are kept running from here` : 'nearest the middle of the five it watches · they are kept running from here') }
     return out }
-  if (process.env.SWEEP !== '0' && process.env.CARDS !== 'only') {
+  if (process.env.SWEEP !== '0' && process.env.CARDS !== 'only' && want('sweep')) {
     const SW = [[390, 844, true], [375, 667, true], [430, 932, true], [844, 390, true], [1440, 900, false]], bad = [], seen = { n: 0, recut: 0, slow: 0, scroll: 0, covered: 0, coveredIdeas: 0, coveredAt: {} }, ts = Date.now()
     for (const [w, h, mobile] of SW) { await view({ id: 'sweep', w, h, mobile }); await open('')
       for (const key of KEYS) for (const crossed of [false, true]) {
@@ -1447,7 +1474,7 @@ try {
   /* B: every state a real visitor can reach, each pinned (the clock, the sky, the time zone, which sources load), at 390x844: today's pair as the
      page resolves it, its six this-world texts word for word against the recount, each idea's panel opened (the general always there, read
      live, nothing missing said); the texts are printed for the record. The first screen's are B1 */
-  if (process.env.CARDS !== 'only') { const sky = (o, cur = {}) => { const j = JSON.parse(FIXTURE); Object.assign(j.current, cur); return JSON.stringify(j) }
+  if (process.env.CARDS !== 'only' && want('states')) { const sky = (o, cur = {}) => { const j = JSON.parse(FIXTURE); Object.assign(j.current, cur); return JSON.stringify(j) }
     const relWithout = slug => { const R = read('poems/related.js'), at = R.indexOf(`'${slug}':`) >= 0 ? R.indexOf(`'${slug}':`) : R.indexOf(`"${slug}":`), end = R.indexOf('\n', at); return R.slice(0, at) + R.slice(end + 1) }
     const REPEAT = (() => { const D = JSON.parse(JSON.stringify(P42.DAYS0)), real = Object.keys(D).filter(d => /^\d{4}-/.test(d)), n = f => v => real.filter(d => D[d][f] === v).length
       const X = PHOTOS42.find(p => n('photo')(p.src) === 2).src, Y = POEMS42.find(p => n('poem')(p.slug) === 1).slug
@@ -1504,7 +1531,7 @@ try {
       check(!clash.length, `B9 ${v.w}x${v.h}: every open idea opens as the card, wholly on screen, its words in whole lines`, clash.slice(0, 3).join(', ')) } }
 
   // reduced motion: the poem is there at once, a facet still answers, a crossing is a crossfade where no facet moves
-  if (VIEWPORTS.some(v => v.id === 'desk') && process.env.CARDS !== 'only') { await view(VIEWPORTS.find(v => v.id === 'desk')); await reduceMotion(true); errors.length = 0
+  if (process.env.CARDS !== 'only' && want('states') && (!process.env.ONLY_VP || process.env.ONLY_VP.split(',').includes('desk'))) { await view(ALL_VP[0]); await reduceMotion(true); errors.length = 0
     await open(''); const dk = (await cdp.eval('HOME.doors'))[0].to; await open('?w=' + encodeURIComponent(dk)); await waitFor(() => cdp.eval('HOME.world.arrived'), 'arrival', 200)
     check(await cdp.eval('HOME.lines.every(l => l.shown)'), 'reduced motion: the poem is there at once')
     { const at = await cdp.eval('HOME.tapIdea(0)'); if (at && at.pt) await tap(at.pt); const ok = await waitFor(() => cdp.eval('HOME.open === 0 && HOME.hereReadyNow && +getComputedStyle(document.querySelector("#tools")).opacity > .98'), 'idea', 250, 60).catch(() => null)
@@ -1517,6 +1544,7 @@ try {
 
 { const gone = [...P37.reached].filter(x => !live.has(x)); check(P37.reached.size > 0 && !gone.length, `every poem a segment shows or a facet reaches (${P37.reached.size}) is live`, gone.join(', ')) }
 const w8 = weight ? `; first screen on a phone ${Math.round(weight.rest / 1024)} KB gzipped + the photograph ${Math.round(weight.pic / 1024)} KB` : ''
+if (process.env.PART) console.log('@@SHARD ' + JSON.stringify({ loads, drawn: drawnN, probes, crossings, w8 }))
 for (const [k, o] of Object.entries(READS.worst)) console.log(`     reads, worst ${k}: ${o.p02}:1, ${o.px}px, at ${o.where} "${o.text}"`)
 console.log(failures ? `FAIL the home: ${failures} of ${oks + failures} checks failed` : `PASS the home: ${oks} checks in ${loads} loads at ${VIEWPORTS.map(v => v.w + 'x' + v.h).join(', ')}: every facet yields (${drawnN} drawn), ${probes} worst-case words placed clear, ${crossings} crossings walked frame by frame onto the next masses cut, the line and the chain recounted, the six ideas opened on this world and the years reached${w8} (${Math.round((Date.now() - t0) / 1000)}s)`)
 cleanup(); process.exit(failures ? 1 : 0)
