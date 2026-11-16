@@ -7,7 +7,7 @@
   ],
   "parts": {
     "Raw store": ["raw-*", "com.kahran.raw-store"],
-    "The WhatsApp assistant": ["ai.hermes.gateway", "hermes-fold", "hermes-drop-fold", "hermes-task", "com.kahran.voice-watch", "voice-digest", "voice-relay", "view-calendar-days", "view-people-meetings", "view-status-today"],
+    "The WhatsApp assistant": ["ai.hermes.gateway", "hermes-fold", "hermes-drop-fold", "hermes-task", "com.kahran.voice-watch", "voice-digest", "voice-relay", "view-calendar-days", "view-people-meetings", "view-status-today", "hermes-usage"],
     "Where I am": ["presence", "trip-legs"],
     "Right now": ["context-open"],
 
