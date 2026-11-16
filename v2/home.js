@@ -55,7 +55,7 @@
         "tools": [
           "Read voice notes, conversations and meetings for possible commitments and ideas. They propose things to keep rather than treating every passing thought as a new task.",
           "Reviews the miners’ proposals before they reach the pending list or sparks garden. Finding a candidate and accepting it are separate steps.",
-          "Works with the pending list, prepares check-in questions, and splits an item too big to start into first steps, keeping the original so a split can be undone. Open commitments also feed the day planner and the midday door, so a suggested next move can come from work already taken on.",
+          "Works with the pending list, prepares check-in questions, and splits an item too big to start into first steps, keeping the original so a split can be undone. Open commitments also feed the day planner, so a suggested next move can come from work already taken on.",
           "Drafts a follow-up email after a recorded meeting: a short recap, and the next steps with who owns each. It only drafts; nothing is sent until it is read and sent by hand.",
           "Keeps ideas apart from obligations. A thought can be saved and revisited without needing a deadline or pretending to be the next thing to do."
         ],
@@ -84,12 +84,11 @@
     {
       name:  'Topically suggesting',
       hue:   'tile--public',
-      parts: ['The day planner', 'The midday door', 'The workout planner', 'The meal plan', 'Noticings', 'Travel days'],
+      parts: ['The day planner', 'The workout planner', 'The meal plan', 'Noticings', 'Travel days'],
       detail: {
         "intro": "The useful suggestion depends on the day. A plan for the morning, a start after lunch, a workout, an old thought and a flight-day plan need different inputs; putting them together does not make them interchangeable.",
         "tools": [
           "Reads last night’s recovery, the calendar and pending work to shape the day, and sends it in the morning brief. The same plan is on the page, and help getting unstuck is there when asked.",
-          "Waits for the first free stretch after the midday meetings and offers one first fifteen minutes on something already taken on. At most one a day, and only when there is room for it.",
           "Uses the home-or-away reading to help plan a session that fits the day. Today’s workout is available on request; the weekly plan has a separate review path for the coach.",
           "Fits the day’s meals to its shape just after the morning brief: the meal windows, training and any reservation already made. Away from home it plans from what is actually nearby and open, never from a kitchen that isn’t there.",
           "Brings selected material from the past back into view. The brief carries a short line, or a message of its own when the thought was grown after the brief went out, with a longer page when it is worth staying with.",
@@ -97,7 +96,7 @@
         ],
         "boundary": "A suggestion is an offer, not another commitment. These tools help choose a next move; they do not turn every available possibility into a list."
       },
-      line:  'day planner · midday · workouts · meals · noticings · travel',
+      line:  'day planner · workouts · meals · noticings · travel',
       href:  null
     },
     {
