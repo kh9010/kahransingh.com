@@ -10,7 +10,7 @@ const expected = {
   'Context': ['Raw store', 'The WhatsApp assistant', 'Where I am', 'Right now'],
   'Keeping track': ['The miners', 'The judge', 'The Curator', 'Meeting follow-ups', 'The sparks garden'],
   'Staying up to date': ['Mail triage', 'The newsletter reader', 'Lost touch', 'The weekly record'],
-  'Topically suggesting': ['The day planner', 'The midday door', 'The workout planner', 'The meal plan', 'Noticings', 'Travel days'],
+  'Topically suggesting': ['The day planner', 'The workout planner', 'The meal plan', 'Noticings', 'Travel days'],
   'Self-healing': ['Samwise', 'The repairer', 'The health page'],
   'Home': ['The lights', 'The bedroom frame', 'The family archive', 'This page']
 };

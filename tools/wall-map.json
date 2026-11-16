@@ -11,7 +11,7 @@
     "Where I am": ["presence", "trip-legs"],
     "Right now": ["context-open"],
 
-    "The miners": ["conversation-miner", "voice-note-miner", "granola-mine", "hint-mining", "morning-extras", "coach-call-miner"],
+    "The miners": ["conversation-miner", "voice-note-miner", "granola-mine", "hint-mining", "morning-extras", "coach-call-miner", "wa-texts-digest"],
     "The judge": ["judge-proposals"],
     "The Curator": ["curator", "backlog-pull"],
     "Meeting follow-ups": ["com.kahran.granola-followup"],
@@ -23,7 +23,6 @@
     "The weekly record": ["com.kahran.weekly-record-publish", "record-build"],
 
     "The day planner": ["day-planner", "planner-daily", "recovery", "oura", "adherence", "hermes:morning-brief"],
-    "The midday door": ["midday-door"],
     "The workout planner": ["planner-daily", "log-workout-live"],
     "The meal plan": ["hermes:daily-meal-plan"],
     "Noticings": ["noticings-grower"],
@@ -35,14 +34,14 @@
 
     "The lights": ["com.kahran.home-net", "com.kahran.home-net-homekit", "com.kahran.home-net-ui", "com.kahran.home-net-usage"],
     "The bedroom frame": ["com.kahran.frame-us"],
-    "The family archive": ["com.kahran.immich-family", "com.kahran.immich-family-outcomes", "com.kahran.immich-family-gepa", "immich-family-*"],
+    "The family archive": ["com.kahran.immich-family", "com.kahran.immich-family-outcomes", "immich-family-*"],
     "This page": ["com.kahran.daily-pick-publish", "com.kahran.place-feed-publish", "site-daily-pick", "site-place-feed"]
   },
   "plumbing": [
     "oura-pull", "oura-pull-pm", "fts-index", "granola-rollup", "granola", "granola-plugin", "mining-health",
     "feedback", "feedback-pipe", "now-chat", "now-chat-door", "notify-door", "scheduler", "place-affinity",
     "claude-sessions-digest", "classify-owners", "repo-hygiene", "skills-roster", "activity-log-freshness",
-    "activity-records", "sync-conflict-janitor", "wa-sweep", "wall-drift",
+    "activity-records", "sync-conflict-janitor", "wa-sweep", "wall-drift", "open-prs",
     "armoire-weekly", "armoire-notebook", "hermes:fare-watch-home-jan2027",
     "com.kahran.scheduler", "com.kahran.whatsapp-keepalive", "com.kahran.obsidian-keepalive",
     "com.kahran.granola-watch", "com.kahran.system-inbox-lane", "com.kahran.capture-health",
