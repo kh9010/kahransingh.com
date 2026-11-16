@@ -17,7 +17,7 @@
     "Meeting follow-ups": ["com.kahran.granola-followup"],
     "The sparks garden": ["com.kahran.sparks-watch", "sparks-fold", "com.kahran.sparks-canvas"],
 
-    "Mail triage": ["mail-triage-refresh", "mail-triage", "mail-bridge", "com.kahran.mail-triage-watcher", "view-mail-recent", "view-mail-pending", "meeting-reconcile", "hermes:mail-sweep"],
+    "Mail triage": ["mail-triage-refresh", "mail-triage", "mail-bridge", "com.kahran.mail-triage-watcher", "view-mail-recent", "view-mail-pending", "meeting-reconcile", "mail-pass-morning", "mail-receipt", "mail-attention-bodies"],
     "The newsletter reader": ["com.kahran.feed-reader"],
     "Lost touch": ["view-dormant-ties", "city-proposals"],
     "The weekly record": ["com.kahran.weekly-record-publish", "record-build"],
