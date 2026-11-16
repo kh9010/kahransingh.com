@@ -31,7 +31,7 @@
 
     "Samwise": ["com.kahran.samwise", "samwise-fresh"],
     "The repairer": ["samwise-fix", "samwise-repair"],
-    "The health page": ["com.kahran.now-web"],
+    "The health page": ["com.kahran.sparks-canvas"],
 
     "The lights": ["com.kahran.home-net", "com.kahran.home-net-homekit", "com.kahran.home-net-ui", "com.kahran.home-net-usage"],
     "The bedroom frame": ["com.kahran.frame-us"],
