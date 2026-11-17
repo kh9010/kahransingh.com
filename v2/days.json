@@ -1004,6 +1004,24 @@
         "wind_kmh": 19.9,
         "cloud_pct": 21
       }
+    },
+    "2026-11-16": {
+      "poem": "i-left-my-heart-at-home-today",
+      "photo": "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "place": "New York, NY",
+      "why": {
+        "light": 0.6375338795285846,
+        "warmth": 0.5428571428571428,
+        "wet": 0.0,
+        "stillness": 0.545,
+        "season": 0.08610349414344892,
+        "inside": 0.7714285714285714,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 14.0,
+        "wind_kmh": 18.2,
+        "cloud_pct": 14
+      }
     }
   }
 }
