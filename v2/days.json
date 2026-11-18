@@ -1022,6 +1022,24 @@
         "wind_kmh": 18.2,
         "cloud_pct": 14
       }
+    },
+    "2026-11-17": {
+      "poem": "a-wedding-toast",
+      "photo": "/photos/papel-picado.jpg",
+      "place": "Bangalore, India",
+      "why": {
+        "light": 0.6689298955677844,
+        "warmth": 0.962857142857143,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.08133940234409393,
+        "inside": 0.9814285714285715,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 28.7,
+        "wind_kmh": 11.4,
+        "cloud_pct": 79
+      }
     }
   }
 }
