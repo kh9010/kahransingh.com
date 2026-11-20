@@ -1058,6 +1058,24 @@
         "wind_kmh": 9.3,
         "cloud_pct": 0
       }
+    },
+    "2026-11-20": {
+      "poem": "a-conversation-among-birds",
+      "photo": "/photos/provincetown-massachusetts-eee28b60.jpg",
+      "place": null,
+      "why": {
+        "light": 0.6446985906172477,
+        "warmth": 0.7114285714285714,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.06779591276116759,
+        "inside": 0.8557142857142856,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 19.9,
+        "wind_kmh": 9.7,
+        "cloud_pct": 31
+      }
     }
   }
 }
