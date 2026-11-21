@@ -1076,6 +1076,24 @@
         "wind_kmh": 9.7,
         "cloud_pct": 31
       }
+    },
+    "2026-11-21": {
+      "poem": "time-in-a-fig-grove",
+      "photo": "/photos/taco-cart.jpg",
+      "place": "Bangalore, India",
+      "why": {
+        "light": 0.6705217636560755,
+        "warmth": 0.962857142857143,
+        "wet": 0.0,
+        "stillness": 1.0,
+        "season": 0.06353546458967946,
+        "inside": 0.9814285714285715,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 28.7,
+        "wind_kmh": 8.9,
+        "cloud_pct": 35
+      }
     }
   }
 }
