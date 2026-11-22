@@ -1094,6 +1094,24 @@
         "wind_kmh": 8.9,
         "cloud_pct": 35
       }
+    },
+    "2026-11-22": {
+      "poem": "when-i-laugh",
+      "photo": "/photos/kodagu-india-68c68cb1.jpg",
+      "place": "Bangalore, India",
+      "why": {
+        "light": 0.5489602069202387,
+        "warmth": 0.9685714285714285,
+        "wet": 0.4,
+        "stillness": 1.0,
+        "season": 0.05940417329625852,
+        "inside": 0.7842857142857143,
+        "mood": 0.5,
+        "weather_code": 45,
+        "tmax": 28.9,
+        "wind_kmh": 10.9,
+        "cloud_pct": 54
+      }
     }
   }
 }
