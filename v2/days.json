@@ -1112,6 +1112,24 @@
         "wind_kmh": 10.9,
         "cloud_pct": 54
       }
+    },
+    "2026-11-23": {
+      "poem": "guadalajara",
+      "photo": "/photos/reed-corridor.jpg",
+      "place": "Bangalore, India",
+      "why": {
+        "light": 0.6713724092097182,
+        "warmth": 0.9942857142857142,
+        "wet": 0.0,
+        "stillness": 0.9775,
+        "season": 0.055403261396464454,
+        "inside": 0.9971428571428571,
+        "mood": 0.5,
+        "weather_code": 3,
+        "tmax": 29.8,
+        "wind_kmh": 12.9,
+        "cloud_pct": 29
+      }
     }
   }
 }
