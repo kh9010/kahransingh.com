@@ -1,0 +1,3965 @@
+{
+ "made_by": "studies/15/build.py",
+ "vocabs": {
+  "senses": {
+   "words": [
+    {
+     "word": "first light",
+     "poems": [
+      "a-conversation-among-birds",
+      "did-you-know",
+      "in-my-heart-something-called-to-the-rain",
+      "let-tomorrow-come"
+     ],
+     "photos": [
+      "/photos/still-lake.jpg",
+      "/photos/kodagu-india-033e7e3b.jpg",
+      "/photos/kodagu-india-124b384b.jpg",
+      "/photos/kodagu-india-68c68cb1.jpg",
+      "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "/photos/diamante-valley-costa-rica-cbb914b4.jpg"
+     ]
+    },
+    {
+     "word": "soft light",
+     "poems": [
+      "hey-you-tree-there",
+      "oh-that-again",
+      "song-of-tomorrow",
+      "the-light-sings",
+      "this-growing-older",
+      "wrestle"
+     ],
+     "photos": [
+      "/photos/tree-tunnel.jpg",
+      "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+      "/photos/mount-rainier-national-park-washington-d72b8203.jpg",
+      "/photos/washington-dc-afd19b1c.jpg",
+      "/photos/casper-wyoming-02035a8d.jpg",
+      "/photos/setonaikai-national-park-japan-4d3f9e95.jpg"
+     ]
+    },
+    {
+     "word": "low sun",
+     "poems": [
+      "i-watch-my-hair",
+      "mama",
+      "the-sun-kissed-the-mountains"
+     ],
+     "photos": [
+      "/photos/hawaii-landscape.jpg",
+      "/photos/yosemite-trail.jpg",
+      "/photos/crested-butte-colorado-e25ede7f.jpg",
+      "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+      "/photos/provincetown-massachusetts-4c281798.jpg",
+      "/photos/provincetown-massachusetts-eee28b60.jpg",
+      "/photos/provincetown-massachusetts-08da554d.jpg",
+      "/photos/provincetown-massachusetts-09009fdd.jpg",
+      "/photos/sayulita-mexico-25fbaafd.jpg",
+      "/photos/sayulita-mexico-9d65e1b6.jpg"
+     ]
+    },
+    {
+     "word": "full sun",
+     "poems": [
+      "and-now-that-we-walk",
+      "falling-in-love",
+      "i-saw-something-beautiful-today",
+      "park",
+      "when-you-were-young",
+      "i-came-out"
+     ],
+     "photos": [
+      "/photos/beach-solitude.jpg",
+      "/photos/reed-corridor.jpg",
+      "/photos/buoys-wall.jpg",
+      "/photos/yosemite-valley.jpg",
+      "/photos/crested-butte-colorado-8ada8f57.jpg",
+      "/photos/san-juan-islands-washington-657f1936.jpg",
+      "/photos/acadia-national-park-maine-9678573e.jpg",
+      "/photos/provincetown-massachusetts-a90962e6.jpg",
+      "/photos/provincetown-massachusetts-ee073946.jpg"
+     ]
+    },
+    {
+     "word": "the dark",
+     "poems": [
+      "i-listen",
+      "i-was-feeling-sorry-for-a-moth",
+      "i-watch-my-hair",
+      "london",
+      "mama",
+      "song-of-tomorrow",
+      "today-i-write-about-red",
+      "when-im-not-here",
+      "wrestle"
+     ],
+     "photos": [
+      "/photos/roma-sidewalk.jpg",
+      "/photos/papel-picado.jpg",
+      "/photos/night-street.jpg",
+      "/photos/staircase.jpg",
+      "/photos/cdmx-plaza.jpg",
+      "/photos/fireworks-water.jpg",
+      "/photos/sayulita-staircase.jpg",
+      "/photos/lanterns.jpg",
+      "/photos/taco-cart.jpg",
+      "/photos/night-market.jpg",
+      "/photos/restaurant-night.jpg",
+      "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+      "/photos/washington-dc-c631b9f2.jpg",
+      "/photos/setonaikai-national-park-japan-64937bce.jpg"
+     ]
+    },
+    {
+     "word": "shimmer",
+     "poems": [
+      "delicate-pieces-before-the-end",
+      "hark-my-love",
+      "i-feel-sad-about-endings",
+      "i-saw-something-beautiful-today"
+     ],
+     "photos": [
+      "/photos/fireworks-water.jpg",
+      "/photos/lanterns.jpg",
+      "/photos/singapore-225bdfc9.jpg",
+      "/photos/kodagu-india-033e7e3b.jpg",
+      "/photos/mount-rainier-national-park-washington-5c7590f5.jpg",
+      "/photos/provincetown-massachusetts-ee073946.jpg",
+      "/photos/setonaikai-national-park-japan-64937bce.jpg",
+      "/photos/setonaikai-national-park-japan-4d3f9e95.jpg"
+     ]
+    },
+    {
+     "word": "grey",
+     "poems": [
+      "freedom-yet-unabridged",
+      "how-can-you-just-be-gone",
+      "my-friend-who-died"
+     ],
+     "photos": [
+      "/photos/still-lake.jpg",
+      "/photos/beach-boardwalk.jpg",
+      "/photos/berlin-street.jpg",
+      "/photos/puako-hawaii-98409f6b.jpg",
+      "/photos/hilo-hawaii-ea929e41.jpg",
+      "/photos/provincetown-massachusetts-f214fa8d.jpg",
+      "/photos/mariposa-grove-yosemite-7455e25e.jpg"
+     ]
+    },
+    {
+     "word": "mist",
+     "poems": [
+      "california",
+      "memories-of-tomorrow",
+      "the-mist",
+      "being-loved"
+     ],
+     "photos": [
+      "/photos/misty-hillside.jpg",
+      "/photos/kodagu-india-124b384b.jpg",
+      "/photos/kodagu-india-68c68cb1.jpg",
+      "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "/photos/diamante-valley-costa-rica-3092189d.jpg",
+      "/photos/diamante-valley-costa-rica-cbb914b4.jpg"
+     ]
+    },
+    {
+     "word": "rain",
+     "poems": [
+      "i-feel-sad-about-endings",
+      "in-my-heart-something-called-to-the-rain",
+      "the-light-sings",
+      "today-if-there-is-tomorrow",
+      "wedding-poem"
+     ],
+     "photos": [
+      "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "/photos/hilo-hawaii-3cb5d78d.jpg",
+      "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg"
+     ]
+    },
+    {
+     "word": "dew",
+     "poems": [
+      "have-you-ever-seen",
+      "the-mist",
+      "i-came-out"
+     ],
+     "photos": [
+      "/photos/kodagu-india-033e7e3b.jpg",
+      "/photos/kodagu-india-68c68cb1.jpg",
+      "/photos/diamante-valley-costa-rica-3092189d.jpg"
+     ]
+    },
+    {
+     "word": "wind",
+     "poems": [
+      "ariel",
+      "everywhere-i-turn",
+      "freedom-yet-unabridged",
+      "hark-my-love",
+      "i-watched-a-butterfly-today",
+      "it-used-to-be-me",
+      "one-in-community",
+      "sit-let-us-listen",
+      "sometimes-quaver",
+      "to-flutter",
+      "being-loved"
+     ],
+     "photos": [
+      "/photos/papel-picado.jpg",
+      "/photos/alpine-lake.jpg",
+      "/photos/reed-corridor.jpg",
+      "/photos/fire-island-new-york-72585dde.jpg",
+      "/photos/casper-wyoming-cce8cbde.jpg",
+      "/photos/paro-bhutan-6f8bbbbf.jpg",
+      "/photos/provincetown-massachusetts-f214fa8d.jpg",
+      "/photos/provincetown-massachusetts-4c281798.jpg",
+      "/photos/provincetown-massachusetts-eee28b60.jpg",
+      "/photos/provincetown-massachusetts-08da554d.jpg"
+     ]
+    },
+    {
+     "word": "cold",
+     "poems": [
+      "do-you-miss-me",
+      "everywhere-i-turn",
+      "london",
+      "one-beautiful-moment",
+      "sometimes-i-feel-cold",
+      "to-be-alone",
+      "today-birds",
+      "when-i-laugh",
+      "bladder-bag"
+     ],
+     "photos": [
+      "/photos/alpine-lake.jpg",
+      "/photos/still-lake.jpg",
+      "/photos/misty-hillside.jpg",
+      "/photos/crested-butte-colorado-8ada8f57.jpg",
+      "/photos/crested-butte-colorado-e25ede7f.jpg",
+      "/photos/mount-rainier-national-park-washington-3d887df3.jpg",
+      "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+      "/photos/casper-wyoming-cce8cbde.jpg",
+      "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg"
+     ]
+    },
+    {
+     "word": "warm",
+     "poems": [
+      "a-wedding-toast",
+      "dear-bottle",
+      "everyday-i-can-spend",
+      "i-was-feeling-sorry-for-a-moth",
+      "its-funny",
+      "mama",
+      "sometimes-curious-feel",
+      "this-growing-older",
+      "to-know-me",
+      "when-i-laugh",
+      "xoxo",
+      "being-loved",
+      "bladder-bag"
+     ],
+     "photos": [
+      "/photos/papel-picado.jpg",
+      "/photos/staircase.jpg",
+      "/photos/buoys-wall.jpg",
+      "/photos/lanterns.jpg",
+      "/photos/taco-cart.jpg",
+      "/photos/night-market.jpg",
+      "/photos/kitchen-night.jpg",
+      "/photos/restaurant-night.jpg",
+      "/photos/singapore-225bdfc9.jpg",
+      "/photos/sayulita-mexico-25fbaafd.jpg"
+     ]
+    },
+    {
+     "word": "the sea",
+     "poems": [
+      "dear-bottle",
+      "out-to-play-he-calls-them",
+      "today-birds",
+      "when-i-laugh",
+      "when-you-watch-the-whales-from-shore",
+      "i-came-out"
+     ],
+     "photos": [
+      "/photos/beach-solitude.jpg",
+      "/photos/scooter-beach.jpg",
+      "/photos/singapore-225bdfc9.jpg",
+      "/photos/puako-hawaii-98409f6b.jpg",
+      "/photos/hilo-hawaii-ea929e41.jpg",
+      "/photos/kaanapali-maui-2be2cfcb.jpg",
+      "/photos/san-juan-islands-washington-657f1936.jpg",
+      "/photos/provincetown-massachusetts-ee073946.jpg",
+      "/photos/provincetown-massachusetts-08da554d.jpg",
+      "/photos/provincetown-massachusetts-09009fdd.jpg",
+      "/photos/sayulita-mexico-9d65e1b6.jpg"
+     ]
+    },
+    {
+     "word": "the river",
+     "poems": [
+      "anuraag-oh-anuraag",
+      "falling-in-love",
+      "these-water-nymphs",
+      "time-in-a-fig-grove",
+      "animals-in-love"
+     ],
+     "photos": [
+      "/photos/kodagu-india-346cc700.jpg",
+      "/photos/kodagu-india-124b384b.jpg",
+      "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "/photos/hilo-hawaii-fa94384a.jpg"
+     ]
+    },
+    {
+     "word": "stone",
+     "poems": [
+      "california",
+      "glass-houses",
+      "have-you-watched-creepers-creep",
+      "kashmir",
+      "social-media-is-not-the-right-place-for-grief",
+      "the-sun-kissed-the-mountains",
+      "these-days-are-gone"
+     ],
+     "photos": [
+      "/photos/cdmx-plaza.jpg",
+      "/photos/alpine-lake.jpg",
+      "/photos/concrete-museum.jpg",
+      "/photos/hawaii-landscape.jpg",
+      "/photos/yosemite-trail.jpg",
+      "/photos/scooter-beach.jpg",
+      "/photos/yosemite-valley.jpg",
+      "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+      "/photos/kodagu-india-346cc700.jpg",
+      "/photos/puako-hawaii-98409f6b.jpg",
+      "/photos/kaanapali-maui-2be2cfcb.jpg",
+      "/photos/washington-dc-c631b9f2.jpg",
+      "/photos/washington-dc-afd19b1c.jpg",
+      "/photos/acadia-national-park-maine-9678573e.jpg",
+      "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg"
+     ]
+    },
+    {
+     "word": "sand",
+     "poems": [
+      "hark-my-love",
+      "i-listen",
+      "one-in-community"
+     ],
+     "photos": [
+      "/photos/beach-solitude.jpg",
+      "/photos/reed-corridor.jpg",
+      "/photos/buoys-wall.jpg",
+      "/photos/beach-boardwalk.jpg",
+      "/photos/fire-island-new-york-72585dde.jpg",
+      "/photos/provincetown-massachusetts-f214fa8d.jpg",
+      "/photos/provincetown-massachusetts-a90962e6.jpg",
+      "/photos/sayulita-mexico-25fbaafd.jpg",
+      "/photos/sayulita-mexico-9d65e1b6.jpg"
+     ]
+    },
+    {
+     "word": "bark",
+     "poems": [
+      "an-ode-to-aspens",
+      "guadalajara",
+      "have-you-ever-seen",
+      "hey-you-tree-there",
+      "memories-of-tomorrow",
+      "there-is-a-soft-tingle"
+     ],
+     "photos": [
+      "/photos/tree-tunnel.jpg",
+      "/photos/crested-butte-colorado-8ada8f57.jpg",
+      "/photos/crested-butte-colorado-e25ede7f.jpg",
+      "/photos/puako-hawaii-98409f6b.jpg",
+      "/photos/hilo-hawaii-3cb5d78d.jpg",
+      "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "/photos/mount-rainier-national-park-washington-d72b8203.jpg",
+      "/photos/mount-rainier-national-park-washington-5c7590f5.jpg",
+      "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+      "/photos/paro-bhutan-08988839.jpg",
+      "/photos/honshu-japan-0d03d128.jpg",
+      "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+      "/photos/mariposa-grove-yosemite-7455e25e.jpg"
+     ]
+    },
+    {
+     "word": "green",
+     "poems": [
+      "did-you-know",
+      "have-you-watched-creepers-creep",
+      "in-my-heart-something-called-to-the-rain",
+      "sometimes-curious-feel",
+      "time-in-a-fig-grove",
+      "to-be-alone",
+      "to-see-such-beauty",
+      "today-i-write-about-red",
+      "wedding-poem",
+      "when-you-were-young"
+     ],
+     "photos": [
+      "/photos/tree-tunnel.jpg",
+      "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "/photos/hilo-hawaii-3cb5d78d.jpg",
+      "/photos/hilo-hawaii-fa94384a.jpg",
+      "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg",
+      "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+      "/photos/diamante-valley-costa-rica-3092189d.jpg",
+      "/photos/roppongi-tokyo-a5f50e72.jpg"
+     ]
+    },
+    {
+     "word": "red",
+     "poems": [
+      "blood-oh-once-you-called",
+      "guadalajara",
+      "i-saw-something-beautiful-today",
+      "i-watch-my-hair",
+      "i-will-always-be-a-poet",
+      "park",
+      "there-comes-a-point",
+      "thrum-thrum",
+      "today-i-write-about-red"
+     ],
+     "photos": [
+      "/photos/hilo-hawaii-a09cc2ce.jpg",
+      "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+      "/photos/paro-bhutan-08988839.jpg",
+      "/photos/paro-bhutan-6f8bbbbf.jpg"
+     ]
+    },
+    {
+     "word": "orange",
+     "poems": [
+      "i-watched-a-butterfly-today",
+      "its-funny",
+      "oh-the-horror-i-say",
+      "to-see-such-beauty",
+      "wedding-poem"
+     ],
+     "photos": [
+      "/photos/hilo-hawaii-a09cc2ce.jpg",
+      "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "/photos/sayulita-mexico-25fbaafd.jpg"
+     ]
+    },
+    {
+     "word": "in bloom",
+     "poems": [
+      "oh-that-again",
+      "park",
+      "sit-let-us-listen",
+      "thrum-thrum"
+     ],
+     "photos": [
+      "/photos/hilo-hawaii-fa94384a.jpg",
+      "/photos/paro-bhutan-08988839.jpg",
+      "/photos/roppongi-tokyo-a5f50e72.jpg"
+     ]
+    },
+    {
+     "word": "silence",
+     "poems": [
+      "a-conversation-among-birds",
+      "an-ode-to-aspens",
+      "do-you-miss-me",
+      "everywhere-i-turn",
+      "glass-houses",
+      "how-can-you-just-be-gone",
+      "i-left-my-heart-at-home-today",
+      "i-listen",
+      "my-friend-who-died",
+      "not-in-my-life",
+      "one-beautiful-moment",
+      "out-of-many-one",
+      "sit-let-us-listen",
+      "social-media-is-not-the-right-place-for-grief",
+      "teental",
+      "to-touch-in-a-way",
+      "today-i-saw-a-man-on-a-leash"
+     ],
+     "photos": [
+      "/photos/roma-sidewalk.jpg",
+      "/photos/night-street.jpg",
+      "/photos/cdmx-plaza.jpg",
+      "/photos/still-lake.jpg",
+      "/photos/concrete-museum.jpg",
+      "/photos/restaurant-night.jpg",
+      "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+      "/photos/washington-dc-c631b9f2.jpg",
+      "/photos/washington-dc-afd19b1c.jpg",
+      "/photos/acadia-national-park-maine-9678573e.jpg",
+      "/photos/honshu-japan-0d03d128.jpg"
+     ]
+    },
+    {
+     "word": "birdsong",
+     "poems": [
+      "a-conversation-among-birds",
+      "did-you-know",
+      "the-light-sings",
+      "today-birds",
+      "today-if-there-is-tomorrow"
+     ],
+     "photos": [
+      "/photos/beach-solitude.jpg",
+      "/photos/kodagu-india-124b384b.jpg",
+      "/photos/kodagu-india-68c68cb1.jpg"
+     ]
+    },
+    {
+     "word": "the beat",
+     "poems": [
+      "and-now-that-we-walk",
+      "anuraag-oh-anuraag",
+      "everyday-i-can-spend",
+      "everytime-you-wink-at-me",
+      "large-objects",
+      "let-tomorrow-come",
+      "out-to-play-he-calls-them",
+      "sometimes-i-listen-to-these-poets",
+      "sometimes-quaver",
+      "teental",
+      "thrum-thrum",
+      "to-flutter",
+      "hey"
+     ],
+     "photos": [
+      "/photos/papel-picado.jpg",
+      "/photos/fireworks-water.jpg",
+      "/photos/kitchen-night.jpg",
+      "/photos/berlin-street.jpg"
+     ]
+    },
+    {
+     "word": "breath",
+     "poems": [
+      "everytime-you-wink-at-me",
+      "falling-in-love",
+      "hey-you-there-hey-you-here",
+      "late-why-so-late",
+      "platitudes-of-suffering",
+      "when-i-dance-with-you",
+      "wrestle",
+      "hey"
+     ],
+     "photos": [
+      "/photos/misty-hillside.jpg",
+      "/photos/kaanapali-maui-2be2cfcb.jpg",
+      "/photos/diamante-valley-costa-rica-cbb914b4.jpg"
+     ]
+    },
+    {
+     "word": "skin",
+     "poems": [
+      "ariel",
+      "delicate-pieces-before-the-end",
+      "hey-you-there-hey-you-here",
+      "i-will-always-be-a-poet",
+      "it-used-to-be-me",
+      "oh-the-horror-i-say",
+      "one-beautiful-moment",
+      "out-of-many-one",
+      "sometimes-curious-feel",
+      "the-mist",
+      "there-is-a-soft-tingle",
+      "these-water-nymphs",
+      "to-know-me",
+      "to-touch-in-a-way",
+      "when-i-dance-with-you",
+      "when-im-not-here",
+      "xoxo",
+      "animals-in-love"
+     ],
+     "photos": [
+      "/photos/mount-rainier-national-park-washington-3d887df3.jpg",
+      "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+      "/photos/provincetown-massachusetts-a90962e6.jpg",
+      "/photos/provincetown-massachusetts-ee073946.jpg",
+      "/photos/provincetown-massachusetts-09009fdd.jpg"
+     ]
+    },
+    {
+     "word": "heavy",
+     "poems": [
+      "a-wedding-toast",
+      "blood-oh-once-you-called",
+      "i-left-my-heart-at-home-today",
+      "kashmir",
+      "large-objects",
+      "platitudes-of-suffering",
+      "sometimes-i-feel-cold",
+      "there-comes-a-point",
+      "today-i-saw-a-man-on-a-leash"
+     ],
+     "photos": [
+      "/photos/concrete-museum.jpg",
+      "/photos/yosemite-trail.jpg",
+      "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "/photos/mariposa-grove-yosemite-e6c620bb.jpg"
+     ]
+    },
+    {
+     "word": "smell",
+     "poems": [
+      "late-why-so-late",
+      "not-in-my-life",
+      "sometimes-i-listen-to-these-poets",
+      "these-days-are-gone",
+      "when-you-watch-the-whales-from-shore",
+      "animals-in-love"
+     ],
+     "photos": [
+      "/photos/taco-cart.jpg",
+      "/photos/night-market.jpg",
+      "/photos/kitchen-night.jpg",
+      "/photos/casper-wyoming-02035a8d.jpg"
+     ]
+    }
+   ],
+   "poems": {
+    "a-conversation-among-birds": [
+     {
+      "phrase": "Hark, here comes the dawn",
+      "word": "first light"
+     },
+     {
+      "phrase": "that quiet scythe",
+      "word": "silence"
+     },
+     {
+      "phrase": "a conversation among birds",
+      "word": "birdsong"
+     }
+    ],
+    "a-wedding-toast": [
+     {
+      "phrase": "that held me close",
+      "word": "warm"
+     },
+     {
+      "phrase": "Where that godforsaken heavy doubt used to be.",
+      "word": "heavy"
+     }
+    ],
+    "an-ode-to-aspens": [
+     {
+      "phrase": "They’ve always been silent soldiers",
+      "word": "silence"
+     },
+     {
+      "phrase": "Let my matter become their matter",
+      "word": "bark"
+     }
+    ],
+    "and-now-that-we-walk": [
+     {
+      "phrase": "Let the sun shine on our path",
+      "word": "full sun"
+     },
+     {
+      "phrase": "Here you come, here you come, here you come.",
+      "word": "the beat"
+     }
+    ],
+    "anuraag-oh-anuraag": [
+     {
+      "phrase": "The river which continues",
+      "word": "the river"
+     },
+     {
+      "phrase": "Thrashing about",
+      "word": "the beat"
+     }
+    ],
+    "ariel": [
+     {
+      "phrase": "like if only I could spin fast enough",
+      "word": "wind"
+     },
+     {
+      "phrase": "made me pick you up",
+      "word": "skin"
+     }
+    ],
+    "blood-oh-once-you-called": [
+     {
+      "phrase": "Blood oh once you called to me",
+      "word": "red"
+     },
+     {
+      "phrase": "Where does our pain go",
+      "word": "heavy"
+     }
+    ],
+    "california": [
+     {
+      "phrase": "There is a strange haze over the valley",
+      "word": "mist"
+     },
+     {
+      "phrase": "Oh bruised, empty, raw dirt",
+      "word": "stone"
+     }
+    ],
+    "dear-bottle": [
+     {
+      "phrase": "I hope you are having a nice adventure without me",
+      "word": "the sea"
+     },
+     {
+      "phrase": "May you make a new friend who loves you as much as I did.",
+      "word": "warm"
+     }
+    ],
+    "delicate-pieces-before-the-end": [
+     {
+      "phrase": "Full of black haired brown skinned children",
+      "word": "skin"
+     },
+     {
+      "phrase": "Delicate pieces",
+      "word": "shimmer"
+     }
+    ],
+    "did-you-know": [
+     {
+      "phrase": "Did you know there’s a pale pink before dawn",
+      "word": "first light"
+     },
+     {
+      "phrase": "the time when the bulbuls duet with the sparrows",
+      "word": "birdsong"
+     },
+     {
+      "phrase": "A curse of having been in a room so green",
+      "word": "green"
+     }
+    ],
+    "do-you-miss-me": [
+     {
+      "phrase": "you have, and you are indifferent",
+      "word": "cold"
+     },
+     {
+      "phrase": "I did not.",
+      "word": "silence"
+     }
+    ],
+    "everyday-i-can-spend": [
+     {
+      "phrase": "in the company of those whom I love",
+      "word": "warm"
+     },
+     {
+      "phrase": "There will come a time, I know there will come a time",
+      "word": "the beat"
+     }
+    ],
+    "everytime-you-wink-at-me": [
+     {
+      "phrase": "I wonder if my heart skipped a beat",
+      "word": "the beat"
+     },
+     {
+      "phrase": "Or if I just forgot to breath",
+      "word": "breath"
+     }
+    ],
+    "everywhere-i-turn": [
+     {
+      "phrase": "I see a world a little colder",
+      "word": "cold"
+     },
+     {
+      "phrase": "In the flutter of the leaves",
+      "word": "wind"
+     },
+     {
+      "phrase": "A heart a little stiller and laughter little less.",
+      "word": "silence"
+     }
+    ],
+    "falling-in-love": [
+     {
+      "phrase": "under a waterfall",
+      "word": "the river"
+     },
+     {
+      "phrase": "in the sun",
+      "word": "full sun"
+     },
+     {
+      "phrase": "You can breath",
+      "word": "breath"
+     }
+    ],
+    "freedom-yet-unabridged": [
+     {
+      "phrase": "Grey and long before me,",
+      "word": "grey"
+     },
+     {
+      "phrase": "As my feet flew over",
+      "word": "wind"
+     }
+    ],
+    "glass-houses": [
+     {
+      "phrase": "A ledge here",
+      "word": "stone"
+     },
+     {
+      "phrase": "Final solitude as the madness of age set in",
+      "word": "silence"
+     }
+    ],
+    "guadalajara": [
+     {
+      "phrase": "I feel blood and strife and fear",
+      "word": "red"
+     },
+     {
+      "phrase": "the trees men make",
+      "word": "bark"
+     }
+    ],
+    "hark-my-love": [
+     {
+      "phrase": "Look at it glow,",
+      "word": "shimmer"
+     },
+     {
+      "phrase": "It’s dancing now, in the morning wind",
+      "word": "wind"
+     },
+     {
+      "phrase": "Or clump of sand",
+      "word": "sand"
+     }
+    ],
+    "have-you-ever-seen": [
+     {
+      "phrase": "As the world reflected in drops of dew",
+      "word": "dew"
+     },
+     {
+      "phrase": "Hanging off a cedar",
+      "word": "bark"
+     }
+    ],
+    "have-you-watched-creepers-creep": [
+     {
+      "phrase": "The most arduous of grounds",
+      "word": "stone"
+     },
+     {
+      "phrase": "Come watch creepers creep",
+      "word": "green"
+     }
+    ],
+    "hey-you-there-hey-you-here": [
+     {
+      "phrase": "your breath got caught in my air",
+      "word": "breath"
+     },
+     {
+      "phrase": "your shoulder got caught in my shirt",
+      "word": "skin"
+     }
+    ],
+    "hey-you-tree-there": [
+     {
+      "phrase": "those gashes those gouges in your trunk",
+      "word": "bark"
+     },
+     {
+      "phrase": "you can’t even find or make a grape of light",
+      "word": "soft light"
+     }
+    ],
+    "how-can-you-just-be-gone": [
+     {
+      "phrase": "With an empty space",
+      "word": "silence"
+     },
+     {
+      "phrase": "It’s just deeply sad.",
+      "word": "grey"
+     }
+    ],
+    "i-feel-sad-about-endings": [
+     {
+      "phrase": "Like when it's too humid for your hair",
+      "word": "rain"
+     },
+     {
+      "phrase": "It's nice finding a mirror that actually lets us see ourselves",
+      "word": "shimmer"
+     }
+    ],
+    "i-left-my-heart-at-home-today": [
+     {
+      "phrase": "the chest feels strange",
+      "word": "heavy"
+     },
+     {
+      "phrase": "something was forgotten",
+      "word": "silence"
+     }
+    ],
+    "i-listen": [
+     {
+      "phrase": "This time when the silence comes",
+      "word": "silence"
+     },
+     {
+      "phrase": "Let the guillotine come in the night",
+      "word": "the dark"
+     },
+     {
+      "phrase": "No respite on a beach",
+      "word": "sand"
+     }
+    ],
+    "i-saw-something-beautiful-today": [
+     {
+      "phrase": "Clad and a shimmer of red",
+      "word": "red"
+     },
+     {
+      "phrase": "Brown against the sun",
+      "word": "full sun"
+     },
+     {
+      "phrase": "Shimmer me brighter, you.",
+      "word": "shimmer"
+     }
+    ],
+    "i-was-feeling-sorry-for-a-moth": [
+     {
+      "phrase": "wings stuck in candle wax.",
+      "word": "warm"
+     },
+     {
+      "phrase": "Squirming next to certain doom",
+      "word": "the dark"
+     }
+    ],
+    "i-watch-my-hair": [
+     {
+      "phrase": "Turn golden",
+      "word": "low sun"
+     },
+     {
+      "phrase": "Of reds and greens",
+      "word": "red"
+     },
+     {
+      "phrase": "I just went and called it all black.",
+      "word": "the dark"
+     }
+    ],
+    "i-watched-a-butterfly-today": [
+     {
+      "phrase": "It was beautiful and orange",
+      "word": "orange"
+     },
+     {
+      "phrase": "Caught in the draft of my passage.",
+      "word": "wind"
+     }
+    ],
+    "i-will-always-be-a-poet": [
+     {
+      "phrase": "If you sand away my finger tips I will be a poet",
+      "word": "skin"
+     },
+     {
+      "phrase": "With my blood I will paint you with poetry",
+      "word": "red"
+     }
+    ],
+    "in-my-heart-something-called-to-the-rain": [
+     {
+      "phrase": "In my heart something called to the rain",
+      "word": "rain"
+     },
+     {
+      "phrase": "Being Life's chartreuse-clad champion,",
+      "word": "green"
+     },
+     {
+      "phrase": "Heretic before Dawn",
+      "word": "first light"
+     }
+    ],
+    "it-used-to-be-me": [
+     {
+      "phrase": "writhing under you",
+      "word": "skin"
+     },
+     {
+      "phrase": "or riding beside you",
+      "word": "wind"
+     }
+    ],
+    "its-funny": [
+     {
+      "phrase": "Under orange lights",
+      "word": "orange"
+     },
+     {
+      "phrase": "And warm nights",
+      "word": "warm"
+     }
+    ],
+    "kashmir": [
+     {
+      "phrase": "Till time razes these mountains to the ground",
+      "word": "stone"
+     },
+     {
+      "phrase": "And man builds new idols.",
+      "word": "heavy"
+     }
+    ],
+    "large-objects": [
+     {
+      "phrase": "Large objects exert a gravitational pull",
+      "word": "heavy"
+     },
+     {
+      "phrase": "That thing which binds you to them is now alive with its own force",
+      "word": "the beat"
+     }
+    ],
+    "late-why-so-late": [
+     {
+      "phrase": "The cab really smells.",
+      "word": "smell"
+     },
+     {
+      "phrase": "keep his breath intertwined a little a little a little",
+      "word": "breath"
+     }
+    ],
+    "let-tomorrow-come": [
+     {
+      "phrase": "Let tomorrow come for today has no brother",
+      "word": "first light"
+     },
+     {
+      "phrase": "Let tomorrow come for today has no cousin",
+      "word": "the beat"
+     }
+    ],
+    "london": [
+     {
+      "phrase": "There’s a coldness in the air",
+      "word": "cold"
+     },
+     {
+      "phrase": "You, my dark friend, might just be",
+      "word": "the dark"
+     }
+    ],
+    "mama": [
+     {
+      "phrase": "As the sun set and we had",
+      "word": "low sun"
+     },
+     {
+      "phrase": "You’ve gone into that gentle night,",
+      "word": "the dark"
+     },
+     {
+      "phrase": "Or a whiskey",
+      "word": "warm"
+     }
+    ],
+    "memories-of-tomorrow": [
+     {
+      "phrase": "at the hazy notes of tomorrow,",
+      "word": "mist"
+     },
+     {
+      "phrase": "After all, the trees are there",
+      "word": "bark"
+     }
+    ],
+    "my-friend-who-died": [
+     {
+      "phrase": "English has no imperfect",
+      "word": "silence"
+     },
+     {
+      "phrase": "It's too bad",
+      "word": "grey"
+     }
+    ],
+    "not-in-my-life": [
+     {
+      "phrase": "Of associating with filth",
+      "word": "smell"
+     },
+     {
+      "phrase": "I will not speak to you",
+      "word": "silence"
+     }
+    ],
+    "oh-that-again": [
+     {
+      "phrase": "As a single flower",
+      "word": "in bloom"
+     },
+     {
+      "phrase": "Opened and yet unmarked",
+      "word": "soft light"
+     }
+    ],
+    "oh-the-horror-i-say": [
+     {
+      "phrase": "Emincer amongst the carrots",
+      "word": "orange"
+     },
+     {
+      "phrase": "A finger on nicely chopped",
+      "word": "skin"
+     }
+    ],
+    "one-beautiful-moment": [
+     {
+      "phrase": "Bring the slightly chilled blood",
+      "word": "cold"
+     },
+     {
+      "phrase": "And feel veins on your fingers",
+      "word": "skin"
+     },
+     {
+      "phrase": "The world has stopped",
+      "word": "silence"
+     }
+    ],
+    "one-in-community": [
+     {
+      "phrase": "caught in a flick of wind",
+      "word": "wind"
+     },
+     {
+      "phrase": "the sand asks me, observing, sighing by",
+      "word": "sand"
+     }
+    ],
+    "out-of-many-one": [
+     {
+      "phrase": "Kiss me love",
+      "word": "skin"
+     },
+     {
+      "phrase": "There was, once.",
+      "word": "silence"
+     }
+    ],
+    "out-to-play-he-calls-them": [
+     {
+      "phrase": "Swim to me, swim to me, swim to me",
+      "word": "the sea"
+     },
+     {
+      "phrase": "One, two, they come in a line",
+      "word": "the beat"
+     }
+    ],
+    "park": [
+     {
+      "phrase": "A whisper of red",
+      "word": "red"
+     },
+     {
+      "phrase": "And old dogs teaching new tricks and a delight of flowers",
+      "word": "in bloom"
+     },
+     {
+      "phrase": "On a sunny day",
+      "word": "full sun"
+     }
+    ],
+    "platitudes-of-suffering": [
+     {
+      "phrase": "For does breath not still shake my body?",
+      "word": "breath"
+     },
+     {
+      "phrase": "that we shall lay down our Labors,",
+      "word": "heavy"
+     }
+    ],
+    "sit-let-us-listen": [
+     {
+      "phrase": "Sit let us listen to the sound of this moment",
+      "word": "silence"
+     },
+     {
+      "phrase": "The wind",
+      "word": "wind"
+     },
+     {
+      "phrase": "And in the flowers",
+      "word": "in bloom"
+     }
+    ],
+    "social-media-is-not-the-right-place-for-grief": [
+     {
+      "phrase": "Or the divinity in choosing a temporary voicelessness",
+      "word": "silence"
+     },
+     {
+      "phrase": "a thought in a stone",
+      "word": "stone"
+     }
+    ],
+    "sometimes-curious-feel": [
+     {
+      "phrase": "Is pleasantly warm",
+      "word": "warm"
+     },
+     {
+      "phrase": "I think I've walked this fair green",
+      "word": "green"
+     },
+     {
+      "phrase": "It's a light pressure on the nose",
+      "word": "skin"
+     }
+    ],
+    "sometimes-i-feel-cold": [
+     {
+      "phrase": "I feel cold when I be with you",
+      "word": "cold"
+     },
+     {
+      "phrase": "I am tired of being tired",
+      "word": "heavy"
+     }
+    ],
+    "sometimes-i-listen-to-these-poets": [
+     {
+      "phrase": "Is there a pure form of vomit too",
+      "word": "smell"
+     },
+     {
+      "phrase": "go on and on",
+      "word": "the beat"
+     }
+    ],
+    "sometimes-quaver": [
+     {
+      "phrase": "Sometimes to watch the whole field a'quaver",
+      "word": "wind"
+     },
+     {
+      "phrase": "Feet so fast a'flutter",
+      "word": "the beat"
+     }
+    ],
+    "song-of-tomorrow": [
+     {
+      "phrase": "Crookedly yearning towards the lights",
+      "word": "soft light"
+     },
+     {
+      "phrase": "Of disasters foreshadowed",
+      "word": "the dark"
+     }
+    ],
+    "teental": [
+     {
+      "phrase": "are we floating now or chasing the beat",
+      "word": "the beat"
+     },
+     {
+      "phrase": "Or 6th beat have you fallen soft",
+      "word": "silence"
+     }
+    ],
+    "the-light-sings": [
+     {
+      "phrase": "the light sings to me in the morning",
+      "word": "soft light"
+     },
+     {
+      "phrase": "But then it rains and I wonder about the birds",
+      "word": "rain"
+     },
+     {
+      "phrase": "they drown out the birds.",
+      "word": "birdsong"
+     }
+    ],
+    "the-mist": [
+     {
+      "phrase": "In the morning you can listen to the mist.",
+      "word": "mist"
+     },
+     {
+      "phrase": "Their kiss is soft and cool on my skin",
+      "word": "skin"
+     },
+     {
+      "phrase": "When I first came out I saw the drops of dew",
+      "word": "dew"
+     }
+    ],
+    "the-sun-kissed-the-mountains": [
+     {
+      "phrase": "The sun kissed the mountains",
+      "word": "low sun"
+     },
+     {
+      "phrase": "Peaks in harsh repose",
+      "word": "stone"
+     }
+    ],
+    "there-comes-a-point": [
+     {
+      "phrase": "Not from loss of blood.",
+      "word": "red"
+     },
+     {
+      "phrase": "That weariness that grows,",
+      "word": "heavy"
+     }
+    ],
+    "there-is-a-soft-tingle": [
+     {
+      "phrase": "Its soft bark and slowly molding hardwood",
+      "word": "bark"
+     },
+     {
+      "phrase": "There is a soft tingle I feel",
+      "word": "skin"
+     }
+    ],
+    "these-days-are-gone": [
+     {
+      "phrase": "who has hardened?",
+      "word": "stone"
+     },
+     {
+      "phrase": "Harden or rot, they say.",
+      "word": "smell"
+     }
+    ],
+    "these-water-nymphs": [
+     {
+      "phrase": "They come up from the River",
+      "word": "the river"
+     },
+     {
+      "phrase": "Have you ever felt hands",
+      "word": "skin"
+     }
+    ],
+    "this-growing-older": [
+     {
+      "phrase": "And made warm",
+      "word": "warm"
+     },
+     {
+      "phrase": "Softly inviting",
+      "word": "soft light"
+     }
+    ],
+    "thrum-thrum": [
+     {
+      "phrase": "thrum thrum",
+      "word": "the beat"
+     },
+     {
+      "phrase": "We need the harshness of purple, or red",
+      "word": "red"
+     },
+     {
+      "phrase": "Violet is too gentle of a flower.",
+      "word": "in bloom"
+     }
+    ],
+    "time-in-a-fig-grove": [
+     {
+      "phrase": "Then a stream.",
+      "word": "the river"
+     },
+     {
+      "phrase": "Rooted in a climb of dirt",
+      "word": "green"
+     }
+    ],
+    "to-be-alone": [
+     {
+      "phrase": "For babies who like the snow",
+      "word": "cold"
+     },
+     {
+      "phrase": "And dreaming about green grass",
+      "word": "green"
+     }
+    ],
+    "to-flutter": [
+     {
+      "phrase": "It’s a cold wind that blows from the north",
+      "word": "wind"
+     },
+     {
+      "phrase": "Sends my heart a’flutter.",
+      "word": "the beat"
+     }
+    ],
+    "to-know-me": [
+     {
+      "phrase": "Kiss me and I’ll smile, because I love smiling",
+      "word": "skin"
+     },
+     {
+      "phrase": "Love means a lot",
+      "word": "warm"
+     }
+    ],
+    "to-see-such-beauty": [
+     {
+      "phrase": "Why you, Orange",
+      "word": "orange"
+     },
+     {
+      "phrase": "To stand in a field",
+      "word": "green"
+     }
+    ],
+    "to-touch-in-a-way": [
+     {
+      "phrase": "To touch",
+      "word": "skin"
+     },
+     {
+      "phrase": "if I can take",
+      "word": "silence"
+     }
+    ],
+    "today-birds": [
+     {
+      "phrase": "We are past the morning of the small birds",
+      "word": "birdsong"
+     },
+     {
+      "phrase": "It’s cold in these waters",
+      "word": "cold"
+     },
+     {
+      "phrase": "Though the sea is warm",
+      "word": "the sea"
+     }
+    ],
+    "today-i-saw-a-man-on-a-leash": [
+     {
+      "phrase": "In the forest, the elephant walks far more silently than the man.",
+      "word": "silence"
+     },
+     {
+      "phrase": "It was an elephant leash",
+      "word": "heavy"
+     }
+    ],
+    "today-i-write-about-red": [
+     {
+      "phrase": "Today I write about Red",
+      "word": "red"
+     },
+     {
+      "phrase": "Murderer of green into the turgid hell of Brown",
+      "word": "green"
+     },
+     {
+      "phrase": "Sister of Black.",
+      "word": "the dark"
+     }
+    ],
+    "today-if-there-is-tomorrow": [
+     {
+      "phrase": "when the rains fall without end",
+      "word": "rain"
+     },
+     {
+      "phrase": "Where did the birds go",
+      "word": "birdsong"
+     }
+    ],
+    "wedding-poem": [
+     {
+      "phrase": "under orange lights and in empty roads",
+      "word": "orange"
+     },
+     {
+      "phrase": "the rains are yet to start",
+      "word": "rain"
+     },
+     {
+      "phrase": "in that brief wisp of spring",
+      "word": "green"
+     }
+    ],
+    "when-i-dance-with-you": [
+     {
+      "phrase": "Your breath is my breath",
+      "word": "breath"
+     },
+     {
+      "phrase": "I don’t know where my body ends",
+      "word": "skin"
+     }
+    ],
+    "when-i-laugh": [
+     {
+      "phrase": "There is this warm glow",
+      "word": "warm"
+     },
+     {
+      "phrase": "On a cold day",
+      "word": "cold"
+     },
+     {
+      "phrase": "In a dark brown sea.",
+      "word": "the sea"
+     }
+    ],
+    "when-im-not-here": [
+     {
+      "phrase": "The curve of your back",
+      "word": "skin"
+     },
+     {
+      "phrase": "That woke you up in the middle of the night",
+      "word": "the dark"
+     }
+    ],
+    "when-you-watch-the-whales-from-shore": [
+     {
+      "phrase": "As you see the great plumps of white rise in the hosts by sea",
+      "word": "the sea"
+     },
+     {
+      "phrase": "Smell the breath",
+      "word": "smell"
+     }
+    ],
+    "when-you-were-young": [
+     {
+      "phrase": "In the woods.",
+      "word": "green"
+     },
+     {
+      "phrase": "On a Saturday.",
+      "word": "full sun"
+     }
+    ],
+    "xoxo": [
+     {
+      "phrase": "Xoxo",
+      "word": "skin"
+     },
+     {
+      "phrase": "To be surrounded by;",
+      "word": "warm"
+     }
+    ],
+    "i-came-out": [
+     {
+      "phrase": "It runs from the invading sun",
+      "word": "full sun"
+     },
+     {
+      "phrase": "oh, yes, this is the ocean, just come to play",
+      "word": "the sea"
+     },
+     {
+      "phrase": "When I first came out I saw the drops of dew",
+      "word": "dew"
+     }
+    ],
+    "being-loved": [
+     {
+      "phrase": "there was a soft breeze",
+      "word": "wind"
+     },
+     {
+      "phrase": "It is hazy the way that memories are remembered in the after.",
+      "word": "mist"
+     },
+     {
+      "phrase": "the rush of warmth masquerading as joy",
+      "word": "warm"
+     }
+    ],
+    "animals-in-love": [
+     {
+      "phrase": "until the putrid smell called for the investigation",
+      "word": "smell"
+     },
+     {
+      "phrase": "Or a stream.",
+      "word": "the river"
+     },
+     {
+      "phrase": "Tearing at it with our hands.",
+      "word": "skin"
+     }
+    ],
+    "wrestle": [
+     {
+      "phrase": "But beautifies to purple in the light",
+      "word": "soft light"
+     },
+     {
+      "phrase": "Substance too thick congeals so dark",
+      "word": "the dark"
+     },
+     {
+      "phrase": "My short breath tells me",
+      "word": "breath"
+     }
+    ],
+    "bladder-bag": [
+     {
+      "phrase": "I, bladder bag, am made cold again",
+      "word": "cold"
+     },
+     {
+      "phrase": "where did that warmth that surrounded me once go",
+      "word": "warm"
+     }
+    ],
+    "hey": [
+     {
+      "phrase": "your breath got caught in my air",
+      "word": "breath"
+     },
+     {
+      "phrase": "*beat*",
+      "word": "the beat"
+     }
+    ]
+   },
+   "photos": {
+    "/photos/roma-sidewalk.jpg": [
+     "the dark",
+     "silence"
+    ],
+    "/photos/papel-picado.jpg": [
+     "the dark",
+     "warm",
+     "wind",
+     "the beat"
+    ],
+    "/photos/night-street.jpg": [
+     "the dark",
+     "silence"
+    ],
+    "/photos/staircase.jpg": [
+     "the dark",
+     "warm"
+    ],
+    "/photos/cdmx-plaza.jpg": [
+     "the dark",
+     "silence",
+     "stone"
+    ],
+    "/photos/alpine-lake.jpg": [
+     "cold",
+     "stone",
+     "wind"
+    ],
+    "/photos/beach-solitude.jpg": [
+     "the sea",
+     "sand",
+     "full sun",
+     "birdsong"
+    ],
+    "/photos/reed-corridor.jpg": [
+     "wind",
+     "full sun",
+     "sand"
+    ],
+    "/photos/buoys-wall.jpg": [
+     "sand",
+     "warm",
+     "full sun"
+    ],
+    "/photos/fireworks-water.jpg": [
+     "the dark",
+     "shimmer",
+     "the beat"
+    ],
+    "/photos/still-lake.jpg": [
+     "silence",
+     "grey",
+     "first light",
+     "cold"
+    ],
+    "/photos/sayulita-staircase.jpg": [
+     "the dark"
+    ],
+    "/photos/concrete-museum.jpg": [
+     "stone",
+     "silence",
+     "heavy"
+    ],
+    "/photos/tree-tunnel.jpg": [
+     "green",
+     "soft light",
+     "bark"
+    ],
+    "/photos/hawaii-landscape.jpg": [
+     "stone",
+     "low sun"
+    ],
+    "/photos/lanterns.jpg": [
+     "warm",
+     "the dark",
+     "shimmer"
+    ],
+    "/photos/taco-cart.jpg": [
+     "warm",
+     "smell",
+     "the dark"
+    ],
+    "/photos/night-market.jpg": [
+     "warm",
+     "smell",
+     "the dark"
+    ],
+    "/photos/misty-hillside.jpg": [
+     "mist",
+     "cold",
+     "breath"
+    ],
+    "/photos/kitchen-night.jpg": [
+     "warm",
+     "the beat",
+     "smell"
+    ],
+    "/photos/restaurant-night.jpg": [
+     "the dark",
+     "warm",
+     "silence"
+    ],
+    "/photos/yosemite-trail.jpg": [
+     "stone",
+     "heavy",
+     "low sun"
+    ],
+    "/photos/scooter-beach.jpg": [
+     "the sea",
+     "stone"
+    ],
+    "/photos/yosemite-valley.jpg": [
+     "stone",
+     "full sun"
+    ],
+    "/photos/beach-boardwalk.jpg": [
+     "grey",
+     "sand"
+    ],
+    "/photos/berlin-street.jpg": [
+     "grey",
+     "the beat"
+    ],
+    "/photos/singapore-225bdfc9.jpg": [
+     "the sea",
+     "shimmer",
+     "warm"
+    ],
+    "/photos/sagrada-familia-barcelona-e210fc03.jpg": [
+     "soft light",
+     "stone"
+    ],
+    "/photos/kodagu-india-346cc700.jpg": [
+     "the river",
+     "stone"
+    ],
+    "/photos/kodagu-india-033e7e3b.jpg": [
+     "dew",
+     "first light",
+     "shimmer"
+    ],
+    "/photos/kodagu-india-124b384b.jpg": [
+     "mist",
+     "the river",
+     "first light",
+     "birdsong"
+    ],
+    "/photos/kodagu-india-68c68cb1.jpg": [
+     "mist",
+     "first light",
+     "birdsong",
+     "dew"
+    ],
+    "/photos/crested-butte-colorado-8ada8f57.jpg": [
+     "cold",
+     "bark",
+     "full sun"
+    ],
+    "/photos/crested-butte-colorado-e25ede7f.jpg": [
+     "cold",
+     "low sun",
+     "bark"
+    ],
+    "/photos/puako-hawaii-98409f6b.jpg": [
+     "bark",
+     "stone",
+     "grey",
+     "the sea"
+    ],
+    "/photos/laupahoehoe-hawaii-96a28c20.jpg": [
+     "mist",
+     "the river",
+     "green",
+     "rain"
+    ],
+    "/photos/hilo-hawaii-3cb5d78d.jpg": [
+     "rain",
+     "green",
+     "bark"
+    ],
+    "/photos/hilo-hawaii-a09cc2ce.jpg": [
+     "orange",
+     "red"
+    ],
+    "/photos/hilo-hawaii-fa94384a.jpg": [
+     "green",
+     "the river",
+     "in bloom"
+    ],
+    "/photos/hilo-hawaii-ea929e41.jpg": [
+     "the sea",
+     "grey"
+    ],
+    "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg": [
+     "rain",
+     "green"
+    ],
+    "/photos/kaanapali-maui-2be2cfcb.jpg": [
+     "the sea",
+     "breath",
+     "stone"
+    ],
+    "/photos/mount-rainier-national-park-washington-ddab98b6.jpg": [
+     "low sun",
+     "bark",
+     "heavy"
+    ],
+    "/photos/mount-rainier-national-park-washington-d72b8203.jpg": [
+     "soft light",
+     "bark"
+    ],
+    "/photos/mount-rainier-national-park-washington-5c7590f5.jpg": [
+     "shimmer",
+     "bark"
+    ],
+    "/photos/mount-rainier-national-park-washington-9ca71603.jpg": [
+     "low sun",
+     "the dark",
+     "bark"
+    ],
+    "/photos/mount-rainier-national-park-washington-3d887df3.jpg": [
+     "cold",
+     "skin"
+    ],
+    "/photos/mount-rainier-national-park-washington-bbda096c.jpg": [
+     "cold",
+     "silence",
+     "skin"
+    ],
+    "/photos/san-juan-islands-washington-657f1936.jpg": [
+     "the sea",
+     "full sun"
+    ],
+    "/photos/fire-island-new-york-72585dde.jpg": [
+     "sand",
+     "wind"
+    ],
+    "/photos/washington-dc-c631b9f2.jpg": [
+     "the dark",
+     "silence",
+     "stone"
+    ],
+    "/photos/washington-dc-afd19b1c.jpg": [
+     "soft light",
+     "silence",
+     "stone"
+    ],
+    "/photos/acadia-national-park-maine-9678573e.jpg": [
+     "silence",
+     "stone",
+     "full sun"
+    ],
+    "/photos/bar-harbor-maine-bb0a8fe5.jpg": [
+     "red",
+     "green"
+    ],
+    "/photos/casper-wyoming-02035a8d.jpg": [
+     "soft light",
+     "smell"
+    ],
+    "/photos/casper-wyoming-cce8cbde.jpg": [
+     "wind",
+     "cold"
+    ],
+    "/photos/mexico-city-mexico-6eb743ec.jpg": [
+     "first light",
+     "mist",
+     "orange"
+    ],
+    "/photos/diamante-valley-costa-rica-3092189d.jpg": [
+     "dew",
+     "green",
+     "mist"
+    ],
+    "/photos/diamante-valley-costa-rica-cbb914b4.jpg": [
+     "first light",
+     "mist",
+     "breath"
+    ],
+    "/photos/paro-bhutan-08988839.jpg": [
+     "red",
+     "in bloom",
+     "bark"
+    ],
+    "/photos/paro-bhutan-6f8bbbbf.jpg": [
+     "wind",
+     "red"
+    ],
+    "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg": [
+     "cold",
+     "stone"
+    ],
+    "/photos/provincetown-massachusetts-f214fa8d.jpg": [
+     "sand",
+     "grey",
+     "wind"
+    ],
+    "/photos/provincetown-massachusetts-a90962e6.jpg": [
+     "full sun",
+     "skin",
+     "sand"
+    ],
+    "/photos/provincetown-massachusetts-ee073946.jpg": [
+     "full sun",
+     "shimmer",
+     "skin",
+     "the sea"
+    ],
+    "/photos/provincetown-massachusetts-4c281798.jpg": [
+     "low sun",
+     "wind"
+    ],
+    "/photos/provincetown-massachusetts-eee28b60.jpg": [
+     "low sun",
+     "wind"
+    ],
+    "/photos/provincetown-massachusetts-08da554d.jpg": [
+     "low sun",
+     "wind",
+     "the sea"
+    ],
+    "/photos/provincetown-massachusetts-09009fdd.jpg": [
+     "skin",
+     "low sun",
+     "the sea"
+    ],
+    "/photos/honshu-japan-0d03d128.jpg": [
+     "silence",
+     "bark"
+    ],
+    "/photos/setonaikai-national-park-japan-64937bce.jpg": [
+     "the dark",
+     "shimmer"
+    ],
+    "/photos/setonaikai-national-park-japan-4d3f9e95.jpg": [
+     "soft light",
+     "shimmer"
+    ],
+    "/photos/roppongi-tokyo-a5f50e72.jpg": [
+     "in bloom",
+     "green"
+    ],
+    "/photos/sayulita-mexico-25fbaafd.jpg": [
+     "low sun",
+     "orange",
+     "warm",
+     "sand"
+    ],
+    "/photos/sayulita-mexico-9d65e1b6.jpg": [
+     "low sun",
+     "sand",
+     "the sea"
+    ],
+    "/photos/mariposa-grove-yosemite-e6c620bb.jpg": [
+     "bark",
+     "heavy"
+    ],
+    "/photos/mariposa-grove-yosemite-7455e25e.jpg": [
+     "bark",
+     "grey"
+    ]
+   }
+  },
+  "feelings": {
+   "words": [
+    {
+     "word": "leaving",
+     "poems": [
+      "a-wedding-toast",
+      "anuraag-oh-anuraag",
+      "blood-oh-once-you-called",
+      "dear-bottle",
+      "i-left-my-heart-at-home-today",
+      "late-why-so-late",
+      "not-in-my-life",
+      "out-to-play-he-calls-them",
+      "park",
+      "the-light-sings"
+     ],
+     "photos": [
+      "/photos/misty-hillside.jpg",
+      "/photos/beach-boardwalk.jpg",
+      "/photos/fire-island-new-york-72585dde.jpg",
+      "/photos/casper-wyoming-02035a8d.jpg",
+      "/photos/casper-wyoming-cce8cbde.jpg",
+      "/photos/provincetown-massachusetts-f214fa8d.jpg",
+      "/photos/honshu-japan-0d03d128.jpg"
+     ]
+    },
+    {
+     "word": "the wait",
+     "poems": [
+      "a-conversation-among-birds",
+      "anuraag-oh-anuraag",
+      "i-listen",
+      "late-why-so-late",
+      "let-tomorrow-come",
+      "one-beautiful-moment",
+      "sit-let-us-listen",
+      "sometimes-quaver",
+      "the-mist",
+      "there-comes-a-point",
+      "to-flutter",
+      "today-i-write-about-red"
+     ],
+     "photos": [
+      "/photos/staircase.jpg",
+      "/photos/buoys-wall.jpg",
+      "/photos/still-lake.jpg",
+      "/photos/sayulita-staircase.jpg",
+      "/photos/taco-cart.jpg",
+      "/photos/night-market.jpg",
+      "/photos/singapore-225bdfc9.jpg",
+      "/photos/kodagu-india-033e7e3b.jpg",
+      "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+      "/photos/san-juan-islands-washington-657f1936.jpg",
+      "/photos/acadia-national-park-maine-9678573e.jpg",
+      "/photos/diamante-valley-costa-rica-cbb914b4.jpg",
+      "/photos/provincetown-massachusetts-a90962e6.jpg",
+      "/photos/sayulita-mexico-25fbaafd.jpg"
+     ]
+    },
+    {
+     "word": "home",
+     "poems": [
+      "california",
+      "did-you-know",
+      "glass-houses",
+      "hark-my-love",
+      "i-feel-sad-about-endings",
+      "sometimes-i-feel-cold",
+      "teental",
+      "time-in-a-fig-grove",
+      "wedding-poem",
+      "being-loved"
+     ],
+     "photos": [
+      "/photos/buoys-wall.jpg",
+      "/photos/lanterns.jpg",
+      "/photos/taco-cart.jpg",
+      "/photos/kitchen-night.jpg",
+      "/photos/restaurant-night.jpg",
+      "/photos/hilo-hawaii-a09cc2ce.jpg",
+      "/photos/san-juan-islands-washington-657f1936.jpg"
+     ]
+    },
+    {
+     "word": "alone",
+     "poems": [
+      "park",
+      "to-be-alone",
+      "today-birds"
+     ],
+     "photos": [
+      "/photos/roma-sidewalk.jpg",
+      "/photos/staircase.jpg",
+      "/photos/cdmx-plaza.jpg",
+      "/photos/beach-solitude.jpg",
+      "/photos/sayulita-staircase.jpg",
+      "/photos/yosemite-valley.jpg",
+      "/photos/singapore-225bdfc9.jpg",
+      "/photos/crested-butte-colorado-e25ede7f.jpg",
+      "/photos/puako-hawaii-98409f6b.jpg",
+      "/photos/hilo-hawaii-ea929e41.jpg",
+      "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg",
+      "/photos/mount-rainier-national-park-washington-3d887df3.jpg",
+      "/photos/washington-dc-c631b9f2.jpg",
+      "/photos/washington-dc-afd19b1c.jpg",
+      "/photos/casper-wyoming-cce8cbde.jpg",
+      "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg",
+      "/photos/sayulita-mexico-9d65e1b6.jpg"
+     ]
+    },
+    {
+     "word": "goodbye",
+     "poems": [
+      "an-ode-to-aspens",
+      "everywhere-i-turn",
+      "glass-houses",
+      "how-can-you-just-be-gone",
+      "i-feel-sad-about-endings",
+      "i-listen",
+      "i-was-feeling-sorry-for-a-moth",
+      "mama",
+      "my-friend-who-died",
+      "one-beautiful-moment",
+      "platitudes-of-suffering",
+      "social-media-is-not-the-right-place-for-grief",
+      "there-comes-a-point",
+      "there-is-a-soft-tingle",
+      "this-growing-older",
+      "today-birds",
+      "today-if-there-is-tomorrow",
+      "animals-in-love"
+     ],
+     "photos": [
+      "/photos/hawaii-landscape.jpg",
+      "/photos/puako-hawaii-98409f6b.jpg",
+      "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+      "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+      "/photos/sayulita-mexico-25fbaafd.jpg",
+      "/photos/sayulita-mexico-9d65e1b6.jpg"
+     ]
+    },
+    {
+     "word": "the empty space",
+     "poems": [
+      "how-can-you-just-be-gone",
+      "mama",
+      "this-growing-older",
+      "when-im-not-here"
+     ],
+     "photos": [
+      "/photos/night-street.jpg",
+      "/photos/cdmx-plaza.jpg",
+      "/photos/concrete-museum.jpg",
+      "/photos/restaurant-night.jpg",
+      "/photos/hilo-hawaii-3cb5d78d.jpg",
+      "/photos/washington-dc-c631b9f2.jpg"
+     ]
+    },
+    {
+     "word": "awe",
+     "poems": [
+      "a-wedding-toast",
+      "have-you-ever-seen",
+      "i-saw-something-beautiful-today",
+      "i-watch-my-hair",
+      "kashmir",
+      "oh-that-again",
+      "sometimes-i-listen-to-these-poets",
+      "to-see-such-beauty",
+      "when-you-watch-the-whales-from-shore"
+     ],
+     "photos": [
+      "/photos/alpine-lake.jpg",
+      "/photos/still-lake.jpg",
+      "/photos/hawaii-landscape.jpg",
+      "/photos/yosemite-trail.jpg",
+      "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+      "/photos/kodagu-india-124b384b.jpg",
+      "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "/photos/mount-rainier-national-park-washington-5c7590f5.jpg",
+      "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+      "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "/photos/mariposa-grove-yosemite-7455e25e.jpg"
+     ]
+    },
+    {
+     "word": "falling in love",
+     "poems": [
+      "everytime-you-wink-at-me",
+      "falling-in-love",
+      "hey-you-there-hey-you-here",
+      "its-funny",
+      "large-objects",
+      "sometimes-curious-feel",
+      "sometimes-i-listen-to-these-poets",
+      "these-water-nymphs",
+      "to-flutter",
+      "to-know-me",
+      "wedding-poem",
+      "xoxo",
+      "animals-in-love",
+      "hey"
+     ],
+     "photos": [
+      "/photos/papel-picado.jpg",
+      "/photos/setonaikai-national-park-japan-64937bce.jpg",
+      "/photos/roppongi-tokyo-a5f50e72.jpg"
+     ]
+    },
+    {
+     "word": "held close",
+     "poems": [
+      "a-wedding-toast",
+      "an-ode-to-aspens",
+      "and-now-that-we-walk",
+      "anuraag-oh-anuraag",
+      "ariel",
+      "everyday-i-can-spend",
+      "hey-you-there-hey-you-here",
+      "it-used-to-be-me",
+      "large-objects",
+      "mama",
+      "to-touch-in-a-way",
+      "today-i-saw-a-man-on-a-leash",
+      "today-i-write-about-red",
+      "when-i-dance-with-you",
+      "when-im-not-here",
+      "xoxo",
+      "bladder-bag",
+      "hey"
+     ],
+     "photos": [
+      "/photos/provincetown-massachusetts-4c281798.jpg",
+      "/photos/provincetown-massachusetts-eee28b60.jpg",
+      "/photos/provincetown-massachusetts-08da554d.jpg",
+      "/photos/honshu-japan-0d03d128.jpg"
+     ]
+    },
+    {
+     "word": "dancing",
+     "poems": [
+      "ariel",
+      "hark-my-love",
+      "i-watched-a-butterfly-today",
+      "late-why-so-late",
+      "sometimes-quaver",
+      "teental",
+      "when-i-dance-with-you"
+     ],
+     "photos": [
+      "/photos/papel-picado.jpg",
+      "/photos/kitchen-night.jpg",
+      "/photos/provincetown-massachusetts-4c281798.jpg",
+      "/photos/provincetown-massachusetts-eee28b60.jpg"
+     ]
+    },
+    {
+     "word": "missing you",
+     "poems": [
+      "dear-bottle",
+      "do-you-miss-me",
+      "everywhere-i-turn",
+      "how-can-you-just-be-gone",
+      "its-funny",
+      "song-of-tomorrow",
+      "when-im-not-here"
+     ],
+     "photos": [
+      "/photos/sayulita-staircase.jpg",
+      "/photos/casper-wyoming-02035a8d.jpg",
+      "/photos/provincetown-massachusetts-f214fa8d.jpg"
+     ]
+    },
+    {
+     "word": "memory",
+     "poems": [
+      "delicate-pieces-before-the-end",
+      "everyday-i-can-spend",
+      "freedom-yet-unabridged",
+      "have-you-ever-seen",
+      "i-left-my-heart-at-home-today",
+      "it-used-to-be-me",
+      "kashmir",
+      "memories-of-tomorrow",
+      "my-friend-who-died",
+      "out-of-many-one",
+      "sometimes-i-feel-cold",
+      "these-days-are-gone",
+      "thrum-thrum",
+      "to-see-such-beauty",
+      "to-touch-in-a-way",
+      "wedding-poem",
+      "when-i-laugh"
+     ],
+     "photos": [
+      "/photos/berlin-street.jpg",
+      "/photos/washington-dc-c631b9f2.jpg",
+      "/photos/washington-dc-afd19b1c.jpg",
+      "/photos/casper-wyoming-02035a8d.jpg",
+      "/photos/setonaikai-national-park-japan-64937bce.jpg",
+      "/photos/mariposa-grove-yosemite-e6c620bb.jpg"
+     ]
+    },
+    {
+     "word": "tomorrow",
+     "poems": [
+      "everyday-i-can-spend",
+      "glass-houses",
+      "let-tomorrow-come",
+      "memories-of-tomorrow",
+      "my-friend-who-died",
+      "sit-let-us-listen",
+      "song-of-tomorrow",
+      "the-sun-kissed-the-mountains",
+      "today-if-there-is-tomorrow",
+      "when-i-dance-with-you",
+      "i-came-out",
+      "bladder-bag"
+     ],
+     "photos": [
+      "/photos/beach-boardwalk.jpg",
+      "/photos/berlin-street.jpg",
+      "/photos/kodagu-india-033e7e3b.jpg",
+      "/photos/kodagu-india-124b384b.jpg",
+      "/photos/kodagu-india-68c68cb1.jpg",
+      "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "/photos/diamante-valley-costa-rica-3092189d.jpg"
+     ]
+    },
+    {
+     "word": "grow tall",
+     "poems": [
+      "blood-oh-once-you-called",
+      "california",
+      "guadalajara",
+      "hark-my-love",
+      "have-you-watched-creepers-creep",
+      "hey-you-tree-there",
+      "in-my-heart-something-called-to-the-rain",
+      "oh-that-again",
+      "one-in-community",
+      "song-of-tomorrow",
+      "there-is-a-soft-tingle",
+      "this-growing-older",
+      "time-in-a-fig-grove",
+      "wrestle"
+     ],
+     "photos": [
+      "/photos/tree-tunnel.jpg",
+      "/photos/yosemite-valley.jpg",
+      "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+      "/photos/kodagu-india-68c68cb1.jpg",
+      "/photos/hilo-hawaii-3cb5d78d.jpg",
+      "/photos/mount-rainier-national-park-washington-d72b8203.jpg",
+      "/photos/mount-rainier-national-park-washington-5c7590f5.jpg",
+      "/photos/diamante-valley-costa-rica-3092189d.jpg",
+      "/photos/paro-bhutan-08988839.jpg",
+      "/photos/roppongi-tokyo-a5f50e72.jpg",
+      "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+      "/photos/mariposa-grove-yosemite-7455e25e.jpg"
+     ]
+    },
+    {
+     "word": "the fall",
+     "poems": [
+      "an-ode-to-aspens",
+      "ariel",
+      "guadalajara",
+      "i-watched-a-butterfly-today"
+     ],
+     "photos": [
+      "/photos/hilo-hawaii-fa94384a.jpg",
+      "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+      "/photos/bar-harbor-maine-bb0a8fe5.jpg"
+     ]
+    },
+    {
+     "word": "hiding",
+     "poems": [
+      "do-you-miss-me",
+      "have-you-watched-creepers-creep",
+      "i-will-always-be-a-poet",
+      "london",
+      "oh-the-horror-i-say",
+      "platitudes-of-suffering",
+      "when-you-were-young",
+      "being-loved",
+      "wrestle"
+     ],
+     "photos": [
+      "/photos/roma-sidewalk.jpg",
+      "/photos/reed-corridor.jpg",
+      "/photos/restaurant-night.jpg",
+      "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+      "/photos/hilo-hawaii-fa94384a.jpg",
+      "/photos/provincetown-massachusetts-a90962e6.jpg",
+      "/photos/provincetown-massachusetts-ee073946.jpg"
+     ]
+    },
+    {
+     "word": "laughter",
+     "poems": [
+      "california",
+      "everytime-you-wink-at-me",
+      "everywhere-i-turn",
+      "i-watch-my-hair",
+      "sometimes-curious-feel",
+      "these-days-are-gone",
+      "to-know-me",
+      "when-i-laugh"
+     ],
+     "photos": [
+      "/photos/fireworks-water.jpg",
+      "/photos/night-market.jpg",
+      "/photos/kitchen-night.jpg",
+      "/photos/provincetown-massachusetts-09009fdd.jpg"
+     ]
+    },
+    {
+     "word": "fear",
+     "poems": [
+      "a-conversation-among-birds",
+      "guadalajara",
+      "hey-you-tree-there",
+      "in-my-heart-something-called-to-the-rain",
+      "let-tomorrow-come",
+      "london",
+      "not-in-my-life",
+      "oh-the-horror-i-say",
+      "one-in-community",
+      "park",
+      "the-light-sings",
+      "thrum-thrum",
+      "today-if-there-is-tomorrow",
+      "when-you-watch-the-whales-from-shore"
+     ],
+     "photos": [
+      "/photos/roma-sidewalk.jpg",
+      "/photos/night-street.jpg",
+      "/photos/mount-rainier-national-park-washington-9ca71603.jpg"
+     ]
+    },
+    {
+     "word": "free",
+     "poems": [
+      "and-now-that-we-walk",
+      "did-you-know",
+      "falling-in-love",
+      "freedom-yet-unabridged",
+      "i-was-feeling-sorry-for-a-moth",
+      "i-will-always-be-a-poet",
+      "one-beautiful-moment",
+      "out-of-many-one",
+      "social-media-is-not-the-right-place-for-grief",
+      "today-birds",
+      "today-i-saw-a-man-on-a-leash",
+      "i-came-out"
+     ],
+     "photos": [
+      "/photos/beach-solitude.jpg",
+      "/photos/fireworks-water.jpg",
+      "/photos/scooter-beach.jpg",
+      "/photos/singapore-225bdfc9.jpg",
+      "/photos/crested-butte-colorado-8ada8f57.jpg",
+      "/photos/crested-butte-colorado-e25ede7f.jpg",
+      "/photos/kaanapali-maui-2be2cfcb.jpg",
+      "/photos/mount-rainier-national-park-washington-3d887df3.jpg",
+      "/photos/mexico-city-mexico-6eb743ec.jpg",
+      "/photos/paro-bhutan-6f8bbbbf.jpg",
+      "/photos/provincetown-massachusetts-ee073946.jpg",
+      "/photos/provincetown-massachusetts-09009fdd.jpg"
+     ]
+    },
+    {
+     "word": "the long road",
+     "poems": [
+      "freedom-yet-unabridged",
+      "have-you-watched-creepers-creep",
+      "its-funny",
+      "time-in-a-fig-grove",
+      "to-be-alone",
+      "to-see-such-beauty"
+     ],
+     "photos": [
+      "/photos/night-street.jpg",
+      "/photos/reed-corridor.jpg",
+      "/photos/tree-tunnel.jpg",
+      "/photos/misty-hillside.jpg",
+      "/photos/yosemite-trail.jpg",
+      "/photos/yosemite-valley.jpg",
+      "/photos/beach-boardwalk.jpg",
+      "/photos/kodagu-india-346cc700.jpg",
+      "/photos/hilo-hawaii-3cb5d78d.jpg",
+      "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg",
+      "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+      "/photos/fire-island-new-york-72585dde.jpg",
+      "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg",
+      "/photos/provincetown-massachusetts-f214fa8d.jpg",
+      "/photos/setonaikai-national-park-japan-4d3f9e95.jpg"
+     ]
+    },
+    {
+     "word": "prayer",
+     "poems": [
+      "i-saw-something-beautiful-today",
+      "kashmir",
+      "social-media-is-not-the-right-place-for-grief",
+      "the-sun-kissed-the-mountains",
+      "these-water-nymphs"
+     ],
+     "photos": [
+      "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+      "/photos/hilo-hawaii-a09cc2ce.jpg",
+      "/photos/mount-rainier-national-park-washington-d72b8203.jpg",
+      "/photos/diamante-valley-costa-rica-cbb914b4.jpg",
+      "/photos/paro-bhutan-6f8bbbbf.jpg",
+      "/photos/honshu-japan-0d03d128.jpg"
+     ]
+    },
+    {
+     "word": "play",
+     "poems": [
+      "delicate-pieces-before-the-end",
+      "out-to-play-he-calls-them",
+      "sit-let-us-listen",
+      "sometimes-i-feel-cold",
+      "teental",
+      "the-mist",
+      "when-you-were-young",
+      "being-loved",
+      "animals-in-love"
+     ],
+     "photos": [
+      "/photos/scooter-beach.jpg",
+      "/photos/crested-butte-colorado-8ada8f57.jpg",
+      "/photos/hilo-hawaii-ea929e41.jpg",
+      "/photos/provincetown-massachusetts-4c281798.jpg",
+      "/photos/provincetown-massachusetts-08da554d.jpg",
+      "/photos/provincetown-massachusetts-09009fdd.jpg"
+     ]
+    }
+   ],
+   "poems": {
+    "a-conversation-among-birds": [
+     {
+      "phrase": "Are you satisfied this morning",
+      "word": "the wait"
+     },
+     {
+      "phrase": "that quiet scythe will slay this rural landscape",
+      "word": "fear"
+     }
+    ],
+    "a-wedding-toast": [
+     {
+      "phrase": "When I left a place",
+      "word": "leaving"
+     },
+     {
+      "phrase": "With maybe a little more space for awe",
+      "word": "awe"
+     },
+     {
+      "phrase": "To you, my friends, all the love in the world.",
+      "word": "held close"
+     }
+    ],
+    "an-ode-to-aspens": [
+     {
+      "phrase": "It’s been hard watching them fall",
+      "word": "the fall"
+     },
+     {
+      "phrase": "I wish to spent eternity in their embrace",
+      "word": "held close"
+     },
+     {
+      "phrase": "In the end",
+      "word": "goodbye"
+     }
+    ],
+    "and-now-that-we-walk": [
+     {
+      "phrase": "Heads held high",
+      "word": "free"
+     },
+     {
+      "phrase": "Be proud, child, for I am proud of you.",
+      "word": "held close"
+     }
+    ],
+    "anuraag-oh-anuraag": [
+     {
+      "phrase": "And wait in discontent",
+      "word": "the wait"
+     },
+     {
+      "phrase": "Tell me where will you go?",
+      "word": "leaving"
+     },
+     {
+      "phrase": "You are caught and snared",
+      "word": "held close"
+     }
+    ],
+    "ariel": [
+     {
+      "phrase": "I hope you know when we fell",
+      "word": "the fall"
+     },
+     {
+      "phrase": "and spin you around",
+      "word": "dancing"
+     },
+     {
+      "phrase": "to keep you in my world.",
+      "word": "held close"
+     }
+    ],
+    "blood-oh-once-you-called": [
+     {
+      "phrase": "Leave you may,",
+      "word": "leaving"
+     },
+     {
+      "phrase": "When we grew",
+      "word": "grow tall"
+     }
+    ],
+    "california": [
+     {
+      "phrase": "It reminds me of home",
+      "word": "home"
+     },
+     {
+      "phrase": "And the valley sings and laughs",
+      "word": "laughter"
+     },
+     {
+      "phrase": "Look mommy, how grown is your little prince.",
+      "word": "grow tall"
+     }
+    ],
+    "dear-bottle": [
+     {
+      "phrase": "I hope you are having a nice adventure without me",
+      "word": "leaving"
+     },
+     {
+      "phrase": "I miss you a lot",
+      "word": "missing you"
+     }
+    ],
+    "delicate-pieces-before-the-end": [
+     {
+      "phrase": "The memories you wish you had",
+      "word": "memory"
+     },
+     {
+      "phrase": "Seated mischievously",
+      "word": "play"
+     }
+    ],
+    "did-you-know": [
+     {
+      "phrase": "That can jump out of water",
+      "word": "free"
+     },
+     {
+      "phrase": "What will this boat be when the boats go home",
+      "word": "home"
+     }
+    ],
+    "do-you-miss-me": [
+     {
+      "phrase": "Do you miss me",
+      "word": "missing you"
+     },
+     {
+      "phrase": "Now that I hide",
+      "word": "hiding"
+     }
+    ],
+    "everyday-i-can-spend": [
+     {
+      "phrase": "But help me if there is not tomorrow.",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "Today is a day in the company of those I love.",
+      "word": "held close"
+     },
+     {
+      "phrase": "Help me if there is no memory before today.",
+      "word": "memory"
+     }
+    ],
+    "everytime-you-wink-at-me": [
+     {
+      "phrase": "Everytime you wink at me",
+      "word": "falling in love"
+     },
+     {
+      "phrase": "I wonder if the excitement can bubble up my chest",
+      "word": "laughter"
+     }
+    ],
+    "everywhere-i-turn": [
+     {
+      "phrase": "the remembrance of your laugh",
+      "word": "laughter"
+     },
+     {
+      "phrase": "In the follow of your face and rememberance of a smile",
+      "word": "missing you"
+     },
+     {
+      "phrase": "I see a world a little colder",
+      "word": "goodbye"
+     }
+    ],
+    "falling-in-love": [
+     {
+      "phrase": "Falling in love with who I could be",
+      "word": "falling in love"
+     },
+     {
+      "phrase": "Of being naked",
+      "word": "free"
+     }
+    ],
+    "freedom-yet-unabridged": [
+     {
+      "phrase": "If I leapt, would the pang stay?",
+      "word": "free"
+     },
+     {
+      "phrase": "Grey and long before me,",
+      "word": "the long road"
+     },
+     {
+      "phrase": "Something long thought forgotten.",
+      "word": "memory"
+     }
+    ],
+    "glass-houses": [
+     {
+      "phrase": "To build our houses",
+      "word": "home"
+     },
+     {
+      "phrase": "Comfort till death.",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "You would think we were going to live for eternity",
+      "word": "tomorrow"
+     }
+    ],
+    "guadalajara": [
+     {
+      "phrase": "I see fear in the eyes",
+      "word": "fear"
+     },
+     {
+      "phrase": "a time to fall",
+      "word": "the fall"
+     },
+     {
+      "phrase": "Tall, sightless, reaching as did their ancestors",
+      "word": "grow tall"
+     }
+    ],
+    "hark-my-love": [
+     {
+      "phrase": "It’s dancing now, in the morning wind",
+      "word": "dancing"
+     },
+     {
+      "phrase": "Dream, dream dream, little tree",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "Calling their way home",
+      "word": "home"
+     }
+    ],
+    "have-you-ever-seen": [
+     {
+      "phrase": "Something so beautiful",
+      "word": "awe"
+     },
+     {
+      "phrase": "That saw your parents parents parents parents",
+      "word": "memory"
+     }
+    ],
+    "have-you-watched-creepers-creep": [
+     {
+      "phrase": "Evolved to find the smallest of holes",
+      "word": "hiding"
+     },
+     {
+      "phrase": "Come watch creepers creep",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "Traversing barriers",
+      "word": "the long road"
+     }
+    ],
+    "hey-you-there-hey-you-here": [
+     {
+      "phrase": "we got stuck together somehow",
+      "word": "held close"
+     },
+     {
+      "phrase": "is that mine or is that yours",
+      "word": "falling in love"
+     }
+    ],
+    "hey-you-tree-there": [
+     {
+      "phrase": "just growth growth growth",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "have you ever seen an elephant actually frightened of a mouse",
+      "word": "fear"
+     }
+    ],
+    "how-can-you-just-be-gone": [
+     {
+      "phrase": "This space that was your empty space",
+      "word": "the empty space"
+     },
+     {
+      "phrase": "I will miss you my friend",
+      "word": "missing you"
+     },
+     {
+      "phrase": "How can you just be gone",
+      "word": "goodbye"
+     }
+    ],
+    "i-feel-sad-about-endings": [
+     {
+      "phrase": "This might be the last time you are this person",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "Come, let me home.",
+      "word": "home"
+     }
+    ],
+    "i-left-my-heart-at-home-today": [
+     {
+      "phrase": "I left my heart at home today",
+      "word": "leaving"
+     },
+     {
+      "phrase": "Who was supposed to remember some parts of you",
+      "word": "memory"
+     }
+    ],
+    "i-listen": [
+     {
+      "phrase": "Is it better to know this is your last goodbye",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "The timing is never right until there is no time at all",
+      "word": "the wait"
+     }
+    ],
+    "i-saw-something-beautiful-today": [
+     {
+      "phrase": "I saw something beautiful today",
+      "word": "awe"
+     },
+     {
+      "phrase": "Oh Creator",
+      "word": "prayer"
+     }
+    ],
+    "i-was-feeling-sorry-for-a-moth": [
+     {
+      "phrase": "Some creature without full understanding of its wings",
+      "word": "free"
+     },
+     {
+      "phrase": "To our slow demise",
+      "word": "goodbye"
+     }
+    ],
+    "i-watch-my-hair": [
+     {
+      "phrase": "that this dazzling array",
+      "word": "awe"
+     },
+     {
+      "phrase": "Fool that I was",
+      "word": "laughter"
+     }
+    ],
+    "i-watched-a-butterfly-today": [
+     {
+      "phrase": "Fluttered its wings",
+      "word": "dancing"
+     },
+     {
+      "phrase": "I heard the slight thud",
+      "word": "the fall"
+     }
+    ],
+    "i-will-always-be-a-poet": [
+     {
+      "phrase": "I will always be a poet",
+      "word": "free"
+     },
+     {
+      "phrase": "If you shave my chest to expose my heart",
+      "word": "hiding"
+     }
+    ],
+    "in-my-heart-something-called-to-the-rain": [
+     {
+      "phrase": "And be reborn, oak grow tall, pine grow fierce",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "To the drowning man",
+      "word": "fear"
+     }
+    ],
+    "it-used-to-be-me": [
+     {
+      "phrase": "it used to be me",
+      "word": "memory"
+     },
+     {
+      "phrase": "writhing under you",
+      "word": "held close"
+     }
+    ],
+    "its-funny": [
+     {
+      "phrase": "Down the long roads",
+      "word": "the long road"
+     },
+     {
+      "phrase": "Oh yes, the day I fell in love with you",
+      "word": "falling in love"
+     },
+     {
+      "phrase": "Being apart from you",
+      "word": "missing you"
+     }
+    ],
+    "kashmir": [
+     {
+      "phrase": "As I look and wonder",
+      "word": "awe"
+     },
+     {
+      "phrase": "Memories mine own",
+      "word": "memory"
+     },
+     {
+      "phrase": "That which has to be done",
+      "word": "prayer"
+     }
+    ],
+    "large-objects": [
+     {
+      "phrase": "That thing which binds you to them",
+      "word": "held close"
+     },
+     {
+      "phrase": "What about when the relationship matters more than the person",
+      "word": "falling in love"
+     }
+    ],
+    "late-why-so-late": [
+     {
+      "phrase": "Maybe we should have gone to the airport instead of napping.",
+      "word": "leaving"
+     },
+     {
+      "phrase": "10 min to discover check-in opens 24 hours before.",
+      "word": "the wait"
+     },
+     {
+      "phrase": "Make the humans bored and they will dance.",
+      "word": "dancing"
+     }
+    ],
+    "let-tomorrow-come": [
+     {
+      "phrase": "when tomorrow is all we have.",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "Let tomorrow come for that fear and heart of mine",
+      "word": "fear"
+     },
+     {
+      "phrase": "that asked for today",
+      "word": "the wait"
+     }
+    ],
+    "london": [
+     {
+      "phrase": "they are scared to look too long",
+      "word": "fear"
+     },
+     {
+      "phrase": "They don’t look at you too long",
+      "word": "hiding"
+     }
+    ],
+    "mama": [
+     {
+      "phrase": "Sweet mama, sweet father, sweet husband, sweet friend.",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "And made a space filled with love",
+      "word": "the empty space"
+     },
+     {
+      "phrase": "so close to his heart",
+      "word": "held close"
+     }
+    ],
+    "memories-of-tomorrow": [
+     {
+      "phrase": "remember today?",
+      "word": "memory"
+     },
+     {
+      "phrase": "when I, tomorrow,",
+      "word": "tomorrow"
+     }
+    ],
+    "my-friend-who-died": [
+     {
+      "phrase": "My friend who died",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "That existed",
+      "word": "memory"
+     },
+     {
+      "phrase": "And will exist",
+      "word": "tomorrow"
+     }
+    ],
+    "not-in-my-life": [
+     {
+      "phrase": "Walk out that door",
+      "word": "leaving"
+     },
+     {
+      "phrase": "You do not mean well",
+      "word": "fear"
+     }
+    ],
+    "oh-that-again": [
+     {
+      "phrase": "Oh that again I might see such beauty in my life",
+      "word": "awe"
+     },
+     {
+      "phrase": "Ungrieved by the world",
+      "word": "grow tall"
+     }
+    ],
+    "oh-the-horror-i-say": [
+     {
+      "phrase": "Oh the horror I say",
+      "word": "fear"
+     },
+     {
+      "phrase": "As though it too, was just another carrot",
+      "word": "hiding"
+     }
+    ],
+    "one-beautiful-moment": [
+     {
+      "phrase": "You can just be.",
+      "word": "free"
+     },
+     {
+      "phrase": "That, my friends, is the moment before death.",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "Where you don’t have to decide anything",
+      "word": "the wait"
+     }
+    ],
+    "one-in-community": [
+     {
+      "phrase": "Who chooses fear.",
+      "word": "fear"
+     },
+     {
+      "phrase": "how do I grow when you defined me to be a thing.",
+      "word": "grow tall"
+     }
+    ],
+    "out-of-many-one": [
+     {
+      "phrase": "I’m fucking free.",
+      "word": "free"
+     },
+     {
+      "phrase": "There was joy, once.",
+      "word": "memory"
+     }
+    ],
+    "out-to-play-he-calls-them": [
+     {
+      "phrase": "Out to play He calls them",
+      "word": "play"
+     },
+     {
+      "phrase": "One, two, they fly West.",
+      "word": "leaving"
+     }
+    ],
+    "park": [
+     {
+      "phrase": "Seen to be alone",
+      "word": "alone"
+     },
+     {
+      "phrase": "Fear is a spiral",
+      "word": "fear"
+     },
+     {
+      "phrase": "and I'm gone.",
+      "word": "leaving"
+     }
+    ],
+    "platitudes-of-suffering": [
+     {
+      "phrase": "For it is only in death,",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "So, Sir, ask me not how I am.",
+      "word": "hiding"
+     }
+    ],
+    "sit-let-us-listen": [
+     {
+      "phrase": "Watch the game board",
+      "word": "play"
+     },
+     {
+      "phrase": "All that is today and will be",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "See the leaves",
+      "word": "the wait"
+     }
+    ],
+    "social-media-is-not-the-right-place-for-grief": [
+     {
+      "phrase": "Like temple",
+      "word": "prayer"
+     },
+     {
+      "phrase": "It's kind of freeing",
+      "word": "free"
+     },
+     {
+      "phrase": "I'm not ready to move on",
+      "word": "goodbye"
+     }
+    ],
+    "sometimes-curious-feel": [
+     {
+      "phrase": "There's a joy bubbling in my heart",
+      "word": "laughter"
+     },
+     {
+      "phrase": "I love you",
+      "word": "falling in love"
+     }
+    ],
+    "sometimes-i-feel-cold": [
+     {
+      "phrase": "I want a different game to play",
+      "word": "play"
+     },
+     {
+      "phrase": "I want to construct a different home",
+      "word": "home"
+     },
+     {
+      "phrase": "I feel like an intersection of regrets and what could have been",
+      "word": "memory"
+     }
+    ],
+    "sometimes-i-listen-to-these-poets": [
+     {
+      "phrase": "our capacity for wonder.",
+      "word": "awe"
+     },
+     {
+      "phrase": "the purest form of love",
+      "word": "falling in love"
+     }
+    ],
+    "sometimes-quaver": [
+     {
+      "phrase": "Is to see leaves dancing a tiny dance",
+      "word": "dancing"
+     },
+     {
+      "phrase": "Am I moving slow?",
+      "word": "the wait"
+     }
+    ],
+    "song-of-tomorrow": [
+     {
+      "phrase": "Grow tall",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "Tell me, is it tomorrow?",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "Come back to me",
+      "word": "missing you"
+     }
+    ],
+    "teental": [
+     {
+      "phrase": "te left again and we close in on home",
+      "word": "home"
+     },
+     {
+      "phrase": "a dancer who can’t keep attention for 4 beats",
+      "word": "dancing"
+     },
+     {
+      "phrase": "life is a game, and nothing is what it seems.",
+      "word": "play"
+     }
+    ],
+    "the-light-sings": [
+     {
+      "phrase": "hunger drives them forth from sanctuary",
+      "word": "leaving"
+     },
+     {
+      "phrase": "change or die, says the rain.",
+      "word": "fear"
+     }
+    ],
+    "the-mist": [
+     {
+      "phrase": "If you sit still and don't move your eyes you can see it fleeing.",
+      "word": "the wait"
+     },
+     {
+      "phrase": "oh this is the ocean, come to play in the air for a while",
+      "word": "play"
+     }
+    ],
+    "the-sun-kissed-the-mountains": [
+     {
+      "phrase": "The babe of tomorrow has been born.",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "By the grace of God",
+      "word": "prayer"
+     }
+    ],
+    "there-comes-a-point": [
+     {
+      "phrase": "There comes a point one chooses death.",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "Why, again, today?",
+      "word": "the wait"
+     }
+    ],
+    "there-is-a-soft-tingle": [
+     {
+      "phrase": "The biggest and oldest tree",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "Long dead, though it may be",
+      "word": "goodbye"
+     }
+    ],
+    "these-days-are-gone": [
+     {
+      "phrase": "these days are gone",
+      "word": "memory"
+     },
+     {
+      "phrase": "Let there be joy that it happened.",
+      "word": "laughter"
+     }
+    ],
+    "these-water-nymphs": [
+     {
+      "phrase": "Creator, Destroyer, bringer of the Day.",
+      "word": "prayer"
+     },
+     {
+      "phrase": "They kissed your lips as they went by",
+      "word": "falling in love"
+     }
+    ],
+    "this-growing-older": [
+     {
+      "phrase": "If this goodbye is the last",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "Will the space that I feel",
+      "word": "the empty space"
+     },
+     {
+      "phrase": "This growing older",
+      "word": "grow tall"
+     }
+    ],
+    "thrum-thrum": [
+     {
+      "phrase": "remembered mistakes",
+      "word": "memory"
+     },
+     {
+      "phrase": "colors to express my unease",
+      "word": "fear"
+     }
+    ],
+    "time-in-a-fig-grove": [
+     {
+      "phrase": "And the Grove grew and grew and grew",
+      "word": "grow tall"
+     },
+     {
+      "phrase": "And he looked down the Long Years,",
+      "word": "the long road"
+     },
+     {
+      "phrase": "Then came a house.",
+      "word": "home"
+     }
+    ],
+    "to-be-alone": [
+     {
+      "phrase": "To be alone",
+      "word": "alone"
+     },
+     {
+      "phrase": "and wander",
+      "word": "the long road"
+     }
+    ],
+    "to-flutter": [
+     {
+      "phrase": "But you pause, a’wondering",
+      "word": "the wait"
+     },
+     {
+      "phrase": "Sends my heart a’flutter.",
+      "word": "falling in love"
+     }
+    ],
+    "to-know-me": [
+     {
+      "phrase": "Because I laugh a lot",
+      "word": "laughter"
+     },
+     {
+      "phrase": "And I fall in love a lot",
+      "word": "falling in love"
+     }
+    ],
+    "to-see-such-beauty": [
+     {
+      "phrase": "To see such beauty",
+      "word": "awe"
+     },
+     {
+      "phrase": "Or the side of a road",
+      "word": "the long road"
+     },
+     {
+      "phrase": "I didn’t know I had seen you before.",
+      "word": "memory"
+     }
+    ],
+    "to-touch-in-a-way": [
+     {
+      "phrase": "gives remembrance",
+      "word": "memory"
+     },
+     {
+      "phrase": "in a way",
+      "word": "held close"
+     }
+    ],
+    "today-birds": [
+     {
+      "phrase": "What a curse, to be an island.",
+      "word": "alone"
+     },
+     {
+      "phrase": "I hear my time calling",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "What brings a fish to delight in the air?",
+      "word": "free"
+     }
+    ],
+    "today-i-saw-a-man-on-a-leash": [
+     {
+      "phrase": "It was hard to tell which person was being held",
+      "word": "held close"
+     },
+     {
+      "phrase": "Easily broken",
+      "word": "free"
+     }
+    ],
+    "today-i-write-about-red": [
+     {
+      "phrase": "My beautiful sister.",
+      "word": "held close"
+     },
+     {
+      "phrase": "I can’t wait to make purple once more.",
+      "word": "the wait"
+     }
+    ],
+    "today-if-there-is-tomorrow": [
+     {
+      "phrase": "Into tomorrow, I say, and fight me if I’m wrong.",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "Where do we go when our hearts quail from fright?",
+      "word": "fear"
+     },
+     {
+      "phrase": "Where do we go when we leave this life?",
+      "word": "goodbye"
+     }
+    ],
+    "wedding-poem": [
+     {
+      "phrase": "Like falling in love.",
+      "word": "falling in love"
+     },
+     {
+      "phrase": "Time to scurry home",
+      "word": "home"
+     },
+     {
+      "phrase": "these days are still like that first day",
+      "word": "memory"
+     }
+    ],
+    "when-i-dance-with-you": [
+     {
+      "phrase": "When I dance with you",
+      "word": "dancing"
+     },
+     {
+      "phrase": "And your tomorrow is my tomorrow",
+      "word": "tomorrow"
+     },
+     {
+      "phrase": "Joined with another",
+      "word": "held close"
+     }
+    ],
+    "when-i-laugh": [
+     {
+      "phrase": "When I laugh",
+      "word": "laughter"
+     },
+     {
+      "phrase": "And all that’s left is a memory",
+      "word": "memory"
+     }
+    ],
+    "when-im-not-here": [
+     {
+      "phrase": "When I'm not here",
+      "word": "missing you"
+     },
+     {
+      "phrase": "With a little gap",
+      "word": "the empty space"
+     },
+     {
+      "phrase": "And pull towards me",
+      "word": "held close"
+     }
+    ],
+    "when-you-watch-the-whales-from-shore": [
+     {
+      "phrase": "And how huge and mighty whales must be.",
+      "word": "awe"
+     },
+     {
+      "phrase": "Surrender to the powerful we are taught,",
+      "word": "fear"
+     }
+    ],
+    "when-you-were-young": [
+     {
+      "phrase": "For me to claim a name or a face.",
+      "word": "hiding"
+     },
+     {
+      "phrase": "Like a game with some new friends.",
+      "word": "play"
+     }
+    ],
+    "xoxo": [
+     {
+      "phrase": "To be surrounded by;",
+      "word": "held close"
+     },
+     {
+      "phrase": "so much love,",
+      "word": "falling in love"
+     }
+    ],
+    "i-came-out": [
+     {
+      "phrase": "When I first came out",
+      "word": "free"
+     },
+     {
+      "phrase": "Thinking maybe today, maybe this day, even if I don’t win, one of us will.",
+      "word": "tomorrow"
+     }
+    ],
+    "being-loved": [
+     {
+      "phrase": "I remember the swing.",
+      "word": "play"
+     },
+     {
+      "phrase": "Hasn’t wonder always been subjugated by shame?",
+      "word": "hiding"
+     },
+     {
+      "phrase": "Back door swung open and there she stood",
+      "word": "home"
+     }
+    ],
+    "animals-in-love": [
+     {
+      "phrase": "We’re in love until we’re not, amirite?",
+      "word": "falling in love"
+     },
+     {
+      "phrase": "You who I knew, or me before you died.",
+      "word": "goodbye"
+     },
+     {
+      "phrase": "Quick, a game.",
+      "word": "play"
+     }
+    ],
+    "wrestle": [
+     {
+      "phrase": "I have done something wrong",
+      "word": "hiding"
+     },
+     {
+      "phrase": "But damn it does start to change",
+      "word": "grow tall"
+     }
+    ],
+    "bladder-bag": [
+     {
+      "phrase": "She this whale I once was takes me with a soft hand",
+      "word": "held close"
+     },
+     {
+      "phrase": "I am reborn as bag.",
+      "word": "tomorrow"
+     }
+    ],
+    "hey": [
+     {
+      "phrase": "we got stuck together somehow",
+      "word": "held close"
+     },
+     {
+      "phrase": "is that yours or is that mine",
+      "word": "falling in love"
+     }
+    ]
+   },
+   "photos": {
+    "/photos/roma-sidewalk.jpg": [
+     "alone",
+     "fear",
+     "hiding"
+    ],
+    "/photos/papel-picado.jpg": [
+     "falling in love",
+     "dancing"
+    ],
+    "/photos/night-street.jpg": [
+     "the long road",
+     "the empty space",
+     "fear"
+    ],
+    "/photos/staircase.jpg": [
+     "the wait",
+     "alone"
+    ],
+    "/photos/cdmx-plaza.jpg": [
+     "the empty space",
+     "alone"
+    ],
+    "/photos/alpine-lake.jpg": [
+     "awe"
+    ],
+    "/photos/beach-solitude.jpg": [
+     "alone",
+     "free"
+    ],
+    "/photos/reed-corridor.jpg": [
+     "the long road",
+     "hiding"
+    ],
+    "/photos/buoys-wall.jpg": [
+     "home",
+     "the wait"
+    ],
+    "/photos/fireworks-water.jpg": [
+     "laughter",
+     "free"
+    ],
+    "/photos/still-lake.jpg": [
+     "the wait",
+     "awe"
+    ],
+    "/photos/sayulita-staircase.jpg": [
+     "missing you",
+     "alone",
+     "the wait"
+    ],
+    "/photos/concrete-museum.jpg": [
+     "the empty space"
+    ],
+    "/photos/tree-tunnel.jpg": [
+     "the long road",
+     "grow tall"
+    ],
+    "/photos/hawaii-landscape.jpg": [
+     "goodbye",
+     "awe"
+    ],
+    "/photos/lanterns.jpg": [
+     "home"
+    ],
+    "/photos/taco-cart.jpg": [
+     "home",
+     "the wait"
+    ],
+    "/photos/night-market.jpg": [
+     "the wait",
+     "laughter"
+    ],
+    "/photos/misty-hillside.jpg": [
+     "leaving",
+     "the long road"
+    ],
+    "/photos/kitchen-night.jpg": [
+     "dancing",
+     "home",
+     "laughter"
+    ],
+    "/photos/restaurant-night.jpg": [
+     "hiding",
+     "the empty space",
+     "home"
+    ],
+    "/photos/yosemite-trail.jpg": [
+     "awe",
+     "the long road"
+    ],
+    "/photos/scooter-beach.jpg": [
+     "play",
+     "free"
+    ],
+    "/photos/yosemite-valley.jpg": [
+     "the long road",
+     "alone",
+     "grow tall"
+    ],
+    "/photos/beach-boardwalk.jpg": [
+     "leaving",
+     "the long road",
+     "tomorrow"
+    ],
+    "/photos/berlin-street.jpg": [
+     "memory",
+     "tomorrow"
+    ],
+    "/photos/singapore-225bdfc9.jpg": [
+     "the wait",
+     "alone",
+     "free"
+    ],
+    "/photos/sagrada-familia-barcelona-e210fc03.jpg": [
+     "prayer",
+     "awe",
+     "grow tall"
+    ],
+    "/photos/kodagu-india-346cc700.jpg": [
+     "the long road"
+    ],
+    "/photos/kodagu-india-033e7e3b.jpg": [
+     "tomorrow",
+     "the wait"
+    ],
+    "/photos/kodagu-india-124b384b.jpg": [
+     "tomorrow",
+     "awe"
+    ],
+    "/photos/kodagu-india-68c68cb1.jpg": [
+     "grow tall",
+     "tomorrow"
+    ],
+    "/photos/crested-butte-colorado-8ada8f57.jpg": [
+     "play",
+     "free"
+    ],
+    "/photos/crested-butte-colorado-e25ede7f.jpg": [
+     "alone",
+     "free"
+    ],
+    "/photos/puako-hawaii-98409f6b.jpg": [
+     "goodbye",
+     "alone"
+    ],
+    "/photos/laupahoehoe-hawaii-96a28c20.jpg": [
+     "awe",
+     "hiding"
+    ],
+    "/photos/hilo-hawaii-3cb5d78d.jpg": [
+     "grow tall",
+     "the long road",
+     "the empty space"
+    ],
+    "/photos/hilo-hawaii-a09cc2ce.jpg": [
+     "prayer",
+     "home"
+    ],
+    "/photos/hilo-hawaii-fa94384a.jpg": [
+     "the fall",
+     "hiding"
+    ],
+    "/photos/hilo-hawaii-ea929e41.jpg": [
+     "play",
+     "alone"
+    ],
+    "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg": [
+     "alone",
+     "the long road"
+    ],
+    "/photos/kaanapali-maui-2be2cfcb.jpg": [
+     "free"
+    ],
+    "/photos/mount-rainier-national-park-washington-ddab98b6.jpg": [
+     "the fall",
+     "the long road"
+    ],
+    "/photos/mount-rainier-national-park-washington-d72b8203.jpg": [
+     "grow tall",
+     "prayer"
+    ],
+    "/photos/mount-rainier-national-park-washington-5c7590f5.jpg": [
+     "grow tall",
+     "awe"
+    ],
+    "/photos/mount-rainier-national-park-washington-9ca71603.jpg": [
+     "the fall",
+     "goodbye",
+     "fear"
+    ],
+    "/photos/mount-rainier-national-park-washington-3d887df3.jpg": [
+     "free",
+     "alone"
+    ],
+    "/photos/mount-rainier-national-park-washington-bbda096c.jpg": [
+     "awe",
+     "the wait"
+    ],
+    "/photos/san-juan-islands-washington-657f1936.jpg": [
+     "home",
+     "the wait"
+    ],
+    "/photos/fire-island-new-york-72585dde.jpg": [
+     "leaving",
+     "the long road"
+    ],
+    "/photos/washington-dc-c631b9f2.jpg": [
+     "memory",
+     "alone",
+     "the empty space"
+    ],
+    "/photos/washington-dc-afd19b1c.jpg": [
+     "memory",
+     "alone"
+    ],
+    "/photos/acadia-national-park-maine-9678573e.jpg": [
+     "the wait"
+    ],
+    "/photos/bar-harbor-maine-bb0a8fe5.jpg": [
+     "the fall",
+     "goodbye"
+    ],
+    "/photos/casper-wyoming-02035a8d.jpg": [
+     "leaving",
+     "memory",
+     "missing you"
+    ],
+    "/photos/casper-wyoming-cce8cbde.jpg": [
+     "alone",
+     "leaving"
+    ],
+    "/photos/mexico-city-mexico-6eb743ec.jpg": [
+     "free",
+     "tomorrow",
+     "awe"
+    ],
+    "/photos/diamante-valley-costa-rica-3092189d.jpg": [
+     "tomorrow",
+     "grow tall"
+    ],
+    "/photos/diamante-valley-costa-rica-cbb914b4.jpg": [
+     "prayer",
+     "the wait"
+    ],
+    "/photos/paro-bhutan-08988839.jpg": [
+     "grow tall"
+    ],
+    "/photos/paro-bhutan-6f8bbbbf.jpg": [
+     "prayer",
+     "free"
+    ],
+    "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg": [
+     "alone",
+     "the long road"
+    ],
+    "/photos/provincetown-massachusetts-f214fa8d.jpg": [
+     "leaving",
+     "missing you",
+     "the long road"
+    ],
+    "/photos/provincetown-massachusetts-a90962e6.jpg": [
+     "hiding",
+     "the wait"
+    ],
+    "/photos/provincetown-massachusetts-ee073946.jpg": [
+     "hiding",
+     "free"
+    ],
+    "/photos/provincetown-massachusetts-4c281798.jpg": [
+     "held close",
+     "play",
+     "dancing"
+    ],
+    "/photos/provincetown-massachusetts-eee28b60.jpg": [
+     "held close",
+     "dancing"
+    ],
+    "/photos/provincetown-massachusetts-08da554d.jpg": [
+     "held close",
+     "play"
+    ],
+    "/photos/provincetown-massachusetts-09009fdd.jpg": [
+     "play",
+     "laughter",
+     "free"
+    ],
+    "/photos/honshu-japan-0d03d128.jpg": [
+     "leaving",
+     "held close",
+     "prayer"
+    ],
+    "/photos/setonaikai-national-park-japan-64937bce.jpg": [
+     "falling in love",
+     "memory"
+    ],
+    "/photos/setonaikai-national-park-japan-4d3f9e95.jpg": [
+     "the long road"
+    ],
+    "/photos/roppongi-tokyo-a5f50e72.jpg": [
+     "grow tall",
+     "falling in love"
+    ],
+    "/photos/sayulita-mexico-25fbaafd.jpg": [
+     "the wait",
+     "goodbye"
+    ],
+    "/photos/sayulita-mexico-9d65e1b6.jpg": [
+     "alone",
+     "goodbye"
+    ],
+    "/photos/mariposa-grove-yosemite-e6c620bb.jpg": [
+     "grow tall",
+     "memory"
+    ],
+    "/photos/mariposa-grove-yosemite-7455e25e.jpg": [
+     "grow tall",
+     "awe"
+    ]
+   }
+  }
+ }
+}

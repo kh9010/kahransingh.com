@@ -1,0 +1,650 @@
+{
+ "concepts": {
+  "wonder": "wonder, awe, the capacity to be astonished",
+  "fear": "fear, threat, fright",
+  "today": "this day, this moment, being here now",
+  "tomorrow": "what comes, the future, hope",
+  "ending": "death, goodbye, the empty space left",
+  "alive": "the will to live, breath, choosing to stay",
+  "merge": "where one body ends and another begins; us",
+  "held": "holding, keeping, binding, letting go",
+  "love": "love itself",
+  "becoming": "who I am and who I could be; versions of a self",
+  "growing": "growing up, growing older, age",
+  "change": "hardening, softening, being made anew",
+  "seen": "being watched, witnessed, looked at, hiding",
+  "shame": "shame, wrongness, what was not spoken",
+  "memory": "remembering, inventing what is remembered",
+  "made": "what people make and break; the built world",
+  "old": "deep time; what was here before us and will outlast us",
+  "home": "home, a place left, a place to return to",
+  "free": "freedom, getting out, walls that bend",
+  "alone": "solitude, an island",
+  "names": "words, names, definitions; the nouns we made up",
+  "mystery": "who can say; what cannot be known",
+  "beauty": "seeing beauty, and what it costs",
+  "joy": "joy, delight, luck",
+  "attention": "looking closely; sitting still to see"
+ },
+ "vocabs": {
+  "pairs": {
+   "label": "tensions",
+   "ideas": [
+    {
+     "name": "wonder · fear",
+     "concepts": [
+      "wonder",
+      "fear"
+     ]
+    },
+    {
+     "name": "today · tomorrow",
+     "concepts": [
+      "today",
+      "tomorrow"
+     ]
+    },
+    {
+     "name": "alive · gone",
+     "concepts": [
+      "ending",
+      "alive"
+     ],
+     "strain": "no photograph holds the will to live; the five here are all the gone side"
+    },
+    {
+     "name": "mine · yours",
+     "concepts": [
+      "merge"
+     ]
+    },
+    {
+     "name": "holding · letting go",
+     "concepts": [
+      "held"
+     ]
+    },
+    {
+     "name": "alone · together",
+     "concepts": [
+      "alone",
+      "love"
+     ],
+     "strain": "the 'together' side is love in general; the poems rarely set it against solitude in the same line"
+    },
+    {
+     "name": "who I am · who I could be",
+     "concepts": [
+      "becoming"
+     ]
+    },
+    {
+     "name": "young · older",
+     "concepts": [
+      "growing"
+     ]
+    },
+    {
+     "name": "harden · soften",
+     "concepts": [
+      "change"
+     ],
+     "strain": "his word for it; several doors are change in general (reborn, change or die) rather than the hard/soft axis"
+    },
+    {
+     "name": "seen · hidden",
+     "concepts": [
+      "seen",
+      "shame"
+     ],
+     "strain": "shame folds in here as the hidden side; it reaches no photograph"
+    },
+    {
+     "name": "remembering · inventing",
+     "concepts": [
+      "memory"
+     ]
+    },
+    {
+     "name": "the made · the grown",
+     "concepts": [
+      "made",
+      "old"
+     ]
+    },
+    {
+     "name": "staying · leaving",
+     "concepts": [
+      "home"
+     ]
+    },
+    {
+     "name": "caught · free",
+     "concepts": [
+      "free"
+     ]
+    },
+    {
+     "name": "beauty · its cost",
+     "concepts": [
+      "beauty"
+     ],
+     "strain": "the cost is only in some doors (the butterfly, the whales); most are beauty plain"
+    },
+    {
+     "name": "the word · the thing",
+     "concepts": [
+      "names"
+     ]
+    }
+   ],
+   "left_out": "mystery, joy and attention have no other side in the poems, so pairs cannot hold them"
+  },
+  "questions": {
+   "label": "questions",
+   "ideas": [
+    {
+     "name": "wonder or fear?",
+     "concepts": [
+      "wonder",
+      "fear"
+     ],
+     "strain": "the poems set the two side by side twice (Guadalajara, Being Loved); elsewhere a line holds only one"
+    },
+    {
+     "name": "is today enough?",
+     "concepts": [
+      "today",
+      "tomorrow"
+     ]
+    },
+    {
+     "name": "where do we go?",
+     "concepts": [
+      "ending"
+     ]
+    },
+    {
+     "name": "why, again, today?",
+     "concepts": [
+      "alive"
+     ],
+     "strain": "no photograph asks it"
+    },
+    {
+     "name": "where does my body end?",
+     "concepts": [
+      "merge"
+     ]
+    },
+    {
+     "name": "whose love do we keep?",
+     "concepts": [
+      "held",
+      "love"
+     ]
+    },
+    {
+     "name": "who could I be?",
+     "concepts": [
+      "becoming"
+     ]
+    },
+    {
+     "name": "harden or rot?",
+     "concepts": [
+      "change",
+      "growing"
+     ]
+    },
+    {
+     "name": "who is watching?",
+     "concepts": [
+      "seen",
+      "shame"
+     ]
+    },
+    {
+     "name": "do I invent this?",
+     "concepts": [
+      "memory"
+     ]
+    },
+    {
+     "name": "what have we made?",
+     "concepts": [
+      "made"
+     ]
+    },
+    {
+     "name": "what was here before?",
+     "concepts": [
+      "old"
+     ]
+    },
+    {
+     "name": "where is home?",
+     "concepts": [
+      "home",
+      "alone"
+     ],
+     "strain": "solitude rides here; an island is a kind of home only by a stretch"
+    },
+    {
+     "name": "could these walls be bent?",
+     "concepts": [
+      "free"
+     ]
+    },
+    {
+     "name": "what are these words?",
+     "concepts": [
+      "names"
+     ]
+    },
+    {
+     "name": "who can say?",
+     "concepts": [
+      "mystery"
+     ]
+    },
+    {
+     "name": "have you ever seen?",
+     "concepts": [
+      "beauty",
+      "attention"
+     ]
+    }
+   ],
+   "left_out": "joy is never a question in these poems; it is always said outright"
+  },
+  "nouns": {
+   "label": "nouns",
+   "ideas": [
+    {
+     "name": "wonder",
+     "concepts": [
+      "wonder"
+     ],
+     "strain": "the word is in 29 poems, more than any other idea's; it is the door in 11, because in the rest another idea holds the line harder"
+    },
+    {
+     "name": "fear",
+     "concepts": [
+      "fear"
+     ],
+     "strain": "no photograph holds fear honestly; the night streets are quiet, not afraid"
+    },
+    {
+     "name": "time",
+     "concepts": [
+      "today",
+      "tomorrow"
+     ]
+    },
+    {
+     "name": "death",
+     "concepts": [
+      "ending"
+     ]
+    },
+    {
+     "name": "life",
+     "concepts": [
+      "alive"
+     ],
+     "strain": "no photograph holds it"
+    },
+    {
+     "name": "union",
+     "concepts": [
+      "merge"
+     ]
+    },
+    {
+     "name": "love",
+     "concepts": [
+      "love",
+      "held"
+     ]
+    },
+    {
+     "name": "self",
+     "concepts": [
+      "becoming"
+     ]
+    },
+    {
+     "name": "age",
+     "concepts": [
+      "growing"
+     ]
+    },
+    {
+     "name": "change",
+     "concepts": [
+      "change"
+     ]
+    },
+    {
+     "name": "shame",
+     "concepts": [
+      "shame",
+      "seen"
+     ],
+     "strain": "being seen and shame share a noun; half the doors are only looking"
+    },
+    {
+     "name": "memory",
+     "concepts": [
+      "memory"
+     ]
+    },
+    {
+     "name": "hubris",
+     "concepts": [
+      "made"
+     ]
+    },
+    {
+     "name": "earth",
+     "concepts": [
+      "old"
+     ]
+    },
+    {
+     "name": "home",
+     "concepts": [
+      "home"
+     ]
+    },
+    {
+     "name": "freedom",
+     "concepts": [
+      "free"
+     ]
+    },
+    {
+     "name": "solitude",
+     "concepts": [
+      "alone"
+     ]
+    },
+    {
+     "name": "language",
+     "concepts": [
+      "names"
+     ]
+    },
+    {
+     "name": "mystery",
+     "concepts": [
+      "mystery"
+     ]
+    },
+    {
+     "name": "beauty",
+     "concepts": [
+      "beauty"
+     ]
+    },
+    {
+     "name": "joy",
+     "concepts": [
+      "joy"
+     ]
+    },
+    {
+     "name": "attention",
+     "concepts": [
+      "attention"
+     ]
+    }
+   ]
+  },
+  "his": {
+   "label": "his words",
+   "ideas": [
+    {
+     "name": "doubt and wonder",
+     "from": "a-wedding-toast",
+     "concepts": [
+      "wonder",
+      "fear"
+     ],
+     "strain": "the fear lines live here as the doubt; a threat in an airport and a spiral in a park sit beside awe"
+    },
+    {
+     "name": "Today is enough",
+     "from": "song-of-tomorrow",
+     "concepts": [
+      "today",
+      "tomorrow"
+     ]
+    },
+    {
+     "name": "the empty space",
+     "from": "how-can-you-just-be-gone",
+     "concepts": [
+      "ending"
+     ]
+    },
+    {
+     "name": "I am alive, yet.",
+     "from": "platitudes-of-suffering",
+     "concepts": [
+      "alive"
+     ],
+     "strain": "no photograph holds it"
+    },
+    {
+     "name": "where my body ends",
+     "from": "when-i-dance-with-you",
+     "concepts": [
+      "merge"
+     ]
+    },
+    {
+     "name": "held me close",
+     "from": "a-wedding-toast",
+     "concepts": [
+      "held",
+      "love"
+     ]
+    },
+    {
+     "name": "who I could be",
+     "from": "falling-in-love",
+     "concepts": [
+      "becoming"
+     ]
+    },
+    {
+     "name": "This growing older",
+     "from": "this-growing-older",
+     "concepts": [
+      "growing"
+     ]
+    },
+    {
+     "name": "Harden or rot",
+     "from": "these-days-are-gone",
+     "concepts": [
+      "change"
+     ]
+    },
+    {
+     "name": "Bearing sad witness",
+     "from": "i-was-feeling-sorry-for-a-moth",
+     "concepts": [
+      "seen"
+     ]
+    },
+    {
+     "name": "Shame came calling",
+     "from": "being-loved",
+     "concepts": [
+      "shame"
+     ],
+     "strain": "his rawest idea, and the thinnest: few lines name it, no photograph holds it"
+    },
+    {
+     "name": "The memories you wish you had",
+     "from": "delicate-pieces-before-the-end",
+     "concepts": [
+      "memory"
+     ]
+    },
+    {
+     "name": "cement and steel",
+     "from": "hark-my-love",
+     "concepts": [
+      "made"
+     ]
+    },
+    {
+     "name": "the long labor of the tides",
+     "from": "hark-my-love",
+     "concepts": [
+      "old"
+     ]
+    },
+    {
+     "name": "let me home",
+     "from": "i-feel-sad-about-endings",
+     "concepts": [
+      "home"
+     ]
+    },
+    {
+     "name": "these walls could be bent",
+     "from": "being-loved",
+     "concepts": [
+      "free"
+     ]
+    },
+    {
+     "name": "to be an island",
+     "from": "today-birds",
+     "concepts": [
+      "alone"
+     ]
+    },
+    {
+     "name": "intangible nouns",
+     "from": "sometimes-i-listen-to-these-poets",
+     "concepts": [
+      "names"
+     ]
+    },
+    {
+     "name": "Who am I to say?",
+     "from": "memories-of-tomorrow",
+     "concepts": [
+      "mystery"
+     ]
+    },
+    {
+     "name": "to let yourself see beauty",
+     "from": "i-saw-something-beautiful-today",
+     "concepts": [
+      "beauty",
+      "attention"
+     ]
+    },
+    {
+     "name": "to know joy",
+     "from": "to-know-me",
+     "concepts": [
+      "joy"
+     ]
+    }
+   ]
+  }
+ },
+ "photos": {
+  "roma-sidewalk": "seen alone",
+  "papel-picado": "love",
+  "night-street": "alone",
+  "staircase": "seen becoming",
+  "cdmx-plaza": "alone made",
+  "alpine-lake": "old",
+  "beach-solitude": "alone",
+  "reed-corridor": "tomorrow",
+  "buoys-wall": "alone",
+  "fireworks-water": "wonder joy",
+  "still-lake": "attention today",
+  "sayulita-staircase": "seen",
+  "concrete-museum": "made",
+  "tree-tunnel": "old beauty",
+  "hawaii-landscape": "old",
+  "lanterns": "home mystery",
+  "taco-cart": "seen attention",
+  "night-market": "today",
+  "misty-hillside": "tomorrow mystery",
+  "kitchen-night": "merge love joy",
+  "restaurant-night": "seen alone",
+  "yosemite-trail": "old",
+  "scooter-beach": "free made",
+  "yosemite-valley": "old growing",
+  "beach-boardwalk": "tomorrow made",
+  "berlin-street": "seen growing",
+  "singapore-225bdfc9": "free merge",
+  "sagrada-familia-barcelona-e210fc03": "wonder made beauty",
+  "kodagu-india-346cc700": "made",
+  "kodagu-india-033e7e3b": "attention beauty",
+  "kodagu-india-124b384b": "change attention",
+  "kodagu-india-68c68cb1": "attention",
+  "crested-butte-colorado-8ada8f57": "joy",
+  "crested-butte-colorado-e25ede7f": "alone",
+  "puako-hawaii-98409f6b": "ending old",
+  "laupahoehoe-hawaii-96a28c20": "mystery old",
+  "hilo-hawaii-3cb5d78d": "old made",
+  "hilo-hawaii-a09cc2ce": "made beauty",
+  "hilo-hawaii-fa94384a": "old made",
+  "hilo-hawaii-ea929e41": "free growing wonder",
+  "hawaii-volcanoes-national-park-8e2b64e2": "wonder alone",
+  "kaanapali-maui-2be2cfcb": "wonder old",
+  "mount-rainier-national-park-washington-ddab98b6": "ending old growing",
+  "mount-rainier-national-park-washington-d72b8203": "old",
+  "mount-rainier-national-park-washington-5c7590f5": "growing old",
+  "mount-rainier-national-park-washington-9ca71603": "ending growing",
+  "mount-rainier-national-park-washington-3d887df3": "free merge",
+  "mount-rainier-national-park-washington-bbda096c": "becoming seen",
+  "san-juan-islands-washington-657f1936": "home today",
+  "fire-island-new-york-72585dde": "tomorrow",
+  "washington-dc-c631b9f2": "seen memory",
+  "washington-dc-afd19b1c": "memory seen",
+  "acadia-national-park-maine-9678573e": "today old",
+  "bar-harbor-maine-bb0a8fe5": "ending beauty change",
+  "casper-wyoming-02035a8d": "seen alone becoming",
+  "casper-wyoming-cce8cbde": "alone tomorrow",
+  "mexico-city-mexico-6eb743ec": "wonder tomorrow old",
+  "diamante-valley-costa-rica-3092189d": "attention beauty",
+  "diamante-valley-costa-rica-cbb914b4": "today alone",
+  "paro-bhutan-08988839": "beauty growing",
+  "paro-bhutan-6f8bbbbf": "mystery old",
+  "wangdue-phodrang-bhutan-d0e1e540": "alone old",
+  "provincetown-massachusetts-f214fa8d": "memory tomorrow",
+  "provincetown-massachusetts-a90962e6": "today free",
+  "provincetown-massachusetts-ee073946": "today alone",
+  "provincetown-massachusetts-4c281798": "joy love held",
+  "provincetown-massachusetts-eee28b60": "joy love",
+  "provincetown-massachusetts-08da554d": "love joy",
+  "provincetown-massachusetts-09009fdd": "joy free",
+  "honshu-japan-0d03d128": "growing love",
+  "setonaikai-national-park-japan-64937bce": "names attention",
+  "setonaikai-national-park-japan-4d3f9e95": "names memory",
+  "roppongi-tokyo-a5f50e72": "beauty joy growing",
+  "sayulita-mexico-25fbaafd": "today",
+  "sayulita-mexico-9d65e1b6": "alone ending",
+  "mariposa-grove-yosemite-e6c620bb": "old growing",
+  "mariposa-grove-yosemite-7455e25e": "old growing wonder"
+ },
+ "photo_notes": {
+  "setonaikai-national-park-japan-64937bce": "a wall of glowing text: the only photographs that reach language are of words",
+  "casper-wyoming-02035a8d": "a mirror in a dark room: the photograph for 'a mirror that actually lets us see ourselves'",
+  "kitchen-night": "two people dancing in a kitchen at night: the one photograph of where a body ends",
+  "puako-hawaii-98409f6b": "a dead tree on lava: 'A tree is a tree is a tree until it's not'"
+ }
+}

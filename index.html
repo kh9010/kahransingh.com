@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/v3/stone.css">
-<noscript><style>#app, #keys, #tools, #year { display: none; }</style></noscript>
+<link rel="stylesheet" href="/v4/stone.css">
+<noscript><style>#stage, .room, .under, #working { display: none; } html, body { overflow: auto; }</style></noscript>
 
 <script type="application/ld+json">
 {
@@ -65,8 +65,11 @@
 </script>
 </head>
 <body>
-<!-- v3: the stone. Everything on it is drawn by /v3/stone.js from the studies Kahran picked (33, 37, 39, 41 b, 42 a, 35/34/36 c, 38 c);
-     the six ideas are IDEAS in /v2/home.js, read live, each behind a facet; #keys holds a button per idea for the keyboard. The noscript copy below carries the same six lines. -->
+<!-- v4: the stone first, the working beneath (Study 47). Everything on the stone is drawn by /v4/stone.js, as on v3 (Studies 33, 37, 39, 41 b, 42 a,
+     35/34/36 c, 38 c, 43 c); the six ideas are IDEAS in /v2/home.js, read live, each behind a facet; #keys holds a button per idea for the keyboard.
+     Beneath the stone, a strip at its foot and the working (/v4/work.js): how today's photograph and poem were chosen, worked from the stone's own day.
+     The noscript copy below carries the photograph, the poem, the same six lines and the working's six steps by name. -->
+<div id="stage">
 <div id="app">
   <canvas id="stone" aria-hidden="true"></canvas>
   <div id="read"></div>
@@ -84,8 +87,12 @@
 <div id="keys"></div>
 <aside id="tools" aria-live="polite"></aside>
 <p id="year"><a href="/about.html"></a></p>
+</div>
 <img id="ph" alt="" hidden>
-<nav class="vs" aria-label="Site version"><span aria-current="page">v3</span><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<nav class="vs" aria-label="Site version"><span aria-current="page">v4</span><a href="/v3/">v3</a><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<div class="room" aria-hidden="true"></div>
+<a class="under" href="#working"><b>How today’s photograph and poem were chosen</b><span id="under-day"></span></a>
+<main id="working"></main>
 <noscript>
   <div class="plain">
     <h1><a href="/">kahran singh</a></h1>
@@ -105,15 +112,26 @@
       <li><b>Self-healing</b> Samwise &middot; repairer &middot; health page</li>
       <li><b>Home</b> lights &middot; bedroom frame &middot; family archive &middot; this page</li>
     </ul>
+    <h2>How today’s photograph and poem were chosen</h2>
+    <p>A different photograph and a different poem every day, chosen for where I am and what the sky is doing.</p>
+    <ol class="steps-plain">
+      <li>Where I am</li>
+      <li>The sky there</li>
+      <li>What the day asks for, on seven measures: light, warmth, wet, calm, season, out of doors, mood</li>
+      <li>The photograph nearest to it, of the ones not seen lately</li>
+      <li>The poem nearest to it</li>
+      <li>What runs behind it: the six ideas above</li>
+    </ol>
     <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a></nav>
   </div>
 </noscript>
-<script src="/v3/today.js"></script>
-<script src="/v3/cut.js"></script>
-<script src="/v3/cross.js"></script>
-<script src="/v3/segs.js"></script>
-<script src="/v3/moment.js"></script>
+<script src="/v4/today.js"></script>
+<script src="/v4/cut.js"></script>
+<script src="/v4/cross.js"></script>
+<script src="/v4/segs.js"></script>
+<script src="/v4/moment.js"></script>
 <script src="/track.js"></script>
-<script type="module" src="/v3/stone.js"></script>
+<script type="module" src="/v4/stone.js"></script>
+<script src="/v4/work.js" defer></script>
 </body>
 </html>

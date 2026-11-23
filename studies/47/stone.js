@@ -4,6 +4,7 @@
      it is as tall as the window less the strip at its foot ('foot-px'), so the page beneath it can begin there
      Enter and Space press into the stone only while the page is at its top (lower down, Space moves the page, as it should)
      HOME.ctx hands the day's own data to work.js, so the working beneath is worked from the very pick the stone shows
+     and, found when it went live as v4: its width is the window's less any scrollbar, and HOME.tapPoint keeps clear of door rows at home too
    Everything else, every facet, door, idea, crossing, the chain and the year, is the live home's, unchanged.
    What follows is the live file's own account of itself.
    v3/stone.js, the home (live since Kahran's call of 8 Nov: "lets plan on 2"). Assembled from the studies he picked, their code carried over:
@@ -40,7 +41,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms))
 let W = 0, H = 0, DPR = 1
 const phone = () => W < 640 && H > W * .9 // a phone held upright; a phone on its side is short, see low() (carried from 24, 7 Nov)
 const low = () => H < 560 && W > H
-function size() { W = innerWidth; H = innerHeight - num('foot-px', 0) /* 47: the strip's room */; DPR = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR) }
+function size() { W = document.documentElement.clientWidth /* 47: the page scrolls now, so where a scrollbar takes room the stone is the width that is left */; H = innerHeight - num('foot-px', 0) /* 47: the strip's room */; DPR = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR) }
 size()
 await Promise.race([Promise.all(['300 18px Fraunces', 'italic 400 18px Fraunces', 'italic 300 30px Fraunces', '400 12px "Space Grotesk"'].map(f => document.fonts.load(f))), sleep(3000)]) // the poem is measured and drawn in its own face
 /* what the first screen needs, and nothing more: today's pick (the home's own parts), the doors, each photograph's date; the photograph's
@@ -1234,7 +1235,7 @@ window.HOME = { get ctx() { return ctx }, /* 47: the day's data, for work.js */ 
     FX.win.t0 = performance.now() - num('win-hold-ms', 3600) / 2; if (FX.glimpse) FX.glimpse.t0 = FX.win.t0; if (FX.win.card) cardFinish(); else backEl.style.opacity = 1
     return { i, k, t: s.t, text: (FX.win.card ? pieceEl : backEl).textContent } },
   hideWin() { hideWin() },
-  tapPoint(i) { return cur ? touchAt(cur, i) : null },
+  tapPoint(i) { return cur ? touchAt(cur, i, { all: true }) : null }, // 47: clear of every door line's row, at home too
   async rest() { // every facet, as drawn now, against this photograph and against the one it leads to: the closer must be this one (pixels, not code)
     const w = cur, P = planOf(w), st = g.getImageData(0, 0, cv.width, cv.height).data, own = w.img.getContext('2d').getImageData(0, 0, cv.width, cv.height).data, other = {}
     const foreign = async p => { const src = p && p.to && photoBy(p.to.photo) ? p.to.photo : (w.doors[0] ? w.doors[0].to.photo.src : data.photos.find(q => q.src !== w.photo.src).src)

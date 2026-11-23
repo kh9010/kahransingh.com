@@ -18,8 +18,10 @@
    The working's styles are 44 d's, each kept under #working so they and the stone's never meet. */
 :root { --paper: #fafaf8; --ink: #1a1a1a; --quiet: #6e6e6e; --rule: #e0ddd8; --read-rem: 1.25; --poem-rem: 1.375; --lead: 1.6; --foot-px: 64; }
 html, body { height: auto; overflow: visible; overflow-x: clip; }
-/* the stone ends where the strip begins; its name, caption and chain, fixed inside it, now take their places from its box */
-#app { bottom: calc(var(--foot-px) * 1px); contain: layout; }
+/* the stone's stage ends where the strip begins. Everything of the stone's that is fixed to the window (the stone, its name, caption and
+   chain, an open idea's panel, the date, the six keys) is inside it and takes its place from the stage's box, as it took it from the window's:
+   the stone's own arithmetic, done against its height, stays right. A transform is what makes a box hold its fixed descendants in every browser. */
+#stage { position: fixed; inset: 0 0 calc(var(--foot-px) * 1px) 0; transform: translate(0, 0); contain: layout; }
 body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[data-at="about"] #working { visibility: hidden; }
 .room { height: calc(100vh - var(--foot-px) * 1px); height: calc(100svh - var(--foot-px) * 1px); pointer-events: none; }
 .under { position: relative; z-index: 25; height: calc(var(--foot-px) * 1px); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 0 clamp(16px, 3.4vw, 56px); background: var(--paper); color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); }
@@ -102,10 +104,11 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
   #working .d .sky div { font-size: 1.4rem; } #working .d .step .big { font-size: 1.8rem; }
 }
 </style>
-<noscript><style>#app, #keys, #tools, #year, #card, .room { display: none; }</style></noscript>
+<noscript><style>#stage, #card, .room { display: none; }</style></noscript>
 </head>
 <body>
 <!-- the home's own markup, as it is on / -->
+<div id="stage">
 <div id="app">
   <canvas id="stone" aria-hidden="true"></canvas>
   <div id="read"></div>
@@ -123,6 +126,7 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 <div id="keys"></div>
 <aside id="tools" aria-live="polite"></aside>
 <p id="year"><a href="/about.html"></a></p>
+</div>
 <img id="ph" alt="" hidden>
 <nav class="vs" aria-label="Site version"><span aria-current="page">v4</span><a href="/">v3</a><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
 <div class="room" aria-hidden="true"></div>

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// test_home.mjs: the stone that is the home (/, /v3/stone.js) does what the studies it was assembled from were held to.
+// test_home.mjs: the home (/, /v4/stone.js: the stone, and since 23 Nov the working beneath it, /v4/work.js) does what the studies it was assembled from were held to.
 // Its own readers, kept apart from the page; the load-bearing parts of the studies' checks are carried over whole, each in its own scope:
 //   the page:   the full meta set, Analytics, JSON-LD, /track.js and the four events it counts; the noscript copy pinned to IDEAS, its poem and
-//               photograph the site's own; no instruction text, no study switch, no tune panel; every dial in v3/defaults.json read; the
-//               old home at /v2/ with its wall; the home's copies of the studies' code and data are the studies' (v3/build.mjs --check)
+//               photograph the site's own; no instruction text, no study switch, no tune panel; every dial in v4/defaults.json read; the
+//               old home at /v2/ with its wall; the home's copies of the studies' code and data are the studies' (v4/build.mjs --check)
 //   37 (node):  every segment is in its source on the site, word for word; 77 photographs x 3 poems dealt on 33's cut: every facet yields,
 //               none shares, every basis recounted, no commentary; the check's own readers reject what they exist to reject
 //   38:         every photograph's month and year recounted from its own EXIF; the About's years hold a row for each
@@ -93,9 +93,9 @@ const read = f => readFileSync(path.join(ROOT, f), 'utf8'), J = f => JSON.parse(
 const t0 = Date.now()
 const require = createRequire(import.meta.url)
 const live = new Set(readdirSync(path.join(ROOT, 'poems')).filter(f => f.endsWith('.html')).map(f => f.slice(0, -5)))
-const DEF = J('v3/defaults.json'), DATA = J('v2/data.json')
-const REGIONS = Object.fromEntries(readdirSync(path.join(ROOT, 'v3/regions')).map(f => { const j = J('v3/regions/' + f); return [j.src, j.photo] }))
-const page = read('index.html'), stoneJs = read('v3/stone.js'), stoneCss = read('v3/stone.css'), trackJs = read('track.js'), homeJs = read('v2/home.js')
+const DEF = J('v4/defaults.json'), DATA = J('v2/data.json')
+const REGIONS = Object.fromEntries(readdirSync(path.join(ROOT, 'v4/regions')).map(f => { const j = J('v4/regions/' + f); return [j.src, j.photo] }))
+const page = read('index.html'), stoneJs = read('v4/stone.js'), stoneCss = read('v4/stone.css'), workJs = read('v4/work.js'), trackJs = read('track.js'), homeJs = read('v2/home.js')
 const BANNED = /day[\s-]?flow/i // the system's working name (Kahran, 2026-10-27)
 function literal(src, name) { const at = src.indexOf('var ' + name + ' = '); if (at < 0) throw new Error(name + ' not found'); const s0 = at + ('var ' + name + ' = ').length; let depth = 0, q = null
   for (let i = s0; i < src.length; i++) { const c = src[i]
@@ -106,7 +106,7 @@ const HOME_IDEAS = literal(homeJs, 'IDEAS')
 const plain = h => h.replace(/<[^>]+>/g, '').replace(/&middot;/g, '·').replace(/&rsquo;/g, '’').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim()
 
 /* ---------- the page and the swap ---------- */
-{ const r = spawnSync(process.execPath, ['v3/build.mjs', '--check'], { cwd: ROOT, encoding: 'utf8' })
+{ const r = spawnSync(process.execPath, ['v4/build.mjs', '--check'], { cwd: ROOT, encoding: 'utf8' })
   check(r.status === 0, `the home's copies are the studies' code and data, byte for byte (regions split per photograph): ${(r.stdout || '').trim()}`, (r.stdout + r.stderr).trim().slice(0, 300)) }
 { const head = page.slice(0, page.indexOf('</head>'))
   const meta = [['title', /<title>Kahran Singh<\/title>/], ['description', /<meta name="description" content="[^"]{40,}">/], ['canonical', /<link rel="canonical" href="https:\/\/kahransingh\.com\/">/],
@@ -123,42 +123,52 @@ const plain = h => h.replace(/<[^>]+>/g, '').replace(/&middot;/g, '·').replace(
   check(JSON.stringify(items) === JSON.stringify(HOME_IDEAS.map(I => [I.name, I.line])), 'without script the six ideas\' lines are there, as IDEAS has them', JSON.stringify(items))
   const a0 = homeJs.indexOf('function norm'), b0 = homeJs.indexOf('/* ---------------------------------------------------------- the render', a0), { stanzasOf } = new Function(homeJs.slice(a0, b0) + '; return { stanzasOf }')()
   const slug = (/<h2><a href="\/poems\/([a-z0-9-]+)\.html">([^<]+)<\/a><\/h2>/.exec(nos) || [])[1], poem = DATA.poems.find(p => p.slug === slug)
-  const shownLines = [...nos.matchAll(/<p>([\s\S]*?)<\/p>/g)].flatMap(m => m[1].split(/<br>/)).map(plain).filter(Boolean)
+  const shownLines = [...((/<article class="poem">([\s\S]*?)<\/article>/.exec(nos) || [])[1] || '').matchAll(/<p>([\s\S]*?)<\/p>/g)].flatMap(m => m[1].split(/<br>/)).map(plain).filter(Boolean) // the poem's own lines; the working's sentence beneath is not the poem's
   const img = /<img src="([^"]+)" alt="([^"]*)"/.exec(nos), ph = img && DATA.photos.find(p => p.src === img[1])
   check(!!poem && live.has(slug) && JSON.stringify(shownLines) === JSON.stringify(stanzasOf(poem).flat().map(l => l.trim()).filter(Boolean)) && !!ph && ph.alt === img[2] && existsSync(path.join(ROOT, img[1])),
     `without script a photograph and a poem of the site's own, word for word (${slug}, ${img && img[1]})`, JSON.stringify(shownLines)) }
-{ const head = trackJs.slice(0, trackJs.indexOf('*/')), names = ['tools_open', 'year_open', 'line_open', 'crossing', 'poem_open']
+{ const head = trackJs.slice(0, trackJs.indexOf('*/')), names = ['tools_open', 'year_open', 'line_open', 'crossing', 'poem_open', 'working_open']
   const listed = names.filter(n => new RegExp('\\*\\s+' + n + '\\s').test(head)), set = Object.keys(vm.runInNewContext('(' + /var HOME_EVENTS = (\{[^}]*\})/.exec(trackJs)[1] + ')'))
-  const sent = [...new Set([...stoneJs.matchAll(/\btrack\('([a-z_]+)'/g)].map(m => m[1]))]
+  const sent = [...new Set([...stoneJs.matchAll(/\btrack\('([a-z_]+)'/g)].map(m => m[1])), ...[...workJs.matchAll(/name: '([a-z_]+)'/g)].map(m => m[1])] // the stone's, and the working's one
   check(listed.length === names.length && JSON.stringify(set.sort()) === JSON.stringify([...names].sort()) && JSON.stringify(sent.sort()) === JSON.stringify([...names].sort()),
-    `track.js lists the stone's ${names.length} events at its top and passes on only those; the stone sends exactly them`, JSON.stringify({ listed, set, sent }))
+    `track.js lists the home's ${names.length} events at its top and passes on only those; the stone and the working send exactly them`, JSON.stringify({ listed, set, sent }))
   const via = [...new Set([...stoneJs.matchAll(/track\('tools_open', \{[^}]*via: '([a-z]+)'/g)].map(m => m[1]))].sort(), doc = (/\*\s+tools_open\s.*via: ([a-z |]+) \}/.exec(head) || [])[1]
   check(!!doc && JSON.stringify(doc.split('|').map(x => x.trim()).sort()) === JSON.stringify(via), `track.js documents tools_open's via as the stone sends it: ${via.join(' | ')}`, JSON.stringify({ doc, via }))
   const pvia = [...new Set([...stoneJs.matchAll(/track\('poem_open', \{[^}]*via: '([a-z]+)'/g)].map(m => m[1]))].sort(), pdoc = (/\*\s+poem_open\s.*via: ([a-z |]+) \}/.exec(head) || [])[1]
   check(!!pdoc && JSON.stringify(pdoc.split('|').map(x => x.trim()).sort()) === JSON.stringify(pvia) && pvia.join() === 'facet,title', `track.js documents poem_open's via as the stone sends it: ${pvia.join(' | ')}`, JSON.stringify({ pdoc, pvia })) }
 { // 41 b and 42 a, in the files: the names that stood by the line are gone; every idea has its reason; IDEAS is read, never copied; here.js is not first-screen weight
-  const hereJs = read('v3/here.js'), table = /const MEANING = \[([\s\S]*?)\]\]\n/.exec(stoneJs)?.[1] || '', named = [...table.matchAll(/^\s*\['([^']+)'/gm)].map(m => m[1])
+  const hereJs = read('v4/here.js'), table = /const MEANING = \[([\s\S]*?)\]\]\n/.exec(stoneJs)?.[1] || '', named = [...table.matchAll(/^\s*\['([^']+)'/gm)].map(m => m[1])
   const W24 = HOME_IDEAS.flatMap(I => [I.name, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary]).filter(t => t.length > 24), copied = W24.filter(t => [page, stoneJs, stoneCss, hereJs, JSON.stringify(DEF)].some(f => f.includes(t)))
   check(!/id="names"|#names|namesEl|showNames|namesBoxes/.test(page + stoneJs + stoneCss) && named.length === 6 && HOME_IDEAS.every(I => named.includes(I.name)) && !/\$\{px\(|' px'|" px"/.test(stoneJs) && !copied.length,
     'the six names by the where line are gone from the page, its script and its styles; 41 b gives every idea in IDEAS its reason and no other; no basis carries a pixel count; IDEAS is read live, none of its words copied', [named.join(','), ...copied.map(t => t.slice(0, 40))].join(' | '))
-  check(!/here\.js/.test(page) && /script\('\/v3\/here\.js'\)/.test(stoneJs) && /setTimeout\(\(\) => hereReady\(\), num\('why-idle-ms'/.test(stoneJs), 'here.js and what it reads are not on the first screen: the stone asks for them once it is up (why-idle-ms), or on the first tap') }
+  check(!/here\.js/.test(page) && /script\('\/v4\/here\.js'\)/.test(stoneJs) && /setTimeout\(\(\) => hereReady\(\), num\('why-idle-ms'/.test(stoneJs), 'here.js and what it reads are not on the first screen: the stone asks for them once it is up (why-idle-ms), or on the first tap') }
 { const body = page.slice(page.indexOf('<body>'), page.indexOf('<script', page.indexOf('<body>'))).replace(/<noscript>[\s\S]*?<\/noscript>/g, '').replace(/<!--[\s\S]*?-->/g, '')
   const words = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
-  check(words === 'kahran singh about photos poems × v3 v2 v1', 'no instruction text: the page\'s own words are the name, the way out, the close mark and the version tab', words)
+  check(words === 'kahran singh about photos poems × v4 v3 v2 v1 How today’s photograph and poem were chosen', 'no instruction text: the page\'s own words are the name, the way out, the close mark, the version tab and the strip that names the working beneath', words)
   check(!/tune\.js|\?tune/.test(page + stoneJs) && [...stoneJs.matchAll(/\bQ\.get\('([a-z]+)'\)/g)].every(m => m[1] === 'w'), 'no tune panel and no study switch on the live page: the address carries only the world')
   const unread = Object.keys(DEF).filter(k => !new RegExp(`['"\`]${k}['"\`]`).test(stoneJs) && !stoneCss.includes(`var(--${k},`))
   const css = [...stoneCss.matchAll(/var\(--([a-z0-9-]+),\s*([^)]+)\)/g)].filter(m => m[1] in DEF && Number(m[2]) !== Number(DEF[m[1]]) && m[2].trim() !== String(DEF[m[1]]))
   const own = [...stoneCss.matchAll(/(--[\w-]+)\s*:/g)].map(m => m[1].slice(2)), clash = Object.keys(DEF).filter(k => own.includes(k))
-  check(!unread.length && !css.length && !clash.length, `every one of ${Object.keys(DEF).length} dials in v3/defaults.json is read, CSS fallbacks equal it, none shadows a page variable`, [...unread, ...css.map(m => m[1] + ' fallback'), ...clash.map(k => k + ' shadows')].join(', ')) }
-{ const v2 = read('v2/index.html'), v1 = read('v1/index.html')
+  check(!unread.length && !css.length && !clash.length, `every one of ${Object.keys(DEF).length} dials in v4/defaults.json is read, CSS fallbacks equal it, none shadows a page variable`, [...unread, ...css.map(m => m[1] + ' fallback'), ...clash.map(k => k + ' shadows')].join(', ')) }
+{ // v4 (Study 47), in the files: the stone on its stage, the strip, the empty working; the working worked from the stone's own day, after the stone is up
+  const stage = (/<div id="stage">([\s\S]*?)\n<\/div>\n<img id="ph"/.exec(page) || [])[1] || '', order = [...page.matchAll(/<script[^>]*src="([^"]+)"/g)].map(m => m[1]).filter(s => s.startsWith('/v4/') || s === '/track.js')
+  check(['<div id="app">', '<div id="keys">', '<aside id="tools"', '<p id="year">'].every(x => stage.includes(x)) && /<div class="room" aria-hidden="true"><\/div>\s*<a class="under" href="#working"><b>How today’s photograph and poem were chosen<\/b><span id="under-day"><\/span><\/a>\s*<main id="working"><\/main>/.test(page)
+    && order.join() === '/v4/today.js,/v4/cut.js,/v4/cross.js,/v4/segs.js,/v4/moment.js,/track.js,/v4/stone.js,/v4/work.js' && /<script src="\/v4\/work\.js" defer><\/script>/.test(page) && /#stage \{ position: fixed; inset: 0 0 calc\(var\(--foot-px, 64\) \* 1px\) 0; transform: translate\(0, 0\);/.test(stoneCss),
+    'v4: everything of the stone\'s that is fixed to the window is inside #stage, which ends foot-px above the window\'s foot; then the strip and the empty working; the working\'s script comes last and deferred', order.join())
+  const W24 = HOME_IDEAS.flatMap(I => [I.name, ...I.parts, I.detail.intro, ...I.detail.tools, I.detail.boundary]).filter(x => x.length > 24)
+  check(/H = innerHeight - num\('foot-px', 0\)/.test(stoneJs) && /scrollY > 4/.test(stoneJs) && /get ctx\(\) \{ return ctx \}/.test(stoneJs) && /window\.HOME\.ctx/.test(workJs) && /document\.body\.dataset\.ready === 'yes'/.test(workJs) && !/S14\.load|kahranWeather\.load|pickFor\(/.test(workJs)
+    && !/learning Kathak|I make poems/.test(workJs + page.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, '')) && !W24.some(x => workJs.includes(x)) && !/day-?flow/i.test(workJs),
+    'v4: the stone is the window less foot-px tall and takes Enter and Space only at the page\'s top; the working takes its day from the stone (HOME.ctx) once the stone is up and makes no pick of its own; none of IDEAS\' words are copied into it; the line he took out is in neither') }
+{ const v2 = read('v2/index.html'), v1 = read('v1/index.html'), v3 = read('v3/index.html')
   const ok = /id="wall-block"/.test(v2) && /id="doing-tools"/.test(v2) && /class="doing-item" data-line=/.test(v2) && /<link rel="canonical" href="https:\/\/kahransingh\.com\/v2\/">/.test(v2)
-    && /<a href="\/">v3<\/a>\s*<span class="vswitch-here" aria-current="page">v2<\/span>\s*<a href="\/v1\/">v1<\/a>/.test(v2) && /<a href="\/">v3<\/a>\s*<a href="\/v2\/">v2<\/a>\s*<span class="vswitch-here" aria-current="page">v1<\/span>/.test(v1)
-    && /<span aria-current="page">v3<\/span><a href="\/v2\/">v2<\/a><a href="\/v1\/">v1<\/a>/.test(page) && !/wall-block|doing-item|doing-tools|Right now/.test(page)
+    && /<a href="\/">v4<\/a>\s*<a href="\/v3\/">v3<\/a>\s*<span class="vswitch-here" aria-current="page">v2<\/span>\s*<a href="\/v1\/">v1<\/a>/.test(v2) && /<a href="\/">v4<\/a>\s*<a href="\/v3\/">v3<\/a>\s*<a href="\/v2\/">v2<\/a>\s*<span class="vswitch-here" aria-current="page">v1<\/span>/.test(v1)
+    && /<span aria-current="page">v4<\/span><a href="\/v3\/">v3<\/a><a href="\/v2\/">v2<\/a><a href="\/v1\/">v1<\/a>/.test(page) && !/wall-block|doing-item|doing-tools|Right now/.test(page)
+    && /<a href="\/">v4<\/a><span aria-current="page">v3<\/span><a href="\/v2\/">v2<\/a><a href="\/v1\/">v1<\/a>/.test(v3) && /<link rel="canonical" href="https:\/\/kahransingh\.com\/v3\/">/.test(v3) && /src="\/v3\/stone\.js"/.test(v3)
   const assets = [...v2.matchAll(/(?:src|href)="(\/[^"#?]+)"/g)].map(m => m[1]).filter(u => !/^\/(about|photography|poetry|context|lately|v1)\b|^\/$|^\/v2\/$/.test(u)).filter(u => !existsSync(path.join(ROOT, u)))
-  check(ok && !assets.length, 'the wall\'s home lives on at /v2/ (its wall, flow view and Right now lines, its own canonical); the tab reads v3 · v2 · v1 on all three; the stone carries none of the wall', assets.join(', ') || 'markup') }
+  check(ok && !assets.length, 'the wall\'s home lives on at /v2/ (its wall, flow view and Right now lines, its own canonical) and the stone as it was at /v3/ (its own canonical, its own files); the tab reads v4 · v3 · v2 · v1 on all four; the stone carries none of the wall', assets.join(', ') || 'markup') }
 
 /* ---------- 37, in node: the segments and the deal ---------- */
-const P37 = (() => { const S37 = require('../v3/segs.js'), CUT = require('../v3/cut.js'), YS = ['shape']
+const P37 = (() => { const S37 = require('../v4/segs.js'), CUT = require('../v4/cut.js'), YS = ['shape']
 const NAMED = { amp: '&', lt: '<', gt: '>', quot: '"', nbsp: ' ', mdash: '—', ndash: '–', rsquo: '’', lsquo: '‘', rdquo: '”', ldquo: '“', middot: '·', rarr: '→', hellip: '…' }
 const flat = s => String(s).replace(/\s+/g, ' ').trim()
 const asRead = h => flat(h.replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))).replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d)).replace(/&([a-z]+);/gi, (m, e) => NAMED[e] ?? m))
@@ -166,15 +176,15 @@ const pageCache = new Map(), pageText = f => pageCache.get(f) ?? (pageCache.set(
 const verbatim = (f, t) => !!t && pageText(f).includes(flat(t))
 const wholeWord = (text, w) => new RegExp(`(^|[^a-zà-ÿ’'])${w.replace(/[’']/g, '[’\']')}([^a-zà-ÿ’']|$)`, 'i').test(text)
 
-const data = J('v2/data.json'), SEG = J('v3/segments.json'), VOC = J('v3/doors.json').vocabs.his, KIN = J('v3/kin.json').photos, REG = REGIONS
-const CROSS = Object.fromEntries(J('studies/32/crossings.json').photos.map(p => [p.src, p])), IDEAS21 = J('v3/body/ideas.json')
+const data = J('v2/data.json'), SEG = J('v4/segments.json'), VOC = J('v4/doors.json').vocabs.his, KIN = J('v4/kin.json').photos, REG = REGIONS
+const CROSS = Object.fromEntries(J('studies/32/crossings.json').photos.map(p => [p.src, p])), IDEAS21 = J('v4/body/ideas.json')
 const home = read('v2/home.js'), a0 = home.indexOf('function norm'), b0 = home.indexOf('/* ---------------------------------------------------------- the render', a0)
 const { stanzasOf } = new Function(home.slice(a0, b0) + '; return { stanzasOf }')()
 const IDEAS = new Function(home.slice(home.indexOf('var IDEAS'), home.indexOf('];', home.indexOf('var IDEAS')) + 2) + '; return IDEAS')()
 const segBy = Object.fromEntries(SEG.segs.map(s => [s.id, s])), photoSeg = src => segBy['photo:' + src]
 const poemOf = slug => data.poems.find(p => p.slug === slug), titleOf = slug => (poemOf(slug) || {}).title
 const linesOf = slug => stanzasOf(poemOf(slug)).flat()
-const readings = {}; { let cur = null; for (const raw of read('v3/body/readings.txt').split('\n')) { if (raw.startsWith('@ ')) { cur = raw.slice(2).trim(); readings[cur] = []; continue }
+const readings = {}; { let cur = null; for (const raw of read('v4/body/readings.txt').split('\n')) { if (raw.startsWith('@ ')) { cur = raw.slice(2).trim(); readings[cur] = []; continue }
   if (!cur || !raw.trim() || raw.startsWith('#') || /^\s+note:/.test(raw)) continue; const [ph, tags] = raw.split(' | '); if (tags) readings[cur].push({ phrase: ph.trim().split('\\n'), concepts: tags.trim().split(/\s+/) }) } }
 const conceptsOfLine = (slug, lines) => new Set((readings[slug] || []).filter(r => r.phrase.some(p => lines.some(l => l.includes(p)))).flatMap(r => r.concepts))
 const conceptsOfPoem = slug => new Set((readings[slug] || []).flatMap(r => r.concepts))
@@ -327,7 +337,7 @@ if (process.env.STATIC !== '0') {
 })()
 
 /* ---------- 38: every photograph's date, from its own EXIF; the About's years have its row ---------- */
-const XJ = J('v3/crossings.json'), MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const XJ = J('v4/crossings.json'), MON = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 const { taken } = await import(path.join(ROOT, 'studies/38/exif.mjs'))
 const YEARS = /const YEARS = '([^']+)'/.exec(stoneJs)[1]
 { const bad = DATA.photos.filter(p => { const r = XJ.photos.find(x => x.src === p.src), d = taken(path.join(ROOT, p.src)); return !r || r.taken !== d || r.row !== (+d.slice(0, 4) >= 2026 ? 'now' : d.slice(0, 4)) }).map(p => p.src)
@@ -337,7 +347,7 @@ const YEARS = /const YEARS = '([^']+)'/.exec(stoneJs)[1]
   check(!bad.length && !missing.length && seam === 1, `every one of ${DATA.photos.length} photographs' month and year is its own EXIF's; the About's years at ${YEARS} (one address in the code) hold all ${rows.length} of their rows`, [...bad.slice(0, 3), ...missing.map(r => 'no row ' + r), seam !== 1 && `the address appears ${seam} times`].filter(Boolean).join(', ')) }
 
 /* ---------- 39, in node: the crossing over the corpus ---------- */
-const P39 = await (async () => { const K = require('../v3/cut.js'), K33 = require('../studies/33/cut.js'), X = require('../v3/cross.js'), REG = REGIONS, XS = ['grow']
+const P39 = await (async () => { const K = require('../v4/cut.js'), K33 = require('../studies/33/cut.js'), X = require('../v4/cross.js'), REG = REGIONS, XS = ['grow']
   const SIZES = [{ id: 'desk', w: 1440, h: 900, n: +DEF['facets-desk'], mobile: false }, { id: 'phone', w: 390, h: 844, n: +DEF['facets-phone'], mobile: true }, { id: 'side', w: 844, h: 390, n: +DEF['facets-low'], mobile: true }]
   const DIALS = { share: +DEF['cut-share'], gap: +DEF['cut-gap'], spacing: +DEF['cut-spacing'], fillGap: +DEF['cut-fill-gap'], lineMin: +DEF['cut-line-min'] }
   const XD = { fire: +DEF['cross-fire'], gap: +DEF['cut-gap'], holdTone: +DEF['hold-tone'], holdNear: +DEF['hold-near'], growSpread: +DEF['grow-spread'], border: +DEF['grow-border'], tone: +DEF['grow-tone'],
@@ -515,8 +525,8 @@ function truthFor(iso, reading, days) {
 }
 
 /* ---------- the body, recounted in Node from the files, and what each piece did, tested on pick.js ---------- */
-const S21 = J('v3/doors.json'), I21 = J('v3/body/ideas.json'), D15 = J('v3/body/doors15.json'), KIN26 = J('v3/kin.json'), FEAT = J('v3/body/features.json')
-const READ_TXT = readFileSync(path.join(ROOT, 'v3/body/readings.txt'), 'utf8')
+const S21 = J('v4/doors.json'), I21 = J('v4/body/ideas.json'), D15 = J('v4/body/doors15.json'), KIN26 = J('v4/kin.json'), FEAT = J('v4/body/features.json')
+const READ_TXT = readFileSync(path.join(ROOT, 'v4/body/readings.txt'), 'utf8')
 const HAND = (() => { const out = {}; let slug = null, notes = 0
   for (const l of READ_TXT.split(/\r?\n/)) { if (/^#/.test(l)) continue; const m = l.match(/^@\s+(.+?)\s*$/); if (m) { slug = m[1]; out[slug] = []; continue }
     if (/^\s+note:/.test(l)) { notes++; continue }
@@ -604,12 +614,12 @@ const SYSTEM = /\b(day-?flow|pick\.js|weather\.js|home\.js|body\.js|open-?meteo|
 /* ---------- 42 a, in node: what each idea's facet says of this world, written again here in this check's own words from the committed files and
    the pinned moment (clock, sky, which of the page's sources reached it), to be compared with the page word for word ---------- */
 const P42 = (() => {
-  const { PS, QS, PICK_SRC } = P36, PLACE0 = J('v2/place.json'), PY0 = J('v3/poem-years.json'), DAYS0 = J('v2/days.json').days, WALL = J('tools/wall-map.json')
+  const { PS, QS, PICK_SRC } = P36, PLACE0 = J('v2/place.json'), PY0 = J('v4/poem-years.json'), DAYS0 = J('v2/days.json').days, WALL = J('tools/wall-map.json')
   const REL0 = (() => { const c = { window: { location: { pathname: '/' } }, document: { createElement: () => ({}), head: { appendChild() {} }, querySelector: () => null } }
     const R = read('poems/related.js'); vm.runInNewContext(R.slice(0, R.indexOf('\n(function', R.indexOf('const themeLabels'))) + '\n;globalThis.__P = poemData; globalThis.__L = themeLabels', c); return { P: c.__P, L: c.__L } })()
   const PHRASE = (() => { const c = {}; vm.runInNewContext(/function phraseFor[\s\S]*?\n {2}\}/.exec(read('v2/weather.js'))[0] + ';globalThis.f = phraseFor', c); return c.f })()
-  const STEP = (() => { const w = {}; vm.runInNewContext(read('v3/why.js'), { window: w, fetch: () => {}, document: {} }); return w.S34.stepOf })()
-  const FREEZE = /Each night at (\d{1,2}:\d\d)/.exec(read('tools/daily_pick.py'))[1], ZONE = /timeZone: '([A-Za-z_/]+)'/.exec(read('v3/today.js'))[1]
+  const STEP = (() => { const w = {}; vm.runInNewContext(read('v4/why.js'), { window: w, fetch: () => {}, document: {} }); return w.S34.stepOf })()
+  const FREEZE = /Each night at (\d{1,2}:\d\d)/.exec(read('tools/daily_pick.py'))[1], ZONE = /timeZone: '([A-Za-z_/]+)'/.exec(read('v4/today.js'))[1]
   const NOV = /NOVELTY_DAYS\s*=\s*\{\s*poem:\s*(\d+),\s*photo:\s*(\d+)\s*\}/.exec(PICK_SRC), PEN = +/NOVELTY_PENALTY\s*=\s*(-?[\d.]+)/.exec(PICK_SRC)[1]
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const ISOD = /^\d{4}-\d\d-\d\d$/
@@ -633,7 +643,7 @@ const P42 = (() => {
   /* one world, one moment. m: { src, slug, mode, iso, R (the sky's reading, or null), readAt, gone (a Set of the paths that did not load), place (place.json as served, or null) } */
   function expected(m) {
     const gone = m.gone || new Set(), days = m.days || DAYS0, iso = m.iso, now0 = iso.slice(0, 4), R = m.R
-    const PY = gone.has('/v3/poem-years.json') ? null : PY0, REL = gone.has('/poems/related.js') ? null : (m.rel || REL0), place = gone.has('/v2/place.json') ? null : (m.place === undefined ? PLACE0 : m.place)
+    const PY = gone.has('/v4/poem-years.json') ? null : PY0, REL = gone.has('/poems/related.js') ? null : (m.rel || REL0), place = gone.has('/v2/place.json') ? null : (m.place === undefined ? PLACE0 : m.place)
     const dayOf = d => `${+d.slice(8, 10)} ${MONTHS[+d.slice(5, 7) - 1]}${d.slice(0, 4) === now0 ? '' : ' ' + d.slice(0, 4)}`
     const listOf = L => L.length === 1 ? dayOf(L[0]) : L.length === 2 ? `${dayOf(L[0])} and ${dayOf(L[1])}` : `${L.length} days, last ${dayOf(L.at(-1))}`
     const photo = DATA.photos.find(p => p.src === m.src), poem = DATA.poems.find(p => p.slug === m.slug), rec = XJ.photos.find(p => p.src === m.src)
@@ -678,7 +688,7 @@ const P42 = (() => {
     if (R && city) up.push(`The sky was read ${m.readAt ? 'at ' + clockIn(m.readAt, R.tz) : 'as this page opened'}${written ? `, and where he is was last set on ${written}` : ''}.`)
     else if (written) up.push(`Where he is was last set on ${written}${city ? '; the sky could not be read' : city === null ? ', with no city this page may name' : ''}.`)
     else if (city) up.push(`The sky over ${city} could not be read.`)
-    const fz = !gone.has('/v2/pick.js') && !gone.has('/v3/today.js') && R ? clockIn(Date.parse(`${iso}T${FREEZE.padStart(5, '0')}:00Z`) - offsetMs(iso, ZONE), R.tz) : null
+    const fz = !gone.has('/v2/pick.js') && !gone.has('/v4/today.js') && R ? clockIn(Date.parse(`${iso}T${FREEZE.padStart(5, '0')}:00Z`) - offsetMs(iso, ZONE), R.tz) : null
     up.push(how === 'live' ? (days[iso] ? 'Today’s pair follows the sky; the archive already holds this day, and once it has passed it replays exactly as kept.' : `Today’s pair follows the sky until ${fz ? fz + ', when ' : ''}the archive freezes it; after that the day replays exactly as kept.`)
       : how === 'frozen' ? 'Today’s pair is already frozen in the archive and replays exactly as kept.' : 'With no reading, today’s pair falls to the date, the same on every visit.')
     // Self-healing
@@ -742,39 +752,39 @@ const gz = new Map(), gzOf = f => gz.get(f) ?? (gz.set(f, /\.(jpe?g|png|webp|wof
 const MARK = '\u200b', MUT = process.env.MUTATE || '', GONE = new Set(), OVER = new Map(), MUTHIT = new Set()
 const served = (u, f) => { let s = OVER.has(u) ? OVER.get(u) : readFileSync(f, 'utf8'); const was = s
   if (u === '/v2/home.js') s = s.replace(/("intro": ")|("boundary": ")/g, m => m + MARK)
-  if (MUT === 'fact' && u === '/v3/here.js') s = s.replace('const rec = XJ.photos.find(p => p.src === photo.src) || null', 'const rec = XJ.photos[(XJ.photos.findIndex(p => p.src === photo.src) + 1) % XJ.photos.length]')
-  if (MUT === 'copy' && u === '/v3/stone.js') s = s.replace("gen.append(mk('p', 'intro', d.intro || ''))", `gen.append(mk('p', 'intro', I.name === 'Context' ? ${JSON.stringify(HOME_IDEAS[0].detail.intro)} : d.intro || ''))`)
-  if (MUT === 'shown' && u === '/v3/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('p'); n.style.cssText = 'position:fixed;left:20px;top:140px;z-index:6;font:400 11px/2 sans-serif;color:#fff'; n.textContent = IDEAS[2].name; document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
-  if (MUT === 'keys' && u === '/v3/stone.js') s = s.replace('  keysEl.append(b) })', '  })')
-  if (MUT === 'null' && u === '/v3/here.js') s = s.replace("${S.written ? `, and where he is was last set on ${S.written}` : ''}.`", ", and where he is was last set on ${S.written}.`") // the guard on a fact that may not have loaded, gone
-  if (MUT === 'names' && u === '/v3/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('div'); n.id = 'names'; n.className = 'on'; n.style.cssText = 'position:fixed;left:16px;bottom:150px;z-index:6;display:flex;gap:12px;font:400 11px/2 sans-serif;color:#f3efe6;text-transform:uppercase'; IDEAS.forEach((I, k) => { const b = document.createElement('button'); b.textContent = I.name; b.dataset.k = k; n.append(b) }); document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
-  if (MUT === 'ground' && u === '/v3/stone.js') s = s.replace('const t = Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d)))', "const t = T.key === 'cap' ? 0 : Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d)))")
-  if (MUT === 'moved' && u === '/v3/stone.js') s = s.replace("h.append(a); v.append(h)", "h.append(a); v.append(h); h.style.paddingLeft = '20px'")
-  if (MUT === 'event' && u === '/v3/stone.js') s = s.replace("track('poem_open', { poem: w.poem.slug, via: 'title' })", "track('poem_opened', { poem: w.poem.slug, via: 'title' })")
-  if (MUT === 'piece' && u === '/v3/stone.js') s = s.replace('function titlePiece(w, i, o, layers) { if (w.titleI !== i || o.plain) return o', 'function titlePiece(w, i, o, layers) { return o')
-  if (MUT === 'seam' && u === '/v3/stone.js') s = s.replace('const base = [{ img: w.img }] //', 'const base = [{ img: w.img }, ...textLayer(w, i, w.normals[i], P)] //').replace('drawGrounds(w); if (o.bare) return', 'drawGrounds(w); return')
-  if (MUT === 'cread' && u === '/v3/defaults.json') s = s.replace('"card-ground-alpha": "1"', '"card-ground-alpha": "0.35"')
-  if (MUT === 'csmall' && u === '/v3/defaults.json') s = s.replace('"card-body-px": "16"', '"card-body-px": "13"')
-  if (MUT === 'creach' && u === '/v3/stone.css') s = s.replace('overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;', 'overflow: hidden; touch-action: pan-y;')
-  if (MUT === 'cline' && u === '/v3/stone.js') s = s.replace("  if (fit) cardEl.style.setProperty('--ci-b'", "  if (false) cardEl.style.setProperty('--ci-b'")
-  if (MUT === 'cmore' && u === '/v3/stone.js') s = s.replace('more = el.scrollHeight - el.clientHeight - el.scrollTop > 2', 'more = false')
-  if (MUT === 'cclose' && u === '/v3/stone.js') s = s.replace("addEventListener('keydown', e => { if (!CARD.open || e.key !== 'Escape') return;", "addEventListener('keydown', e => { if (true) return;")
-  if (MUT === 'cfocus' && u === '/v3/stone.js') s = s.replace('if (back && back.isConnected && back !== document.body) back.focus({ preventScroll: true }); else if (cardEl.contains(document.activeElement)) document.activeElement.blur()', 'void back')
-  if (MUT === 'crest' && u === '/v3/stone.js') s = s.replace("cardSvg.textContent = ''; cardSlot.style.opacity = ''; for (const e of shifted()) e.style.transform = ''", "cardSvg.textContent = ''; cardSlot.style.opacity = ''; for (const e of shifted()) e.style.transform = 'translate(0px, 3px)'")
-  if (MUT === 'cevent' && u === '/v3/stone.js') s = s.replace("track('tools_open', { idea: IDEAS[p.k].name, via: 'facet' })", "track('tools_open', { idea: IDEAS[p.k].name })")
-  if (MUT === 'cone' && u === '/v3/stone.js') s = s.replace("function cardRoom() { if (CARD.open) cardClose('another'); cardFinish() }", 'function cardRoom() {}').replace("cardFinish(); if (CARD.open) cardClose('another'); cardFinish()", '')
-  if (MUT === 'cturn' && u === '/v3/stone.js') s = s.replace("perspective(${num('card-perspective-px', 900)}px) rotate3d(", "perspective(${num('card-perspective-px', 900)}px) translate3d(")
-  if (MUT === 'creduce' && u === '/v3/stone.js') s = s.replace("way: reduce() ? 'fade' : 'c' }", "way: 'c' }")
-  if (MUT === 'cdesk' && u === '/v3/stone.js') s = s.replace('const cardMode = () => phone() || low()', 'const cardMode = () => true')
+  if (MUT === 'fact' && u === '/v4/here.js') s = s.replace('const rec = XJ.photos.find(p => p.src === photo.src) || null', 'const rec = XJ.photos[(XJ.photos.findIndex(p => p.src === photo.src) + 1) % XJ.photos.length]')
+  if (MUT === 'copy' && u === '/v4/stone.js') s = s.replace("gen.append(mk('p', 'intro', d.intro || ''))", `gen.append(mk('p', 'intro', I.name === 'Context' ? ${JSON.stringify(HOME_IDEAS[0].detail.intro)} : d.intro || ''))`)
+  if (MUT === 'shown' && u === '/v4/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('p'); n.style.cssText = 'position:fixed;left:20px;top:140px;z-index:6;font:400 11px/2 sans-serif;color:#fff'; n.textContent = IDEAS[2].name; document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
+  if (MUT === 'keys' && u === '/v4/stone.js') s = s.replace('  keysEl.append(b) })', '  })')
+  if (MUT === 'null' && u === '/v4/here.js') s = s.replace("${S.written ? `, and where he is was last set on ${S.written}` : ''}.`", ", and where he is was last set on ${S.written}.`") // the guard on a fact that may not have loaded, gone
+  if (MUT === 'names' && u === '/v4/stone.js') s = s.replace("document.body.dataset.ready = 'yes'", "{ const n = document.createElement('div'); n.id = 'names'; n.className = 'on'; n.style.cssText = 'position:fixed;left:16px;bottom:150px;z-index:6;display:flex;gap:12px;font:400 11px/2 sans-serif;color:#f3efe6;text-transform:uppercase'; IDEAS.forEach((I, k) => { const b = document.createElement('button'); b.textContent = I.name; b.dataset.k = k; n.append(b) }); document.body.append(n) }\ndocument.body.dataset.ready = 'yes'")
+  if (MUT === 'ground' && u === '/v4/stone.js') s = s.replace('const t = Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d)))', "const t = T.key === 'cap' ? 0 : Math.max(0, ...T.parts.map(([rs, inks]) => needOf(rs, inks, d)))")
+  if (MUT === 'moved' && u === '/v4/stone.js') s = s.replace("h.append(a); v.append(h)", "h.append(a); v.append(h); h.style.paddingLeft = '20px'")
+  if (MUT === 'event' && u === '/v4/stone.js') s = s.replace("track('poem_open', { poem: w.poem.slug, via: 'title' })", "track('poem_opened', { poem: w.poem.slug, via: 'title' })")
+  if (MUT === 'piece' && u === '/v4/stone.js') s = s.replace('function titlePiece(w, i, o, layers) { if (w.titleI !== i || o.plain) return o', 'function titlePiece(w, i, o, layers) { return o')
+  if (MUT === 'seam' && u === '/v4/stone.js') s = s.replace('const base = [{ img: w.img }] //', 'const base = [{ img: w.img }, ...textLayer(w, i, w.normals[i], P)] //').replace('drawGrounds(w); if (o.bare) return', 'drawGrounds(w); return')
+  if (MUT === 'cread' && u === '/v4/defaults.json') s = s.replace('"card-ground-alpha": "1"', '"card-ground-alpha": "0.35"')
+  if (MUT === 'csmall' && u === '/v4/defaults.json') s = s.replace('"card-body-px": "16"', '"card-body-px": "13"')
+  if (MUT === 'creach' && u === '/v4/stone.css') s = s.replace('overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y;', 'overflow: hidden; touch-action: pan-y;')
+  if (MUT === 'cline' && u === '/v4/stone.js') s = s.replace("  if (fit) cardEl.style.setProperty('--ci-b'", "  if (false) cardEl.style.setProperty('--ci-b'")
+  if (MUT === 'cmore' && u === '/v4/stone.js') s = s.replace('more = el.scrollHeight - el.clientHeight - el.scrollTop > 2', 'more = false')
+  if (MUT === 'cclose' && u === '/v4/stone.js') s = s.replace("addEventListener('keydown', e => { if (!CARD.open || e.key !== 'Escape') return;", "addEventListener('keydown', e => { if (true) return;")
+  if (MUT === 'cfocus' && u === '/v4/stone.js') s = s.replace('if (back && back.isConnected && back !== document.body) back.focus({ preventScroll: true }); else if (cardEl.contains(document.activeElement)) document.activeElement.blur()', 'void back')
+  if (MUT === 'crest' && u === '/v4/stone.js') s = s.replace("cardSvg.textContent = ''; cardSlot.style.opacity = ''; for (const e of shifted()) e.style.transform = ''", "cardSvg.textContent = ''; cardSlot.style.opacity = ''; for (const e of shifted()) e.style.transform = 'translate(0px, 3px)'")
+  if (MUT === 'cevent' && u === '/v4/stone.js') s = s.replace("track('tools_open', { idea: IDEAS[p.k].name, via: 'facet' })", "track('tools_open', { idea: IDEAS[p.k].name })")
+  if (MUT === 'cone' && u === '/v4/stone.js') s = s.replace("function cardRoom() { if (CARD.open) cardClose('another'); cardFinish() }", 'function cardRoom() {}').replace("cardFinish(); if (CARD.open) cardClose('another'); cardFinish()", '')
+  if (MUT === 'cturn' && u === '/v4/stone.js') s = s.replace("perspective(${num('card-perspective-px', 900)}px) rotate3d(", "perspective(${num('card-perspective-px', 900)}px) translate3d(")
+  if (MUT === 'creduce' && u === '/v4/stone.js') s = s.replace("way: reduce() ? 'fade' : 'c' }", "way: 'c' }")
+  if (MUT === 'cdesk' && u === '/v4/stone.js') s = s.replace('const cardMode = () => phone() || low()', 'const cardMode = () => true')
   if (s !== was && u !== '/v2/home.js') MUTHIT.add(MUT); return s }
 const server = http.createServer((req, res) => { try { const u = decodeURIComponent(new URL(req.url, 'http://x').pathname), f = path.join(ROOT, path.normalize(u.endsWith('/') ? u + 'index.html' : u))
   if (GONE.has(u) || !f.startsWith(ROOT) || !existsSync(f) || statSync(f).isDirectory()) { res.writeHead(404); return res.end() }
   res.writeHead(200, { 'content-type': TYPES[path.extname(f).toLowerCase()] || 'application/octet-stream', 'cache-control': 'no-store' })
-  if (u === '/v2/home.js' || OVER.has(u) || (MUT && /^\/v3\/(here\.js|stone\.js|stone\.css|defaults\.json)$/.test(u))) return res.end(served(u, f))
+  if (u === '/v2/home.js' || OVER.has(u) || (MUT && /^\/v4\/(here\.js|stone\.js|stone\.css|defaults\.json)$/.test(u))) return res.end(served(u, f))
   createReadStream(f).pipe(res) } catch { res.writeHead(500); res.end() } })
 await new Promise(r => server.listen(0, '127.0.0.1', r))
 const HTTP = server.address().port, CDPP = await freePort(), PROFILE = mkdtempSync(path.join(os.tmpdir(), 'home-'))
-const chrome = spawn(shell, ['--headless', '--use-mock-keychain', '--password-store=basic', '--no-first-run', `--user-data-dir=${PROFILE}`, `--remote-debugging-port=${CDPP}`, 'about:blank'], { stdio: 'ignore' })
+const chrome = spawn(shell, ['--headless', '--hide-scrollbars' /* v4: the page scrolls; a scrollbar takes no room, as on his Mac and on a phone, so every size here is the size it was */, '--use-mock-keychain', '--password-store=basic', '--no-first-run', `--user-data-dir=${PROFILE}`, `--remote-debugging-port=${CDPP}`, 'about:blank'], { stdio: 'ignore' })
 const cleanup = () => { try { chrome.kill() } catch {} try { server.close() } catch {} try { rmSync(PROFILE, { recursive: true, force: true }) } catch {} }
 process.on('exit', cleanup)
 const BASE = `http://127.0.0.1:${HTTP}`, errors = [], tracked = [], READS = { all: [], worst: {} }
@@ -974,10 +984,11 @@ try {
   const key = async (k, extra = {}) => { const map = { Enter: [13, '\r'], ' ': [32, ' '], Escape: [27, ''], Tab: [9, ''] }, [code, text] = map[k]
     await cdp.send('Input.dispatchKeyEvent', { type: text ? 'keyDown' : 'rawKeyDown', key: k, code: k === ' ' ? 'Space' : k, windowsVirtualKeyCode: code, text: text || undefined, ...extra })
     await cdp.send('Input.dispatchKeyEvent', { type: 'keyUp', key: k, code: k === ' ' ? 'Space' : k, windowsVirtualKeyCode: code, ...extra }); await sleep(120) }
-  // what a sighted visitor reads at rest: every visible text, title and label, except the six keys' labels, which are proved hidden instead
+  // what a sighted visitor reads on the stone at rest: every visible text, title and label, except the six keys' labels, which are proved hidden instead,
+  // and except the working beneath the stone (v4), which lies below the first screen and names the six ideas in its last step, as Kahran saw it in 47
   const restText = () => cdp.eval(`(() => { const out = []; const walk = n => { if (n.nodeType === 3) { const t = n.textContent.replace(/\\s+/g, ' ').trim(), p = n.parentElement
-      if (t && p.getClientRects().length && !p.closest('[hidden], noscript, #why') && getComputedStyle(p).visibility !== 'hidden' && (() => { for (let e = p; e; e = e.parentElement) if (+getComputedStyle(e).opacity < .02) return false; return true })()) out.push(t) } else n.childNodes.forEach(walk) }
-    walk(document.body); document.querySelectorAll('[title], [aria-label]').forEach(e => { if (!e.closest('#keys')) out.push(e.getAttribute('title') || '', e.getAttribute('aria-label') || '') }); return out.join(' | ') })()`)
+      if (t && p.getClientRects().length && !p.closest('[hidden], noscript, #why, #working') && getComputedStyle(p).visibility !== 'hidden' && (() => { for (let e = p; e; e = e.parentElement) if (+getComputedStyle(e).opacity < .02) return false; return true })()) out.push(t) } else n.childNodes.forEach(walk) }
+    walk(document.body); document.querySelectorAll('[title], [aria-label]').forEach(e => { if (!e.closest('#keys, #working')) out.push(e.getAttribute('title') || '', e.getAttribute('aria-label') || '') }); return out.join(' | ') })()`)
   const rested = async label => {
     const rest = await restText(), shownN = IDEAS42.map(I => I.name).filter(n => new RegExp('(^|[^a-z])' + n.replace(/ /g, '\\s+') + '([^a-z]|$)', 'i').test(rest))
     const ks = await cdp.eval(`[...document.querySelectorAll('#keys button')].map(b => { const r = b.getBoundingClientRect(), cs = getComputedStyle(b); return { name: b.getAttribute('aria-label'), w: r.width, h: r.height, text: b.textContent, clip: cs.clipPath, exp: b.getAttribute('aria-expanded'), ctl: b.getAttribute('aria-controls'), tab: b.tabIndex } })`)
@@ -1097,7 +1108,7 @@ try {
     x = nearest(r.name); take('Home', x.i, 'nearest his name · this page is one of the things the home runs')
     { const Y = r.year >= 0 ? C[r.year] : null, yc = Y ? [ct[r.year][0], ct[r.year][1], 0, 0] : r.cap, y = [...free].map(i => ({ i, nb: !!Y && seamN(C[i], Y), d: reachN(C[i], yc) })).sort((a, b) => b.nb - a.nb || a.d - b.d || a.i - b.i)[0]
       take('Keeping track', y.i, !Y ? 'nearest the caption, the photograph’s place · the record is kept by where and when' : y.nb ? `beside the date, ${r.date} · a seam shared with it · the record is kept by when` : `nearest the date, ${r.date} · the record is kept by when`) }
-    x = nearest(r.vs); take('Staying up to date', x.i, 'nearest v3 · v2 · v1 · the site kept current, its earlier versions still open')
+    x = nearest(r.vs); take('Staying up to date', x.i, 'nearest v4 · v3 · v2 · v1 · the site kept current, its earlier versions still open')
     { const five = out.filter(Boolean).map(o => o.i), mid = five.reduce((s, i) => [s[0] + ct[i][0] / 5, s[1] + ct[i][1] / 5], [0, 0])
       const y = [...free].map(i => ({ i, n: five.filter(j => seamN(C[i], C[j])).length, d: Math.hypot(ct[i][0] - mid[0], ct[i][1] - mid[1]) })).sort((a, b) => b.n - a.n || a.d - b.d || a.i - b.i)[0]
       take('Self-healing', y.i, y.n ? `sharing a seam with ${y.n} of the five it watches · they are kept running from here` : 'nearest the middle of the five it watches · they are kept running from here') }
@@ -1315,7 +1326,7 @@ try {
     await cdp.eval('HOME.still = false') }
   /* and at 1440x900, nothing of the card: the idea's panel, the floating piece and the chain as they were */
   const deskNoCard = async tag => { await open(''); await cdp.eval('HOME.whyReady().then(() => HOME.hereFor()).then(() => true)'); const out = []
-    const at = await cdp.eval('HOME.tapIdea(0)'); await tap(at.pt); await sleep(500); out.push(await cdp.eval(`({ idea: document.querySelector('#tools').classList.contains('on') && document.querySelector('#tools').parentElement === document.body, card: !!document.querySelector('#card.on') })`)); await key('Escape')
+    const at = await cdp.eval('HOME.tapIdea(0)'); await tap(at.pt); await sleep(500); out.push(await cdp.eval(`({ idea: document.querySelector('#tools').classList.contains('on') && document.querySelector('#tools').parentElement.id === 'stage', card: !!document.querySelector('#card.on') })`)); await key('Escape') // v4: the panel lives in the stone's stage, not in a card
     const P = await opener('piece'); await tap(P.pt); await sleep(600); out.push(await cdp.eval(`({ piece: +document.querySelector('#back').style.opacity > .5, card: !!document.querySelector('#card.on') })`))
     await tapEl('#where'); await waitFor(() => cdp.eval(`document.body.classList.contains('why')`), 'the chain', 100); await sleep(500); out.push(await cdp.eval(`({ chain: document.querySelector('#why').parentElement.id === 'app', card: !!document.querySelector('#card.on') })`))
     check(out.every(o => !o.card && (o.idea ?? o.piece ?? o.chain)), `${tag}: on a desktop nothing opens as a card: the idea's panel, the floating piece and the chain are as they were`, JSON.stringify(out)) }
@@ -1326,11 +1337,11 @@ try {
     const p0 = await cdp.eval('({ how: HOME.how, world: HOME.world, iso: new Date().toISOString().slice(0, 10), where: document.getElementById("where").innerText, hour: new Date().getHours() })')
     const TODAY = '2026-11-08', T0 = truthFor(TODAY, READING, DAYS)
     check(p0.how === 'live' && p0.hour === 16 && p0.world.mode === 'home' && p0.world.photo === T0.photos[0] && p0.world.slug === T0.poems[0], `${tag}: under the pinned clock and sky the stone is today's pair, as pick.js picks it (${p0.world.slug}, ${p0.world.photo.replace('/photos/', '')})`, JSON.stringify(p0))
-    { const paths = first.map(f => f[0]), regs = paths.filter(u => u.startsWith('/v3/regions/')), photos = paths.filter(u => u.startsWith('/photos/'))
+    { const paths = first.map(f => f[0]), regs = paths.filter(u => u.startsWith('/v4/regions/')), photos = paths.filter(u => u.startsWith('/photos/'))
       const total = first.reduce((s, f) => s + f[2], 0), pic = first.filter(f => f[0].startsWith('/photos/')).reduce((s, f) => s + f[2], 0)
       if (vp.id === 'phone') weight = { total, pic, files: first.length, rest: total - pic }
-      const late = ['/v3/here.js', '/poems/related.js', '/v2/flow.js', '/v3/poem-years.json', '/v3/why.js', '/v3/body.js'].filter(u => paths.includes(u))
-      check(!paths.includes('/v3/segments.json') && !paths.some(u => /regions\.json$/.test(u)) && regs.length === 1 && photos.length === 1 && !late.length && total - pic < 300 * 1024,
+      const late = ['/v4/here.js', '/poems/related.js', '/v2/flow.js', '/v4/poem-years.json', '/v4/why.js', '/v4/body.js'].filter(u => paths.includes(u))
+      check(!paths.includes('/v4/segments.json') && !paths.some(u => /regions\.json$/.test(u)) && regs.length === 1 && photos.length === 1 && !late.length && total - pic < 300 * 1024,
         `${tag}: the first screen is quick: ${first.length} files, ${Math.round((total - pic) / 1024)} KB gzipped before the photograph's ${Math.round(pic / 1024)} KB; one photograph and its regions, no segments.json, nothing an idea's facet or the chain reads`, JSON.stringify({ regs, photos, kb: Math.round((total - pic) / 1024) })) }
     await shot(`home-${vp.id}.png`)
     { const c = await cdp.eval('HOME.crop')
@@ -1474,6 +1485,26 @@ try {
   /* B: every state a real visitor can reach, each pinned (the clock, the sky, the time zone, which sources load), at 390x844: today's pair as the
      page resolves it, its six this-world texts word for word against the recount, each idea's panel opened (the general always there, read
      live, nothing missing said); the texts are printed for the record. The first screen's are B1 */
+  /* v4 (Study 47): the working beneath the stone, in a load of its own at each size */
+  const workingHold = async tag => { await open(''); await cdp.eval(`document.addEventListener('home:track', e => console.log('TRACK ' + JSON.stringify(e.detail)))`); tracked.length = 0
+    await waitFor(() => cdp.eval(`document.querySelectorAll('#working .step').length === 6`), 'the working', 200)
+    const g = await cdp.eval(`(() => { const r = s => { const b = document.querySelector(s).getBoundingClientRect(); return [Math.round(b.left), Math.round(b.top), Math.round(b.right), Math.round(b.bottom)] }, W = document.getElementById('working')
+      return { stone: r('#stone'), stage: r('#stage'), under: r('.under'), ih: innerHeight, over: document.documentElement.scrollWidth - innerWidth, cw: document.documentElement.clientWidth, bitmap: Math.round(document.getElementById('stone').width / Math.min(devicePixelRatio || 1, 2)), inStage: [...document.querySelectorAll('#app, #keys, #tools, #year')].every(e => e.parentElement.id === 'stage'),
+        poem: W.querySelector('.poem h4 a').getAttribute('href'), photo: W.querySelector('figure img').getAttribute('src'), pair: [HOME.world0.poem, HOME.world0.photo], today: HOME.todayKey,
+        near: [...W.querySelectorAll('.near')].map(o => ({ n: o.children.length, first: o.firstElementChild.className })), ideas: [...W.querySelectorAll('.ideas summary b')].map(b => b.textContent),
+        strip: document.querySelector('.under b').textContent, day: document.getElementById('under-day').textContent, text: W.textContent } })()`)
+    check(g.stone[1] === 0 && g.stone[3] === g.under[1] && g.stage[3] === g.under[1] && g.under[3] === g.ih && g.inStage && g.over <= 0 && g.cw === g.stone[2] && g.bitmap === g.cw, `${tag} the working: the stone ends exactly where the strip begins (${g.under[1]} of ${g.ih}), the strip at the window's foot, everything of the stone's that is fixed to the window inside its stage, nothing wider than the screen, and the stone drawn at the width that is on screen (a scrollbar's room left out)`, JSON.stringify(g).slice(0, 260))
+    check(g.poem === '/poems/' + g.pair[0] + '.html' && g.photo === g.pair[1] && g.today === g.pair[0] + '~' + g.pair[1].replace('/photos/', ''), `${tag} the working: it works out the pair the stone is showing (${g.pair[0]}), today's, from the stone's own day`, JSON.stringify([g.poem, g.photo, g.pair, g.today]))
+    check(g.near.length === 2 && g.near.every(o => o.n >= 1 && o.n <= 5 && o.first === 'is') && JSON.stringify(g.ideas) === JSON.stringify(HOME_IDEAS.map(I => I.name)) && !/learning Kathak/.test(g.text) && !/day-?flow/i.test(g.text) && g.strip === 'How today’s photograph and poem were chosen' && g.day.length > 10,
+      `${tag} the working: six steps; the nearest photographs and the nearest poems, recounted by pick.js's own parts, the pick first in each; the six ideas by IDEAS' names; the line he took out is not there; the strip names what lies beneath, the day beside it`, JSON.stringify({ near: g.near, ideas: g.ideas, day: g.day }).slice(0, 260))
+    await tapAt(g.under[0] + 60, (g.under[1] + g.under[3]) / 2); const down = await waitFor(() => cdp.eval(`Math.abs(document.getElementById('working').getBoundingClientRect().top) <= 1`), 'the strip', 120).catch(() => null)
+    const seq0 = await cdp.eval('HOME.seq'), pt = await cdp.eval(`(() => { const b = document.querySelector('#working .said').getBoundingClientRect(); return [b.left + 20, b.top + b.height / 2] })()`); await tapAt(pt[0], pt[1]); await sleep(400)
+    const y0 = await cdp.eval('scrollY'); await cdp.eval('document.activeElement && document.activeElement.blur && document.activeElement.blur()'); await key(' '); await sleep(700)
+    const a = await cdp.eval('({ seq: HOME.seq, at: HOME.at, y: scrollY })'); await cdp.eval('scrollTo(0, 0)'); await sleep(250); await cdp.eval('scrollTo(0, innerHeight)'); await sleep(250); await cdp.eval('scrollTo(0, 0)'); await sleep(250)
+    const sent = tracked.filter(x => x.name === 'working_open')
+    check(!!down && a.seq === seq0 && a.at === 'stone' && a.y > y0 && sent.length === 1 && sent[0].params.via === 'strip', `${tag} the working: the strip brings it up over the stone; a touch on it is the working's and the stone hears nothing; lower down Space moves the page and the stone stays; working_open is said once, via strip`, JSON.stringify({ down: !!down, a, y0, seq0, sent })) }
+  if (process.env.CARDS !== 'only') for (const vp of VIEWPORTS) { await view(vp); await reduceMotion(false); await workingHold(`${vp.w}x${vp.h}`) }
+
   if (process.env.CARDS !== 'only' && want('states')) { const sky = (o, cur = {}) => { const j = JSON.parse(FIXTURE); Object.assign(j.current, cur); return JSON.stringify(j) }
     const relWithout = slug => { const R = read('poems/related.js'), at = R.indexOf(`'${slug}':`) >= 0 ? R.indexOf(`'${slug}':`) : R.indexOf(`"${slug}":`), end = R.indexOf('\n', at); return R.slice(0, at) + R.slice(end + 1) }
     const REPEAT = (() => { const D = JSON.parse(JSON.stringify(P42.DAYS0)), real = Object.keys(D).filter(d => /^\d{4}-/.test(d)), n = f => v => real.filter(d => D[d][f] === v).length
@@ -1487,8 +1518,8 @@ try {
       { id: 'frozen', what: 'B3 no sky, on a day the archive already holds (8 Nov after it froze)', pin: PIN, sky: null, iso: '2026-11-08' },
       { id: 'hash', what: 'B3 no sky, on a day the archive does not hold (9 Nov)', pin: N9, sky: null, iso: '2026-11-09' },
       { id: 'unknown', what: 'B4 where he is not known with confidence (place.json says no city)', pin: PIN, sky: FIXTURE, iso: '2026-11-08', over: { '/v2/place.json': JSON.stringify(UNKNOWN) }, place: UNKNOWN },
-      { id: 'gone', what: 'B4 the poems\' years, related.js and flow.js fail to load', pin: PIN, sky: FIXTURE, iso: '2026-11-08', gone: ['/v3/poem-years.json', '/poems/related.js', '/v2/flow.js'] },
-      { id: 'nohere', what: 'B4 here.js itself fails to load', pin: PIN, sky: FIXTURE, iso: '2026-11-08', gone: ['/v3/here.js'], none: true },
+      { id: 'gone', what: 'B4 the poems\' years, related.js and flow.js fail to load', pin: PIN, sky: FIXTURE, iso: '2026-11-08', gone: ['/v4/poem-years.json', '/poems/related.js', '/v2/flow.js'] },
+      { id: 'nohere', what: 'B4 here.js itself fails to load', pin: PIN, sky: FIXTURE, iso: '2026-11-08', gone: ['/v4/here.js'], none: true },
       { id: 'repeat', what: 'B5, B7 a photograph shown three times and a poem twice, the archive reaching back into 2025 (a served days.json)', pin: PIN, sky: FIXTURE, iso: '2026-11-08', days: REPEAT.days, world: REPEAT.key },
       { id: 'norel', what: 'B5 today\'s poem missing from related.js', pin: PIN, sky: FIXTURE, iso: '2026-11-08', rel: true },
       { id: 'london', what: 'B6 a visitor in Europe/London', pin: PIN, sky: FIXTURE, iso: '2026-11-08', tz: 'Europe/London', same: 'first' },
@@ -1511,7 +1542,8 @@ try {
       else bad.push(...P42.differ(said, want).map(b => `${S.id}: ${b}`))
       if (S.same && P42.differ(said, Object.fromEntries(Object.entries(got0[S.same]).map(([k, L]) => [k, L.map(x => x.s)]))).length) bad.push(`${S.id}: the texts differ from New York's: ${P42.differ(said, Object.fromEntries(Object.entries(got0[S.same]).map(([k, L]) => [k, L.map(x => x.s)])))[0]}`)
       const s = await cdp.eval('HOME.state')
-      for (const [k, I] of IDEAS42.entries()) { const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { bad.push(`${S.id} ${I.name}: no place to tap`); continue }
+      for (const [k, I] of IDEAS42.entries()) { if (k) { await key('Escape'); await sleep(350); await cdp.eval('HOME.finishCard()') } // from rest: the card before it closed first
+        const at = await cdp.eval(`HOME.tapIdea(${k})`); if (!at || !at.pt) { bad.push(`${S.id} ${I.name}: no place to tap`); continue }
         await tap(at.pt); const ok = await waitFor(() => cdp.eval(`HOME.open === ${k} && HOME.hereReadyNow`), 'idea', 250, 60).catch(() => null)
         if (!ok) { bad.push(`${S.id} ${I.name}: did not open`); await key('Escape'); continue } await sleep(350); await cdp.eval('HOME.finishCard()')
         const st = await panelNow(); bad.push(...panelWrong(I, st, S.none ? [] : (want[I.name] || []), s.ideas.find(x => x.k === k)).map(b => `${S.id} ${b}`)) // 43 c: these are phones; the card's placement is cardHold's

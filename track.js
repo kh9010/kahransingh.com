@@ -21,7 +21,7 @@
  *                  (by tap, click or keyboard; counted, like the flow view,
  *                  when the photography page's lightbox actually opens)
  *
- * The stone on the home (/v3/stone.js) is drawn on a canvas, so there is no
+ * The stone on the home (/v4/stone.js) is drawn on a canvas, so there is no
  * markup to read: it says what opened as a `home:track` event, and only the
  * names below are passed on.
  *   tools_open     one of the six ideas, from its facet        { idea, via: facet | key }
@@ -29,12 +29,13 @@
  *   line_open      the where line opens the chain behind it    { phase }
  *   crossing       a walk into another world                   { via: door | facet | press, depth }
  *   poem_open      the whole poem, from its title or its facet { poem, via: title | facet }
+ *   working_open   the working beneath the stone, once a visit   { via: strip | scroll }
  */
 (function () {
   function send(name, params) {
     try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch (e) {}
   }
-  var HOME_EVENTS = { tools_open: 1, year_open: 1, line_open: 1, crossing: 1, poem_open: 1 };
+  var HOME_EVENTS = { tools_open: 1, year_open: 1, line_open: 1, crossing: 1, poem_open: 1, working_open: 1 };
   document.addEventListener('home:track', function (e) {
     var d = e.detail || {};
     if (HOME_EVENTS[d.name] === 1) send(d.name, d.params);

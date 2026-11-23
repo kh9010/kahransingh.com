@@ -34,7 +34,7 @@
 
   const said = (document.querySelector('#where .sent') || document.getElementById('where')).textContent.trim() // the stone's own line, as weather.js wrote it
   const line = { textContent: /^We.re in /.test(said) ? said : '' }
-  const [homeJs, pickJs, doors, place, about, letter] = await Promise.all([text('/v2/home.js'), text('/v2/pick.js'), json('/v3/doors.json'), json('/v2/place.json'), doc('/about.html'), doc('/v2/about.html')])
+  const [homeJs, pickJs, doors, place, letter] = await Promise.all([text('/v2/home.js'), text('/v2/pick.js'), json('/v3/doors.json'), json('/v2/place.json'), doc('/v2/about.html')])
   const IDEAS = literal(homeJs, 'IDEAS') || []
   const K = window.kahranPick, P = K && K.__test
 
@@ -96,7 +96,6 @@
     (I.href ? ' <a class="u" href="' + I.href + '">its page</a>' : '') + '</p></details>').join('') + '</div>'
   const q = (d, sel) => [...d.querySelectorAll(sel)]
   const clean = el => { if (!el) return ''; const c = el.cloneNode(true); c.querySelectorAll('[style]').forEach(x => x.removeAttribute('style')); return c.innerHTML.trim() }
-  const lede = (q(about, 'p.lede')[0] || {}).textContent || ''                    // "I make poems, photographs, tools and companies, and I am learning Kathak."
   const L = q(letter, '.letter p')                                                // the letter picked at the About desk
   const machine = clean(L[1]).replace('on the home page', 'on this page'), write = clean(L[L.length - 1])
   const links = [['/poetry.html', 'all ' + ctx.data.poems.length + ' poems'], ['/photography.html', 'the photographs'], ['/poem-films.html', 'the poem films'], ['/about.html', 'the years'], ['/lately/', 'the weekly record'], ['/working-with-me.html', 'work with me']]
@@ -110,7 +109,7 @@
     return '<ol class="near">' + open.map((r, i) => '<li class="' + (i ? '' : 'is') + '"><span>' + (i + 1) + '</span><span>' + name(r.it) + (r.lift ? '<small>lifted, near ' + esc(city) + '</small>' : '') + '</span><span class="bar"><i style="width:' + Math.round(100 * (1 - r.dist / (far * 1.6))) + '%"></i></span><em>' + r.dist.toFixed(2) + '</em></li>').join('') + '</ol>' }
   const step = (n, label, body, cls) => '<section class="step' + (cls ? ' ' + cls : '') + '"><div class="hd"><b>' + n + '</b><span class="lab">' + label + '</span></div><div>' + body + '</div></section>'
   const ctxTool = IDEAS[0] && IDEAS[0].detail.tools[2] ? IDEAS[0].detail.tools[2].split('. ')[0] + '.' : ''
-  const intro = () => '<p class="said">' + SAID.daily + '</p><p>' + SAID.open + ' ' + esc(lede) + '</p>'
+  const intro = () => '<p class="said">' + SAID.daily + '</p><p>' + SAID.open + '</p>'
   const five = () =>
     step(1, 'Where', '<p class="big">' + esc(city || 'Not known today') + '</p><p class="note"><b>' + esc(IDEAS[0] ? IDEAS[0].parts[2] : '') + '</b> ' + esc(ctxTool) + '</p>') +
     step(2, 'The sky', '<div class="sky">' + [[sky.replace(/^it’s |^it's /, ''), 'the sky'], [temp != null && deg(temp), 'temperature'], [cloud != null && Math.round(cloud) + '%', 'cloud'], [wind != null && Math.round(wind) + ' km/h', 'wind']].filter(x => x[0]).map(([v, k]) => '<div>' + esc(v) + '<small>' + k + '</small></div>').join('') + '</div>' +
