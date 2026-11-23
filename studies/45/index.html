@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Study 45 · The stone, with a way in</title>
+<meta name="theme-color" content="#0d0c0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v3/stone.css">
+<script>
+/* Study 45: the live stone, not a copy (its markup below is the home's, its scripts and data are /v3/'s), with
+   ways in laid over it by way.js. ?v= any of a b c d (together: ?v=ad); ?read=0 leaves the stone's own reading dials as they are. */
+(() => { const q = new URLSearchParams(location.search), v = (q.get('v') || '').replace(/[^abcd]/g, ''); if (v) document.documentElement.dataset.v = v
+  // the stone's own dials this study changes, for reading: larger words, set straight, on a deeper ground. They ride in on the stone's own request for its numbers.
+  const STONE = ['poem-max-px', 'poem-min-px', 'word-shift', 'ground-aa']
+  if (!v || q.get('read') === '0') return
+  const f0 = window.fetch.bind(window), mine = f0('defaults.json').then(r => r.json()).catch(() => ({}))
+  window.fetch = async (u, o) => { if (u !== '/v3/defaults.json') return f0(u, o)
+    const [r, m] = await Promise.all([f0(u, o), mine]), d = await r.json(); for (const k of STONE) if (k in m && k in d) d[k] = m[k]
+    return new Response(JSON.stringify(d), { headers: { 'content-type': 'application/json' } }) } })()
+</script>
+<style>
+/* the ask (the rail's first view) */
+.ask { display: none; position: fixed; inset: 0; overflow: auto; z-index: 60; background: #fafaf8; color: #1a1a1a; padding: 15vh 16px 4rem; font: 400 .8125rem/1.5 'Space Grotesk', sans-serif; }
+.ask > * { max-width: 560px; margin-left: auto; margin-right: auto; }
+.ask h1 { font: 500 .8125rem 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #6e6e6e; margin-bottom: 1rem; }
+.ask p { font: 400 1.0625rem/1.55 'Fraunces', Georgia, serif; margin: 0 auto 1.25rem; }
+.ask ol { list-style: none; display: grid; gap: 8px; padding: 0; }
+.ask a { display: grid; grid-template-columns: 2.4rem 1fr; text-decoration: none; background: #fff; border: 1px solid #e0ddd8; border-radius: 6px; padding: 12px; }
+.ask a b { font-weight: 500; } .ask a span { color: #6e6e6e; }
+html:not([data-v]) .ask { display: block; }
+html:not([data-v]) body { overflow: auto; }
+
+/* the study's own switch, top left (the stone keeps the other three corners) */
+.ways { position: fixed; top: 10px; left: 10px; z-index: 40; display: flex; gap: .5rem; font: 400 .8125rem/1 var(--sans); color: var(--ink-on2); background: rgba(13,12,11,.62); border-radius: 999px; padding: 7px 11px; }
+.ways a { text-decoration: none; color: var(--ink-on2); } .ways a[aria-current] { color: #fff; font-weight: 500; }
+.ways > * + *::before { content: '\00b7'; margin-right: .5rem; color: rgba(201,195,182,.5); }
+html:not([data-v]) .ways { display: none; }
+
+/* a · the threshold: who this is and what the page does, on the photograph whole; then the cut */
+#way-in { position: fixed; inset: 0; z-index: 30; background: #0d0c0b; display: grid; align-items: end; transition: opacity calc(var(--way-cut-ms) * 1ms) var(--ease); }
+#way-in .ph { position: absolute; inset: 0; background: center / cover no-repeat; opacity: 0; transition: opacity .9s var(--ease); }
+#way-in .ph.mono { filter: grayscale(1) contrast(1.06) brightness(.94); }
+#way-in .ph.on { opacity: 1; }
+#way-in::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,7,.86), rgba(8,8,7,.55) 42%, rgba(8,8,7,.08) 78%); }
+#way-in .words { position: relative; z-index: 1; max-width: 44rem; padding: 0 clamp(20px, 5vw, 72px) clamp(40px, 9vh, 96px); }
+#way-in p { margin: 0 0 .5em; font: 300 clamp(1.5rem, 2.9vw, 2.3rem)/1.25 var(--serif); color: var(--ink-on); opacity: 0; transform: translateY(6px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+#way-in p.sub { font-size: clamp(1.125rem, 1.7vw, 1.4rem); line-height: 1.4; color: #ddd6c8; max-width: 34rem; }
+#way-in p.on { opacity: 1; transform: none; }
+#way-in.cut { opacity: 0; pointer-events: none; }
+#way-cut { position: fixed; left: 0; right: 0; bottom: clamp(120px, 26vh, 260px); z-index: 31; pointer-events: none; padding: 0 clamp(20px, 5vw, 72px); opacity: 0; transition: opacity .9s var(--ease); }
+#way-cut span { display: inline-block; font: 300 clamp(1.25rem, 2.2vw, 1.8rem)/1.3 var(--serif); color: var(--ink-on); background: rgba(13,12,11,.82); padding: .5em .8em; border-radius: 3px; }
+#way-cut.on { opacity: 1; }
+
+/* b · the key: what each facet holds, asked for */
+#way-key { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; pointer-events: auto; border-bottom: 1px dotted rgba(237,231,217,.5); }
+#way-key[aria-pressed="true"] { color: #fff; border-bottom-style: solid; }
+#way-labels { position: fixed; inset: 0; z-index: 14; pointer-events: none; opacity: 0; transition: opacity .5s var(--ease); }
+#way-labels.on { opacity: 1; }
+#way-labels .lb { position: absolute; transform: translate(-50%, -50%); text-align: center; background: rgba(13,12,11,.84); border-radius: 3px; padding: 5px 8px 6px; max-width: 11rem; }
+#way-labels .lb b { display: block; font: 500 .75rem/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: #fff; white-space: nowrap; }
+#way-labels .lb i { display: block; font: italic 400 .875rem/1.25 var(--serif); color: #ddd6c8; margin-top: 2px; }
+#way-labels .dot { position: absolute; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(13,12,11,.6); }
+#way-labels .dr { position: absolute; border-bottom: 1px solid #fff; }
+#way-labels .dr span { position: absolute; left: 100%; bottom: -4px; margin-left: 8px; font: 500 .75rem/1.2 var(--sans); letter-spacing: .06em; color: #fff; background: rgba(13,12,11,.84); padding: 3px 6px; border-radius: 3px; white-space: nowrap; }
+#way-labels .dr.under span { left: 0; bottom: auto; top: 100%; margin: 3px 0 0; }
+#way-count { position: fixed; z-index: 15; left: 50%; top: 14px; transform: translateX(-50%); font: 400 .8125rem/1.3 var(--sans); color: var(--ink-on); background: rgba(13,12,11,.84); padding: 6px 12px; border-radius: 999px; opacity: 0; transition: opacity .5s var(--ease); pointer-events: none; white-space: nowrap; max-width: calc(100vw - 20px); overflow: hidden; text-overflow: ellipsis; }
+#way-count.on { opacity: 1; }
+
+/* c · it opens one for you: a ring where the hand would land */
+#way-ring { position: fixed; z-index: 16; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 1.5px solid #fff; pointer-events: none; opacity: 0; }
+#way-ring.on { animation: way-ring .9s var(--ease) both; }
+@keyframes way-ring { 0% { opacity: 0; transform: scale(1.9); } 45% { opacity: 1; transform: scale(1); } 80% { opacity: 1; transform: scale(.82); } 100% { opacity: 0; transform: scale(.82); } }
+@media (prefers-reduced-motion: reduce) { #way-ring.on { animation: none; opacity: 1; } #way-in p { transform: none; } }
+
+/* d · a voice that walks with you: one line by the name, saying what just happened */
+#way-say { margin: 0 0 .7rem; max-width: 23rem; min-height: 2.9em; display: flex; align-items: flex-end; font: italic 300 1.0625rem/1.4 var(--serif); color: var(--ink-on); text-shadow: 0 1px 8px rgba(0,0,0,.7); pointer-events: none; }
+#way-say span { transition: opacity .35s var(--ease); } #way-say span.out { opacity: 0; }
+@media (max-width: 640px) { #way-say { font-size: .9375rem; min-height: 1.4em; margin-bottom: .3rem; max-width: none; white-space: nowrap; overflow: hidden; } #way-say span { overflow: hidden; text-overflow: ellipsis; } #way-labels .lb i { display: none; } #way-count { top: 40px; white-space: normal; text-align: center; width: calc(100vw - 24px); border-radius: 8px; } }
+</style>
+</head>
+<body>
+<header class="ask">
+<h1>45 · The stone, with a way in</h1>
+<p>The stone stays the home, as it is: the photograph and the poem broken across it, every facet giving something, the doors, the six ideas, the chain, the years. These are ways of bringing a stranger into it. In all four the poem is set larger and straight on a slightly deeper ground, by the stone's own dials.</p>
+<ol>
+<li><a href="?v=a"><b>a</b><span>it says what it is: who this is and what the page does, on the photograph whole; then the photograph is cut into the stone</span></a></li>
+<li><a href="?v=b"><b>b</b><span>it shows what it holds: asked, every facet says what is behind it, and the door lines say where they lead</span></a></li>
+<li><a href="?v=c"><b>c</b><span>it opens one for you: once, after arriving, a facet opens by itself, then an idea, and both close</span></a></li>
+<li><a href="?v=d"><b>d</b><span>a voice walks with you: one line by the name says what just happened and how much is left</span></a></li>
+<li><a href="?v=abcd"><b>all</b><span>the four together: said, cut, shown once, then walked with; the key waits to be asked</span></a></li>
+</ol>
+</header>
+<!-- the home's own markup, as it is on / -->
+<div id="app">
+  <canvas id="stone" aria-hidden="true"></canvas>
+  <div id="read"></div>
+  <p id="idea" aria-hidden="true"></p>
+  <p id="back" aria-live="polite"></p>
+  <header id="mat">
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where" role="button" tabindex="0" aria-expanded="false" aria-controls="why"></p>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+  <div id="why-scrim"></div>
+  <section id="why" aria-label="The decision behind today's pair" aria-hidden="true"><button class="why-x" type="button" aria-label="close">×</button><div class="why-body"></div></section>
+</div>
+<div id="keys"></div>
+<aside id="tools" aria-live="polite"></aside>
+<p id="year"><a href="/about.html"></a></p>
+<img id="ph" alt="" hidden>
+<nav class="vs" aria-label="Site version"><span aria-current="page">v3</span><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<nav class="ways" aria-label="The ways in"><a href="?v=a" data-w="a">a</a><a href="?v=b" data-w="b">b</a><a href="?v=c" data-w="c">c</a><a href="?v=d" data-w="d">d</a><a href="?v=abcd" data-w="abcd">all</a></nav>
+<script src="tune.js"></script>
+<script src="way.js"></script>
+</body>
+</html>
