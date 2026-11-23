@@ -14,7 +14,7 @@
 <script>
 /* Study 45: the live stone, not a copy (its markup below is the home's, its scripts and data are /v3/'s), with
    ways in laid over it by way.js. ?v= any of a b c d (together: ?v=ad); ?read=0 leaves the stone's own reading dials as they are. */
-(() => { const q = new URLSearchParams(location.search), v = (q.get('v') || '').replace(/[^abcd]/g, ''); if (v) document.documentElement.dataset.v = v
+(() => { const q = new URLSearchParams(location.search), v = (q.get('v') || '').replace(/[^abcdr]/g, ''); if (v) document.documentElement.dataset.v = v; if (q.has('bare')) document.documentElement.dataset.bare = '' // r: the reading dials and nothing laid over; bare: no switches (46 holds it in a frame)
   // the stone's own dials this study changes, for reading: larger words, set straight, on a deeper ground. They ride in on the stone's own request for its numbers.
   const STONE = ['poem-max-px', 'poem-min-px', 'word-shift', 'ground-aa']
   if (!v || q.get('read') === '0') return
@@ -39,7 +39,7 @@ html:not([data-v]) body { overflow: auto; }
 .ways { position: fixed; top: 10px; left: 10px; z-index: 40; display: flex; gap: .5rem; font: 400 .8125rem/1 var(--sans); color: var(--ink-on2); background: rgba(13,12,11,.62); border-radius: 999px; padding: 7px 11px; }
 .ways a { text-decoration: none; color: var(--ink-on2); } .ways a[aria-current] { color: #fff; font-weight: 500; }
 .ways > * + *::before { content: '\00b7'; margin-right: .5rem; color: rgba(201,195,182,.5); }
-html:not([data-v]) .ways { display: none; }
+html:not([data-v]) .ways, html[data-bare] .ways, html[data-bare] .vs { display: none; }
 
 /* a · the threshold: who this is and what the page does, on the photograph whole; then the cut */
 #way-in { position: fixed; inset: 0; z-index: 30; background: #0d0c0b; display: grid; align-items: end; transition: opacity calc(var(--way-cut-ms) * 1ms) var(--ease); }
