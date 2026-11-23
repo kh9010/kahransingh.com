@@ -163,11 +163,14 @@
         /* Back link */
         .cv-back {
             margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 1.2rem;
         }
 
         .cv-back a {
             font-size: 0.82rem;
-            color: #bbb;
+            color: #8a8a8a;
             text-decoration: none;
         }
 
@@ -202,9 +205,10 @@
 <body>
     <div class="cv-wrap">
 
-        <div class="cv-back">
+        <nav class="cv-back" aria-label="The rest of the site">
             <a href="/about.html">&larr; About</a>
-        </div>
+            <a href="/">kahran</a><a href="/poetry.html">poetry</a><a href="/photography.html">photography</a><a href="/projects.html">projects</a><a href="/lately/">lately</a><a href="/working-with-me.html">work with me</a><a href="/speaking.html">speaking</a><a href="/archive.html">archive</a>
+        </nav>
 
         <div class="cv-header">
             <h1>Kahran Singh</h1>

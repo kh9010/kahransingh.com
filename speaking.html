@@ -78,6 +78,15 @@
             color: #999;
         }
 
+        /* the site's sections, as every other page's nav has them; on a narrow screen the row moves sideways under a finger */
+        .nav-links { display: flex; align-items: baseline; gap: 1.5rem; margin-left: 2rem; min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; font-size: 0.85rem; }
+        .nav-links::-webkit-scrollbar { display: none; }
+        .site-nav .nav-links a { color: #6e6e6e; }
+        .site-nav .nav-links a:hover, .site-nav .nav-links a:focus-visible { color: #111; }
+        .nav-links .nav-current { font-size: inherit; text-transform: none; letter-spacing: 0; color: #111; }
+        .nav-home { flex-shrink: 0; }
+        @media (max-width: 768px) { .nav-links { gap: 1.1rem; margin-left: 1.25rem; } }
+
         /* ---- HERO ---- */
         .hero {
             margin-top: 60px;
@@ -414,7 +423,7 @@
     <!-- Nav -->
     <nav class="site-nav">
         <a href="/" class="nav-home">kahran</a>
-        <span class="nav-current">speaking</span>
+        <div class="nav-links"><a href="/poetry.html">poetry</a><a href="/photography.html">photography</a><a href="/projects.html">projects</a><a href="/lately/">lately</a><a href="/working-with-me.html">work with me</a><span class="nav-current" aria-current="page">speaking</span><a href="/archive.html">archive</a><a href="/about.html">about</a></div>
     </nav>
 
     <!-- Hero -->

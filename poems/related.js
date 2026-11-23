@@ -194,6 +194,22 @@ const themeLabels = {
     stanzas.forEach(function(s) { progressObserver.observe(s); });
 })();
 
+// --- The rest of the site, under the way back to the poems ---
+// A poem's page is the poem and little else; at its end, after the way back to the poems, the site's
+// main sections, so a reader who came straight to a poem can go on anywhere without finding the home first.
+(function() {
+    var end = document.querySelector('.stanza.end-slide .stanza-text');
+    if (!end || end.querySelector('.poem-sections')) return;
+    var sections = [['/', 'kahran'], ['/poetry.html', 'poetry'], ['/photography.html', 'photography'], ['/projects.html', 'projects'], ['/lately/', 'lately'],
+        ['/working-with-me.html', 'work with me'], ['/speaking.html', 'speaking'], ['/archive.html', 'archive'], ['/about.html', 'about']];
+    var nav = document.createElement('nav');
+    nav.className = 'poem-sections';
+    nav.setAttribute('aria-label', 'The rest of the site');
+    nav.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:center;gap:.45rem 1.15rem;margin-top:2rem;font-size:.82rem;line-height:1.4;font-style:normal;';
+    nav.innerHTML = sections.map(function(s) { return '<a href="' + s[0] + '" style="color:#8a8a8a;text-decoration:none;">' + s[1] + '</a>'; }).join('');
+    end.appendChild(nav);
+})();
+
 // --- Auto-navigate at end ---
 (function() {
     var endSlide = document.querySelector('.stanza.end-slide');

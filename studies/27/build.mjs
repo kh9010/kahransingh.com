@@ -436,7 +436,6 @@ ${['a', 'b', 'c', 'd'].map(D).join('\n')}
 <a href="/speaking.html">speaking</a>
 <a href="/archive.html">archive</a>
 <a href="/about.html" class="active" aria-current="page">about</a>
-<a href="/v1/">v1</a>
 </nav>
 <script type="application/json" id="units">${JSON.stringify(pageData).replace(/</g, '\\u003c')}</script>
 <script src="kin.js"></script>

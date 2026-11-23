@@ -305,6 +305,15 @@ body.card-open #year { opacity: 0; pointer-events: none; }
 body.card-open #why-scrim { opacity: 0; pointer-events: none; } /* the card is its own ground: no scrim behind the chain */
 #card.closing, #card.closing .card-slot > *, #card.closing .card-x { pointer-events: none !important; } /* a touch while it closes goes to the stone */
 
+/* v4: the stone's nav holds every main section (ten words, where v3's held three) without the name's block growing taller, since the stone
+   lays the poem, the ideas and the title's facet out against that block. On a wide screen the words run on past the block in one row (two
+   where the window is narrow), short of the poem; on a phone, upright or on its side, they are one row that moves sideways under a finger. */
+header nav { gap: 9px 18px; width: max-content; max-width: min(52vw, 760px); }
+@media (max-width: 640px) and (orientation: portrait), (max-height: 560px) and (orientation: landscape) {
+  header nav { width: auto; max-width: none; flex-wrap: nowrap; white-space: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-right: -16px; padding-right: 16px; }
+  header nav::-webkit-scrollbar { display: none; }
+}
+
 /* ---------- the stone and the page beneath (Study 47) ----------
    The stone stays fixed to the window and ends where the strip begins; the page beneath it begins with that strip and the working follows,
    coming up over the stone as the page moves. */
@@ -327,7 +336,7 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 #working :focus-visible { outline: 2px solid var(--ink, #1a1a1a); outline-offset: 3px; }
 #working .lab { font: 500 .8125rem/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--quiet, #6e6e6e); }
 #working .letter p { font: 400 calc(var(--read-rem, 1.25) * 1rem)/var(--lead, 1.6) var(--serif); margin-bottom: 1.15em; }
-#working .letter a, #working .foot a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+#working .letter a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
 #working figure figcaption { font: 400 .8125rem/1.4 var(--sans); color: var(--quiet, #6e6e6e); margin-top: .6rem; }
 /* the poem, the same in all four */
 #working .poem h4 { font: italic 400 1.75rem/1.2 'Fraunces', Georgia, serif; margin-bottom: 1.1rem; }
@@ -376,7 +385,12 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 #working .d .near .bar { height: 5px; background: var(--rule, #e0ddd8); } #working .d .near .bar i { display: block; height: 100%; background: #8f897d; }
 #working .d .near li.is { font-weight: 500; } #working .d .near li.is .bar i { background: var(--ink, #1a1a1a); }
 #working .d .step figure { max-width: 46rem; }
-#working .d .foot { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--ink, #1a1a1a); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .9375rem; color: var(--quiet, #6e6e6e); }
+#working .rest { margin-top: 1.4rem; padding-top: 1.6rem; border-top: 1px solid var(--ink, #1a1a1a); }
+#working .rest h2 { margin-bottom: .9rem; }
+#working .rest ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 0 2.4rem; }
+#working .rest a { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem; padding: .7rem 0; border-bottom: 1px solid var(--rule, #e0ddd8); font: 400 1.375rem/1.25 'Fraunces', Georgia, serif; text-decoration: none; }
+#working .rest a:hover, #working .rest a:focus-visible { border-bottom-color: var(--ink, #1a1a1a); }
+#working .rest small { font: 400 .8125rem/1.3 var(--sans); color: var(--quiet, #6e6e6e); white-space: nowrap; }
 
 
 
