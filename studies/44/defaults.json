@@ -1,0 +1,12 @@
+{
+  "paper": "#fafaf8",
+  "ink": "#1a1a1a",
+  "quiet": "#6e6e6e",
+  "rule": "#e0ddd8",
+  "mat": "#141210",
+  "on-mat": "#ede7d9",
+  "read-rem": "1.25",
+  "poem-rem": "1.375",
+  "measure-rem": "36",
+  "lead": "1.6"
+}
