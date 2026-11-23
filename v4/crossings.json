@@ -1,0 +1,691 @@
+{
+ "made_by": "studies/38/build.mjs",
+ "from": [
+  "v2/data.json",
+  "photos/*.jpg EXIF DateTimeOriginal",
+  "poems/*.html og:image",
+  "v2/days.json",
+  "studies/27/years.json"
+ ],
+ "rows": [
+  "now",
+  "2025",
+  "2024",
+  "2023",
+  "2022",
+  "2021",
+  "2020",
+  "2019",
+  "2018",
+  "2017",
+  "2016",
+  "2015",
+  "2014",
+  "2013",
+  "2012",
+  "2011",
+  "2010",
+  "2009",
+  "2008",
+  "2007",
+  "2006"
+ ],
+ "photos": [
+  {
+   "src": "/photos/roma-sidewalk.jpg",
+   "place": "Roma Norte, Mexico City",
+   "taken": "2026-03-11",
+   "y": 2026,
+   "row": "now",
+   "poem": "it-used-to-be-me",
+   "poemWhy": "the home, 16 Oct",
+   "poemSrc": "v2/days.json 2026-10-16"
+  },
+  {
+   "src": "/photos/papel-picado.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "ariel",
+   "poemWhy": "the home, 4 Oct",
+   "poemSrc": "v2/days.json 2026-10-04"
+  },
+  {
+   "src": "/photos/night-street.jpg",
+   "place": "Roma Norte, Mexico City",
+   "taken": "2026-03-11",
+   "y": 2026,
+   "row": "now",
+   "poem": "song-of-tomorrow",
+   "poemWhy": "the home, 17 Oct",
+   "poemSrc": "v2/days.json 2026-10-17"
+  },
+  {
+   "src": "/photos/staircase.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "an-ode-to-aspens",
+   "poemWhy": "its page carries this photograph",
+   "poemSrc": "poems/an-ode-to-aspens.html og:image"
+  },
+  {
+   "src": "/photos/cdmx-plaza.jpg",
+   "place": "Roma Norte, Mexico City",
+   "taken": "2026-03-11",
+   "y": 2026,
+   "row": "now",
+   "poem": "memories-of-tomorrow",
+   "poemWhy": "the home, 5 Nov",
+   "poemSrc": "v2/days.json 2026-11-05"
+  },
+  {
+   "src": "/photos/alpine-lake.jpg",
+   "place": "Mt Rainier, Washington",
+   "taken": "2022-08-18",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/beach-solitude.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "falling-in-love",
+   "poemWhy": "the home, 2 Oct",
+   "poemSrc": "v2/days.json 2026-10-02"
+  },
+  {
+   "src": "/photos/reed-corridor.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "to-know-me",
+   "poemWhy": "the home, 22 Oct",
+   "poemSrc": "v2/days.json 2026-10-22"
+  },
+  {
+   "src": "/photos/buoys-wall.jpg",
+   "place": "Cape Cod",
+   "taken": "2024-07-04",
+   "y": 2024,
+   "row": "2024",
+   "poem": "and-now-that-we-walk",
+   "poemWhy": "the home, 25 Oct",
+   "poemSrc": "v2/days.json 2026-10-25"
+  },
+  {
+   "src": "/photos/fireworks-water.jpg",
+   "place": "Cape Cod",
+   "taken": "2024-07-04",
+   "y": 2024,
+   "row": "2024",
+   "poem": "blood-oh-once-you-called",
+   "poemWhy": "the home, 6 Nov",
+   "poemSrc": "v2/days.json 2026-11-06"
+  },
+  {
+   "src": "/photos/still-lake.jpg",
+   "place": "Yellowstone",
+   "taken": "2023-05-28",
+   "y": 2023,
+   "row": "2023"
+  },
+  {
+   "src": "/photos/sayulita-staircase.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now"
+  },
+  {
+   "src": "/photos/concrete-museum.jpg",
+   "place": "Berlin",
+   "taken": "2024-10-28",
+   "y": 2024,
+   "row": "2024",
+   "poem": "wrestle",
+   "poemWhy": "its page carries this photograph",
+   "poemSrc": "poems/wrestle.html og:image"
+  },
+  {
+   "src": "/photos/tree-tunnel.jpg",
+   "place": "Hawaii",
+   "taken": "2022-04-24",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/hawaii-landscape.jpg",
+   "place": "Hawaii",
+   "taken": "2022-04-05",
+   "y": 2022,
+   "row": "2022",
+   "poem": "guadalajara",
+   "poemWhy": "the home, 23 Sep",
+   "poemSrc": "v2/days.json 2026-09-23"
+  },
+  {
+   "src": "/photos/lanterns.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "everywhere-i-turn",
+   "poemWhy": "its page carries this photograph",
+   "poemSrc": "poems/everywhere-i-turn.html og:image"
+  },
+  {
+   "src": "/photos/taco-cart.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "california",
+   "poemWhy": "the home, 14 Oct",
+   "poemSrc": "v2/days.json 2026-10-14"
+  },
+  {
+   "src": "/photos/night-market.jpg",
+   "place": "Sayulita, Nayarit",
+   "taken": "2026-03-04",
+   "y": 2026,
+   "row": "now",
+   "poem": "when-i-dance-with-you",
+   "poemWhy": "the home, 30 Oct",
+   "poemSrc": "v2/days.json 2026-10-30"
+  },
+  {
+   "src": "/photos/misty-hillside.jpg",
+   "place": "Big Island, Hawaii",
+   "taken": "2022-04-09",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/kitchen-night.jpg",
+   "place": "Telluride, Colorado",
+   "taken": "2021-12-20",
+   "y": 2021,
+   "row": "2021",
+   "poem": "teental",
+   "poemWhy": "the home, 24 Oct",
+   "poemSrc": "v2/days.json 2026-10-24"
+  },
+  {
+   "src": "/photos/restaurant-night.jpg",
+   "place": "Kerala",
+   "taken": "2021-01-25",
+   "y": 2021,
+   "row": "2021",
+   "poem": "anuraag-oh-anuraag",
+   "poemWhy": "the home, 27 Sep",
+   "poemSrc": "v2/days.json 2026-09-27"
+  },
+  {
+   "src": "/photos/yosemite-trail.jpg",
+   "place": "Yosemite",
+   "taken": "2021-12-08",
+   "y": 2021,
+   "row": "2021"
+  },
+  {
+   "src": "/photos/scooter-beach.jpg",
+   "place": "Goa",
+   "taken": "2021-09-04",
+   "y": 2021,
+   "row": "2021",
+   "poem": "have-you-watched-creepers-creep",
+   "poemWhy": "the home, 27 Oct",
+   "poemSrc": "v2/days.json 2026-10-27"
+  },
+  {
+   "src": "/photos/yosemite-valley.jpg",
+   "place": "Yosemite",
+   "taken": "2021-12-08",
+   "y": 2021,
+   "row": "2021"
+  },
+  {
+   "src": "/photos/beach-boardwalk.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "i-watched-a-butterfly-today",
+   "poemWhy": "the home, 26 Oct",
+   "poemSrc": "v2/days.json 2026-10-26"
+  },
+  {
+   "src": "/photos/berlin-street.jpg",
+   "place": "Berlin",
+   "taken": "2023-10-01",
+   "y": 2023,
+   "row": "2023",
+   "poem": "sometimes-quaver",
+   "poemWhy": "the home, 18 Oct",
+   "poemSrc": "v2/days.json 2026-10-18"
+  },
+  {
+   "src": "/photos/singapore-225bdfc9.jpg",
+   "place": "Singapore",
+   "taken": "2019-04-12",
+   "y": 2019,
+   "row": "2019"
+  },
+  {
+   "src": "/photos/sagrada-familia-barcelona-e210fc03.jpg",
+   "place": "Sagrada Família, Barcelona",
+   "taken": "2019-04-21",
+   "y": 2019,
+   "row": "2019"
+  },
+  {
+   "src": "/photos/kodagu-india-346cc700.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-24",
+   "y": 2021,
+   "row": "2021"
+  },
+  {
+   "src": "/photos/kodagu-india-033e7e3b.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-24",
+   "y": 2021,
+   "row": "2021"
+  },
+  {
+   "src": "/photos/kodagu-india-124b384b.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-26",
+   "y": 2021,
+   "row": "2021"
+  },
+  {
+   "src": "/photos/kodagu-india-68c68cb1.jpg",
+   "place": "Kodagu, India",
+   "taken": "2021-01-26",
+   "y": 2021,
+   "row": "2021"
+  },
+  {
+   "src": "/photos/crested-butte-colorado-8ada8f57.jpg",
+   "place": "Crested Butte, Colorado",
+   "taken": "2022-02-11",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/crested-butte-colorado-e25ede7f.jpg",
+   "place": "Crested Butte, Colorado",
+   "taken": "2022-02-11",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/puako-hawaii-98409f6b.jpg",
+   "place": "Puako, Hawaiʻi",
+   "taken": "2022-04-05",
+   "y": 2022,
+   "row": "2022",
+   "poem": "i-will-always-be-a-poet",
+   "poemWhy": "the home, 12 Oct",
+   "poemSrc": "v2/days.json 2026-10-12"
+  },
+  {
+   "src": "/photos/laupahoehoe-hawaii-96a28c20.jpg",
+   "place": "Laupahoehoe, Hawaiʻi",
+   "taken": "2022-04-09",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/hilo-hawaii-3cb5d78d.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/hilo-hawaii-a09cc2ce.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/hilo-hawaii-fa94384a.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/hilo-hawaii-ea929e41.jpg",
+   "place": "Hilo, Hawaiʻi",
+   "taken": "2022-04-10",
+   "y": 2022,
+   "row": "2022",
+   "poem": "today-if-there-is-tomorrow",
+   "poemWhy": "the home, 28 Sep",
+   "poemSrc": "v2/days.json 2026-09-28"
+  },
+  {
+   "src": "/photos/hawaii-volcanoes-national-park-8e2b64e2.jpg",
+   "place": "Hawaiʻi Volcanoes National Park",
+   "taken": "2022-04-11",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/kaanapali-maui-2be2cfcb.jpg",
+   "place": "Kāʻanapali, Maui",
+   "taken": "2022-04-14",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-ddab98b6.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022",
+   "poem": "when-you-were-young",
+   "poemWhy": "the home, 13 Oct",
+   "poemSrc": "v2/days.json 2026-10-13"
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-d72b8203.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-5c7590f5.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-9ca71603.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-17",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-3d887df3.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-18",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/mount-rainier-national-park-washington-bbda096c.jpg",
+   "place": "Mount Rainier National Park, Washington",
+   "taken": "2022-08-18",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/san-juan-islands-washington-657f1936.jpg",
+   "place": "San Juan Islands, Washington",
+   "taken": "2022-08-31",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/fire-island-new-york-72585dde.jpg",
+   "place": "Fire Island, New York",
+   "taken": "2022-09-19",
+   "y": 2022,
+   "row": "2022",
+   "poem": "let-tomorrow-come",
+   "poemWhy": "the home, 4 Nov",
+   "poemSrc": "v2/days.json 2026-11-04"
+  },
+  {
+   "src": "/photos/washington-dc-c631b9f2.jpg",
+   "place": "Washington, DC",
+   "taken": "2022-09-28",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/washington-dc-afd19b1c.jpg",
+   "place": "Washington, DC",
+   "taken": "2022-09-28",
+   "y": 2022,
+   "row": "2022",
+   "poem": "out-of-many-one",
+   "poemWhy": "the home, 23 Oct",
+   "poemSrc": "v2/days.json 2026-10-23"
+  },
+  {
+   "src": "/photos/acadia-national-park-maine-9678573e.jpg",
+   "place": "Acadia National Park, Maine",
+   "taken": "2022-09-30",
+   "y": 2022,
+   "row": "2022"
+  },
+  {
+   "src": "/photos/bar-harbor-maine-bb0a8fe5.jpg",
+   "place": "Bar Harbor, Maine",
+   "taken": "2022-10-02",
+   "y": 2022,
+   "row": "2022",
+   "poem": "sometimes-curious-feel",
+   "poemWhy": "the home, 8 Oct",
+   "poemSrc": "v2/days.json 2026-10-08"
+  },
+  {
+   "src": "/photos/casper-wyoming-02035a8d.jpg",
+   "place": "Casper, Wyoming",
+   "taken": "2023-05-27",
+   "y": 2023,
+   "row": "2023"
+  },
+  {
+   "src": "/photos/casper-wyoming-cce8cbde.jpg",
+   "place": "Casper, Wyoming",
+   "taken": "2023-05-27",
+   "y": 2023,
+   "row": "2023",
+   "poem": "dear-bottle",
+   "poemWhy": "the home, 28 Oct",
+   "poemSrc": "v2/days.json 2026-10-28"
+  },
+  {
+   "src": "/photos/mexico-city-mexico-6eb743ec.jpg",
+   "place": "Mexico City, Mexico",
+   "taken": "2024-01-01",
+   "y": 2024,
+   "row": "2024",
+   "poem": "did-you-know",
+   "poemWhy": "the home, 31 Oct",
+   "poemSrc": "v2/days.json 2026-10-31"
+  },
+  {
+   "src": "/photos/diamante-valley-costa-rica-3092189d.jpg",
+   "place": "Diamante Valley, Costa Rica",
+   "taken": "2024-03-14",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/diamante-valley-costa-rica-cbb914b4.jpg",
+   "place": "Diamante Valley, Costa Rica",
+   "taken": "2024-03-19",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/paro-bhutan-08988839.jpg",
+   "place": "Paro, Bhutan",
+   "taken": "2024-04-06",
+   "y": 2024,
+   "row": "2024",
+   "poem": "hark-my-love",
+   "poemWhy": "the home, 7 Oct",
+   "poemSrc": "v2/days.json 2026-10-07"
+  },
+  {
+   "src": "/photos/paro-bhutan-6f8bbbbf.jpg",
+   "place": "Paro, Bhutan",
+   "taken": "2024-04-06",
+   "y": 2024,
+   "row": "2024",
+   "poem": "everyday-i-can-spend",
+   "poemWhy": "the home, 3 Nov",
+   "poemSrc": "v2/days.json 2026-11-03"
+  },
+  {
+   "src": "/photos/wangdue-phodrang-bhutan-d0e1e540.jpg",
+   "place": "Wangdue Phodrang, Bhutan",
+   "taken": "2024-04-11",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-f214fa8d.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-06",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-a90962e6.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-ee073946.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-4c281798.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "i-saw-something-beautiful-today",
+   "poemWhy": "the home, 20 Oct",
+   "poemSrc": "v2/days.json 2026-10-20"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-eee28b60.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "park",
+   "poemWhy": "the home, 19 Oct",
+   "poemSrc": "v2/days.json 2026-10-19"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-08da554d.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "everytime-you-wink-at-me",
+   "poemWhy": "the home, 29 Oct",
+   "poemSrc": "v2/days.json 2026-10-29"
+  },
+  {
+   "src": "/photos/provincetown-massachusetts-09009fdd.jpg",
+   "place": "Provincetown, Massachusetts",
+   "taken": "2024-07-08",
+   "y": 2024,
+   "row": "2024",
+   "poem": "delicate-pieces-before-the-end",
+   "poemWhy": "the home, 10 Oct",
+   "poemSrc": "v2/days.json 2026-10-10"
+  },
+  {
+   "src": "/photos/honshu-japan-0d03d128.jpg",
+   "place": "Honshu, Japan",
+   "taken": "2024-10-19",
+   "y": 2024,
+   "row": "2024",
+   "poem": "to-flutter",
+   "poemWhy": "the home, 7 Nov",
+   "poemSrc": "v2/days.json 2026-11-07"
+  },
+  {
+   "src": "/photos/setonaikai-national-park-japan-64937bce.jpg",
+   "place": "Setonaikai National Park, Japan",
+   "taken": "2024-10-28",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/setonaikai-national-park-japan-4d3f9e95.jpg",
+   "place": "Setonaikai National Park, Japan",
+   "taken": "2024-10-28",
+   "y": 2024,
+   "row": "2024"
+  },
+  {
+   "src": "/photos/roppongi-tokyo-a5f50e72.jpg",
+   "place": "Roppongi, Tokyo",
+   "taken": "2019-01-09",
+   "y": 2019,
+   "row": "2019",
+   "poem": "sit-let-us-listen",
+   "poemWhy": "the home, 5 Oct",
+   "poemSrc": "v2/days.json 2026-10-05"
+  },
+  {
+   "src": "/photos/sayulita-mexico-25fbaafd.jpg",
+   "place": "Sayulita, Mexico",
+   "taken": "2019-01-04",
+   "y": 2019,
+   "row": "2019",
+   "poem": "oh-that-again",
+   "poemWhy": "the home, 1 Nov",
+   "poemSrc": "v2/days.json 2026-11-01"
+  },
+  {
+   "src": "/photos/sayulita-mexico-9d65e1b6.jpg",
+   "place": "Sayulita, Mexico",
+   "taken": "2019-01-04",
+   "y": 2019,
+   "row": "2019",
+   "poem": "out-to-play-he-calls-them",
+   "poemWhy": "the home, 2 Nov",
+   "poemSrc": "v2/days.json 2026-11-02"
+  },
+  {
+   "src": "/photos/mariposa-grove-yosemite-e6c620bb.jpg",
+   "place": "Mariposa Grove, Yosemite",
+   "taken": "2021-12-09",
+   "y": 2021,
+   "row": "2021",
+   "poem": "one-in-community",
+   "poemWhy": "the home, 15 Oct",
+   "poemSrc": "v2/days.json 2026-10-15"
+  },
+  {
+   "src": "/photos/mariposa-grove-yosemite-7455e25e.jpg",
+   "place": "Mariposa Grove, Yosemite",
+   "taken": "2021-12-09",
+   "y": 2021,
+   "row": "2021",
+   "poem": "freedom-yet-unabridged",
+   "poemWhy": "the home, 21 Oct",
+   "poemSrc": "v2/days.json 2026-10-21"
+  }
+ ]
+}

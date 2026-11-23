@@ -1,0 +1,11 @@
+{
+  "paper": "#fafaf8",
+  "ink": "#1a1a1a",
+  "quiet": "#6e6e6e",
+  "rule": "#e0ddd8",
+  "read-rem": "1.25",
+  "poem-rem": "1.375",
+  "lead": "1.6",
+  "stone-vh": "86",
+  "foot-rem": "4.4"
+}

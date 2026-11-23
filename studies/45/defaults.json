@@ -1,0 +1,11 @@
+{
+  "poem-max-px": "21",
+  "poem-min-px": "15",
+  "word-shift": "0",
+  "ground-aa": "6",
+  "way-hold-ms": "2600",
+  "way-cut-ms": "1500",
+  "way-key-ms": "7000",
+  "way-show-ms": "4200",
+  "way-rest-ms": "6500"
+}

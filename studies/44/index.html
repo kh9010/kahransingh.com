@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Study 44 · A home that says what it is</title>
+<meta name="theme-color" content="#fafaf8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<script>(() => { const v = new URLSearchParams(location.search).get('v'); if (/^[abcd]$/.test(v || '')) document.documentElement.dataset.v = v })()</script>
+<style>
+/* Study 44: four homes for the same day. Each says who this is and what the page does on the first
+   screen, in words; the photograph is whole and the poem stands on a plain ground. The dials below
+   are defaults.json's (tune.js writes them onto :root). */
+:root { --paper: #fafaf8; --ink: #1a1a1a; --quiet: #6e6e6e; --rule: #e0ddd8; --mat: #141210; --on-mat: #ede7d9; --read-rem: 1.25; --poem-rem: 1.375; --measure-rem: 36; --lead: 1.6; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--paper); color: var(--ink); font: 400 1rem/1.5 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+ul, ol { list-style: none; }
+summary { cursor: pointer; list-style: none; } summary::-webkit-details-marker { display: none; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.lab { font: 500 .8125rem/1.35 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); }
+.fr { font-family: 'Fraunces', Georgia, serif; }
+.u, .letter a, .foot a, .why a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+.u:hover, .letter a:hover, .foot a:hover, .why a:hover { text-decoration-color: currentColor; }
+
+/* the ask (the rail's first view) */
+.ask { display: none; padding: 15vh 16px 4rem; margin: 0 auto; max-width: 560px; font: 400 .8125rem/1.5 'Space Grotesk', sans-serif; }
+.ask h1 { font: 500 .8125rem 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); margin-bottom: 1rem; }
+.ask p { font: 400 1.0625rem/1.55 'Fraunces', Georgia, serif; margin-bottom: 1.25rem; }
+.ask ol { display: grid; gap: 8px; }
+.ask a { display: grid; grid-template-columns: 1.5rem 1fr; text-decoration: none; background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 12px; }
+.ask a b { font-weight: 500; }
+.ask a span { color: var(--quiet); }
+html:not([data-v]) .ask { display: block; }
+html:not([data-v]) main, html:not([data-v]) .ways, html:not([data-v]) .vs { display: none; }
+
+/* the site's version tab, and the study's own four ways */
+.vs, .ways { position: fixed; right: 10px; z-index: 20; display: flex; gap: .5rem; font: 400 .8125rem/1 'Space Grotesk', sans-serif; color: var(--quiet); background: color-mix(in srgb, var(--paper) 92%, transparent); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 11px; }
+.vs { top: 10px; } .ways { bottom: 10px; }
+.vs a, .ways a { text-decoration: none; }
+.vs [aria-current], .ways [aria-current] { color: var(--ink); font-weight: 500; }
+.vs > * + *::before, .ways > * + *::before { content: '\00b7'; margin-right: .5rem; color: #b9b4aa; }
+
+/* the poem, the same in all four */
+.poem h2 { font: italic 400 1.75rem/1.2 'Fraunces', Georgia, serif; margin-bottom: 1.1rem; }
+.poem h2 a { text-decoration: none; }
+.poem p { font: 400 calc(var(--poem-rem) * 1rem)/var(--lead) 'Fraunces', Georgia, serif; margin-bottom: 1.05em; }
+.poem .l { display: block; padding-left: 1.2em; text-indent: -1.2em; }
+.poem a.door { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; text-decoration-color: #a8a297; }
+.poem a.door:hover { text-decoration-color: currentColor; }
+figure figcaption { font: 400 .8125rem/1.4 'Space Grotesk', sans-serif; color: var(--quiet); margin-top: .6rem; }
+
+/* why these two: the short working, the same in a, b and c */
+.why { font: 400 .9375rem/1.55 'Space Grotesk', sans-serif; }
+.why > summary { display: inline-block; font: 400 1.0625rem/1.4 'Fraunces', Georgia, serif; }
+.why > summary span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+.why > summary::after { content: ' +'; color: var(--quiet); } .why[open] > summary::after { content: ' \2212'; }
+.why dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: .45rem 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.why dt { color: var(--quiet); } .why .more { grid-column: 1 / -1; margin-top: .4rem; }
+
+/* six ideas, the same list in a, b and d */
+.ideas { border-top: 1px solid var(--rule); }
+.ideas details { border-bottom: 1px solid var(--rule); }
+.ideas summary { display: grid; grid-template-columns: 11.5rem 1fr 1rem; gap: 1rem; align-items: baseline; padding: .7rem 0; }
+.ideas summary b { font: 500 1rem/1.3 'Space Grotesk', sans-serif; }
+.ideas summary span { font: 400 .875rem/1.4 'Space Grotesk', sans-serif; color: var(--quiet); }
+.ideas summary i { font-style: normal; color: var(--quiet); text-align: right; } .ideas summary i::before { content: '+'; } .ideas details[open] summary i::before { content: '\2212'; }
+.ideas details p { font: 400 1.0625rem/1.55 'Fraunces', Georgia, serif; padding: 0 0 1rem; max-width: 34rem; }
+.ideas details p a { font: 400 .875rem 'Space Grotesk', sans-serif; margin-left: .4rem; }
+
+/* ---------- a · the letter ---------- */
+.a { max-width: calc(var(--measure-rem) * 1rem + 48px); margin: 0 auto; padding: 4.5rem 24px 8rem; }
+.a .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 4.5rem; }
+.a .name { font: 500 1.0625rem 'Space Grotesk', sans-serif; letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+.a .top nav { display: flex; gap: 1.4rem; font-size: .9375rem; } .a .top nav a { text-decoration: none; color: var(--quiet); } .a .top nav a:hover { color: var(--ink); }
+.a .date { margin-bottom: 1.6rem; }
+.letter p { font: 400 calc(var(--read-rem) * 1rem)/var(--lead) 'Fraunces', Georgia, serif; margin-bottom: 1.15em; }
+.letter .hello { font-size: 2rem; line-height: 1.25; margin-bottom: .9em; }
+.letter .sign { font-style: italic; }
+.a .print { margin: 2.6rem -5rem 2.8rem; }
+.a .poem { margin-bottom: 1.6rem; }
+.a .why { margin-bottom: 3.2rem; }
+.a .ideas { margin: 0 0 2.2rem; }
+.a .foot { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .9375rem; color: var(--quiet); }
+
+/* ---------- b · the front page ---------- */
+.b { max-width: 78rem; margin: 0 auto; padding: 2.2rem 32px 7rem; }
+.b .mast { text-align: center; padding-bottom: 1.1rem; }
+.b .mast h1 { font: 400 clamp(2.6rem, 7.2vw, 5.6rem)/1 'Fraunces', Georgia, serif; letter-spacing: -.02em; }
+.b .mast p { font: italic 400 1.125rem/1.4 'Fraunces', Georgia, serif; color: #4a4a4a; margin-top: .7rem; }
+.b .dateline { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; padding: .6rem 0; border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink); }
+.b .dateline span:last-child { text-align: right; } .b .dateline .lab { color: var(--ink); }
+.b .sections { display: flex; justify-content: center; flex-wrap: wrap; gap: .3rem 2rem; padding: .7rem 0 0; font-size: .9375rem; } .b .sections a { text-decoration: none; } .b .sections a:hover { text-decoration: underline; }
+.b .lead { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 2.6rem; margin-top: 2rem; align-items: start; }
+.b .lead .lab { margin-bottom: .7rem; }
+.b .lead .said { font: 400 1.25rem/1.45 'Fraunces', Georgia, serif; margin: 1.4rem 0 1rem; }
+.b .lead .col { border-left: 1px solid var(--rule); padding-left: 2.6rem; }
+.b .lead .poem h2 { font-size: 2.1rem; }
+.b .bands { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 0 2.6rem; margin-top: 2.6rem; padding-top: 1.4rem; border-top: 1px solid var(--ink); }
+.b .bands > section { grid-column: span 4; } .b .bands > section.wide { grid-column: span 5; } .b .bands > section.slim { grid-column: span 3; }
+.b .bands h3 { margin-bottom: .9rem; }
+.b .now li { font: 400 1.1875rem/1.35 'Fraunces', Georgia, serif; padding: .55rem 0; border-top: 1px solid var(--rule); } .b .now li:first-child { border-top: 0; padding-top: 0; }
+.b .now li small { display: block; font: 400 .875rem/1.45 'Space Grotesk', sans-serif; color: var(--quiet); margin-top: .25rem; }
+.b .ideas summary { grid-template-columns: 1fr 1rem; } .b .ideas summary span { grid-column: 1; grid-row: 2; margin-top: -.75rem; }
+.b .before li { display: grid; grid-template-columns: 3.4rem 1fr; gap: .8rem; padding: .5rem 0; border-top: 1px solid var(--rule); font-size: .9375rem; } .b .before li:first-child { border-top: 0; padding-top: 0; }
+.b .before time { color: var(--quiet); } .b .before a { font: 400 1.0625rem/1.3 'Fraunces', Georgia, serif; text-decoration: none; } .b .before a:hover { text-decoration: underline; } .b .before small { display: block; color: var(--quiet); font-size: .8125rem; }
+.b .who { margin-top: 2.6rem; padding-top: 1.4rem; border-top: 1px solid var(--ink); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 2.6rem; }
+.b .who .letter p { font-size: 1.125rem; }
+.b .who .foot { display: grid; gap: .5rem; align-content: start; justify-items: start; font-size: .9375rem; }
+
+/* ---------- c · the spread ---------- */
+html[data-v="c"] body { background: var(--mat); }
+.c { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 100vh; min-height: 100svh; }
+.c .plate { background: var(--mat); color: var(--on-mat); display: grid; grid-template-rows: auto 1fr auto; padding: 2rem 3.2vw 1.6rem; position: sticky; top: 0; height: 100vh; height: 100svh; }
+.c .plate .name { font: 500 1.0625rem 'Space Grotesk', sans-serif; letter-spacing: .04em; text-decoration: none; }
+.c .plate .hold { display: grid; place-items: center; min-height: 0; padding: 1.6rem 0; }
+.c .plate img { max-height: 100%; max-width: 100%; width: auto; object-fit: contain; }
+.c .plate figcaption { color: #b3ac9e; margin: 0; }
+.c .page { background: var(--paper); padding: 2rem 4.5vw 1.6rem; display: grid; grid-template-rows: auto 1fr auto; gap: 2.4rem; min-height: 100vh; min-height: 100svh; }
+.c .page .said { font: 400 1.25rem/1.45 'Fraunces', Georgia, serif; max-width: 30rem; } .c .page .said em { display: block; font-style: normal; color: var(--quiet); font-size: 1.0625rem; margin-top: .35rem; }
+.c .page .poem { align-self: center; max-width: 34rem; } .c .page .poem h2 { font-size: 2.1rem; margin-bottom: 1.5rem; }
+.c .page .end { display: grid; gap: 1.1rem; }
+.c .page .foot { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; font-size: .9375rem; padding-top: 1rem; border-top: 1px solid var(--rule); } .c .page .foot a { text-decoration: none; } .c .page .foot a:hover { text-decoration: underline; } .c .page .foot b { font-weight: 400; color: var(--quiet); }
+
+/* ---------- d · the working, shown ---------- */
+.d { max-width: 62rem; margin: 0 auto; padding: 2.6rem 32px 8rem; }
+.d .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 4rem; }
+.d .name { font: 500 1.0625rem 'Space Grotesk', sans-serif; letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+.d .top nav { display: flex; gap: 1.4rem; font-size: .9375rem; } .d .top nav a { text-decoration: none; color: var(--quiet); } .d .top nav a:hover { color: var(--ink); }
+.d .said { font: 400 clamp(1.6rem, 3.1vw, 2.35rem)/1.25 'Fraunces', Georgia, serif; max-width: 46rem; margin-bottom: .8rem; letter-spacing: -.005em; }
+.d .said + p { font: 400 1.1875rem/1.5 'Fraunces', Georgia, serif; color: #4a4a4a; max-width: 40rem; margin-bottom: 3.4rem; }
+.d .step { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 2rem; padding: 1.8rem 0 2.2rem; border-top: 1px solid var(--ink); }
+.d .step > header b { display: block; font: 300 2.4rem/1 'Fraunces', Georgia, serif; margin-bottom: .5rem; }
+.d .step .big { font: 400 2.1rem/1.15 'Fraunces', Georgia, serif; margin-bottom: .6rem; }
+.d .step .note { font: 400 .9375rem/1.55 'Space Grotesk', sans-serif; color: var(--quiet); max-width: 36rem; }
+.d .step .note + .note { margin-top: .5rem; } .d .step .note b { display: block; font-weight: 500; color: var(--ink); } .d .step .letter p { font-size: 1.125rem; max-width: 38rem; }
+.d .sky { display: flex; flex-wrap: wrap; gap: .4rem 2.2rem; margin-bottom: .7rem; } .d .sky div { font: 400 1.75rem/1.2 'Fraunces', Georgia, serif; } .d .sky small { display: block; font: 400 .8125rem 'Space Grotesk', sans-serif; color: var(--quiet); letter-spacing: .04em; }
+.d .axes { display: grid; gap: .55rem; max-width: 40rem; margin-bottom: 1rem; }
+.d .axis { display: grid; grid-template-columns: 6.6rem 5.4rem minmax(0, 1fr) 6rem; gap: .8rem; align-items: center; font-size: .875rem; }
+.d .axis b { font-weight: 500; } .d .axis span { color: var(--quiet); } .d .axis span:nth-child(2) { text-align: right; }
+.d .track { position: relative; height: 18px; } .d .track::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid #b9b4aa; }
+.d .track i { position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; }
+.d .track .day { background: var(--ink); border-radius: 50%; z-index: 2; }
+.d .track .ph { border: 1.5px solid var(--ink); background: var(--paper); }
+.d .track .po { border: 1.5px solid var(--ink); background: var(--paper); transform: rotate(45deg); }
+.d .key { display: flex; flex-wrap: wrap; gap: .3rem 1.6rem; font-size: .875rem; color: var(--quiet); } .d .key i { display: inline-block; width: 10px; height: 10px; margin-right: .45rem; vertical-align: -1px; } .d .key .day { background: var(--ink); border-radius: 50%; } .d .key .ph, .d .key .po { border: 1.5px solid var(--ink); } .d .key .po { transform: rotate(45deg); }
+.d .near { max-width: 40rem; margin: 1rem 0 2rem; }
+.d .near li { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) 8rem 3.2rem; gap: .8rem; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--rule); font-size: .9375rem; }
+.d .near li span:first-child { color: var(--quiet); } .d .near li small { display: block; font-weight: 400; font-size: .8125rem; color: var(--quiet); } .d .near li em { font-style: normal; text-align: right; font-variant-numeric: tabular-nums; }
+.d .near .bar { height: 5px; background: var(--rule); } .d .near .bar i { display: block; height: 100%; background: #8f897d; }
+.d .near li.is { font-weight: 500; } .d .near li.is .bar i { background: var(--ink); }
+.d .step figure { max-width: 46rem; }
+.d .foot { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--ink); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .9375rem; color: var(--quiet); }
+
+/* ---------- small screens ---------- */
+@media (max-width: 900px) {
+  .a .print { margin-left: 0; margin-right: 0; }
+  .b { padding: 1.6rem 20px 6rem; }
+  .b .lead, .b .who { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .b .lead .col { border-left: 0; padding-left: 0; }
+  .b .bands { gap: 2.2rem 0; } .b .bands > section, .b .bands > section.wide, .b .bands > section.slim { grid-column: 1 / -1; }
+  .c { grid-template-columns: minmax(0, 1fr); }
+  .c .plate { position: static; height: auto; padding: 1.4rem 20px 1.2rem; } .c .plate .hold { padding: 1.2rem 0 .9rem; } .c .plate img { max-height: 62svh; }
+  .c .page { min-height: 0; padding: 2rem 20px 5rem; gap: 2rem; }
+  .d { padding: 1.6rem 20px 7rem; } .d .top { margin-bottom: 2.6rem; }
+  .d .step { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.4rem 0 1.8rem; } .d .step > header { display: flex; align-items: baseline; gap: .8rem; } .d .step > header b { font-size: 1.6rem; margin: 0; }
+}
+@media (max-width: 600px) {
+  .poem p { font-size: calc(var(--poem-rem) * .875rem); }
+  .letter p { font-size: calc(var(--read-rem) * .925rem); } .letter .hello { font-size: 1.7rem; }
+  .a { padding: 3.6rem 20px 7rem; } .a .top { margin-bottom: 3rem; } .a .top nav { gap: 1rem; }
+  .b .dateline { grid-template-columns: 1fr; gap: .15rem; text-align: center; } .b .dateline span:last-child { text-align: center; }
+  .b { padding-top: 3.2rem; } .b .sections { gap: .3rem 1.2rem; }
+  .d { padding-top: 3.4rem; } .d .top nav { gap: 1rem; }
+  .ideas summary { grid-template-columns: 1fr 1rem; } .ideas summary span { grid-column: 1; grid-row: 2; margin-top: -.75rem; }
+  .why dl { grid-template-columns: 1fr; gap: .1rem; } .why dd { margin-bottom: .5rem; }
+  .d .axis { grid-template-columns: 4.6rem minmax(0, 1fr); gap: .2rem .8rem; } .d .axis span { display: none; } .d .axis b { font-size: .8125rem; }
+  .d .near li { grid-template-columns: 1.2rem minmax(0, 1fr) 3.2rem; } .d .near .bar { display: none; }
+  .d .sky div { font-size: 1.4rem; } .d .step .big { font-size: 1.8rem; }
+  .vs { top: 6px; right: 6px; } .ways { bottom: 8px; right: 8px; }
+}
+@media (prefers-reduced-motion: no-preference) { main { animation: in .5s ease both; } @keyframes in { from { opacity: 0; } } }
+</style>
+</head>
+<body>
+<header class="ask">
+<h1>44 · A home that says what it is</h1>
+<p>The same day, four ways. Each says who this is and what the page does in plain words on the first screen, keeps the photograph whole, and sets the poem on a plain ground. The pair, the sky and every number are the day's own, from the files the home reads.</p>
+<ol>
+<li><a href="?v=a"><b>a</b><span>the letter: first person, one column; the day's pair arrives inside the sentences</span></a></li>
+<li><a href="?v=b"><b>b</b><span>the front page: a dated edition; the photograph and the poem lead, the rest of the work in columns beneath</span></a></li>
+<li><a href="?v=c"><b>c</b><span>the spread: the photograph on one page, the poem on the other, one sentence above</span></a></li>
+<li><a href="?v=d"><b>d</b><span>the working, shown: where, the sky, the seven measures, the nearest five, then the pair</span></a></li>
+</ol>
+</header>
+<main id="page"></main>
+<nav class="vs" aria-label="Site version"><span aria-current="page">v4</span><a href="/">v3</a><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<nav class="ways" aria-label="The four ways"><a href="?v=a" data-w="a">a</a><a href="?v=b" data-w="b">b</a><a href="?v=c" data-w="c">c</a><a href="?v=d" data-w="d">d</a></nav>
+<script src="tune.js"></script>
+<script src="today.js"></script>
+<script src="v4.js"></script>
+</body>
+</html>

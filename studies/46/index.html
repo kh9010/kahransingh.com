@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Study 46 · The working and the stone</title>
+<meta name="theme-color" content="#fafaf8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<script>(() => { const v = new URLSearchParams(location.search).get('v'); if (/^[abc]$/.test(v || '')) document.documentElement.dataset.v = v })()</script>
+<style>
+/* Study 46: the working (44 d) and the stone, as one page. The working's styles are 44 d's, carried over; the stone is the live
+   one, held in a frame (studies/45 with only its reading dials). The dials below
+   are defaults.json's (tune.js writes them onto :root). */
+:root { --paper: #fafaf8; --ink: #1a1a1a; --quiet: #6e6e6e; --rule: #e0ddd8; --read-rem: 1.25; --poem-rem: 1.375; --lead: 1.6; --stone-vh: 86; --foot-rem: 4.4; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--paper); color: var(--ink); font: 400 1rem/1.5 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; }
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+ul, ol { list-style: none; }
+summary { cursor: pointer; list-style: none; } summary::-webkit-details-marker { display: none; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.lab { font: 500 .8125rem/1.35 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); }
+.fr { font-family: 'Fraunces', Georgia, serif; }
+.u, .letter a, .foot a, .why a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+.u:hover, .letter a:hover, .foot a:hover, .why a:hover { text-decoration-color: currentColor; }
+
+/* the ask (the rail's first view) */
+.ask { display: none; padding: 15vh 16px 4rem; margin: 0 auto; max-width: 560px; font: 400 .8125rem/1.5 'Space Grotesk', sans-serif; }
+.ask h1 { font: 500 .8125rem 'Space Grotesk', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); margin-bottom: 1rem; }
+.ask p { font: 400 1.0625rem/1.55 'Fraunces', Georgia, serif; margin-bottom: 1.25rem; }
+.ask ol { display: grid; gap: 8px; }
+.ask a { display: grid; grid-template-columns: 1.5rem 1fr; text-decoration: none; background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 12px; }
+.ask a b { font-weight: 500; }
+.ask a span { color: var(--quiet); }
+html:not([data-v]) .ask { display: block; }
+html:not([data-v]) main, html:not([data-v]) .ways, html:not([data-v]) .vs { display: none; }
+
+/* the site's version tab, and the study's own four ways */
+.vs, .ways { position: fixed; right: 10px; z-index: 20; display: flex; gap: .5rem; font: 400 .8125rem/1 'Space Grotesk', sans-serif; color: var(--quiet); background: color-mix(in srgb, var(--paper) 92%, transparent); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 11px; }
+.vs { top: 10px; } .ways { top: 10px; left: 10px; right: auto; }
+html[data-v="a"], html[data-v="a"] body { overflow-x: clip; }
+.vs a, .ways a { text-decoration: none; }
+.vs [aria-current], .ways [aria-current] { color: var(--ink); font-weight: 500; }
+.vs > * + *::before, .ways > * + *::before { content: '\00b7'; margin-right: .5rem; color: #b9b4aa; }
+
+/* the poem, the same in all four */
+.poem h2 { font: italic 400 1.75rem/1.2 'Fraunces', Georgia, serif; margin-bottom: 1.1rem; }
+.poem h2 a { text-decoration: none; }
+.poem p { font: 400 calc(var(--poem-rem) * 1rem)/var(--lead) 'Fraunces', Georgia, serif; margin-bottom: 1.05em; }
+.poem .l { display: block; padding-left: 1.2em; text-indent: -1.2em; }
+.poem a.door { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; text-decoration-color: #a8a297; }
+.poem a.door:hover { text-decoration-color: currentColor; }
+figure figcaption { font: 400 .8125rem/1.4 'Space Grotesk', sans-serif; color: var(--quiet); margin-top: .6rem; }
+
+/* why these two: the short working, the same in a, b and c */
+.why { font: 400 .9375rem/1.55 'Space Grotesk', sans-serif; }
+.why > summary { display: inline-block; font: 400 1.0625rem/1.4 'Fraunces', Georgia, serif; }
+.why > summary span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+.why > summary::after { content: ' +'; color: var(--quiet); } .why[open] > summary::after { content: ' \2212'; }
+.why dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: .45rem 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.why dt { color: var(--quiet); } .why .more { grid-column: 1 / -1; margin-top: .4rem; }
+
+/* six ideas, the same list in a, b and d */
+.ideas { border-top: 1px solid var(--rule); }
+.ideas details { border-bottom: 1px solid var(--rule); }
+.ideas summary { display: grid; grid-template-columns: 11.5rem 1fr 1rem; gap: 1rem; align-items: baseline; padding: .7rem 0; }
+.ideas summary b { font: 500 1rem/1.3 'Space Grotesk', sans-serif; }
+.ideas summary span { font: 400 .875rem/1.4 'Space Grotesk', sans-serif; color: var(--quiet); }
+.ideas summary i { font-style: normal; color: var(--quiet); text-align: right; } .ideas summary i::before { content: '+'; } .ideas details[open] summary i::before { content: '\2212'; }
+.ideas details p { font: 400 1.0625rem/1.55 'Fraunces', Georgia, serif; padding: 0 0 1rem; max-width: 34rem; }
+.ideas details p a { font: 400 .875rem 'Space Grotesk', sans-serif; margin-left: .4rem; }
+
+/* ---------- d · the working, shown ---------- */
+.d { max-width: 62rem; margin: 0 auto; padding: 2.6rem 32px 8rem; }
+.d .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 4rem; }
+.d .name { font: 500 1.0625rem 'Space Grotesk', sans-serif; letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+.d .top nav { display: flex; gap: 1.4rem; font-size: .9375rem; } .d .top nav a { text-decoration: none; color: var(--quiet); } .d .top nav a:hover { color: var(--ink); }
+.d .said { font: 400 clamp(1.6rem, 3.1vw, 2.35rem)/1.25 'Fraunces', Georgia, serif; max-width: 46rem; margin-bottom: .8rem; letter-spacing: -.005em; }
+.d .said + p { font: 400 1.1875rem/1.5 'Fraunces', Georgia, serif; color: #4a4a4a; max-width: 40rem; margin-bottom: 3.4rem; }
+.d .step { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 2rem; padding: 1.8rem 0 2.2rem; border-top: 1px solid var(--ink); }
+.d .step > header b { display: block; font: 300 2.4rem/1 'Fraunces', Georgia, serif; margin-bottom: .5rem; }
+.d .step .big { font: 400 2.1rem/1.15 'Fraunces', Georgia, serif; margin-bottom: .6rem; }
+.d .step .note { font: 400 .9375rem/1.55 'Space Grotesk', sans-serif; color: var(--quiet); max-width: 36rem; }
+.d .step .note + .note { margin-top: .5rem; } .d .step .note b { display: block; font-weight: 500; color: var(--ink); } .d .step .letter p { font-size: 1.125rem; max-width: 38rem; }
+.d .sky { display: flex; flex-wrap: wrap; gap: .4rem 2.2rem; margin-bottom: .7rem; } .d .sky div { font: 400 1.75rem/1.2 'Fraunces', Georgia, serif; } .d .sky small { display: block; font: 400 .8125rem 'Space Grotesk', sans-serif; color: var(--quiet); letter-spacing: .04em; }
+.d .axes { display: grid; gap: .55rem; max-width: 40rem; margin-bottom: 1rem; }
+.d .axis { display: grid; grid-template-columns: 6.6rem 5.4rem minmax(0, 1fr) 6rem; gap: .8rem; align-items: center; font-size: .875rem; }
+.d .axis b { font-weight: 500; } .d .axis span { color: var(--quiet); } .d .axis span:nth-child(2) { text-align: right; }
+.d .track { position: relative; height: 18px; } .d .track::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid #b9b4aa; }
+.d .track i { position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; }
+.d .track .day { background: var(--ink); border-radius: 50%; z-index: 2; }
+.d .track .ph { border: 1.5px solid var(--ink); background: var(--paper); }
+.d .track .po { border: 1.5px solid var(--ink); background: var(--paper); transform: rotate(45deg); }
+.d .key { display: flex; flex-wrap: wrap; gap: .3rem 1.6rem; font-size: .875rem; color: var(--quiet); } .d .key i { display: inline-block; width: 10px; height: 10px; margin-right: .45rem; vertical-align: -1px; } .d .key .day { background: var(--ink); border-radius: 50%; } .d .key .ph, .d .key .po { border: 1.5px solid var(--ink); } .d .key .po { transform: rotate(45deg); }
+.d .near { max-width: 40rem; margin: 1rem 0 2rem; }
+.d .near li { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) 8rem 3.2rem; gap: .8rem; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--rule); font-size: .9375rem; }
+.d .near li span:first-child { color: var(--quiet); } .d .near li small { display: block; font-weight: 400; font-size: .8125rem; color: var(--quiet); } .d .near li em { font-style: normal; text-align: right; font-variant-numeric: tabular-nums; }
+.d .near .bar { height: 5px; background: var(--rule); } .d .near .bar i { display: block; height: 100%; background: #8f897d; }
+.d .near li.is { font-weight: 500; } .d .near li.is .bar i { background: var(--ink); }
+.d .step figure { max-width: 46rem; }
+.d .foot { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--ink); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .9375rem; color: var(--quiet); }
+
+
+/* ---------- the stone, held ---------- */
+.stone { display: block; width: 100%; border: 0; background: #0d0c0b; }
+.wide { margin-left: calc(50% - 50vw); width: 100vw; }                 /* out of the column, edge to edge */
+/* a · the working ends in the stone */
+.d .step.cut > div > .note { margin-bottom: 1.2rem; }
+.d .held { margin-top: 1.4rem; } .d .held .stone { height: calc(var(--stone-vh) * 1svh); max-height: 60rem; }
+.d .held + .note { margin-top: .9rem; }
+/* b · the stone first, the working beneath */
+.first .stone { height: calc(100svh - var(--foot-rem) * 1rem); }
+.first .under { height: calc(var(--foot-rem) * 1rem); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 clamp(20px, 3.4vw, 48px); background: var(--paper); border-bottom: 1px solid var(--ink); text-decoration: none; }
+.first .under b { font: 400 1.25rem/1.2 'Fraunces', Georgia, serif; } .first .under span { font: 400 .875rem/1.3 'Space Grotesk', sans-serif; color: var(--quiet); white-space: nowrap; }
+.first .d { padding-top: 3.4rem; } .first .d .top { display: none; }
+/* c · the working behind the where line */
+html[data-v="c"], html[data-v="c"] body { height: 100%; overflow: hidden; background: #0d0c0b; }
+.behind .stone { position: fixed; inset: 0; height: 100%; }
+.sheet { position: fixed; inset: 0; z-index: 30; overflow: auto; background: var(--paper); transform: translateY(100%); visibility: hidden; transition: transform .5s cubic-bezier(.4,0,.2,1), visibility 0s .5s; }
+.sheet.on { transform: none; visibility: visible; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+.sheet .x { position: sticky; top: 56px; z-index: 2; float: right; margin: 56px 14px 0 0; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--rule); background: var(--paper); font: 400 1.25rem/1 'Space Grotesk', sans-serif; color: var(--ink); cursor: pointer; }
+.sheet .d .top { display: none; } .sheet .d { padding-top: 3.4rem; }
+@media (prefers-reduced-motion: reduce) { .sheet, .sheet.on { transition: none; } }
+
+/* ---------- small screens ---------- */
+@media (max-width: 900px) {
+  .d { padding: 1.6rem 20px 7rem; } .d .top { margin-bottom: 2.6rem; }
+  .d .step { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.4rem 0 1.8rem; } .d .step > header { display: flex; align-items: baseline; gap: .8rem; } .d .step > header b { font-size: 1.6rem; margin: 0; }
+}
+@media (max-width: 600px) {
+  .poem p { font-size: calc(var(--poem-rem) * .875rem); }
+  .letter p { font-size: calc(var(--read-rem) * .925rem); }
+  .ideas summary { grid-template-columns: 1fr 1rem; } .ideas summary span { grid-column: 1; grid-row: 2; margin-top: -.75rem; }
+  .d { padding-top: 3.4rem; } .d .top nav { gap: 1rem; }
+  .d .axis { grid-template-columns: 4.6rem minmax(0, 1fr); gap: .2rem .8rem; } .d .axis span { display: none; } .d .axis b { font-size: .8125rem; }
+  .d .near li { grid-template-columns: 1.2rem minmax(0, 1fr) 3.2rem; } .d .near .bar { display: none; }
+  .d .sky div { font-size: 1.4rem; } .d .step .big { font-size: 1.8rem; }
+  .d .held .stone { height: calc(var(--stone-vh) * .93svh); }
+  .first .under b { font-size: 1.0625rem; } .first .under span { display: none; }
+  .vs { top: 6px; right: 6px; } .ways { top: 6px; left: 6px; }
+}
+@media (prefers-reduced-motion: no-preference) { main { animation: in .5s ease both; } @keyframes in { from { opacity: 0; } } }
+</style>
+</head>
+<body>
+<header class="ask">
+<h1>46 · The working and the stone</h1>
+<p>44 d, the working shown, and the stone, as one page: the plain steps say how the day's photograph and poem were chosen, and the stone is where they end up. The stone is the live one, held whole, with 45's reading dials.</p>
+<ol>
+<li><a href="?v=a"><b>a</b><span>the working ends in the stone: where, the sky, the measures, the photograph, the poem, and then the two cut into the stone, live, as the sixth step</span></a></li>
+<li><a href="?v=b"><b>b</b><span>the stone first, the working beneath: the stone is the first screen, a line at its foot says the working is below</span></a></li>
+<li><a href="?v=c"><b>c</b><span>the working behind the line: the stone is the whole page; the line that says where he is and the sky opens the working over it</span></a></li>
+</ol>
+</header>
+<main id="page"></main>
+<nav class="vs" aria-label="Site version"><span aria-current="page">v4</span><a href="/">v3</a><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<nav class="ways" aria-label="The three ways"><a href="?v=a" data-w="a">a</a><a href="?v=b" data-w="b">b</a><a href="?v=c" data-w="c">c</a></nav>
+<script src="tune.js"></script>
+<script src="today.js"></script>
+<script src="work.js"></script>
+</body>
+</html>

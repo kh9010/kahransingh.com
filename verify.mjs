@@ -683,7 +683,7 @@ checkNow("about.html is 27 a as a site page: every fact of 27's word for word in
     if (!existsSync(p)) throw new Error(`about.html: ${u} does not resolve`); links++;
   }
   for (const m of h.matchAll(/"h":"(\/[^"#?]*)/g)) { let p = path.join(ROOT, m[1]); if (m[1].endsWith("/")) p = path.join(p, "index.html"); if (!existsSync(p)) throw new Error(`about.html: a fact opens ${m[1]}, not on disk`); links++; }
-  const YEARS = /const YEARS = '([^']+)'/.exec(readFileSync(path.join(ROOT, "v3", "stone.js"), "utf8"))?.[1];
+  const YEARS = /const YEARS = '([^']+)'/.exec(readFileSync(path.join(ROOT, "v4", "stone.js"), "utf8"))?.[1];
   if (YEARS !== "/about.html") throw new Error(`the stone's year facet opens ${YEARS}, not /about.html`);
   return `${meta.length} page rules, ${L.facts.length} facts word for word in ${Y.rows.length} years, ${poems.length - nU} poems in their evidenced years (at most ${perRow[0][1]} in a row, in ${perRow[0][0]}) and ${nU} as one undated line, version a whole but for the flow link and the ideas count (${NUM[listed]} of ${NUM[nIdeas]}), ${L.facts.length - missing.length} readable without JS, ${links} internal links on disk, a rebuild is a no-op, the stone's YEARS is /about.html`;
 });
@@ -824,16 +824,18 @@ checkNow("every page carries the Analytics tag, and track.js still finds what it
   has("v2/home.js", "'idea-detail ", "the panel .idea-detail");
   has("v2/index.html", 'id="doing-tools"', "the flow view's line #doing-tools");
   has("v2/index.html", 'class="doing-item" data-line=', "the Right now notes .doing-item[data-line]");
-  has("v3/stone.js", "new CustomEvent('home:track'", "the stone's home:track events");
+  has("v4/stone.js", "new CustomEvent('home:track'", "the stone's home:track events");
+  has("v4/work.js", "new CustomEvent('home:track'", "the working's home:track event");
+  has("v3/stone.js", "new CustomEvent('home:track'", "the earlier stone's home:track events (/v3/)");
   has("v2/about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("v1/about.html", 'id="word-pile"', "the quote pile #word-pile");
   has("poems/related.js", "'stanza explore-slide'", "the related poems .explore-slide");
   has("photography.html", 'id="lightbox"', "the lightbox #lightbox");
   has("photography.html", 'id="lightbox-img"', "the lightbox picture #lightbox-img");
   has("photography.html", "lightbox.classList.add('active')", "the lightbox's open state .active");
-  for (const f of ["index.html", "v2/index.html", "about.html", "v2/about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
+  for (const f of ["index.html", "v3/index.html", "v2/index.html", "about.html", "v2/about.html", "v1/about.html", "photography.html"]) has(f, '<script src="/track.js"></script>', "<script src=\"/track.js\">");
   has("poems/related.js", "s.src = '/track.js'", "the line that loads /track.js on every poem");
-  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home (the stone and /v2/), the three Abouts, the photography page and every poem`;
+  return `${tagged} pages tagged, ${exempt} exempt (study drafts, redirects, the weekly record copy); track.js loaded on the home (the stone, /v3/ and /v2/), the three Abouts, the photography page and every poem`;
 });
 
 process.exit(0)

@@ -1,0 +1,533 @@
+# Study 21 — the readings. Hand judgements, read by build.py.
+# Each poem: its slug, then candidate door lines in order of how strongly they hold an idea.
+# A line is:   phrase | concept concept ...      (\n inside a phrase = a line break in the poem)
+# The concepts are the fine grain (CONCEPTS in build.py); each vocabulary groups them into its own ideas.
+# A line starting "  note:" is a note on the poem: where the ideas strain against it.
+
+@ a-conversation-among-birds
+that quiet scythe will slay this rural landscape | made ending
+Hark, here comes the dawn | attention tomorrow
+Are you satisfied this morning | today
+  note: a field note more than a poem; the scythe carries it
+
+@ a-wedding-toast
+that held me close | held home
+A feeling of doubt and wonder and fear | wonder fear
+Where that godforsaken heavy doubt used to be. | change
+To you, my friends, all the love in the world. | love joy
+
+@ an-ode-to-aspens
+Let my matter become their matter | merge ending
+Fighting against the slow erosion to entropy | old change
+It’s been hard watching them fall | ending attention
+I wish to spent eternity in their embrace | held
+
+@ and-now-that-we-walk
+Be proud, child, for I am proud of you. | seen becoming love
+Heads held high | free seen
+And now that we walk in these days of light | today joy
+Here you come, here you come, here you come. | becoming tomorrow
+
+@ anuraag-oh-anuraag
+Snared, you are to me. | held
+The river which continues | free old
+To see what will be | tomorrow mystery
+Tell me where will you go? | home
+
+@ ariel
+to keep you in my world. | held love
+I hope you knew that | memory ending
+we could outspin the world | today
+
+@ blood-oh-once-you-called
+Do we hurt less now? | change growing
+Where does our pain go | mystery ending
+A siren song of betrayal | shame
+  note: the poem is pain outgrown; "growing" fits it better than "change", and some vocabularies cannot say which
+
+@ california
+It reminds me of home | home
+And grow life as I command. | made
+Look mommy, how grown is your little prince. | growing seen
+in creeping death | ending
+
+@ dear-bottle
+May you make a new friend who loves you as much as I did. | held love
+I hope you are having a nice adventure without me | free alone
+I miss you a lot | ending
+  note: a small comic poem carrying a large idea, letting go; the scale is the joke
+
+@ delicate-pieces-before-the-end
+The memories you wish you had | memory
+To find beauty | beauty attention
+And this joy | joy
+Look, Remember, Recreate, | attention
+
+@ did-you-know
+when you realize you are the kind of fish | becoming free
+What was this place before trees and nature conquered | old mystery
+Did you know to remember the form | memory
+Did you know there’s a pale pink before dawn | attention beauty
+
+@ do-you-miss-me
+Now that I hide | seen shame
+you have, and you are indifferent | held love
+The world asked me if I wanted to call you today. | held alone
+
+@ everyday-i-can-spend
+My life, manifest in people. | merge love
+Help me if what is today’s tomorrow is actually just today. | today tomorrow
+Help me if there is no memory before today. | memory
+Our health may not be for this world. | ending alive
+
+@ everytime-you-wink-at-me
+Or if I just forgot to breath | alive love
+I wonder if the excitement can bubble up my chest | joy wonder
+Everytime you wink at me | seen love
+
+@ everywhere-i-turn
+In the flutter of the leaves and the remembrance of your laugh | memory ending
+I see a world a little colder | ending change
+A heart a little stiller and laughter little less. | alone ending
+
+@ falling-in-love
+Falling in love with who I could be | becoming
+Not yet ready to yield up its original form | change held
+The pale approximation | names made
+About the sublime joy | joy free
+
+@ freedom-yet-unabridged
+If I leapt, would the pang stay? | free change
+Something long thought forgotten. | memory
+Well at least, there is this. | today joy
+
+@ glass-houses
+To build our houses | home made
+You would think we were going to live for eternity | ending
+Final solitude as the madness of age set in | growing alone
+
+@ guadalajara
+As though in wonder\nAs though in fear | wonder fear
+What is that they say about the trees men make | made
+I wonder if i would feel the blood if I didn't know to search for it. | attention memory
+those who had a time to live and a time to fall | old ending
+
+@ hark-my-love
+Made of cement and steel | made
+Not the long labor of the tides | old
+At this distance, who can say | mystery
+Life and love be all you do | alive love
+
+@ have-you-ever-seen
+Something so beautiful | beauty attention
+That saw your parents parents parents parents | old memory
+A secret gift they gave up | made ending
+When the cedars still walked | old mystery
+
+@ have-you-watched-creepers-creep
+Come watch creepers creep | attention
+Evolved to find the smallest of holes | change free
+And use it to crumble all foundations. | made old
+Trials and tribulations bear witness | seen
+
+@ hey-you-there-hey-you-here
+is that mine or is that yours | merge
+we got stuck together somehow | held love
+your breath got caught in my air | alive
+  note: so short that every idea it touches is the same one, the edge between two people; the second and third doors are that edge seen from other sides
+
+@ hey-you-tree-there
+growth growth growth | growing
+how could something so small hold so much mystery | mystery wonder
+we never dreamed we would be required to be snapshots in half | seen made
+all of us trees oops I mean you trees | merge
+
+@ how-can-you-just-be-gone
+This space that was your empty space | ending
+At our age | growing
+This space that had bugs and friends and deep zest for life | alive memory
+How can you just be gone | mystery ending
+
+@ i-feel-sad-about-endings
+Remind you, everything has to end | ending
+This might be the last time you are this person | becoming
+It's nice finding a mirror that actually lets us see ourselves | seen
+Come, let me home. | home love
+
+@ i-left-my-heart-at-home-today
+I left my heart at home today | home
+Who was supposed to remember some parts of you | memory merge
+Maybe my heart was a person | merge love ending
+
+@ i-listen
+Is it better to know this is your last goodbye | ending
+The timing is never right until there is no time at all, amirite? | today
+Exhaust not my precious store of hope. | tomorrow alive
+Paltry nothings to fill | names
+
+@ i-saw-something-beautiful-today
+For to let yourself see beauty | beauty attention
+So innocent is wonder | wonder
+Whether I die in peace is my choice. | alive ending
+
+@ i-was-feeling-sorry-for-a-moth
+Bearing sad witness | seen
+To our slow demise | ending made
+Whose to say we aren’t the moth | mystery merge
+Some creature without full understanding of its wings | becoming
+
+@ i-watch-my-hair
+In the reflection of my eyes | seen becoming
+that this dazzling array | wonder beauty
+I just went and called it all black. | names
+
+@ i-watched-a-butterfly-today
+Caught in the draft of my passage. | ending made
+Ensconced in perfect climate | made
+It was beautiful and orange | beauty
+A debutante poised, posed | seen
+
+@ i-will-always-be-a-poet
+I will always be a poet | becoming names
+If you shave my chest to expose my heart | seen
+With my blood I will paint you with poetry | alive names
+
+@ in-my-heart-something-called-to-the-rain
+That taught us there was an us | merge names
+And be reborn, oak grow tall, pine grow fierce | change growing
+Are you 90% fire or 80% water | mystery becoming
+Watch the rain. | attention
+
+@ it-used-to-be-me
+writhing under you | merge love
+forget to wonder | wonder
+it used to be. | memory ending
+
+@ its-funny
+To call you that | names
+Let’s go together | held love
+From this dream without beginning or end | mystery
+And wonder about when we got to be | growing wonder
+
+@ kashmir
+Remembrance owned by others, | memory
+Till time razes these mountains to the ground | old
+And man builds new idols. | made
+As I look and wonder | wonder
+
+@ large-objects
+That thing which binds you to them is now alive with its own force | held
+What about when the relationship matters more than the person | merge love
+And some would say fundamental facts too. | names
+
+@ late-why-so-late
+is it a threat is it a threat is it a threat | fear
+keep his breath intertwined a little a little a little | merge
+Let me love you a little bit. | love held
+Make the humans bored and they will dance. | free
+  note: an airport, a flirt, a fear; light where the ideas are heavy, which is the point and the strain
+
+@ let-tomorrow-come
+when tomorrow is all we have. | tomorrow today
+Let tomorrow come for that fear and heart of mine | fear
+Let tomorrow come for today has no brother | alone
+
+@ london
+they are scared to look too long | fear seen
+I, me, mine! does not remember, | memory
+There’s a coldness in these people, | alone
+And it is not just the air. | mystery
+
+@ mama
+Mama was what we called him | names
+and gracefully let go of center stage | held growing
+And made a space filled with love | home love
+Today let us unite in grief | ending
+
+@ memories-of-tomorrow
+remember today? | memory
+at the hazy notes of tomorrow, | tomorrow
+Who am I to say? | mystery
+After all, the trees are there | old
+
+@ my-friend-who-died
+English has no imperfect | names
+My friend who died | ending
+That existed | memory
+
+@ not-in-my-life
+Walk out that door | free home
+And I will fight to keep it that way | held home
+Of associating with filth | shame
+  note: a refusal; "home" here is the life he keeps, not a place
+
+@ oh-that-again
+Oh that again I might see such beauty in my life | beauty attention
+Ungrieved by the world | ending
+Opened and yet unmarked | growing change
+
+@ oh-the-horror-i-say
+Oh the horror I say | fear
+Was it a carrot? | names mystery
+As though it too, was just another carrot | made
+  note: a joke poem; any large idea sits on it heavily, and "the word and the thing" is the only honest one
+
+@ one-beautiful-moment
+You can just be. | today
+That, my friends, is the moment before death. | ending
+And feel veins on your fingers | alive attention
+Where you don’t have to decide anything | free
+
+@ one-in-community
+Can there be an us without a them? | merge
+How do I change when I exist only as a definition? | names change
+Exist. Live: My first commandment. | alive
+Who chooses fear. | fear
+deserve to be remembered, | memory
+
+@ out-of-many-one
+Out of many, one | merge
+There was joy, once. | joy memory
+I’m fucking free. | free
+
+@ out-to-play-he-calls-them
+Swim to me, swim to me, swim to me | held
+To your brothers we’ve paid dues | old made
+One, two, they fly West. | free ending
+  note: a fishing song; the ideas reach it only through the call and the debt
+
+@ park
+Fear is a spiral | fear
+Seen to be alone | seen alone
+Maybe art is purpose enough | becoming
+And laughter finding a new way to wonder | wonder joy
+
+@ platitudes-of-suffering
+I am alive, yet. | alive
+For it is only in death, | ending
+Platitudes of suffering serve no man. | names
+
+@ sit-let-us-listen
+Sit let us listen to the sound of this moment | attention today
+All that is today and will be | today tomorrow
+And in the flowers | beauty
+  note: a still list of what is in front of him; under tensions the moment has no other side, so the flowers carry the second door
+
+@ social-media-is-not-the-right-place-for-grief
+Who are you to tell me how to grieve | ending
+in a notion of remembrance | memory
+It's kind of freeing | free
+I'm not ready to move on | held
+
+@ sometimes-curious-feel
+There's a joy bubbling in my heart | joy
+Zoom out just a little | attention
+In symmetry and perfectly formed spaces | beauty
+I love you | love
+
+@ sometimes-i-feel-cold
+I know this is a betrayal of whom I aspire to be | becoming
+I want to construct a different home | home
+I feel like an intersection of regrets and what could have been | memory
+I feel cold when I be with you | alone
+
+@ sometimes-i-listen-to-these-poets
+intangible nouns | names
+our capacity for wonder. | wonder
+the purest form of love | love
+
+@ sometimes-quaver
+Is to see leaves dancing a tiny dance | attention
+Am I moving slow? | today
+A'wondering what things is. | wonder mystery
+
+@ song-of-tomorrow
+Today is enough | today
+Crookedly yearning towards the lights | growing becoming
+It was my mistakes that drove you from this plane | memory ending
+Of disasters foreshadowed | fear
+
+@ teental
+where are we going to find heritage in a mélange of cultures | home old
+someone to choose you to love you to tell you you are loved loved loved | love held
+life is a game, and nothing is what it seems | mystery
+likely alone in the sound scape | alone
+
+@ the-light-sings
+change or die, says the rain. | change
+the light sings to me in the morning | attention joy
+and hunger drives them forth from sanctuary? | home fear
+
+@ the-mist
+If you sit still and don't move your eyes you can see it fleeing. | attention
+Then their bodies broke together, melded into ever bigger drops | merge
+Oh this is the ocean, least you forget who rules this world. | old
+even if I don't win, one of us will. | tomorrow
+
+@ the-sun-kissed-the-mountains
+The babe of tomorrow has been born. | tomorrow
+Peaks in harsh repose | old
+The sun kissed the mountains | beauty love
+
+@ there-comes-a-point
+There comes a point one chooses death. | ending
+It is that ebbing of the will to live that brings death. | alive
+Why, again, today? | today
+
+@ there-is-a-soft-tingle
+Who’s to say who is the better version of itself? | becoming
+Once so hard and firm | change
+But then do we count age after death? | growing ending
+Life is and is and is until it’s not | alive
+
+@ these-days-are-gone
+Harden or rot, they say. | change
+Let there be joy that it happened. | joy memory
+who softens, as they age? | growing
+these days are gone | ending
+
+@ these-water-nymphs
+Oh, inversion, birth me again | becoming change
+Their forever Why | mystery
+Creator, Destroyer, bringer of the Day. | old
+They kissed your lips as they went by | love
+
+@ this-growing-older
+This growing older | growing
+If this goodbye is the last | ending
+How do I remember you without this space | memory ending
+
+@ thrum-thrum
+remembered mistakes | memory shame
+colors to express my unease | names fear
+or dreamin a bit too much | wonder becoming
+
+@ time-in-a-fig-grove
+Time has no master | old
+secrets are unending. | mystery
+Then came a house. | home made
+Once again, or before? | memory
+
+@ to-be-alone
+To be alone | alone
+if there is a place | home
+And dreaming about green grass | tomorrow
+
+@ to-flutter
+Was right right? | mystery
+But you pause, a’wondering | wonder
+Or did I let a tired calculus | becoming
+Sends my heart a’flutter. | love
+
+@ to-know-me
+Is to know joy | joy
+So maybe it’s just long enough? | alive today
+Love means a lot | names love
+
+@ to-see-such-beauty
+To see such beauty | beauty
+I didn’t know I had seen you before. | memory
+Why you, Orange | wonder
+
+@ to-touch-in-a-way
+To touch | merge love
+gives remembrance | memory
+if I can take | held
+
+@ today-birds
+What a curse, to be an island. | alone
+I hear my time calling | ending
+Life, just a little longer. | alive
+Something to be seen, but not done | attention
+
+@ today-i-saw-a-man-on-a-leash
+It was hard to tell which person was being held | held
+Easily broken | free
+What addiction tricked you, big man (woman) | names shame
+In the forest, the elephant walks far more silently than the man. | old made
+
+@ today-i-write-about-red
+I am not sure who I was before I met you | becoming merge
+Murderer of green into the turgid hell of Brown | change ending
+I can’t wait to make purple once more. | merge joy tomorrow
+  note: a poem about a colour; every idea it opens is borrowed from the colour's family
+
+@ today-if-there-is-tomorrow
+Into tomorrow, I say, and fight me if I’m wrong. | tomorrow
+Where do we go when we leave this life? | ending
+Where do we go when our hearts quail from fright? | fear
+Where do we go when we wonder mystery and forget heart. | mystery wonder
+
+@ wedding-poem
+The grand delusions of abstract nouns | names
+these days are still like that first day | memory today
+After that, what is love, but a set of choices | love becoming
+a little more wonder, maybe | wonder
+
+@ when-i-dance-with-you
+I don’t know where my body ends | merge
+Is this the way I’m meant to be | becoming
+And your tomorrow is my tomorrow | tomorrow
+
+@ when-i-laugh
+There is this warm glow | joy
+And all that’s left is a memory | memory
+Until I forget to think about it | today
+
+@ when-im-not-here
+And pull towards me | held love
+I aspired to be | becoming
+Saw me as that person | seen
+Now that we are adults | growing
+
+@ when-you-watch-the-whales-from-shore
+And this diamond cannot be polished | beauty
+We kill them and eat them. | made ending
+It's a good thing mother sea keeps our boats small. | old
+Surrender to the powerful we are taught, | held seen
+
+@ when-you-were-young
+For me to claim a name or a face. | names free
+You got to try on different identities | becoming
+But me, you see, I was always Queer. | seen
+
+@ xoxo
+We’d rather keep. | held
+How lucky am I; | joy
+so much love, | love
+To be surrounded by; | home
+
+@ i-came-out
+When I first came out I saw the drops of dew and wondered | becoming wonder
+oh, yes, this is the ocean, just come to play | old merge
+It runs from the invading sun, hoping, wondering, | fear
+  note: a second version of The Mist; its doors are chosen apart from that poem's so the two lead different ways
+
+@ being-loved
+Do I invent this back door? | memory
+Hasn’t fear always eaten moments of glory? | fear wonder
+Shame came calling, when the world bore witness to my mother’s fear. | shame seen
+That these walls could be bent. | free
+
+@ animals-in-love
+Would that be so bad, to be an animal. | becoming
+One drop divided. | merge
+Come watch water and in metamorphous see the nature of wonder. | wonder
+Who’s more sentient. You who I knew, or me before you died. | ending
+emblazoned with telltale marks of capitalism at work | made
+
+@ wrestle
+I have done something wrong | shame
+But damn it does start to change | change
+But beautifies to purple in the light | beauty
+
+@ bladder-bag
+I am reborn as bag. | becoming
+She this whale I once was takes me with a soft hand | held
+where did that warmth that surrounded me once go. | memory
+I am made cold and made warm | change
+
+@ hey
+is that yours or is that mine | merge
+your shoulder got caught in my shirt | held love
+your breath got caught in my air | alive

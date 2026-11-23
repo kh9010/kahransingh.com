@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Study 47 · The stone first, the working beneath</title>
+<meta name="theme-color" content="#0d0c0b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/v3/stone.css">
+<style>
+/* Study 47: 46 b made of the page itself. The stone is the home's (stone.js here is v3's with four marked changes) and stays
+   where it is, fixed to the window; the page beneath it begins with a strip at the stone's foot and the working (44 d) follows,
+   coming up over the stone as the page moves. The stone's own styles are /v3/stone.css; what is below is only what joins the two.
+   The working's styles are 44 d's, each kept under #working so they and the stone's never meet. */
+:root { --paper: #fafaf8; --ink: #1a1a1a; --quiet: #6e6e6e; --rule: #e0ddd8; --read-rem: 1.25; --poem-rem: 1.375; --lead: 1.6; --foot-px: 64; }
+html, body { height: auto; overflow: visible; overflow-x: clip; }
+/* the stone's stage ends where the strip begins. Everything of the stone's that is fixed to the window (the stone, its name, caption and
+   chain, an open idea's panel, the date, the six keys) is inside it and takes its place from the stage's box, as it took it from the window's:
+   the stone's own arithmetic, done against its height, stays right. A transform is what makes a box hold its fixed descendants in every browser. */
+#stage { position: fixed; inset: 0 0 calc(var(--foot-px) * 1px) 0; transform: translate(0, 0); contain: layout; }
+body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[data-at="about"] #working { visibility: hidden; }
+.room { height: calc(100vh - var(--foot-px) * 1px); height: calc(100svh - var(--foot-px) * 1px); pointer-events: none; }
+.under { position: relative; z-index: 25; height: calc(var(--foot-px) * 1px); display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 0 clamp(16px, 3.4vw, 56px); background: var(--paper); color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); }
+.under b { font: 400 1.25rem/1.2 var(--serif); white-space: nowrap; }
+.under span { font: 400 .875rem/1.3 var(--sans); color: var(--quiet); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.under i { font-style: normal; color: var(--ink); margin-left: .6rem; }
+.under:focus-visible { outline: 2px solid var(--ink); outline-offset: -4px; }
+#working { position: relative; z-index: 25; background: var(--paper); color: var(--ink); font: 400 1rem/1.5 var(--sans); min-height: 100vh; }
+#working * { margin: 0; padding: 0; }
+#working a { color: inherit; } #working img { display: block; max-width: 100%; height: auto; } #working ul, #working ol { list-style: none; }
+#working summary { cursor: pointer; list-style: none; } #working summary::-webkit-details-marker { display: none; }
+#working :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+#working .lab { font: 500 .8125rem/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--quiet); }
+#working .letter p { font: 400 calc(var(--read-rem) * 1rem)/var(--lead) var(--serif); margin-bottom: 1.15em; }
+#working .letter a, #working .foot a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+#working figure figcaption { font: 400 .8125rem/1.4 var(--sans); color: var(--quiet); margin-top: .6rem; }
+/* the poem, the same in all four */
+#working .poem h2 { font: italic 400 1.75rem/1.2 'Fraunces', Georgia, serif; margin-bottom: 1.1rem; }
+#working .poem h2 a { text-decoration: none; }
+#working .poem p { font: 400 calc(var(--poem-rem) * 1rem)/var(--lead) 'Fraunces', Georgia, serif; margin-bottom: 1.05em; }
+#working .poem .l { display: block; padding-left: 1.2em; text-indent: -1.2em; }
+#working .poem a.door { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .22em; text-decoration-color: #a8a297; }
+#working .poem a.door:hover { text-decoration-color: currentColor; }
+#working figure figcaption { font: 400 .8125rem/1.4 'Space Grotesk', sans-serif; color: var(--quiet); margin-top: .6rem; }
+
+/* six ideas, the same list in a, b and d */
+#working .ideas { border-top: 1px solid var(--rule); }
+#working .ideas details { border-bottom: 1px solid var(--rule); }
+#working .ideas summary { display: grid; grid-template-columns: 11.5rem 1fr 1rem; gap: 1rem; align-items: baseline; padding: .7rem 0; }
+#working .ideas summary b { font: 500 1rem/1.3 'Space Grotesk', sans-serif; }
+#working .ideas summary span { font: 400 .875rem/1.4 'Space Grotesk', sans-serif; color: var(--quiet); }
+#working .ideas summary i { font-style: normal; color: var(--quiet); text-align: right; } #working .ideas summary i::before { content: '+'; } #working .ideas details[open] summary i::before { content: '\2212'; }
+#working .ideas details p { font: 400 1.0625rem/1.55 'Fraunces', Georgia, serif; padding: 0 0 1rem; max-width: 34rem; }
+#working .ideas details p a { font: 400 .875rem 'Space Grotesk', sans-serif; margin-left: .4rem; }
+
+/* ---------- d · the working, shown ---------- */
+#working .d { max-width: 62rem; margin: 0 auto; padding: 2.6rem 32px 8rem; }
+#working .d .top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 4rem; }
+#working .d .name { font: 500 1.0625rem 'Space Grotesk', sans-serif; letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+#working .d .top nav { display: flex; gap: 1.4rem; font-size: .9375rem; } #working .d .top nav a { text-decoration: none; color: var(--quiet); } #working .d .top nav a:hover { color: var(--ink); }
+#working .d .said { font: 400 clamp(1.6rem, 3.1vw, 2.35rem)/1.25 'Fraunces', Georgia, serif; max-width: 46rem; margin-bottom: .8rem; letter-spacing: -.005em; }
+#working .d .said + p { font: 400 1.1875rem/1.5 'Fraunces', Georgia, serif; color: #4a4a4a; max-width: 40rem; margin-bottom: 3.4rem; }
+#working .d .step { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: 2rem; padding: 1.8rem 0 2.2rem; border-top: 1px solid var(--ink); }
+#working .d .step > .hd b { display: block; font: 300 2.4rem/1 'Fraunces', Georgia, serif; margin-bottom: .5rem; }
+#working .d .step .big { font: 400 2.1rem/1.15 'Fraunces', Georgia, serif; margin-bottom: .6rem; }
+#working .d .step .note { font: 400 .9375rem/1.55 'Space Grotesk', sans-serif; color: var(--quiet); max-width: 36rem; }
+#working .d .step .note + .note { margin-top: .5rem; } #working .d .step .note b { display: block; font-weight: 500; color: var(--ink); } #working .d .step .letter p { font-size: 1.125rem; max-width: 38rem; }
+#working .d .sky { display: flex; flex-wrap: wrap; gap: .4rem 2.2rem; margin-bottom: .7rem; } #working .d .sky div { font: 400 1.75rem/1.2 'Fraunces', Georgia, serif; } #working .d .sky small { display: block; font: 400 .8125rem 'Space Grotesk', sans-serif; color: var(--quiet); letter-spacing: .04em; }
+#working .d .axes { display: grid; gap: .55rem; max-width: 40rem; margin-bottom: 1rem; }
+#working .d .axis { display: grid; grid-template-columns: 6.6rem 5.4rem minmax(0, 1fr) 6rem; gap: .8rem; align-items: center; font-size: .875rem; }
+#working .d .axis b { font-weight: 500; } #working .d .axis span { color: var(--quiet); } #working .d .axis span:nth-child(2) { text-align: right; }
+#working .d .track { position: relative; height: 18px; } #working .d .track::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid #b9b4aa; }
+#working .d .track i { position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; }
+#working .d .track .day { background: var(--ink); border-radius: 50%; z-index: 2; }
+#working .d .track .ph { border: 1.5px solid var(--ink); background: var(--paper); }
+#working .d .track .po { border: 1.5px solid var(--ink); background: var(--paper); transform: rotate(45deg); }
+#working .d .key { display: flex; flex-wrap: wrap; gap: .3rem 1.6rem; font-size: .875rem; color: var(--quiet); } #working .d .key i { display: inline-block; width: 10px; height: 10px; margin-right: .45rem; vertical-align: -1px; } #working .d .key .day { background: var(--ink); border-radius: 50%; } #working .d .key .ph, #working .d .key .po { border: 1.5px solid var(--ink); } #working .d .key .po { transform: rotate(45deg); }
+#working .d .near { max-width: 40rem; margin: 1rem 0 2rem; }
+#working .d .near li { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) 8rem 3.2rem; gap: .8rem; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--rule); font-size: .9375rem; }
+#working .d .near li span:first-child { color: var(--quiet); } #working .d .near li small { display: block; font-weight: 400; font-size: .8125rem; color: var(--quiet); } #working .d .near li em { font-style: normal; text-align: right; font-variant-numeric: tabular-nums; }
+#working .d .near .bar { height: 5px; background: var(--rule); } #working .d .near .bar i { display: block; height: 100%; background: #8f897d; }
+#working .d .near li.is { font-weight: 500; } #working .d .near li.is .bar i { background: var(--ink); }
+#working .d .step figure { max-width: 46rem; }
+#working .d .foot { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--ink); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .9375rem; color: var(--quiet); }
+
+
+
+#working .d { padding-top: 3.6rem; }
+@media (max-width: 900px) {
+  #working .d { padding: 2.4rem 20px 7rem; }
+  #working .d .step { grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.4rem 0 1.8rem; } #working .d .step > .hd { display: flex; align-items: baseline; gap: .8rem; } #working .d .step > .hd b { font-size: 1.6rem; margin: 0; }
+}
+@media (max-width: 640px) {
+  .under b { font-size: 1.0625rem; white-space: normal; } .under span { display: none; } .under::after { content: '\2193'; font: 400 1.125rem var(--sans); }
+  #working .poem p { font-size: calc(var(--poem-rem) * .875rem); }
+  #working .letter p { font-size: calc(var(--read-rem) * .925rem); }
+  #working .ideas summary { grid-template-columns: 1fr 1rem; } #working .ideas summary span { grid-column: 1; grid-row: 2; margin-top: -.75rem; }
+  #working .d .axis { grid-template-columns: 4.6rem minmax(0, 1fr); gap: .2rem .8rem; } #working .d .axis span { display: none; } #working .d .axis b { font-size: .8125rem; }
+  #working .d .near li { grid-template-columns: 1.2rem minmax(0, 1fr) 3.2rem; } #working .d .near .bar { display: none; }
+  #working .d .sky div { font-size: 1.4rem; } #working .d .step .big { font-size: 1.8rem; }
+}
+</style>
+<noscript><style>#stage, #card, .room { display: none; }</style></noscript>
+</head>
+<body>
+<!-- the home's own markup, as it is on / -->
+<div id="stage">
+<div id="app">
+  <canvas id="stone" aria-hidden="true"></canvas>
+  <div id="read"></div>
+  <p id="idea" aria-hidden="true"></p>
+  <p id="back" aria-live="polite"></p>
+  <header id="mat">
+    <h1><a href="/">kahran singh</a></h1>
+    <p id="where" role="button" tabindex="0" aria-expanded="false" aria-controls="why"></p>
+    <nav aria-label="The rest of the site"><a href="/about.html">about</a><a href="/photography.html">photos</a><a href="/poetry.html">poems</a></nav>
+  </header>
+  <p class="cap" id="cap"></p>
+  <div id="why-scrim"></div>
+  <section id="why" aria-label="The decision behind today's pair" aria-hidden="true"><button class="why-x" type="button" aria-label="close">×</button><div class="why-body"></div></section>
+</div>
+<div id="keys"></div>
+<aside id="tools" aria-live="polite"></aside>
+<p id="year"><a href="/about.html"></a></p>
+</div>
+<img id="ph" alt="" hidden>
+<nav class="vs" aria-label="Site version"><span aria-current="page">v4</span><a href="/">v3</a><a href="/v2/">v2</a><a href="/v1/">v1</a></nav>
+<div class="room" aria-hidden="true"></div>
+<a class="under" href="#working"><b>How today’s photograph and poem were chosen</b><span id="under-day"></span></a>
+<main id="working"></main>
+<script src="tune.js"></script>
+<script src="/v3/today.js"></script>
+<script src="/v3/cut.js"></script>
+<script src="/v3/cross.js"></script>
+<script src="/v3/segs.js"></script>
+<script src="/v3/moment.js"></script>
+<script src="/track.js"></script>
+<script type="module" src="stone.js"></script>
+<script src="work.js"></script>
+</body>
+</html>
