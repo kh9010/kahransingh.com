@@ -75,12 +75,16 @@ class AboutPhotosTests(unittest.TestCase):
         hrefs = [attrs.get('href', '') for tag, attrs in page.tags if tag == 'a']
         self.assertFalse([h for h in hrefs if h.startswith('?')], 'no version switcher or ?tune on the live page')
 
-    def test_about_returns_to_current_home_and_keeps_v1_accessible(self):
+    def test_about_returns_to_current_home_and_leads_to_no_earlier_version(self):
+        # Until 2026-11-23 the About's nav kept a "v1" entry. Kahran, that day: people should reach the
+        # main sections "without getting through back to earlier versions"; the earlier homes stay
+        # reachable from the version tab on the home.
         tags = Page('about.html').tags
         names = [attrs['href'] for tag, attrs in tags if tag == 'a' and
                  attrs.get('class') in ('nav-name', 'mobile-header')]
         self.assertEqual(names, ['/', '/'])
-        self.assertIn('/v1/', [attrs.get('href') for tag, attrs in tags if tag == 'a'])
+        hrefs = [attrs.get('href') for tag, attrs in tags if tag == 'a']
+        self.assertFalse([h for h in hrefs if h in ('/v1/', '/v2/', '/v3/')])
 
     def test_photo_catalog_is_available_without_javascript(self):
         import re

@@ -2,8 +2,8 @@
    It takes the day from the stone itself (HOME.ctx: the pick, the reading, the archive, the scores), so what it works out is the pair the
    stone is showing; every distance is pick.js's own function; the six ideas are IDEAS, read where they live; the one passage in his voice
    is read off the page it lives on (/v2/about.html). It waits until the stone is up, so none of it is first-screen weight. It also fills
-   the strip at the stone's foot and makes the strip the way down, and says so once to track.js (working_open, via strip | scroll | more). It ends with the rest of the site,
-   every main section by name, which "more" on the stone goes down to.
+   the strip at the stone's foot and makes the strip the way down, and says so once to track.js (working_open, via strip | scroll). It ends with the rest of the site,
+   every main section by name, the same ten the stone's nav holds.
    The sentences written here are in SAID. */
 (async () => {
   const until = async f => { for (let k = 0; k < 400; k++) { let v = null; try { v = f() } catch {} if (v) return v; await new Promise(r => setTimeout(r, 80)) } return null }
@@ -134,8 +134,4 @@
   const track = via => { if (track.done) return; track.done = true; document.dispatchEvent(new CustomEvent('home:track', { detail: { name: 'working_open', params: { via } } })) } // once a visit: track.js counts it
   under.addEventListener('click', e => { e.preventDefault(); track('strip'); scrollTo({ top: room.offsetHeight + under.offsetHeight, behavior: still.matches ? 'auto' : 'smooth' }) })
   addEventListener('scroll', () => { if (scrollY > room.offsetHeight / 2) track('scroll') }, { passive: true })
-  // "more", by the name on the stone: down to the rest of the site at the working's end (to the page's end, should the working not be there yet)
-  const more = document.querySelector('#mat a[href="#rest"]')
-  if (more) more.addEventListener('click', e => { e.preventDefault(); track('more'); const r = document.getElementById('rest')
-    scrollTo({ top: r ? Math.max(0, r.getBoundingClientRect().top + scrollY - 28) : document.documentElement.scrollHeight, behavior: still.matches ? 'auto' : 'smooth' }) })
 })()

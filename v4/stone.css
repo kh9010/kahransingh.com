@@ -305,6 +305,15 @@ body.card-open #year { opacity: 0; pointer-events: none; }
 body.card-open #why-scrim { opacity: 0; pointer-events: none; } /* the card is its own ground: no scrim behind the chain */
 #card.closing, #card.closing .card-slot > *, #card.closing .card-x { pointer-events: none !important; } /* a touch while it closes goes to the stone */
 
+/* v4: the stone's nav holds every main section (ten words, where v3's held three) without the name's block growing taller, since the stone
+   lays the poem, the ideas and the title's facet out against that block. On a wide screen the words run on past the block in one row (two
+   where the window is narrow), short of the poem; on a phone, upright or on its side, they are one row that moves sideways under a finger. */
+header nav { gap: 9px 18px; width: max-content; max-width: min(52vw, 760px); }
+@media (max-width: 640px) and (orientation: portrait), (max-height: 560px) and (orientation: landscape) {
+  header nav { width: auto; max-width: none; flex-wrap: nowrap; white-space: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-right: -16px; padding-right: 16px; }
+  header nav::-webkit-scrollbar { display: none; }
+}
+
 /* ---------- the stone and the page beneath (Study 47) ----------
    The stone stays fixed to the window and ends where the strip begins; the page beneath it begins with that strip and the working follows,
    coming up over the stone as the page moves. */
