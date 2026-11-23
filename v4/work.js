@@ -2,7 +2,8 @@
    It takes the day from the stone itself (HOME.ctx: the pick, the reading, the archive, the scores), so what it works out is the pair the
    stone is showing; every distance is pick.js's own function; the six ideas are IDEAS, read where they live; the one passage in his voice
    is read off the page it lives on (/v2/about.html). It waits until the stone is up, so none of it is first-screen weight. It also fills
-   the strip at the stone's foot and makes the strip the way down, and says so once to track.js (working_open, via strip | scroll).
+   the strip at the stone's foot and makes the strip the way down, and says so once to track.js (working_open, via strip | scroll | more). It ends with the rest of the site,
+   every main section by name, which "more" on the stone goes down to.
    The sentences written here are in SAID. */
 (async () => {
   const until = async f => { for (let k = 0; k < 400; k++) { let v = null; try { v = f() } catch {} if (v) return v; await new Promise(r => setTimeout(r, 80)) } return null }
@@ -14,6 +15,7 @@
     daily: 'A different photograph and a different poem every day, chosen for where I am and what the sky is doing.', // the home's own description, in the first person
     open: 'This is today’s, worked out in the open.',
     weighed: (ph, po) => ph + ' photographs and ' + po + ' poems weighed',
+    rest: 'The rest of the site', // the stone's own label for its nav
   }
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
@@ -98,8 +100,10 @@
   const clean = el => { if (!el) return ''; const c = el.cloneNode(true); c.querySelectorAll('[style]').forEach(x => x.removeAttribute('style')); return c.innerHTML.trim() }
   const L = q(letter, '.letter p')                                                // the letter picked at the About desk
   const machine = clean(L[1]).replace('on the home page', 'on this page'), write = clean(L[L.length - 1])
-  const links = [['/poetry.html', 'all ' + ctx.data.poems.length + ' poems'], ['/photography.html', 'the photographs'], ['/poem-films.html', 'the poem films'], ['/about.html', 'the years'], ['/lately/', 'the weekly record'], ['/working-with-me.html', 'work with me']]
-  const footHTML = () => '<p class="foot">' + links.map(([h, t]) => '<a href="' + h + '">' + t + '</a>').join('') + '</p>'
+  // the rest of the site: every main section, by the name the site's own nav gives it (poem films and the cv are not in that nav; they are pages all the same)
+  const REST = [['/poetry.html', 'poetry', ctx.data.poems.length + ' poems'], ['/photography.html', 'photography'], ['/poem-films.html', 'poem films'], ['/projects.html', 'projects'], ['/speaking.html', 'speaking'],
+    ['/working-with-me.html', 'work with me'], ['/lately/', 'lately', 'the weekly record'], ['/about.html', 'about', 'the years'], ['/archive.html', 'archive'], ['/cv.html', 'cv']]
+  const restHTML = () => '<nav class="rest" id="rest" aria-label="Every section of the site"><h2 class="lab">' + SAID.rest + '</h2><ul>' + REST.map(([h, t, n]) => '<li><a href="' + h + '">' + t + (n ? '<small>' + n + '</small>' : '') + '</a></li>').join('') + '</ul></nav>'
   /* ---------- the working's parts (44 d's) ---------- */
   const tick = (cls, v) => v == null ? '' : '<i class="' + cls + '" style="left:' + (Math.max(0, Math.min(1, v)) * 100).toFixed(1) + '%"></i>'
   const axes = () => !day ? '' : '<div class="axes">' + AX.map(a => '<div class="axis"><b>' + NAMES[a] + '</b><span>' + ENDS[a][0] + '</span><div class="track">' +
@@ -120,7 +124,7 @@
   const behind = n => step(n, 'What runs behind it', '<div class="letter"><p>' + machine + '</p></div>' + ideasHTML())
 
   /* ---------- the page beneath the stone ---------- */
-  document.getElementById('working').innerHTML = '<div class="d">' + intro() + five() + behind(6) + footHTML() + '</div>'
+  document.getElementById('working').innerHTML = '<div class="d">' + intro() + five() + behind(6) + restHTML() + '</div>'
   document.getElementById('under-day').innerHTML = esc([city, sky.replace(/^it’s |^it's /, ''), temp != null && deg(temp), SAID.weighed(ctx.data.photos.length, ctx.data.poems.length)].filter(Boolean).join(' · ')) + '<i>↓</i>'
 })()
 // the strip is the way down, and the room above it is exactly the stone's (the window less the strip), whatever the browser's bars do
@@ -130,4 +134,8 @@
   const track = via => { if (track.done) return; track.done = true; document.dispatchEvent(new CustomEvent('home:track', { detail: { name: 'working_open', params: { via } } })) } // once a visit: track.js counts it
   under.addEventListener('click', e => { e.preventDefault(); track('strip'); scrollTo({ top: room.offsetHeight + under.offsetHeight, behavior: still.matches ? 'auto' : 'smooth' }) })
   addEventListener('scroll', () => { if (scrollY > room.offsetHeight / 2) track('scroll') }, { passive: true })
+  // "more", by the name on the stone: down to the rest of the site at the working's end (to the page's end, should the working not be there yet)
+  const more = document.querySelector('#mat a[href="#rest"]')
+  if (more) more.addEventListener('click', e => { e.preventDefault(); track('more'); const r = document.getElementById('rest')
+    scrollTo({ top: r ? Math.max(0, r.getBoundingClientRect().top + scrollY - 28) : document.documentElement.scrollHeight, behavior: still.matches ? 'auto' : 'smooth' }) })
 })()

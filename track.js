@@ -29,7 +29,7 @@
  *   line_open      the where line opens the chain behind it    { phase }
  *   crossing       a walk into another world                   { via: door | facet | press, depth }
  *   poem_open      the whole poem, from its title or its facet { poem, via: title | facet }
- *   working_open   the working beneath the stone, once a visit   { via: strip | scroll }
+ *   working_open   the working beneath the stone, once a visit   { via: strip | scroll | more }
  */
 (function () {
   function send(name, params) {

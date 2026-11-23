@@ -327,7 +327,7 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 #working :focus-visible { outline: 2px solid var(--ink, #1a1a1a); outline-offset: 3px; }
 #working .lab { font: 500 .8125rem/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--quiet, #6e6e6e); }
 #working .letter p { font: 400 calc(var(--read-rem, 1.25) * 1rem)/var(--lead, 1.6) var(--serif); margin-bottom: 1.15em; }
-#working .letter a, #working .foot a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
+#working .letter a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
 #working figure figcaption { font: 400 .8125rem/1.4 var(--sans); color: var(--quiet, #6e6e6e); margin-top: .6rem; }
 /* the poem, the same in all four */
 #working .poem h4 { font: italic 400 1.75rem/1.2 'Fraunces', Georgia, serif; margin-bottom: 1.1rem; }
@@ -376,7 +376,12 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 #working .d .near .bar { height: 5px; background: var(--rule, #e0ddd8); } #working .d .near .bar i { display: block; height: 100%; background: #8f897d; }
 #working .d .near li.is { font-weight: 500; } #working .d .near li.is .bar i { background: var(--ink, #1a1a1a); }
 #working .d .step figure { max-width: 46rem; }
-#working .d .foot { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--ink, #1a1a1a); display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; font-size: .9375rem; color: var(--quiet, #6e6e6e); }
+#working .rest { margin-top: 1.4rem; padding-top: 1.6rem; border-top: 1px solid var(--ink, #1a1a1a); }
+#working .rest h2 { margin-bottom: .9rem; }
+#working .rest ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 0 2.4rem; }
+#working .rest a { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem; padding: .7rem 0; border-bottom: 1px solid var(--rule, #e0ddd8); font: 400 1.375rem/1.25 'Fraunces', Georgia, serif; text-decoration: none; }
+#working .rest a:hover, #working .rest a:focus-visible { border-bottom-color: var(--ink, #1a1a1a); }
+#working .rest small { font: 400 .8125rem/1.3 var(--sans); color: var(--quiet, #6e6e6e); white-space: nowrap; }
 
 
 
