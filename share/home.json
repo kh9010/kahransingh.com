@@ -1,17 +1,14 @@
 {
- "key": "2026-11-24 mama /photos/restaurant-night.jpg",
+ "key": "2026-11-24 today-i-write-about-red /photos/kitchen-night.jpg",
  "date": "2026-11-24",
- "poem": "mama",
- "title": "Mama",
- "photo": "/photos/restaurant-night.jpg",
- "place": "Kerala",
+ "poem": "today-i-write-about-red",
+ "title": "Today I Write About Red",
+ "photo": "/photos/kitchen-night.jpg",
+ "place": "Telluride, Colorado",
  "how": "live",
- "where": "We're in Bangalore and it's drizzling.",
+ "where": "We're in Bangalore and it's overcast.",
  "lines": [
-  "Mama was what we called him",
-  "Because Masseur always seemed to harsh",
-  "Too far away a relation",
-  "For such a man who always kept us"
+  "(not Blue a color so close so dear to near heart I am not sure who I was before I met you)"
  ],
- "made": "2026-11-24T11:59:53.276Z"
+ "made": "2026-11-24T12:32:19.831Z"
 }
