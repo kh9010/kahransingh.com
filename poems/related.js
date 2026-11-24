@@ -200,13 +200,12 @@ const themeLabels = {
 (function() {
     var end = document.querySelector('.stanza.end-slide .stanza-text');
     if (!end || end.querySelector('.poem-sections')) return;
-    var sections = [['/', 'kahran'], ['/poetry.html', 'poetry'], ['/photography.html', 'photography'], ['/projects.html', 'projects'], ['/lately/', 'lately'],
-        ['/working-with-me.html', 'work with me'], ['/speaking.html', 'speaking'], ['/archive.html', 'archive'], ['/about.html', 'about']];
+    var sections = [['/', 'kahran'], ['/poetry.html', 'poetry'], ['/photography.html', 'photography'], ['/poem-films.html', 'films'], ['/projects.html', 'projects'], ['/lately/', 'lately'], ['/working-with-me.html', 'work with me'], ['/speaking.html', 'speaking'], ['/archive.html', 'archive'], ['/about.html', 'about']];
     var nav = document.createElement('nav');
     nav.className = 'poem-sections';
     nav.setAttribute('aria-label', 'The rest of the site');
-    nav.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:center;gap:.45rem 1.15rem;margin-top:2rem;font-size:.82rem;line-height:1.4;font-style:normal;';
-    nav.innerHTML = sections.map(function(s) { return '<a href="' + s[0] + '" style="color:#8a8a8a;text-decoration:none;">' + s[1] + '</a>'; }).join('');
+    nav.style.cssText = 'display:flex;flex-wrap:wrap;justify-content:center;gap:0 1.15rem;margin-top:1.4rem;font-size:.85rem;line-height:1.4;font-style:normal;';
+    nav.innerHTML = sections.map(function(s) { return '<a href="' + s[0] + '" style="color:#6e6e6e;text-decoration:none;padding:.65rem 0;">' + s[1] + '</a>'; }).join('');
     end.appendChild(nav);
 })();
 

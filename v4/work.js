@@ -3,7 +3,7 @@
    stone is showing; every distance is pick.js's own function; the six ideas are IDEAS, read where they live; the one passage in his voice
    is read off the page it lives on (/v2/about.html). It waits until the stone is up, so none of it is first-screen weight. It also fills
    the strip at the stone's foot and makes the strip the way down, and says so once to track.js (working_open, via strip | scroll). It ends with the rest of the site,
-   every main section by name, the same ten the stone's nav holds.
+   the site's one list of sections, the same the stone's nav holds.
    The sentences written here are in SAID. */
 (async () => {
   const until = async f => { for (let k = 0; k < 400; k++) { let v = null; try { v = f() } catch {} if (v) return v; await new Promise(r => setTimeout(r, 80)) } return null }
@@ -100,9 +100,9 @@
   const clean = el => { if (!el) return ''; const c = el.cloneNode(true); c.querySelectorAll('[style]').forEach(x => x.removeAttribute('style')); return c.innerHTML.trim() }
   const L = q(letter, '.letter p')                                                // the letter picked at the About desk
   const machine = clean(L[1]).replace('on the home page', 'on this page'), write = clean(L[L.length - 1])
-  // the rest of the site: every main section, by the name the site's own nav gives it (poem films and the cv are not in that nav; they are pages all the same)
-  const REST = [['/poetry.html', 'poetry', ctx.data.poems.length + ' poems'], ['/photography.html', 'photography'], ['/poem-films.html', 'poem films'], ['/projects.html', 'projects'], ['/speaking.html', 'speaking'],
-    ['/working-with-me.html', 'work with me'], ['/lately/', 'lately', 'the weekly record'], ['/about.html', 'about', 'the years'], ['/archive.html', 'archive'], ['/cv.html', 'cv']]
+  // the rest of the site: the site's one list of sections, in the words and the order every page's nav has them (tools/test_home.mjs holds them equal)
+  const REST = [['/poetry.html', 'poetry', ctx.data.poems.length + ' poems'], ['/photography.html', 'photography'], ['/poem-films.html', 'films'], ['/projects.html', 'projects'], ['/lately/', 'lately', 'the weekly record'],
+    ['/working-with-me.html', 'work with me'], ['/speaking.html', 'speaking'], ['/archive.html', 'archive'], ['/about.html', 'about', 'the years']]
   const restHTML = () => '<nav class="rest" id="rest" aria-label="Every section of the site"><h2 class="lab">' + SAID.rest + '</h2><ul>' + REST.map(([h, t, n]) => '<li><a href="' + h + '">' + t + (n ? '<small>' + n + '</small>' : '') + '</a></li>').join('') + '</ul></nav>'
   /* ---------- the working's parts (44 d's) ---------- */
   const tick = (cls, v) => v == null ? '' : '<i class="' + cls + '" style="left:' + (Math.max(0, Math.min(1, v)) * 100).toFixed(1) + '%"></i>'

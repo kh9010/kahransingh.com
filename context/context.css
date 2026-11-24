@@ -381,7 +381,8 @@ section { margin-top: clamp(3.5rem, 8vh, 6rem); }
   color: var(--ink-faint);
 }
 .pagefoot a { color: var(--ink-soft); }
-.pagenav { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: .3rem 1.3rem; margin-top: .5rem; }
+.pagenav { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 0 1.3rem; margin-top: .2rem; font-size: .85rem; }
+.pagenav a { padding: .6rem 0; } /* a finger's height */
 .pagefoot a:hover { color: var(--teal); }
 
 /* ----------------------------------------------------------- responsive -- */

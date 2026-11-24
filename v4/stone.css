@@ -305,12 +305,17 @@ body.card-open #year { opacity: 0; pointer-events: none; }
 body.card-open #why-scrim { opacity: 0; pointer-events: none; } /* the card is its own ground: no scrim behind the chain */
 #card.closing, #card.closing .card-slot > *, #card.closing .card-x { pointer-events: none !important; } /* a touch while it closes goes to the stone */
 
-/* v4: the stone's nav holds every main section (ten words, where v3's held three) without the name's block growing taller, since the stone
-   lays the poem, the ideas and the title's facet out against that block. On a wide screen the words run on past the block in one row (two
-   where the window is narrow), short of the poem; on a phone, upright or on its side, they are one row that moves sideways under a finger. */
-header nav { gap: 9px 18px; width: max-content; max-width: min(52vw, 760px); }
+/* v4: the stone's nav is the site's one list of sections (nine words, where v3's held three), without the name's block growing taller,
+   since the stone lays the poem, the ideas and the title's facet out against that block. On a wide screen the words run on past the block in
+   one row (two where the window is narrow), short of the poem; on a phone, upright or on its side, they are one row that moves sideways
+   under a finger. Each word answers a touch well beyond its letters (::after: the gap between two words is half each one's, and on a touch
+   screen 40px of height), without the word's own box growing, which the stone measures. */
+header nav { gap: 9px 18px; width: max-content; max-width: min(58vw, 860px); }
+header nav a { position: relative; }
+header nav a::after { content: ''; position: absolute; inset: -3px -9px; }
+@media (pointer: coarse) { header nav a::after { inset: -14px -9px; } }
 @media (max-width: 640px) and (orientation: portrait), (max-height: 560px) and (orientation: landscape) {
-  header nav { width: auto; max-width: none; flex-wrap: nowrap; white-space: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-right: -16px; padding-right: 16px; }
+  header nav { width: auto; max-width: none; flex-wrap: nowrap; white-space: nowrap; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin: -14px -16px -14px 0; padding: 14px 16px 14px 0; }
   header nav::-webkit-scrollbar { display: none; }
 }
 

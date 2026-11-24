@@ -84,8 +84,10 @@
         .site-nav .nav-links a { color: #6e6e6e; }
         .site-nav .nav-links a:hover, .site-nav .nav-links a:focus-visible { color: #111; }
         .nav-links .nav-current { font-size: inherit; text-transform: none; letter-spacing: 0; color: #111; }
+        .nav-links a, .nav-links .nav-current { padding: 0.9rem 0; flex-shrink: 0; } /* a finger's height, inside the bar's own */
+        .site-nav { padding-top: 0.55rem; padding-bottom: 0.55rem; }
         .nav-home { flex-shrink: 0; }
-        @media (max-width: 768px) { .nav-links { gap: 1.1rem; margin-left: 1.25rem; } }
+        @media (max-width: 768px) { .nav-links { gap: 1.15rem; margin-left: 1.25rem; } .site-nav { padding-top: 0.3rem; padding-bottom: 0.3rem; } }
 
         /* ---- HERO ---- */
         .hero {
@@ -423,7 +425,7 @@
     <!-- Nav -->
     <nav class="site-nav">
         <a href="/" class="nav-home">kahran</a>
-        <div class="nav-links"><a href="/poetry.html">poetry</a><a href="/photography.html">photography</a><a href="/projects.html">projects</a><a href="/lately/">lately</a><a href="/working-with-me.html">work with me</a><span class="nav-current" aria-current="page">speaking</span><a href="/archive.html">archive</a><a href="/about.html">about</a></div>
+        <div class="nav-links"><a href="/poetry.html">poetry</a><a href="/photography.html">photography</a><a href="/poem-films.html">films</a><a href="/projects.html">projects</a><a href="/lately/">lately</a><a href="/working-with-me.html">work with me</a><span class="nav-current" aria-current="page">speaking</span><a href="/archive.html">archive</a><a href="/about.html">about</a></div>
     </nav>
 
     <!-- Hero -->

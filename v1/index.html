@@ -167,6 +167,8 @@
   line-height: 1;
   letter-spacing: .02em;
 }
+/* on a phone the nav is one row along the foot (style.css): the tab sits just above it, not over it */
+@media (max-width: 768px) { .vswitch { bottom: 66px; } }
 .vswitch a { color: #787266; text-decoration: none; }
 .vswitch a:hover { color: #1a1a1a; }
 .vswitch .vswitch-here { color: #1a1a1a; font-weight: 500; }
