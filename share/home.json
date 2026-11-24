@@ -1,15 +1,18 @@
 {
- "key": "2026-11-24 today-i-write-about-red /photos/kitchen-night.jpg",
+ "key": "2026-11-24 mama /photos/kitchen-night.jpg",
  "look": 2,
  "date": "2026-11-24",
- "poem": "today-i-write-about-red",
- "title": "Today I Write About Red",
+ "poem": "mama",
+ "title": "Mama",
  "photo": "/photos/kitchen-night.jpg",
  "place": "Telluride, Colorado",
  "how": "live",
- "where": "We're in Bangalore and it's overcast.",
+ "where": "We're in Bangalore and it's mostly clear.",
  "lines": [
-  "(not Blue a color so close so dear to near heart I am not sure who I was before I met you)"
+  "Mama was what we called him",
+  "Because Masseur always seemed to harsh",
+  "Too far away a relation",
+  "For such a man who always kept us"
  ],
- "made": "2026-11-24T16:26:42.890Z"
+ "made": "2026-11-24T21:15:13.062Z"
 }
