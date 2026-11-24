@@ -118,6 +118,13 @@ const plain = h => h.replace(/<[^>]+>/g, '').replace(/&middot;/g, '·').replace(
   const miss = meta.filter(([, re]) => !re.test(page)).map(([k]) => k)
   let ld = null; try { ld = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(head)[1]) } catch {}
   check(!miss.length && ld && ld['@type'] === 'Person' && ld.name === 'Kahran Singh' && ld.url === 'https://kahransingh.com', `the home keeps its full meta set, the JSON-LD Person, Analytics and /track.js (${meta.length} rules)`, miss.join(', ') || JSON.stringify(ld && ld['@type'])) }
+{ // the picture a shared link to the home shows (24 Nov): a photograph with his name and a poem's title and opening, drawn by tools/share_card.mjs from the home itself
+  const card = path.join(ROOT, 'share/home.jpg'), meta = existsSync(path.join(ROOT, 'share/home.json')) ? J('share/home.json') : null, buf = existsSync(card) ? readFileSync(card) : Buffer.alloc(0)
+  let dim = null; for (let i = 2; i + 9 < buf.length && buf[i] === 0xff;) { const m = buf[i + 1], n = buf.readUInt16BE(i + 2); if (m >= 0xc0 && m <= 0xc3) { dim = [buf.readUInt16BE(i + 7), buf.readUInt16BE(i + 5)]; break } i += 2 + n }
+  const d0 = J('v2/data.json'), poem = meta && d0.poems.find(p => p.slug === meta.poem), photo = meta && d0.photos.find(p => p.src === meta.photo)
+  check(/<meta property="og:image" content="https:\/\/kahransingh\.com\/share\/home\.jpg">/.test(page) && /<meta name="twitter:image" content="https:\/\/kahransingh\.com\/share\/home\.jpg">/.test(page) && /og:image:width" content="1200"/.test(page) && /og:image:height" content="630"/.test(page)
+    && !!dim && dim[0] === 1200 && dim[1] === 630 && buf.length < 400 * 1024 && !!poem && !!photo && existsSync(path.join(ROOT, 'poems', meta.poem + '.html')) && meta.title === poem.title && meta.lines.length >= 1 && meta.lines.every(l => poem.stanzas.join('\n').includes(l) || l.endsWith(' …')),
+    `a shared link to the home shows share/home.jpg (1200x630, ${Math.round(buf.length / 1024)} KB): a photograph and a poem of the site's own (${meta && meta.poem}), its lines the poem's word for word`, JSON.stringify({ dim, meta }).slice(0, 300)) }
 { const nos = (page.match(/<noscript>\s*<div class="plain">([\s\S]*?)<\/noscript>/) || [])[1] || ''
   const items = [...((nos.match(/<ul class="wall-plain">([\s\S]*?)<\/ul>/) || [])[1] || '').matchAll(/<li>\s*<b>([\s\S]*?)<\/b>([\s\S]*?)<\/li>/g)].map(m => [plain(m[1]), plain(m[2])])
   check(JSON.stringify(items) === JSON.stringify(HOME_IDEAS.map(I => [I.name, I.line])), 'without script the six ideas\' lines are there, as IDEAS has them', JSON.stringify(items))
