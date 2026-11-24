@@ -1,0 +1,36 @@
+# The picture a link to the home shows when it is shared (share/home.jpg), kept to the pair the home is showing.
+# A link preview runs no script and the home chooses its pair live from the sky, so the card is drawn here, on a
+# schedule, by opening the real home in Chrome (tools/share_card.mjs), and committed only when the pair changed.
+# Asked for by the site's owner on 24 Nov 2026 ("We can do github").
+name: share card
+on:
+  schedule:
+    - cron: '23 */3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: share-card
+  cancel-in-progress: false
+jobs:
+  card:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Draw the card from the home as it is now
+        run: CHROME="$(command -v google-chrome || command -v chromium-browser || command -v chromium)" node tools/share_card.mjs
+      - name: Commit it if the pair changed
+        run: |
+          if [ -z "$(git status --porcelain share/)" ]; then echo "the card is unchanged"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add share/home.jpg share/home.json
+          git commit -m "Share card: the pair the home is showing"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 5; done
+          exit 1
