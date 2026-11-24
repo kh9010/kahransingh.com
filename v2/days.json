@@ -1130,6 +1130,24 @@
         "wind_kmh": 12.9,
         "cloud_pct": 29
       }
+    },
+    "2026-11-24": {
+      "poem": "when-you-watch-the-whales-from-shore",
+      "photo": "/photos/puako-hawaii-98409f6b.jpg",
+      "place": "Bangalore, India",
+      "why": {
+        "light": 0.7062076817544336,
+        "warmth": 0.9457142857142857,
+        "wet": 0.54,
+        "stillness": 0.9950000000000001,
+        "season": 0.051533912824496764,
+        "inside": 0.7028571428571428,
+        "mood": 0.5,
+        "weather_code": 80,
+        "tmax": 28.1,
+        "wind_kmh": 12.2,
+        "cloud_pct": 83
+      }
     }
   }
 }
