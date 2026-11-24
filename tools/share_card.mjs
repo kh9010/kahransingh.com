@@ -11,7 +11,8 @@
 //   share/home.json   what the card shows: the day, the poem, the photograph, how the pair was reached, when it was made
 //
 // It writes only when the pair (or the day) differs from share/home.json's, so a run that finds the same pair touches
-// nothing. If the sky cannot be read it keeps the card it has rather than draw the fallback pair; FORCE=1 draws anyway.
+// nothing. The sky is asked for from here, with patience, and handed to the page. If it still cannot be read, today's card is
+// kept as it is, and a card from an earlier day is redrawn with the day's kept pair; FORCE=1 draws whatever the page shows.
 //
 // Run: node tools/share_card.mjs            (CHROME=/path/to/chrome to choose the browser; FORCE=1; OUT=dir)
 // It is run on a schedule by .github/workflows/share-card.yml, which commits the card when it changed.
@@ -53,7 +54,7 @@ const chrome = spawn(chromePath, ['--headless', '--hide-scrollbars', '--no-first
 const cleanup = () => { try { chrome.kill() } catch {} try { server.close() } catch {} try { rmSync(PROFILE, { recursive: true, force: true }) } catch {} }
 process.on('exit', cleanup)
 
-class CDP { constructor(ws) { this.ws = ws; this.id = 0; this.wait = new Map(); ws.onmessage = e => { const m = JSON.parse(e.data); if (m.id && this.wait.has(m.id)) { const [res, rej] = this.wait.get(m.id); this.wait.delete(m.id); m.error ? rej(new Error(m.error.message)) : res(m.result) } } }
+class CDP { constructor(ws) { this.ws = ws; this.id = 0; this.wait = new Map(); this.on = null; ws.onmessage = e => { const m = JSON.parse(e.data); if (m.id && this.wait.has(m.id)) { const [res, rej] = this.wait.get(m.id); this.wait.delete(m.id); m.error ? rej(new Error(m.error.message)) : res(m.result) } else if (this.on) this.on(m) } }
   send(method, params = {}) { const id = ++this.id; this.ws.send(JSON.stringify({ id, method, params })); return new Promise((res, rej) => this.wait.set(id, [res, rej])) }
   async eval(expression) { const r = await this.send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: true }); if (r.exceptionDetails) throw new Error(r.exceptionDetails.exception?.description || r.exceptionDetails.text); return r.result.value } }
 
@@ -64,14 +65,27 @@ try {
   const cdp = new CDP(ws); await cdp.send('Page.enable'); await cdp.send('Runtime.enable')
   await cdp.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false })
 
-  /* 1. the home, as a visitor has it at this moment: which pair is it showing? */
-  await cdp.send('Page.navigate', { url: BASE + '/' })
-  await waitFor(() => cdp.eval(`document.body && document.body.dataset.ready === 'yes' && !!window.HOME && !!HOME.world0 && !!HOME.ctx`), 'the home')
+  /* 1. the home, as a visitor has it at this moment: which pair is it showing?
+     The page gives the sky four seconds; from a shared machine the weather service can take longer or refuse the first try. So the page's
+     own request for the sky is held here, asked again from Node with patience, and answered to the page with what came back: the page
+     still builds its reading from the service's reply by its own code. */
+  let skyUrl = null, skyBody = null, skyNote = 'the page asked for no sky'
+  const b64 = t => Buffer.from(t).toString('base64'), cors = [{ name: 'Access-Control-Allow-Origin', value: '*' }, { name: 'Content-Type', value: 'application/json' }]
+  cdp.on = m => { if (m.method !== 'Fetch.requestPaused') return; skyUrl = m.params.request.url
+    cdp.send('Fetch.fulfillRequest', skyBody ? { requestId: m.params.requestId, responseCode: 200, responseHeaders: cors, body: b64(skyBody) } : { requestId: m.params.requestId, responseCode: 503, responseHeaders: cors, body: '' }).catch(() => {}) }
+  await cdp.send('Fetch.enable', { patterns: [{ urlPattern: '*api.open-meteo.com*' }] })
+  const home = async () => { await cdp.send('Page.navigate', { url: BASE + '/' }); await waitFor(() => cdp.eval(`document.body && document.body.dataset.ready === 'yes' && !!window.HOME && !!HOME.world0 && !!HOME.ctx`), 'the home') }
+  await home() // the first load only to learn what the page asks the weather service
+  if (skyUrl) for (let k = 0; k < 5 && !skyBody; k++) { if (k) await sleep(4000 * k)
+    try { const r = await fetch(skyUrl, { signal: AbortSignal.timeout(20000) }); if (r.ok) { const t = await r.text(); JSON.parse(t).current && (skyBody = t); skyNote = 'the sky was read on try ' + (k + 1) } else skyNote = 'the weather service answered ' + r.status } catch (e) { skyNote = 'the weather service could not be reached: ' + (e.cause && e.cause.code || e.name) } }
+  console.log(skyNote)
+  await cdp.eval(`(() => { try { sessionStorage.clear() } catch {} })()`); await home()
   const day = await cdp.eval(`(() => { const c = HOME.ctx, w = HOME.world0, line = (document.querySelector('#where .sent') || document.getElementById('where')).textContent.trim()
     return { date: c.iso, how: c.how, poem: c.poem.slug, title: c.poem.title, stanzas: c.stanzas, photo: c.photo.src, alt: c.photo.alt, caption: c.photo.caption, where: /^We.re in /.test(line) ? line : '', onStone: [w.poem, w.photo] } })()`)
   if (day.onStone[0] !== day.poem || day.onStone[1] !== day.photo) throw new Error('the stone is not showing the day\'s pair: ' + JSON.stringify(day.onStone))
   const key = `${day.date} ${day.poem} ${day.photo}`, was = existsSync(path.join(OUT, 'home.json')) ? JSON.parse(readFileSync(path.join(OUT, 'home.json'), 'utf8')) : null
-  if (day.how !== 'live' && !FORCE) { console.log(`the sky could not be read (the pair would be the ${day.how} one): the card is left as it is${was ? ', ' + was.poem : ''}`); process.exit(0) }
+  // no sky: today's card, if there is one, is left as it is; a card from another day is redrawn with the day's kept pair, which is at least today's
+  if (day.how !== 'live' && !FORCE && was && was.date === day.date) { console.log(`the sky could not be read (the pair would be the ${day.how} one): today's card is left as it is, ${was.poem}`); process.exit(0) }
   if (was && was.key === key && existsSync(path.join(OUT, 'home.jpg')) && !FORCE) { console.log(`unchanged: ${day.title}, ${day.caption.split(' — ')[0]} (${day.date})`); process.exit(0) }
 
   /* 2. the card. The poem's opening: whole lines, as many as fit the measure, never a cut line. */
