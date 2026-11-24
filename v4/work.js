@@ -1,7 +1,7 @@
 /* v4/work.js — the working beneath the stone (Study 47; 44 d's six steps): how today's photograph and poem were chosen.
    It takes the day from the stone itself (HOME.ctx: the pick, the reading, the archive, the scores), so what it works out is the pair the
-   stone is showing; every distance is pick.js's own function; the six ideas are IDEAS, read where they live; the one passage in his voice
-   is read off the page it lives on (/v2/about.html). It waits until the stone is up, so none of it is first-screen weight. It also fills
+   stone is showing; every distance is pick.js's own function; the six ideas are IDEAS, read where they live.
+   It waits until the stone is up, so none of it is first-screen weight. It also fills
    the strip at the stone's foot and makes the strip the way down, and says so once to track.js (working_open, via strip | scroll). It ends with the rest of the site,
    the site's one list of sections, the same the stone's nav holds.
    The sentences written here are in SAID. */
@@ -21,7 +21,6 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
   const text = u => fetch(u, { cache: 'no-cache' }).then(r => r.ok ? r.text() : '').catch(() => '')
   const json = u => fetch(u, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null)
-  const doc = async u => new DOMParser().parseFromString(await text(u), 'text/html')
   function literal(src, name) { // stone.js's: a literal read out of the source it lives in
     const at = src.indexOf('var ' + name + ' = '); if (at < 0) return null
     const s0 = at + name.length + 7
@@ -36,7 +35,7 @@
 
   const said = (document.querySelector('#where .sent') || document.getElementById('where')).textContent.trim() // the stone's own line, as weather.js wrote it
   const line = { textContent: /^We.re in /.test(said) ? said : '' }
-  const [homeJs, pickJs, doors, place, letter] = await Promise.all([text('/v2/home.js'), text('/v2/pick.js'), json('/v4/doors.json'), json('/v2/place.json'), doc('/v2/about.html')])
+  const [homeJs, pickJs, doors, place] = await Promise.all([text('/v2/home.js'), text('/v2/pick.js'), json('/v4/doors.json'), json('/v2/place.json')])
   const IDEAS = literal(homeJs, 'IDEAS') || []
   const K = window.kahranPick, P = K && K.__test
 
@@ -96,10 +95,6 @@
   const skyBits = [sky.replace(/^it’s |^it's /, ''), temp != null && deg(temp), cloud != null && 'cloud ' + Math.round(cloud) + '%', wind != null && 'wind ' + Math.round(wind) + ' km/h'].filter(Boolean)
   const ideasHTML = () => '<div class="ideas">' + IDEAS.map(I => '<details><summary><b>' + esc(I.name) + '</b><span>' + esc(I.line) + '</span><i></i></summary><p>' + esc(I.detail.intro) +
     (I.href ? ' <a class="u" href="' + I.href + '">its page</a>' : '') + '</p></details>').join('') + '</div>'
-  const q = (d, sel) => [...d.querySelectorAll(sel)]
-  const clean = el => { if (!el) return ''; const c = el.cloneNode(true); c.querySelectorAll('[style]').forEach(x => x.removeAttribute('style')); return c.innerHTML.trim() }
-  const L = q(letter, '.letter p')                                                // the letter picked at the About desk
-  const machine = clean(L[1]).replace('on the home page', 'on this page'), write = clean(L[L.length - 1])
   // the rest of the site: the site's one list of sections, in the words and the order every page's nav has them (tools/test_home.mjs holds them equal)
   const REST = [['/poetry.html', 'poetry', ctx.data.poems.length + ' poems'], ['/photography.html', 'photography'], ['/poem-films.html', 'films'], ['/projects.html', 'projects'], ['/lately/', 'lately', 'the weekly record'],
     ['/working-with-me.html', 'work with me'], ['/speaking.html', 'speaking'], ['/archive.html', 'archive'], ['/about.html', 'about', 'the years']]
@@ -121,7 +116,7 @@
     step(3, 'What the day asks for', axes() + '<p class="note" style="margin-top:1rem">Seven measures, each from the reading above and the date. Every photograph and every poem has been placed on the same seven.</p>') +
     step(4, 'The photograph', (shown ? '<p class="note">' + nearPh.n + ' weighed. ' + nearPh.held + ' were seen in the last ' + nov[2] + ' days and are held back. The nearest of the rest:</p>' + list(nearPh, it => esc(it.alt) + '<small>' + esc(capPlace(it.caption)) + '</small>') : '') + photoHTML('')) +
     step(5, 'The poem', (shown ? '<p class="note">' + nearPo.n + ' weighed. ' + nearPo.held + ' were seen in the last ' + nov[1] + ' days and are held back. The nearest of the rest:</p>' + list(nearPo, it => esc(it.title)) : '') + poemHTML())
-  const behind = n => step(n, 'What runs behind it', '<div class="letter"><p>' + machine + '</p></div>' + ideasHTML())
+  const behind = n => step(n, 'What runs behind it', ideasHTML()) // the six ideas and nothing before them (Kahran, 24 Nov, of the paragraph that stood here: "super weird … just need to go")
 
   /* ---------- the page beneath the stone ---------- */
   document.getElementById('working').innerHTML = '<div class="d">' + intro() + five() + behind(6) + restHTML() + '</div>'

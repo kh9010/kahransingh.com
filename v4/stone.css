@@ -340,8 +340,6 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 #working summary { cursor: pointer; list-style: none; } #working summary::-webkit-details-marker { display: none; }
 #working :focus-visible { outline: 2px solid var(--ink, #1a1a1a); outline-offset: 3px; }
 #working .lab { font: 500 .8125rem/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--quiet, #6e6e6e); }
-#working .letter p { font: 400 calc(var(--read-rem, 1.25) * 1rem)/var(--lead, 1.6) var(--serif); margin-bottom: 1.15em; }
-#working .letter a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; text-decoration-color: #a8a297; }
 #working figure figcaption { font: 400 .8125rem/1.4 var(--sans); color: var(--quiet, #6e6e6e); margin-top: .6rem; }
 /* the poem, the same in all four */
 #working .poem h4 { font: italic 400 1.75rem/1.2 'Fraunces', Georgia, serif; margin-bottom: 1.1rem; }
@@ -373,7 +371,7 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 #working .d .step > .hd b { display: block; font: 300 2.4rem/1 'Fraunces', Georgia, serif; margin-bottom: .5rem; }
 #working .d .step .big { font: 400 2.1rem/1.15 'Fraunces', Georgia, serif; margin-bottom: .6rem; }
 #working .d .step .note { font: 400 .9375rem/1.55 'Space Grotesk', sans-serif; color: var(--quiet, #6e6e6e); max-width: 36rem; }
-#working .d .step .note + .note { margin-top: .5rem; } #working .d .step .note b { display: block; font-weight: 500; color: var(--ink, #1a1a1a); } #working .d .step .letter p { font-size: 1.125rem; max-width: 38rem; }
+#working .d .step .note + .note { margin-top: .5rem; } #working .d .step .note b { display: block; font-weight: 500; color: var(--ink, #1a1a1a); }
 #working .d .sky { display: flex; flex-wrap: wrap; gap: .4rem 2.2rem; margin-bottom: .7rem; } #working .d .sky div { font: 400 1.75rem/1.2 'Fraunces', Georgia, serif; } #working .d .sky small { display: block; font: 400 .8125rem 'Space Grotesk', sans-serif; color: var(--quiet, #6e6e6e); letter-spacing: .04em; }
 #working .d .axes { display: grid; gap: .55rem; max-width: 40rem; margin-bottom: 1rem; }
 #working .d .axis { display: grid; grid-template-columns: 6.6rem 5.4rem minmax(0, 1fr) 6rem; gap: .8rem; align-items: center; font-size: .875rem; }
@@ -407,7 +405,6 @@ body[data-at="about"] { overflow: hidden; } body[data-at="about"] .under, body[d
 @media (max-width: 640px) {
   .under b { font-size: 1.0625rem; white-space: normal; } .under span { display: none; } .under::after { content: '\2193'; font: 400 1.125rem var(--sans); }
   #working .poem p { font-size: calc(var(--poem-rem, 1.375) * .875rem); }
-  #working .letter p { font-size: calc(var(--read-rem, 1.25) * .925rem); }
   #working .ideas summary { grid-template-columns: 1fr 1rem; } #working .ideas summary span { grid-column: 1; grid-row: 2; margin-top: -.75rem; }
   #working .d .axis { grid-template-columns: 4.6rem minmax(0, 1fr); gap: .2rem .8rem; } #working .d .axis span { display: none; } #working .d .axis b { font-size: .8125rem; }
   #working .d .near li { grid-template-columns: 1.2rem minmax(0, 1fr) 3.2rem; } #working .d .near .bar { display: none; }
