@@ -126,6 +126,7 @@ SECTION = "lately"
 NAV_LINKS = (
     ("/poetry.html", "poetry"),
     ("/photography.html", "photography"),
+    ("/poem-films.html", "films"),
     ("/projects.html", "projects"),
     (f"/{SECTION}/", SECTION),
     ("/working-with-me.html", "work with me"),

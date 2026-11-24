@@ -2,10 +2,12 @@
 # A link preview runs no script and the home chooses its pair live from the sky, so the card is drawn here, on a
 # schedule, by opening the real home in Chrome (tools/share_card.mjs), and committed only when the pair changed.
 # Asked for by the site's owner on 24 Nov 2026 ("We can do github").
+# Every half hour, not every three: the home follows the live sky, and on its first afternoon the pair changed and
+# changed back between two runs three hours apart, so a shared link showed a poem the home no longer did.
 name: share card
 on:
   schedule:
-    - cron: '23 */3 * * *'
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 permissions:
   contents: write

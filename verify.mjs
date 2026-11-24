@@ -379,7 +379,7 @@ check('study 10: Keeping track is a mechanism page like /context/: same meta set
 
 check('study 11: the home with the eight-word nav, in about.html\'s order, and the photograph still never re-crops', () => {
   const nav = h => [...(/<nav[^>]*class="rail-nav"[\s\S]*?<\/nav>|<nav>[\s\S]*?<\/nav>/.exec(h) || [''])[0].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map(m => m[1] + ' ' + m[2]).filter(x => !/nav-name|v1\//.test(x) && !x.endsWith(' kahran'))
-  const want = nav(read(path.join(ROOT, 'about.html'))).filter(x => !x.startsWith('/v1/')), got = nav(read(S('11/index.html')))
+  const want = nav(read(path.join(ROOT, 'about.html'))).filter(x => !x.startsWith('/v1/') && !x.startsWith('/poem-films.html')), got = nav(read(S('11/index.html'))) // films joined the site's nav on 24 Nov; the study is of the eight it was drawn with
   assert.deepEqual(got, want, 'the study nav is about.html\'s nav')
   assert.equal(got.length, 8)
   const r = spawnSync(process.execPath, ['tools/test_photo_stays.mjs'], { cwd: ROOT, encoding: 'utf8', env: { ...process.env, PAGE: '/studies/11/' } })
