@@ -1,11 +1,11 @@
 {
- "key": "2026-11-25 mama /photos/kitchen-night.jpg",
+ "key": "2026-11-25 mama /photos/restaurant-night.jpg",
  "look": 2,
  "date": "2026-11-25",
  "poem": "mama",
  "title": "Mama",
- "photo": "/photos/kitchen-night.jpg",
- "place": "Telluride, Colorado",
+ "photo": "/photos/restaurant-night.jpg",
+ "place": "Kerala",
  "how": "live",
  "where": "We're in Bangalore and it's overcast.",
  "lines": [
@@ -14,5 +14,5 @@
   "Too far away a relation",
   "For such a man who always kept us"
  ],
- "made": "2026-11-25T06:26:01.792Z"
+ "made": "2026-11-25T07:18:08.594Z"
 }
