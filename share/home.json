@@ -1,18 +1,15 @@
 {
- "key": "2026-11-25 i-feel-sad-about-endings /photos/restaurant-night.jpg",
+ "key": "2026-11-25 today-i-write-about-red /photos/restaurant-night.jpg",
  "look": 2,
  "date": "2026-11-25",
- "poem": "i-feel-sad-about-endings",
- "title": "I feel sad about endings",
+ "poem": "today-i-write-about-red",
+ "title": "Today I Write About Red",
  "photo": "/photos/restaurant-night.jpg",
  "place": "Kerala",
  "how": "live",
- "where": "We're in Bangalore and there's a storm.",
+ "where": "We're in Bangalore and it's drizzling.",
  "lines": [
-  "It's in the existential sort of sad",
-  "Like when it's too humid for your hair",
-  "It's hard to keep brushing your teeth",
-  "Cause you're a fucking poet"
+  "(not Blue a color so close so dear to near heart I am not sure who I was before I met you)"
  ],
- "made": "2026-11-25T09:18:26.227Z"
+ "made": "2026-11-25T10:17:19.970Z"
 }
