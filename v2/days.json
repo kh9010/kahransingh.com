@@ -1148,6 +1148,24 @@
         "wind_kmh": 12.2,
         "cloud_pct": 83
       }
+    },
+    "2026-11-25": {
+      "poem": "these-water-nymphs",
+      "photo": "/photos/kodagu-india-124b384b.jpg",
+      "place": "Bangalore, India",
+      "why": {
+        "light": 0.4386661118458607,
+        "warmth": 0.9085714285714286,
+        "wet": 0.9400000000000001,
+        "stillness": 0.9875,
+        "season": 0.04779727258284994,
+        "inside": 0.4842857142857142,
+        "mood": 0.5,
+        "weather_code": 95,
+        "tmax": 26.8,
+        "wind_kmh": 12.5,
+        "cloud_pct": 93
+      }
     }
   }
 }
