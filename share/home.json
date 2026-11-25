@@ -1,15 +1,18 @@
 {
- "key": "2026-11-24 today-i-write-about-red /photos/night-street.jpg",
+ "key": "2026-11-25 mama /photos/restaurant-night.jpg",
  "look": 2,
- "date": "2026-11-24",
- "poem": "today-i-write-about-red",
- "title": "Today I Write About Red",
- "photo": "/photos/night-street.jpg",
- "place": "Roma Norte, Mexico City",
+ "date": "2026-11-25",
+ "poem": "mama",
+ "title": "Mama",
+ "photo": "/photos/restaurant-night.jpg",
+ "place": "Kerala",
  "how": "live",
  "where": "We're in Bangalore and it's overcast.",
  "lines": [
-  "(not Blue a color so close so dear to near heart I am not sure who I was before I met you)"
+  "Mama was what we called him",
+  "Because Masseur always seemed to harsh",
+  "Too far away a relation",
+  "For such a man who always kept us"
  ],
- "made": "2026-11-25T04:41:55.129Z"
+ "made": "2026-11-25T05:16:23.441Z"
 }
