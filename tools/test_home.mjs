@@ -1474,7 +1474,7 @@ try {
       const body = bodyTruth(s.model.iso, READING, DAYS, s.stoneDoors, true)
       check(s.stone.photo === truth.photos[0] && s.stone.slug === truth.poems[0] && s.model.agrees && s.home, `${L}: the chain is about the stone on screen, pick.js's two`, JSON.stringify(s.stone))
       honest(L, s, truth, body, true)
-      check(s.sigs.length >= 7 && s.sigs.every(g => { const t = truth.sig[g.k]; return t && t.moved && t.photo === g.photo && t.poem === g.poem }), `${L}: ${s.sigs.length} signals, each taken away in turn, and without it the two are pickBest's`)
+      check(s.sigs.length >= 7 && s.sigs.every(g => { const t = truth.sig[g.k]; return t && t.moved && t.photo === g.photo && t.poem === g.poem }), `${L}: ${s.sigs.length} signals, each taken away in turn, and without it the two are pickBest's`, JSON.stringify(s.sigs.map(g => { const t = truth.sig[g.k]; return !t ? { k: g.k, none: true } : t.moved && t.photo === g.photo && t.poem === g.poem ? null : { k: g.k, moved: t.moved, says: [g.photo, g.poem], truth: [t.photo, t.poem] } }).filter(Boolean)).slice(0, 600))
       check(s.doors.length > 0 && s.doors.join('|') === s.stoneDoors.map(d => d.phrase).join('|'), `${L}: the door lines it lists are the doors on the stone`)
       const echoed = await cdp.eval('HOME.JN.echoed'), ks = new Set(echoed.map(e => e.k)), bad = echoed.filter(e => !echoOk(e))
       check(ks.size >= 6 && !bad.length, `${L}: 36 c: opening, the sentence turns back into its readings and ${ks.size} of 7 light where the chain reads that value`, JSON.stringify(bad.length ? bad : echoed.map(e => e.reading + '→' + e.text)))
@@ -1545,6 +1545,17 @@ try {
       const d1 = await cdp.eval(`({ y: Math.round(scrollY), v: Math.round(document.querySelector('.verse').scrollTop), at: HOME.at, seq: HOME.seq, poem: document.body.dataset.poem, busy: HOME.busy })`)
       check(d0.action === 'pan-y' && (d1.y > far / 3 || d1.v - d0.v > far / 3) && d1.at === 'stone' && d1.seq === d0.seq && d1.poem === d0.poem && !d1.busy,
         `${tag} the working: a finger dragged ${Math.round(far)}px up from a line of the poem moves ${d1.y ? 'the page (' + d1.y + 'px)' : 'the poem within itself (' + (d1.v - d0.v) + 'px; it is longer than its room, and the page is next)'} and the stone takes it for no tap: the same poem, nothing crossed, at rest`, JSON.stringify({ d0, d1 }))
+      await cdp.eval('scrollTo(0, 0)'); await sleep(250)
+      /* and a finger that rests first: the press has begun (the next poem is on its way in) when the drag starts. It is withdrawn, the drag is still
+         the page's, and the date is still this photograph's (26 Nov, "why does the date change as I scroll": the incoming photograph's date was
+         written over it to be measured and never put back) */
+      await open(''); const year0 = await cdp.eval(`document.querySelector('#year a').textContent`), e0 = await cdp.eval(`({ seq: HOME.seq, poem: document.body.dataset.poem, v: document.querySelector('.verse').scrollTop })`)
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: d0.pt[0], y: d0.pt[1] }] }); await sleep(120); const early = await cdp.eval('HOME.at'); await sleep(480); const begun = await cdp.eval('HOME.at')
+      for (let i = 1; i <= 10; i++) { await sleep(14); await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: d0.pt[0], y: d0.pt[1] - far * i / 10 }] }) }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(3000)
+      const e1 = await cdp.eval(`({ y: Math.round(scrollY), v: Math.round(document.querySelector('.verse').scrollTop), at: HOME.at, seq: HOME.seq, poem: document.body.dataset.poem, busy: HOME.busy, year: document.querySelector('#year a').textContent, verses: document.querySelectorAll('.verse').length })`)
+      check(early === 'stone' && (e1.y > far / 3 || e1.v - e0.v > far / 3) && e1.at === 'stone' && e1.seq === e0.seq && e1.poem === e0.poem && !e1.busy && e1.year === year0 && e1.verses === 1,
+        `${tag} the working: a finger that rests is not pressing for its first 120ms${begun === 'entering' ? ', then is' : ''}; dragged from there the press is withdrawn, the ${e1.y ? 'page' : 'poem'} moves, the same poem stays and the date still reads ${year0}`, JSON.stringify({ early, begun, e0, e1, year0 }))
       await cdp.eval('scrollTo(0, 0)'); await sleep(250) } }
   if (process.env.CARDS !== 'only') for (const vp of VIEWPORTS) { await view(vp); await reduceMotion(false); await workingHold(`${vp.w}x${vp.h}`) }
 

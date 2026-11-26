@@ -21,6 +21,7 @@
  "door-slop-phone-px": "10",
  "press-ms": "1100",
  "press-tap-ms": "260",
+ "press-wait-ms": "180",
  "press-sink": "0.16",
  "press-push-px": "28",
  "fall-ms": "900",

@@ -693,8 +693,9 @@ function lumOf(img) { // the photograph as it lies on the screen, the shade unde
 function yearFacet(w, fs, tools) {
   const toolsI = tools ? tools.i : -1
   const rec = recOf(w.photo.src); if (!rec) return null
-  yearA.textContent = dateLabel(rec); const was = yearEl.style.cssText; yearEl.style.cssText = 'opacity:0;left:0;top:0'
+  const said = yearA.textContent; yearA.textContent = dateLabel(rec); const was = yearEl.style.cssText; yearEl.style.cssText = 'opacity:0;left:0;top:0'
   const lw = yearA.offsetWidth, lh = yearA.offsetHeight; yearEl.style.cssText = was
+  yearA.textContent = said // v4: measured, and the date on screen put back. It was left as the incoming photograph's, so a press begun and withdrawn (every drag, once the page scrolled) left this photograph under another's date
   const hit = num('hit-px', 44), bw = Math.max(lw + 12, hit), bh = Math.max(lh, hit), m = 10, lum = lumOf(w.img)
   const keep = [w.R, rectOf('#mat'), capFor(w), rectOf('.vs'), ...(tools ? [tools.box.slice(0, 4)] : [])].filter(b => b[2] > 0 && b[3] > 0)
   // where in a facet the date can sit: at its centre with a finger's reach inside the cut (38's), else anywhere in it with that reach, else anywhere its words fit
@@ -1168,12 +1169,20 @@ function touchFrame(w, now, dt) {
 app.addEventListener('pointerdown', e => {
   if (whyOpen) { if (!e.target.closest('#why,#where')) closeWhy(); return } // 34: the stone around the panel closes it
   if (e.button > 0 || e.target.closest('header,a,button') || !cur || cur.mode !== 'home' || busy) return
-  pressAt = [e.clientX, e.clientY]; pressGo = pressStart(pressAt); try { app.setPointerCapture(e.pointerId) } catch {} })
+  pressAt = [e.clientX, e.clientY]; pressNow = pressAt; try { app.setPointerCapture(e.pointerId) } catch {}
+  if (e.pointerType !== 'touch') { pressGo = pressStart(pressAt); return }
+  pressWait = setTimeout(() => { pressWait = 0; if (pressAt && !strayed()) pressGo = pressStart(pressAt) }, num('press-wait-ms', 180)) })
 // v4: the page moves under a finger now (and a long poem within itself), so a touch that travels is a drag, not a press: let go after 12px, or
 // taken over by the browser to scroll (pointercancel), it withdraws. Before, a drag begun on the poem was a quick tap and crossed to another poem.
-let pressAt = null
-app.addEventListener('pointerup', e => { const a = pressAt; pressAt = null; pressUp(!!a && Math.hypot(e.clientX - a[0], e.clientY - a[1]) > 12) })
-app.addEventListener('pointercancel', () => { pressAt = null; pressUp(true) })
+// And a finger's press begins only once it has stayed put for press-wait-ms: begun at once, every scroll opened with the stone giving and the
+// date going out for half a second ("why does the date change as I scroll"). A tap shorter than the wait is still a tap; a mouse presses at once.
+let pressAt = null, pressNow = null, pressWait = 0
+const strayed = () => !!pressAt && Math.hypot(pressNow[0] - pressAt[0], pressNow[1] - pressAt[1]) > 12
+app.addEventListener('pointermove', e => { if (pressAt) pressNow = [e.clientX, e.clientY] })
+app.addEventListener('pointerup', e => { if (pressAt) pressNow = [e.clientX, e.clientY]; const away = strayed(), a = pressAt; pressAt = null
+  if (pressWait) { clearTimeout(pressWait); pressWait = 0; if (away || !a) return; pressGo = pressStart(a) } // let go inside the wait: a tap, if it stayed put
+  pressUp(away) })
+app.addEventListener('pointercancel', () => { pressAt = null; if (pressWait) { clearTimeout(pressWait); pressWait = 0; return } pressUp(true) })
 app.addEventListener('click', e => { // doors are links for keys and for reading; a pointer is routed on its way up, below
   const a = e.target.closest('.verse .door'); if (!a) return
   e.preventDefault(); if (e.detail !== 0 || busy || !cur || cur.mode !== 'world') return // mid-way, a second touch goes nowhere
