@@ -1293,8 +1293,13 @@ try {
     check(c0.more === scrolls, `${label}: the foot ${scrolls ? 'comes to a point while there is more' : 'is flat: everything is in view'}`, `more ${c0.more}, scrolls ${scrolls}`)
     if (!scrolls) return
     const mid = await cdp.eval(`(() => { const r = document.querySelector('.card-slot > *').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, r.height] })()`)
-    let last = -1; for (let k = 0; k < 40; k++) { const st = await cdp.eval(`document.querySelector('.card-slot > *').scrollTop`); if (st === last) break; last = st
-      await cdp.send('Input.synthesizeScrollGesture', { x: mid[0], y: mid[1], yDistance: -Math.round(mid[2] * .7), gestureSourceType: 'touch', speed: 2400, preventFling: true }); await sleep(120) }
+    // a finger's own events, down, along and up (26 Nov; it was Input.synthesizeScrollGesture, which moves nothing in a headless shell: the card
+    // scrolls under a finger there as anywhere, and these two checks had been failing in that browser for the tool's sake)
+    let last = -1; for (let k = 0; k < 120; k++) { const st = await cdp.eval(`document.querySelector('.card-slot > *').scrollTop`); if (st === last) break; last = st
+      const y0 = mid[1] + mid[2] * .38, far = mid[2] * .76
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: mid[0], y: y0 }] })
+      for (let i = 1; i <= 8; i++) { await sleep(14); await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: mid[0], y: y0 - far * i / 8 }] }) }
+      await sleep(60); await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(260) }
     await sleep(200)
     const end = await cdp.eval(`(() => { const e = document.querySelector('.card-slot > *'), r = e.getBoundingClientRect(), w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT); let last = null; for (let n; (n = w.nextNode());) if (n.data.trim() && n.parentElement.getClientRects().length && !n.parentElement.closest('[hidden]')) last = n
       const q = document.createRange(); q.selectNodeContents(last); const b = [...q.getClientRects()].pop(); return { at: e.scrollTop + e.clientHeight >= e.scrollHeight - 1, lastIn: b.bottom <= r.bottom + 1 && b.top >= r.top - 1, more: HOME.card.more } })()`)
