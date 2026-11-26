@@ -1533,7 +1533,19 @@ try {
     const y0 = await cdp.eval('scrollY'); await cdp.eval('document.activeElement && document.activeElement.blur && document.activeElement.blur()'); await key(' '); await sleep(700)
     const a = await cdp.eval('({ seq: HOME.seq, at: HOME.at, y: scrollY })'); await cdp.eval('scrollTo(0, 0)'); await sleep(250); await cdp.eval('scrollTo(0, innerHeight)'); await sleep(250); await cdp.eval('scrollTo(0, 0)'); await sleep(250)
     const sent = tracked.filter(x => x.name === 'working_open')
-    check(!!down && a.seq === seq0 && a.at === 'stone' && a.y > y0 && sent.length === 1 && sent[0].params.via === 'strip', `${tag} the working: the strip brings it up over the stone; a touch on it is the working's and the stone hears nothing; lower down Space moves the page and the stone stays; working_open is said once, via strip`, JSON.stringify({ down: !!down, a, y0, seq0, sent })) }
+    check(!!down && a.seq === seq0 && a.at === 'stone' && a.y > y0 && sent.length === 1 && sent[0].params.via === 'strip', `${tag} the working: the strip brings it up over the stone; a touch on it is the working's and the stone hears nothing; lower down Space moves the page and the stone stays; working_open is said once, via strip`, JSON.stringify({ down: !!down, a, y0, seq0, sent }))
+    /* a finger dragged over the stone moves the page; the stone does not take it for a tap (24 Nov, on his phone: "it won't let me scroll down the
+       poems. It thinks it's a tap instead of the scroll": a drag begun on a line of the poem crossed to another poem and the page stayed) */
+    if (VP.mobile) { await open('')
+      const d0 = await cdp.eval(`(() => { const d = [...document.querySelectorAll('.verse .l.shown .door')].find(d => d.getBoundingClientRect().width > 0) || document.querySelector('.verse .l.shown'), r = d.getBoundingClientRect(); return { pt: [r.left + Math.min(r.width, 60) / 2, r.top + r.height / 2], seq: HOME.seq, poem: document.body.dataset.poem, v: document.querySelector('.verse').scrollTop, action: getComputedStyle(document.getElementById('app')).touchAction } })()`)
+      const far = Math.min(200, d0.pt[1] - 20)
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: d0.pt[0], y: d0.pt[1] }] })
+      for (let i = 1; i <= 10; i++) { await sleep(14); await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: d0.pt[0], y: d0.pt[1] - far * i / 10 }] }) }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(2600)
+      const d1 = await cdp.eval(`({ y: Math.round(scrollY), v: Math.round(document.querySelector('.verse').scrollTop), at: HOME.at, seq: HOME.seq, poem: document.body.dataset.poem, busy: HOME.busy })`)
+      check(d0.action === 'pan-y' && (d1.y > far / 3 || d1.v - d0.v > far / 3) && d1.at === 'stone' && d1.seq === d0.seq && d1.poem === d0.poem && !d1.busy,
+        `${tag} the working: a finger dragged ${Math.round(far)}px up from a line of the poem moves ${d1.y ? 'the page (' + d1.y + 'px)' : 'the poem within itself (' + (d1.v - d0.v) + 'px; it is longer than its room, and the page is next)'} and the stone takes it for no tap: the same poem, nothing crossed, at rest`, JSON.stringify({ d0, d1 }))
+      await cdp.eval('scrollTo(0, 0)'); await sleep(250) } }
   if (process.env.CARDS !== 'only') for (const vp of VIEWPORTS) { await view(vp); await reduceMotion(false); await workingHold(`${vp.w}x${vp.h}`) }
 
   if (process.env.CARDS !== 'only' && want('states')) { const sky = (o, cur = {}) => { const j = JSON.parse(FIXTURE); Object.assign(j.current, cur); return JSON.stringify(j) }

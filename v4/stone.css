@@ -323,6 +323,11 @@ header nav a::after { content: ''; position: absolute; inset: -3px -9px; }
    The stone stays fixed to the window and ends where the strip begins; the page beneath it begins with that strip and the working follows,
    coming up over the stone as the page moves. */
 html, body { height: auto; overflow: visible; overflow-x: clip; }
+/* a finger dragged up or down on the stone moves the page (v3's stone took every touch for itself: its page did not scroll). A poem longer
+   than its room still moves within itself first, and at its last line the next drag is the page's. stone.js withdraws the press a drag began. */
+#app { touch-action: pan-y; }
+.verse.scroll { overscroll-behavior: auto; }
+.verse.coming { pointer-events: none !important; } /* the poem a press is bringing in: no touch is its own until it has landed */
 /* the stone's stage ends where the strip begins. Everything of the stone's that is fixed to the window (the stone, its name, caption and
    chain, an open idea's panel, the date, the six keys) is inside it and takes its place from the stage's box, as it took it from the window's:
    the stone's own arithmetic, done against its height, stays right. A transform is what makes a box hold its fixed descendants in every browser. */
