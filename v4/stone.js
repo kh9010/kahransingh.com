@@ -1051,16 +1051,17 @@ async function pressStart(pt) {
     to = best ? best.to : cur.fallback; word = best ? best.word : null }
   busy = true; at('entering'); HOME.expect = keyOf(to); HOME.word = word
   const p = pressing = { old: cur, pt, d: 0, gv: 0, t0: performance.now(), held: true, next: null }
-  p.ready = makeWorld({ ...to, word, from: { phrase: hd ? hd.phrase : null, title: cur.poem.title }, via: 'press' }, 'world', cur.trail).then(w => { p.next = w; return w })
-  if (reduce()) { const w = await p.ready; pressing = null; return calmTo(w) }
+  p.ready = makeWorld({ ...to, word, from: { phrase: hd ? hd.phrase : null, title: cur.poem.title }, via: 'press' }, 'world', cur.trail).then(w => { p.next = w; w.v.classList.add('coming'); return w }) // v4: the poem on its way in lies over this one and takes no touch until it lands, or a drag begun a moment into a press moved it, unseen, and not the page
+  if (reduce()) { const w = await p.ready; w.v.classList.remove('coming'); pressing = null; return calmTo(w) }
   const ms = num('press-ms', 1100)
   const step = () => { if (pressing !== p || !p.held) return; p.d = Math.min(1, (performance.now() - p.t0) / ms); if (p.d >= 1) giveWay(p); else requestAnimationFrame(step) }
   requestAnimationFrame(step) }
-async function pressUp() {
+async function pressUp(away) { // v4: away, the finger went off to move the page or the poem (or the browser took the touch for that): the press is withdrawn, never taken for a tap
   if (pressGo) await pressGo
+  if (away) { homeWin = -1; FX.press = -1 }
   if (homeWin >= 0) { const i = homeWin; homeWin = -1; FX.press = -1; return facetTap(i) }
   const p = pressing; if (!p || !p.held) return; p.held = false
-  if (performance.now() - p.t0 < num('press-tap-ms', 260)) { const from = p.d, ms = num('press-ms', 1100) * (1 - from), t0 = performance.now()
+  if (!away && performance.now() - p.t0 < num('press-tap-ms', 260)) { const from = p.d, ms = num('press-ms', 1100) * (1 - from), t0 = performance.now()
     await new Promise(r => { const f = () => { if (pressing !== p) return r(); p.d = from + (1 - from) * Math.min(1, (performance.now() - t0) / ms); if (p.d >= 1) r(); else requestAnimationFrame(f) }; requestAnimationFrame(f); setTimeout(r, ms + 400) })
     return giveWay(p) }
   const from = p.d, t0 = performance.now()
@@ -1070,7 +1071,7 @@ async function giveWay(p) { if (p.gave) return; p.gave = true; p.held = false; p
   await p.ready
   const ms = num('fall-ms', 900), t0 = performance.now()
   await new Promise(r => { const f = () => { const u = Math.min(1, (performance.now() - t0) / ms); p.gv = u * u; if (u >= 1) r(); else requestAnimationFrame(f) }; requestAnimationFrame(f); setTimeout(r, ms + 400) })
-  pressing = null; landed(p.next, p.old, num('arrive-delay-ms', 500)) }
+  pressing = null; p.next.v.classList.remove('coming'); landed(p.next, p.old, num('arrive-delay-ms', 500)) }
 let ends = null // the frames either side of the last crossing: the one on screen as it began, the first at rest after it
 function landed(next, old, delay) {
   if (next.breath0) next.breath0 = performance.now() + num('breath-delay-ms', 400) // a breath begun under the crossing starts again from still, never mid-swell
@@ -1167,8 +1168,12 @@ function touchFrame(w, now, dt) {
 app.addEventListener('pointerdown', e => {
   if (whyOpen) { if (!e.target.closest('#why,#where')) closeWhy(); return } // 34: the stone around the panel closes it
   if (e.button > 0 || e.target.closest('header,a,button') || !cur || cur.mode !== 'home' || busy) return
-  pressGo = pressStart([e.clientX, e.clientY]); try { app.setPointerCapture(e.pointerId) } catch {} })
-app.addEventListener('pointerup', () => pressUp()); app.addEventListener('pointercancel', () => { homeWin = -1; FX.press = -1; pressUp() })
+  pressAt = [e.clientX, e.clientY]; pressGo = pressStart(pressAt); try { app.setPointerCapture(e.pointerId) } catch {} })
+// v4: the page moves under a finger now (and a long poem within itself), so a touch that travels is a drag, not a press: let go after 12px, or
+// taken over by the browser to scroll (pointercancel), it withdraws. Before, a drag begun on the poem was a quick tap and crossed to another poem.
+let pressAt = null
+app.addEventListener('pointerup', e => { const a = pressAt; pressAt = null; pressUp(!!a && Math.hypot(e.clientX - a[0], e.clientY - a[1]) > 12) })
+app.addEventListener('pointercancel', () => { pressAt = null; pressUp(true) })
 app.addEventListener('click', e => { // doors are links for keys and for reading; a pointer is routed on its way up, below
   const a = e.target.closest('.verse .door'); if (!a) return
   e.preventDefault(); if (e.detail !== 0 || busy || !cur || cur.mode !== 'world') return // mid-way, a second touch goes nowhere
