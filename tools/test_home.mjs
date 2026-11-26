@@ -1293,8 +1293,13 @@ try {
     check(c0.more === scrolls, `${label}: the foot ${scrolls ? 'comes to a point while there is more' : 'is flat: everything is in view'}`, `more ${c0.more}, scrolls ${scrolls}`)
     if (!scrolls) return
     const mid = await cdp.eval(`(() => { const r = document.querySelector('.card-slot > *').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, r.height] })()`)
-    let last = -1; for (let k = 0; k < 40; k++) { const st = await cdp.eval(`document.querySelector('.card-slot > *').scrollTop`); if (st === last) break; last = st
-      await cdp.send('Input.synthesizeScrollGesture', { x: mid[0], y: mid[1], yDistance: -Math.round(mid[2] * .7), gestureSourceType: 'touch', speed: 2400, preventFling: true }); await sleep(120) }
+    // a finger's own events, down, along and up (26 Nov; it was Input.synthesizeScrollGesture, which moves nothing in a headless shell: the card
+    // scrolls under a finger there as anywhere, and these two checks had been failing in that browser for the tool's sake)
+    let last = -1; for (let k = 0; k < 120; k++) { const st = await cdp.eval(`document.querySelector('.card-slot > *').scrollTop`); if (st === last) break; last = st
+      const y0 = mid[1] + mid[2] * .38, far = mid[2] * .76
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: mid[0], y: y0 }] })
+      for (let i = 1; i <= 8; i++) { await sleep(14); await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: mid[0], y: y0 - far * i / 8 }] }) }
+      await sleep(60); await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(260) }
     await sleep(200)
     const end = await cdp.eval(`(() => { const e = document.querySelector('.card-slot > *'), r = e.getBoundingClientRect(), w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT); let last = null; for (let n; (n = w.nextNode());) if (n.data.trim() && n.parentElement.getClientRects().length && !n.parentElement.closest('[hidden]')) last = n
       const q = document.createRange(); q.selectNodeContents(last); const b = [...q.getClientRects()].pop(); return { at: e.scrollTop + e.clientHeight >= e.scrollHeight - 1, lastIn: b.bottom <= r.bottom + 1 && b.top >= r.top - 1, more: HOME.card.more } })()`)
@@ -1383,8 +1388,13 @@ try {
     // the facets
     const plans = await drawnHold(`${tag} home`)
     if (!vp.mobile) await probeHold(`${tag} home`) // 43 c: on a phone a piece opens in the card, over the poem by design; its own checks are cardHold's
-    { const pl = plans.findIndex(p => p && p.kind !== 'idea' && p.kind !== 'year' && p.kind !== 'title'), seq0 = await cdp.eval('HOME.seq')
-      if (pl >= 0) { await cdp.eval('HOME.dry = true'); await tapFacet(pl); const last = await nextSeq(seq0); await sleep(400); const s = await cdp.eval('({ at: HOME.at, busy: HOME.busy, win: HOME.win, clash: HOME.clash })')
+    { // the first piece's facet a finger can reach as the facet's own (26 Nov: the day's first one lay wholly under door lines' rows on the upright
+      // phone, where a touch is the door's, so it has no such place; this check took it all the same and tapped nowhere)
+      const work = plans.map((p, i) => p && p.kind !== 'idea' && p.kind !== 'year' && p.kind !== 'title' ? i : -1).filter(i => i >= 0), reach = await cdp.eval(`${JSON.stringify(work)}.filter(i => !!HOME.tapPoint(i))`)
+      const pl = reach.length ? reach[0] : -1, seq0 = await cdp.eval('HOME.seq')
+      check(reach.length > 0, `${tag} home: ${reach.length} of the ${work.length} facets holding a piece have a place of their own for a finger${work.length - reach.length ? ' (the rest lie under door lines, and a touch there is the door\'s)' : ''}`, JSON.stringify({ work, reach }))
+      if (pl >= 0) { await cdp.eval('HOME.dry = true'); const tp = await tapFacet(pl); const last = await nextSeq(seq0); await sleep(400); const s = await cdp.eval('({ at: HOME.at, busy: HOME.busy, win: HOME.win, clash: HOME.clash })')
+        if (!last) console.log('DIAG facet tap ' + JSON.stringify({ pl, kind: plans[pl].kind, tp, more: tp && await cdp.eval(`(() => { const v = document.querySelector('.verse'); return { under: document.elementsFromPoint(${tp ? tp[0] : 0}, ${tp ? tp[1] : 0}).slice(0, 5).map(e => e.tagName + '.' + String(e.className).slice(0, 22) + (e.id ? '#' + e.id : '')), scrollY, verse: [v.classList.contains('scroll'), Math.round(v.scrollTop)], seq: HOME.seq, card: document.body.className, stage: document.getElementById('stage').getBoundingClientRect().height, inner: [innerWidth, innerHeight] } })()`) }))
         check(last && last.i === pl && s.at === 'stone' && !s.busy && s.win && s.win.text && (vp.mobile ? s.win.card : !s.clash), `${tag} home: a facet gives its piece, ${vp.mobile ? 'in the card (43 c)' : 'clear of the poem'}, and the stone stays`, JSON.stringify({ last, s }))
         await shot(`home-yield-${vp.id}.png`); await cdp.eval('HOME.dry = false')
         if (vp.mobile) { await key('Escape'); await cardSettle('the piece', false).catch(() => null) } } } // 43 c: on a phone a piece stays until it is closed
@@ -1474,7 +1484,10 @@ try {
       const body = bodyTruth(s.model.iso, READING, DAYS, s.stoneDoors, true)
       check(s.stone.photo === truth.photos[0] && s.stone.slug === truth.poems[0] && s.model.agrees && s.home, `${L}: the chain is about the stone on screen, pick.js's two`, JSON.stringify(s.stone))
       honest(L, s, truth, body, true)
-      check(s.sigs.length >= 7 && s.sigs.every(g => { const t = truth.sig[g.k]; return t && t.moved && t.photo === g.photo && t.poem === g.poem }), `${L}: ${s.sigs.length} signals, each taken away in turn, and without it the two are pickBest's`)
+      // a signal that moves no score at all may only be the place, when no photograph is near enough to be lifted (26 Nov, in Male: until then he had
+      // always been somewhere a photograph was, and this check asked that every signal move a score); it then names the same two, which is true
+      const idle = s.sigs.filter(g => truth.sig[g.k] && !truth.sig[g.k].moved)
+      check(s.sigs.length >= 7 && s.sigs.every(g => { const t = truth.sig[g.k]; return t && t.photo === g.photo && t.poem === g.poem }) && idle.every(g => g.k === 'place' && g.photo === truth.photos[0] && g.poem === truth.poems[0]) && idle.length <= 1, `${L}: ${s.sigs.length} signals, each taken away in turn, and without it the two are pickBest's${idle.length ? ' (the place moves no score today: no photograph is near, and it says the same two)' : ''}`, JSON.stringify(s.sigs.map(g => { const t = truth.sig[g.k]; return !t ? { k: g.k, none: true } : (t.moved || g.k === 'place') && t.photo === g.photo && t.poem === g.poem ? null : { k: g.k, moved: t.moved, says: [g.photo, g.poem], truth: [t.photo, t.poem] } }).filter(Boolean)).slice(0, 600))
       check(s.doors.length > 0 && s.doors.join('|') === s.stoneDoors.map(d => d.phrase).join('|'), `${L}: the door lines it lists are the doors on the stone`)
       const echoed = await cdp.eval('HOME.JN.echoed'), ks = new Set(echoed.map(e => e.k)), bad = echoed.filter(e => !echoOk(e))
       check(ks.size >= 6 && !bad.length, `${L}: 36 c: opening, the sentence turns back into its readings and ${ks.size} of 7 light where the chain reads that value`, JSON.stringify(bad.length ? bad : echoed.map(e => e.reading + '→' + e.text)))
@@ -1545,6 +1558,17 @@ try {
       const d1 = await cdp.eval(`({ y: Math.round(scrollY), v: Math.round(document.querySelector('.verse').scrollTop), at: HOME.at, seq: HOME.seq, poem: document.body.dataset.poem, busy: HOME.busy })`)
       check(d0.action === 'pan-y' && (d1.y > far / 3 || d1.v - d0.v > far / 3) && d1.at === 'stone' && d1.seq === d0.seq && d1.poem === d0.poem && !d1.busy,
         `${tag} the working: a finger dragged ${Math.round(far)}px up from a line of the poem moves ${d1.y ? 'the page (' + d1.y + 'px)' : 'the poem within itself (' + (d1.v - d0.v) + 'px; it is longer than its room, and the page is next)'} and the stone takes it for no tap: the same poem, nothing crossed, at rest`, JSON.stringify({ d0, d1 }))
+      await cdp.eval('scrollTo(0, 0)'); await sleep(250)
+      /* and a finger that rests first: the press has begun (the next poem is on its way in) when the drag starts. It is withdrawn, the drag is still
+         the page's, and the date is still this photograph's (26 Nov, "why does the date change as I scroll": the incoming photograph's date was
+         written over it to be measured and never put back) */
+      await open(''); const year0 = await cdp.eval(`document.querySelector('#year a').textContent`), e0 = await cdp.eval(`({ seq: HOME.seq, poem: document.body.dataset.poem, v: document.querySelector('.verse').scrollTop })`)
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: d0.pt[0], y: d0.pt[1] }] }); await sleep(120); const early = await cdp.eval('HOME.at'); await sleep(480); const begun = await cdp.eval('HOME.at')
+      for (let i = 1; i <= 10; i++) { await sleep(14); await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: d0.pt[0], y: d0.pt[1] - far * i / 10 }] }) }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(3000)
+      const e1 = await cdp.eval(`({ y: Math.round(scrollY), v: Math.round(document.querySelector('.verse').scrollTop), at: HOME.at, seq: HOME.seq, poem: document.body.dataset.poem, busy: HOME.busy, year: document.querySelector('#year a').textContent, verses: document.querySelectorAll('.verse').length })`)
+      check(early === 'stone' && (e1.y > far / 3 || e1.v - e0.v > far / 3) && e1.at === 'stone' && e1.seq === e0.seq && e1.poem === e0.poem && !e1.busy && e1.year === year0 && e1.verses === 1,
+        `${tag} the working: a finger that rests is not pressing for its first 120ms${begun === 'entering' ? ', then is' : ''}; dragged from there the press is withdrawn, the ${e1.y ? 'page' : 'poem'} moves, the same poem stays and the date still reads ${year0}`, JSON.stringify({ early, begun, e0, e1, year0 }))
       await cdp.eval('scrollTo(0, 0)'); await sleep(250) } }
   if (process.env.CARDS !== 'only') for (const vp of VIEWPORTS) { await view(vp); await reduceMotion(false); await workingHold(`${vp.w}x${vp.h}`) }
 
