@@ -1166,6 +1166,24 @@
         "wind_kmh": 12.5,
         "cloud_pct": 93
       }
+    },
+    "2026-11-26": {
+      "poem": "hey-you-tree-there",
+      "photo": "/photos/beach-solitude.jpg",
+      "place": "Male, Maldives",
+      "why": {
+        "light": 0.9720836308148894,
+        "warmth": 0.9885714285714287,
+        "wet": 0.58,
+        "stillness": 0.9125000000000001,
+        "season": 0.044194446403488075,
+        "inside": 0.7042857142857144,
+        "mood": 0.5,
+        "weather_code": 53,
+        "tmax": 29.6,
+        "wind_kmh": 15.5,
+        "cloud_pct": 46
+      }
     }
   }
 }
