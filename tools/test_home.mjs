@@ -1383,7 +1383,11 @@ try {
     // the facets
     const plans = await drawnHold(`${tag} home`)
     if (!vp.mobile) await probeHold(`${tag} home`) // 43 c: on a phone a piece opens in the card, over the poem by design; its own checks are cardHold's
-    { const pl = plans.findIndex(p => p && p.kind !== 'idea' && p.kind !== 'year' && p.kind !== 'title'), seq0 = await cdp.eval('HOME.seq')
+    { // the first piece's facet a finger can reach as the facet's own (26 Nov: the day's first one lay wholly under door lines' rows on the upright
+      // phone, where a touch is the door's, so it has no such place; this check took it all the same and tapped nowhere)
+      const work = plans.map((p, i) => p && p.kind !== 'idea' && p.kind !== 'year' && p.kind !== 'title' ? i : -1).filter(i => i >= 0), reach = await cdp.eval(`${JSON.stringify(work)}.filter(i => !!HOME.tapPoint(i))`)
+      const pl = reach.length ? reach[0] : -1, seq0 = await cdp.eval('HOME.seq')
+      check(reach.length > 0, `${tag} home: ${reach.length} of the ${work.length} facets holding a piece have a place of their own for a finger${work.length - reach.length ? ' (the rest lie under door lines, and a touch there is the door\'s)' : ''}`, JSON.stringify({ work, reach }))
       if (pl >= 0) { await cdp.eval('HOME.dry = true'); const tp = await tapFacet(pl); const last = await nextSeq(seq0); await sleep(400); const s = await cdp.eval('({ at: HOME.at, busy: HOME.busy, win: HOME.win, clash: HOME.clash })')
         if (!last) console.log('DIAG facet tap ' + JSON.stringify({ pl, kind: plans[pl].kind, tp, more: tp && await cdp.eval(`(() => { const v = document.querySelector('.verse'); return { under: document.elementsFromPoint(${tp ? tp[0] : 0}, ${tp ? tp[1] : 0}).slice(0, 5).map(e => e.tagName + '.' + String(e.className).slice(0, 22) + (e.id ? '#' + e.id : '')), scrollY, verse: [v.classList.contains('scroll'), Math.round(v.scrollTop)], seq: HOME.seq, card: document.body.className, stage: document.getElementById('stage').getBoundingClientRect().height, inner: [innerWidth, innerHeight] } })()`) }))
         check(last && last.i === pl && s.at === 'stone' && !s.busy && s.win && s.win.text && (vp.mobile ? s.win.card : !s.clash), `${tag} home: a facet gives its piece, ${vp.mobile ? 'in the card (43 c)' : 'clear of the poem'}, and the stone stays`, JSON.stringify({ last, s }))
