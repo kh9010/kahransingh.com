@@ -1184,6 +1184,24 @@
         "wind_kmh": 15.5,
         "cloud_pct": 46
       }
+    },
+    "2026-11-27": {
+      "poem": "to-be-alone",
+      "photo": "/photos/scooter-beach.jpg",
+      "place": "Male, Maldives",
+      "why": {
+        "light": 0.989923871899063,
+        "warmth": 0.9657142857142856,
+        "wet": 0.6,
+        "stillness": 0.9325000000000001,
+        "season": 0.04072650042064174,
+        "inside": 0.6828571428571428,
+        "mood": 0.5,
+        "weather_code": 80,
+        "tmax": 28.8,
+        "wind_kmh": 14.7,
+        "cloud_pct": 59
+      }
     }
   }
 }
