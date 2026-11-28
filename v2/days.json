@@ -1202,6 +1202,24 @@
         "wind_kmh": 14.7,
         "cloud_pct": 59
       }
+    },
+    "2026-11-28": {
+      "poem": "have-you-ever-seen",
+      "photo": "/photos/kaanapali-maui-2be2cfcb.jpg",
+      "place": "Male, Maldives",
+      "why": {
+        "light": 0.9632817361162004,
+        "warmth": 0.9600000000000001,
+        "wet": 1.0,
+        "stillness": 0.8225,
+        "season": 0.037394460855321,
+        "inside": 0.48,
+        "mood": 0.5,
+        "weather_code": 81,
+        "tmax": 28.6,
+        "wind_kmh": 19.1,
+        "cloud_pct": 63
+      }
     }
   }
 }
